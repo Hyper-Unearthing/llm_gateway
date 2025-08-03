@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.groq.com/openai/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"llama-3.3-70b-versatile","messages":[{"role":"system","content":"Talk
+        like a pirate"},{"role":"user","content":"What''s the weather in Singapore?
+        reply in 10 words and no special characters"}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":null}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 27 Jun 2025 08:11:49 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Vary:
+      - Origin
+      X-Groq-Region:
+      - bom
+      X-Ratelimit-Limit-Requests:
+      - '500000'
+      X-Ratelimit-Limit-Tokens:
+      - '500000'
+      X-Ratelimit-Remaining-Requests:
+      - '499999'
+      X-Ratelimit-Remaining-Tokens:
+      - '499967'
+      X-Ratelimit-Reset-Requests:
+      - 172.799999ms
+      X-Ratelimit-Reset-Tokens:
+      - 3.96ms
+      X-Request-Id:
+      - req_01jyr72qybegn93xfbj4544k9r
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=1dgFJQ.D_EC97TYgxaAxrWuYe7fUWlCNhrvn5ff4klQ-1751011909-1.0.1.1-ebn.Pn7o7_LZVmUPJvRJahkA7mFCCZ6hj5aPTF7.LGuCJINLc2RnWoOw54Z3V3.W9nM26aokhBFDuT.D5rwUe.0gnuAmh9mXdaVpRjih3HM;
+        path=/; expires=Fri, 27-Jun-25 08:41:49 GMT; domain=.groq.com; HttpOnly; Secure;
+        SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 956379d26c423899-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"chatcmpl-d4f73973-6779-4008-bd46-4ee1e085ccab","object":"chat.completion","created":1751011909,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"The
+        weather in Singapore is usually hot and humid"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.063591652,"prompt_tokens":55,"prompt_time":0.002805978,"completion_tokens":10,"completion_time":0.036363636,"total_tokens":65,"total_time":0.039169614},"usage_breakdown":null,"system_fingerprint":"fp_6507bcfb6f","x_groq":{"id":"req_01jyr72qybegn93xfbj4544k9r"}}
+
+        '
+  recorded_at: Fri, 27 Jun 2025 08:11:49 GMT
+recorded_with: VCR 6.3.1

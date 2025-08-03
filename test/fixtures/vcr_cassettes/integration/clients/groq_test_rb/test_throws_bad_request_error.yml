@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.groq.com/openai/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gemma2-9b-it","messages":["i am not a bad"],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":null}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.groq.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sun, 29 Jun 2025 13:53:03 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '134'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Vary:
+      - Origin
+      X-Groq-Region:
+      - bom
+      X-Request-Id:
+      - req_01jyxzd04afcbvj68ycxtw8szr
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=nXT7HHZXYHExk32VVJVCPndUH7Gb.jkzQ_Ew.MB05KM-1751205183-1.0.1.1-NHnvBkyc6OMfMU_BvDoktpH1phS52XHvPtZFHLkhAOvJS3bvqYwG2mm.mwmk_f6YR0Oc5gc4Qbo_ZiFiK3ivycxKLU_ZGM7yKmQpQB5_l40;
+        path=/; expires=Sun, 29-Jun-25 14:23:03 GMT; domain=.groq.com; HttpOnly; Secure;
+        SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9575e86d5da3e584-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"''messages.0'' : value must be an object with
+        the discriminator property: ''role''","type":"invalid_request_error"}}
+
+        '
+  recorded_at: Sun, 29 Jun 2025 13:53:03 GMT
+recorded_with: VCR 6.3.1

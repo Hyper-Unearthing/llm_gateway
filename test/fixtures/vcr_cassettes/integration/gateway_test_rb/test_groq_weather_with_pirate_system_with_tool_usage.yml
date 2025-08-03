@@ -1,0 +1,78 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.groq.com/openai/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"llama-3.3-70b-versatile","messages":[{"role":"system","content":"Talk
+        like a pirate"},{"role":"user","content":"What''s the weather in Singapore?
+        reply in 10 words and no special characters"}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":[{"type":"function","function":{"name":"get_weather","description":"Get
+        current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 27 Jun 2025 08:10:29 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Vary:
+      - Origin
+      X-Groq-Region:
+      - bom
+      X-Ratelimit-Limit-Requests:
+      - '500000'
+      X-Ratelimit-Limit-Tokens:
+      - '500000'
+      X-Ratelimit-Remaining-Requests:
+      - '499999'
+      X-Ratelimit-Remaining-Tokens:
+      - '499967'
+      X-Ratelimit-Reset-Requests:
+      - 172.799999ms
+      X-Ratelimit-Reset-Tokens:
+      - 3.96ms
+      X-Request-Id:
+      - req_01jyr7095heq3vndantssq8kk7
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=GDiAJuB9WhIRdTNsohWt83jkHqbneHyqBSsVPtWtzWU-1751011829-1.0.1.1-MJ4P1WYT1Lgn28KoRdDgQsqoAYtbucMzEy0_WYTvCF8CNoEz6EJFlJZvDPKBso3kNxXwLO5Luat7trxVqJJJ8j_52jkKOamL9B3sNw8ul9w;
+        path=/; expires=Fri, 27-Jun-25 08:40:29 GMT; domain=.groq.com; HttpOnly; Secure;
+        SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 956377da3c893523-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"chatcmpl-3e519c7b-4d0c-456a-b752-e572d9174545","object":"chat.completion","created":1751011828,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"Get
+        the weather in Singapore right now please matey"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.05380553600000001,"prompt_tokens":237,"prompt_time":0.011981054,"completion_tokens":11,"completion_time":0.057935788,"total_tokens":248,"total_time":0.069916842},"usage_breakdown":null,"system_fingerprint":"fp_6507bcfb6f","x_groq":{"id":"req_01jyr7095heq3vndantssq8kk7"}}
+
+        '
+  recorded_at: Fri, 27 Jun 2025 08:10:29 GMT
+recorded_with: VCR 6.3.1

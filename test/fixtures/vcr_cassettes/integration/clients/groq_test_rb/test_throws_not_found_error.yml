@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.groq.com/openai/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"randomodel","messages":[{"role":"user","content":"hello"}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":null}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.groq.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Sun, 29 Jun 2025 13:53:03 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Vary:
+      - Origin
+      X-Groq-Region:
+      - bom
+      X-Request-Id:
+      - req_01jyxzczz1f8h99j0yb6dx77pd
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=BaPAEjvWRIxh47FMoWHjdLJWroeji3NUstyiZRcBRJU-1751205183-1.0.1.1-5fXmiEm7I_n3w2J41jJnjvDk00uPgUVGH2i7vtwrieNuUCX59ZIsUvMzInhEf_zTiCuUxgc6rgKBMo5GCPbD9gWYiW930asgEvZlBk6CCsk;
+        path=/; expires=Sun, 29-Jun-25 14:23:03 GMT; domain=.groq.com; HttpOnly; Secure;
+        SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9575e86c5843b1b1-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"The model `randomodel` does not exist or you do
+        not have access to it.","type":"invalid_request_error","code":"model_not_found"}}
+
+        '
+  recorded_at: Sun, 29 Jun 2025 13:53:03 GMT
+recorded_with: VCR 6.3.1

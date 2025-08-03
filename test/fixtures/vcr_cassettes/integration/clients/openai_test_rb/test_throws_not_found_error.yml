@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"randomodel","messages":[{"role":"user","content":"hello"}],"max_completion_tokens":4096}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Sun, 29 Jun 2025 08:44:28 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Origin
+      X-Request-Id:
+      - req_3b73dc144c187f7aa1bbbc61961a02b0
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=tnlf43MRi2hGgvkzcGZJCLCHq9qveH7hvMeW.acSiZQ-1751186668-1.0.1.1-3tq7wQj0gPlAsbiPjATuPjtAYDJduXTOjTv3GNQtFcov8KvQJF0HMPpmY5mldbZYq5f3RUcmN6UrQU9jCLLB.Y3Xe4twE5R2EKQqFevd9uY;
+        path=/; expires=Sun, 29-Jun-25 09:14:28 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=ZNH9FepOh6qOTQ0sebOw7ufkV6QAa0O5F.r9_q3ANn4-1751186668839-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9574246198753907-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+            "error": {
+                "message": "The model `randomodel` does not exist or you do not have access to it.",
+                "type": "invalid_request_error",
+                "param": null,
+                "code": "model_not_found"
+            }
+        }
+  recorded_at: Sun, 29 Jun 2025 08:44:28 GMT
+recorded_with: VCR 6.3.1

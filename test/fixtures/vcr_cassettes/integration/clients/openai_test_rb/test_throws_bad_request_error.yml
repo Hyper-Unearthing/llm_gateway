@@ -1,0 +1,83 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-4o","messages":["i am not a bad"],"max_completion_tokens":4096}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sun, 29 Jun 2025 08:50:14 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '208'
+      Connection:
+      - keep-alive
+      Access-Control-Expose-Headers:
+      - X-Request-ID
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Processing-Ms:
+      - '19'
+      Openai-Version:
+      - '2020-10-01'
+      X-Envoy-Upstream-Service-Time:
+      - '23'
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Request-Id:
+      - req_cf2a2fb9dfe992365936fc8c2f97bc23
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=iWCQkCY0v.oOjlxn4w1J9Sv5_ZlMSvpwKbhhjoYwT6w-1751187014-1.0.1.1-Vk5bFbATBMehw1oO6hmXwrxtjEHcas2q5nkQ09ets_uQEWtu.tLMWZKFTKeqnlQQ6Vxr8wY4nuP2jYdYrh9fc6mXL4.PvU3iQ5K9gWUjuHw;
+        path=/; expires=Sun, 29-Jun-25 09:20:14 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=cIMC_xGd_.gznkkmGf8GKoGxoEq7QkuiQ78DS27.8NI-1751187014303-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 95742cd27ec9435a-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "error": {
+            "message": "Invalid type for 'messages[0]': expected an object, but got a string instead.",
+            "type": "invalid_request_error",
+            "param": "messages[0]",
+            "code": "invalid_type"
+          }
+        }
+  recorded_at: Sun, 29 Jun 2025 08:50:14 GMT
+recorded_with: VCR 6.3.1

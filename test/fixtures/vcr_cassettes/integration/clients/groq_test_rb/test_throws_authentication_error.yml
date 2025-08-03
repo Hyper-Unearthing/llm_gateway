@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.groq.com/openai/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gemma2-9b-it","messages":[{"role":"user","content":"hello"}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":null}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.groq.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 29 Jun 2025 13:53:03 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '96'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Vary:
+      - Origin
+      X-Groq-Region:
+      - bom
+      X-Request-Id:
+      - req_01jyxzd0a7f8h9610a5sbst6k5
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=AdkDywNXCRG4WvzR9RB_kWk4F4PSh5X0PnlUMOcu0eY-1751205183-1.0.1.1-WHr7rrjxPi.a0WNWHZPrzKuGEXCkcwkTxsnGkomnQhPztrr8f8uF2BXhhvuTRhlLM0qJ3AxxJZuasSBK3zBziMXpMsAw6CeVp4y2RCNOAyo;
+        path=/; expires=Sun, 29-Jun-25 14:23:03 GMT; domain=.groq.com; HttpOnly; Secure;
+        SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9575e86e8a4fdf6a-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"Invalid API Key","type":"invalid_request_error","code":"invalid_api_key"}}
+
+        '
+  recorded_at: Sun, 29 Jun 2025 13:53:03 GMT
+recorded_with: VCR 6.3.1
