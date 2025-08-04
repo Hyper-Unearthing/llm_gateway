@@ -10,12 +10,12 @@ require "rubocop/rake_task"
 RuboCop::RakeTask.new
 
 begin
-  require "gem-release"
+  require "gem/release"
 
   desc "Release with changelog"
-  task :release do
+  task :gem_release do
     # Generate changelog first
-    sh "github_changelog_generator" # or your preferred changelog tool
+    sh "bundle exec github_changelog_generator  -u Hyper-Unearthing -p llm_gateway"
     sh "git add CHANGELOG.md"
     sh "git commit -m 'Update changelog' || echo 'No changelog changes'"
 

@@ -6,6 +6,7 @@ source "https://rubygems.org"
 gemspec
 
 gem "gem-release", "~> 2.2"
+gem "github_changelog_generator", "~> 1.16"
 gem "irb"
 gem "minitest", "~> 5.16"
 gem "mocha", "~> 2.0"
