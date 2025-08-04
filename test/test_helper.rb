@@ -12,7 +12,7 @@ WebMock.disable_net_connect!(allow_localhost: true)
 
 VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = false
-  config.cassette_library_dir = File.expand_path("../test/fixtures/vcr_cassettes", __dir__)
+  config.cassette_library_dir = "test/fixtures/vcr_cassettes"
   config.hook_into(:webmock)
   config.default_cassette_options = { match_requests_on: %i[body method] }
   config.filter_sensitive_data("<BEARER_TOKEN>") do |interaction|
@@ -37,8 +37,13 @@ def vcr_cassette_name(test_method_name = nil)
 
   if caller_info
     file_path = caller_info.split(":").first
-    # Remove the test/ prefix if it exists
-    relative_path = file_path.sub(%r{^test/}, "")
+    # Convert to relative path and remove test/ prefix - handle both absolute and relative paths
+    if file_path.include?("/test/")
+      relative_path = file_path.sub(%r{.*/test/}, "")
+    else
+      # Handle case where we already have a relative path from test/
+      relative_path = file_path.sub(%r{^test/}, "")
+    end
     test_name = test_method_name || method_name
     "#{relative_path}/#{test_name}"
   else
