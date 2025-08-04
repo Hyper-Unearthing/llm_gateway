@@ -2,14 +2,35 @@
 
 ## [Unreleased](https://github.com/Hyper-Unearthing/llm_gateway/tree/HEAD)
 
-[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.0...HEAD)
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.3...HEAD)
+
+**Merged pull requests:**
+
+- ci: release should ask me what version i want to bump [\#7](https://github.com/Hyper-Unearthing/llm_gateway/pull/7) ([billybonks](https://github.com/billybonks))
+- docs: create an real world example that does something interesting [\#6](https://github.com/Hyper-Unearthing/llm_gateway/pull/6) ([billybonks](https://github.com/billybonks))
+- feat: there was no way to pass api\_key to gateway besides env [\#5](https://github.com/Hyper-Unearthing/llm_gateway/pull/5) ([billybonks](https://github.com/billybonks))
+
+## [v0.1.3](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.1.3) (2025-08-04)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.2...v0.1.3)
 
 **Merged pull requests:**
 
 - feat: add tool base class [\#4](https://github.com/Hyper-Unearthing/llm_gateway/pull/4) ([billybonks](https://github.com/billybonks))
+
+## [v0.1.2](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.1.2) (2025-08-04)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.1...v0.1.2)
+
+**Merged pull requests:**
+
 - feat: add prompt base class [\#3](https://github.com/Hyper-Unearthing/llm_gateway/pull/3) ([billybonks](https://github.com/billybonks))
 - lint files and add coverage [\#2](https://github.com/Hyper-Unearthing/llm_gateway/pull/2) ([billybonks](https://github.com/billybonks))
 - test: vcr lookup was not working when using different commands [\#1](https://github.com/Hyper-Unearthing/llm_gateway/pull/1) ([billybonks](https://github.com/billybonks))
+
+## [v0.1.1](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.1.1) (2025-08-04)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.0...v0.1.1)
 
 ## [v0.1.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.1.0) (2025-08-04)
 
