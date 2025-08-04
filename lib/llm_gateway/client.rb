@@ -2,9 +2,11 @@
 
 module LlmGateway
   class Client
-    def self.chat(model, message, response_format: "text", tools: nil, system: nil)
+    def self.chat(model, message, response_format: "text", tools: nil, system: nil, api_key: nil)
       client_klass = client_class(model)
-      client = client_klass.new(model_key: model)
+      client_options = { model_key: model }
+      client_options[:api_key] = api_key if api_key
+      client = client_klass.new(**client_options)
 
       input_mapper = input_mapper_for_client(client)
       normalized_input = input_mapper.map({
