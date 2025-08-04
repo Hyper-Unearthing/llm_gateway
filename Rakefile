@@ -36,11 +36,7 @@ begin
       exit 1
     end
 
-    # Generate changelog first
-    sh "bundle exec github_changelog_generator  -u Hyper-Unearthing -p llm_gateway"
-    sh "git add CHANGELOG.md"
-
-    # Ask for version bump type
+    # Ask for version bump type first
     print "What type of version bump? (major/minor/patch): "
     version_type = $stdin.gets.chomp.downcase
 
@@ -49,8 +45,15 @@ begin
       exit 1
     end
 
-    # Bump version without committing yet
+    # Bump version without committing yet to get new version
     sh "gem bump --version #{version_type} --no-commit"
+
+    # Get the new version
+    new_version = `ruby -e "puts Gem::Specification.load('llm_gateway.gemspec').version"`.strip
+
+    # Generate changelog with proper version
+    sh "bundle exec github_changelog_generator " \
+       "-u Hyper-Unearthing -p llm_gateway --future-release v#{new_version}"
 
     # Bundle to update Gemfile.lock
     sh "bundle"
