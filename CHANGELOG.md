@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- feat: add tool base class [\#4](https://github.com/Hyper-Unearthing/llm_gateway/pull/4) ([billybonks](https://github.com/billybonks))
 - feat: add prompt base class [\#3](https://github.com/Hyper-Unearthing/llm_gateway/pull/3) ([billybonks](https://github.com/billybonks))
 - lint files and add coverage [\#2](https://github.com/Hyper-Unearthing/llm_gateway/pull/2) ([billybonks](https://github.com/billybonks))
 - test: vcr lookup was not working when using different commands [\#1](https://github.com/Hyper-Unearthing/llm_gateway/pull/1) ([billybonks](https://github.com/billybonks))
