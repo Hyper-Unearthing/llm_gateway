@@ -1,5 +1,21 @@
 # frozen_string_literal: true
 
+require "simplecov"
+
+SimpleCov.start do
+  add_filter "/test/"
+  add_filter "/vendor/"
+
+  add_group "Core", "lib/llm_gateway.rb"
+  add_group "Clients", "lib/llm_gateway/adapters"
+  add_group "Base Classes",
+            [ "lib/llm_gateway/base_client.rb", "lib/llm_gateway/client.rb", "lib/llm_gateway/prompt.rb" ]
+  add_group "Utilities", [ "lib/llm_gateway/errors.rb", "lib/llm_gateway/fluent_mapper.rb" ]
+
+  # minimum_coverage 80
+  # minimum_coverage_by_file 70
+end
+
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "llm_gateway"
 require "minitest/autorun"
