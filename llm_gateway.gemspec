@@ -5,8 +5,8 @@ require_relative "lib/llm_gateway/version"
 Gem::Specification.new do |spec|
   spec.name = "llm_gateway"
   spec.version = LlmGateway::VERSION
-  spec.authors = ["billybonks"]
-  spec.email = ["sebastienstettler@gmail.com"]
+  spec.authors = [ "billybonks" ]
+  spec.email = [ "sebastienstettler@gmail.com" ]
 
   spec.summary = "A Ruby gateway for LLM APIs with unified interface for Claude, OpenAI, and Groq"
   spec.description = "LlmGateway provides a consistent Ruby interface for multiple LLM providers including Claude, OpenAI, and Groq. Features include unified response formatting, error handling, and fluent data mapping."
@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   end
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = [ "lib" ]
 
   # Dependencies
 
