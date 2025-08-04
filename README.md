@@ -90,6 +90,24 @@ result = teacher_prompt.run
 You can combine the Prompt class with tools for more complex interactions:
 
 ```ruby
+# Define a tool class
+class GetWeatherTool < LlmGateway::Tool
+  name 'get_weather'
+  description 'Get current weather for a location'
+  input_schema({
+    type: 'object',
+    properties: {
+      location: { type: 'string', description: 'City name' }
+    },
+    required: ['location']
+  })
+
+  def execute(input, login = nil)
+    # Your weather API implementation here
+    "The weather in #{input['location']} is sunny and 25°C"
+  end
+end
+
 class WeatherAssistantPrompt < LlmGateway::Prompt
   def initialize(model, location)
     super(model)
@@ -105,17 +123,7 @@ class WeatherAssistantPrompt < LlmGateway::Prompt
   end
 
   def tools
-    [{
-      name: 'get_weather',
-      description: 'Get current weather for a location',
-      input_schema: {
-        type: 'object',
-        properties: {
-          location: { type: 'string', description: 'City name' }
-        },
-        required: ['location']
-      }
-    }]
+    [GetWeatherTool]
   end
 end
 
@@ -127,7 +135,25 @@ result = weather_prompt.run
 ### Tool Usage (Function Calling)
 
 ```ruby
-# Define a tool
+# Define a tool class
+class GetWeatherTool < LlmGateway::Tool
+  name 'get_weather'
+  description 'Get current weather for a location'
+  input_schema({
+    type: 'object',
+    properties: {
+      location: { type: 'string', description: 'City name' }
+    },
+    required: ['location']
+  })
+
+  def execute(input, login = nil)
+    # Your weather API implementation here
+    "The weather in #{input['location']} is sunny and 25°C"
+  end
+end
+
+# Use the tool
 weather_tool = {
   name: 'get_weather',
   description: 'Get current weather for a location',
@@ -140,7 +166,6 @@ weather_tool = {
   }
 }
 
-# Use the tool
 result = LlmGateway::Client.chat(
   'claude-sonnet-4-20250514',
   'What\'s the weather in Singapore?',
@@ -155,7 +180,20 @@ result = LlmGateway::Client.chat(
 class WeatherAssistant
   def initialize
     @transcript = []
+    @weather_tool = {
+      name: 'get_weather',
+      description: 'Get current weather for a location',
+      input_schema: {
+        type: 'object',
+        properties: {
+          location: { type: 'string', description: 'City name' }
+        },
+        required: ['location']
+      }
+    }
   end
+
+  attr_reader :weather_tool
 
   def process_message(content)
     # Add user message to transcript
@@ -164,7 +202,7 @@ class WeatherAssistant
     result = LlmGateway::Client.chat(
       'claude-sonnet-4-20250514',
       @transcript,
-      tools: [weather_tool],
+      tools: [@weather_tool],
       system: 'You are a helpful weather assistant.'
     )
 
@@ -195,7 +233,7 @@ class WeatherAssistant
         follow_up = LlmGateway::Client.chat(
           'claude-sonnet-4-20250514',
           @transcript,
-          tools: [weather_tool],
+          tools: [@weather_tool],
           system: 'You are a helpful weather assistant.'
         )
 
