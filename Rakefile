@@ -14,10 +14,31 @@ begin
 
   desc "Release with changelog"
   task :gem_release do
+    # Safety checks: ensure we're on main and up-to-date
+    current_branch = `git branch --show-current`.strip
+    unless current_branch == "main"
+      puts "Error: You must be on the main branch to release. Current branch: #{current_branch}"
+      exit 1
+    end
+
+    # Check if branch is up-to-date with remote
+    sh "git fetch origin"
+    local_commit = `git rev-parse HEAD`.strip
+    remote_commit = `git rev-parse origin/main`.strip
+    unless local_commit == remote_commit
+      puts "Error: Your main branch is not in sync with origin/main. Please pull the latest changes."
+      exit 1
+    end
+
+    # Check for uncommitted changes
+    unless `git status --porcelain`.strip.empty?
+      puts "Error: You have uncommitted changes. Please commit or stash them before releasing."
+      exit 1
+    end
+
     # Generate changelog first
     sh "bundle exec github_changelog_generator  -u Hyper-Unearthing -p llm_gateway"
     sh "git add CHANGELOG.md"
-    sh "git commit -m 'Update changelog' || echo 'No changelog changes'"
 
     # Ask for version bump type
     print "What type of version bump? (major/minor/patch): "
@@ -28,8 +49,22 @@ begin
       exit 1
     end
 
-    # Release
-    sh "gem bump --version #{version_type} --tag --push --release"
+    # Bump version without committing yet
+    sh "gem bump --version #{version_type} --no-commit"
+
+    # Bundle to update Gemfile.lock
+    sh "bundle"
+
+    # Add all changes and commit in one go
+    sh "git add ."
+    sh "git commit -m 'Bump llm_gateway to $(ruby -e \"puts Gem::Specification.load('llm_gateway.gemspec').version\")'"
+
+    # Tag and push
+    sh "git tag v$(ruby -e \"puts Gem::Specification.load('llm_gateway.gemspec').version\")"
+    sh "git push origin main --tags"
+
+    # Release the gem
+    sh "gem push $(gem build llm_gateway.gemspec | grep 'File:' | awk '{print $2}')"
   end
 rescue LoadError
   # gem-release not available in this environment
