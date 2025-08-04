@@ -43,6 +43,87 @@ result = LlmGateway::Client.chat(
 )
 ```
 
+### Prompt Class
+
+You can also create reusable prompt classes by subclassing `LlmGateway::Prompt`:
+
+```ruby
+# Simple text completion with prompt class
+class GeographyQuestionPrompt < LlmGateway::Prompt
+  def initialize(model, question)
+    super(model)
+    @question = question
+  end
+
+  def prompt
+    @question
+  end
+end
+
+# Usage
+geography_prompt = GeographyQuestionPrompt.new('claude-sonnet-4-20250514', 'What is the capital of France?')
+result = geography_prompt.run
+
+# With system message
+class GeographyTeacherPrompt < LlmGateway::Prompt
+  def initialize(model, question)
+    super(model)
+    @question = question
+  end
+
+  def prompt
+    @question
+  end
+
+  def system_prompt
+    'You are a helpful geography teacher.'
+  end
+end
+
+# Usage
+teacher_prompt = GeographyTeacherPrompt.new('gpt-4', 'What is the capital of France?')
+result = teacher_prompt.run
+```
+
+### Using Prompt with Tools
+
+You can combine the Prompt class with tools for more complex interactions:
+
+```ruby
+class WeatherAssistantPrompt < LlmGateway::Prompt
+  def initialize(model, location)
+    super(model)
+    @location = location
+  end
+
+  def prompt
+    "What's the weather like in #{@location}?"
+  end
+
+  def system_prompt
+    'You are a helpful weather assistant.'
+  end
+
+  def tools
+    [{
+      name: 'get_weather',
+      description: 'Get current weather for a location',
+      input_schema: {
+        type: 'object',
+        properties: {
+          location: { type: 'string', description: 'City name' }
+        },
+        required: ['location']
+      }
+    }]
+  end
+end
+
+# Usage
+weather_prompt = WeatherAssistantPrompt.new('claude-sonnet-4-20250514', 'Singapore')
+result = weather_prompt.run
+```
+
 ### Tool Usage (Function Calling)
 
 ```ruby
@@ -66,6 +147,78 @@ result = LlmGateway::Client.chat(
   tools: [weather_tool],
   system: 'You are a helpful weather assistant.'
 )
+
+# Note: Tools are not automatically executed. The LLM will indicate when a tool should be called,
+# but it's up to you to find the appropriate tool and execute it based on the response.
+
+# Example of handling tool execution with conversation transcript:
+class WeatherAssistant
+  def initialize
+    @transcript = []
+  end
+
+  def process_message(content)
+    # Add user message to transcript
+    @transcript << { role: 'user', content: [{ type: 'text', text: content }] }
+
+    result = LlmGateway::Client.chat(
+      'claude-sonnet-4-20250514',
+      @transcript,
+      tools: [weather_tool],
+      system: 'You are a helpful weather assistant.'
+    )
+
+    process_response(result[:choices][0][:content])
+  end
+
+  private
+
+  def process_response(response)
+    # Add assistant response to transcript
+    @transcript << { role: 'assistant', content: response }
+
+    response.each do |message|
+      if message[:type] == 'text'
+        puts message[:text]
+      elsif message[:type] == 'tool_use'
+        result = handle_tool_use(message)
+
+        # Add tool result to transcript
+        tool_result = {
+          type: 'tool_result',
+          tool_use_id: message[:id],
+          content: result
+        }
+        @transcript << { role: 'user', content: [tool_result] }
+
+        # Continue conversation with full transcript context
+        follow_up = LlmGateway::Client.chat(
+          'claude-sonnet-4-20250514',
+          @transcript,
+          tools: [weather_tool],
+          system: 'You are a helpful weather assistant.'
+        )
+
+        process_response(follow_up[:choices][0][:content])
+      end
+    end
+  end
+
+  def handle_tool_use(message)
+    tool_class = WeatherAssistantPrompt.find_tool(message[:name])
+    raise "Unknown tool: #{message[:name]}" unless tool_class
+
+    # Execute the tool with the provided input
+    tool_instance = tool_class.new
+    tool_instance.execute(message[:input])
+  rescue StandardError => e
+    "Error executing tool: #{e.message}"
+  end
+end
+
+# Usage
+assistant = WeatherAssistant.new
+assistant.process_message("What's the weather in Singapore?")
 ```
 
 ### Response Format

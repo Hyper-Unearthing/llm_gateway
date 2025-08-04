@@ -2,7 +2,9 @@
 
 module LlmGateway
   module Errors
-    class BaseError < StandardError
+    class BaseError < StandardError; end
+
+    class ClientError < BaseError
       attr_reader :code
 
       def initialize(message = nil, code = nil)
@@ -11,20 +13,26 @@ module LlmGateway
       end
     end
 
-    class BadRequestError < BaseError; end
-    class AuthenticationError < BaseError; end
-    class PermissionDeniedError < BaseError; end
-    class NotFoundError < BaseError; end
-    class ConflictError < BaseError; end
-    class UnprocessableEntityError < BaseError; end
-    class RateLimitError < BaseError; end
-    class InternalServerError < BaseError; end
-    class APIStatusError < BaseError; end
-    class APITimeoutError < BaseError; end
-    class APIConnectionError < BaseError; end
-    class OverloadError < BaseError; end
-    class UnknownError < BaseError; end
+    class BadRequestError < ClientError; end
+    class AuthenticationError < ClientError; end
+    class PermissionDeniedError < ClientError; end
+    class NotFoundError < ClientError; end
+    class ConflictError < ClientError; end
+    class UnprocessableEntityError < ClientError; end
+    class RateLimitError < ClientError; end
+    class InternalServerError < ClientError; end
+    class APIStatusError < ClientError; end
+    class APITimeoutError < ClientError; end
+    class APIConnectionError < ClientError; end
+    class OverloadError < ClientError; end
+    class UnknownError < ClientError; end
     class PromptTooLong < BadRequestError; end
-    class UnsupportedModel < BaseError; end
+    class UnsupportedModel < ClientError; end
+
+    class PromptError < BaseError; end
+
+    class HallucinationError < PromptError; end
+    class UnknownModel < PromptError; end
+    class InvalidResponseGrammar < PromptError; end
   end
 end
