@@ -19,8 +19,17 @@ begin
     sh "git add CHANGELOG.md"
     sh "git commit -m 'Update changelog' || echo 'No changelog changes'"
 
+    # Ask for version bump type
+    print "What type of version bump? (major/minor/patch): "
+    version_type = $stdin.gets.chomp.downcase
+
+    unless %w[major minor patch].include?(version_type)
+      puts "Invalid version type. Please use major, minor, or patch."
+      exit 1
+    end
+
     # Release
-    sh "gem bump --version patch --tag --push --release"
+    sh "gem bump --version #{version_type} --tag --push --release"
   end
 rescue LoadError
   # gem-release not available in this environment
