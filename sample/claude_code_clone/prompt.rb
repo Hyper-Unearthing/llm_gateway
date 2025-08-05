@@ -1,4 +1,3 @@
-require_relative 'tools/file_search_tool'
 require_relative 'tools/edit_tool'
 require_relative 'tools/read_tool'
 require_relative 'tools/todowrite_tool'
@@ -67,7 +66,7 @@ class Prompt < LlmGateway::Prompt
   end
 
   def self.tools
-    [ FileSearchTool, EditTool, ReadTool, TodoWriteTool, BashTool, GrepTool ]
+    [ EditTool, ReadTool, TodoWriteTool, BashTool, GrepTool ]
   end
 
   def tools
