@@ -39,7 +39,7 @@ module LlmGateway
         definition[:name]
       end
 
-      def execute(input, login)
+      def execute(input)
         raise NotImplementedError, "Subclasses must implement execute"
       end
   end
