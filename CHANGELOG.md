@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.6](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.1.6) (2025-08-05)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.5...v0.1.6)
+
+**Merged pull requests:**
+
+- Fix gem release task commit message interpolation [\#12](https://github.com/Hyper-Unearthing/llm_gateway/pull/12) ([billybonks](https://github.com/billybonks))
+
 ## [v0.1.5](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.1.5) (2025-08-05)
 
 [Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.4...v0.1.5)
