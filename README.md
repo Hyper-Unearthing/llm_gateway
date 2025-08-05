@@ -45,7 +45,7 @@ result = LlmGateway::Client.chat(
 
 ### Sample Application
 
-See the [file search bot example](sample/directory_bot/) for a complete working application that demonstrates:
+See the [file search bot example](sample/claude_code_clone/) for a complete working application that demonstrates:
 - Creating reusable Prompt and Tool classes
 - Handling conversation transcripts with tool execution
 - Building an interactive terminal interface
@@ -53,7 +53,7 @@ See the [file search bot example](sample/directory_bot/) for a complete working 
 To run the sample:
 
 ```bash
-cd sample/directory_bot
+cd sample/claude_code_clone
 ruby run.rb
 ```
 
