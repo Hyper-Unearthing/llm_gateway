@@ -8,7 +8,7 @@ class ReadTool < LlmGateway::Tool
       limit: { type: 'integer', description: 'Number of lines to read' },
       offset: { type: 'integer', description: 'Starting line number' }
     },
-    required: ['file_path']
+    required: [ 'file_path' ]
   })
 
   def execute(input)
@@ -28,7 +28,7 @@ class ReadTool < LlmGateway::Tool
 
     begin
       lines = File.readlines(file_path, chomp: true)
-      
+
       # Apply offset
       if offset > 0
         if offset >= lines.length

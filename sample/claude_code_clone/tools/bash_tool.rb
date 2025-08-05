@@ -8,7 +8,7 @@ class BashTool < LlmGateway::Tool
       description: { type: 'string', description: 'Human-readable description' },
       timeout: { type: 'integer', description: 'Timeout in milliseconds' }
     },
-    required: ['command']
+    required: [ 'command' ]
   })
 
   def execute(input)
@@ -33,7 +33,7 @@ class BashTool < LlmGateway::Tool
         exit_status = $?
       else
         require 'timeout'
-        result = Timeout::timeout(timeout_seconds) do
+        result = Timeout.timeout(timeout_seconds) do
           `#{command} 2>&1`
         end
         exit_status = $?

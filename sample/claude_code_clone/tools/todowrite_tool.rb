@@ -14,22 +14,22 @@ class TodoWriteTool < LlmGateway::Tool
           properties: {
             id: { type: 'string', description: 'Unique identifier' },
             content: { type: 'string', description: 'Task description' },
-            status: { 
-              type: 'string', 
-              enum: ['pending', 'in_progress', 'completed'],
-              description: 'Task status' 
+            status: {
+              type: 'string',
+              enum: [ 'pending', 'in_progress', 'completed' ],
+              description: 'Task status'
             },
-            priority: { 
-              type: 'string', 
-              enum: ['high', 'medium', 'low'],
-              description: 'Task priority' 
+            priority: {
+              type: 'string',
+              enum: [ 'high', 'medium', 'low' ],
+              description: 'Task priority'
             }
           },
-          required: ['id', 'content', 'status', 'priority']
+          required: [ 'id', 'content', 'status', 'priority' ]
         }
       }
     },
-    required: ['todos']
+    required: [ 'todos' ]
   })
 
   def execute(input)
@@ -41,18 +41,18 @@ class TodoWriteTool < LlmGateway::Tool
         return "Error: Todo at index #{index} is not a hash"
       end
 
-      required_fields = ['id', 'content', 'status', 'priority']
+      required_fields = [ 'id', 'content', 'status', 'priority' ]
       missing_fields = required_fields - todo.keys.map(&:to_s)
       unless missing_fields.empty?
         return "Error: Todo at index #{index} missing required fields: #{missing_fields.join(', ')}"
       end
 
-      valid_statuses = ['pending', 'in_progress', 'completed']
+      valid_statuses = [ 'pending', 'in_progress', 'completed' ]
       unless valid_statuses.include?(todo['status'])
         return "Error: Invalid status '#{todo['status']}' in todo #{todo['id']}. Must be one of: #{valid_statuses.join(', ')}"
       end
 
-      valid_priorities = ['high', 'medium', 'low']
+      valid_priorities = [ 'high', 'medium', 'low' ]
       unless valid_priorities.include?(todo['priority'])
         return "Error: Invalid priority '#{todo['priority']}' in todo #{todo['id']}. Must be one of: #{valid_priorities.join(', ')}"
       end
@@ -75,16 +75,16 @@ class TodoWriteTool < LlmGateway::Tool
     summary += "Current tasks:\n"
     todos.each do |todo|
       status_icon = case todo['status']
-                   when 'pending' then '⏳'
-                   when 'in_progress' then '🔄'
-                   when 'completed' then '✅'
-                   end
-      
+      when 'pending' then '⏳'
+      when 'in_progress' then '🔄'
+      when 'completed' then '✅'
+      end
+
       priority_icon = case todo['priority']
-                     when 'high' then '🔴'
-                     when 'medium' then '🟡'
-                     when 'low' then '🟢'
-                     end
+      when 'high' then '🔴'
+      when 'medium' then '🟡'
+      when 'low' then '🟢'
+      end
 
       summary += "#{status_icon} #{priority_icon} [#{todo['id']}] #{todo['content']}\n"
     end

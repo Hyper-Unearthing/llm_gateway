@@ -6,9 +6,9 @@ class GrepTool < LlmGateway::Tool
     properties: {
       pattern: { type: 'string', description: 'Regex pattern to search for' },
       path: { type: 'string', description: 'File or directory path' },
-      output_mode: { 
+      output_mode: {
         type: 'string',
-        enum: ['content', 'files_with_matches', 'count'],
+        enum: [ 'content', 'files_with_matches', 'count' ],
         description: 'Output mode: content, files_with_matches, or count'
       },
       glob: { type: 'string', description: 'File pattern filter (e.g., "*.rb")' },
@@ -16,7 +16,7 @@ class GrepTool < LlmGateway::Tool
       '-i': { type: 'boolean', description: 'Case insensitive search' },
       '-C': { type: 'integer', description: 'Context lines around matches' }
     },
-    required: ['pattern']
+    required: [ 'pattern' ]
   })
 
   def execute(input)
@@ -29,14 +29,14 @@ class GrepTool < LlmGateway::Tool
     context_lines = input['-C'] || 0
 
     # Build grep command
-    cmd_parts = ['grep']
-    
+    cmd_parts = [ 'grep' ]
+
     # Add flags
     cmd_parts << '-r' unless File.file?(path) # Recursive for directories
     cmd_parts << '-n' if show_line_numbers && output_mode == 'content'
     cmd_parts << '-i' if case_insensitive
     cmd_parts << "-C#{context_lines}" if context_lines > 0 && output_mode == 'content'
-    
+
     # Output mode flags
     case output_mode
     when 'files_with_matches'
@@ -47,7 +47,7 @@ class GrepTool < LlmGateway::Tool
 
     # Add pattern and path
     cmd_parts << "'#{pattern}'"
-    
+
     # Handle glob pattern
     if glob
       if File.directory?(path)
@@ -58,17 +58,17 @@ class GrepTool < LlmGateway::Tool
         if files_result.empty?
           return "No files found matching pattern '#{glob}' in #{path}"
         end
-        
+
         # Run grep on each matching file
         files = files_result.strip.split("\n")
         results = []
-        
+
         files.each do |file|
           grep_cmd = cmd_parts[0..-2].join(' ') + " '#{pattern}' '#{file}'"
           result = `#{grep_cmd} 2>/dev/null`
           results << result unless result.empty?
         end
-        
+
         return results.empty? ? "No matches found" : results.join("\n")
       else
         cmd_parts << path
@@ -78,7 +78,7 @@ class GrepTool < LlmGateway::Tool
     end
 
     command = cmd_parts.join(' ')
-    
+
     begin
       puts "Executing: #{command}"
       result = `#{command} 2>&1`
