@@ -15,20 +15,27 @@ class FileSearchBot
       @agent.run(input) do |message|
         case message[:type]
         when 'text'
-          puts "\nBot: #{message[:text]}\n"
+          puts "\n\e[32m•\e[0m #{message[:text]}"
         when 'tool_use'
-          puts "\nTool Usage: #{message[:name]}"
-          # puts "Input: #{message[:input]}"
+          puts "\n\e[33m•\e[0m \e[36m#{message[:name]}\e[0m"
+          if message[:input] && !message[:input].empty?
+            puts "  \e[90m#{message[:input]}\e[0m"
+          end
         when 'tool_result'
-        # puts "Tool Result: #{message[:content]}"
+          if message[:content] && !message[:content].empty?
+            content_preview = message[:content].to_s.split("\n").first(3).join("\n")
+            if content_preview.length > 100
+              content_preview = content_preview[0..97] + "..."
+            end
+            puts "  \e[90m#{content_preview}\e[0m"
+          end
         when 'error'
-          puts "Error: #{message[:message]}"
+          puts "\n\e[31m•\e[0m \e[91mError: #{message[:message]}\e[0m"
         end
       end
     rescue => e
-      puts "Error: #{e.message}"
-      puts "Backtrace: #{e.backtrace.join("\n")}"
-      puts "I give up as bot"
+      puts "\n\e[31m•\e[0m \e[91mError: #{e.message}\e[0m"
+      puts "\e[90m  #{e.backtrace.first}\e[0m" if e.backtrace&.first
     end
   end
 end
