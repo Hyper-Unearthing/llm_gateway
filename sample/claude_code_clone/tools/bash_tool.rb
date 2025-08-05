@@ -11,7 +11,7 @@ class BashTool < LlmGateway::Tool
     required: ['command']
   })
 
-  def execute(input, login = nil)
+  def execute(input)
     command = input[:command]
     description = input[:description]
     timeout = input[:timeout] || 120000 # Default 2 minutes

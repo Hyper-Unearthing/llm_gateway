@@ -32,7 +32,7 @@ class TodoWriteTool < LlmGateway::Tool
     required: ['todos']
   })
 
-  def execute(input, login = nil)
+  def execute(input)
     todos = input[:todos]
 
     # Validate todos structure

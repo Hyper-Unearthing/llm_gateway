@@ -11,7 +11,7 @@ class ReadTool < LlmGateway::Tool
     required: ['file_path']
   })
 
-  def execute(input, login = nil)
+  def execute(input)
     file_path = input[:file_path]
     limit = input[:limit]
     offset = input[:offset] || 0

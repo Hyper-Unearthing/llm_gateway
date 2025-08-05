@@ -12,7 +12,7 @@ class EditTool < LlmGateway::Tool
     required: ['file_path', 'old_string', 'new_string']
   })
 
-  def execute(input, login = nil)
+  def execute(input)
     file_path = input[:file_path]
     old_string = input[:old_string]
     new_string = input[:new_string]

@@ -19,7 +19,7 @@ class GrepTool < LlmGateway::Tool
     required: ['pattern']
   })
 
-  def execute(input, login = nil)
+  def execute(input)
     pattern = input[:pattern]
     path = input[:path] || '.'
     output_mode = input[:output_mode] || 'files_with_matches'
