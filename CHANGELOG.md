@@ -1,8 +1,19 @@
 # Changelog
 
-## [Unreleased](https://github.com/Hyper-Unearthing/llm_gateway/tree/HEAD)
+## [v0.1.5](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.1.5) (2025-08-05)
 
-[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.3...HEAD)
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.4...v0.1.5)
+
+**Merged pull requests:**
+
+- burn: login from tool base class [\#11](https://github.com/Hyper-Unearthing/llm_gateway/pull/11) ([billybonks](https://github.com/billybonks))
+- improve sample [\#10](https://github.com/Hyper-Unearthing/llm_gateway/pull/10) ([billybonks](https://github.com/billybonks))
+- ci: mark latest change log as a version [\#9](https://github.com/Hyper-Unearthing/llm_gateway/pull/9) ([billybonks](https://github.com/billybonks))
+- ci: improve rake release task, so i get burnt less [\#8](https://github.com/Hyper-Unearthing/llm_gateway/pull/8) ([billybonks](https://github.com/billybonks))
+
+## [v0.1.4](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.1.4) (2025-08-04)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.3...v0.1.4)
 
 **Merged pull requests:**
 
