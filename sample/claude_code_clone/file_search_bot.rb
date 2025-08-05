@@ -1,4 +1,4 @@
-require_relative 'file_search_tool'
+require_relative 'tools/file_search_tool'
 require_relative 'file_search_prompt'
 require_relative 'agent'
 require 'debug'

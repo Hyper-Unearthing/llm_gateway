@@ -1,9 +1,9 @@
-require_relative 'file_search_tool'
-require_relative 'edit_tool'
-require_relative 'read_tool'
-require_relative 'todowrite_tool'  
-require_relative 'bash_tool'
-require_relative 'grep_tool'
+require_relative 'tools/file_search_tool'
+require_relative 'tools/edit_tool'
+require_relative 'tools/read_tool'
+require_relative 'tools/todowrite_tool'
+require_relative 'tools/bash_tool'
+require_relative 'tools/grep_tool'
 
 class FileSearchPrompt < LlmGateway::Prompt
   def initialize(model, transcript, api_key)
