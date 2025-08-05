@@ -60,10 +60,10 @@ begin
 
     # Add all changes and commit in one go
     sh "git add ."
-    sh "git commit -m 'Bump llm_gateway to $(ruby -e \"puts Gem::Specification.load('llm_gateway.gemspec').version\")'"
+    sh "git commit -m \"Bump llm_gateway to #{new_version}\""
 
     # Tag and push
-    sh "git tag v$(ruby -e \"puts Gem::Specification.load('llm_gateway.gemspec').version\")"
+    sh "git tag v#{new_version}"
     sh "git push origin main --tags"
 
     # Release the gem
