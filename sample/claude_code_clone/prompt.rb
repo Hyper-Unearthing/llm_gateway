@@ -5,7 +5,7 @@ require_relative 'tools/todowrite_tool'
 require_relative 'tools/bash_tool'
 require_relative 'tools/grep_tool'
 
-class FileSearchPrompt < LlmGateway::Prompt
+class Prompt < LlmGateway::Prompt
   def initialize(model, transcript, api_key)
     super(model)
     @transcript = transcript
@@ -59,11 +59,15 @@ class FileSearchPrompt < LlmGateway::Prompt
       5. **Report**: Provide concise status updates
 
       Always use the available tools to perform actions rather than just suggesting commands.
+
+      Before starting any task, build a todo list of what you need to do, ensuring each item is actionable and prioritized. Then, execute the tasks one by one, using the TodoWrite tool to track progress and completion.
+
+      After completing each task, update the TodoWrite list to reflect the status and any necessary follow-up actions.
     SYSTEM
   end
 
   def self.tools
-    [FileSearchTool, EditTool, ReadTool, TodoWriteTool, BashTool, GrepTool]
+    [ FileSearchTool, EditTool, ReadTool, TodoWriteTool, BashTool, GrepTool ]
   end
 
   def tools

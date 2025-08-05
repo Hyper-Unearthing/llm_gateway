@@ -1,13 +1,13 @@
 require_relative 'tools/file_search_tool'
-require_relative 'file_search_prompt'
+require_relative 'prompt'
 require_relative 'agent'
 require 'debug'
 
 # Bash File Search Assistant using LlmGateway architecture
 
-class FileSearchBot
+class ClaudeCloneClone
   def initialize(model, api_key)
-    @agent = Agent.new(FileSearchPrompt, model, api_key)
+    @agent = Agent.new(Prompt, model, api_key)
   end
 
   def query(input)

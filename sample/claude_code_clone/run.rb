@@ -1,6 +1,6 @@
 require 'tty-prompt'
 require_relative '../../lib/llm_gateway'
-require_relative 'file_search_bot'
+require_relative 'claude_code_clone.rb'
 
 # Terminal Runner for FileSearchBot
 class FileSearchTerminalRunner
@@ -9,17 +9,15 @@ class FileSearchTerminalRunner
   end
 
   def start
-    puts "File Search Assistant - I can help you find files and search through directories."
     puts "First, let's configure your LLM settings:\n\n"
 
     model, api_key = setup_configuration
-    bot = FileSearchBot.new(model, api_key)
+    bot = ClaudeCloneClone.new(model, api_key)
 
-    puts "\nGreat! Now you can start searching."
     puts "Type 'quit' or 'exit' to stop.\n\n"
 
     loop do
-      user_input = @prompt.ask("What would you like to find?")
+      user_input = @prompt.ask("What can i do for you?")
 
       break if [ 'quit', 'exit' ].include?(user_input.downcase)
 
