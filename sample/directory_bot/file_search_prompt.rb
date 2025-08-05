@@ -46,8 +46,12 @@ class FileSearchPrompt < LlmGateway::Prompt
     SYSTEM
   end
 
+  def self.tools
+    [FileSearchTool]
+  end
+
   def tools
-    [ FileSearchTool.definition ]
+    self.class.tools.map(&:definition)
   end
 
   def post
