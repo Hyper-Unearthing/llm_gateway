@@ -60,6 +60,7 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     docile (1.4.1)
+    dotenv (2.8.1)
     drb (2.2.3)
     erb (5.0.2)
     faraday (2.13.4)
@@ -213,6 +214,7 @@ PLATFORMS
 
 DEPENDENCIES
   debug (>= 1.0.0)
+  dotenv (~> 2.8)
   gem-release (~> 2.2)
   github_changelog_generator (~> 1.16)
   irb

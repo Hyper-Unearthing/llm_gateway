@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "dotenv"
+Dotenv.load(".env")
+
 require "simplecov"
 require "debug"
 
@@ -92,6 +95,7 @@ def assert_hash(expected, actual)
 end
 
 require "mocha/minitest"
+
 
 # Test helper method similar to Rails test syntax
 def test(name, &block)
