@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "simplecov"
+require "debug"
 
 SimpleCov.start do
   add_filter "/test/"
