@@ -10,11 +10,11 @@ module LlmGateway
 
       input_mapper = input_mapper_for_client(client)
       normalized_input = input_mapper.map({
-                                            messages: normalize_messages(message),
-                                            response_format: normalize_response_format(response_format),
-                                            tools: tools,
-                                            system: normalize_system(system)
-                                          })
+        messages: normalize_messages(message),
+        response_format: normalize_response_format(response_format),
+        tools: tools,
+        system: normalize_system(system)
+      })
       result = client.chat(
         normalized_input[:messages],
         response_format: normalized_input[:response_format],
