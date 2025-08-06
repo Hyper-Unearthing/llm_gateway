@@ -36,9 +36,7 @@ module LlmGateway
 
         map :messages do |_, value|
           value.map do |msg|
-            if msg[:role] == "user"
-              msg
-            elsif msg[:content].is_a?(Array)
+            if msg[:content].is_a?(Array)
               results = []
               # Handle tool_use messages
               tool_uses = msg[:content].select { |c| c[:type] == "tool_use" }
@@ -49,7 +47,8 @@ module LlmGateway
                 results << map_single(content, with: :tool_result_message)
               end
 
-              results
+              # If no tool content found, return the original message
+              results.empty? ? msg : results
             else
               msg
             end
