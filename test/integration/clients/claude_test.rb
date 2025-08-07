@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class ClaudeClientTest < Minitest::Test
+class ClaudeClientTest < Test
   teardown do
     WebMock.reset!
   end

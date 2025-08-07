@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class OpenaiClientTest < Minitest::Test
+class OpenaiClientTest < Test
   teardown do
     WebMock.reset!
   end

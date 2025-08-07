@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class GroqClientTest < Minitest::Test
+class GroqClientTest < Test
   teardown do
     WebMock.reset!
   end

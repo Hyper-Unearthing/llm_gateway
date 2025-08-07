@@ -3,7 +3,7 @@
 require "test_helper"
 require "vcr"
 
-class GatewayTest < Minitest::Test
+class GatewayTest < Test
   def call_gateway_with_tool_response(model_id)
     transcript = []
     message = "What's the weather in Singapore? reply in 10 words and no special characters"
