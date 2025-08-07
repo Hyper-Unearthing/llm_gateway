@@ -3,7 +3,6 @@
 require_relative "llm_gateway/utils"
 require_relative "llm_gateway/version"
 require_relative "llm_gateway/errors"
-require_relative "llm_gateway/fluent_mapper"
 require_relative "llm_gateway/base_client"
 require_relative "llm_gateway/client"
 require_relative "llm_gateway/prompt"

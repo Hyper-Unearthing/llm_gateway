@@ -4,41 +4,57 @@ module LlmGateway
   module Adapters
     module Groq
       class OutputMapper
-        extend LlmGateway::FluentMapper
-
-        mapper :tool_call do
-          map :id
-          map :type do
-            "tool_use" # Always return 'tool_use' regardless of input
-          end
-          map :name, from: "function.name"
-          map :input, from: "function.arguments" do |_, value|
-            parsed = value.is_a?(String) ? JSON.parse(value) : value
-            parsed
-          end
+        def self.map(data)
+          {
+            id: data[:id],
+            model: data[:model],
+            usage: data[:usage],
+            choices: map_choices(data[:choices])
+          }
         end
 
-        mapper :content_item do
-          map :text, from: "content"
-          map :type, default: "text"
-        end
+        private
 
-        map :id
-        map :model
-        map :usage
-        map :choices, from: "choices" do |_, value|
-          value.map do |choice|
+        def self.map_choices(choices)
+          return [] unless choices
+
+          choices.map do |choice|
             message = choice[:message] || {}
-            content_item = map_single(message, with: :content_item, default: {})
-            tool_calls = map_collection(message[:tool_calls], with: :tool_call, default: [])
+            content_item = map_content_item(message)
+            tool_calls = map_tool_calls(message[:tool_calls])
 
             # Only include content_item if it has actual text content
             content_array = []
-            content_array << content_item if LlmGateway::Utils.present?(content_item["text"])
+            content_array << content_item if LlmGateway::Utils.present?(content_item[:text])
             content_array += tool_calls
 
             { content: content_array }
           end
+        end
+
+        def self.map_content_item(message)
+          {
+            text: message[:content],
+            type: "text"
+          }
+        end
+
+        def self.map_tool_calls(tool_calls)
+          return [] unless tool_calls
+
+          tool_calls.map do |tool_call|
+            {
+              id: tool_call[:id],
+              type: "tool_use",
+              name: tool_call.dig(:function, :name),
+              input: parse_tool_arguments(tool_call.dig(:function, :arguments))
+            }
+          end
+        end
+
+        def self.parse_tool_arguments(arguments)
+          return arguments unless arguments.is_a?(String)
+          JSON.parse(arguments, symbolize_names: true)
         end
       end
     end
