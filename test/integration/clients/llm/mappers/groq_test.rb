@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class GroqMapperTest < Minitest::Test
+class GroqMapperTest < Test
   test "groq mapper works" do
     input = {
       'id': "chatcmpl-3e519c7b-4d0c-456a-b752-e572d9174545",

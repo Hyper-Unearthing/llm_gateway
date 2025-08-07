@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class TestLlmGateway < Minitest::Test
+class TestLlmGateway < Test
   def test_that_it_has_a_version_number
     refute_nil ::LlmGateway::VERSION
   end

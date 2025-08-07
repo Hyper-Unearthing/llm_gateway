@@ -45,7 +45,7 @@ VCR.configure do |config|
   end
 end
 
-def vcr_cassette_name(test_method_name = nil)
+def vcr_cassette_name(test_method_name = self.name)
   # Find the test file in the call stack (skip test_helper.rb and VCR internal files)
   caller_info = caller.find do |line|
     line.include?("test/") &&
@@ -97,17 +97,23 @@ end
 require "mocha/minitest"
 
 
-# Test helper method similar to Rails test syntax
-def test(name, &block)
-  method_name = "test_#{name.downcase.gsub(/[^a-z0-9]/, "_").squeeze("_")}"
-  define_method(method_name) do
-    # Add method_name method for VCR cassette naming - matches Rails test naming convention
-    define_singleton_method(:method_name) { "test_#{name.downcase.gsub(/[^a-z0-9]/, "_").squeeze("_")}" }
-    instance_eval(&block)
-  end
-end
-
 # Add teardown method support
 def teardown(&block)
   define_method(:teardown, &block)
+end
+
+
+class Test < Minitest::Test
+  def self.test(name, &block)
+    test_name = "test_#{name.gsub(/\s+/, '_')}".to_sym
+    defined = method_defined? test_name
+    raise "#{test_name} is already defined in #{self}" if defined
+    if block_given?
+      define_method(test_name, &block)
+    else
+      define_method(test_name) do
+        flunk "No implementation provided for #{name}"
+      end
+    end
+  end
 end
