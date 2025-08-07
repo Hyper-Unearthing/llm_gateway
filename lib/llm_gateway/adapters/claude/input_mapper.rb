@@ -10,11 +10,26 @@ module LlmGateway
           value.map do |msg|
             msg = msg.merge(role: "user") if msg[:role] == "developer"
             msg.slice(:role, :content)
+            content = if msg[:content].is_a?(Array)
+                msg[:content].map do |content|
+                  if content[:type] == "file"
+                    { type: "document", source: { data: content[:data], type: "text", media_type: content[:media_type] } }
+                  else
+                    content
+                  end
+                end
+            else
+              msg[:content]
+            end
+            {
+              role: msg[:role],
+              content: content
+            }
           end
         end
 
         map :system do |_, value|
-          if value.empty?
+          if !value || value.empty?
             nil
           elsif value.length == 1 && value.first[:role] == "system"
             # If we have a single system message, convert to Claude format
