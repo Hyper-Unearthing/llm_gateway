@@ -30,11 +30,38 @@ include WebMock::API
 WebMock.enable!
 WebMock.disable_net_connect!(allow_localhost: true)
 
+# Helper methods for VCR JSON matching
+def vcr_json_content_type?(request)
+  content_type = request.headers["Content-Type"]&.first
+  content_type&.include?("application/json")
+end
+
+def vcr_parse_json_body(request)
+  return nil unless vcr_json_content_type?(request)
+  JSON.parse(request.body)
+rescue JSON::ParserError
+  request.body
+end
+
 VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = false
   config.cassette_library_dir = "test/fixtures/vcr_cassettes"
   config.hook_into(:webmock)
-  config.default_cassette_options = { match_requests_on: %i[body method] }
+
+  # Custom matcher for JSON bodies that compares parsed JSON instead of raw strings
+  config.register_request_matcher(:json_body) do |request_1, request_2|
+    # If both requests have JSON content type, compare parsed JSON
+    if vcr_json_content_type?(request_1) && vcr_json_content_type?(request_2)
+      parsed_body_1 = vcr_parse_json_body(request_1)
+      parsed_body_2 = vcr_parse_json_body(request_2)
+      parsed_body_1 == parsed_body_2
+    else
+      # Fall back to string comparison for non-JSON bodies
+      request_1.body == request_2.body
+    end
+  end
+
+  config.default_cassette_options = { match_requests_on: %i[json_body method] }
   config.filter_sensitive_data("<BEARER_TOKEN>") do |interaction|
     auths = interaction.request.headers["Authorization"]&.first || interaction.request.headers["X-Api-Key"]&.first
     if auths && (match = auths.match(/^Bearer\s+([^,\s]+)/))
