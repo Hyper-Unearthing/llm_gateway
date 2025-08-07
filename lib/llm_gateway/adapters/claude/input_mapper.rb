@@ -4,10 +4,21 @@ module LlmGateway
   module Adapters
     module Claude
       class InputMapper
-        extend LlmGateway::FluentMapper
+        def self.map(data)
+          {
+            messages: map_messages(data[:messages]),
+            response_format: data[:response_format],
+            tools: data[:tools],
+            system: map_system(data[:system])
+          }
+        end
 
-        map :messages do |_, value|
-          value.map do |msg|
+        private
+
+        def self.map_messages(messages)
+          return messages unless messages
+
+          messages.map do |msg|
             msg = msg.merge(role: "user") if msg[:role] == "developer"
             msg.slice(:role, :content)
             content = if msg[:content].is_a?(Array)
@@ -28,20 +39,16 @@ module LlmGateway
           end
         end
 
-        map :system do |_, value|
-          if !value || value.empty?
+        def self.map_system(system)
+          if !system || system.empty?
             nil
-          elsif value.length == 1 && value.first[:role] == "system"
+          elsif system.length == 1 && system.first[:role] == "system"
             # If we have a single system message, convert to Claude format
-            [ { type: "text", text: value.first[:content] } ]
+            [ { type: "text", text: system.first[:content] } ]
           else
             # For multiple messages or non-standard format, pass through
-            value
+            system
           end
-        end
-
-        map :tools do |_, value|
-          value
         end
       end
     end

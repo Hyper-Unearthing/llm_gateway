@@ -11,23 +11,25 @@ http_interactions:
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
         name"}},"required":["location"]}}}]}'
     headers:
-      Content-Type:
-      - application/json
-      Authorization:
-      - Bearer <BEARER_TOKEN>
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
       User-Agent:
       - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Fri, 27 Jun 2025 08:11:26 GMT
+      - Thu, 07 Aug 2025 14:12:55 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -39,11 +41,13 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '9575'
+      - '26565'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
       - '2020-10-01'
       X-Envoy-Upstream-Service-Time:
-      - '9581'
+      - '26690'
       X-Ratelimit-Limit-Requests:
       - '500'
       X-Ratelimit-Limit-Tokens:
@@ -51,38 +55,38 @@ http_interactions:
       X-Ratelimit-Remaining-Requests:
       - '499'
       X-Ratelimit-Remaining-Tokens:
-      - '199972'
+      - '199973'
       X-Ratelimit-Reset-Requests:
       - 120ms
       X-Ratelimit-Reset-Tokens:
       - 8ms
       X-Request-Id:
-      - req_956af3f81fc8e9ce41b494d4414531a1
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
+      - req_805147a4a20c4e3db72f2de0debbc7d0
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=mqIgKX9UNx1JgoBXSJ3mAQwQaxfQQXexIDWPIL6tdvU-1751011886-1.0.1.1-0CmTmNT.V0M14ZLI1QzFTukJjQxJT1e3Vy9NHS5vGbQ3WALUAsh1wc0mV9L0yr_VE9hz9QuaGySnRo.L6Yt47PnEv7.gpHqbeP8NNKXhrkI;
-        path=/; expires=Fri, 27-Jun-25 08:41:26 GMT; domain=.api.openai.com; HttpOnly;
+      - __cf_bm=AOobZcyTywHsWQ0g8dvz27OE7JgNmk3A_X7wZhFABGQ-1754575975-1.0.1.1-OgxopVtuG5RsL0fS6j5x1cmJpXeObkRUQgY5hZLFRqGGh9asvjAmJYhM4LmUjmPQRgpVF2O9lTza4nBXl.CdyqV3TfL4rV8qVhEmllMV4mc;
+        path=/; expires=Thu, 07-Aug-25 14:42:55 GMT; domain=.api.openai.com; HttpOnly;
         Secure; SameSite=None
-      - _cfuvid=pX3uKYg3TXyRjKtNpJzfoRU4cofxbbgfgvANIi9VYWU-1751011886277-0.0.1.1-604800000;
+      - _cfuvid=TY.ojc_J0C3nx9ZOkWA0hqtS3Xsd06p0yEWOzhUYkm0-1754575975005-0.0.1.1-604800000;
         path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
       Server:
       - cloudflare
       Cf-Ray:
-      - 956379014a58e58c-KUL
+      - 96b75e7a8d5fe4fa-JHB
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |
         {
-          "id": "chatcmpl-BmySyN1Kgp0SjFBZpbBjZI9BMmse6",
+          "id": "chatcmpl-C1ve0selhta4vrDF25fJAQW91Ma1U",
           "object": "chat.completion",
-          "created": 1751011876,
+          "created": 1754575948,
           "model": "o4-mini-2025-04-16",
           "choices": [
             {
@@ -92,7 +96,7 @@ http_interactions:
                 "content": null,
                 "tool_calls": [
                   {
-                    "id": "call_gpXfy9l9QNmShNEbNI1FyuUZ",
+                    "id": "call_NSHPqEVTiMO5V5ljXiJ9yOtI",
                     "type": "function",
                     "function": {
                       "name": "get_weather",
@@ -108,14 +112,14 @@ http_interactions:
           ],
           "usage": {
             "prompt_tokens": 71,
-            "completion_tokens": 599,
-            "total_tokens": 670,
+            "completion_tokens": 2329,
+            "total_tokens": 2400,
             "prompt_tokens_details": {
               "cached_tokens": 0,
               "audio_tokens": 0
             },
             "completion_tokens_details": {
-              "reasoning_tokens": 576,
+              "reasoning_tokens": 2304,
               "audio_tokens": 0,
               "accepted_prediction_tokens": 0,
               "rejected_prediction_tokens": 0
@@ -124,7 +128,7 @@ http_interactions:
           "service_tier": "default",
           "system_fingerprint": null
         }
-  recorded_at: Fri, 27 Jun 2025 08:11:26 GMT
+  recorded_at: Thu, 07 Aug 2025 14:12:54 GMT
 - request:
     method: post
     uri: https://api.openai.com/v1/chat/completions
@@ -132,28 +136,30 @@ http_interactions:
       encoding: UTF-8
       string: '{"model":"o4-mini","messages":[{"role":"developer","content":"Talk
         like a pirate"},{"role":"user","content":"What''s the weather in Singapore?
-        reply in 10 words and no special characters"},{"role":"assistant","content":null,"tool_calls":[{"id":"call_gpXfy9l9QNmShNEbNI1FyuUZ","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},{"role":"tool","tool_call_id":"call_gpXfy9l9QNmShNEbNI1FyuUZ","content":"-15
+        reply in 10 words and no special characters"},{"content":null,"role":"assistant","tool_calls":[{"id":"call_NSHPqEVTiMO5V5ljXiJ9yOtI","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},{"role":"tool","tool_call_id":"call_NSHPqEVTiMO5V5ljXiJ9yOtI","content":"-15
         celcius"}],"max_completion_tokens":4096,"tools":[{"type":"function","function":{"name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
         name"}},"required":["location"]}}}]}'
     headers:
-      Content-Type:
-      - application/json
-      Authorization:
-      - Bearer <BEARER_TOKEN>
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
       User-Agent:
       - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Fri, 27 Jun 2025 08:11:33 GMT
+      - Thu, 07 Aug 2025 14:13:00 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -165,11 +171,13 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '6516'
+      - '4279'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
       - '2020-10-01'
       X-Envoy-Upstream-Service-Time:
-      - '6521'
+      - '4479'
       X-Ratelimit-Limit-Requests:
       - '500'
       X-Ratelimit-Limit-Tokens:
@@ -177,45 +185,45 @@ http_interactions:
       X-Ratelimit-Remaining-Requests:
       - '499'
       X-Ratelimit-Remaining-Tokens:
-      - '199967'
+      - '199968'
       X-Ratelimit-Reset-Requests:
       - 120ms
       X-Ratelimit-Reset-Tokens:
       - 9ms
       X-Request-Id:
-      - req_7a0e8f984c0999c91dc13579afb3c149
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
+      - req_bfb6866c651747a3a77658b4d866fac5
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=5muNB1G2VVU.CHtmczmwvNItCk8WzN1QyyPUhyOIxWM-1751011893-1.0.1.1-J6caEYGGKDJJSihuH872SkYGraZMU1TJ9gtgJWlH6r3IvHLt4OUDoCOlrEAdCCijlPdP68kmXAGMbhHNSNLslFA90gNQr25DNwMZmEbXbh0;
-        path=/; expires=Fri, 27-Jun-25 08:41:33 GMT; domain=.api.openai.com; HttpOnly;
+      - __cf_bm=PlgQP6UQgc4GIUDYYV.aKUQdz2OpkKGaNgZ6ziwEu0s-1754575980-1.0.1.1-T4oIX6x82zYoGG62DMGKtsEz_hWMfTmESduX2E0DBc3jqTENumYGDFhLHV6kg6n8_HTaoksHZip18P4GQJnxWcc4OyQDmveILZ6vtR7SDs8;
+        path=/; expires=Thu, 07-Aug-25 14:43:00 GMT; domain=.api.openai.com; HttpOnly;
         Secure; SameSite=None
-      - _cfuvid=tv9fvp2Lv89Q6J6mF.abJLpiyzT_7ItKBSOUVcl5zHA-1751011893961-0.0.1.1-604800000;
+      - _cfuvid=wj..aahoRtV8DInyRFIx5xuEG5vcmCj_QL0oIj.VJhY-1754575980040-0.0.1.1-604800000;
         path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
       Server:
       - cloudflare
       Cf-Ray:
-      - 956379424db9e584-KUL
+      - 96b75f245ca03523-KUL
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |
         {
-          "id": "chatcmpl-BmyT9vQHYy4lvkhRKdNN7P0LTDtHz",
+          "id": "chatcmpl-C1veRJRSO483Z3iJhLIbtuoF4sJcP",
           "object": "chat.completion",
-          "created": 1751011887,
+          "created": 1754575975,
           "model": "o4-mini-2025-04-16",
           "choices": [
             {
               "index": 0,
               "message": {
                 "role": "assistant",
-                "content": "Arr it is currently negative fifteen degrees Celsius in Singapore",
+                "content": "Arr hearties Singapore be freezin at minus fifteen degrees celsius",
                 "refusal": null,
                 "annotations": []
               },
@@ -224,14 +232,14 @@ http_interactions:
           ],
           "usage": {
             "prompt_tokens": 103,
-            "completion_tokens": 604,
-            "total_tokens": 707,
+            "completion_tokens": 415,
+            "total_tokens": 518,
             "prompt_tokens_details": {
               "cached_tokens": 0,
               "audio_tokens": 0
             },
             "completion_tokens_details": {
-              "reasoning_tokens": 576,
+              "reasoning_tokens": 384,
               "audio_tokens": 0,
               "accepted_prediction_tokens": 0,
               "rejected_prediction_tokens": 0
@@ -240,5 +248,5 @@ http_interactions:
           "service_tier": "default",
           "system_fingerprint": null
         }
-  recorded_at: Fri, 27 Jun 2025 08:11:34 GMT
+  recorded_at: Thu, 07 Aug 2025 14:13:00 GMT
 recorded_with: VCR 6.3.1

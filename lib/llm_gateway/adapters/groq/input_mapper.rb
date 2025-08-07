@@ -4,72 +4,100 @@ module LlmGateway
   module Adapters
     module Groq
       class InputMapper
-        extend LlmGateway::FluentMapper
-
-        map :system
-        map :response_format
-
-        mapper :tool_usage do
-          map :role, default: "assistant"
-          map :content do
-            nil
-          end
-          map :tool_calls, from: :content do |_, value|
-            value.map do |content|
-              {
-                'id': content[:id],
-                'type': "function",
-                'function': {
-                  'name': content[:name],
-                  'arguments': content[:input].to_json
-                }
-              }
-            end
-          end
+        def self.map(data)
+          {
+            messages: map_messages(data[:messages]),
+            response_format: map_response_format(data[:response_format]),
+            tools: map_tools(data[:tools]),
+            system: map_system(data[:system])
+          }
         end
 
-        mapper :tool_result_message do
-          map :role, default: "tool"
-          map :tool_call_id, from: "tool_use_id"
-          map :content
+        private
+
+        def self.map_system(system)
+          system
         end
 
-        map :messages do |_, value|
-          value.map do |msg|
+        def self.map_response_format(response_format)
+          response_format
+        end
+
+        def self.map_messages(messages)
+          return messages unless messages
+
+          messages.flat_map do |msg|
             if msg[:content].is_a?(Array)
-              results = []
-              # Handle tool_use messages
-              tool_uses = msg[:content].select { |c| c[:type] == "tool_use" }
-              results << map_single(msg, with: :tool_usage) if tool_uses.any?
-              # Handle tool_result messages
-              tool_results = msg[:content].select { |c| c[:type] == "tool_result" }
-              tool_results.each do |content|
-                results << map_single(content, with: :tool_result_message)
+              # Handle array content with tool calls and tool results
+              tool_calls = []
+              regular_content = []
+              tool_messages = []
+
+              msg[:content].each do |content|
+                case content[:type]
+                when "tool_result"
+                  tool_messages << map_tool_result_message(content)
+                when "tool_use"
+                  tool_calls << map_tool_usage(content)
+                else
+                  regular_content << content
+                end
               end
 
-              # If no tool content found, return the original message
-              results.empty? ? msg : results
+              result = []
+
+              # Add the main message with tool calls if any
+              if tool_calls.any? || regular_content.any?
+                main_msg = msg.dup
+                main_msg[:role] = "assistant" if !main_msg[:role]
+                main_msg[:tool_calls] = tool_calls if tool_calls.any?
+                main_msg[:content] = regular_content.any? ? regular_content : nil
+                result << main_msg
+              end
+
+              # Add separate tool result messages
+              result += tool_messages
+
+              result
             else
-              msg
+              # Regular message, return as-is
+              [ msg ]
             end
-          end.flatten
+          end
         end
 
-        map :tools do |_, value|
-          if value
-            value.map do |tool|
-              {
-                type: "function",
-                function: {
-                  name: tool[:name],
-                  description: tool[:description],
-                  parameters: tool[:input_schema]
-                }
+        def self.map_tools(tools)
+          return tools unless tools
+
+          tools.map do |tool|
+            {
+              type: "function",
+              function: {
+                name: tool[:name],
+                description: tool[:description],
+                parameters: tool[:input_schema]
               }
-            end
-          else
-            value
+            }
           end
+        end
+
+        def self.map_tool_usage(content)
+            {
+              'id': content[:id],
+              'type': "function",
+              'function': {
+                'name': content[:name],
+                'arguments': content[:input].to_json
+              }
+            }
+        end
+
+        def self.map_tool_result_message(content)
+          {
+            role: "tool",
+            tool_call_id: content[:tool_use_id],
+            content: content[:content]
+          }
         end
       end
     end

@@ -289,7 +289,7 @@ class GatewayTest < Test
           {
             content: [
               {
-                text: "Arr it is currently negative fifteen degrees Celsius in Singapore",
+                text: "Arr hearties Singapore be freezin at minus fifteen degrees celsius",
                 type: "text"
               }
             ]
@@ -297,13 +297,13 @@ class GatewayTest < Test
         ],
         usage: {
           prompt_tokens: 103,
-          completion_tokens: 604,
-          total_tokens: 707,
+          completion_tokens: 415,
+          total_tokens: 518,
           prompt_tokens_details: { cached_tokens: 0, audio_tokens: 0 },
-          completion_tokens_details: { reasoning_tokens: 576, audio_tokens: 0, accepted_prediction_tokens: 0, rejected_prediction_tokens: 0 }
+          completion_tokens_details: { reasoning_tokens: 384, audio_tokens: 0, accepted_prediction_tokens: 0, rejected_prediction_tokens: 0 }
         },
         model: "o4-mini-2025-04-16",
-        id: "chatcmpl-BmyT9vQHYy4lvkhRKdNN7P0LTDtHz"
+        id: "chatcmpl-C1veRJRSO483Z3iJhLIbtuoF4sJcP"
       }
       assert_equal(expected, result)
     end
