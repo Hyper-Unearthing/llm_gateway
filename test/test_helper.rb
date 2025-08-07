@@ -14,7 +14,7 @@ SimpleCov.start do
   add_group "Clients", "lib/llm_gateway/adapters"
   add_group "Base Classes",
             [ "lib/llm_gateway/base_client.rb", "lib/llm_gateway/client.rb", "lib/llm_gateway/prompt.rb" ]
-  add_group "Utilities", [ "lib/llm_gateway/errors.rb", "lib/llm_gateway/fluent_mapper.rb" ]
+  add_group "Utilities", [ "lib/llm_gateway/errors.rb" ]
 
   # minimum_coverage 80
   # minimum_coverage_by_file 70
