@@ -62,12 +62,18 @@ begin
     sh "git add ."
     sh "git commit -m \"Bump llm_gateway to #{new_version}\""
 
+    # Build the gem first
+    gem_file = `gem build llm_gateway.gemspec | grep 'File:' | awk '{print $2}'`.strip
+
     # Tag and push
     sh "git tag v#{new_version}"
     sh "git push origin main --tags"
 
+    # Create GitHub release with gem file
+    sh "gh release create v#{new_version} #{gem_file} --title \"Release v#{new_version}\" --generate-notes"
+
     # Release the gem
-    sh "gem push $(gem build llm_gateway.gemspec | grep 'File:' | awk '{print $2}')"
+    sh "gem push #{gem_file}"
   end
 rescue LoadError
   # gem-release not available in this environment
