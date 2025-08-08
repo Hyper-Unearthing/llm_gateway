@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/files
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Content-Type:
+      - multipart/form-data
+      Anthropic-Version:
+      - '2023-06-01'
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 08 Aug 2025 04:10:55 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Request-Id:
+      - req_011CRub6EqXgr2wYMVCFttBt
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      X-Envoy-Upstream-Service-Time:
+      - '412'
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 96bc2aae09988a1d-KUL
+    body:
+      encoding: ASCII-8BIT
+      string: '{"type":"file","id":"file_011CRub6FQG7ympTxXw81mic","size_bytes":13,"created_at":"2025-08-08T04:10:55.298000Z","filename":"test.txt","mime_type":"application/octet-stream","downloadable":false}'
+  recorded_at: Fri, 08 Aug 2025 04:10:55 GMT
+recorded_with: VCR 6.3.1

@@ -116,7 +116,28 @@ it to the list of roles, when it is not supported it will be mapped to user inst
 you can assume developer and user to be interchangeable
 
 
+### Files
 
+Many providers offer the ability to upload files which can be referenced in conversations, or for other purposes like batching. Downloading files is also used for when llm generates something or batches complete.
+
+## Examples
+
+```ruby
+# Upload File
+result = LlmGateway::Client.upload_file("openai", filename: "test.txt", content: "Hello, world!", mime_type: "text/plain")
+result = LlmGateway::Client.download_file("openai", file_id: "file-Kb6X7f8YDffu7FG1NcaPVu")
+# Response Format
+{
+  id: "file-Kb6X7f8YDffu7FG1NcaPVu",
+  size_bytes: 13,  # follows anthropic naming cause clearer
+  created_at: "2025-08-08T06:03:16.000000Z", # follow anthropic style cause easier to read as human
+  filename: "test.txt",
+  mime_type: nil,
+  downloadable: true, # anthropic returns this for other providers it is infered
+  expires_at: nil,
+  purpose: "user_data" # for anthropic this is always user_data
+}
+```
 
 ### Sample Application
 

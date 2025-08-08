@@ -22,12 +22,21 @@ module LlmGateway
           post("chat/completions", body)
         end
 
+
+        def download_file(file_id)
+          get("files/#{file_id}/content")
+        end
+
         def generate_embeddings(input)
           body = {
             input:,
             model: model_key
           }
           post("embeddings", body)
+        end
+
+        def upload_file(filename, content, mime_type = "application/octet-stream", purpose: "user_data")
+          post_file("files", content, filename, purpose: purpose, mime_type: mime_type)
         end
 
         private

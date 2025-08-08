@@ -28,6 +28,8 @@ module LlmGateway
     class UnknownError < ClientError; end
     class PromptTooLong < BadRequestError; end
     class UnsupportedModel < ClientError; end
+    class UnsupportedProvider < ClientError; end
+    class MissingMapperForProvider < ClientError; end
 
     class PromptError < BaseError; end
 
