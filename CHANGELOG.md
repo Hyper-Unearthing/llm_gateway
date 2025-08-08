@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.2.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.2.0) (2025-08-08)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.6...v0.2.0)
+
+**Merged pull requests:**
+
+- feat: improve read me  [\#21](https://github.com/Hyper-Unearthing/llm_gateway/pull/21) ([billybonks](https://github.com/billybonks))
+- refactor: remove fluent mapper from the lib [\#20](https://github.com/Hyper-Unearthing/llm_gateway/pull/20) ([billybonks](https://github.com/billybonks))
+- test: dont fail vcr if key order changes [\#19](https://github.com/Hyper-Unearthing/llm_gateway/pull/19) ([billybonks](https://github.com/billybonks))
+- burn: fluent mapper from input mappers [\#18](https://github.com/Hyper-Unearthing/llm_gateway/pull/18) ([billybonks](https://github.com/billybonks))
+- test: open ai mapper [\#17](https://github.com/Hyper-Unearthing/llm_gateway/pull/17) ([billybonks](https://github.com/billybonks))
+- feat: handle basic text document handling [\#16](https://github.com/Hyper-Unearthing/llm_gateway/pull/16) ([billybonks](https://github.com/billybonks))
+- test: improve issues [\#15](https://github.com/Hyper-Unearthing/llm_gateway/pull/15) ([billybonks](https://github.com/billybonks))
+- style: format aligment of content automatically to my preference [\#14](https://github.com/Hyper-Unearthing/llm_gateway/pull/14) ([billybonks](https://github.com/billybonks))
+- fix: tool calling open ai [\#13](https://github.com/Hyper-Unearthing/llm_gateway/pull/13) ([billybonks](https://github.com/billybonks))
+
 ## [v0.1.6](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.1.6) (2025-08-05)
 
 [Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.5...v0.1.6)
