@@ -30,18 +30,93 @@ gem install llm_gateway
 require 'llm_gateway'
 
 # Simple text completion
-result = LlmGateway::Client.chat(
+LlmGateway::Client.chat(
   'claude-sonnet-4-20250514',
   'What is the capital of France?'
 )
 
 # With system message
-result = LlmGateway::Client.chat(
+LlmGateway::Client.chat(
   'gpt-4',
   'What is the capital of France?',
   system: 'You are a helpful geography teacher.'
 )
+
+# With inline file
+LlmGateway::Client.chat(
+  "claude-sonnet-4-20250514",
+  [
+    {
+      role: "user", content: [
+        { type: "text", text: "return the content of the document exactly" },
+        { type: "file", data: "abc\n", media_type: "text/plain", name: "small.txt"  }
+      ]
+    },
+  ]
+)
+
+# Transcript
+LlmGateway::Client.chat('llama-3.3-70b-versatile',[
+    { role: "user", content: "Tell Me a joke" },
+    { role: "assistant", content: "what kind of content"},
+    { role: "user", content: "About Sparkling water" },
+  ]
+)
+
+
+# Tool usage
+LlmGateway::Client.chat('gpt-5',[
+    { role: "user", content: "What's the weather in Singapore? reply in 10 words and no special characters" },
+    { role: "assistant",
+        content: [
+          { id: "call_gpXfy9l9QNmShNEbNI1FyuUZ", type: "tool_use", name: "get_weather", input: { location: "Singapore" } }
+        ]
+    },
+    { role: "developer",
+      content: [
+        { content: "-15 celcius", type: "tool_result", tool_use_id: "call_gpXfy9l9QNmShNEbNI1FyuUZ" }
+      ]
+    }
+  ],
+  tools: [ { name: "get_weather", description: "Get current weather for a location", input_schema: { type: "object", properties: { location: { type: "string", description: "City name" } }, required: [ "location" ] } } ]
+)
 ```
+
+### Supported Roles
+
+- user
+- developer
+- assistant
+
+#### Examples
+```ruby
+# tool call
+{ role: "developer",
+  content: [
+    { content: "-15 celcius", type: "tool_result", tool_use_id: "call_gpXfy9l9QNmShNEbNI1FyuUZ" }
+  ]
+}
+# plain message
+{ role: "user", content: "What's the weather in Singapore? reply in 10 words and no special characters" }
+
+# plain response
+{ role: "assistant", content: "what kind of content"},
+
+# tool call response
+{ role: "assistant",
+    content: [
+      { id: "call_gpXfy9l9QNmShNEbNI1FyuUZ", type: "tool_use", name: "get_weather", input: { location: "Singapore" } }
+    ]
+},
+```
+
+developer is an open ai role, but i thought it was usefull for tracing if message sent from server or user so i added
+it to the list of roles, when it is not supported it will be mapped to user instead.
+
+you can assume developer and user to be interchangeable
+
+
+
 
 ### Sample Application
 
