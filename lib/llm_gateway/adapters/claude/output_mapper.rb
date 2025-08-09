@@ -35,6 +35,63 @@ module LlmGateway
           } ]
         end
       end
+
+      class ResponseModel
+        attr_reader :raw_response
+
+        def initialize(response)
+          @raw_response = response
+        end
+
+        def ==(other)
+          cleaned_response == other
+        end
+
+        def [](key)
+          cleaned_response[key]
+        end
+
+        def transcript
+          mapped_response.slice(:choices)[:choices]
+        end
+
+        def files
+          results = raw_response[:content].filter { |content| content[:type] == "code_execution_tool_result" }
+          results.map do |result|
+            execution_results = result[:content][:content]
+            execution_results.map { |er| { filename: nil }.merge(er.slice(:file_id)) }
+          end.flatten
+        end
+
+        def cleaned_response
+          @cleaned_response ||= begin
+            filtered_choices = mapped_response[:choices].map do |choice|
+              choice.merge(content: choice[:content].filter { |content| ![ "server_tool_use", "code_execution_tool_result" ].include? content[:type] }).compact
+            end
+            {
+              id: mapped_response[:id],
+              usage: mapped_response[:usage],
+              model: mapped_response[:model],
+              choices: filtered_choices
+            }.merge
+          end
+        end
+
+        private
+
+        def mapped_response
+          @mapped_response ||= begin
+            OutputMapper.map(raw_response)
+          end
+        end
+      end
+
+
+      class ResponsesMapper
+        def self.map(data)
+          ResponseModel.new(data)
+        end
+      end
     end
   end
 end

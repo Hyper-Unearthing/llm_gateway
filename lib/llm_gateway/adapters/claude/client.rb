@@ -24,6 +24,18 @@ module LlmGateway
           post("messages", body)
         end
 
+        def responses(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096)
+          body = {
+            model: model_key,
+            max_tokens: max_completion_tokens,
+            messages: messages
+          }
+
+          body.merge!(tools: tools) if LlmGateway::Utils.present?(tools)
+          body.merge!(system: system) if LlmGateway::Utils.present?(system)
+          post("messages", body)
+        end
+
         def download_file(file_id)
           get("files/#{file_id}/content")
         end
