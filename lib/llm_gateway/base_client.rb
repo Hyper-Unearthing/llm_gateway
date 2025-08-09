@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "net/http"
+require "stringio"
 require "json"
 
 module LlmGateway
@@ -16,6 +17,40 @@ module LlmGateway
     def get(url_part, extra_headers = {})
       endpoint = "#{base_endpoint}/#{url_part.sub(%r{^/}, "")}"
       response = make_request(endpoint, Net::HTTP::Get, nil, extra_headers)
+      process_response(response)
+    end
+
+    def post_file(url_part, file_contents, filename, purpose: nil, mime_type: "application/octet-stream")
+      endpoint = "#{base_endpoint}/#{url_part.sub(%r{^/}, "")}"
+      uri = URI.parse(endpoint)
+
+      file_io = StringIO.new(file_contents)
+
+      # Create request with full URI (important!)
+      request = Net::HTTP::Post.new(uri)
+
+      form_data = [
+        [
+          "file",
+          file_io,
+          { filename: filename, "Content-Type" => mime_type }
+        ]
+      ]
+
+      # Add purpose parameter if provided
+      form_data << [ "purpose", purpose ] if purpose
+
+      request.set_form(form_data, "multipart/form-data")
+
+      # Headers (excluding Content-Type because set_form already sets it)
+      multipart_headers = build_headers.reject { |k, _| k.downcase == "content-type" }
+      multipart_headers.each { |key, value| request[key] = value }
+
+      response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
+        http.request(request)
+      end
+
+
       process_response(response)
     end
 

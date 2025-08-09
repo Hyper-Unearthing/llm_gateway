@@ -28,6 +28,10 @@ module LlmGateway
           get("files/#{file_id}/content")
         end
 
+        def upload_file(filename, content, mime_type = "application/octet-stream")
+          post_file("files", content, filename, mime_type: mime_type)
+        end
+
         private
 
         def build_headers
