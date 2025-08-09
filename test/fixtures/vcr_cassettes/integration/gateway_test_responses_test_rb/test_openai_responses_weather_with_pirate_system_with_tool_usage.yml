@@ -1,0 +1,340 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-5","max_output_tokens":4096,"instructions":"Talk like
+        a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
+        current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}],"input":[{"role":"user","content":"What''s
+        the weather in Singapore? reply in 10 words and no special characters"}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 08 Aug 2025 17:59:36 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Limit-Tokens:
+      - '30000'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Remaining-Tokens:
+      - '29440'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Ratelimit-Reset-Tokens:
+      - 1.12s
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      X-Request-Id:
+      - req_c7798824f81f2a47dfa0f97d3e41373d
+      Openai-Processing-Ms:
+      - '15717'
+      X-Envoy-Upstream-Service-Time:
+      - '15721'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=GNrBO36SmWtUKNipd7qyNRR9uT0qTkr36A1UQiRXgR4-1754675976-1.0.1.1-cWtbrV7Wyr77XHlttfqwfCqF49uUh1fu1px3vv0KFINNQjHvK5dSuhyyUw5vePyifqISgvZnb6RM8vqpOj.CPWFWN87ZiAgL.j7A6Ak5C7w;
+        path=/; expires=Fri, 08-Aug-25 18:29:36 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=UOvJ30KdY7t_P9LuYLseDyLxw4SOz7_RjhJ7OAcUT4U-1754675976166-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 96c0e82bbfcad42f-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "resp_68963af853d481a1b1f68a37e365d9de01d958b851dfcf8e",
+          "object": "response",
+          "created_at": 1754675960,
+          "status": "completed",
+          "background": false,
+          "error": null,
+          "incomplete_details": null,
+          "instructions": "Talk like a pirate",
+          "max_output_tokens": 4096,
+          "max_tool_calls": null,
+          "model": "gpt-5-2025-08-07",
+          "output": [
+            {
+              "id": "rs_68963af8d94481a182e8728001b11d9a01d958b851dfcf8e",
+              "type": "reasoning",
+              "summary": []
+            },
+            {
+              "id": "fc_68963afacce481a19848468259f6ee8601d958b851dfcf8e",
+              "type": "function_call",
+              "status": "completed",
+              "arguments": "{\"location\":\"Singapore\"}",
+              "call_id": "call_ir6hX1cCXJcpWNFGZ4hUkJlZ",
+              "name": "get_weather"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "reasoning": {
+            "effort": "medium",
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": true,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "text"
+            },
+            "verbosity": "medium"
+          },
+          "tool_choice": "auto",
+          "tools": [
+            {
+              "type": "function",
+              "description": "Get current weather for a location",
+              "name": "get_weather",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "location": {
+                    "type": "string",
+                    "description": "City name"
+                  }
+                },
+                "required": [
+                  "location"
+                ],
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 70,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 148,
+            "output_tokens_details": {
+              "reasoning_tokens": 128
+            },
+            "total_tokens": 218
+          },
+          "user": null,
+          "metadata": {}
+        }
+  recorded_at: Fri, 08 Aug 2025 17:59:36 GMT
+- request:
+    method: post
+    uri: https://api.openai.com/v1/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-5","max_output_tokens":4096,"instructions":"Talk like
+        a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
+        current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}],"input":[{"role":"user","content":"What''s
+        the weather in Singapore? reply in 10 words and no special characters"},{"id":"rs_68963af8d94481a182e8728001b11d9a01d958b851dfcf8e","type":"reasoning","summary":[]},{"id":"fc_68963afacce481a19848468259f6ee8601d958b851dfcf8e","type":"function_call","status":"completed","arguments":"{\"location\":\"Singapore\"}","call_id":"call_ir6hX1cCXJcpWNFGZ4hUkJlZ","name":"get_weather"},{"type":"function_call_output","call_id":"call_ir6hX1cCXJcpWNFGZ4hUkJlZ","output":"-15
+        celcius"}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 08 Aug 2025 18:00:42 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Limit-Tokens:
+      - '30000'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Remaining-Tokens:
+      - '29257'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Ratelimit-Reset-Tokens:
+      - 1.486s
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      X-Request-Id:
+      - req_5f1934ca2e0e2bc8b3623a1b72fc964d
+      Openai-Processing-Ms:
+      - '19724'
+      X-Envoy-Upstream-Service-Time:
+      - '19731'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=gLGM7PV2XKjboSEB7qqhfvxXfHagr48MF35CnrNQS4Q-1754676042-1.0.1.1-EExkomGAZUa1erLOLClK7kfgur3v0ikKAstlF56tePrChXMqa9WAeEb6tVjRsxmjPCEE_JMVepv06M6skeRtuYQiY1g5c3dLngfeGnlcyZ4;
+        path=/; expires=Fri, 08-Aug-25 18:30:42 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=hQFzf6dMmqdrf675UyyP54P4U5nsgMdrFfPU9jKTYlQ-1754676042934-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 96c0e9b43e9713f6-JHB
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "resp_68963b371d7881a1a56f495625c4a8ba01d958b851dfcf8e",
+          "object": "response",
+          "created_at": 1754676023,
+          "status": "completed",
+          "background": false,
+          "error": null,
+          "incomplete_details": null,
+          "instructions": "Talk like a pirate",
+          "max_output_tokens": 4096,
+          "max_tool_calls": null,
+          "model": "gpt-5-2025-08-07",
+          "output": [
+            {
+              "id": "rs_68963b37b17081a193e28d452ed9338c01d958b851dfcf8e",
+              "type": "reasoning",
+              "summary": []
+            },
+            {
+              "id": "msg_68963b496c1881a1b8af419713735e5301d958b851dfcf8e",
+              "type": "message",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "annotations": [],
+                  "logprobs": [],
+                  "text": "Singapore weather be minus fifteen celsius me spyglass be faulty"
+                }
+              ],
+              "role": "assistant"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "reasoning": {
+            "effort": "medium",
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": true,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "text"
+            },
+            "verbosity": "medium"
+          },
+          "tool_choice": "auto",
+          "tools": [
+            {
+              "type": "function",
+              "description": "Get current weather for a location",
+              "name": "get_weather",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "location": {
+                    "type": "string",
+                    "description": "City name"
+                  }
+                },
+                "required": [
+                  "location"
+                ],
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 253,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 1298,
+            "output_tokens_details": {
+              "reasoning_tokens": 1280
+            },
+            "total_tokens": 1551
+          },
+          "user": null,
+          "metadata": {}
+        }
+  recorded_at: Fri, 08 Aug 2025 18:00:42 GMT
+recorded_with: VCR 6.3.1

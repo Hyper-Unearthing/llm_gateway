@@ -1,0 +1,87 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","max_tokens":4096,"messages":[{"role":"user","content":"What''s
+        the weather in Singapore? reply in 10 words and no special characters"}],"tools":[{"name":"get_weather","description":"Get
+        current weather for a location","input_schema":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}],"system":[{"type":"text","text":"Talk like
+        a pirate"}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 09 Aug 2025 05:57:00 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2025-08-09T05:57:00Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2025-08-09T05:57:00Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '1000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2025-08-09T05:56:59Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2025-08-09T05:57:00Z'
+      Request-Id:
+      - req_011CRwczHaJmPme6zzffhr3R
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 96c5036e3976469a-KUL
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"msg_01TKLooJ8MR9v4q6n4EAkeLE","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"tool_use","id":"toolu_01WfPbcMYFCgdJxTubMSjTLz","name":"get_weather","input":{"location":"Singapore"}}],"stop_reason":"tool_use","stop_sequence":null,"usage":{"input_tokens":404,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":53,"service_tier":"standard"}}'
+  recorded_at: Sat, 09 Aug 2025 05:57:00 GMT
+recorded_with: VCR 6.3.1

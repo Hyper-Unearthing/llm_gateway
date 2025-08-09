@@ -24,6 +24,28 @@ module LlmGateway
       result_mapper(client).map(result)
     end
 
+
+    def self.responses(model, message, response_format: "text", tools: nil, system: nil, api_key: nil)
+      client_klass = client_class(model)
+      client_options = { model_key: model }
+      client_options[:api_key] = api_key if api_key
+      client = client_klass.new(**client_options)
+      input_mapper = input_mapper_for_client(client)
+      normalized_input = input_mapper.map({
+        messages: normalize_messages(message),
+        response_format: normalize_response_format(response_format),
+        tools: tools,
+        system: normalize_system(system)
+      })
+      result = client.responses(
+        normalized_input[:messages],
+        response_format: normalized_input[:response_format],
+        tools: normalized_input[:tools],
+        system: normalized_input[:system]
+      )
+      response_mapper_for_client(client).map(result)
+    end
+
     def self.build_client(provider, api_key:, model: "none")
       client_klass = client_class_by_id(provider)
       client_options = { model_key: model }
@@ -44,6 +66,7 @@ module LlmGateway
       result = client.download_file(*kwargs.values)
       file_output_mapper(client).map(result)
     end
+
 
     def self.file_output_mapper(client)
       return LlmGateway::Adapters::Claude::FileOutputMapper if client.is_a?(LlmGateway::Adapters::Claude::Client)
@@ -76,6 +99,13 @@ module LlmGateway
       return LlmGateway::Adapters::OpenAi::InputMapper if client.is_a?(LlmGateway::Adapters::OpenAi::Client)
 
       LlmGateway::Adapters::Groq::InputMapper if client.is_a?(LlmGateway::Adapters::Groq::Client)
+    end
+
+    def self.response_mapper_for_client(client)
+      return LlmGateway::Adapters::Claude::ResponsesMapper if client.is_a?(LlmGateway::Adapters::Claude::Client)
+      return LlmGateway::Adapters::OpenAi::ResponsesMapper if client.is_a?(LlmGateway::Adapters::OpenAi::Client)
+
+      LlmGateway::Adapters::Groq::ResponsesMapper if client.is_a?(LlmGateway::Adapters::Groq::Client)
     end
 
     def self.result_mapper(client)
