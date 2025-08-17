@@ -1,0 +1,77 @@
+# frozen_string_literal: true
+
+module LlmGateway
+  module Adapters
+    module Claude
+      class MessageMapper
+        def self.map_content(content)
+          # Convert string content to text format
+          content = { type: "text", text: content } unless content.is_a?(Hash)
+
+          case content[:type]
+          when "text"
+            map_text_content(content)
+          when "file"
+            map_file_content(content)
+          when "image"
+            map_image_content(content)
+          when "tool_use"
+            map_tool_use_content(content)
+          when "tool_result"
+            map_tool_result_content(content)
+          else
+            content
+          end
+        end
+
+        private
+
+        def self.map_text_content(content)
+          {
+            type: "text",
+            text: content[:text]
+          }
+        end
+
+        def self.map_file_content(content)
+          {
+            type: "document",
+            source: {
+              data: content[:data],
+              type: "text",
+              media_type: content[:media_type]
+            }
+          }
+        end
+
+        def self.map_image_content(content)
+          {
+            type: "image",
+            source: {
+              data: content[:data],
+              type: "base64",
+              media_type: content[:media_type]
+            }
+          }
+        end
+
+        def self.map_tool_use_content(content)
+          {
+            type: "tool_use",
+            id: content[:id],
+            name: content[:name],
+            input: content[:input]
+          }
+        end
+
+        def self.map_tool_result_content(content)
+          {
+            type: "tool_result",
+            tool_use_id: content[:tool_use_id],
+            content: content[:content]
+          }
+        end
+      end
+    end
+  end
+end

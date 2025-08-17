@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "message_mapper"
+
 module LlmGateway
   module Adapters
     module Claude
@@ -20,18 +22,15 @@ module LlmGateway
 
           messages.map do |msg|
             msg = msg.merge(role: "user") if msg[:role] == "developer"
-            msg.slice(:role, :content)
+
             content = if msg[:content].is_a?(Array)
                 msg[:content].map do |content|
-                  if content[:type] == "file"
-                    { type: "document", source: { data: content[:data], type: "text", media_type: content[:media_type] } }
-                  else
-                    content
-                  end
+                  MessageMapper.map_content(content)
                 end
             else
-              msg[:content]
+              [ MessageMapper.map_content(msg[:content]) ]
             end
+
             {
               role: msg[:role],
               content: content

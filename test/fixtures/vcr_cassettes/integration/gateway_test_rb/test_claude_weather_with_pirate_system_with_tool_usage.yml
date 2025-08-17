@@ -5,31 +5,35 @@ http_interactions:
     uri: https://api.anthropic.com/v1/messages
     body:
       encoding: UTF-8
-      string: '{"model":"claude-sonnet-4-20250514","max_tokens":4096,"messages":[{"role":"user","content":"What''s
-        the weather in Singapore? reply in 10 words and no special characters"}],"tools":[{"name":"get_weather","description":"Get
+      string: '{"model":"claude-sonnet-4-20250514","max_tokens":4096,"messages":[{"role":"user","content":[{"type":"text","text":"What''s
+        the weather in Singapore? reply in 10 words and no special characters"}]}],"tools":[{"name":"get_weather","description":"Get
         current weather for a location","input_schema":{"type":"object","properties":{"location":{"type":"string","description":"City
         name"}},"required":["location"]}}],"system":[{"type":"text","text":"Talk like
         a pirate"}]}'
     headers:
-      Anthropic-Version:
-      - '2023-06-01'
-      Content-Type:
-      - application/json
-      X-Api-Key:
-      - "<BEARER_TOKEN>"
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
       User-Agent:
       - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Sun, 29 Jun 2025 05:38:26 GMT
+      - Sun, 17 Aug 2025 15:03:03 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -37,31 +41,31 @@ http_interactions:
       Connection:
       - keep-alive
       Anthropic-Ratelimit-Input-Tokens-Limit:
-      - '40000'
+      - '450000'
       Anthropic-Ratelimit-Input-Tokens-Remaining:
-      - '40000'
+      - '450000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2025-06-29T05:38:25Z'
+      - '2025-08-17T15:03:02Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
-      - '16000'
+      - '90000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
-      - '16000'
+      - '90000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2025-06-29T05:38:26Z'
+      - '2025-08-17T15:03:03Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '1000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2025-06-29T05:38:24Z'
+      - '2025-08-17T15:03:02Z'
       Anthropic-Ratelimit-Tokens-Limit:
-      - '56000'
+      - '540000'
       Anthropic-Ratelimit-Tokens-Remaining:
-      - '56000'
+      - '540000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2025-06-29T05:38:25Z'
+      - '2025-08-17T15:03:02Z'
       Request-Id:
-      - req_011CQbyQZCMjaqCDZYh9ViLT
+      - req_011CSDV6gp6peLn3kXUoL4wD
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
@@ -75,42 +79,46 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 957313d5bee47506-KUL
+      - 970a0e4ca930d42f-KUL
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"msg_01PGE2bM7x8sFayFCGqVpx6c","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"tool_use","id":"toolu_017MZLeyigzW6JvLyzSj93qT","name":"get_weather","input":{"location":"Singapore"}}],"stop_reason":"tool_use","stop_sequence":null,"usage":{"input_tokens":404,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":53,"service_tier":"standard"}}'
-  recorded_at: Sun, 29 Jun 2025 05:38:26 GMT
+      string: '{"id":"msg_01NJhMG3EKTFPU4k7ZZviTHM","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"tool_use","id":"toolu_01NpNz2tAJEVkGetYddJT1qW","name":"get_weather","input":{"location":"Singapore"}}],"stop_reason":"tool_use","stop_sequence":null,"usage":{"input_tokens":404,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":53,"service_tier":"standard"}}'
+  recorded_at: Sun, 17 Aug 2025 15:03:03 GMT
 - request:
     method: post
     uri: https://api.anthropic.com/v1/messages
     body:
       encoding: UTF-8
-      string: '{"model":"claude-sonnet-4-20250514","max_tokens":4096,"messages":[{"role":"user","content":"What''s
-        the weather in Singapore? reply in 10 words and no special characters"},{"role":"assistant","content":[{"type":"tool_use","id":"toolu_017MZLeyigzW6JvLyzSj93qT","name":"get_weather","input":{"location":"Singapore"}}]},{"role":"user","content":[{"content":"-15
-        celcius","type":"tool_result","tool_use_id":"toolu_017MZLeyigzW6JvLyzSj93qT"}]}],"tools":[{"name":"get_weather","description":"Get
-        current weather for a location","input_schema":{"type":"object","properties":{"location":{"type":"string","description":"City
+      string: '{"model":"claude-sonnet-4-20250514","max_tokens":4096,"messages":[{"role":"user","content":[{"type":"text","text":"What''s
+        the weather in Singapore? reply in 10 words and no special characters"}]},{"role":"assistant","content":[{"type":"tool_use","id":"toolu_01NpNz2tAJEVkGetYddJT1qW","name":"get_weather","input":{"location":"Singapore"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_01NpNz2tAJEVkGetYddJT1qW","content":"-15
+        celcius"}]}],"tools":[{"name":"get_weather","description":"Get current weather
+        for a location","input_schema":{"type":"object","properties":{"location":{"type":"string","description":"City
         name"}},"required":["location"]}}],"system":[{"type":"text","text":"Talk like
         a pirate"}]}'
     headers:
-      Anthropic-Version:
-      - '2023-06-01'
-      Content-Type:
-      - application/json
-      X-Api-Key:
-      - "<BEARER_TOKEN>"
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
       User-Agent:
       - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Sun, 29 Jun 2025 05:38:28 GMT
+      - Sun, 17 Aug 2025 15:03:05 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -118,31 +126,31 @@ http_interactions:
       Connection:
       - keep-alive
       Anthropic-Ratelimit-Input-Tokens-Limit:
-      - '40000'
+      - '450000'
       Anthropic-Ratelimit-Input-Tokens-Remaining:
-      - '40000'
+      - '450000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2025-06-29T05:38:27Z'
+      - '2025-08-17T15:03:04Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
-      - '16000'
+      - '90000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
-      - '16000'
+      - '90000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2025-06-29T05:38:28Z'
+      - '2025-08-17T15:03:05Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '1000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2025-06-29T05:38:26Z'
+      - '2025-08-17T15:03:03Z'
       Anthropic-Ratelimit-Tokens-Limit:
-      - '56000'
+      - '540000'
       Anthropic-Ratelimit-Tokens-Remaining:
-      - '56000'
+      - '540000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2025-06-29T05:38:27Z'
+      - '2025-08-17T15:03:04Z'
       Request-Id:
-      - req_011CQbyQiibuVFiHVSWn5EvM
+      - req_011CSDV6piMdzJDo8tapMtc6
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
@@ -156,10 +164,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 957313e39d478a1d-KUL
+      - 970a0e5838c85876-KUL
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"msg_01G6t3pgSqGyM6afjRTkVdPd","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"text","text":"Ahoy
-        matey Singapore be freezing cold at minus fifteen degrees"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":475,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":17,"service_tier":"standard"}}'
-  recorded_at: Sun, 29 Jun 2025 05:38:28 GMT
+      string: '{"id":"msg_01SJa9Udt1peeTMZxmZoV9t5","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"text","text":"Arrr
+        matey Singapore be mighty cold at negative fifteen degrees"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":475,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":16,"service_tier":"standard"}}'
+  recorded_at: Sun, 17 Aug 2025 15:03:05 GMT
 recorded_with: VCR 6.3.1

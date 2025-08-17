@@ -17,7 +17,7 @@ class OpenAIMapperTest < Test
     expectation ={
       system: [ { role: "developer", content: "Talk like a pirate" } ],
       response_format: { type: "text" },
-      messages: [ { role: "user", content: "What's the weather in Singapore? reply in 10 words and no special characters" },
+      messages: [ { role: "user", content: [ { type: "text", text: "What's the weather in Singapore? reply in 10 words and no special characters" } ] },
        {
          role: "assistant",
          content: nil,
@@ -34,7 +34,6 @@ class OpenAIMapperTest < Test
       } ]
     }
     result = LlmGateway::Adapters::OpenAi::InputMapper.map(input)
-
     assert_equal expectation, result
   end
 
@@ -52,7 +51,7 @@ class OpenAIMapperTest < Test
     expectation ={
       system: [ { role: "developer", content: "Talk like a pirate" } ],
       response_format: { type: "text" },
-      messages: [ { role: "user", content: "What's the weather in Singapore? reply in 10 words and no special characters" },
+      messages: [ { role: "user", content: [ { type: "text", text: "What's the weather in Singapore? reply in 10 words and no special characters" } ] },
        {
          role: "assistant",
          content: nil,

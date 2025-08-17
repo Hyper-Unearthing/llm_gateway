@@ -77,7 +77,7 @@ class GatewayTest < Test
             content: [
               {
                 type: "tool_use",
-                id: "toolu_01CXTgvYbNLaweYSBS5cNs4v",
+                id: "toolu_013LYTnUowbQcHw7i1JYj8ek",
                 name: "get_weather",
                 input: { location: "Singapore" }
               }
@@ -86,15 +86,9 @@ class GatewayTest < Test
             role: "assistant"
           }
         ],
-        usage: {
-          input_tokens: 404,
-          cache_creation_input_tokens: 0,
-          cache_read_input_tokens: 0,
-          output_tokens: 53,
-          service_tier: "standard"
-        },
+        usage: { input_tokens: 404, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, cache_creation: { ephemeral_5m_input_tokens: 0, ephemeral_1h_input_tokens: 0 }, output_tokens: 53, service_tier: "standard" },
         model: "claude-sonnet-4-20250514",
-        id: "msg_015UdpuDaJj36F1unnWafv9E"
+        id: "msg_01AUZsdM9sPbZm6WjBy9CXNi"
       }
       assert_equal(expected, result)
     end
@@ -119,17 +113,9 @@ class GatewayTest < Test
             ]
           }
         ],
-        usage: {
-          queue_time: 0.05646005700000001,
-          prompt_tokens: 237,
-          prompt_time: 0.01188805,
-          completion_tokens: 11,
-          completion_time: 0.058864509,
-          total_tokens: 248,
-          total_time: 0.070752559
-        },
+        usage: { queue_time: 0.045523684, prompt_tokens: 237, prompt_time: 0.032411516, completion_tokens: 11, completion_time: 0.039058012, total_tokens: 248, total_time: 0.071469528 },
         model: "llama-3.3-70b-versatile",
-        id: "chatcmpl-a11a25f8-255b-44d3-b2bf-bebe3955f202"
+        id: "chatcmpl-daedc002-441d-4d79-a91d-1e61de39dfee"
       }
       assert_equal(expected, result)
     end
@@ -148,7 +134,7 @@ class GatewayTest < Test
           {
             content: [
               {
-                id: "call_O8didtii93sfiSL8gZEuCZOu",
+                id: "call_8DnGFFRKGF8xYpaT7AZqFKHc",
                 type: "tool_use",
                 name: "get_weather",
                 input: { location: "Singapore" }
@@ -156,15 +142,9 @@ class GatewayTest < Test
             ]
           }
         ],
-        usage: {
-          prompt_tokens: 71,
-          completion_tokens: 1559,
-          total_tokens: 1630,
-          prompt_tokens_details: { cached_tokens: 0, audio_tokens: 0 },
-          completion_tokens_details: { reasoning_tokens: 1536, audio_tokens: 0, accepted_prediction_tokens: 0, rejected_prediction_tokens: 0 }
-        },
-        model: "o4-mini-2025-04-16",
-        id: "chatcmpl-BmyTGK9K0teAfVyTKt2basqLFPZ6u"
+        usage: { prompt_tokens: 71, completion_tokens: 215, total_tokens: 286, prompt_tokens_details: { cached_tokens: 0, audio_tokens: 0 }, completion_tokens_details: { reasoning_tokens: 192, audio_tokens: 0, accepted_prediction_tokens: 0, rejected_prediction_tokens: 0 } },
+        id: "chatcmpl-C5Zba9y9OG70FEV8Ber4LIrtxlXdd",
+        model: "o4-mini-2025-04-16"
       }
       assert_equal(expected, result)
     end
@@ -182,23 +162,15 @@ class GatewayTest < Test
           {
             content: [
               {
-                text: "The weather in Singapore is usually hot and humid",
+                text: "The weather in Singapore is usually hot and very humid",
                 type: "text"
               }
             ]
           }
         ],
-        usage: {
-          queue_time: 0.063591652,
-          prompt_tokens: 55,
-          prompt_time: 0.002805978,
-          completion_tokens: 10,
-          completion_time: 0.036363636,
-          total_tokens: 65,
-          total_time: 0.039169614
-        },
-        model: "llama-3.3-70b-versatile",
-        id: "chatcmpl-d4f73973-6779-4008-bd46-4ee1e085ccab"
+        usage: { queue_time: 0.044468705, prompt_tokens: 55, prompt_time: 0.011753645, completion_tokens: 11, completion_time: 0.03198708, total_tokens: 66, total_time: 0.043740725 },
+        id: "chatcmpl-5de6e422-9002-437c-b118-5a378bb9e364",
+        model: "llama-3.3-70b-versatile"
       }
       assert_equal(expected, result)
     end
@@ -216,21 +188,15 @@ class GatewayTest < Test
           {
             content: [
               {
-                text: "Arr Singapore be sunny and humid with occasional afternoon showers",
+                text: "arr matey it be sunny and humid in singapore today",
                 type: "text"
               }
             ]
           }
         ],
-        usage: {
-          prompt_tokens: 29,
-          completion_tokens: 476,
-          total_tokens: 505,
-          prompt_tokens_details: { cached_tokens: 0, audio_tokens: 0 },
-          completion_tokens_details: { reasoning_tokens: 448, audio_tokens: 0, accepted_prediction_tokens: 0, rejected_prediction_tokens: 0 }
-        },
-        model: "o4-mini-2025-04-16",
-        id: "chatcmpl-BmySodNJA3sf37wwmWdM5HWxrTPbe"
+        usage: { prompt_tokens: 29, completion_tokens: 413, total_tokens: 442, prompt_tokens_details: { cached_tokens: 0, audio_tokens: 0 }, completion_tokens_details: { reasoning_tokens: 384, audio_tokens: 0, accepted_prediction_tokens: 0, rejected_prediction_tokens: 0 } },
+        id: "chatcmpl-C5Zbqa3BeMwr7OUtARXvoUfRrrngZ",
+        model: "o4-mini-2025-04-16"
       }
       assert_equal(expected, result)
     end
@@ -240,27 +206,10 @@ class GatewayTest < Test
     VCR.use_cassette(vcr_cassette_name) do
       result = call_gateway_with_tool_response("claude-sonnet-4-20250514")
       expected = {
-        choices: [
-          {
-            content: [
-              {
-                type: "text",
-                text: "Ahoy matey Singapore be freezing cold at minus fifteen degrees"
-              }
-            ],
-            finish_reason: "end_turn",
-            role: "assistant"
-          }
-        ],
-        usage: {
-          input_tokens: 475,
-          cache_creation_input_tokens: 0,
-          cache_read_input_tokens: 0,
-          output_tokens: 17,
-          service_tier: "standard"
-        },
+        choices: [ { content: [ { type: "text", text: "Arrr matey Singapore be mighty cold at negative fifteen degrees" } ], finish_reason: "end_turn", role: "assistant" } ],
+        usage: { input_tokens: 475, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, cache_creation: { ephemeral_5m_input_tokens: 0, ephemeral_1h_input_tokens: 0 }, output_tokens: 16, service_tier: "standard" },
         model: "claude-sonnet-4-20250514",
-        id: "msg_01G6t3pgSqGyM6afjRTkVdPd"
+        id: "msg_01SJa9Udt1peeTMZxmZoV9t5"
       }
       assert_equal(expected, result)
     end
@@ -289,21 +238,15 @@ class GatewayTest < Test
           {
             content: [
               {
-                text: "Arr hearties Singapore be freezin at minus fifteen degrees celsius",
+                text: "Arrr it be minus fifteen degrees in Singapore today matey!",
                 type: "text"
               }
             ]
           }
         ],
-        usage: {
-          prompt_tokens: 103,
-          completion_tokens: 415,
-          total_tokens: 518,
-          prompt_tokens_details: { cached_tokens: 0, audio_tokens: 0 },
-          completion_tokens_details: { reasoning_tokens: 384, audio_tokens: 0, accepted_prediction_tokens: 0, rejected_prediction_tokens: 0 }
-        },
-        model: "o4-mini-2025-04-16",
-        id: "chatcmpl-C1veRJRSO483Z3iJhLIbtuoF4sJcP"
+        usage: { prompt_tokens: 103, completion_tokens: 25, total_tokens: 128, prompt_tokens_details: { cached_tokens: 0, audio_tokens: 0 }, completion_tokens_details: { reasoning_tokens: 0, audio_tokens: 0, accepted_prediction_tokens: 0, rejected_prediction_tokens: 0 } },
+        id: "chatcmpl-C5Zw2oSyhLzRaNHUdtvdbMtLqooIH",
+        model: "o4-mini-2025-04-16"
       }
       assert_equal(expected, result)
     end
