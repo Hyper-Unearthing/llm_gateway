@@ -6,26 +6,28 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"model":"o4-mini","messages":[{"role":"developer","content":"Talk
-        like a pirate"},{"role":"user","content":"What''s the weather in Singapore?
-        reply in 10 words and no special characters"}],"max_completion_tokens":4096}'
+        like a pirate"},{"role":"user","content":[{"type":"text","text":"What''s the
+        weather in Singapore? reply in 10 words and no special characters"}]}],"max_completion_tokens":4096}'
     headers:
-      Content-Type:
-      - application/json
-      Authorization:
-      - Bearer <BEARER_TOKEN>
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
       User-Agent:
       - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Fri, 27 Jun 2025 08:11:10 GMT
+      - Sun, 17 Aug 2025 15:29:23 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -37,11 +39,13 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '4522'
+      - '4457'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
       - '2020-10-01'
       X-Envoy-Upstream-Service-Time:
-      - '4527'
+      - '4938'
       X-Ratelimit-Limit-Requests:
       - '500'
       X-Ratelimit-Limit-Tokens:
@@ -49,45 +53,45 @@ http_interactions:
       X-Ratelimit-Remaining-Requests:
       - '499'
       X-Ratelimit-Remaining-Tokens:
-      - '199972'
+      - '199973'
       X-Ratelimit-Reset-Requests:
       - 120ms
       X-Ratelimit-Reset-Tokens:
       - 8ms
       X-Request-Id:
-      - req_86e9fcca06869c6b8b0559b1728f92aa
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
+      - req_812d890fab8a4253805b21577fd37237
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=gfFSD5Y5uz86oapRADycpzsCVzqAsnwg.j4PcYtpFbA-1751011870-1.0.1.1-OwASANrmvkA2OoWpczMiY8A6CXiGb33z9tdhp58FUpR_4.dPJaVLwtrhWcxRIS.FsebEl0e0mMj800LblyQJe0_qH1zfEXEbvubu2Uri_Vw;
-        path=/; expires=Fri, 27-Jun-25 08:41:10 GMT; domain=.api.openai.com; HttpOnly;
+      - __cf_bm=bmzD7.u02.nAky5dyoJPqSMOCeh_uEOdKTL74hh.GHQ-1755444563-1.0.1.1-9kSgnoyWE2fVs2Xtq7ZHJtE0YnNuKJ5CHHed36sNa7EvaTNz_5jkDSEQYf6FWP6AVWZBbZbikgH05XlrR3hxrsW7NLUVakYQOZBjqKpktD8;
+        path=/; expires=Sun, 17-Aug-25 15:59:23 GMT; domain=.api.openai.com; HttpOnly;
         Secure; SameSite=None
-      - _cfuvid=Ox4ZdSu4ws0JW54vph.CiWwwCY0VvhGCtADqLkfWl4E-1751011870779-0.0.1.1-604800000;
+      - _cfuvid=yW2pf9TFgP1z.dae66AzEHO9XfwaA1tyTixik1wxk4s-1755444563349-0.0.1.1-604800000;
         path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
       Server:
       - cloudflare
       Cf-Ray:
-      - 956378bf6d8c71f1-KUL
+      - 970a34c77f59fd9e-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |
         {
-          "id": "chatcmpl-BmySodNJA3sf37wwmWdM5HWxrTPbe",
+          "id": "chatcmpl-C5Zbqa3BeMwr7OUtARXvoUfRrrngZ",
           "object": "chat.completion",
-          "created": 1751011866,
+          "created": 1755444558,
           "model": "o4-mini-2025-04-16",
           "choices": [
             {
               "index": 0,
               "message": {
                 "role": "assistant",
-                "content": "Arr Singapore be sunny and humid with occasional afternoon showers",
+                "content": "arr matey it be sunny and humid in singapore today",
                 "refusal": null,
                 "annotations": []
               },
@@ -96,14 +100,14 @@ http_interactions:
           ],
           "usage": {
             "prompt_tokens": 29,
-            "completion_tokens": 476,
-            "total_tokens": 505,
+            "completion_tokens": 413,
+            "total_tokens": 442,
             "prompt_tokens_details": {
               "cached_tokens": 0,
               "audio_tokens": 0
             },
             "completion_tokens_details": {
-              "reasoning_tokens": 448,
+              "reasoning_tokens": 384,
               "audio_tokens": 0,
               "accepted_prediction_tokens": 0,
               "rejected_prediction_tokens": 0
@@ -112,5 +116,5 @@ http_interactions:
           "service_tier": "default",
           "system_fingerprint": null
         }
-  recorded_at: Fri, 27 Jun 2025 08:11:10 GMT
+  recorded_at: Sun, 17 Aug 2025 15:29:23 GMT
 recorded_with: VCR 6.3.1

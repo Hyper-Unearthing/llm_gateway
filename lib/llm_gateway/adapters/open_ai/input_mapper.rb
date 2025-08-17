@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 require "base64"
+require_relative "message_mapper"
 
 module LlmGateway
   module Adapters
     module OpenAi
-      class InputMapper < LlmGateway::Adapters::Groq::InputMapper
+      class InputMapper
         def self.map(data)
           {
             messages: map_messages(data[:messages]),
@@ -17,35 +18,77 @@ module LlmGateway
 
         private
 
+        def self.map_response_format(response_format)
+          response_format
+        end
+
         def self.map_messages(messages)
           return messages unless messages
 
-          # First, handle file transformations
-          messages_with_files = messages.map do |msg|
-            if msg[:content].is_a?(Array)
-              content = msg[:content].map do |content|
-                if content[:type] == "file"
-                  # Map text/plain to application/pdf for OpenAI
-                  media_type = content[:media_type] == "text/plain" ? "application/pdf" : content[:media_type]
-                  {
-                    type: "file",
-                    file: {
-                      filename: content[:name],
-                      file_data: "data:#{media_type};base64,#{Base64.encode64(content[:data])}"
-                    }
-                  }
-                else
-                  content
-                end
-              end
-              msg.merge(content: content)
-            else
-              msg
-            end
-          end
+          # First map messages like Claude
+          mapped_messages = messages.map do |msg|
+            msg = msg.merge(role: "user") if msg[:role] == "developer"
 
-          # Then apply parent's tool transformation logic
-          super(messages_with_files)
+            content = if msg[:content].is_a?(Array)
+                msg[:content].map do |content|
+                  MessageMapper.map_content(content)
+                end
+            else
+              [ MessageMapper.map_content(msg[:content]) ]
+            end
+
+            {
+              role: msg[:role],
+              content: content
+            }
+          end
+          # Then transform to OpenAI format
+          mapped_messages.flat_map do |msg|
+            # Handle array content with tool calls and tool results
+            tool_calls = []
+            regular_content = []
+            tool_messages = []
+            msg[:content].each do |content|
+              case content[:type] || content[:role]
+              when "tool"
+                tool_messages << content
+              when "function"
+                tool_calls << content
+              else
+                regular_content << content
+              end
+            end
+            result = []
+
+            # Add the main message with tool calls if any
+            if tool_calls.any? || regular_content.any?
+              main_msg = msg.dup
+              main_msg[:role] = "assistant" if !main_msg[:role]
+              main_msg[:tool_calls] = tool_calls if tool_calls.any?
+              main_msg[:content] = regular_content.any? ? regular_content : nil
+              result << main_msg
+            end
+
+            # Add separate tool result messages
+            result += tool_messages
+
+            result
+          end
+        end
+
+        def self.map_tools(tools)
+          return tools unless tools
+
+          tools.map do |tool|
+            {
+              type: "function",
+              function: {
+                name: tool[:name],
+                description: tool[:description],
+                parameters: tool[:input_schema]
+              }
+            }
+          end
         end
 
         def self.map_system(system)

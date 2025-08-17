@@ -6,28 +6,30 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"model":"llama-3.3-70b-versatile","messages":[{"role":"system","content":"Talk
-        like a pirate"},{"role":"user","content":"What''s the weather in Singapore?
-        reply in 10 words and no special characters"}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":[{"type":"function","function":{"name":"get_weather","description":"Get
+        like a pirate"},{"role":"user","content":[{"type":"text","text":"What''s the
+        weather in Singapore? reply in 10 words and no special characters"}]}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":[{"type":"function","function":{"name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
         name"}},"required":["location"]}}}]}'
     headers:
-      Content-Type:
-      - application/json
-      Authorization:
-      - Bearer <BEARER_TOKEN>
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
       User-Agent:
       - Ruby
+      Host:
+      - api.groq.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Fri, 27 Jun 2025 08:10:29 GMT
+      - Sun, 17 Aug 2025 15:29:42 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -47,32 +49,32 @@ http_interactions:
       X-Ratelimit-Remaining-Requests:
       - '499999'
       X-Ratelimit-Remaining-Tokens:
-      - '499967'
+      - '499966'
       X-Ratelimit-Reset-Requests:
       - 172.799999ms
       X-Ratelimit-Reset-Tokens:
-      - 3.96ms
+      - 4.079999ms
       X-Request-Id:
-      - req_01jyr7095heq3vndantssq8kk7
+      - req_01k2wad605fp3a9rypar16w7dc
       Via:
       - 1.1 google
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=GDiAJuB9WhIRdTNsohWt83jkHqbneHyqBSsVPtWtzWU-1751011829-1.0.1.1-MJ4P1WYT1Lgn28KoRdDgQsqoAYtbucMzEy0_WYTvCF8CNoEz6EJFlJZvDPKBso3kNxXwLO5Luat7trxVqJJJ8j_52jkKOamL9B3sNw8ul9w;
-        path=/; expires=Fri, 27-Jun-25 08:40:29 GMT; domain=.groq.com; HttpOnly; Secure;
+      - __cf_bm=dnzrJAAFMOgR7G590nbUoqSVtoO0IE_J9bSBl.bef80-1755444582-1.0.1.1-1zCzSaX33XN1xeqIRB2VTC076OlfWa5MG8Jm5K.1uWhIcaPR6WZHRpz4ue_Iim_ULaWhBiz9Ilck3tpFyRogTgjBQzkf_qlWwI46Ytpq3sk;
+        path=/; expires=Sun, 17-Aug-25 15:59:42 GMT; domain=.groq.com; HttpOnly; Secure;
         SameSite=None
       Server:
       - cloudflare
       Cf-Ray:
-      - 956377da3c893523-KUL
+      - 970a355ebd80e551-KUL
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"chatcmpl-3e519c7b-4d0c-456a-b752-e572d9174545","object":"chat.completion","created":1751011828,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"Get
-        the weather in Singapore right now please matey"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.05380553600000001,"prompt_tokens":237,"prompt_time":0.011981054,"completion_tokens":11,"completion_time":0.057935788,"total_tokens":248,"total_time":0.069916842},"usage_breakdown":null,"system_fingerprint":"fp_6507bcfb6f","x_groq":{"id":"req_01jyr7095heq3vndantssq8kk7"}}
+      string: '{"id":"chatcmpl-e6e6ac53-4323-4abd-9c39-034dd735f22b","object":"chat.completion","created":1755444582,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"Get
+        the weather in Singapore right now please matey"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.04544882,"prompt_tokens":237,"prompt_time":0.03514832,"completion_tokens":11,"completion_time":0.039394612,"total_tokens":248,"total_time":0.074542932},"usage_breakdown":null,"system_fingerprint":"fp_3f3b593e33","x_groq":{"id":"req_01k2wad605fp3a9rypar16w7dc"},"service_tier":"on_demand"}
 
         '
-  recorded_at: Fri, 27 Jun 2025 08:10:29 GMT
+  recorded_at: Sun, 17 Aug 2025 15:29:42 GMT
 recorded_with: VCR 6.3.1

@@ -6,26 +6,28 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"model":"llama-3.3-70b-versatile","messages":[{"role":"system","content":"Talk
-        like a pirate"},{"role":"user","content":"What''s the weather in Singapore?
-        reply in 10 words and no special characters"}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":null}'
+        like a pirate"},{"role":"user","content":[{"type":"text","text":"What''s the
+        weather in Singapore? reply in 10 words and no special characters"}]}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":null}'
     headers:
-      Content-Type:
-      - application/json
-      Authorization:
-      - Bearer <BEARER_TOKEN>
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
       User-Agent:
       - Ruby
+      Host:
+      - api.groq.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Fri, 27 Jun 2025 08:11:49 GMT
+      - Sun, 17 Aug 2025 15:29:02 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -45,32 +47,32 @@ http_interactions:
       X-Ratelimit-Remaining-Requests:
       - '499999'
       X-Ratelimit-Remaining-Tokens:
-      - '499967'
+      - '499966'
       X-Ratelimit-Reset-Requests:
       - 172.799999ms
       X-Ratelimit-Reset-Tokens:
-      - 3.96ms
+      - 4.079999ms
       X-Request-Id:
-      - req_01jyr72qybegn93xfbj4544k9r
+      - req_01k2wabytnfnwvr021we910pec
       Via:
       - 1.1 google
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=1dgFJQ.D_EC97TYgxaAxrWuYe7fUWlCNhrvn5ff4klQ-1751011909-1.0.1.1-ebn.Pn7o7_LZVmUPJvRJahkA7mFCCZ6hj5aPTF7.LGuCJINLc2RnWoOw54Z3V3.W9nM26aokhBFDuT.D5rwUe.0gnuAmh9mXdaVpRjih3HM;
-        path=/; expires=Fri, 27-Jun-25 08:41:49 GMT; domain=.groq.com; HttpOnly; Secure;
+      - __cf_bm=R7UlQpSXHvuvbBMsSZolPRJ77zirTpcDJrdsJ6Ot9h0-1755444542-1.0.1.1-_9iZJfAJma_qfZjNtpbEcsBf6S.GahokD__T2NMHgFUoWP0Yl1tt9Aw51Pi.ys3aBMbU1ksUmHAt5lSE6yRl_LV2LwDFLu7AkgwQQYp9.lk;
+        path=/; expires=Sun, 17-Aug-25 15:59:02 GMT; domain=.groq.com; HttpOnly; Secure;
         SameSite=None
       Server:
       - cloudflare
       Cf-Ray:
-      - 956379d26c423899-KUL
+      - 970a3464fbe1e543-KUL
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"chatcmpl-d4f73973-6779-4008-bd46-4ee1e085ccab","object":"chat.completion","created":1751011909,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"The
-        weather in Singapore is usually hot and humid"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.063591652,"prompt_tokens":55,"prompt_time":0.002805978,"completion_tokens":10,"completion_time":0.036363636,"total_tokens":65,"total_time":0.039169614},"usage_breakdown":null,"system_fingerprint":"fp_6507bcfb6f","x_groq":{"id":"req_01jyr72qybegn93xfbj4544k9r"}}
+      string: '{"id":"chatcmpl-5de6e422-9002-437c-b118-5a378bb9e364","object":"chat.completion","created":1755444542,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"The
+        weather in Singapore is usually hot and very humid"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.044468705,"prompt_tokens":55,"prompt_time":0.011753645,"completion_tokens":11,"completion_time":0.03198708,"total_tokens":66,"total_time":0.043740725},"usage_breakdown":null,"system_fingerprint":"fp_2ddfbb0da0","x_groq":{"id":"req_01k2wabytnfnwvr021we910pec"},"service_tier":"on_demand"}
 
         '
-  recorded_at: Fri, 27 Jun 2025 08:11:49 GMT
+  recorded_at: Sun, 17 Aug 2025 15:29:02 GMT
 recorded_with: VCR 6.3.1
