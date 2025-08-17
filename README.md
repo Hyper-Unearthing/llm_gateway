@@ -1,8 +1,65 @@
 # LlmGateway
 
-Provide nuts and bolts for LLM APIs. The goal is to provide a unified interface for multiple LLM provider API's; And Enable developers to have as much control as they want.
+Provide a unified translation interface for LLM Provider API's, While allowing developers to have as much control as possible, This does make it more complicated because we dont want developers to be blocked at using something that the provider supports. As time progress the library will mature and support more responses
 
-You can use the clients directly, Or you can use the gateway to have interop between clients.
+
+## Principles:
+1. Transcription integrity is most important
+2. Input messages must have bidirectional integrity
+3. Allow developers as much control as possible
+
+## Assumptions
+things that do not support unidirectional format, probably cant be sent between providers
+
+## Mechanics
+Messages either support unidirectional or bidirectional format. (unidirectional means we can format it as an output but should not be added as an input).
+
+The result from the llm is in the format that can be sent to the provider, but if you want to consolidate complex messages like code_execution, you must run a mapper we provide manually, but dont send that format back to the provider.
+
+### bidirectional Support
+Messages
+- Text
+- Tool Use
+- Tool Response
+
+Tools
+- Server Tools
+- Tools
+
+### Unidirectional Support
+- Server Tool Use Reponse
+
+### Example flow
+
+
+```mermaid
+sequenceDiagram
+        actor developer
+        participant llm_gateway
+        participant llm_provider
+
+        developer ->> llm_gateway: Send Text Message
+        llm_gateway ->> llm_gateway: transform to provider format
+        llm_gateway ->> llm_provider: Transformed Text Message
+        llm_provider ->> llm_gateway: Response <br />(transcript in provider format)
+        llm_gateway ->> developer:  Response <br />(transcript in combination <br />of gatway and provider formats)
+        Note over llm_gateway,developer: llm_gateway will transform <br /> messages that support bi-direction
+        developer ->> developer: save the transcript
+        loop ProcessMessage
+            developer ->> llm_gateway: format message
+            llm_gateway ->> developer: return transformed message
+            Note over llm_gateway,developer: if the message: <br /> supports bidirection format returns as is <br /> otherwise will transform <br />into consolidated format
+            developer ->> developer: append earlier saved transcript
+            Note over developer, developer: for example tool use
+        end
+        developer -> llm_gateway: Transcript
+        llm_gateway ->> llm_gateway: transform to provider format
+        Note over llm_gateway,llm_gateway: non bidirectional messages are sent as is
+        llm_gateway ->> llm_provider: etc etc etc
+
+
+
+```
 
 ## Supported Providers
 Anthropic, OpenAi, Groq
