@@ -3,8 +3,14 @@
 module LlmGateway
   module Adapters
     module Claude
-      class MessageMapper
-        def self.map_content(content)
+      class BidirectionalMessageMapper
+        attr_reader :direction
+
+        def initialize(direction)
+          @direction = direction
+        end
+
+        def map_content(content)
           # Convert string content to text format
           content = { type: "text", text: content } unless content.is_a?(Hash)
 
@@ -26,14 +32,14 @@ module LlmGateway
 
         private
 
-        def self.map_text_content(content)
+        def map_text_content(content)
           {
             type: "text",
             text: content[:text]
           }
         end
 
-        def self.map_file_content(content)
+        def map_file_content(content)
           {
             type: "document",
             source: {
@@ -44,7 +50,7 @@ module LlmGateway
           }
         end
 
-        def self.map_image_content(content)
+        def map_image_content(content)
           {
             type: "image",
             source: {
@@ -55,7 +61,7 @@ module LlmGateway
           }
         end
 
-        def self.map_tool_use_content(content)
+        def map_tool_use_content(content)
           {
             type: "tool_use",
             id: content[:id],
@@ -64,7 +70,7 @@ module LlmGateway
           }
         end
 
-        def self.map_tool_result_content(content)
+        def map_tool_result_content(content)
           {
             type: "tool_result",
             tool_use_id: content[:tool_use_id],

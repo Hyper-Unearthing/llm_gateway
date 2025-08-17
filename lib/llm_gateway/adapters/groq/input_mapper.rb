@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "message_mapper"
+require_relative "bidirectional_message_mapper"
 require_relative "../open_ai/input_mapper"
 
 module LlmGateway

@@ -34,11 +34,12 @@ module LlmGateway
 
         def self.map_choices(choices)
           return [] unless choices
+          message_mapper = BidirectionalMessageMapper.new(LlmGateway::DIRECTION_OUT)
 
           choices.map do |choice|
             message = choice[:message] || {}
-            content_item = map_content_item(message)
-            tool_calls = map_tool_calls(message[:tool_calls])
+            content_item = message_mapper.map_content(message[:content])
+            tool_calls = message[:tool_calls] ? message[:tool_calls].map { |tool_call| message_mapper.map_content(tool_call) } : []
 
             # Only include content_item if it has actual text content
             content_array = []
@@ -47,31 +48,6 @@ module LlmGateway
 
             { content: content_array }
           end
-        end
-
-        def self.map_content_item(message)
-          {
-            text: message[:content],
-            type: "text"
-          }
-        end
-
-        def self.map_tool_calls(tool_calls)
-          return [] unless tool_calls
-
-          tool_calls.map do |tool_call|
-            {
-              id: tool_call[:id],
-              type: "tool_use",
-              name: tool_call.dig(:function, :name),
-              input: parse_tool_arguments(tool_call.dig(:function, :arguments))
-            }
-          end
-        end
-
-        def self.parse_tool_arguments(arguments)
-          return arguments unless arguments.is_a?(String)
-          JSON.parse(arguments, symbolize_names: true)
         end
       end
     end
