@@ -3,7 +3,7 @@
 module LlmGateway
   module Adapters
     module Groq
-      class OutputMapper < LlmGateway::Adapters::OpenAi::OutputMapper
+      class OutputMapper < LlmGateway::Adapters::OpenAi::ChatCompletions::OutputMapper
       end
     end
   end

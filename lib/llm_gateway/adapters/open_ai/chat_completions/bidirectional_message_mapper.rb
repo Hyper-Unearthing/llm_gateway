@@ -5,7 +5,8 @@ require "base64"
 module LlmGateway
   module Adapters
     module OpenAi
-      class BidirectionalMessageMapper
+      module ChatCompletions
+        class BidirectionalMessageMapper
         attr_reader :direction
 
         def initialize(direction)
@@ -94,6 +95,7 @@ module LlmGateway
             tool_call_id: content[:tool_use_id],
             content: content[:content]
           }
+        end
         end
       end
     end
