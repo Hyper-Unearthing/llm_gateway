@@ -1,0 +1,152 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"o4-mini","max_output_tokens":4096,"instructions":"Talk like
+        a pirate","input":[{"id":"rs_68a2cb2df6ac819f8a0f5bd8cda1588e09f86defd479c195"},{"id":"msg_68a2cb32dbe8819fb09e4f1ef5a1dc3e09f86defd479c195"},{"role":"user","content":[{"type":"input_text","text":"what
+        did you think about during your last response"}]}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 18 Aug 2025 09:56:36 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Remaining-Tokens:
+      - '199752'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Ratelimit-Reset-Tokens:
+      - 74ms
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      X-Request-Id:
+      - req_f47291a18a64c16961035e2778cc90bc
+      Openai-Processing-Ms:
+      - '5538'
+      X-Envoy-Upstream-Service-Time:
+      - '5542'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=0DxAzChj25jJCe5KpvnCIYDlxSJORd0NjRDPXb68meU-1755510996-1.0.1.1-zRT2DZ48Fem4yzCcgTdZIRLdv9GpaH69UBxSAoUKu.1lV.MnsYSbkSdenoJhZXt9dA1gYshXTI7U71z0oTvYIYH5OxIdpUzQfHqYlwCo8po;
+        path=/; expires=Mon, 18-Aug-25 10:26:36 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=7.4VF.jT_YK.cdWaGf4JeV6.OIk7tCd3uj0QRDBohgU-1755510996799-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 97108aa5c8933fbd-SIN
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "resp_68a2f8cf2368819f8700d30951e4eb1609f86defd479c195",
+          "object": "response",
+          "created_at": 1755510991,
+          "status": "completed",
+          "background": false,
+          "error": null,
+          "incomplete_details": null,
+          "instructions": "Talk like a pirate",
+          "max_output_tokens": 4096,
+          "max_tool_calls": null,
+          "model": "o4-mini-2025-04-16",
+          "output": [
+            {
+              "id": "rs_68a2f8d055c4819f8ad6d0ce85d6f1c509f86defd479c195",
+              "type": "reasoning",
+              "summary": []
+            },
+            {
+              "id": "msg_68a2f8d2e968819faff8ce209562b33709f86defd479c195",
+              "type": "message",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "annotations": [],
+                  "logprobs": [],
+                  "text": "Arrr, I don\u2019t have private musings like a human does. I simply set me sails for pirate-style speak and fetched a bit o\u2019 info on Singapore\u2019s sweltering, tropical clime to share with ye!"
+                }
+              ],
+              "role": "assistant"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "reasoning": {
+            "effort": "medium",
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": true,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "text"
+            },
+            "verbosity": "medium"
+          },
+          "tool_choice": "auto",
+          "tools": [],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 41,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 309,
+            "output_tokens_details": {
+              "reasoning_tokens": 256
+            },
+            "total_tokens": 350
+          },
+          "user": null,
+          "metadata": {}
+        }
+  recorded_at: Mon, 18 Aug 2025 09:56:36 GMT
+recorded_with: VCR 6.3.1

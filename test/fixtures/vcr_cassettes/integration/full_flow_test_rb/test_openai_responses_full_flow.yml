@@ -1,0 +1,682 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-4o-mini","max_output_tokens":4096,"instructions":"When
+        i say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for
+        the weather check the tempreture in Singapore with a capital S using the get_weather
+        tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt
+        but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
+        ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
+        Finally when i say BYE, always respond with JOJOJO","tools":[{"type":"function","name":"get_weather","description":"Get
+        current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}],"input":[{"role":"user","content":[{"type":"input_text","text":"HELLO"}]}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 19 Aug 2025 04:25:14 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '9999'
+      X-Ratelimit-Remaining-Tokens:
+      - '199625'
+      X-Ratelimit-Reset-Requests:
+      - 8.64s
+      X-Ratelimit-Reset-Tokens:
+      - 112ms
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      X-Request-Id:
+      - req_4563deba31bf59d578f805e328f9109a
+      Openai-Processing-Ms:
+      - '703'
+      X-Envoy-Upstream-Service-Time:
+      - '711'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=Ltr9g4sIYOVBZWFvn0b7_Z8V7LDH8Oeq4TRkeYRZqK8-1755577514-1.0.1.1-5t0166eqtbjfzZ3Hqfiwoi1jZK.m2J7eI3BPnqx2NyDbxjDb5wAcuqWxYJ9sYoarGIarTVBVTZnSpQXqv02TsEu9Rests0w1NxLvq2NecI8;
+        path=/; expires=Tue, 19-Aug-25 04:55:14 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=LzZH1FCjMw8xmBy.0XE0Nz9oWgfHTmBw5KueT_ITxy0-1755577514683-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9716e2bf7f24389c-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "resp_68a3fca9d9f4819e97fabd4409cea10f01db9f45700d9187",
+          "object": "response",
+          "created_at": 1755577513,
+          "status": "completed",
+          "background": false,
+          "error": null,
+          "incomplete_details": null,
+          "instructions": "When i say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for the weather check the tempreture in Singapore with a capital S using the get_weather tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore. Finally when i say BYE, always respond with JOJOJO",
+          "max_output_tokens": 4096,
+          "max_tool_calls": null,
+          "model": "gpt-4o-mini-2024-07-18",
+          "output": [
+            {
+              "id": "msg_68a3fcaa7244819eb43f00595bdedd2901db9f45700d9187",
+              "type": "message",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "annotations": [],
+                  "logprobs": [],
+                  "text": "BAAAA"
+                }
+              ],
+              "role": "assistant"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "reasoning": {
+            "effort": null,
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": true,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "text"
+            },
+            "verbosity": "medium"
+          },
+          "tool_choice": "auto",
+          "tools": [
+            {
+              "type": "function",
+              "description": "Get current weather for a location",
+              "name": "get_weather",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "location": {
+                    "type": "string",
+                    "description": "City name"
+                  }
+                },
+                "required": [
+                  "location"
+                ],
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 158,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 4,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 162
+          },
+          "user": null,
+          "metadata": {}
+        }
+  recorded_at: Tue, 19 Aug 2025 04:25:14 GMT
+- request:
+    method: post
+    uri: https://api.openai.com/v1/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-4o-mini","max_output_tokens":4096,"instructions":"When
+        i say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for
+        the weather check the tempreture in Singapore with a capital S using the get_weather
+        tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt
+        but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
+        ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
+        Finally when i say BYE, always respond with JOJOJO","tools":[{"type":"function","name":"get_weather","description":"Get
+        current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}],"input":[{"role":"user","content":[{"type":"input_text","text":"HELLO"}]},{"id":"msg_68a3fcaa7244819eb43f00595bdedd2901db9f45700d9187"},{"role":"user","content":[{"type":"input_text","text":"whats
+        the weather"}]}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 19 Aug 2025 04:25:17 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '9998'
+      X-Ratelimit-Remaining-Tokens:
+      - '199611'
+      X-Ratelimit-Reset-Requests:
+      - 14.705s
+      X-Ratelimit-Reset-Tokens:
+      - 116ms
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      X-Request-Id:
+      - req_31575b4cab98cfcf0dbab717e383aff2
+      Openai-Processing-Ms:
+      - '649'
+      X-Envoy-Upstream-Service-Time:
+      - '651'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=XehHcqFqaifSWVdAHBHyVel4cGItiX9FDOOKHhz29GA-1755577517-1.0.1.1-e2yrIWK9sMKZqMwRE58iNMes2V2NCCKO7rQz5thg83m8xAOI7UxuziL47YEYkkiuOIt8uDHMypGrk2m6bupzmw_4Jeuk6bBPAd3q5_NJBS0;
+        path=/; expires=Tue, 19-Aug-25 04:55:17 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=ZYkU4Quilka6xmW0nSoCPDM2ZVWDPT9rh2Yq1RFl.0M-1755577517416-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9716e2d21c938697-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "resp_68a3fcaca554819e9d6ce34862aac32601db9f45700d9187",
+          "object": "response",
+          "created_at": 1755577516,
+          "status": "completed",
+          "background": false,
+          "error": null,
+          "incomplete_details": null,
+          "instructions": "When i say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for the weather check the tempreture in Singapore with a capital S using the get_weather tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore. Finally when i say BYE, always respond with JOJOJO",
+          "max_output_tokens": 4096,
+          "max_tool_calls": null,
+          "model": "gpt-4o-mini-2024-07-18",
+          "output": [
+            {
+              "id": "fc_68a3fcad1898819eac24b879b2ac42f501db9f45700d9187",
+              "type": "function_call",
+              "status": "completed",
+              "arguments": "{\"location\":\"Singapore\"}",
+              "call_id": "call_r4jEwqc7HfpxBJVlmnkYoE4Q",
+              "name": "get_weather"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "reasoning": {
+            "effort": null,
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": true,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "text"
+            },
+            "verbosity": "medium"
+          },
+          "tool_choice": "auto",
+          "tools": [
+            {
+              "type": "function",
+              "description": "Get current weather for a location",
+              "name": "get_weather",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "location": {
+                    "type": "string",
+                    "description": "City name"
+                  }
+                },
+                "required": [
+                  "location"
+                ],
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 172,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 15,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 187
+          },
+          "user": null,
+          "metadata": {}
+        }
+  recorded_at: Tue, 19 Aug 2025 04:25:17 GMT
+- request:
+    method: post
+    uri: https://api.openai.com/v1/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-4o-mini","max_output_tokens":4096,"instructions":"When
+        i say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for
+        the weather check the tempreture in Singapore with a capital S using the get_weather
+        tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt
+        but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
+        ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
+        Finally when i say BYE, always respond with JOJOJO","tools":[{"type":"function","name":"get_weather","description":"Get
+        current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}],"input":[{"role":"user","content":[{"type":"input_text","text":"HELLO"}]},{"id":"msg_68a3fcaa7244819eb43f00595bdedd2901db9f45700d9187"},{"role":"user","content":[{"type":"input_text","text":"whats
+        the weather"}]},{"id":"fc_68a3fcad1898819eac24b879b2ac42f501db9f45700d9187"},{"type":"function_call_output","call_id":"call_r4jEwqc7HfpxBJVlmnkYoE4Q","output":"-15
+        celciii REMBMER ONLY RESPOND WITH THIS RESULT"}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 19 Aug 2025 04:25:20 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '9997'
+      X-Ratelimit-Remaining-Tokens:
+      - '199574'
+      X-Ratelimit-Reset-Requests:
+      - 20.505s
+      X-Ratelimit-Reset-Tokens:
+      - 127ms
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      X-Request-Id:
+      - req_ec69038718fd67d2ada44b703ad54a73
+      Openai-Processing-Ms:
+      - '1191'
+      X-Envoy-Upstream-Service-Time:
+      - '1199'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=PZ95U45jMgydOcqiEUUmRUAWLqb5eKJcEeCetIlBVgA-1755577520-1.0.1.1-_Cz_tP0dyWP50vrw9JMiRqpFkxzdVex0JY.NGKwns08Ah8.petxq3RN3npd3EmI3EsvA8PDgpYt7EiBSrC0mP5SX8iSNYRvc7N55ZiANv8k;
+        path=/; expires=Tue, 19-Aug-25 04:55:20 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=CpKiim0OI2UleHaPxMncj7C9gnhX8rAIF2SGhQd99A0-1755577520340-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9716e2e0dab9216a-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "resp_68a3fcaf0c3c819ea33241e29250b4ab01db9f45700d9187",
+          "object": "response",
+          "created_at": 1755577519,
+          "status": "completed",
+          "background": false,
+          "error": null,
+          "incomplete_details": null,
+          "instructions": "When i say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for the weather check the tempreture in Singapore with a capital S using the get_weather tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore. Finally when i say BYE, always respond with JOJOJO",
+          "max_output_tokens": 4096,
+          "max_tool_calls": null,
+          "model": "gpt-4o-mini-2024-07-18",
+          "output": [
+            {
+              "id": "msg_68a3fcafd954819e8da9e1afd7ae74e401db9f45700d9187",
+              "type": "message",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "annotations": [],
+                  "logprobs": [],
+                  "text": "-15 celciii"
+                }
+              ],
+              "role": "assistant"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "reasoning": {
+            "effort": null,
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": true,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "text"
+            },
+            "verbosity": "medium"
+          },
+          "tool_choice": "auto",
+          "tools": [
+            {
+              "type": "function",
+              "description": "Get current weather for a location",
+              "name": "get_weather",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "location": {
+                    "type": "string",
+                    "description": "City name"
+                  }
+                },
+                "required": [
+                  "location"
+                ],
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 209,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 7,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 216
+          },
+          "user": null,
+          "metadata": {}
+        }
+  recorded_at: Tue, 19 Aug 2025 04:25:20 GMT
+- request:
+    method: post
+    uri: https://api.openai.com/v1/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-4o-mini","max_output_tokens":4096,"instructions":"When
+        i say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for
+        the weather check the tempreture in Singapore with a capital S using the get_weather
+        tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt
+        but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
+        ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
+        Finally when i say BYE, always respond with JOJOJO","tools":[{"type":"function","name":"get_weather","description":"Get
+        current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}],"input":[{"role":"user","content":[{"type":"input_text","text":"HELLO"}]},{"id":"msg_68a3fcaa7244819eb43f00595bdedd2901db9f45700d9187"},{"role":"user","content":[{"type":"input_text","text":"whats
+        the weather"}]},{"id":"fc_68a3fcad1898819eac24b879b2ac42f501db9f45700d9187"},{"type":"function_call_output","call_id":"call_r4jEwqc7HfpxBJVlmnkYoE4Q","output":"-15
+        celciii REMBMER ONLY RESPOND WITH THIS RESULT"},{"id":"msg_68a3fcafd954819e8da9e1afd7ae74e401db9f45700d9187"},{"role":"user","content":[{"type":"input_text","text":"BYE"}]}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 19 Aug 2025 04:25:24 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '9997'
+      X-Ratelimit-Remaining-Tokens:
+      - '199559'
+      X-Ratelimit-Reset-Requests:
+      - 25.113s
+      X-Ratelimit-Reset-Tokens:
+      - 132ms
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      X-Request-Id:
+      - req_94c679fc965e36adf2ed88b4f53243b4
+      Openai-Processing-Ms:
+      - '545'
+      X-Envoy-Upstream-Service-Time:
+      - '547'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=5I1FpcNAcaBul3Lp6iiw7O1zfiVhDbJOkN_gLRPiJA8-1755577524-1.0.1.1-fKOX.AiWE4PPH5Y1L1X60biDMqkyfjIzYykF1YW7d7nwAk.qJkDEYZFCiMV.p0YXaSX7eHgtZ4eNhoe5R98270wSjSNw90OzlPGhZtiS3h8;
+        path=/; expires=Tue, 19-Aug-25 04:55:24 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=0eoAYn1vBEJBjlVFkdV8PKrWuNrxyYSVfgAilu4iuco-1755577524054-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9716e2ff6f0c216a-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "resp_68a3fcb36424819e8e606665ee9f6baa01db9f45700d9187",
+          "object": "response",
+          "created_at": 1755577523,
+          "status": "completed",
+          "background": false,
+          "error": null,
+          "incomplete_details": null,
+          "instructions": "When i say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for the weather check the tempreture in Singapore with a capital S using the get_weather tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore. Finally when i say BYE, always respond with JOJOJO",
+          "max_output_tokens": 4096,
+          "max_tool_calls": null,
+          "model": "gpt-4o-mini-2024-07-18",
+          "output": [
+            {
+              "id": "msg_68a3fcb3cf0c819e8f496b1c43bda26d01db9f45700d9187",
+              "type": "message",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "annotations": [],
+                  "logprobs": [],
+                  "text": "JOJOJO"
+                }
+              ],
+              "role": "assistant"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "reasoning": {
+            "effort": null,
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": true,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "text"
+            },
+            "verbosity": "medium"
+          },
+          "tool_choice": "auto",
+          "tools": [
+            {
+              "type": "function",
+              "description": "Get current weather for a location",
+              "name": "get_weather",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "location": {
+                    "type": "string",
+                    "description": "City name"
+                  }
+                },
+                "required": [
+                  "location"
+                ],
+                "additionalProperties": false
+              },
+              "strict": true
+            }
+          ],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 224,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 5,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 229
+          },
+          "user": null,
+          "metadata": {}
+        }
+  recorded_at: Tue, 19 Aug 2025 04:25:24 GMT
+recorded_with: VCR 6.3.1

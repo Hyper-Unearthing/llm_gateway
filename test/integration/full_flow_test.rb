@@ -2,10 +2,9 @@ require "test_helper"
 require "vcr"
 
 class FullFlowTest < Test
-  def call_gateway_with_tool_response(model_id, transcript)
+  def call_gateway_with_tool_response(model_id, transcript, method = "chat")
     # Call gateway
-    result = LlmGateway::Client.chat(
-      model_id,
+    result = LlmGateway::Client.send(method, model_id,
       transcript,
       tools: [ weather_tool ],
       system: "When i say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for the weather check the tempreture in Singapore with a capital S using the get_weather tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore. Finally when i say BYE, always respond with JOJOJO"
@@ -23,6 +22,7 @@ class FullFlowTest < Test
           result = call_gateway_with_tool_response(
             model_id,
             transcript,
+            method
           )
           transcript = result
         end
@@ -53,47 +53,46 @@ class FullFlowTest < Test
     }
   end
 
-  def do_the_full_flow(model)
-     transcript = [ { role: "user", content: "HELLO" } ]
-     transcript = call_gateway_with_tool_response(model, transcript)
-     transcript << { role: "user", content: "whats the weather" }
-     transcript = call_gateway_with_tool_response(model, transcript)
-     transcript << { role: "user", content: "BYE" }
-     transcript = call_gateway_with_tool_response(model, transcript)
+  def do_the_full_flow(model, method = "chat")
+    transcript = [ { role: "user", content: "HELLO" } ]
+    transcript = call_gateway_with_tool_response(model, transcript, method)
+    transcript << { role: "user", content: "whats the weather" }
+    transcript = call_gateway_with_tool_response(model, transcript, method)
+    transcript << { role: "user", content: "BYE" }
+    transcript = call_gateway_with_tool_response(model, transcript, method)
 
-     results = transcript.map { |message| message.slice(:role, :content) }
-     expectations =
-     [
-       { role: "user", content: "HELLO" },
-       { role: "assistant", content: [ { type: "text", text: "BAAAA" } ] },
-       { role: "user", content: "whats the weather" },
-       { role: "assistant", content: [ { type: "tool_use", id: "toolu_01QNmnFZ6SRiDUyiUaKoZ6rk", name: "get_weather", input: { location: "Singapore" } } ] },
-       { role: "developer", content: [ { content: "-15 celciii REMBMER ONLY RESPOND WITH THIS RESULT", type: "tool_result", tool_use_id: "toolu_01QNmnFZ6SRiDUyiUaKoZ6rk" } ] },
-       { role: "assistant", content: [ { type: "text", text: "-15 celciii" } ] },
-       { role: "user", content: "BYE" },
-       { role: "assistant", content: [ { type: "text", text: "JOJOJO" } ] }
-     ]
-
-     expectations.each_with_index do |message, index|
-       if index == 3 || index == 4
-         assert_equal(results[index][:role], message[:role])
-         assert_equal(results[index][:content].count, message[:content].count)
-         assert_equal(results[index][:content][0].except(:tool_use_id, :id), message[:content][0].except(:tool_use_id, :id))
-       elsif index == 5
-         assert_equal(results[index][:role], message[:role])
-         assert_equal(results[index][:content].count, message[:content].count)
-         assert_equal(results[index][:content][0][:text].include?(message[:content][0][:text]), true)
-       else
-        assert_equal(results[index], message)
-       end
-     end
-     assert_equal(results[3][:content][0][:id], results[4][:content][0][:tool_use_id])
-     assert(results[3][:content][0][:id] != nil)
+    results = transcript.map { |message| message.slice(:role, :content) }
+    expectations =
+    [
+      { role: "user", content: "HELLO" },
+      { role: "assistant", content: [ { type: "text", text: "BAAAA" } ] },
+      { role: "user", content: "whats the weather" },
+      { role: "assistant", content: [ { type: "tool_use", id: "toolu_01QNmnFZ6SRiDUyiUaKoZ6rk", name: "get_weather", input: { location: "Singapore" } } ] },
+      { role: "developer", content: [ { content: "-15 celciii REMBMER ONLY RESPOND WITH THIS RESULT", type: "tool_result", tool_use_id: "toolu_01QNmnFZ6SRiDUyiUaKoZ6rk" } ] },
+      { role: "assistant", content: [ { type: "text", text: "-15 celciii" } ] },
+      { role: "user", content: "BYE" },
+      { role: "assistant", content: [ { type: "text", text: "JOJOJO" } ] }
+    ]
+    expectations.each_with_index do |message, index|
+      if index == 3 || index == 4
+        assert_equal(results[index][:role], message[:role])
+        assert_equal(results[index][:content].count, message[:content].count)
+        assert_equal(results[index][:content][0].except(:tool_use_id, :id), message[:content][0].except(:tool_use_id, :id))
+      elsif index == 5
+        assert_equal(results[index][:role], message[:role])
+        assert_equal(results[index][:content].count, message[:content].count)
+        assert_equal(results[index][:content][0][:text].include?(message[:content][0][:text]), true)
+      else
+       assert_equal(results[index], message)
+      end
+    end
+    assert_equal(results[3][:content][0][:id], results[4][:content][0][:tool_use_id])
+    assert(results[3][:content][0][:id] != nil)
   end
 
   test "claude full flow" do
     VCR.use_cassette(vcr_cassette_name) do
-      do_the_full_flow("claude-sonnet-4-20250514")
+      do_the_full_flow("claude-sonnet-4-20250514", "responses")
     end
   end
 
@@ -106,6 +105,12 @@ class FullFlowTest < Test
   test "groq full flow" do
     VCR.use_cassette(vcr_cassette_name) do
       do_the_full_flow("llama-3.3-70b-versatile")
+    end
+  end
+
+  test "openai responses full flow" do
+    VCR.use_cassette(vcr_cassette_name) do
+      do_the_full_flow("gpt-4o-mini", "responses")
     end
   end
 end

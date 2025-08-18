@@ -19,6 +19,9 @@ require_relative "llm_gateway/adapters/open_ai/chat_completions/output_mapper"
 require_relative "llm_gateway/adapters/groq/client"
 require_relative "llm_gateway/adapters/groq/input_mapper"
 require_relative "llm_gateway/adapters/groq/output_mapper"
+require_relative "llm_gateway/adapters/open_ai/file_output_mapper"
+require_relative "llm_gateway/adapters/open_ai/responses/input_mapper"
+require_relative "llm_gateway/adapters/open_ai/responses/output_mapper"
 
 module LlmGateway
   class Error < StandardError; end

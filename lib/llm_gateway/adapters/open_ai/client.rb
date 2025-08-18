@@ -22,6 +22,18 @@ module LlmGateway
           post("chat/completions", body)
         end
 
+        def responses(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096)
+            body = {
+              model: model_key,
+              max_output_tokens: max_completion_tokens,
+              input: messages.flatten
+            }
+            body[:instructions] = system[0][:content] if system.any?
+            body[:tools] = tools if tools
+            result = post("responses", body)
+            result
+        end
+
 
         def download_file(file_id)
           get("files/#{file_id}/content")
