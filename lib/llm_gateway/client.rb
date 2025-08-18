@@ -16,6 +16,12 @@ module LlmGateway
           client: LlmGateway::Adapters::OpenAi::Client,
           file_output_mapper: LlmGateway::Adapters::OpenAi::FileOutputMapper
         },
+        openai_responses: {
+          input_mapper: LlmGateway::Adapters::OpenAi::Responses::InputMapper,
+          output_mapper: LlmGateway::Adapters::OpenAi::Responses::OutputMapper,
+          client: LlmGateway::Adapters::OpenAi::Client,
+          file_output_mapper: LlmGateway::Adapters::OpenAi::FileOutputMapper
+        },
         groq: {
           input_mapper: LlmGateway::Adapters::Groq::InputMapper,
           output_mapper: LlmGateway::Adapters::Groq::OutputMapper,
@@ -50,6 +56,30 @@ module LlmGateway
         system: normalized_input[:system]
       )
       result_mapper(client).map(result)
+    end
+
+
+    def self.responses(model, message, response_format: "text", tools: nil, system: nil, api_key: nil)
+      provider = provider_from_model(model)
+      config = provider == "openai" ? get_provider_config("openai_responses") : get_provider_config(provider)
+      client_options = { model_key: model }
+      client_options[:api_key] = api_key if api_key
+      client = config[:client].new(**client_options)
+      input_mapper = config[:input_mapper]
+      normalized_input = input_mapper.map({
+        messages: normalize_messages(message),
+        response_format: normalize_response_format(response_format),
+        tools: tools,
+        system: normalize_system(system)
+      })
+      method = provider == "openai" ? "responses" : "chat"
+      result = client.send(method,
+        normalized_input[:messages],
+        response_format: normalized_input[:response_format],
+        tools: normalized_input[:tools],
+        system: normalized_input[:system]
+      )
+      config[:output_mapper].map(result)
     end
 
     def self.build_client(provider, api_key:, model: "none")
