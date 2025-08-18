@@ -30,7 +30,7 @@ module LlmGateway
             content_array << content_item if LlmGateway::Utils.present?(content_item[:text])
             content_array += tool_calls
 
-            { content: content_array }
+            { role: message[:role], content: content_array }
           end
         end
         end

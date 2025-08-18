@@ -35,10 +35,11 @@ class GroqMapperTest < Test
     output = {
       choices: [
         {
+          role: "assistant",
           content: [
             {
-              text: "Get the weather in Singapore right now please matey",
-              type: "text"
+              type: "text",
+              text: "Get the weather in Singapore right now please matey"
             }
           ]
         }

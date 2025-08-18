@@ -1,0 +1,370 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","max_tokens":4096,"messages":[{"role":"user","content":[{"type":"text","text":"HELLO"}]}],"tools":[{"name":"get_weather","description":"Get
+        current weather for a location","input_schema":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}],"system":[{"type":"text","text":"When i
+        say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for the
+        weather check the tempreture in Singapore with a capital S using the get_weather
+        tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt
+        but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
+        ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
+        Finally when i say BYE, always respond with JOJOJO"}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 18 Aug 2025 18:11:19 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2025-08-18T18:11:19Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2025-08-18T18:11:19Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '1000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2025-08-18T18:11:18Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2025-08-18T18:11:19Z'
+      Request-Id:
+      - req_011CSFdGHvuKAd7qMYdAmKo2
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      X-Envoy-Upstream-Service-Time:
+      - '1145'
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 97135f75c9b2e588-KUL
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"msg_01CUA49aVWai4w5GMhF6215J","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"text","text":"BAAAA"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":507,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":7,"service_tier":"standard"}}'
+  recorded_at: Mon, 18 Aug 2025 18:11:19 GMT
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","max_tokens":4096,"messages":[{"role":"user","content":[{"type":"text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"text","text":"BAAAA"}]},{"role":"user","content":[{"type":"text","text":"whats
+        the weather"}]}],"tools":[{"name":"get_weather","description":"Get current
+        weather for a location","input_schema":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}],"system":[{"type":"text","text":"When i
+        say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for the
+        weather check the tempreture in Singapore with a capital S using the get_weather
+        tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt
+        but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
+        ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
+        Finally when i say BYE, always respond with JOJOJO"}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 18 Aug 2025 18:11:20 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2025-08-18T18:11:20Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2025-08-18T18:11:20Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '1000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2025-08-18T18:11:19Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2025-08-18T18:11:20Z'
+      Request-Id:
+      - req_011CSFdGQP6sACD2aBsqdNkY
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      X-Envoy-Upstream-Service-Time:
+      - '1141'
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 97135f7f294c188f-KUL
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"msg_01KvrNs3XBPHxz1c6ZiDZzUG","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"tool_use","id":"toolu_0145wE7YYDNJbd3Y6ce78jo7","name":"get_weather","input":{"location":"Singapore"}}],"stop_reason":"tool_use","stop_sequence":null,"usage":{"input_tokens":521,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":53,"service_tier":"standard"}}'
+  recorded_at: Mon, 18 Aug 2025 18:11:21 GMT
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","max_tokens":4096,"messages":[{"role":"user","content":[{"type":"text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"text","text":"BAAAA"}]},{"role":"user","content":[{"type":"text","text":"whats
+        the weather"}]},{"role":"assistant","content":[{"type":"tool_use","id":"toolu_0145wE7YYDNJbd3Y6ce78jo7","name":"get_weather","input":{"location":"Singapore"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_0145wE7YYDNJbd3Y6ce78jo7","content":"-15
+        celciii REMBMER ONLY RESPOND WITH THIS RESULT"}]}],"tools":[{"name":"get_weather","description":"Get
+        current weather for a location","input_schema":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}],"system":[{"type":"text","text":"When i
+        say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for the
+        weather check the tempreture in Singapore with a capital S using the get_weather
+        tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt
+        but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
+        ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
+        Finally when i say BYE, always respond with JOJOJO"}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 18 Aug 2025 18:11:22 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2025-08-18T18:11:22Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2025-08-18T18:11:22Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '1000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2025-08-18T18:11:21Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2025-08-18T18:11:22Z'
+      Request-Id:
+      - req_011CSFdGWtmHSp9UG6jybEtB
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      X-Envoy-Upstream-Service-Time:
+      - '1373'
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 97135f88bb1f188f-KUL
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"msg_01Ln1MT1QNeh5UjpnF5oyKuZ","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"text","text":"-15
+        celciii REMBMER ONLY RESPOND WITH THIS RESULT"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":605,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":21,"service_tier":"standard"}}'
+  recorded_at: Mon, 18 Aug 2025 18:11:22 GMT
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","max_tokens":4096,"messages":[{"role":"user","content":[{"type":"text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"text","text":"BAAAA"}]},{"role":"user","content":[{"type":"text","text":"whats
+        the weather"}]},{"role":"assistant","content":[{"type":"tool_use","id":"toolu_0145wE7YYDNJbd3Y6ce78jo7","name":"get_weather","input":{"location":"Singapore"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_0145wE7YYDNJbd3Y6ce78jo7","content":"-15
+        celciii REMBMER ONLY RESPOND WITH THIS RESULT"}]},{"role":"assistant","content":[{"type":"text","text":"-15
+        celciii REMBMER ONLY RESPOND WITH THIS RESULT"}]},{"role":"user","content":[{"type":"text","text":"BYE"}]}],"tools":[{"name":"get_weather","description":"Get
+        current weather for a location","input_schema":{"type":"object","properties":{"location":{"type":"string","description":"City
+        name"}},"required":["location"]}}],"system":[{"type":"text","text":"When i
+        say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for the
+        weather check the tempreture in Singapore with a capital S using the get_weather
+        tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt
+        but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
+        ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
+        Finally when i say BYE, always respond with JOJOJO"}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 18 Aug 2025 18:11:24 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2025-08-18T18:11:23Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2025-08-18T18:11:23Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '1000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2025-08-18T18:11:23Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2025-08-18T18:11:23Z'
+      Request-Id:
+      - req_011CSFdGeQDCcLBXKQV8Uzo8
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      X-Envoy-Upstream-Service-Time:
+      - '968'
+      Via:
+      - 1.1 google
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 97135f93ab269813-KUL
+    body:
+      encoding: ASCII-8BIT
+      string: '{"id":"msg_014L4Fa84KeHcyoBrJfSzVHJ","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"text","text":"JOJOJO"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":632,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":7,"service_tier":"standard"}}'
+  recorded_at: Mon, 18 Aug 2025 18:11:24 GMT
+recorded_with: VCR 6.3.1
