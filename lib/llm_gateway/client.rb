@@ -2,11 +2,39 @@
 
 module LlmGateway
   class Client
+    def self.provider_configs
+      @provider_configs ||= {
+        anthropic: {
+          input_mapper: LlmGateway::Adapters::Claude::InputMapper,
+          output_mapper: LlmGateway::Adapters::Claude::OutputMapper,
+          client: LlmGateway::Adapters::Claude::Client,
+          file_output_mapper: LlmGateway::Adapters::Claude::FileOutputMapper
+        },
+        openai: {
+          input_mapper: LlmGateway::Adapters::OpenAi::InputMapper,
+          output_mapper: LlmGateway::Adapters::OpenAi::OutputMapper,
+          client: LlmGateway::Adapters::OpenAi::Client,
+          file_output_mapper: LlmGateway::Adapters::OpenAi::FileOutputMapper
+        },
+        groq: {
+          input_mapper: LlmGateway::Adapters::Groq::InputMapper,
+          output_mapper: LlmGateway::Adapters::Groq::OutputMapper,
+          client: LlmGateway::Adapters::Groq::Client,
+          file_output_mapper: nil
+        }
+      }.freeze
+    end
+
+    def self.get_provider_config(provider_id)
+      provider_configs[provider_id.to_sym] || raise(LlmGateway::Errors::UnsupportedProvider, provider_id)
+    end
+
     def self.chat(model, message, response_format: "text", tools: nil, system: nil, api_key: nil)
-      client_klass = client_class(model)
+      provider = provider_from_model(model)
+      config = get_provider_config(provider)
       client_options = { model_key: model }
       client_options[:api_key] = api_key if api_key
-      client = client_klass.new(**client_options)
+      client = config[:client].new(**client_options)
 
       input_mapper = input_mapper_for_client(client)
       normalized_input = input_mapper.map({
@@ -25,64 +53,65 @@ module LlmGateway
     end
 
     def self.build_client(provider, api_key:, model: "none")
-      client_klass = client_class_by_id(provider)
+      config = get_provider_config(provider)
       client_options = { model_key: model }
       client_options[:api_key] = api_key if api_key
-      client_klass.new(**client_options)
+      config[:client].new(**client_options)
     end
 
     def self.upload_file(provider, **kwargs)
       api_key = kwargs.delete(:api_key)
       client = build_client(provider, api_key: api_key)
       result = client.upload_file(*kwargs.values)
-      file_output_mapper(client).map(result)
+      config = get_provider_config(provider)
+      config[:file_output_mapper].map(result)
     end
 
     def self.download_file(provider, **kwargs)
       api_key = kwargs.delete(:api_key)
       client = build_client(provider, api_key: api_key)
       result = client.download_file(*kwargs.values)
-      file_output_mapper(client).map(result)
+      config = get_provider_config(provider)
+      config[:file_output_mapper].map(result)
     end
 
-    def self.file_output_mapper(client)
-      return LlmGateway::Adapters::Claude::FileOutputMapper if client.is_a?(LlmGateway::Adapters::Claude::Client)
-      return LlmGateway::Adapters::OpenAi::FileOutputMapper if client.is_a?(LlmGateway::Adapters::OpenAi::Client)
-
-      raise MissingMapperForProvider, "Client:#{client} Object:File"
-    end
-
-    def self.client_class(model)
-      return LlmGateway::Adapters::Claude::Client if model.start_with?("claude")
-      return LlmGateway::Adapters::Groq::Client if model.start_with?("llama")
-      return LlmGateway::Adapters::OpenAi::Client if model.start_with?("gpt") ||
-                                                     model.start_with?("o4-") ||
-                                                     model.start_with?("openai")
+    def self.provider_from_model(model)
+      return "anthropic" if model.start_with?("claude")
+      return "groq" if model.start_with?("llama")
+      return "openai" if model.start_with?("gpt") ||
+                         model.start_with?("o4-") ||
+                         model.start_with?("openai")
 
       raise LlmGateway::Errors::UnsupportedModel, model
     end
 
-    def self.client_class_by_id(provider_id)
-      return LlmGateway::Adapters::Claude::Client if provider_id == ("anthropic")
-      return LlmGateway::Adapters::Groq::Client if provider_id == ("groq")
-      return LlmGateway::Adapters::OpenAi::Client if provider_id == ("openai")
-
-
-      raise LlmGateway::Errors::UnsupportedProvider, provider_id
-    end
 
     def self.input_mapper_for_client(client)
-      return LlmGateway::Adapters::Claude::InputMapper if client.is_a?(LlmGateway::Adapters::Claude::Client)
-      return LlmGateway::Adapters::OpenAi::InputMapper if client.is_a?(LlmGateway::Adapters::OpenAi::Client)
-
-      LlmGateway::Adapters::Groq::InputMapper if client.is_a?(LlmGateway::Adapters::Groq::Client)
+      config = get_provider_config_by_client(client)
+      config[:input_mapper]
     end
 
     def self.result_mapper(client)
-      return LlmGateway::Adapters::Claude::OutputMapper if client.is_a?(LlmGateway::Adapters::Claude::Client)
-      return LlmGateway::Adapters::OpenAi::OutputMapper if client.is_a?(LlmGateway::Adapters::OpenAi::Client)
+      config = get_provider_config_by_client(client)
+      config[:output_mapper]
+    end
 
-      LlmGateway::Adapters::Groq::OutputMapper if client.is_a?(LlmGateway::Adapters::Groq::Client)
+    def self.provider_id_from_client(client)
+      case client
+      when LlmGateway::Adapters::Claude::Client
+        "anthropic"
+      when LlmGateway::Adapters::OpenAi::Client
+        "openai"
+      when LlmGateway::Adapters::Groq::Client
+        "groq"
+      else
+        raise LlmGateway::Errors::UnsupportedProvider, client.class.name
+      end
+    end
+
+    def self.get_provider_config_by_client(client)
+      provider_id = provider_id_from_client(client)
+      get_provider_config(provider_id)
     end
 
     def self.normalize_system(system)
