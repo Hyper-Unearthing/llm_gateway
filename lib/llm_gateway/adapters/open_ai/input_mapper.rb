@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "base64"
-require_relative "message_mapper"
+require_relative "bidirectional_message_mapper"
 
 module LlmGateway
   module Adapters
@@ -25,16 +25,18 @@ module LlmGateway
         def self.map_messages(messages)
           return messages unless messages
 
+          message_mapper = BidirectionalMessageMapper.new(LlmGateway::DIRECTION_IN)
+
           # First map messages like Claude
           mapped_messages = messages.map do |msg|
             msg = msg.merge(role: "user") if msg[:role] == "developer"
 
             content = if msg[:content].is_a?(Array)
                 msg[:content].map do |content|
-                  MessageMapper.map_content(content)
+                  message_mapper.map_content(content)
                 end
             else
-              [ MessageMapper.map_content(msg[:content]) ]
+              [ message_mapper.map_content(msg[:content]) ]
             end
 
             {

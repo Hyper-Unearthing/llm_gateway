@@ -21,4 +21,8 @@ require_relative "llm_gateway/adapters/groq/output_mapper"
 
 module LlmGateway
   class Error < StandardError; end
+
+  # Direction constants for message mappers
+  DIRECTION_IN = :in
+  DIRECTION_OUT = :out
 end

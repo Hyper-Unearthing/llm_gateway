@@ -5,11 +5,16 @@ require "base64"
 module LlmGateway
   module Adapters
     module OpenAi
-      class MessageMapper
-        def self.map_content(content)
+      class BidirectionalMessageMapper
+        attr_reader :direction
+
+        def initialize(direction)
+          @direction = direction
+        end
+
+        def map_content(content)
           # Convert string content to text format
           content = { type: "text", text: content } unless content.is_a?(Hash)
-
           case content[:type]
           when "text"
             map_text_content(content)
@@ -18,6 +23,8 @@ module LlmGateway
           when "image"
             map_image_content(content)
           when "tool_use"
+            map_tool_use_content(content)
+          when "function"
             map_tool_use_content(content)
           when "tool_result"
             map_tool_result_content(content)
@@ -28,14 +35,19 @@ module LlmGateway
 
         private
 
-        def self.map_text_content(content)
+        def parse_tool_arguments(arguments)
+          return arguments unless arguments.is_a?(String)
+          JSON.parse(arguments, symbolize_names: true)
+        end
+
+        def map_text_content(content)
           {
             type: "text",
             text: content[:text]
           }
         end
 
-        def self.map_file_content(content)
+        def map_file_content(content)
           # Map text/plain to application/pdf for OpenAI
           media_type = content[:media_type] == "text/plain" ? "application/pdf" : content[:media_type]
           {
@@ -47,7 +59,7 @@ module LlmGateway
           }
         end
 
-        def self.map_image_content(content)
+        def map_image_content(content)
           {
             type: "image_url",
             image_url: {
@@ -56,7 +68,8 @@ module LlmGateway
           }
         end
 
-        def self.map_tool_use_content(content)
+        def map_tool_use_content(content)
+          if direction == LlmGateway::DIRECTION_IN
           {
             id: content[:id],
             type: "function",
@@ -65,9 +78,17 @@ module LlmGateway
               arguments: content[:input].to_json
             }
           }
+          else
+          {
+            id: content[:id],
+            type: "tool_use",
+            name: content[:function][:name],
+            input: parse_tool_arguments(content[:function][:arguments])
+          }
+          end
         end
 
-        def self.map_tool_result_content(content)
+        def map_tool_result_content(content)
           {
             role: "tool",
             tool_call_id: content[:tool_use_id],
