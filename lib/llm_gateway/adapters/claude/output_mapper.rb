@@ -66,7 +66,9 @@ module LlmGateway
         def cleaned_response
           @cleaned_response ||= begin
             filtered_choices = mapped_response[:choices].map do |choice|
-              choice.merge(content: choice[:content].filter { |content| ![ "server_tool_use", "code_execution_tool_result" ].include? content[:type] }).compact
+              mapped_files = files.map { |file| { type: "file", content: file } }
+              messages = choice[:content].filter { |content| ![ "server_tool_use", "code_execution_tool_result" ].include? content[:type] }
+              choice.merge(content: (messages+mapped_files).compact)
             end
             {
               id: mapped_response[:id],
