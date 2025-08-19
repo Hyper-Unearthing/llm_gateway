@@ -105,10 +105,11 @@ class GatewayTest < Test
       expected = {
         choices: [
           {
+            role: "assistant",
             content: [
               {
-                text: "Get the weather in Singapore right now please matey",
-                type: "text"
+                type: "text",
+                text: "Get the weather in Singapore right now please matey"
               }
             ]
           }
@@ -132,6 +133,7 @@ class GatewayTest < Test
       expected = {
         choices: [
           {
+            role: "assistant",
             content: [
               {
                 id: "call_8DnGFFRKGF8xYpaT7AZqFKHc",
@@ -160,10 +162,11 @@ class GatewayTest < Test
       expected = {
         choices: [
           {
+            role: "assistant",
             content: [
               {
-                text: "The weather in Singapore is usually hot and very humid",
-                type: "text"
+                type: "text",
+                text: "The weather in Singapore is usually hot and very humid"
               }
             ]
           }
@@ -186,10 +189,11 @@ class GatewayTest < Test
       expected = {
         choices: [
           {
+            role: "assistant",
             content: [
               {
-                text: "arr matey it be sunny and humid in singapore today",
-                type: "text"
+                type: "text",
+                text: "arr matey it be sunny and humid in singapore today"
               }
             ]
           }
@@ -219,10 +223,11 @@ class GatewayTest < Test
     VCR.use_cassette(vcr_cassette_name) do
       result = call_gateway_with_tool_response("llama-3.3-70b-versatile")
       expected = {
+        role: "assistant",
         content: [
           {
-            text: "Get the weather in Singapore right now please matey",
-            type: "text"
+            type: "text",
+            text: "Get the weather in Singapore right now please matey"
           }
         ]
       }
@@ -236,10 +241,11 @@ class GatewayTest < Test
       expected = {
         choices: [
           {
+            role: "assistant",
             content: [
               {
-                text: "Arrr it be minus fifteen degrees in Singapore today matey!",
-                type: "text"
+                type: "text",
+                text: "Arrr it be minus fifteen degrees in Singapore today matey!"
               }
             ]
           }
