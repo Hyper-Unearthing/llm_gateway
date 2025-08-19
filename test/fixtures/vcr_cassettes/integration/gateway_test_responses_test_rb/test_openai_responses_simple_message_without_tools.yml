@@ -1,0 +1,152 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"o4-mini","max_output_tokens":4096,"instructions":"Talk like
+        a pirate","input":[{"role":"user","content":[{"type":"input_text","text":"What''s
+        the weather in Singapore? reply in 10 words and no special characters"}]}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 18 Aug 2025 06:41:55 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Remaining-Tokens:
+      - '199764'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Ratelimit-Reset-Tokens:
+      - 70ms
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      X-Request-Id:
+      - req_68992e99a8a640462e138595863833f2
+      Openai-Processing-Ms:
+      - '6145'
+      X-Envoy-Upstream-Service-Time:
+      - '6148'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=H1WCmqgm9QNkVatqJ64f4vDOP3NIBOghELO0tZP2bpU-1755499315-1.0.1.1-PKOScfW678y6Dc3YmsdEQaLd30.be06.RNGIveoMD9Xuxv_Br2kZ4F00KTi0sQGfT9sWYxnYNEZ8DCNKX1DWD5bK_KbQYD7oQPjukDr5RVk;
+        path=/; expires=Mon, 18-Aug-25 07:11:55 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=bS1JHoqUTB16E8UqDMpSLCsTxjqmLxu9DwwDJJIYm1U-1755499315325-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 970f6d738b42dc17-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "resp_68a2cb2d097c819fa544147ba1e7a1e909f86defd479c195",
+          "object": "response",
+          "created_at": 1755499309,
+          "status": "completed",
+          "background": false,
+          "error": null,
+          "incomplete_details": null,
+          "instructions": "Talk like a pirate",
+          "max_output_tokens": 4096,
+          "max_tool_calls": null,
+          "model": "o4-mini-2025-04-16",
+          "output": [
+            {
+              "id": "rs_68a2cb2df6ac819f8a0f5bd8cda1588e09f86defd479c195",
+              "type": "reasoning",
+              "summary": []
+            },
+            {
+              "id": "msg_68a2cb32dbe8819fb09e4f1ef5a1dc3e09f86defd479c195",
+              "type": "message",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "annotations": [],
+                  "logprobs": [],
+                  "text": "Ahoy matey Singapore be hot and humid with tropical showers"
+                }
+              ],
+              "role": "assistant"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "reasoning": {
+            "effort": "medium",
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": true,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "text"
+            },
+            "verbosity": "medium"
+          },
+          "tool_choice": "auto",
+          "tools": [],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 29,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 530,
+            "output_tokens_details": {
+              "reasoning_tokens": 512
+            },
+            "total_tokens": 559
+          },
+          "user": null,
+          "metadata": {}
+        }
+  recorded_at: Mon, 18 Aug 2025 06:41:55 GMT
+recorded_with: VCR 6.3.1
