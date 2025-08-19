@@ -70,26 +70,38 @@ module LlmGateway
           return tools unless tools
 
           tools.map do |tool|
-            {
-              type: "function",
-              function: {
-                name: tool[:name],
-                description: tool[:description],
-                parameters: tool[:input_schema]
+            if tool[:type]
+              case tool[:type]
+              when "code_execution"
+                {
+                  type: "code_interpreter",
+                  container: { "type": "auto" }
+                }
+              else
+                raise "Unknown built-in tool"
+              end
+            else
+              {
+                type: "function",
+                function: {
+                  name: tool[:name],
+                  description: tool[:description],
+                  parameters: tool[:input_schema]
+                }
               }
-            }
+            end
           end
         end
 
         def self.map_tool_usage(content)
-            {
-              'id': content[:id],
-              'type': "function",
-              'function': {
-                'name': content[:name],
-                'arguments': content[:input].to_json
-              }
+          {
+            'id': content[:id],
+            'type': "function",
+            'function': {
+              'name': content[:name],
+              'arguments': content[:input].to_json
             }
+          }
         end
 
         def self.map_tool_result_message(content)

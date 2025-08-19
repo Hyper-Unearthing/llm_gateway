@@ -32,7 +32,11 @@ module LlmGateway
             if tools
               body[:tools] = tools.map do |tool|
                 function = tool.delete(:function)
-                tool.merge(function)
+                if function # server tools dont have function
+                  tool.merge(function)
+                else
+                  tool
+                end
               end
             end
             body[:input] = messages.map do |message|

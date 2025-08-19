@@ -87,9 +87,9 @@ class OpenAIMapperTest < Test
       model: "gpt-5-2025-08-07",
       id: "resp_6895f8d4a06881919dd57eaa397cc2220e2461b3232f5782",
       usage: { input_tokens: 9152, input_tokens_details: { cached_tokens: 2344 }, output_tokens: 2463, output_tokens_details: { reasoning_tokens: 1600 }, total_tokens: 11615 },
-      choices: [ content: [ { type: "text", text: "Your chart has been created and saved.\nDownload the PNG: sandbox:/mnt/data/daily_temperatures.png" } ] ]
+      choices: [ content: [ { type: "text", text: "Your chart has been created and saved.\nDownload the PNG: sandbox:/mnt/data/daily_temperatures.png" }, { type: "file", content: { file_id: "cfile_6895f914da588191bed53ebbb5d24033", filename: "cfile_6895f914da588191bed53ebbb5d24033.png", container_id: "cntr_6895f8d71ce48191ad569ad0c53facc70364d351cca9ca25" } } ] ]
     })
-    assert_equal(result.files, [ { file_id: "cfile_6895f914da588191bed53ebbb5d24033", filename: "cfile_6895f914da588191bed53ebbb5d24033.png" } ])
+    assert_equal(result.files, [ { file_id: "cfile_6895f914da588191bed53ebbb5d24033", filename: "cfile_6895f914da588191bed53ebbb5d24033.png", container_id: "cntr_6895f8d71ce48191ad569ad0c53facc70364d351cca9ca25" } ])
   end
 
   test "open ai input mapper tool usage, with role assistant " do
@@ -125,5 +125,20 @@ class OpenAIMapperTest < Test
     result = LlmGateway::Adapters::OpenAi::InputMapper.map(input)
 
     assert_equal expectation, result
+  end
+
+  test "open ai code execution tool" do
+    input = {
+      messages: [ { role: "user", content: "render a graph" } ],
+      tools: [ {
+        type: "code_execution"
+      } ]
+    }
+
+    expectation = [ { type: "code_interpreter", container: { type: "auto" } } ]
+
+    result = LlmGateway::Adapters::OpenAi::InputMapper.map(input)
+
+    assert_equal expectation, result[:tools]
   end
 end

@@ -42,8 +42,7 @@ module LlmGateway
             else
               msg
             end
-          end
-
+          end.compact
           # Then apply parent's tool transformation logic
           super(messages_with_files)
         end
