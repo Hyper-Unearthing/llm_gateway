@@ -56,6 +56,7 @@ module LlmGateway
     def self.upload_file(provider, **kwargs)
       api_key = kwargs.delete(:api_key)
       client = build_client(provider, api_key: api_key)
+
       result = client.upload_file(*kwargs.values)
       file_output_mapper(client).map(result)
     end
@@ -63,8 +64,11 @@ module LlmGateway
     def self.download_file(provider, **kwargs)
       api_key = kwargs.delete(:api_key)
       client = build_client(provider, api_key: api_key)
-      result = client.download_file(*kwargs.values)
-      file_output_mapper(client).map(result)
+      if kwargs[:container_id]
+        client.download_container_file(*kwargs.slice(:file_id, :container_id).values)
+      else
+        client.download_file(*kwargs.slice(:file_id).values)
+      end
     end
 
 

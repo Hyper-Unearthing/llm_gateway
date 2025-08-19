@@ -50,8 +50,13 @@ module LlmGateway
             result = post("responses", body)
             result
         end
+
         def download_file(file_id)
           get("files/#{file_id}/content")
+        end
+
+        def download_container_file(file_id, container_id)
+          get("containers/#{container_id}/files/#{file_id}/content")
         end
 
         def generate_embeddings(input)
