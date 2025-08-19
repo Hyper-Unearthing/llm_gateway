@@ -26,7 +26,8 @@ module LlmGateway
             body = {
               model: model_key,
               max_output_tokens: max_completion_tokens,
-              input: messages.flatten
+              input: messages.flatten,
+              include: [ "code_interpreter_call.outputs" ]
             }
             body[:instructions] = system[0][:content] if system.any?
             body[:tools] = tools if tools

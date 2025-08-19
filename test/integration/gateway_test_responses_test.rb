@@ -73,26 +73,25 @@ class GatewayResponsesTest < Test
         system: "Talk like a pirate"
       )
       expected = {
-        choices: [
-          { id: "rs_68a323b3dc5c8193a672650245036c690a6c7f3a9118bc65", role: nil, content: [ { type: "reasoning", summary: [] } ] },
-          { id: "fc_68a323c16cbc8193810c274efc03927b0a6c7f3a9118bc65", role: "assistant", content: [ { id: "call_O71QezmjypXwj1WFZgMeI9Id", type: "tool_use", name: "get_weather", input: { location: "Singapore" } } ] }
-        ],
+        id: "resp_68a43e3dd18481908d49a17ff130705b06e99912c9374f3d",
         model: "o4-mini-2025-04-16",
-        id: "resp_68a323b2a8f481939f56f4cc688f89b90a6c7f3a9118bc65",
-        usage: { input_tokens: 67, input_tokens_details: { cached_tokens: 0 }, output_tokens: 1108, output_tokens_details: { reasoning_tokens: 1088 }, total_tokens: 1175 }
+        usage: { input_tokens: 67, input_tokens_details: { cached_tokens: 0 }, output_tokens: 532, output_tokens_details: { reasoning_tokens: 512 }, total_tokens: 599 },
+        choices: [
+          { id: "rs_68a43e3e8da08190afd59c68125d001306e99912c9374f3d", role: nil, content: [ { type: "reasoning", summary: [] } ] },
+          { id: "fc_68a43e460a5081909f36553c34cc410606e99912c9374f3d", role: "assistant", content: [ { id: "call_0vSMgJt1QT6hyiTQo6IWO3mR", type: "tool_use", name: "get_weather", input: { location: "Singapore" } } ] }
+        ]
       }
-      assert_equal(result, expected)
+      assert_equal(expected, result)
     end
   end
 
-
   SIMPLE_CHAT_RESPONSES = {
-    id: "resp_68a2cb2d097c819fa544147ba1e7a1e909f86defd479c195",
+    id: "resp_68a43ca8e368819f95c7966de455e0fd0a22cd2a1e773f3b",
     model: "o4-mini-2025-04-16",
-    usage: { input_tokens: 29, input_tokens_details: { cached_tokens: 0 }, output_tokens: 530, output_tokens_details: { reasoning_tokens: 512 }, total_tokens: 559 },
+    usage: { input_tokens: 29, input_tokens_details: { cached_tokens: 0 }, output_tokens: 593, output_tokens_details: { reasoning_tokens: 576 }, total_tokens: 622 },
     choices: [
-      { id: "rs_68a2cb2df6ac819f8a0f5bd8cda1588e09f86defd479c195", role: nil, content: [ { type: "reasoning", summary: [] } ] },
-      { id: "msg_68a2cb32dbe8819fb09e4f1ef5a1dc3e09f86defd479c195", role: "assistant", content: [ { type: "text", text: "Ahoy matey Singapore be hot and humid with tropical showers" } ] }
+      { id: "rs_68a43ca96c98819f9cc048c486aec0350a22cd2a1e773f3b", role: nil, content: [ { type: "reasoning", summary: [] } ] },
+      { id: "msg_68a43cb13860819f81a096bd68f48e140a22cd2a1e773f3b", role: "assistant", content: [ { type: "text", text: "Arrr the weather in Singapore be hot humid with rain" } ] }
     ]
   }
   test "openai responses simple message without tools" do
@@ -102,7 +101,7 @@ class GatewayResponsesTest < Test
         "What's the weather in Singapore? reply in 10 words and no special characters",
         system: "Talk like a pirate"
       )
-      assert_equal(result, SIMPLE_CHAT_RESPONSES)
+      assert_equal(SIMPLE_CHAT_RESPONSES, result)
     end
   end
 
@@ -117,28 +116,32 @@ class GatewayResponsesTest < Test
         system: "Talk like a pirate"
       )
       expected = {
-        id: "resp_68a2f8cf2368819f8700d30951e4eb1609f86defd479c195",
+        id: "resp_68a43e597ef4819f924c03d76c0f9b2b0a22cd2a1e773f3b", \
         model: "o4-mini-2025-04-16",
-        usage: { input_tokens: 41, input_tokens_details: { cached_tokens: 0 }, output_tokens: 309, output_tokens_details: { reasoning_tokens: 256 }, total_tokens: 350 },
+        usage: { input_tokens: 40, input_tokens_details: { cached_tokens: 0 }, output_tokens: 387, output_tokens_details: { reasoning_tokens: 320 }, total_tokens: 427 },
         choices: [
-          { id: "rs_68a2f8d055c4819f8ad6d0ce85d6f1c509f86defd479c195", role: nil, content: [ { type: "reasoning", summary: [] } ] },
-          { id: "msg_68a2f8d2e968819faff8ce209562b33709f86defd479c195", role: "assistant", content: [ { type: "text", text: "Arrr, I don\u2019t have private musings like a human does. I simply set me sails for pirate-style speak and fetched a bit o\u2019 info on Singapore\u2019s sweltering, tropical clime to share with ye!" } ] }
+          { id: "rs_68a43e5a3b04819f9b0591945b030dbc0a22cd2a1e773f3b", role: nil, content: [ { type: "reasoning", summary: [] } ] },
+          { id: "msg_68a43e5de7e0819fa3720984049ca9460a22cd2a1e773f3b", role: "assistant", content: [ { type: "text", text: "Arrr, matey! I can\u2019t be revealin\u2019 me private thinkin\u2019, but I was chartin\u2019 a swift, pirate-style weather report for Singapore\u2014markin\u2019 its heat, humidity, and rain\u2014and craftin\u2019 me words to sound like a true buccaneer." } ] }
         ]
       }
-      assert_equal(result, expected)
+      assert_equal(expected, result)
     end
   end
 
+  # { , choices: [ , { id: "msg_68a43e5de7e0819fa3720984049ca9460a22cd2a1e773f3b", role: "assistant", content: [ { type: "text", text: "Arrr, matey! I can’t be revealin’ me private thinkin’, but I was chartin’ a swift, pirate-style weather report for Singapore—markin’ its heat, humidity, and rain—and craftin’ me words to sound like a true buccaneer." } ] } ] }
   test "openai responses weather with pirate system with tool usage" do
     VCR.use_cassette(vcr_cassette_name) do
       result = call_gateway_with_tool_response("gpt-5")
       expected = {
-        choices: [ { id: "rs_68a34304495c8196ab43d8604def885c030d601903cb5ed5", role: nil, content: [ { type: "reasoning", summary: [] } ] }, { id: "msg_68a3430c5f188196908d239571186a78030d601903cb5ed5", role: "assistant", content: [  { type: "text", text: "Arr Singapore be a frosty minus fifteen degrees today matey" }  ] } ],
+        id: "resp_68a43c98fcf0819cae219eea47bf9eaf025ae319a497c89f",
         model: "gpt-5-2025-08-07",
-        id: "resp_68a34303e4908196a1f8503ed005f361030d601903cb5ed5",
-        usage: { input_tokens: 359, input_tokens_details: { cached_tokens: 0 }, output_tokens: 722, output_tokens_details: { reasoning_tokens: 704 }, total_tokens: 1081 }
+        usage: { input_tokens: 472, input_tokens_details: { cached_tokens: 0 }, output_tokens: 1171, output_tokens_details: { reasoning_tokens: 1152 }, total_tokens: 1643 },
+        choices: [
+          { id: "rs_68a43c99b94c819c96f9a43243c23f03025ae319a497c89f", role: nil, content: [ { type: "reasoning", summary: [] } ] },
+          { id: "msg_68a43ca8045c819cb2b052b976146224025ae319a497c89f", role: "assistant", content: [ { type: "text", text: "Arr matey me spyglass be fogged cannot report Singapore weather" } ] }
+        ]
       }
-      assert_equal(result, expected)
+      assert_equal(expected, result)
     end
   end
 end

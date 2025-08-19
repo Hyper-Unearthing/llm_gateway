@@ -5,11 +5,11 @@ http_interactions:
     uri: https://api.openai.com/v1/responses
     body:
       encoding: UTF-8
-      string: '{"model":"gpt-5","max_output_tokens":4096,"instructions":"Talk like
-        a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
+      string: '{"model":"gpt-5","max_output_tokens":4096,"input":[{"role":"user","content":[{"type":"input_text","text":"What''s
+        the weather in Singapore? reply in 10 words and no special characters"}]}],"include":["code_interpreter_call.outputs"],"instructions":"Talk
+        like a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
-        name"}},"required":["location"]}}],"input":[{"role":"user","content":[{"type":"input_text","text":"What''s
-        the weather in Singapore? reply in 10 words and no special characters"}]}]}'
+        name"}},"required":["location"]}}]}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -29,7 +29,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 15:12:15 GMT
+      - Tue, 19 Aug 2025 08:58:00 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -43,36 +43,36 @@ http_interactions:
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       X-Request-Id:
-      - req_6e071286672389538eefda8cdc4754dc
+      - req_6526cac7633bf95aa17c31907b453097
       Openai-Processing-Ms:
-      - '5255'
+      - '5023'
       X-Envoy-Upstream-Service-Time:
-      - '5279'
+      - '5028'
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=P73niz4w65tNjL4554H8EhY_m92xjVpmLGmobHeQDZ8-1755529935-1.0.1.1-T0.qc3k_hFqRcV9b5jnT1lyuIT82YDRGTYTxKxntgtZ.Kyl3TB0H9feULmPa6bhOLNxfotCFSFN86M0g2K5M8Vs9zRFpb.5Q.tiKfwMF8_Q;
-        path=/; expires=Mon, 18-Aug-25 15:42:15 GMT; domain=.api.openai.com; HttpOnly;
+      - __cf_bm=rDwwmUa7IOCQrriLsArOOJ4lI9aqw69D0OZJyFWgJiE-1755593880-1.0.1.1-0vG0_QA5fAzqi2oM0AY.M9SzV1N.Egi4SV1p6yAdQQxxqt36hW1nezzvW0v2vjyVMWD4TMQmbWz6Ol1G4kTyQ.chvc31ln38Q5TuAkTfFoY;
+        path=/; expires=Tue, 19-Aug-25 09:28:00 GMT; domain=.api.openai.com; HttpOnly;
         Secure; SameSite=None
-      - _cfuvid=AnE66QIJOtRIoXc6ivWla2cI8DH64GN_outPBb4Tm_Q-1755529935232-0.0.1.1-604800000;
+      - _cfuvid=GWSkUKOi90DRf1ZWvLE0oMIicaNWEiruclRYfseDQfg-1755593880108-0.0.1.1-604800000;
         path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
       X-Content-Type-Options:
       - nosniff
       Server:
       - cloudflare
       Cf-Ray:
-      - 971259089ae79b8a-SIN
+      - 971872313cea13f6-JHB
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |-
         {
-          "id": "resp_68a342c9df80819684a268fe3614842c030d601903cb5ed5",
+          "id": "resp_68a43c92f9bc819cb52a318911e51112025ae319a497c89f",
           "object": "response",
-          "created_at": 1755529930,
+          "created_at": 1755593875,
           "status": "completed",
           "background": false,
           "error": null,
@@ -83,16 +83,16 @@ http_interactions:
           "model": "gpt-5-2025-08-07",
           "output": [
             {
-              "id": "rs_68a342cafb1c8196a4cd4906206896bb030d601903cb5ed5",
+              "id": "rs_68a43c937060819c8c0a83ff178ac49c025ae319a497c89f",
               "type": "reasoning",
               "summary": []
             },
             {
-              "id": "fc_68a342ce9d308196b80bd48ebc9244ad030d601903cb5ed5",
+              "id": "fc_68a43c97a164819ca5887502c0343fc8025ae319a497c89f",
               "type": "function_call",
               "status": "completed",
               "arguments": "{\"location\":\"Singapore\"}",
-              "call_id": "call_90DE60AY2KyfsG3riPdqquwo",
+              "call_id": "call_KuFvwBoMfBuGCmllEIgftB0b",
               "name": "get_weather"
             }
           ],
@@ -143,27 +143,27 @@ http_interactions:
             "input_tokens_details": {
               "cached_tokens": 0
             },
-            "output_tokens": 212,
+            "output_tokens": 340,
             "output_tokens_details": {
-              "reasoning_tokens": 192
+              "reasoning_tokens": 320
             },
-            "total_tokens": 282
+            "total_tokens": 410
           },
           "user": null,
           "metadata": {}
         }
-  recorded_at: Mon, 18 Aug 2025 15:12:15 GMT
+  recorded_at: Tue, 19 Aug 2025 08:58:00 GMT
 - request:
     method: post
     uri: https://api.openai.com/v1/responses
     body:
       encoding: UTF-8
-      string: '{"model":"gpt-5","max_output_tokens":4096,"instructions":"Talk like
-        a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
+      string: '{"model":"gpt-5","max_output_tokens":4096,"input":[{"role":"user","content":[{"type":"input_text","text":"What''s
+        the weather in Singapore? reply in 10 words and no special characters"}]},{"id":"rs_68a43c937060819c8c0a83ff178ac49c025ae319a497c89f"},{"id":"fc_68a43c97a164819ca5887502c0343fc8025ae319a497c89f"},{"type":"function_call_output","call_id":"call_KuFvwBoMfBuGCmllEIgftB0b","output":"-15
+        celcius"}],"include":["code_interpreter_call.outputs"],"instructions":"Talk
+        like a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
-        name"}},"required":["location"]}}],"input":[{"role":"user","content":[{"type":"input_text","text":"What''s
-        the weather in Singapore? reply in 10 words and no special characters"}]},{"id":"rs_68a342cafb1c8196a4cd4906206896bb030d601903cb5ed5"},{"id":"fc_68a342ce9d308196b80bd48ebc9244ad030d601903cb5ed5"},{"type":"function_call_output","call_id":"call_90DE60AY2KyfsG3riPdqquwo","output":"-15
-        celcius"}]}'
+        name"}},"required":["location"]}}]}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -183,7 +183,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 15:13:16 GMT
+      - Tue, 19 Aug 2025 08:58:16 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -197,36 +197,36 @@ http_interactions:
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       X-Request-Id:
-      - req_8e9fe9b45b88dfc6bef74e25c31a5fd9
+      - req_fb5147bb1a2e7546f84f724bceaf717a
       Openai-Processing-Ms:
-      - '8925'
+      - '15432'
       X-Envoy-Upstream-Service-Time:
-      - '8928'
+      - '15435'
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=Ai3bf10u_LmIMS0WyqiTDxra3lqGNEs_k678drKWjKU-1755529996-1.0.1.1-Q7FSmn_HZTpe1pz.ePMYg2qvDHdr_rT0wk2z5y1gpSwe_Hf7g4zWl8qe0kiVd8J.Ao6fBzg.pePWc6qz88f4Tlr7pBgr_hjl2M294hzsMHk;
-        path=/; expires=Mon, 18-Aug-25 15:43:16 GMT; domain=.api.openai.com; HttpOnly;
+      - __cf_bm=QcZP.rluTAPzXkVmUNnYGJSXy_YmPRsJIUMto_tLH.8-1755593896-1.0.1.1-AfNjeIjV.hxAvm4142qTUqi1ZX8Z54Q8zE_Qv5mylf5et.q1rSBWJYbCid5jiBIIvozzE5FIW43XqnS06BCVBlePuvccihIgeJKVgPWfaCc;
+        path=/; expires=Tue, 19-Aug-25 09:28:16 GMT; domain=.api.openai.com; HttpOnly;
         Secure; SameSite=None
-      - _cfuvid=KinQ654mvtzfluznxyglQY0PQM2DrmudbUHKGPbonUE-1755529996949-0.0.1.1-604800000;
+      - _cfuvid=.uGHZrmeSyZuLC7P16epWTTV5arHaAvgI8CreBJa8ZM-1755593896511-0.0.1.1-604800000;
         path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
       X-Content-Type-Options:
       - nosniff
       Server:
       - cloudflare
       Cf-Ray:
-      - 97125a73cb09d433-KUL
+      - 9718725748a071e5-JHB
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |-
         {
-          "id": "resp_68a34303e4908196a1f8503ed005f361030d601903cb5ed5",
+          "id": "resp_68a43c98fcf0819cae219eea47bf9eaf025ae319a497c89f",
           "object": "response",
-          "created_at": 1755529987,
+          "created_at": 1755593881,
           "status": "completed",
           "background": false,
           "error": null,
@@ -237,12 +237,12 @@ http_interactions:
           "model": "gpt-5-2025-08-07",
           "output": [
             {
-              "id": "rs_68a34304495c8196ab43d8604def885c030d601903cb5ed5",
+              "id": "rs_68a43c99b94c819c96f9a43243c23f03025ae319a497c89f",
               "type": "reasoning",
               "summary": []
             },
             {
-              "id": "msg_68a3430c5f188196908d239571186a78030d601903cb5ed5",
+              "id": "msg_68a43ca8045c819cb2b052b976146224025ae319a497c89f",
               "type": "message",
               "status": "completed",
               "content": [
@@ -250,7 +250,7 @@ http_interactions:
                   "type": "output_text",
                   "annotations": [],
                   "logprobs": [],
-                  "text": "Arr Singapore be a frosty minus fifteen degrees today matey"
+                  "text": "Arr matey me spyglass be fogged cannot report Singapore weather"
                 }
               ],
               "role": "assistant"
@@ -299,18 +299,18 @@ http_interactions:
           "top_p": 1.0,
           "truncation": "disabled",
           "usage": {
-            "input_tokens": 359,
+            "input_tokens": 472,
             "input_tokens_details": {
               "cached_tokens": 0
             },
-            "output_tokens": 722,
+            "output_tokens": 1171,
             "output_tokens_details": {
-              "reasoning_tokens": 704
+              "reasoning_tokens": 1152
             },
-            "total_tokens": 1081
+            "total_tokens": 1643
           },
           "user": null,
           "metadata": {}
         }
-  recorded_at: Mon, 18 Aug 2025 15:13:17 GMT
+  recorded_at: Tue, 19 Aug 2025 08:58:16 GMT
 recorded_with: VCR 6.3.1

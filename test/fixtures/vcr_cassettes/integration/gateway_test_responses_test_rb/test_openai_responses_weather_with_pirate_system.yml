@@ -5,11 +5,11 @@ http_interactions:
     uri: https://api.openai.com/v1/responses
     body:
       encoding: UTF-8
-      string: '{"model":"o4-mini","max_output_tokens":4096,"instructions":"Talk like
-        a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
+      string: '{"model":"o4-mini","max_output_tokens":4096,"input":[{"role":"user","content":[{"type":"input_text","text":"What''s
+        the weather in Singapore? reply in 10 words and no special characters"}]}],"include":["code_interpreter_call.outputs"],"instructions":"Talk
+        like a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
-        name"}},"required":["location"]}}],"input":[{"role":"user","content":[{"type":"input_text","text":"What''s
-        the weather in Singapore? reply in 10 words and no special characters"}]}]}'
+        name"}},"required":["location"]}}]}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -29,7 +29,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 12:59:45 GMT
+      - Tue, 19 Aug 2025 09:05:10 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -55,36 +55,36 @@ http_interactions:
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       X-Request-Id:
-      - req_3e5ea8e382df987362665c4b350902ac
+      - req_087176a31db7489751a75216e8839676
       Openai-Processing-Ms:
-      - '15137'
+      - '8458'
       X-Envoy-Upstream-Service-Time:
-      - '15166'
+      - '8463'
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=bnFexz9Xr01gsFgSQj7oxMY70f90dcRFF9Pj5lDF238-1755521985-1.0.1.1-tqSKb9GhcGseSyNsgpzVivcgisAEM2ACELxoYjwmd8B6d8lvrRlpDChjwqHIGarAaJkjSWR6ic_psjVu9PbkW_unX8aKx1VhZwqAS7DDvdw;
-        path=/; expires=Mon, 18-Aug-25 13:29:45 GMT; domain=.api.openai.com; HttpOnly;
+      - __cf_bm=K49Al3iEjqunSESSQgNn0TOi3tGA77RsWOqCsMDvBso-1755594310-1.0.1.1-33fQmkZGqprT.apoxNd8XYrMK25JGB1JxkD3Ti6b.AzB8XSEMyTlL30R1TdkS4xMANfxvMwCj79dVYq_1SXsEE2cjNQR7TfedgLx4gotrC4;
+        path=/; expires=Tue, 19-Aug-25 09:35:10 GMT; domain=.api.openai.com; HttpOnly;
         Secure; SameSite=None
-      - _cfuvid=hMLP1aetAYnwPLI2fLvzQ95aFsZs_EIi2FvoLKDTQQA-1755521985902-0.0.1.1-604800000;
+      - _cfuvid=brRztymSYmLL4zeGMy4wCcsi6YQaUvD9kklGu6LLSi8-1755594310378-0.0.1.1-604800000;
         path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
       X-Content-Type-Options:
       - nosniff
       Server:
       - cloudflare
       Cf-Ray:
-      - 971196b74d65d433-KUL
+      - 97187c9edf73e4fb-JHB
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |-
         {
-          "id": "resp_68a323b2a8f481939f56f4cc688f89b90a6c7f3a9118bc65",
+          "id": "resp_68a43e3dd18481908d49a17ff130705b06e99912c9374f3d",
           "object": "response",
-          "created_at": 1755521970,
+          "created_at": 1755594302,
           "status": "completed",
           "background": false,
           "error": null,
@@ -95,16 +95,16 @@ http_interactions:
           "model": "o4-mini-2025-04-16",
           "output": [
             {
-              "id": "rs_68a323b3dc5c8193a672650245036c690a6c7f3a9118bc65",
+              "id": "rs_68a43e3e8da08190afd59c68125d001306e99912c9374f3d",
               "type": "reasoning",
               "summary": []
             },
             {
-              "id": "fc_68a323c16cbc8193810c274efc03927b0a6c7f3a9118bc65",
+              "id": "fc_68a43e460a5081909f36553c34cc410606e99912c9374f3d",
               "type": "function_call",
               "status": "completed",
               "arguments": "{\"location\":\"Singapore\"}",
-              "call_id": "call_O71QezmjypXwj1WFZgMeI9Id",
+              "call_id": "call_0vSMgJt1QT6hyiTQo6IWO3mR",
               "name": "get_weather"
             }
           ],
@@ -155,14 +155,14 @@ http_interactions:
             "input_tokens_details": {
               "cached_tokens": 0
             },
-            "output_tokens": 1108,
+            "output_tokens": 532,
             "output_tokens_details": {
-              "reasoning_tokens": 1088
+              "reasoning_tokens": 512
             },
-            "total_tokens": 1175
+            "total_tokens": 599
           },
           "user": null,
           "metadata": {}
         }
-  recorded_at: Mon, 18 Aug 2025 12:59:45 GMT
+  recorded_at: Tue, 19 Aug 2025 09:05:10 GMT
 recorded_with: VCR 6.3.1
