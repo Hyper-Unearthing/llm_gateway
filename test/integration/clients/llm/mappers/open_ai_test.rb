@@ -33,7 +33,7 @@ class OpenAIMapperTest < Test
         function: { name: "get_weather", description: "Get current weather for a location", parameters: { type: "object", properties: { location: { type: "string", description: "City name" } }, required: [ "location" ] } }
       } ]
     }
-    result = LlmGateway::Adapters::OpenAi::InputMapper.map(input)
+    result = LlmGateway::Adapters::OpenAi::ChatCompletions::InputMapper.map(input)
     assert_equal expectation, result
   end
 
@@ -67,7 +67,7 @@ class OpenAIMapperTest < Test
         function: { name: "get_weather", description: "Get current weather for a location", parameters: { type: "object", properties: { location: { type: "string", description: "City name" } }, required: [ "location" ] } }
       } ]
     }
-    result = LlmGateway::Adapters::OpenAi::InputMapper.map(input)
+    result = LlmGateway::Adapters::OpenAi::ChatCompletions::InputMapper.map(input)
 
     assert_equal expectation, result
   end

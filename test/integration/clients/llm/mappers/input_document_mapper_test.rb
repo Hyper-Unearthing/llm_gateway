@@ -13,7 +13,7 @@ class InputDocumentMapperTest < Test
   test "openai input document mapping" do
     input = { messages: [ { role: "user", content: [ { type: "text", text: "return the content of the document exactly" }, { type: "file", data: "abc\n", media_type: "text/plain", name: "small.txt" } ] } ] }
     output = [ { role: "user", content: [ { type: "text", text: "return the content of the document exactly" }, { type: "file", file: { filename: "small.txt", file_data: "data:application/pdf;base64,#{Base64.encode64("abc\n")}" } } ] } ]
-    result = LlmGateway::Adapters::OpenAi::InputMapper.map(input)
+    result = LlmGateway::Adapters::OpenAi::ChatCompletions::InputMapper.map(input)
 
     assert_equal output, result[:messages]
     end

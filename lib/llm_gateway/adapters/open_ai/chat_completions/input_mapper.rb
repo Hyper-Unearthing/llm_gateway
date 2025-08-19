@@ -6,7 +6,8 @@ require_relative "bidirectional_message_mapper"
 module LlmGateway
   module Adapters
     module OpenAi
-      class InputMapper
+      module ChatCompletions
+        class InputMapper
         def self.map(data)
           {
             messages: map_messages(data[:messages]),
@@ -101,6 +102,7 @@ module LlmGateway
               msg[:role] == "system" ? msg.merge(role: "developer") : msg
             end
           end
+        end
         end
       end
     end

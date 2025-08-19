@@ -11,8 +11,8 @@ module LlmGateway
           file_output_mapper: LlmGateway::Adapters::Claude::FileOutputMapper
         },
         openai: {
-          input_mapper: LlmGateway::Adapters::OpenAi::InputMapper,
-          output_mapper: LlmGateway::Adapters::OpenAi::OutputMapper,
+          input_mapper: LlmGateway::Adapters::OpenAi::ChatCompletions::InputMapper,
+          output_mapper: LlmGateway::Adapters::OpenAi::ChatCompletions::OutputMapper,
           client: LlmGateway::Adapters::OpenAi::Client,
           file_output_mapper: LlmGateway::Adapters::OpenAi::FileOutputMapper
         },
