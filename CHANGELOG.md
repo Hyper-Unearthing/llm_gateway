@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.3.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.3.0) (2025-08-19)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.2.0...v0.3.0)
+
+**Merged pull requests:**
+
+- feat: create a method called responses to implement modern apis [\#30](https://github.com/Hyper-Unearthing/llm_gateway/pull/30) ([billybonks](https://github.com/billybonks))
+- test: Create a test that asserts the transcript format. [\#29](https://github.com/Hyper-Unearthing/llm_gateway/pull/29) ([billybonks](https://github.com/billybonks))
+- refactor: move open ai chat completions to its own folder [\#28](https://github.com/Hyper-Unearthing/llm_gateway/pull/28) ([billybonks](https://github.com/billybonks))
+- refactor: bundle all provider resources in a hash [\#27](https://github.com/Hyper-Unearthing/llm_gateway/pull/27) ([billybonks](https://github.com/billybonks))
+- refactor: message mapper to become bidirectional mapper [\#26](https://github.com/Hyper-Unearthing/llm_gateway/pull/26) ([billybonks](https://github.com/billybonks))
+- refactor: extract message mapper from input mapper [\#25](https://github.com/Hyper-Unearthing/llm_gateway/pull/25) ([billybonks](https://github.com/billybonks))
+- docs: add more information about how the library works [\#24](https://github.com/Hyper-Unearthing/llm_gateway/pull/24) ([billybonks](https://github.com/billybonks))
+- feat: enable uploading and downloading files from openai anthropic [\#23](https://github.com/Hyper-Unearthing/llm_gateway/pull/23) ([billybonks](https://github.com/billybonks))
+- ci: upload build version to github when we release [\#22](https://github.com/Hyper-Unearthing/llm_gateway/pull/22) ([billybonks](https://github.com/billybonks))
+
 ## [v0.2.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.2.0) (2025-08-08)
 
 [Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.1.6...v0.2.0)
