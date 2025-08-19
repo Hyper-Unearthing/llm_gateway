@@ -39,20 +39,39 @@ class ClaudeMapperTest < Test
       usage: { input_tokens: 2808, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, output_tokens: 1210, service_tier: "standard", server_tool_use: { web_search_requests: 0 } }
     }
     result = LlmGateway::Adapters::Claude::ResponsesMapper.map(input)
+
     assert_equal(result, {
       id: "msg_01TLpDwBc2xXJfpk3UpCSKTH",
       usage: { input_tokens: 2808, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, output_tokens: 1210, service_tier: "standard", server_tool_use: { web_search_requests: 0 } },
       model: "claude-sonnet-4-20250514",
       choices: [ {
-        content: [ { type: "text", text: "I'll create a temperature chart from your data and save it as a PNG file." },
-                {
-                  type: "text",
-                  text: "I've successfully created a temperature chart from your data and saved it as a PNG file. The chart shows:\n\n- **Blue line with markers**: Minimum temperatures for each day\n- **Red line with markers**: Maximum temperatures for each day  \n- **Orange shaded area**: The temperature range between min and max\n- **Value labels**: Temperature values displayed on each data point\n- **Grid and formatting**: Clean, professional appearance with rotated date labels\n\nThe chart covers the period from July 29 to August 4, 2025, and includes some summary statistics:\n- Average minimum temperature: 26.7°C\n- Average maximum temperature: 32.6°C\n- Temperature ranges varied from 4°C to 7°C per day\n\nThe PNG file has been saved with high resolution (300 DPI) and is ready for use. You can download it from the output files."
-                } ],
+        content: [
+          { type: "text", text: "I'll create a temperature chart from your data and save it as a PNG file." },
+          {
+            type: "text",
+            text: "I've successfully created a temperature chart from your data and saved it as a PNG file. The chart shows:\n\n- **Blue line with markers**: Minimum temperatures for each day\n- **Red line with markers**: Maximum temperatures for each day  \n- **Orange shaded area**: The temperature range between min and max\n- **Value labels**: Temperature values displayed on each data point\n- **Grid and formatting**: Clean, professional appearance with rotated date labels\n\nThe chart covers the period from July 29 to August 4, 2025, and includes some summary statistics:\n- Average minimum temperature: 26.7°C\n- Average maximum temperature: 32.6°C\n- Temperature ranges varied from 4°C to 7°C per day\n\nThe PNG file has been saved with high resolution (300 DPI) and is ready for use. You can download it from the output files."
+          },
+          { type: "file", content: { filename: nil, file_id: "file_011CRuyqekDx7vwCkL9YyY21" } }
+        ],
         finish_reason: "end_turn",
         role: "assistant"
       } ]
     })
     assert_equal(result.files, [ { filename: nil, file_id: "file_011CRuyqekDx7vwCkL9YyY21" } ])
+  end
+
+  test "claude code execution tool" do
+    input = {
+      messages: [ { 'role': "user", 'content': "render a graph" } ],
+      tools: [ {
+        type: "code_execution"
+      } ]
+    }
+
+    expectation = [ { name: "code_execution", type: "code_execution_20250522" } ]
+
+    result = LlmGateway::Adapters::Claude::InputMapper.map(input)
+
+    assert_equal expectation, result[:tools]
   end
 end

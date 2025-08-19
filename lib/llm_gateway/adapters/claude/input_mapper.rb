@@ -8,7 +8,7 @@ module LlmGateway
           {
             messages: map_messages(data[:messages]),
             response_format: data[:response_format],
-            tools: data[:tools],
+            tools: map_tools(data[:tools]),
             system: map_system(data[:system])
           }
         end
@@ -48,6 +48,23 @@ module LlmGateway
           else
             # For multiple messages or non-standard format, pass through
             system
+          end
+        end
+
+        def self.map_tools(tools)
+          return tools unless tools
+
+          tools.map do |tool|
+            if tool[:type]
+              case tool[:type]
+              when "code_execution"
+                { name: "code_execution", type: "code_execution_20250522" }
+              else
+                tool
+              end
+            else
+              tool
+            end
           end
         end
       end
