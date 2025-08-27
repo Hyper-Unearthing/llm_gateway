@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+# Simple Chat TUI - Interactive AI Chat Interface
+# Usage: bin/simple_chat
+
+require 'pathname'
+
+# Get the root directory of the project
+root_dir = Pathname.new(__FILE__).dirname.parent
+simple_chat_dir = root_dir.join('sample', 'simple_chat')
+
+# Change to the simple_chat directory
+Dir.chdir(simple_chat_dir)
+
+# Load and run the application
+require_relative '../sample/simple_chat/run.rb'
+
+runner = SimpleChatRunner.new
+runner.start
