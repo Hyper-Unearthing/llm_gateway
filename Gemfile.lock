@@ -55,6 +55,7 @@ GEM
     crack (1.0.0)
       bigdecimal
       rexml
+    curses (1.5.3)
     date (3.4.1)
     debug (1.11.0)
       irb (~> 1.10)
@@ -183,7 +184,16 @@ GEM
     simplecov-html (0.13.2)
     simplecov_json_formatter (0.1.4)
     stringio (3.1.7)
+    strings (0.2.1)
+      strings-ansi (~> 0.2)
+      unicode-display_width (>= 1.5, < 3.0)
+      unicode_utils (~> 1.4)
+    strings-ansi (0.2.0)
     traces (0.16.2)
+    tty-box (0.7.0)
+      pastel (~> 0.8)
+      strings (~> 0.2.0)
+      tty-cursor (~> 0.7)
     tty-color (0.6.0)
     tty-cursor (0.7.1)
     tty-prompt (0.23.1)
@@ -196,9 +206,8 @@ GEM
     tty-screen (0.8.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (3.1.4)
-      unicode-emoji (~> 4.0, >= 4.0.4)
-    unicode-emoji (4.0.4)
+    unicode-display_width (2.6.0)
+    unicode_utils (1.4.0)
     uri (1.0.3)
     vcr (6.3.1)
       base64
@@ -213,6 +222,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  curses (~> 1.4)
   debug (>= 1.0.0)
   dotenv (~> 2.8)
   gem-release (~> 2.2)
@@ -225,7 +235,9 @@ DEPENDENCIES
   rubocop (~> 1.21)
   rubocop-rails-omakase (~> 1.0)
   simplecov (~> 0.22)
+  tty-box (~> 0.7)
   tty-prompt (~> 0.23)
+  tty-screen (~> 0.8)
   vcr (~> 6.0)
   webmock (~> 3.0)
 
