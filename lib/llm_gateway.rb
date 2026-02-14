@@ -36,6 +36,8 @@ require_relative "llm_gateway/adapters/open_ai/chat_completions_adapter"
 require_relative "llm_gateway/adapters/open_ai/responses_adapter"
 require_relative "llm_gateway/adapters/groq/chat_completions_adapter"
 
+# Load builder
+require_relative "llm_gateway/client_builder"
 
 module LlmGateway
   class Error < StandardError; end
