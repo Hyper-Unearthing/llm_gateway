@@ -8,18 +8,20 @@ require_relative "llm_gateway/client"
 require_relative "llm_gateway/prompt"
 require_relative "llm_gateway/tool"
 
-# Load adapters - order matters for inheritance
-require_relative "llm_gateway/adapters/claude/client"
+# Load clients - order matters for inheritance
+require_relative "llm_gateway/clients/claude"
+require_relative "llm_gateway/clients/claude_code"
+require_relative "llm_gateway/clients/open_ai"
+require_relative "llm_gateway/clients/groq"
+
+# Load adapters
 require_relative "llm_gateway/adapters/claude/input_mapper"
 require_relative "llm_gateway/adapters/claude/output_mapper"
-require_relative "llm_gateway/adapters/claude_code/client"
 require_relative "llm_gateway/adapters/claude_code/input_mapper"
 require_relative "llm_gateway/adapters/claude_code/output_mapper"
-require_relative "llm_gateway/adapters/open_ai/client"
 require_relative "llm_gateway/adapters/open_ai/file_output_mapper"
 require_relative "llm_gateway/adapters/open_ai/chat_completions/input_mapper"
 require_relative "llm_gateway/adapters/open_ai/chat_completions/output_mapper"
-require_relative "llm_gateway/adapters/groq/client"
 require_relative "llm_gateway/adapters/groq/input_mapper"
 require_relative "llm_gateway/adapters/groq/output_mapper"
 require_relative "llm_gateway/adapters/open_ai/file_output_mapper"

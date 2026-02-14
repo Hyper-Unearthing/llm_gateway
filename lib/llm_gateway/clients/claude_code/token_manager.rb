@@ -5,8 +5,8 @@ require "json"
 require "time"
 
 module LlmGateway
-  module Adapters
-    module ClaudeCode
+  module Clients
+    class ClaudeCode < Claude
       class TokenManager
         ANTHROPIC_OAUTH_TOKEN_URL = "https://api.anthropic.com/v1/oauth/token"
 

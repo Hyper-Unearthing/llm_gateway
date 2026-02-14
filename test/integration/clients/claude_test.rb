@@ -18,7 +18,7 @@ class ClaudeClientTest < Test
   end
 
   def claude_client
-    LlmGateway::Adapters::Claude::Client.new
+    LlmGateway::Clients::Claude.new
   end
 
   test "throws bad request error" do
@@ -44,7 +44,7 @@ class ClaudeClientTest < Test
   test "throws authentication error" do
     error = assert_raises(LlmGateway::Errors::AuthenticationError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Adapters::Claude::Client.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::Claude.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ])
       end
     end
     assert_equal "invalid x-api-key", error.message
@@ -54,7 +54,7 @@ class ClaudeClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Adapters::Claude::Client.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::Claude.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ])
       end
     end
     assert_equal "model: randomodel", error.message

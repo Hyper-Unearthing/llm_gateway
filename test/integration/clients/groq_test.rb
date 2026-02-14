@@ -17,7 +17,7 @@ class GroqClientTest < Test
   end
 
   def groq_client
-    LlmGateway::Adapters::Groq::Client.new
+    LlmGateway::Clients::Groq.new
   end
 
   test "throws bad request error" do
@@ -32,7 +32,7 @@ class GroqClientTest < Test
   test "throws authentication error" do
     error = assert_raises(LlmGateway::Errors::AuthenticationError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Adapters::Groq::Client.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::Groq.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ])
       end
     end
     assert_equal "Invalid API Key", error.message
@@ -41,7 +41,7 @@ class GroqClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Adapters::Groq::Client.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::Groq.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ])
       end
     end
     assert_equal "The model `randomodel` does not exist or you do not have access to it.", error.message
