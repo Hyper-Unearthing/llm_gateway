@@ -5,7 +5,7 @@ require_relative "../base_client"
 module LlmGateway
   module Clients
     class Groq < BaseClient
-      def initialize(model_key: "gemma2-9b-it", api_key: ENV["GROQ_API_KEY"])
+      def initialize(model_key: "openai/gpt-oss-20b", api_key: ENV["GROQ_API_KEY"])
         @base_endpoint = "https://api.groq.com/openai/v1"
         super(model_key: model_key, api_key: api_key)
       end
@@ -37,7 +37,10 @@ module LlmGateway
         error_code = error["code"]
 
         case response.code.to_i
-
+        when 400
+          if error["message"]&.match?(/reduce the length of the messages/i)
+            raise Errors::PromptTooLong.new(error["message"], error["type"])
+          end
         when 413
           if error["message"]&.start_with?("Request too large")
             raise Errors::PromptTooLong.new(error["message"], error["type"])
