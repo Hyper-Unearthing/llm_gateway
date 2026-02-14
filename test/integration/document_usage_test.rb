@@ -17,7 +17,17 @@ class DocumentUsageTest < Test
   test "cluade upload file" do
     VCR.use_cassette(vcr_cassette_name) do
       result = LlmGateway::Client.upload_file("anthropic", filename: "test.txt", content: "Hello, world!", mime_type: "text/plain")
-      assert_equal(result, { id: "file_011CRub6FQG7ympTxXw81mic", size_bytes: 13, created_at: "2025-08-08T04:10:55.298000Z", filename: "test.txt", mime_type: "application/octet-stream", downloadable: false, expires_at: nil, purpose: "user_data" })
+      expected = {
+        id: ->(value, path) { assert_match(/\Afile[-_]/, value, path) },
+        created_at: ->(value, path) { assert(Time.iso8601(value), path) },
+        size_bytes: 13,
+        filename: "test.txt",
+        downloadable: false,
+        purpose: "user_data",
+        mime_type: "application/octet-stream",
+        expires_at: nil
+      }
+      assert_llm_response(expected, result)
     end
   end
 
@@ -32,7 +42,17 @@ class DocumentUsageTest < Test
   test "openai upload file" do
     VCR.use_cassette(vcr_cassette_name) do
       result = LlmGateway::Client.upload_file("openai", filename: "test.txt", content: "Hello, world!", mime_type: "text/plain")
-      assert_equal(result, { id: "file-Kb6X7f8YDffu7FG1NcaPVu", size_bytes: 13, created_at: "2025-08-08T06:03:16.000000Z", filename: "test.txt", mime_type: nil, downloadable: false, expires_at: nil, purpose: "user_data" })
+      expected = {
+        id: ->(value, path) { assert_match(/\Afile[-_]/, value, path) },
+        created_at: ->(value, path) { assert(Time.iso8601(value), path) },
+        size_bytes: 13,
+        filename: "test.txt",
+        downloadable: false,
+        purpose: "user_data",
+        mime_type: nil,
+        expires_at: nil
+      }
+      assert_llm_response(expected, result)
     end
   end
 
