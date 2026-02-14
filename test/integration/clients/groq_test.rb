@@ -50,10 +50,10 @@ class GroqClientTest < Test
   test "throws rate limit error" do
     error = assert_raises(LlmGateway::Errors::PromptTooLong) do
       VCR.use_cassette(vcr_cassette_name) do
-        groq_client.chat([ { 'role': "user", 'content': "aqklcsa," * 15_000 } ])
+        groq_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ])
       end
     end
-    assert_equal "Request too large for model `gemma2-9b-it` in organization `org_01jr5m71qmfspb8essdm2fwc7v` service tier `on_demand` on tokens per minute (TPM): Limit 30000, Requested 30005, please reduce your message size and try again. Need more tokens? Visit https://groq.com/self-serve-support/ to request higher limits.",
+    assert_equal "Please reduce the length of the messages or completion.",
                  error.message
   end
 

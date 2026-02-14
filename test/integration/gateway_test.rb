@@ -80,7 +80,8 @@ class GatewayTest < Test
           cache_creation_input_tokens: 0,
           cache_read_input_tokens: 0,
           cache_creation: { ephemeral_5m_input_tokens: 0, ephemeral_1h_input_tokens: 0 },
-          service_tier: "standard"
+          service_tier: "standard",
+          inference_geo: "not_available"
         },
         choices: [
           {
@@ -263,7 +264,8 @@ class GatewayTest < Test
           cache_creation_input_tokens: 0,
           cache_read_input_tokens: 0,
           cache_creation: { ephemeral_5m_input_tokens: 0, ephemeral_1h_input_tokens: 0 },
-          service_tier: "standard"
+          service_tier: "standard",
+          inference_geo: "not_available"
         },
         choices: [
           {

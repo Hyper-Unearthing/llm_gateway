@@ -25,7 +25,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sun, 29 Jun 2025 13:53:03 GMT
+      - Sat, 14 Feb 2026 14:43:46 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -34,24 +34,26 @@ http_interactions:
       - keep-alive
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
+      Server:
+      - cloudflare
       Vary:
       - Origin
       X-Groq-Region:
       - bom
       X-Request-Id:
-      - req_01jyxzczz1f8h99j0yb6dx77pd
+      - req_01khe9q58je5nsg78cssqadpd6
+      Set-Cookie:
+      - __cf_bm=mPtDTbG4XjkS3RlbdUjyMXjQwaKf4SEhqdEgVxn1UUg-1771080226.0169458-1.0.1.1-rfR6s.vZ0lPf7Wk22ly_l_Erc732_ydMjJzPEPgoJCpKHfwODX7cC7c4f5.stH0qxWAPK9glv3j8lArUbDAv11XIZiAMJeterIfMVVIem7KglMwWZiPYr6fKxLqo0MNT;
+        HttpOnly; Secure; Path=/; Domain=groq.com; Expires=Sat, 14 Feb 2026 15:13:46
+        GMT
       Via:
       - 1.1 google
+      Strict-Transport-Security:
+      - max-age=15552000
       Cf-Cache-Status:
       - DYNAMIC
-      Set-Cookie:
-      - __cf_bm=BaPAEjvWRIxh47FMoWHjdLJWroeji3NUstyiZRcBRJU-1751205183-1.0.1.1-5fXmiEm7I_n3w2J41jJnjvDk00uPgUVGH2i7vtwrieNuUCX59ZIsUvMzInhEf_zTiCuUxgc6rgKBMo5GCPbD9gWYiW930asgEvZlBk6CCsk;
-        path=/; expires=Sun, 29-Jun-25 14:23:03 GMT; domain=.groq.com; HttpOnly; Secure;
-        SameSite=None
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 9575e86c5843b1b1-KUL
+      - 9cdd56f49c6640c1-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -60,5 +62,5 @@ http_interactions:
         not have access to it.","type":"invalid_request_error","code":"model_not_found"}}
 
         '
-  recorded_at: Sun, 29 Jun 2025 13:53:03 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 14 Feb 2026 14:43:46 GMT
+recorded_with: VCR 6.4.0

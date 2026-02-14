@@ -29,7 +29,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 17 Aug 2025 15:29:05 GMT
+      - Sat, 14 Feb 2026 14:44:58 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -41,13 +41,13 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '3038'
+      - '7788'
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
       - '2020-10-01'
-      X-Envoy-Upstream-Service-Time:
-      - '3055'
+      Server:
+      - cloudflare
       X-Ratelimit-Limit-Requests:
       - '500'
       X-Ratelimit-Limit-Tokens:
@@ -61,32 +61,30 @@ http_interactions:
       X-Ratelimit-Reset-Tokens:
       - 8ms
       X-Request-Id:
-      - req_ab1bde7974a940bc99b34504b595428f
+      - req_fe0aa7dff05448ddb09ca1c8fb90d97e
+      X-Openai-Proxy-Wasm:
+      - v0.1
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=b1yZ4yNDXw7MfOS4Cwmr3byjUjCCS7EJsjfx278dTrQ-1755444545-1.0.1.1-dYB9pkHBqQlyrnHkQGYA5pR_otdq1uf_5QHF5HM9Wpn9AtLzTc4qSCj7s6L_jTUhMqI41BrT9J0swYzxdCBJ7gTQohEHBu9zIXDNTlx9j4I;
-        path=/; expires=Sun, 17-Aug-25 15:59:05 GMT; domain=.api.openai.com; HttpOnly;
-        Secure; SameSite=None
-      - _cfuvid=zNpTbqbpLu0o5Qk_556pa2f2x8pqjNxEn1CH3xgQ3lQ-1755444545820-0.0.1.1-604800000;
-        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      - __cf_bm=CNk8nDbaJSgFZCwiHYZrxkrH7hJJdSil38Ij6tnzjHk-1771080290.8867073-1.0.1.1-UZHDGLwOXOqJS_ureczniTqeOIXtE8zgZSWQNR9819O77AMwiAz.P8OiQEarJTe8wAPebW_2ItmlLHUL.F0KuKR9zJBXiO3FC3YsQbtaBhsGSxXEpISVH6vDN519U5ve;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
+        15:14:58 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 970a3466bc95e4ff-JHB
+      - 9cdd588a0ebefcff-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |
         {
-          "id": "chatcmpl-C5Zba9y9OG70FEV8Ber4LIrtxlXdd",
+          "id": "chatcmpl-D9BB54ls2PP1qdr6n3ipBIi65A1qg",
           "object": "chat.completion",
-          "created": 1755444542,
+          "created": 1771080291,
           "model": "o4-mini-2025-04-16",
           "choices": [
             {
@@ -96,7 +94,7 @@ http_interactions:
                 "content": null,
                 "tool_calls": [
                   {
-                    "id": "call_8DnGFFRKGF8xYpaT7AZqFKHc",
+                    "id": "call_oxedwI52hFmh4dYGiAlY0b6y",
                     "type": "function",
                     "function": {
                       "name": "get_weather",
@@ -112,14 +110,14 @@ http_interactions:
           ],
           "usage": {
             "prompt_tokens": 71,
-            "completion_tokens": 215,
-            "total_tokens": 286,
+            "completion_tokens": 983,
+            "total_tokens": 1054,
             "prompt_tokens_details": {
               "cached_tokens": 0,
               "audio_tokens": 0
             },
             "completion_tokens_details": {
-              "reasoning_tokens": 192,
+              "reasoning_tokens": 960,
               "audio_tokens": 0,
               "accepted_prediction_tokens": 0,
               "rejected_prediction_tokens": 0
@@ -128,5 +126,5 @@ http_interactions:
           "service_tier": "default",
           "system_fingerprint": null
         }
-  recorded_at: Sun, 17 Aug 2025 15:29:05 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 14 Feb 2026 14:44:59 GMT
+recorded_with: VCR 6.4.0

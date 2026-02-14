@@ -27,7 +27,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 17 Aug 2025 15:29:02 GMT
+      - Sat, 14 Feb 2026 14:44:50 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -36,6 +36,8 @@ http_interactions:
       - keep-alive
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
+      Server:
+      - cloudflare
       Vary:
       - Origin
       X-Groq-Region:
@@ -43,36 +45,36 @@ http_interactions:
       X-Ratelimit-Limit-Requests:
       - '500000'
       X-Ratelimit-Limit-Tokens:
-      - '500000'
+      - '300000'
       X-Ratelimit-Remaining-Requests:
       - '499999'
       X-Ratelimit-Remaining-Tokens:
-      - '499966'
+      - '299944'
       X-Ratelimit-Reset-Requests:
-      - 172.799999ms
+      - 172ms
       X-Ratelimit-Reset-Tokens:
-      - 4.079999ms
+      - 11ms
       X-Request-Id:
-      - req_01k2wabytnfnwvr021we910pec
+      - req_01khe9s41te8mvvqhzsskfpr0n
+      Set-Cookie:
+      - __cf_bm=sUtkz0uFDox2KwwuLTSlItJeCWKxvzJpD1WJWskmqZ4-1771080290.3264537-1.0.1.1-gC9K1TNc5lF4vyXu24hMusGte0j43rOOlVzFm0YXv0R2NG4GgvMoX4T7VPm7.JUl5VHwI.uecuPwnt52tY_wuv83fZ3HeohqCZEgbgaDEWWq8vzbRUDLqK_EiczkOmYc;
+        HttpOnly; Secure; Path=/; Domain=groq.com; Expires=Sat, 14 Feb 2026 15:14:50
+        GMT
       Via:
       - 1.1 google
+      Strict-Transport-Security:
+      - max-age=15552000
       Cf-Cache-Status:
       - DYNAMIC
-      Set-Cookie:
-      - __cf_bm=R7UlQpSXHvuvbBMsSZolPRJ77zirTpcDJrdsJ6Ot9h0-1755444542-1.0.1.1-_9iZJfAJma_qfZjNtpbEcsBf6S.GahokD__T2NMHgFUoWP0Yl1tt9Aw51Pi.ys3aBMbU1ksUmHAt5lSE6yRl_LV2LwDFLu7AkgwQQYp9.lk;
-        path=/; expires=Sun, 17-Aug-25 15:59:02 GMT; domain=.groq.com; HttpOnly; Secure;
-        SameSite=None
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 970a3464fbe1e543-KUL
+      - 9cdd58868b199cb0-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"chatcmpl-5de6e422-9002-437c-b118-5a378bb9e364","object":"chat.completion","created":1755444542,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"The
-        weather in Singapore is usually hot and very humid"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.044468705,"prompt_tokens":55,"prompt_time":0.011753645,"completion_tokens":11,"completion_time":0.03198708,"total_tokens":66,"total_time":0.043740725},"usage_breakdown":null,"system_fingerprint":"fp_2ddfbb0da0","x_groq":{"id":"req_01k2wabytnfnwvr021we910pec"},"service_tier":"on_demand"}
+      string: '{"id":"chatcmpl-439771d5-1bd8-4bec-a2ca-94dd2a39d671","object":"chat.completion","created":1771080290,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"The
+        weather in Singapore is usually hot and humid"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.050896314,"prompt_tokens":55,"prompt_time":0.004719656,"completion_tokens":10,"completion_time":0.029106236,"total_tokens":65,"total_time":0.033825892},"usage_breakdown":null,"system_fingerprint":"fp_dae98b5ecb","x_groq":{"id":"req_01khe9s41te8mvvqhzsskfpr0n","seed":1517367084},"service_tier":"on_demand"}
 
         '
-  recorded_at: Sun, 17 Aug 2025 15:29:02 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 14 Feb 2026 14:44:50 GMT
+recorded_with: VCR 6.4.0

@@ -21,13 +21,15 @@ http_interactions:
       - application/json
       X-Api-Key:
       - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
   response:
     status:
       code: 404
       message: Not Found
     headers:
       Date:
-      - Sun, 29 Jun 2025 08:40:21 GMT
+      - Sat, 14 Feb 2026 14:44:07 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -37,24 +39,26 @@ http_interactions:
       X-Should-Retry:
       - 'false'
       Request-Id:
-      - req_011CQcDHGQFet6gp3oL7FVE6
+      - req_011CY894oCzKRAnqEUvV5P6v
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
-      Via:
-      - 1.1 google
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '132'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
       - none
-      Server:
-      - cloudflare
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 95741e5a8aca1458-KUL
+      - 9cdd577a2ce781d4-SIN
     body:
       encoding: ASCII-8BIT
       string: '{"type":"error","error":{"type":"not_found_error","message":"model:
-        randomodel"}}'
-  recorded_at: Sun, 29 Jun 2025 08:40:21 GMT
-recorded_with: VCR 6.3.1
+        randomodel"},"request_id":"req_011CY894oCzKRAnqEUvV5P6v"}'
+  recorded_at: Sat, 14 Feb 2026 14:44:07 GMT
+recorded_with: VCR 6.4.0

@@ -29,7 +29,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 17 Aug 2025 15:25:42 GMT
+      - Sat, 14 Feb 2026 14:44:59 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -38,6 +38,8 @@ http_interactions:
       - keep-alive
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
+      Server:
+      - cloudflare
       Vary:
       - Origin
       X-Groq-Region:
@@ -45,36 +47,36 @@ http_interactions:
       X-Ratelimit-Limit-Requests:
       - '500000'
       X-Ratelimit-Limit-Tokens:
-      - '500000'
+      - '300000'
       X-Ratelimit-Remaining-Requests:
       - '499999'
       X-Ratelimit-Remaining-Tokens:
-      - '499966'
+      - '299762'
       X-Ratelimit-Reset-Requests:
-      - 172.799999ms
+      - 172ms
       X-Ratelimit-Reset-Tokens:
-      - 4.079999ms
+      - 47ms
       X-Request-Id:
-      - req_01k2wa5v34fm5rbp8qh2vz0f9v
+      - req_01khe9sd23ftg8bfxgyf4jecsf
+      Set-Cookie:
+      - __cf_bm=VFRzy0IfZcRSMlGJ0HHkQE7xAKrU0E0kDGQxcDtvwFY-1771080299.5442393-1.0.1.1-P7POjGGuMIqj068Nq8Pa8AvOZZNUv2gCg0RNFjJ4Cozg4x3wie5mKWHoOdNzKY5cDYywuOsqndX.vnl5YOAgAWjkW_8HXc_0M.ZuuDhLMPxAsBAy8XDbk7c7d2VP5D2Y;
+        HttpOnly; Secure; Path=/; Domain=groq.com; Expires=Sat, 14 Feb 2026 15:14:59
+        GMT
       Via:
       - 1.1 google
+      Strict-Transport-Security:
+      - max-age=15552000
       Cf-Cache-Status:
       - DYNAMIC
-      Set-Cookie:
-      - __cf_bm=L2rO8qQkvybX6uZYmTUOs4bmeI7FwjrWDLzIJ.uasAo-1755444342-1.0.1.1-eDwpHLKtNTU04.1bTItSqau74ga7zcr3NRcQrq_uUN1YAZO5HJvLkBoUgC_V7AANZw4ewiqzXr.9dMzLjmnr1nueZUT.eXsl.mwcn9J_rGQ;
-        path=/; expires=Sun, 17-Aug-25 15:55:42 GMT; domain=.groq.com; HttpOnly; Secure;
-        SameSite=None
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 970a2f805a22216a-KUL
+      - 9cdd58c01a58fd2a-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"chatcmpl-daedc002-441d-4d79-a91d-1e61de39dfee","object":"chat.completion","created":1755444341,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"Get
-        the weather in Singapore right now please matey"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.045523684,"prompt_tokens":237,"prompt_time":0.032411516,"completion_tokens":11,"completion_time":0.039058012,"total_tokens":248,"total_time":0.071469528},"usage_breakdown":null,"system_fingerprint":"fp_6507bcfb6f","x_groq":{"id":"req_01k2wa5v34fm5rbp8qh2vz0f9v"},"service_tier":"on_demand"}
+      string: '{"id":"chatcmpl-1b8ec5a5-291e-4516-a315-81aad31d94ae","object":"chat.completion","created":1771080299,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"Get
+        the weather in Singapore right now please matey"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.048110075,"prompt_tokens":237,"prompt_time":0.023137605,"completion_tokens":11,"completion_time":0.050607458,"total_tokens":248,"total_time":0.073745063},"usage_breakdown":null,"system_fingerprint":"fp_c06d5113ec","x_groq":{"id":"req_01khe9sd23ftg8bfxgyf4jecsf","seed":539579587},"service_tier":"on_demand"}
 
         '
-  recorded_at: Sun, 17 Aug 2025 15:25:42 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 14 Feb 2026 14:44:59 GMT
+recorded_with: VCR 6.4.0

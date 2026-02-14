@@ -33,7 +33,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:11:06 GMT
+      - Sat, 14 Feb 2026 14:45:48 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -45,13 +45,13 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '2303'
+      - '991'
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
       - '2020-10-01'
-      X-Envoy-Upstream-Service-Time:
-      - '2326'
+      Server:
+      - cloudflare
       X-Ratelimit-Limit-Requests:
       - '500'
       X-Ratelimit-Limit-Tokens:
@@ -65,32 +65,30 @@ http_interactions:
       X-Ratelimit-Reset-Tokens:
       - 35ms
       X-Request-Id:
-      - req_8a4be7ff0411441a90e3a56245aa2c44
+      - req_6b8ad127bb244972a7a5496f3c41093a
+      X-Openai-Proxy-Wasm:
+      - v0.1
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=PZiJPRLO7JRrh9Q9wnkT5_3n3PDfR9AqP1xhZxEdOXs-1755540666-1.0.1.1-fYrJKi1jY7xLVZu9LXzFWdKBBblaZQwt5YAdNHxbK7dpkA9_FiINpwwrT_HgHHekBMLVXtUh1Mu.f5RyGPje9ab6WPYY9H9Wkv1XH0Lx9W0;
-        path=/; expires=Mon, 18-Aug-25 18:41:06 GMT; domain=.api.openai.com; HttpOnly;
-        Secure; SameSite=None
-      - _cfuvid=6ayYQpAgkMbTy5k6JfKhv8Nc8HGSamBYuCAkxK22pMk-1755540666544-0.0.1.1-604800000;
-        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      - __cf_bm=IThYbgmSkFjiqLQRFddskEJJknepN8CP_25FBGS5rLk-1771080347.0052705-1.0.1.1-R09ql9_CICFciqIh8SFn2vpnbvyrvS_kLCjY82PSNLzVzS7FGvZnfoRIIWUf0_0aMhc9BdeZHCFmLMYzg3vLc9P1ggGVLPY0C2VhVvHVOQLHEeu8xBpf4_rS_8YNjb48;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
+        15:15:48 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 97135f1defd6e500-JHB
+      - 9cdd59e8cdb6f891-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |
         {
-          "id": "chatcmpl-C5ybw0VfhWrSKutSN9ebAOv0OIwkY",
+          "id": "chatcmpl-D9BBzXSHfQGnrlkMkTKpKQDkQnkDi",
           "object": "chat.completion",
-          "created": 1755540664,
+          "created": 1771080347,
           "model": "o4-mini-2025-04-16",
           "choices": [
             {
@@ -106,14 +104,14 @@ http_interactions:
           ],
           "usage": {
             "prompt_tokens": 164,
-            "completion_tokens": 20,
-            "total_tokens": 184,
+            "completion_tokens": 84,
+            "total_tokens": 248,
             "prompt_tokens_details": {
               "cached_tokens": 0,
               "audio_tokens": 0
             },
             "completion_tokens_details": {
-              "reasoning_tokens": 0,
+              "reasoning_tokens": 64,
               "audio_tokens": 0,
               "accepted_prediction_tokens": 0,
               "rejected_prediction_tokens": 0
@@ -122,7 +120,7 @@ http_interactions:
           "service_tier": "default",
           "system_fingerprint": null
         }
-  recorded_at: Mon, 18 Aug 2025 18:11:06 GMT
+  recorded_at: Sat, 14 Feb 2026 14:45:48 GMT
 - request:
     method: post
     uri: https://api.openai.com/v1/chat/completions
@@ -157,7 +155,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:11:10 GMT
+      - Sat, 14 Feb 2026 14:45:51 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -169,13 +167,13 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '3958'
+      - '2433'
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
       - '2020-10-01'
-      X-Envoy-Upstream-Service-Time:
-      - '3988'
+      Server:
+      - cloudflare
       X-Ratelimit-Limit-Requests:
       - '500'
       X-Ratelimit-Limit-Tokens:
@@ -189,32 +187,30 @@ http_interactions:
       X-Ratelimit-Reset-Tokens:
       - 37ms
       X-Request-Id:
-      - req_ae7cdfb5e4e841758bd21c76d1e1a35f
+      - req_178ed3a684d9401a979cc01bc69ed6c7
+      X-Openai-Proxy-Wasm:
+      - v0.1
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=34VMX9pY5yoC40M4BDX05GpRd75AZPNDd3f_jeJviUU-1755540670-1.0.1.1-5lZ9YElfIeJg9LIx5eTG0fuaRaSnR0sznw1UDQBAmTrjpddNS4CllbNF3BT0rQz.FbMVscHpdBkpkpVf9sBi1AfI8Baa6_7rOqj_zEnil5w;
-        path=/; expires=Mon, 18-Aug-25 18:41:10 GMT; domain=.api.openai.com; HttpOnly;
-        Secure; SameSite=None
-      - _cfuvid=X.JpeLG.E2ZgtD2C_HBMIWOkmnXKb5AbXMjikylGOrA-1755540670843-0.0.1.1-604800000;
-        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      - __cf_bm=yEQxcgPtKAp9mi4zfbR6Yg3wRh1GykK_GbP515uWXD4-1771080348.8558407-1.0.1.1-M_8M9BfcIWhEoGak.OEwIVUwannliRAdF2KSCAHxC6qmv.gXfQgRi6KgKfQUXY7Kwvssk_EQUE__zPppZW0vKHDrX3ihCIAy_0763_AQnO9jy01RCn.pQWAnQdQwoAQu;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
+        15:15:51 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 97135f2e4a04e4f9-JHB
+      - 9cdd59f45c54fd35-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |
         {
-          "id": "chatcmpl-C5ybylEsPhEyNhbjviFeBjGQH40PA",
+          "id": "chatcmpl-D9BC13ExFnW5aeSkyuZi20JOJUiB2",
           "object": "chat.completion",
-          "created": 1755540666,
+          "created": 1771080349,
           "model": "o4-mini-2025-04-16",
           "choices": [
             {
@@ -224,7 +220,7 @@ http_interactions:
                 "content": null,
                 "tool_calls": [
                   {
-                    "id": "call_eEsCiGIwqCmwIKiEGV7CHfWy",
+                    "id": "call_CVdtDHcGOJoAAbOH8Ny8iAKg",
                     "type": "function",
                     "function": {
                       "name": "get_weather",
@@ -240,14 +236,14 @@ http_interactions:
           ],
           "usage": {
             "prompt_tokens": 180,
-            "completion_tokens": 279,
-            "total_tokens": 459,
+            "completion_tokens": 215,
+            "total_tokens": 395,
             "prompt_tokens_details": {
               "cached_tokens": 0,
               "audio_tokens": 0
             },
             "completion_tokens_details": {
-              "reasoning_tokens": 256,
+              "reasoning_tokens": 192,
               "audio_tokens": 0,
               "accepted_prediction_tokens": 0,
               "rejected_prediction_tokens": 0
@@ -256,7 +252,7 @@ http_interactions:
           "service_tier": "default",
           "system_fingerprint": null
         }
-  recorded_at: Mon, 18 Aug 2025 18:11:10 GMT
+  recorded_at: Sat, 14 Feb 2026 14:45:52 GMT
 - request:
     method: post
     uri: https://api.openai.com/v1/chat/completions
@@ -269,7 +265,7 @@ http_interactions:
         but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
         ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
         Finally when i say BYE, always respond with JOJOJO"},{"role":"user","content":[{"type":"text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"text","text":"BAAAA"}]},{"role":"user","content":[{"type":"text","text":"whats
-        the weather"}]},{"role":"assistant","content":null,"tool_calls":[{"id":"call_eEsCiGIwqCmwIKiEGV7CHfWy","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},{"role":"tool","tool_call_id":"call_eEsCiGIwqCmwIKiEGV7CHfWy","content":"-15
+        the weather"}]},{"role":"assistant","content":null,"tool_calls":[{"id":"call_CVdtDHcGOJoAAbOH8Ny8iAKg","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},{"role":"tool","tool_call_id":"call_CVdtDHcGOJoAAbOH8Ny8iAKg","content":"-15
         celciii REMBMER ONLY RESPOND WITH THIS RESULT"}],"max_completion_tokens":4096,"tools":[{"type":"function","function":{"name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
         name"}},"required":["location"]}}}]}'
@@ -292,7 +288,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:11:12 GMT
+      - Sat, 14 Feb 2026 14:45:53 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -304,13 +300,13 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '1450'
+      - '699'
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
       - '2020-10-01'
-      X-Envoy-Upstream-Service-Time:
-      - '1659'
+      Server:
+      - cloudflare
       X-Ratelimit-Limit-Requests:
       - '500'
       X-Ratelimit-Limit-Tokens:
@@ -324,32 +320,30 @@ http_interactions:
       X-Ratelimit-Reset-Tokens:
       - 41ms
       X-Request-Id:
-      - req_53b82b6a6c7c4398a39e269bb39d054b
+      - req_575934d59f0f45b094b3ceb0507c3583
+      X-Openai-Proxy-Wasm:
+      - v0.1
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=GY4gavQUlEHeM7Q4GV1k9ryEfL7GG7ICpfpp4VSH92c-1755540672-1.0.1.1-D4osqOHNPgmo9EIpArykm6w6C91vu7R3HTeQLW3OI_NoqfdAyPsul0kGzOaxVM2152EOd27sFzrEd6CujuqOnzY5aBCVZejAeN0lJSA8FTA;
-        path=/; expires=Mon, 18-Aug-25 18:41:12 GMT; domain=.api.openai.com; HttpOnly;
-        Secure; SameSite=None
-      - _cfuvid=Aof4AZGxBf7oHaUrUzu3NkfRLfxDtjGA8dY4vkzWO0Q-1755540672856-0.0.1.1-604800000;
-        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      - __cf_bm=Yj47caMRH4eyEPpaOTUafYz2CzJn8feZZFYknXJ2lck-1771080352.8056047-1.0.1.1-dO7gwZf72ChtrBRH74xiZxv.UY4DqWFscZW1CMg8IwYQXjAzi7pfFTrh8EMiBNwxVLgrgPPyMQo80gI.fuT.FOCUoeVE5I1PAQ08IgsjtPI1fdGLkIk69wV9CgDLxdpW;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
+        15:15:53 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 97135f497a2a13f6-JHB
+      - 9cdd5a0d0b19f875-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |
         {
-          "id": "chatcmpl-C5yc3Ek5BlQxKwR8zmuhHMsKY3isY",
+          "id": "chatcmpl-D9BC4wsVJZnglPWK0CC0FTeBj3ZYI",
           "object": "chat.completion",
-          "created": 1755540671,
+          "created": 1771080352,
           "model": "o4-mini-2025-04-16",
           "choices": [
             {
@@ -381,7 +375,7 @@ http_interactions:
           "service_tier": "default",
           "system_fingerprint": null
         }
-  recorded_at: Mon, 18 Aug 2025 18:11:12 GMT
+  recorded_at: Sat, 14 Feb 2026 14:45:53 GMT
 - request:
     method: post
     uri: https://api.openai.com/v1/chat/completions
@@ -394,7 +388,7 @@ http_interactions:
         but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
         ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
         Finally when i say BYE, always respond with JOJOJO"},{"role":"user","content":[{"type":"text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"text","text":"BAAAA"}]},{"role":"user","content":[{"type":"text","text":"whats
-        the weather"}]},{"role":"assistant","content":null,"tool_calls":[{"id":"call_eEsCiGIwqCmwIKiEGV7CHfWy","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},{"role":"tool","tool_call_id":"call_eEsCiGIwqCmwIKiEGV7CHfWy","content":"-15
+        the weather"}]},{"role":"assistant","content":null,"tool_calls":[{"id":"call_CVdtDHcGOJoAAbOH8Ny8iAKg","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},{"role":"tool","tool_call_id":"call_CVdtDHcGOJoAAbOH8Ny8iAKg","content":"-15
         celciii REMBMER ONLY RESPOND WITH THIS RESULT"},{"role":"assistant","content":[{"type":"text","text":"-15
         celciii REMBMER ONLY RESPOND WITH THIS RESULT"}]},{"role":"user","content":[{"type":"text","text":"BYE"}]}],"max_completion_tokens":4096,"tools":[{"type":"function","function":{"name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
@@ -418,7 +412,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:11:15 GMT
+      - Sat, 14 Feb 2026 14:45:55 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -430,13 +424,13 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '2067'
+      - '1290'
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
       - '2020-10-01'
-      X-Envoy-Upstream-Service-Time:
-      - '2092'
+      Server:
+      - cloudflare
       X-Ratelimit-Limit-Requests:
       - '500'
       X-Ratelimit-Limit-Tokens:
@@ -450,32 +444,30 @@ http_interactions:
       X-Ratelimit-Reset-Tokens:
       - 46ms
       X-Request-Id:
-      - req_bbc091a7eca548a2862060e5ee11ac3a
+      - req_7ed690e1d8a44971b2b3b697a0aec728
+      X-Openai-Proxy-Wasm:
+      - v0.1
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=kL.mNEaMsU5iUjV6r_iUhHRNKNEzEOUZQA3FgZR49ws-1755540675-1.0.1.1-476JDaT0_21_jze2GZ8pwr0NVYGYqO5RPgfCk6CpBQ_.h0jNrXBNb.__HCjyfeNDYA7cMCzvrD6TE9I3J1jkwO8VTq8hJGPndnsg7oH2TXw;
-        path=/; expires=Mon, 18-Aug-25 18:41:15 GMT; domain=.api.openai.com; HttpOnly;
-        Secure; SameSite=None
-      - _cfuvid=_jI_OVB7nOZkS_7QECHaON4FYZAQI0gszn_0XSeoJbc-1755540675790-0.0.1.1-604800000;
-        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      - __cf_bm=AYNrILoSsv2pCGG2yItTKoku5q9FA0l7u5OBUjMBv9o-1771080353.8457818-1.0.1.1-IMPmLfe0Qyuyy1V17ad4bhnBGW8PvWlLjKaUfCeQ70Zjnhbb9b15sixGbDDnv0u4Z0DOBBO_J_6uBPdY_8qhz2hBHk6RNRi1xSdgyAxl.ciomXEyzI4BKzMpwL25iig5;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
+        15:15:55 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 97135f563d3ee4f9-JHB
+      - 9cdd5a138bfcf91c-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |
         {
-          "id": "chatcmpl-C5yc5RK9altW0zjUQYxbYrz9mo65d",
+          "id": "chatcmpl-D9BC6GwwHrNoMFzUPsR6B3bq0Cj83",
           "object": "chat.completion",
-          "created": 1755540673,
+          "created": 1771080354,
           "model": "o4-mini-2025-04-16",
           "choices": [
             {
@@ -507,5 +499,5 @@ http_interactions:
           "service_tier": "default",
           "system_fingerprint": null
         }
-  recorded_at: Mon, 18 Aug 2025 18:11:15 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 14 Feb 2026 14:45:55 GMT
+recorded_with: VCR 6.4.0

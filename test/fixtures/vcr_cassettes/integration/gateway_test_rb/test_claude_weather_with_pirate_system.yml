@@ -33,7 +33,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 17 Aug 2025 15:03:06 GMT
+      - Sat, 14 Feb 2026 14:44:49 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -45,43 +45,45 @@ http_interactions:
       Anthropic-Ratelimit-Input-Tokens-Remaining:
       - '450000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2025-08-17T15:03:06Z'
+      - '2026-02-14T14:44:48Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2025-08-17T15:03:06Z'
+      - '2026-02-14T14:44:49Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '1000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2025-08-17T15:03:05Z'
+      - '2026-02-14T14:44:47Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '540000'
       Anthropic-Ratelimit-Tokens-Remaining:
       - '540000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2025-08-17T15:03:06Z'
+      - '2026-02-14T14:44:48Z'
       Request-Id:
-      - req_011CSDV6wpVTRV3ddLz6rj8B
+      - req_011CY897kGTd6EvM3eGo66nS
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
-      Via:
-      - 1.1 google
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '2215'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
       - none
-      Server:
-      - cloudflare
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 970a0e629c795353-KUL
+      - 9cdd58746a75aa1c-SIN
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"msg_01AUZsdM9sPbZm6WjBy9CXNi","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"tool_use","id":"toolu_013LYTnUowbQcHw7i1JYj8ek","name":"get_weather","input":{"location":"Singapore"}}],"stop_reason":"tool_use","stop_sequence":null,"usage":{"input_tokens":404,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":53,"service_tier":"standard"}}'
-  recorded_at: Sun, 17 Aug 2025 15:03:06 GMT
-recorded_with: VCR 6.3.1
+      string: '{"model":"claude-sonnet-4-20250514","id":"msg_01CW95fcbDQSzSZPWus2tzgv","type":"message","role":"assistant","content":[{"type":"tool_use","id":"toolu_01RmbpBz25gb9wziuBZjE8re","name":"get_weather","input":{"location":"Singapore"},"caller":{"type":"direct"}}],"stop_reason":"tool_use","stop_sequence":null,"usage":{"input_tokens":404,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":53,"service_tier":"standard","inference_geo":"not_available"}}'
+  recorded_at: Sat, 14 Feb 2026 14:44:49 GMT
+recorded_with: VCR 6.4.0

@@ -21,38 +21,42 @@ http_interactions:
       - application/json
       X-Api-Key:
       - '123'
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
   response:
     status:
       code: 401
       message: Unauthorized
     headers:
       Date:
-      - Sun, 29 Jun 2025 08:56:57 GMT
+      - Sat, 14 Feb 2026 14:44:07 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '86'
+      - '130'
       Connection:
       - keep-alive
       X-Should-Retry:
       - 'false'
       Request-Id:
-      - req_011CQcEYgqTkWej8rEWE1dzE
+      - req_011CY894m12yGy5zS8EGG993
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
-      Via:
-      - 1.1 google
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '30'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
       - none
-      Server:
-      - cloudflare
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 957436abba976e6b-KUL
+      - 9cdd57770a158799-SIN
     body:
       encoding: UTF-8
       string: '{"type":"error","error":{"type":"authentication_error","message":"invalid
-        x-api-key"}}'
-  recorded_at: Sun, 29 Jun 2025 08:56:57 GMT
-recorded_with: VCR 6.3.1
+        x-api-key"},"request_id":"req_011CY894m12yGy5zS8EGG993"}'
+  recorded_at: Sat, 14 Feb 2026 14:44:07 GMT
+recorded_with: VCR 6.4.0

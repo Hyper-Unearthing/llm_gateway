@@ -1,69 +1,67 @@
 ---
 http_interactions:
-  - request:
-      method: post
-      uri: https://api.anthropic.com/v1/messages
-      body:
-        encoding: UTF-8
-        string:
-          '{"model":"claude-3-7-sonnet-20250219","max_tokens":4096,"messages":[{"role":"user","content":"hello"}],"system":[{"type":"text","text":"You
-          are Claude Code, Anthropic''s official CLI for Claude."}]}'
-      headers:
-        Accept-Encoding:
-          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-        Accept:
-          - "*/*"
-        User-Agent:
-          - claude-cli/2.1.2 (external, cli)
-        Host:
-          - api.anthropic.com
-        Anthropic-Version:
-          - "2023-06-01"
-        Content-Type:
-          - application/json
-        Authorization:
-          - Bearer <BEARER_TOKEN>
-        Anthropic-Dangerous-Direct-Browser-Access:
-          - "true"
-        Anthropic-Beta:
-          - claude-code-20250219,oauth-2025-04-20
-        X-App:
-          - cli
-    response:
-      status:
-        code: 401
-        message: Unauthorized
-      headers:
-        Date:
-          - Sat, 14 Feb 2026 08:22:38 GMT
-        Content-Type:
-          - application/json
-        Content-Length:
-          - "133"
-        Connection:
-          - keep-alive
-        X-Should-Retry:
-          - "false"
-        Request-Id:
-          - req_011CY7dyWJUbGUyAHhsgn9ZT
-        Strict-Transport-Security:
-          - max-age=31536000; includeSubDomains; preload
-        Server:
-          - cloudflare
-        X-Envoy-Upstream-Service-Time:
-          - "116"
-        Cf-Cache-Status:
-          - DYNAMIC
-        X-Robots-Tag:
-          - none
-        Content-Security-Policy:
-          - default-src 'none'; frame-ancestors 'none'
-        Cf-Ray:
-          - 9cdb28a64c710b29-KUL
-      body:
-        encoding: UTF-8
-        string:
-          '{"type":"error","error":{"type":"authentication_error","message":"Invalid
-          bearer token"},"request_id":"req_011CY7dyWJUbGUyAHhsgn9ZT"}'
-    recorded_at: Sat, 14 Feb 2026 08:22:38 GMT
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-3-7-sonnet-20250219","max_tokens":4096,"messages":[{"role":"user","content":"hello"}],"system":[{"type":"text","text":"You
+        are Claude Code, Anthropic''s official CLI for Claude."}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - claude-cli/2.1.2 (external, cli)
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Anthropic-Dangerous-Direct-Browser-Access:
+      - 'true'
+      Anthropic-Beta:
+      - claude-code-20250219,oauth-2025-04-20
+      X-App:
+      - cli
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sat, 14 Feb 2026 14:44:13 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '133'
+      Connection:
+      - keep-alive
+      X-Should-Retry:
+      - 'false'
+      Request-Id:
+      - req_011CY895FbzC1PzcKmpeW8pG
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '17'
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Cf-Ray:
+      - 9cdd57a0ed38d176-SIN
+    body:
+      encoding: UTF-8
+      string: '{"type":"error","error":{"type":"authentication_error","message":"Invalid
+        bearer token"},"request_id":"req_011CY895FbzC1PzcKmpeW8pG"}'
+  recorded_at: Sat, 14 Feb 2026 14:44:13 GMT
 recorded_with: VCR 6.4.0

@@ -37,7 +37,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:11:19 GMT
+      - Sat, 14 Feb 2026 14:45:40 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -49,47 +49,47 @@ http_interactions:
       Anthropic-Ratelimit-Input-Tokens-Remaining:
       - '450000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2025-08-18T18:11:19Z'
+      - '2026-02-14T14:45:40Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2025-08-18T18:11:19Z'
+      - '2026-02-14T14:45:40Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '1000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2025-08-18T18:11:18Z'
+      - '2026-02-14T14:45:39Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '540000'
       Anthropic-Ratelimit-Tokens-Remaining:
       - '540000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2025-08-18T18:11:19Z'
+      - '2026-02-14T14:45:40Z'
       Request-Id:
-      - req_011CSFdGHvuKAd7qMYdAmKo2
+      - req_011CY89BavkCUxJn3W4ySWYQ
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Server:
+      - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '1145'
-      Via:
-      - 1.1 google
+      - '1030'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
       - none
-      Server:
-      - cloudflare
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 97135f75c9b2e588-KUL
+      - 9cdd59b9ebcafd97-SIN
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"msg_01CUA49aVWai4w5GMhF6215J","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"text","text":"BAAAA"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":507,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":7,"service_tier":"standard"}}'
-  recorded_at: Mon, 18 Aug 2025 18:11:19 GMT
+      string: '{"model":"claude-sonnet-4-20250514","id":"msg_015NREngt2oz8QyQD8Gj2Jcp","type":"message","role":"assistant","content":[{"type":"text","text":"BAAAA"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":507,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":7,"service_tier":"standard","inference_geo":"not_available"}}'
+  recorded_at: Sat, 14 Feb 2026 14:45:40 GMT
 - request:
     method: post
     uri: https://api.anthropic.com/v1/messages
@@ -128,7 +128,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:11:20 GMT
+      - Sat, 14 Feb 2026 14:45:43 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -140,54 +140,54 @@ http_interactions:
       Anthropic-Ratelimit-Input-Tokens-Remaining:
       - '450000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2025-08-18T18:11:20Z'
+      - '2026-02-14T14:45:42Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2025-08-18T18:11:20Z'
+      - '2026-02-14T14:45:43Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '1000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2025-08-18T18:11:19Z'
+      - '2026-02-14T14:45:41Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '540000'
       Anthropic-Ratelimit-Tokens-Remaining:
       - '540000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2025-08-18T18:11:20Z'
+      - '2026-02-14T14:45:42Z'
       Request-Id:
-      - req_011CSFdGQP6sACD2aBsqdNkY
+      - req_011CY89BiZ8vGmxdfvew8Uni
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Server:
+      - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '1141'
-      Via:
-      - 1.1 google
+      - '1604'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
       - none
-      Server:
-      - cloudflare
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 97135f7f294c188f-KUL
+      - 9cdd59c50f70fde8-SIN
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"msg_01KvrNs3XBPHxz1c6ZiDZzUG","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"tool_use","id":"toolu_0145wE7YYDNJbd3Y6ce78jo7","name":"get_weather","input":{"location":"Singapore"}}],"stop_reason":"tool_use","stop_sequence":null,"usage":{"input_tokens":521,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":53,"service_tier":"standard"}}'
-  recorded_at: Mon, 18 Aug 2025 18:11:21 GMT
+      string: '{"model":"claude-sonnet-4-20250514","id":"msg_01D4ffW7qZe7NH4KLcavAKiP","type":"message","role":"assistant","content":[{"type":"tool_use","id":"toolu_01B7BNbGE2Yr9vbaB5anUtvB","name":"get_weather","input":{"location":"Singapore"},"caller":{"type":"direct"}}],"stop_reason":"tool_use","stop_sequence":null,"usage":{"input_tokens":521,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":53,"service_tier":"standard","inference_geo":"not_available"}}'
+  recorded_at: Sat, 14 Feb 2026 14:45:43 GMT
 - request:
     method: post
     uri: https://api.anthropic.com/v1/messages
     body:
       encoding: UTF-8
       string: '{"model":"claude-sonnet-4-20250514","max_tokens":4096,"messages":[{"role":"user","content":[{"type":"text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"text","text":"BAAAA"}]},{"role":"user","content":[{"type":"text","text":"whats
-        the weather"}]},{"role":"assistant","content":[{"type":"tool_use","id":"toolu_0145wE7YYDNJbd3Y6ce78jo7","name":"get_weather","input":{"location":"Singapore"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_0145wE7YYDNJbd3Y6ce78jo7","content":"-15
+        the weather"}]},{"role":"assistant","content":[{"type":"tool_use","id":"toolu_01B7BNbGE2Yr9vbaB5anUtvB","name":"get_weather","input":{"location":"Singapore"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_01B7BNbGE2Yr9vbaB5anUtvB","content":"-15
         celciii REMBMER ONLY RESPOND WITH THIS RESULT"}]}],"tools":[{"name":"get_weather","description":"Get
         current weather for a location","input_schema":{"type":"object","properties":{"location":{"type":"string","description":"City
         name"}},"required":["location"]}}],"system":[{"type":"text","text":"When i
@@ -220,7 +220,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:11:22 GMT
+      - Sat, 14 Feb 2026 14:45:45 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -232,55 +232,55 @@ http_interactions:
       Anthropic-Ratelimit-Input-Tokens-Remaining:
       - '450000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2025-08-18T18:11:22Z'
+      - '2026-02-14T14:45:44Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2025-08-18T18:11:22Z'
+      - '2026-02-14T14:45:45Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '1000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2025-08-18T18:11:21Z'
+      - '2026-02-14T14:45:43Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '540000'
       Anthropic-Ratelimit-Tokens-Remaining:
       - '540000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2025-08-18T18:11:22Z'
+      - '2026-02-14T14:45:44Z'
       Request-Id:
-      - req_011CSFdGWtmHSp9UG6jybEtB
+      - req_011CY89BrtgvofTVd9mRP3EZ
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Server:
+      - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '1373'
-      Via:
-      - 1.1 google
+      - '1747'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
       - none
-      Server:
-      - cloudflare
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 97135f88bb1f188f-KUL
+      - 9cdd59d139d740ef-SIN
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"msg_01Ln1MT1QNeh5UjpnF5oyKuZ","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"text","text":"-15
-        celciii REMBMER ONLY RESPOND WITH THIS RESULT"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":605,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":21,"service_tier":"standard"}}'
-  recorded_at: Mon, 18 Aug 2025 18:11:22 GMT
+      string: '{"model":"claude-sonnet-4-20250514","id":"msg_01Jj9XziAMXPfjvTLR4ZwcV7","type":"message","role":"assistant","content":[{"type":"text","text":"-15
+        celciii REMBMER ONLY RESPOND WITH THIS RESULT"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":605,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":21,"service_tier":"standard","inference_geo":"not_available"}}'
+  recorded_at: Sat, 14 Feb 2026 14:45:45 GMT
 - request:
     method: post
     uri: https://api.anthropic.com/v1/messages
     body:
       encoding: UTF-8
       string: '{"model":"claude-sonnet-4-20250514","max_tokens":4096,"messages":[{"role":"user","content":[{"type":"text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"text","text":"BAAAA"}]},{"role":"user","content":[{"type":"text","text":"whats
-        the weather"}]},{"role":"assistant","content":[{"type":"tool_use","id":"toolu_0145wE7YYDNJbd3Y6ce78jo7","name":"get_weather","input":{"location":"Singapore"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_0145wE7YYDNJbd3Y6ce78jo7","content":"-15
+        the weather"}]},{"role":"assistant","content":[{"type":"tool_use","id":"toolu_01B7BNbGE2Yr9vbaB5anUtvB","name":"get_weather","input":{"location":"Singapore"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_01B7BNbGE2Yr9vbaB5anUtvB","content":"-15
         celciii REMBMER ONLY RESPOND WITH THIS RESULT"}]},{"role":"assistant","content":[{"type":"text","text":"-15
         celciii REMBMER ONLY RESPOND WITH THIS RESULT"}]},{"role":"user","content":[{"type":"text","text":"BYE"}]}],"tools":[{"name":"get_weather","description":"Get
         current weather for a location","input_schema":{"type":"object","properties":{"location":{"type":"string","description":"City
@@ -314,7 +314,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:11:24 GMT
+      - Sat, 14 Feb 2026 14:45:46 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -326,45 +326,45 @@ http_interactions:
       Anthropic-Ratelimit-Input-Tokens-Remaining:
       - '450000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2025-08-18T18:11:23Z'
+      - '2026-02-14T14:45:46Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2025-08-18T18:11:23Z'
+      - '2026-02-14T14:45:46Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '1000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2025-08-18T18:11:23Z'
+      - '2026-02-14T14:45:45Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '540000'
       Anthropic-Ratelimit-Tokens-Remaining:
       - '540000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2025-08-18T18:11:23Z'
+      - '2026-02-14T14:45:46Z'
       Request-Id:
-      - req_011CSFdGeQDCcLBXKQV8Uzo8
+      - req_011CY89C2QRozF4rfnUWZvZp
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Server:
+      - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '968'
-      Via:
-      - 1.1 google
+      - '1061'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
       - none
-      Server:
-      - cloudflare
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 97135f93ab269813-KUL
+      - 9cdd59df1cd49daa-SIN
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"msg_014L4Fa84KeHcyoBrJfSzVHJ","type":"message","role":"assistant","model":"claude-sonnet-4-20250514","content":[{"type":"text","text":"JOJOJO"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":632,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":7,"service_tier":"standard"}}'
-  recorded_at: Mon, 18 Aug 2025 18:11:24 GMT
-recorded_with: VCR 6.3.1
+      string: '{"model":"claude-sonnet-4-20250514","id":"msg_01Xd4RgCkqCqxXLcUumWiQJc","type":"message","role":"assistant","content":[{"type":"text","text":"JOJOJO"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":632,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":7,"service_tier":"standard","inference_geo":"not_available"}}'
+  recorded_at: Sat, 14 Feb 2026 14:45:46 GMT
+recorded_with: VCR 6.4.0

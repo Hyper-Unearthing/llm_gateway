@@ -29,7 +29,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 08 Aug 2025 04:10:55 GMT
+      - Sat, 14 Feb 2026 14:43:32 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -37,25 +37,25 @@ http_interactions:
       Connection:
       - keep-alive
       Request-Id:
-      - req_011CRub6EqXgr2wYMVCFttBt
+      - req_011CY8929T4hF4hGpUAGZfpk
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Server:
+      - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '412'
-      Via:
-      - 1.1 google
+      - '415'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
       - none
-      Server:
-      - cloudflare
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 96bc2aae09988a1d-KUL
+      - 9cdd5699995eafdd-SIN
     body:
       encoding: ASCII-8BIT
-      string: '{"type":"file","id":"file_011CRub6FQG7ympTxXw81mic","size_bytes":13,"created_at":"2025-08-08T04:10:55.298000Z","filename":"test.txt","mime_type":"application/octet-stream","downloadable":false}'
-  recorded_at: Fri, 08 Aug 2025 04:10:55 GMT
-recorded_with: VCR 6.3.1
+      string: '{"type":"file","id":"file_011CY8929ssFxi4Uod8urMEF","size_bytes":13,"created_at":"2026-02-14T14:43:31.666000Z","filename":"test.txt","mime_type":"application/octet-stream","downloadable":false}'
+  recorded_at: Sat, 14 Feb 2026 14:43:32 GMT
+recorded_with: VCR 6.4.0

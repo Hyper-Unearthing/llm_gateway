@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.groq.com/openai/v1/chat/completions
     body:
       encoding: UTF-8
-      string: '{"model":"gemma2-9b-it","messages":[{"role":"user","content":"hello"}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":null}'
+      string: '{"model":"openai/gpt-oss-20b","messages":[{"role":"user","content":"hello"}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":null}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -25,7 +25,7 @@ http_interactions:
       message: Unauthorized
     headers:
       Date:
-      - Sun, 29 Jun 2025 13:53:03 GMT
+      - Sat, 14 Feb 2026 14:43:39 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -34,24 +34,26 @@ http_interactions:
       - keep-alive
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
+      Server:
+      - cloudflare
       Vary:
       - Origin
       X-Groq-Region:
       - bom
       X-Request-Id:
-      - req_01jyxzd0a7f8h9610a5sbst6k5
+      - req_01khe9pym6fq7bgb84qt5rkxjh
       Via:
       - 1.1 google
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=AdkDywNXCRG4WvzR9RB_kWk4F4PSh5X0PnlUMOcu0eY-1751205183-1.0.1.1-WHr7rrjxPi.a0WNWHZPrzKuGEXCkcwkTxsnGkomnQhPztrr8f8uF2BXhhvuTRhlLM0qJ3AxxJZuasSBK3zBziMXpMsAw6CeVp4y2RCNOAyo;
-        path=/; expires=Sun, 29-Jun-25 14:23:03 GMT; domain=.groq.com; HttpOnly; Secure;
-        SameSite=None
-      Server:
-      - cloudflare
+      - __cf_bm=eFCbMdmvGs3tfal3nOSupRoOVZgp__J1FZ20hu_AMlQ-1771080219.2339337-1.0.1.1-gKKXx8eIHeo6LGdDDtQI6IgLBWVhWqHqL2jGcNVXJWGPRXsWwum715niHZinSvBjjjJd3cvBqcSQ0TBewIEvrLEatdE3_nWMl2GKUtkIzv32Z8uDa52aaC7MYR4Byj7C;
+        HttpOnly; Secure; Path=/; Domain=groq.com; Expires=Sat, 14 Feb 2026 15:13:39
+        GMT
+      Strict-Transport-Security:
+      - max-age=15552000
       Cf-Ray:
-      - 9575e86e8a4fdf6a-KUL
+      - 9cdd56ca3b0b8799-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -59,5 +61,5 @@ http_interactions:
       string: '{"error":{"message":"Invalid API Key","type":"invalid_request_error","code":"invalid_api_key"}}
 
         '
-  recorded_at: Sun, 29 Jun 2025 13:53:03 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 14 Feb 2026 14:43:39 GMT
+recorded_with: VCR 6.4.0

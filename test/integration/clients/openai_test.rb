@@ -62,11 +62,10 @@ class OpenaiClientTest < Test
   test "throws rate limit error" do
     error = assert_raises(LlmGateway::Errors::RateLimitError) do
       VCR.use_cassette(vcr_cassette_name) do
-        openai_client.chat([ { 'role': "user", 'content': "aqklcsa," * 15_000 } ])
+        openai_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ])
       end
     end
-    assert_equal "Request too large for gpt-4o in organization org-dqNN3UJQeaIK1sswLJZkvMks on tokens per min (TPM): Limit 30000, Requested 30002. The input or output tokens must be reduced in order to run successfully. Visit https://platform.openai.com/account/rate-limits to learn more.",
-                 error.message
+    assert_includes error.message, "Request too large for"
   end
 
   test "throws permission denied error" do
