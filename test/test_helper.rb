@@ -99,6 +99,32 @@ def vcr_cassette_name(test_method_name = self.name)
   end
 end
 
+def assert_llm_response(expected, actual, path = "root")
+  case expected
+  when Proc
+    expected.call(actual, path)
+  when Hash
+    assert_instance_of(Hash, actual, "expected Hash at #{path}")
+    expected.each do |key, value|
+      child_path = path.empty? ? key.to_s : "#{path}.#{key}"
+      assert(actual.key?(key), "missing key #{child_path} in response")
+      assert_llm_response(value, actual[key], child_path)
+    end
+    extra_keys = actual.keys - expected.keys
+    assert_empty(extra_keys, "unexpected keys at #{path.empty? ? 'root' : path}: #{extra_keys.inspect}")
+  when Array
+    assert_instance_of(Array, actual, "expected Array at #{path}")
+    assert_equal(expected.size, actual.size, "array size mismatch at #{path}")
+    expected.each_with_index do |item, i|
+      assert_llm_response(item, actual[i], "#{path}[#{i}]")
+    end
+  when nil
+    assert_nil(actual, "expected nil at #{path}")
+  else
+    assert_equal(expected, actual, "value mismatch at #{path}")
+  end
+end
+
 def assert_hash(expected, actual)
   assertable_actual = actual.respond_to?(:with_indifferent_access) ? actual.with_indifferent_access : actual
   expected.each do |key, value|
