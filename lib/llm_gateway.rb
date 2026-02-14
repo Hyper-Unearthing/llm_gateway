@@ -28,6 +28,15 @@ require_relative "llm_gateway/adapters/open_ai/file_output_mapper"
 require_relative "llm_gateway/adapters/open_ai/responses/input_mapper"
 require_relative "llm_gateway/adapters/open_ai/responses/output_mapper"
 
+# Load adapter classes
+require_relative "llm_gateway/adapters/adapter"
+require_relative "llm_gateway/adapters/claude/messages_adapter"
+require_relative "llm_gateway/adapters/claude_code/messages_adapter"
+require_relative "llm_gateway/adapters/open_ai/chat_completions_adapter"
+require_relative "llm_gateway/adapters/open_ai/responses_adapter"
+require_relative "llm_gateway/adapters/groq/chat_completions_adapter"
+
+
 module LlmGateway
   class Error < StandardError; end
 
