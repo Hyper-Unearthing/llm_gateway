@@ -10,6 +10,12 @@ module LlmGateway
           client: LlmGateway::Adapters::Claude::Client,
           file_output_mapper: LlmGateway::Adapters::Claude::FileOutputMapper
         },
+        claude_code: {
+          input_mapper: LlmGateway::Adapters::ClaudeCode::InputMapper,
+          output_mapper: LlmGateway::Adapters::ClaudeCode::OutputMapper,
+          client: LlmGateway::Adapters::ClaudeCode::Client,
+          file_output_mapper: LlmGateway::Adapters::Claude::FileOutputMapper
+        },
         openai: {
           input_mapper: LlmGateway::Adapters::OpenAi::ChatCompletions::InputMapper,
           output_mapper: LlmGateway::Adapters::OpenAi::ChatCompletions::OutputMapper,
@@ -35,11 +41,13 @@ module LlmGateway
       provider_configs[provider_id.to_sym] || raise(LlmGateway::Errors::UnsupportedProvider, provider_id)
     end
 
-    def self.chat(model, message, response_format: "text", tools: nil, system: nil, api_key: nil)
+    def self.chat(model, message, response_format: "text", tools: nil, system: nil, api_key: nil, refresh_token: nil, expires_at: nil)
       provider = provider_from_model(model)
       config = get_provider_config(provider)
       client_options = { model_key: model }
       client_options[:api_key] = api_key if api_key
+      client_options[:refresh_token] = refresh_token if refresh_token
+      client_options[:expires_at] = expires_at if expires_at
       client = config[:client].new(**client_options)
 
       input_mapper = input_mapper_for_client(client)
@@ -61,8 +69,9 @@ module LlmGateway
 
     def self.responses(model, message, response_format: "text", tools: nil, system: nil, api_key: nil)
       provider = provider_from_model(model)
+      actual_model = model
       config = provider == "openai" ? get_provider_config("openai_responses") : get_provider_config(provider)
-      client_options = { model_key: model }
+      client_options = { model_key: actual_model }
       client_options[:api_key] = api_key if api_key
       client = config[:client].new(**client_options)
       input_mapper = config[:input_mapper]
@@ -104,8 +113,9 @@ module LlmGateway
       config = get_provider_config(provider)
       config[:file_output_mapper].map(result)
     end
-
+    #         actual_model = model.split("/", 2)[1]
     def self.provider_from_model(model)
+      return "claude_code" if model.start_with?("claude_code/")
       return "anthropic" if model.start_with?("claude")
       return "groq" if model.start_with?("llama")
       return "openai" if model.start_with?("gpt") ||
@@ -128,6 +138,8 @@ module LlmGateway
 
     def self.provider_id_from_client(client)
       case client
+      when LlmGateway::Adapters::ClaudeCode::Client
+        "claude_code"
       when LlmGateway::Adapters::Claude::Client
         "anthropic"
       when LlmGateway::Adapters::OpenAi::Client

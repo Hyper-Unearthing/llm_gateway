@@ -73,7 +73,6 @@ module LlmGateway
       headers = build_headers.merge(extra_headers)
       headers.each { |key, value| request[key] = value }
       request.body = params.to_json if params
-
       http.request(request)
     end
 

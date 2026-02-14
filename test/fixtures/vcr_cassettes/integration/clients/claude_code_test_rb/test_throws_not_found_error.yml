@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"randomodel","max_tokens":4096,"messages":[{"role":"user","content":"hello"}],"system":[{"type":"text","text":"You
+        are Claude Code, Anthropic''s official CLI for Claude."}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - claude-cli/2.1.2 (external, cli)
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Anthropic-Dangerous-Direct-Browser-Access:
+      - 'true'
+      Anthropic-Beta:
+      - claude-code-20250219,oauth-2025-04-20
+      X-App:
+      - cli
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Sat, 14 Feb 2026 08:22:40 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Should-Retry:
+      - 'false'
+      Request-Id:
+      - req_011CY7dyhUw5xs79SSyXKCt3
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 158912a9-5288-4061-b004-8c1100f6ed5b
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '51'
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Cf-Ray:
+      - 9cdb28b69e3d9245-KUL
+    body:
+      encoding: ASCII-8BIT
+      string: '{"type":"error","error":{"type":"not_found_error","message":"model:
+        randomodel"},"request_id":"req_011CY7dyhUw5xs79SSyXKCt3"}'
+  recorded_at: Sat, 14 Feb 2026 08:22:40 GMT
+recorded_with: VCR 6.4.0

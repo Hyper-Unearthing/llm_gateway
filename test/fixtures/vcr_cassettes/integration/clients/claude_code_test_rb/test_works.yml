@@ -1,0 +1,96 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-3-7-sonnet-20250219","max_tokens":4096,"messages":[{"role":"user","content":"aqklcsa,"}],"system":[{"type":"text","text":"You
+        are Claude Code, Anthropic''s official CLI for Claude."}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - claude-cli/2.1.2 (external, cli)
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Anthropic-Dangerous-Direct-Browser-Access:
+      - 'true'
+      Anthropic-Beta:
+      - claude-code-20250219,oauth-2025-04-20
+      X-App:
+      - cli
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 14 Feb 2026 08:22:40 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Anthropic-Ratelimit-Unified-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-5h-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-5h-Reset:
+      - '1771074000'
+      Anthropic-Ratelimit-Unified-5h-Utilization:
+      - '0.2'
+      Anthropic-Ratelimit-Unified-7d-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-7d-Reset:
+      - '1771308000'
+      Anthropic-Ratelimit-Unified-7d-Utilization:
+      - '0.64'
+      Anthropic-Ratelimit-Unified-Overage-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-Overage-Reset:
+      - '1772323200'
+      Anthropic-Ratelimit-Unified-Overage-Utilization:
+      - '0.0'
+      Anthropic-Ratelimit-Unified-Representative-Claim:
+      - five_hour
+      Anthropic-Ratelimit-Unified-Fallback-Percentage:
+      - '0.5'
+      Anthropic-Ratelimit-Unified-Reset:
+      - '1771074000'
+      Request-Id:
+      - req_011CY7dyYm4mfLt58x1R5Tyb
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 158912a9-5288-4061-b004-8c1100f6ed5b
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '1568'
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Cf-Ray:
+      - 9cdb28a9eaa026f2-KUL
+    body:
+      encoding: ASCII-8BIT
+      string: '{"model":"claude-3-7-sonnet-20250219","id":"msg_01LSoLNXSVa9jAACXwu6BJyt","type":"message","role":"assistant","content":[{"type":"text","text":"I
+        don''t see a clear question or instruction in your message \"aqklcsa,\". It
+        appears to be a random string of characters.\n\nIf you''d like assistance
+        with coding, information, or have a question you''d like to ask, please provide
+        more details about what you''re looking for, and I''ll be happy to help."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":27,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":73,"service_tier":"standard","inference_geo":"not_available"}}'
+  recorded_at: Sat, 14 Feb 2026 08:22:40 GMT
+recorded_with: VCR 6.4.0
