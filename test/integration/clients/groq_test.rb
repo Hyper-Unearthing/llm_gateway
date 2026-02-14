@@ -17,7 +17,7 @@ class GroqClientTest < Test
   end
 
   def groq_client
-    LlmGateway::Adapters::Groq::Client.new
+    LlmGateway::Clients::Groq.new
   end
 
   test "throws bad request error" do
@@ -32,7 +32,7 @@ class GroqClientTest < Test
   test "throws authentication error" do
     error = assert_raises(LlmGateway::Errors::AuthenticationError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Adapters::Groq::Client.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::Groq.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ])
       end
     end
     assert_equal "Invalid API Key", error.message
@@ -41,7 +41,7 @@ class GroqClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Adapters::Groq::Client.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::Groq.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ])
       end
     end
     assert_equal "The model `randomodel` does not exist or you do not have access to it.", error.message
@@ -50,10 +50,10 @@ class GroqClientTest < Test
   test "throws rate limit error" do
     error = assert_raises(LlmGateway::Errors::PromptTooLong) do
       VCR.use_cassette(vcr_cassette_name) do
-        groq_client.chat([ { 'role': "user", 'content': "aqklcsa," * 15_000 } ])
+        groq_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ])
       end
     end
-    assert_equal "Request too large for model `gemma2-9b-it` in organization `org_01jr5m71qmfspb8essdm2fwc7v` service tier `on_demand` on tokens per minute (TPM): Limit 30000, Requested 30005, please reduce your message size and try again. Need more tokens? Visit https://groq.com/self-serve-support/ to request higher limits.",
+    assert_equal "Please reduce the length of the messages or completion.",
                  error.message
   end
 

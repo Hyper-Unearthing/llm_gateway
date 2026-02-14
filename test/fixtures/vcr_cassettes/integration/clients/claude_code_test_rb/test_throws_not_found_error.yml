@@ -34,7 +34,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sat, 14 Feb 2026 08:22:40 GMT
+      - Sat, 14 Feb 2026 14:44:14 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -44,7 +44,7 @@ http_interactions:
       X-Should-Retry:
       - 'false'
       Request-Id:
-      - req_011CY7dyhUw5xs79SSyXKCt3
+      - req_011CY895JeHwB3m9WqeoeyhJ
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
@@ -52,7 +52,7 @@ http_interactions:
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '51'
+      - '89'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
@@ -60,10 +60,10 @@ http_interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 9cdb28b69e3d9245-KUL
+      - 9cdd57a54a348231-SIN
     body:
       encoding: ASCII-8BIT
       string: '{"type":"error","error":{"type":"not_found_error","message":"model:
-        randomodel"},"request_id":"req_011CY7dyhUw5xs79SSyXKCt3"}'
-  recorded_at: Sat, 14 Feb 2026 08:22:40 GMT
+        randomodel"},"request_id":"req_011CY895JeHwB3m9WqeoeyhJ"}'
+  recorded_at: Sat, 14 Feb 2026 14:44:14 GMT
 recorded_with: VCR 6.4.0

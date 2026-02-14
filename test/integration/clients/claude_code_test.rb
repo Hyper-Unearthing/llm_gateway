@@ -18,7 +18,7 @@ class ClaudeCodeClientTest < Test
   end
 
   def claude_code_client(access_token: ENV["ANTHROPIC_ACCESS_TOKEN"], model_key: "claude-3-7-sonnet-20250219")
-    LlmGateway::Adapters::ClaudeCode::Client.new(access_token: access_token, model_key: model_key, refresh_token: ENV["ANTHROPIC_REFRESH_TOKEN"], expires_at: 1771064051861)
+    LlmGateway::Clients::ClaudeCode.new(access_token: access_token, model_key: model_key, refresh_token: ENV["ANTHROPIC_REFRESH_TOKEN"], expires_at: 1771064051861)
   end
 
   # --- Error handling tests (mirrors Claude client) ---
@@ -221,7 +221,7 @@ class ClaudeCodeClientTest < Test
   end
 
   test "strips claude_code/ prefix from model key" do
-    client = LlmGateway::Adapters::ClaudeCode::Client.new(
+    client = LlmGateway::Clients::ClaudeCode.new(
       access_token: "test-token",
       model_key: "claude_code/claude-3-7-sonnet-20250219"
     )
@@ -292,7 +292,7 @@ class ClaudeCodeClientTest < Test
         expires_in: 3600
       }.to_json, headers: { 'Content-Type': "application/json" })
 
-    client = LlmGateway::Adapters::ClaudeCode::Client.new(
+    client = LlmGateway::Clients::ClaudeCode.new(
       refresh_token: "test-refresh-token",
       client_id: "test-client-id",
       client_secret: "test-client-secret"
@@ -303,7 +303,7 @@ class ClaudeCodeClientTest < Test
   end
 
   test "skips token refresh when access token provided with refresh token" do
-    client = LlmGateway::Adapters::ClaudeCode::Client.new(
+    client = LlmGateway::Clients::ClaudeCode.new(
       access_token: "existing-access-token",
       refresh_token: "test-refresh-token",
       expires_at: Time.now + 3600,

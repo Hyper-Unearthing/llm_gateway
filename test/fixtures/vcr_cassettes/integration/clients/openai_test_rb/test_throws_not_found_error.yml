@@ -25,7 +25,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sun, 29 Jun 2025 08:44:28 GMT
+      - Sat, 14 Feb 2026 14:44:01 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -35,23 +35,23 @@ http_interactions:
       Vary:
       - Origin
       X-Request-Id:
-      - req_3b73dc144c187f7aa1bbbc61961a02b0
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
+      - req_f98f68c539d14dccacfd67d8abeda8a5
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      Server:
+      - cloudflare
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=tnlf43MRi2hGgvkzcGZJCLCHq9qveH7hvMeW.acSiZQ-1751186668-1.0.1.1-3tq7wQj0gPlAsbiPjATuPjtAYDJduXTOjTv3GNQtFcov8KvQJF0HMPpmY5mldbZYq5f3RUcmN6UrQU9jCLLB.Y3Xe4twE5R2EKQqFevd9uY;
-        path=/; expires=Sun, 29-Jun-25 09:14:28 GMT; domain=.api.openai.com; HttpOnly;
-        Secure; SameSite=None
-      - _cfuvid=ZNH9FepOh6qOTQ0sebOw7ufkV6QAa0O5F.r9_q3ANn4-1751186668839-0.0.1.1-604800000;
-        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      - __cf_bm=d.LNTPHYn9PouTW.CXK.nSxgV9At64cC76ZDPvF2Zcc-1771080240.2710922-1.0.1.1-xF4P3VI52u.6ZnCjL7OqHTp9ZrtKoXgAE9VJBFPYu.zz99f_55teBs1q2afWyw6EXS8QZQNaXBIZS1jW8en.sk2BwW6qyVN21cbAddbp1o0YAB4gqLjpEq2YHYoxtXD2;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
+        15:14:01 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 9574246198753907-KUL
+      - 9cdd574dab55ff7e-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -65,5 +65,5 @@ http_interactions:
                 "code": "model_not_found"
             }
         }
-  recorded_at: Sun, 29 Jun 2025 08:44:28 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 14 Feb 2026 14:44:01 GMT
+recorded_with: VCR 6.4.0

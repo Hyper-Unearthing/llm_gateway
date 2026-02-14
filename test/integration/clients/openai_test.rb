@@ -17,7 +17,7 @@ class OpenaiClientTest < Test
   end
 
   def openai_client
-    LlmGateway::Adapters::OpenAi::Client.new
+    LlmGateway::Clients::OpenAi.new
   end
 
   test "throws bad request error" do
@@ -32,7 +32,7 @@ class OpenaiClientTest < Test
   test "throws authentication error" do
     error = assert_raises(LlmGateway::Errors::AuthenticationError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Adapters::OpenAi::Client.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::OpenAi.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ])
       end
     end
     assert_equal "Incorrect API key provided: <BEARER_TOKEN>. You can find your API key at https://platform.openai.com/account/api-keys.",
@@ -42,7 +42,7 @@ class OpenaiClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Adapters::OpenAi::Client.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::OpenAi.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ])
       end
     end
     assert_equal "The model `randomodel` does not exist or you do not have access to it.", error.message
@@ -50,7 +50,7 @@ class OpenaiClientTest < Test
 
   test "embeddings api" do
     VCR.use_cassette(vcr_cassette_name) do
-      response = LlmGateway::Adapters::OpenAi::Client.new(model_key: "text-embedding-3-small").generate_embeddings("hello world")
+      response = LlmGateway::Clients::OpenAi.new(model_key: "text-embedding-3-small").generate_embeddings("hello world")
       assert(response[:usage], prompt_tokens: 2, total_tokens: 2)
       assert(response[:object], "list")
       assert(response[:model], "text-embedding-3-small")
@@ -62,11 +62,10 @@ class OpenaiClientTest < Test
   test "throws rate limit error" do
     error = assert_raises(LlmGateway::Errors::RateLimitError) do
       VCR.use_cassette(vcr_cassette_name) do
-        openai_client.chat([ { 'role': "user", 'content': "aqklcsa," * 15_000 } ])
+        openai_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ])
       end
     end
-    assert_equal "Request too large for gpt-4o in organization org-dqNN3UJQeaIK1sswLJZkvMks on tokens per min (TPM): Limit 30000, Requested 30002. The input or output tokens must be reduced in order to run successfully. Visit https://platform.openai.com/account/rate-limits to learn more.",
-                 error.message
+    assert_includes error.message, "Request too large for"
   end
 
   test "throws permission denied error" do

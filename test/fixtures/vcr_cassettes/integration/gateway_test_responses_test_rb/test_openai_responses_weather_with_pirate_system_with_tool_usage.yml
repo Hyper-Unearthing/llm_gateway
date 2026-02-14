@@ -5,11 +5,11 @@ http_interactions:
     uri: https://api.openai.com/v1/responses
     body:
       encoding: UTF-8
-      string: '{"model":"gpt-5","max_output_tokens":4096,"instructions":"Talk like
-        a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
+      string: '{"model":"gpt-5","max_output_tokens":4096,"input":[{"role":"user","content":[{"type":"input_text","text":"What''s
+        the weather in Singapore? reply in 10 words and no special characters"}]}],"instructions":"Talk
+        like a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
-        name"}},"required":["location"]}}],"input":[{"role":"user","content":[{"type":"input_text","text":"What''s
-        the weather in Singapore? reply in 10 words and no special characters"}]}]}'
+        name"}},"required":["location"]}}]}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -29,13 +29,27 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 15:12:15 GMT
+      - Sat, 14 Feb 2026 14:45:22 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
       - chunked
       Connection:
       - keep-alive
+      Server:
+      - cloudflare
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Limit-Tokens:
+      - '500000'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Remaining-Tokens:
+      - '500000'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Ratelimit-Reset-Tokens:
+      - 0s
       Openai-Version:
       - '2020-10-01'
       Openai-Organization:
@@ -43,39 +57,38 @@ http_interactions:
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       X-Request-Id:
-      - req_6e071286672389538eefda8cdc4754dc
+      - req_912d351b30a54ddeab1ff20e3ecd7594
       Openai-Processing-Ms:
-      - '5255'
-      X-Envoy-Upstream-Service-Time:
-      - '5279'
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
+      - '6826'
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=P73niz4w65tNjL4554H8EhY_m92xjVpmLGmobHeQDZ8-1755529935-1.0.1.1-T0.qc3k_hFqRcV9b5jnT1lyuIT82YDRGTYTxKxntgtZ.Kyl3TB0H9feULmPa6bhOLNxfotCFSFN86M0g2K5M8Vs9zRFpb.5Q.tiKfwMF8_Q;
-        path=/; expires=Mon, 18-Aug-25 15:42:15 GMT; domain=.api.openai.com; HttpOnly;
-        Secure; SameSite=None
-      - _cfuvid=AnE66QIJOtRIoXc6ivWla2cI8DH64GN_outPBb4Tm_Q-1755529935232-0.0.1.1-604800000;
-        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      - __cf_bm=B7JztaGXK7lhBucTYFoms5OMofWZCWCB1p1vYiW15NM-1771080315.367441-1.0.1.1-PcnJQZJMy0pL2mcMX_JHfznNoMD5cg8b7bg9Ka5mM7hCnjz_E0P.8loY1CfOo6GFuIZ17TN14WoyVmF28uxMq2ZS5wdHY3Y_AkdnsAYCrGfj9THuxuHVdSEDtP9EIjP4;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
+        15:15:22 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 971259089ae79b8a-SIN
+      - 9cdd59230b223fcb-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |-
         {
-          "id": "resp_68a342c9df80819684a268fe3614842c030d601903cb5ed5",
+          "id": "resp_0a5e81422fd6c9610069908a7b7fcc8196a82a86033bc72e2a",
           "object": "response",
-          "created_at": 1755529930,
+          "created_at": 1771080315,
           "status": "completed",
           "background": false,
+          "billing": {
+            "payer": "developer"
+          },
+          "completed_at": 1771080322,
           "error": null,
+          "frequency_penalty": 0.0,
           "incomplete_details": null,
           "instructions": "Talk like a pirate",
           "max_output_tokens": 4096,
@@ -83,28 +96,30 @@ http_interactions:
           "model": "gpt-5-2025-08-07",
           "output": [
             {
-              "id": "rs_68a342cafb1c8196a4cd4906206896bb030d601903cb5ed5",
+              "id": "rs_0a5e81422fd6c9610069908a7bd200819693d00b3202fcf4b1",
               "type": "reasoning",
               "summary": []
             },
             {
-              "id": "fc_68a342ce9d308196b80bd48ebc9244ad030d601903cb5ed5",
+              "id": "fc_0a5e81422fd6c9610069908a81f1988196beeef1079157d822",
               "type": "function_call",
               "status": "completed",
               "arguments": "{\"location\":\"Singapore\"}",
-              "call_id": "call_90DE60AY2KyfsG3riPdqquwo",
+              "call_id": "call_Bi1Eyz9BSXUSzjvufszZOBp3",
               "name": "get_weather"
             }
           ],
           "parallel_tool_calls": true,
+          "presence_penalty": 0.0,
           "previous_response_id": null,
           "prompt_cache_key": null,
+          "prompt_cache_retention": null,
           "reasoning": {
             "effort": "medium",
             "summary": null
           },
           "safety_identifier": null,
-          "service_tier": "auto",
+          "service_tier": "default",
           "store": true,
           "temperature": 1.0,
           "text": {
@@ -143,27 +158,26 @@ http_interactions:
             "input_tokens_details": {
               "cached_tokens": 0
             },
-            "output_tokens": 212,
+            "output_tokens": 300,
             "output_tokens_details": {
-              "reasoning_tokens": 192
+              "reasoning_tokens": 256
             },
-            "total_tokens": 282
+            "total_tokens": 370
           },
           "user": null,
           "metadata": {}
         }
-  recorded_at: Mon, 18 Aug 2025 15:12:15 GMT
+  recorded_at: Sat, 14 Feb 2026 14:45:22 GMT
 - request:
     method: post
     uri: https://api.openai.com/v1/responses
     body:
       encoding: UTF-8
-      string: '{"model":"gpt-5","max_output_tokens":4096,"instructions":"Talk like
-        a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
+      string: '{"model":"gpt-5","max_output_tokens":4096,"input":[{"role":"user","content":[{"type":"input_text","text":"What''s
+        the weather in Singapore? reply in 10 words and no special characters"}]},{"id":"rs_0a5e81422fd6c9610069908a7bd200819693d00b3202fcf4b1"},{"id":"fc_0a5e81422fd6c9610069908a81f1988196beeef1079157d822"},{"type":"function_call_output","call_id":"call_Bi1Eyz9BSXUSzjvufszZOBp3","output":"-15
+        celcius"}],"instructions":"Talk like a pirate","tools":[{"type":"function","name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
-        name"}},"required":["location"]}}],"input":[{"role":"user","content":[{"type":"input_text","text":"What''s
-        the weather in Singapore? reply in 10 words and no special characters"}]},{"id":"rs_68a342cafb1c8196a4cd4906206896bb030d601903cb5ed5"},{"id":"fc_68a342ce9d308196b80bd48ebc9244ad030d601903cb5ed5"},{"type":"function_call_output","call_id":"call_90DE60AY2KyfsG3riPdqquwo","output":"-15
-        celcius"}]}'
+        name"}},"required":["location"]}}]}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -183,13 +197,27 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 15:13:16 GMT
+      - Sat, 14 Feb 2026 14:45:37 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
       - chunked
       Connection:
       - keep-alive
+      Server:
+      - cloudflare
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Limit-Tokens:
+      - '500000'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Remaining-Tokens:
+      - '499622'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Ratelimit-Reset-Tokens:
+      - 45ms
       Openai-Version:
       - '2020-10-01'
       Openai-Organization:
@@ -197,39 +225,38 @@ http_interactions:
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       X-Request-Id:
-      - req_8e9fe9b45b88dfc6bef74e25c31a5fd9
+      - req_f15eff374c524d9f89e4d941a0dfa527
       Openai-Processing-Ms:
-      - '8925'
-      X-Envoy-Upstream-Service-Time:
-      - '8928'
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
+      - '13610'
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=Ai3bf10u_LmIMS0WyqiTDxra3lqGNEs_k678drKWjKU-1755529996-1.0.1.1-Q7FSmn_HZTpe1pz.ePMYg2qvDHdr_rT0wk2z5y1gpSwe_Hf7g4zWl8qe0kiVd8J.Ao6fBzg.pePWc6qz88f4Tlr7pBgr_hjl2M294hzsMHk;
-        path=/; expires=Mon, 18-Aug-25 15:43:16 GMT; domain=.api.openai.com; HttpOnly;
-        Secure; SameSite=None
-      - _cfuvid=KinQ654mvtzfluznxyglQY0PQM2DrmudbUHKGPbonUE-1755529996949-0.0.1.1-604800000;
-        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      - __cf_bm=bQkjXgVzSQ60jrka31JLiCUkwrFsKz6UjgMWMMPtkZk-1771080323.092247-1.0.1.1-K7sd1UeJaXlK0GoLn8pYg3iL_PcEekaetO2c59NyVsJgUW0s01hJ5kajLXClAmpWZ_FamqPRJ5MfrKTacIT9FI97.FYz.yEbm7KTpTD_SCzisdrgHXLcAtPwxB0v8aPp;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
+        15:15:37 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 97125a73cb09d433-KUL
+      - 9cdd59534b3eff8a-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |-
         {
-          "id": "resp_68a34303e4908196a1f8503ed005f361030d601903cb5ed5",
+          "id": "resp_0a5e81422fd6c9610069908a8346cc8196932941def6bca0a1",
           "object": "response",
-          "created_at": 1755529987,
+          "created_at": 1771080323,
           "status": "completed",
           "background": false,
+          "billing": {
+            "payer": "developer"
+          },
+          "completed_at": 1771080336,
           "error": null,
+          "frequency_penalty": 0.0,
           "incomplete_details": null,
           "instructions": "Talk like a pirate",
           "max_output_tokens": 4096,
@@ -237,12 +264,12 @@ http_interactions:
           "model": "gpt-5-2025-08-07",
           "output": [
             {
-              "id": "rs_68a34304495c8196ab43d8604def885c030d601903cb5ed5",
+              "id": "rs_0a5e81422fd6c9610069908a83abe88196a88325172c18da12",
               "type": "reasoning",
               "summary": []
             },
             {
-              "id": "msg_68a3430c5f188196908d239571186a78030d601903cb5ed5",
+              "id": "msg_0a5e81422fd6c9610069908a9036108196a72fd3fb6b1cb56f",
               "type": "message",
               "status": "completed",
               "content": [
@@ -250,21 +277,23 @@ http_interactions:
                   "type": "output_text",
                   "annotations": [],
                   "logprobs": [],
-                  "text": "Arr Singapore be a frosty minus fifteen degrees today matey"
+                  "text": "Arr matey Singapore be hot humid with tropical squalls oft"
                 }
               ],
               "role": "assistant"
             }
           ],
           "parallel_tool_calls": true,
+          "presence_penalty": 0.0,
           "previous_response_id": null,
           "prompt_cache_key": null,
+          "prompt_cache_retention": null,
           "reasoning": {
             "effort": "medium",
             "summary": null
           },
           "safety_identifier": null,
-          "service_tier": "auto",
+          "service_tier": "default",
           "store": true,
           "temperature": 1.0,
           "text": {
@@ -299,18 +328,18 @@ http_interactions:
           "top_p": 1.0,
           "truncation": "disabled",
           "usage": {
-            "input_tokens": 359,
+            "input_tokens": 385,
             "input_tokens_details": {
               "cached_tokens": 0
             },
-            "output_tokens": 722,
+            "output_tokens": 868,
             "output_tokens_details": {
-              "reasoning_tokens": 704
+              "reasoning_tokens": 832
             },
-            "total_tokens": 1081
+            "total_tokens": 1253
           },
           "user": null,
           "metadata": {}
         }
-  recorded_at: Mon, 18 Aug 2025 15:13:17 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 14 Feb 2026 14:45:36 GMT
+recorded_with: VCR 6.4.0

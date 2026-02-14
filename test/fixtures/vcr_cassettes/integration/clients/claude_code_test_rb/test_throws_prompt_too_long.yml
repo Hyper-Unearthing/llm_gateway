@@ -34,7 +34,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Sat, 14 Feb 2026 08:22:37 GMT
+      - Sat, 14 Feb 2026 14:44:16 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -44,7 +44,7 @@ http_interactions:
       X-Should-Retry:
       - 'false'
       Request-Id:
-      - req_011CY7dyUHgdxMAZQBYcCs1e
+      - req_011CY895THCuppXSW2CRMkT8
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
@@ -52,7 +52,7 @@ http_interactions:
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '121'
+      - '237'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
@@ -60,10 +60,10 @@ http_interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 9cdb28988ebf86be-KUL
+      - 9cdd57abf8ddce62-SIN
     body:
       encoding: UTF-8
       string: '{"type":"error","error":{"type":"invalid_request_error","message":"prompt
-        is too long: 224967 tokens > 200000 maximum"},"request_id":"req_011CY7dyUHgdxMAZQBYcCs1e"}'
-  recorded_at: Sat, 14 Feb 2026 08:22:37 GMT
+        is too long: 224967 tokens > 200000 maximum"},"request_id":"req_011CY895THCuppXSW2CRMkT8"}'
+  recorded_at: Sat, 14 Feb 2026 14:44:17 GMT
 recorded_with: VCR 6.4.0

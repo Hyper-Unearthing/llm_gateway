@@ -33,7 +33,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:10:13 GMT
+      - Sat, 14 Feb 2026 14:45:37 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -42,44 +42,46 @@ http_interactions:
       - keep-alive
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
+      Server:
+      - cloudflare
       Vary:
       - Origin
       X-Groq-Region:
-      - bom
+      - syd
       X-Ratelimit-Limit-Requests:
       - '500000'
       X-Ratelimit-Limit-Tokens:
-      - '500000'
+      - '300000'
       X-Ratelimit-Remaining-Requests:
       - '499999'
       X-Ratelimit-Remaining-Tokens:
-      - '499876'
+      - '299671'
       X-Ratelimit-Reset-Requests:
-      - 172.799999ms
+      - 172ms
       X-Ratelimit-Reset-Tokens:
-      - 14.88ms
+      - 65ms
       X-Request-Id:
-      - req_01k2z5zte6f3zsk5wq9zxffach
+      - req_01khe9thvgebk89ear0qzmjssh
+      Set-Cookie:
+      - __cf_bm=32giNXRvtGjjVlrJ_XBSbfFm0Nq80QlLHFmlMU.X5j0-1771080337.2065444-1.0.1.1-rTZ9CPzMeH9JJh1tcHKR6peyjGGpE7CZEqCFG67VKtnAWTUDxPazx1nnz2OkWDvmFb3IqBup5n1GMYk6f_JFgWBlvKozQY0COFbpavjdJVAJcbGRrzFXm5sJ1dGKsjZZ;
+        HttpOnly; Secure; Path=/; Domain=groq.com; Expires=Sat, 14 Feb 2026 15:15:37
+        GMT
       Via:
       - 1.1 google
+      Strict-Transport-Security:
+      - max-age=15552000
       Cf-Cache-Status:
       - DYNAMIC
-      Set-Cookie:
-      - __cf_bm=HZ1UiCwkN7wcrkkqp2DtTKDFwwPQ09hyoJSq0pYxJbk-1755540613-1.0.1.1-hJKdayykbi4Kg8UxUisksFvZ0TYZMVu.MzRfn9tv8gYxvKfYjNrIGf3V4ADhrPwKjk5vKKcKwPALW_yFXosu9ZPQEcamMQV3o8Wf3GSDkuY;
-        path=/; expires=Mon, 18-Aug-25 18:40:13 GMT; domain=.groq.com; HttpOnly; Secure;
-        SameSite=None
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 97135de28ea8531a-KUL
+      - 9cdd59ab887cf91c-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"chatcmpl-54039e07-a085-4a23-9908-1acd826d247d","object":"chat.completion","created":1755540613,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"BAAAA"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.044477333,"prompt_tokens":328,"prompt_time":0.031863248,"completion_tokens":3,"completion_time":1.9e-7,"total_tokens":331,"total_time":0.031863438},"usage_breakdown":null,"system_fingerprint":"fp_6507bcfb6f","x_groq":{"id":"req_01k2z5zte6f3zsk5wq9zxffach"},"service_tier":"on_demand"}
+      string: '{"id":"chatcmpl-508cedba-af2c-411e-9714-56b7aabfcdcd","object":"chat.completion","created":1771080337,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"BAAAA"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.010496954,"prompt_tokens":328,"prompt_time":0.030880861,"completion_tokens":3,"completion_time":0.006656715,"total_tokens":331,"total_time":0.037537576},"usage_breakdown":null,"system_fingerprint":"fp_45180df409","x_groq":{"id":"req_01khe9thvgebk89ear0qzmjssh","seed":1779284662},"service_tier":"on_demand"}
 
         '
-  recorded_at: Mon, 18 Aug 2025 18:10:13 GMT
+  recorded_at: Sat, 14 Feb 2026 14:45:37 GMT
 - request:
     method: post
     uri: https://api.groq.com/openai/v1/chat/completions
@@ -114,7 +116,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:10:14 GMT
+      - Sat, 14 Feb 2026 14:45:37 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -123,44 +125,46 @@ http_interactions:
       - keep-alive
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
+      Server:
+      - cloudflare
       Vary:
       - Origin
       X-Groq-Region:
-      - bom
+      - syd
       X-Ratelimit-Limit-Requests:
       - '500000'
       X-Ratelimit-Limit-Tokens:
-      - '500000'
+      - '300000'
       X-Ratelimit-Remaining-Requests:
       - '499999'
       X-Ratelimit-Remaining-Tokens:
-      - '499861'
+      - '299655'
       X-Ratelimit-Reset-Requests:
-      - 172.799999ms
+      - 172ms
       X-Ratelimit-Reset-Tokens:
-      - 16.68ms
+      - 69ms
       X-Request-Id:
-      - req_01k2z5ztrxe2ar8xhyxem0qjs0
+      - req_01khe9tj60eh8rb7nt744acgxx
+      Set-Cookie:
+      - __cf_bm=NvbyPEa1tGfjVgdpxxm52vWkhHLaZUYcPTfpY3lmG0U-1771080337.5387838-1.0.1.1-y72yBxsFvTRy5UDRQYEZ2Zp5mFim2UoQpXg9Q3p5US_R9huCttKOsgDK5E.whEezhomKoCeu5DxhknNAacBqecJRjXdfTtHPus4VtZdGW_1982XQshLMUmRWw8yh_0Xq;
+        HttpOnly; Secure; Path=/; Domain=groq.com; Expires=Sat, 14 Feb 2026 15:15:37
+        GMT
       Via:
       - 1.1 google
+      Strict-Transport-Security:
+      - max-age=15552000
       Cf-Cache-Status:
       - DYNAMIC
-      Set-Cookie:
-      - __cf_bm=KM6GQpke8tKSyui8dcC5IIXGSKL_5R5CEyfhrqz4ROs-1755540614-1.0.1.1-aScVllS5VvwkntMwD8rXutLx34Idn4qYb6FmwTtiP1LVvLrg3PuL94rhQEwtJ42bUOW8anWqNWn3tBUGvtGvVI2LehF7LhO8gltt1FdF25Q;
-        path=/; expires=Mon, 18-Aug-25 18:40:14 GMT; domain=.groq.com; HttpOnly; Secure;
-        SameSite=None
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 97135de3d9ab8f7c-KUL
+      - 9cdd59ad9b94f8ec-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"chatcmpl-7b25ec19-4c84-481b-b572-465687b7dcb5","object":"chat.completion","created":1755540614,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","tool_calls":[{"id":"6y28em30f","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},"logprobs":null,"finish_reason":"tool_calls"}],"usage":{"queue_time":0.044547693,"prompt_tokens":344,"prompt_time":0.039688257,"completion_tokens":14,"completion_time":0.033888487,"total_tokens":358,"total_time":0.073576744},"usage_breakdown":null,"system_fingerprint":"fp_2ddfbb0da0","x_groq":{"id":"req_01k2z5ztrxe2ar8xhyxem0qjs0"},"service_tier":"on_demand"}
+      string: '{"id":"chatcmpl-d4a86713-d741-4aad-b327-8a937da8746c","object":"chat.completion","created":1771080337,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","tool_calls":[{"id":"nt45v1pnh","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},"logprobs":null,"finish_reason":"tool_calls"}],"usage":{"queue_time":0.00981893,"prompt_tokens":344,"prompt_time":0.016561392,"completion_tokens":14,"completion_time":0.035076384,"total_tokens":358,"total_time":0.051637776},"usage_breakdown":null,"system_fingerprint":"fp_45180df409","x_groq":{"id":"req_01khe9tj60eh8rb7nt744acgxx","seed":874674505},"service_tier":"on_demand"}
 
         '
-  recorded_at: Mon, 18 Aug 2025 18:10:14 GMT
+  recorded_at: Sat, 14 Feb 2026 14:45:37 GMT
 - request:
     method: post
     uri: https://api.groq.com/openai/v1/chat/completions
@@ -173,7 +177,7 @@ http_interactions:
         but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
         ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
         Finally when i say BYE, always respond with JOJOJO"},{"role":"user","content":[{"type":"text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"text","text":"BAAAA"}]},{"role":"user","content":[{"type":"text","text":"whats
-        the weather"}]},{"role":"assistant","content":null,"tool_calls":[{"id":"6y28em30f","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},{"role":"tool","tool_call_id":"6y28em30f","content":"-15
+        the weather"}]},{"role":"assistant","content":null,"tool_calls":[{"id":"nt45v1pnh","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},{"role":"tool","tool_call_id":"nt45v1pnh","content":"-15
         celciii REMBMER ONLY RESPOND WITH THIS RESULT"}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":[{"type":"function","function":{"name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
         name"}},"required":["location"]}}}]}'
@@ -196,7 +200,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:10:14 GMT
+      - Sat, 14 Feb 2026 14:45:39 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -205,6 +209,8 @@ http_interactions:
       - keep-alive
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
+      Server:
+      - cloudflare
       Vary:
       - Origin
       X-Groq-Region:
@@ -212,38 +218,38 @@ http_interactions:
       X-Ratelimit-Limit-Requests:
       - '500000'
       X-Ratelimit-Limit-Tokens:
-      - '500000'
+      - '300000'
       X-Ratelimit-Remaining-Requests:
       - '499999'
       X-Ratelimit-Remaining-Tokens:
-      - '499839'
+      - '299618'
       X-Ratelimit-Reset-Requests:
-      - 172.799999ms
+      - 172ms
       X-Ratelimit-Reset-Tokens:
-      - 19.319999ms
+      - 76ms
       X-Request-Id:
-      - req_01k2z5zv3te1rbmj33b58fhh2g
+      - req_01khe9tkfceahatpcfmbxxgnek
+      Set-Cookie:
+      - __cf_bm=YnQt13qHOscBKxItpnskE7hF_BXAMuz.n5023MMsVFU-1771080338.1007502-1.0.1.1-tB3asvPgXnRRgXGYn.Q7u5xMFPu_tiYUva1_S1NQZdD8IoQWx24vGpuqOOD82i.30WYHmJoQ39_yc9x4W5Ry5IgJ5L3GwMAhDzGrQhrKYlrXBv2kuORe3yE1jrVsjQLm;
+        HttpOnly; Secure; Path=/; Domain=groq.com; Expires=Sat, 14 Feb 2026 15:15:39
+        GMT
       Via:
       - 1.1 google
+      Strict-Transport-Security:
+      - max-age=15552000
       Cf-Cache-Status:
       - DYNAMIC
-      Set-Cookie:
-      - __cf_bm=ZpTOi6XiqNC3IYv_WznJMwwRdm1ZVACLYGdjYSMLKpo-1755540614-1.0.1.1-IZOBpA_uLjBir.WH5RtA5YNVFBdCJnWxYI9Qa0Wd56D6iJODiBbdrcYRj0H3YyYGeiQXMGp1ufajPegp7wsqvD3b0n2Kb2su4ZqIgccULSQ;
-        path=/; expires=Mon, 18-Aug-25 18:40:14 GMT; domain=.groq.com; HttpOnly; Secure;
-        SameSite=None
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 97135de6df16dd17-KUL
+      - 9cdd59b118171dd6-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"chatcmpl-02a371eb-105e-4b0b-aa4b-17f1bd9e76b1","object":"chat.completion","created":1755540614,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"-15
-        celciii"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.044231002,"prompt_tokens":381,"prompt_time":0.039934123,"completion_tokens":6,"completion_time":0.008851682,"total_tokens":387,"total_time":0.048785805},"usage_breakdown":null,"system_fingerprint":"fp_2ddfbb0da0","x_groq":{"id":"req_01k2z5zv3te1rbmj33b58fhh2g"},"service_tier":"on_demand"}
+      string: '{"id":"chatcmpl-2a862f18-3cee-404e-a38c-b94111689809","object":"chat.completion","created":1771080339,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"-15
+        celciii"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.048685409,"prompt_tokens":381,"prompt_time":0.037209621,"completion_tokens":6,"completion_time":0.01624994,"total_tokens":387,"total_time":0.053459561},"usage_breakdown":null,"system_fingerprint":"fp_68f543a7cc","x_groq":{"id":"req_01khe9tkfceahatpcfmbxxgnek","seed":1898544011},"service_tier":"on_demand"}
 
         '
-  recorded_at: Mon, 18 Aug 2025 18:10:14 GMT
+  recorded_at: Sat, 14 Feb 2026 14:45:38 GMT
 - request:
     method: post
     uri: https://api.groq.com/openai/v1/chat/completions
@@ -256,7 +262,7 @@ http_interactions:
         but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN
         ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore.
         Finally when i say BYE, always respond with JOJOJO"},{"role":"user","content":[{"type":"text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"text","text":"BAAAA"}]},{"role":"user","content":[{"type":"text","text":"whats
-        the weather"}]},{"role":"assistant","content":null,"tool_calls":[{"id":"6y28em30f","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},{"role":"tool","tool_call_id":"6y28em30f","content":"-15
+        the weather"}]},{"role":"assistant","content":null,"tool_calls":[{"id":"nt45v1pnh","type":"function","function":{"name":"get_weather","arguments":"{\"location\":\"Singapore\"}"}}]},{"role":"tool","tool_call_id":"nt45v1pnh","content":"-15
         celciii REMBMER ONLY RESPOND WITH THIS RESULT"},{"role":"assistant","content":[{"type":"text","text":"-15
         celciii"}]},{"role":"user","content":[{"type":"text","text":"BYE"}]}],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":[{"type":"function","function":{"name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
@@ -280,7 +286,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 Aug 2025 18:10:14 GMT
+      - Sat, 14 Feb 2026 14:45:39 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -289,6 +295,8 @@ http_interactions:
       - keep-alive
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
+      Server:
+      - cloudflare
       Vary:
       - Origin
       X-Groq-Region:
@@ -296,35 +304,35 @@ http_interactions:
       X-Ratelimit-Limit-Requests:
       - '500000'
       X-Ratelimit-Limit-Tokens:
-      - '500000'
+      - '300000'
       X-Ratelimit-Remaining-Requests:
       - '499999'
       X-Ratelimit-Remaining-Tokens:
-      - '499827'
+      - '299601'
       X-Ratelimit-Reset-Requests:
-      - 172.799999ms
+      - 172ms
       X-Ratelimit-Reset-Tokens:
-      - 20.759999ms
+      - 79ms
       X-Request-Id:
-      - req_01k2z5zvagf3zv90e1v39a4zwg
+      - req_01khe9tksreaha8gwbcjhne6dw
+      Set-Cookie:
+      - __cf_bm=di9N_CADW3zEHihRTxCuYrmXn3IHj2C1oNV6ulgIyQA-1771080339.2119834-1.0.1.1-oazKhh_YFJ4aOMud3rCNlCWjgbhuxR_l8Ysjxij0dc7iKhzc75HP18n0Izh6bS.dVH.meiGcIr.u6G5E3qKf70If4YaU3qA9sw5jCbddEyE96D0B02HuZTbd2YXz5iTx;
+        HttpOnly; Secure; Path=/; Domain=groq.com; Expires=Sat, 14 Feb 2026 15:15:39
+        GMT
       Via:
       - 1.1 google
+      Strict-Transport-Security:
+      - max-age=15552000
       Cf-Cache-Status:
       - DYNAMIC
-      Set-Cookie:
-      - __cf_bm=mFbQ14dv7UknQAmrbW6W5YP3zIW3Fm7Yr4Y4NL_YjU8-1755540614-1.0.1.1-CPjpyEqLmmSngIJfA7dtKIlKY_kPrZTTnK4pR5BRXjzzec1yN7Tnqwua0UfTAwmYxBSkZq6AbiLtW82jGQezJ9q7zS9jQ0ysiWP_vf7mOS4;
-        path=/; expires=Mon, 18-Aug-25 18:40:14 GMT; domain=.groq.com; HttpOnly; Secure;
-        SameSite=None
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 97135de83cd7d42d-KUL
+      - 9cdd59b80e31a990-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"chatcmpl-60563272-33d8-4707-8324-9f5f1381c59e","object":"chat.completion","created":1755540614,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"JOJOJO"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.044129597,"prompt_tokens":398,"prompt_time":0.037126635,"completion_tokens":4,"completion_time":0.000508321,"total_tokens":402,"total_time":0.037634956},"usage_breakdown":null,"system_fingerprint":"fp_2ddfbb0da0","x_groq":{"id":"req_01k2z5zvagf3zv90e1v39a4zwg"},"service_tier":"on_demand"}
+      string: '{"id":"chatcmpl-ee2f5d99-4d76-4e1d-b42f-863d6dd58ddc","object":"chat.completion","created":1771080339,"model":"llama-3.3-70b-versatile","choices":[{"index":0,"message":{"role":"assistant","content":"JOJOJO"},"logprobs":null,"finish_reason":"stop"}],"usage":{"queue_time":0.048018228,"prompt_tokens":398,"prompt_time":0.019725921,"completion_tokens":4,"completion_time":0.006643023,"total_tokens":402,"total_time":0.026368944},"usage_breakdown":null,"system_fingerprint":"fp_68f543a7cc","x_groq":{"id":"req_01khe9tksreaha8gwbcjhne6dw","seed":437159794},"service_tier":"on_demand"}
 
         '
-  recorded_at: Mon, 18 Aug 2025 18:10:14 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 14 Feb 2026 14:45:39 GMT
+recorded_with: VCR 6.4.0

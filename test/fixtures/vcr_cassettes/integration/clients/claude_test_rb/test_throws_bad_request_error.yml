@@ -22,40 +22,44 @@ http_interactions:
       - application/json
       X-Api-Key:
       - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
   response:
     status:
       code: 400
       message: Bad Request
     headers:
       Date:
-      - Sun, 29 Jun 2025 08:49:48 GMT
+      - Sat, 14 Feb 2026 14:44:10 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '108'
+      - '152'
       Connection:
       - keep-alive
       X-Should-Retry:
       - 'false'
       Request-Id:
-      - req_011CQcE174M1pauCiPVeiWE7
+      - req_011CY894xsuZuzLb6LirnWoD
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
-      Via:
-      - 1.1 google
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '102'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
       - none
-      Server:
-      - cloudflare
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 95742c35ecf7e551-KUL
+      - 9cdd57880daa1658-SIN
     body:
       encoding: UTF-8
       string: '{"type":"error","error":{"type":"invalid_request_error","message":"messages:
-        Input should be a valid list"}}'
-  recorded_at: Sun, 29 Jun 2025 08:49:48 GMT
-recorded_with: VCR 6.3.1
+        Input should be a valid list"},"request_id":"req_011CY894xsuZuzLb6LirnWoD"}'
+  recorded_at: Sat, 14 Feb 2026 14:44:10 GMT
+recorded_with: VCR 6.4.0

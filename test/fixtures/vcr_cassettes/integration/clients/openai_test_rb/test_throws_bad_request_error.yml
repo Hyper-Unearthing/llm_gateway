@@ -25,7 +25,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Sun, 29 Jun 2025 08:50:14 GMT
+      - Sat, 14 Feb 2026 16:03:41 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -37,11 +37,13 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '19'
+      - '12'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
       - '2020-10-01'
-      X-Envoy-Upstream-Service-Time:
-      - '23'
+      Server:
+      - cloudflare
       X-Ratelimit-Limit-Requests:
       - '500'
       X-Ratelimit-Remaining-Requests:
@@ -49,23 +51,21 @@ http_interactions:
       X-Ratelimit-Reset-Requests:
       - 120ms
       X-Request-Id:
-      - req_cf2a2fb9dfe992365936fc8c2f97bc23
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
+      - req_46404286598e482e88c5d729168cade2
+      X-Openai-Proxy-Wasm:
+      - v0.1
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=iWCQkCY0v.oOjlxn4w1J9Sv5_ZlMSvpwKbhhjoYwT6w-1751187014-1.0.1.1-Vk5bFbATBMehw1oO6hmXwrxtjEHcas2q5nkQ09ets_uQEWtu.tLMWZKFTKeqnlQQ6Vxr8wY4nuP2jYdYrh9fc6mXL4.PvU3iQ5K9gWUjuHw;
-        path=/; expires=Sun, 29-Jun-25 09:20:14 GMT; domain=.api.openai.com; HttpOnly;
-        Secure; SameSite=None
-      - _cfuvid=cIMC_xGd_.gznkkmGf8GKoGxoEq7QkuiQ78DS27.8NI-1751187014303-0.0.1.1-604800000;
-        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      - __cf_bm=SA0Ze1AvTx9o.2OIWEI0n6pxQS5QB5XyFevAKrHLEOU-1771085020.7427557-1.0.1.1-LPqwbE0YsRrMSueEHiVp9cRjfy23_FFdNc_PrtyRZLAvVo9V2B16Si16I2mwGQaFDOph3A4zjJcR2Rg4amEjE9Aogq1JEbj1I23RAtrf6Hs2YmCZ4_hWKWicPnFMpKLE;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
+        16:33:41 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 95742cd27ec9435a-KUL
+      - 9cddcc03aacc9958-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -79,5 +79,5 @@ http_interactions:
             "code": "invalid_type"
           }
         }
-  recorded_at: Sun, 29 Jun 2025 08:50:14 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 14 Feb 2026 16:03:41 GMT
+recorded_with: VCR 6.4.0

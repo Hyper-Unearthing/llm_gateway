@@ -25,7 +25,7 @@ http_interactions:
       message: Unauthorized
     headers:
       Date:
-      - Sun, 29 Jun 2025 08:44:29 GMT
+      - Sat, 14 Feb 2026 16:05:44 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -35,23 +35,25 @@ http_interactions:
       Vary:
       - Origin
       X-Request-Id:
-      - req_08914f1b047465cf643d9c60f6f4a766
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
+      - req_fe9554f65c8c49b698f656fe3aa9c568
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      Server:
+      - cloudflare
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=iHvdvqxFrZCuJm9bTVkyqhluwkBacXuBNF1aWIuxh5E-1751186669-1.0.1.1-9nvTVlawYzjGKUoxGnuqO2jt6hylcvZxVhzITLD3rdA3Da0jPFJcKQIek6wd.uZLJk0Y0Rk5GCSqoLVimhqfL96C7dSB1aBw_UvbeqPQquw;
-        path=/; expires=Sun, 29-Jun-25 09:14:29 GMT; domain=.api.openai.com; HttpOnly;
-        Secure; SameSite=None
-      - _cfuvid=.9vBfyCZD9FblcayUOlY1DiulthlYnQz5qVFuGEBE0I-1751186669134-0.0.1.1-604800000;
-        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      - __cf_bm=g1JnSOLT4RU9iaFe1BRPZ8NqLCu.DaDu8Ipwn9PbO5M-1771085144.1547077-1.0.1.1-ztK0wZVl.qlY4TCdjbyYQNMvMnLFwdDiJrwquqBXHVanPke2fzWq0sTQ5a2lelc21lFsRKINpsjRjJy4_XE1sfCQqNdi5HbuS.pYCXJtXOCxcowjVyCGUg2_z4shAB9L;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
+        16:35:44 GMT
+      - _cfuvid=wPAD7qNjt7zUlX_au.WcUnW_7d1.RzUzBtV9JUkCZUk-1771085144.1547077-1.0.1.1-XuI9VDN..tfNbL_Fe_opvxjsiWN5HvoOkUCkQlU4r9M;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
-      Server:
-      - cloudflare
       Cf-Ray:
-      - 957424688a8de53f-KUL
+      - 9cddcf06ec8df8fe-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -65,5 +67,5 @@ http_interactions:
                 "code": "invalid_api_key"
             }
         }
-  recorded_at: Sun, 29 Jun 2025 08:44:29 GMT
-recorded_with: VCR 6.3.1
+  recorded_at: Sat, 14 Feb 2026 16:05:44 GMT
+recorded_with: VCR 6.4.0

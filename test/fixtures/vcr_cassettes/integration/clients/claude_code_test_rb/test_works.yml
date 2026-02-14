@@ -34,7 +34,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 14 Feb 2026 08:22:40 GMT
+      - Sat, 14 Feb 2026 14:44:13 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -46,15 +46,15 @@ http_interactions:
       Anthropic-Ratelimit-Unified-5h-Status:
       - allowed
       Anthropic-Ratelimit-Unified-5h-Reset:
-      - '1771074000'
+      - '1771095600'
       Anthropic-Ratelimit-Unified-5h-Utilization:
-      - '0.2'
+      - '0.12'
       Anthropic-Ratelimit-Unified-7d-Status:
       - allowed
       Anthropic-Ratelimit-Unified-7d-Reset:
       - '1771308000'
       Anthropic-Ratelimit-Unified-7d-Utilization:
-      - '0.64'
+      - '0.73'
       Anthropic-Ratelimit-Unified-Overage-Status:
       - allowed
       Anthropic-Ratelimit-Unified-Overage-Reset:
@@ -66,9 +66,9 @@ http_interactions:
       Anthropic-Ratelimit-Unified-Fallback-Percentage:
       - '0.5'
       Anthropic-Ratelimit-Unified-Reset:
-      - '1771074000'
+      - '1771095600'
       Request-Id:
-      - req_011CY7dyYm4mfLt58x1R5Tyb
+      - req_011CY8952SiSX9rhD158i3dc
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
@@ -76,7 +76,7 @@ http_interactions:
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '1568'
+      - '2434'
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
@@ -84,13 +84,14 @@ http_interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 9cdb28a9eaa026f2-KUL
+      - 9cdd578d9a5f3e1f-SIN
     body:
       encoding: ASCII-8BIT
-      string: '{"model":"claude-3-7-sonnet-20250219","id":"msg_01LSoLNXSVa9jAACXwu6BJyt","type":"message","role":"assistant","content":[{"type":"text","text":"I
-        don''t see a clear question or instruction in your message \"aqklcsa,\". It
-        appears to be a random string of characters.\n\nIf you''d like assistance
-        with coding, information, or have a question you''d like to ask, please provide
-        more details about what you''re looking for, and I''ll be happy to help."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":27,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":73,"service_tier":"standard","inference_geo":"not_available"}}'
-  recorded_at: Sat, 14 Feb 2026 08:22:40 GMT
+      string: '{"model":"claude-3-7-sonnet-20250219","id":"msg_01BRCnEhYFkkJnT5FP3JSqFh","type":"message","role":"assistant","content":[{"type":"text","text":"I
+        don''t understand the input \"aqklcsa,\". It appears to be a random string
+        of characters. Could you please:\n\n1. Provide a clearer question or request\n2.
+        Explain what you''re trying to accomplish\n3. Share what kind of help you
+        need from me\n\nI''m here to assist with coding, writing, analysis, and other
+        tasks, but I need a comprehensible request to work with."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":27,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":94,"service_tier":"standard","inference_geo":"not_available"}}'
+  recorded_at: Sat, 14 Feb 2026 14:44:13 GMT
 recorded_with: VCR 6.4.0
