@@ -45,4 +45,23 @@ module LlmGateway
   # Direction constants for message mappers
   DIRECTION_IN = :in
   DIRECTION_OUT = :out
+
+  # Backward-compatible aliases for clients that moved from Adapters to Clients
+  module Adapters
+    module Claude
+      Client = LlmGateway::Clients::Claude
+    end
+
+    module ClaudeCode
+      Client = LlmGateway::Clients::ClaudeCode
+    end
+
+    module OpenAi
+      Client = LlmGateway::Clients::OpenAi
+    end
+
+    module Groq
+      Client = LlmGateway::Clients::Groq
+    end
+  end
 end
