@@ -64,4 +64,31 @@ module LlmGateway
       Client = LlmGateway::Clients::Groq
     end
   end
+
+  def self.configure(configs)
+    @configured_clients ||= {}
+
+    configs.each do |entry|
+      name = entry[:name] || entry["name"]
+      config = entry[:config] || entry["config"]
+
+      raise ArgumentError, "Each config entry must have a :name" unless name
+
+      client = ClientBuilder.build(config)
+      @configured_clients[name.to_sym] = client
+
+      define_singleton_method(name.to_sym) { @configured_clients[name.to_sym] }
+    end
+  end
+
+  def self.configured_clients
+    @configured_clients ||= {}
+  end
+
+  def self.reset_configuration!
+    @configured_clients&.each_key do |name|
+      singleton_class.remove_method(name) if respond_to?(name)
+    end
+    @configured_clients = {}
+  end
 end

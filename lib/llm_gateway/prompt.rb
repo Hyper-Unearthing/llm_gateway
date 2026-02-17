@@ -30,6 +30,13 @@ module LlmGateway
 
     def initialize(model)
       @model = model
+      @connection = if model.is_a?(String)
+        LlmGateway.configured_clients.values.find do |client|
+          client.client.model_key == model
+        end
+      else
+        model
+      end
     end
 
     def run
@@ -55,7 +62,11 @@ module LlmGateway
     end
 
     def post
-      LlmGateway::Client.chat(model, prompt, tools: tools, system: system_prompt)
+      if @connection
+        @connection.chat(prompt, tools: tools, system: system_prompt)
+      else
+        LlmGateway::Client.chat(model, prompt, tools: tools, system: system_prompt)
+      end
     end
 
     def tools
