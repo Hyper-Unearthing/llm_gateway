@@ -33,10 +33,12 @@ module LlmGateway
         private
 
         def map_text_content(content)
-          {
+          result = {
             type: "text",
             text: content[:text]
           }
+          result[:cache_control] = content[:cache_control] if content[:cache_control]
+          result
         end
 
         def map_file_content(content)
