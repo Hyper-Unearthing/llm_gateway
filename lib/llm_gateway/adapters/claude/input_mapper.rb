@@ -45,7 +45,9 @@ module LlmGateway
             nil
           elsif system.length == 1 && system.first[:role] == "system"
             # If we have a single system message, convert to Claude format
-            [ { type: "text", text: system.first[:content] } ]
+            mapped = { type: "text", text: system.first[:content] }
+            mapped[:cache_control] = system.first[:cache_control] if system.first[:cache_control]
+            [ mapped ]
           else
             # For multiple messages or non-standard format, pass through
             system

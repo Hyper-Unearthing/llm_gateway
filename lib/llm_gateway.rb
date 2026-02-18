@@ -65,6 +65,10 @@ module LlmGateway
     end
   end
 
+  def self.build(config)
+    ClientBuilder.build(config)
+  end
+
   def self.configure(configs)
     @configured_clients ||= {}
 
