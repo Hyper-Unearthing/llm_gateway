@@ -3,29 +3,29 @@
 module LlmGateway
   module Adapters
     class Adapter
-      attr_reader :client, :input_mapper, :output_mapper, :file_output_mapper
+      attr_reader :client, :input_mapper, :output_mapper, :file_output_mapper, :stream_output_mapper_class
 
-      def initialize(client, input_mapper:, output_mapper:, file_output_mapper: nil)
+      def initialize(client, input_mapper:, output_mapper:, file_output_mapper: nil, stream_output_mapper: nil)
         @client = client
         @input_mapper = input_mapper
         @output_mapper = output_mapper
         @file_output_mapper = file_output_mapper
+        @stream_output_mapper_class = stream_output_mapper
       end
 
-      def chat(message, response_format: "text", tools: nil, system: nil)
+      def chat(message, response_format: "text", tools: nil, system: nil, &block)
         normalized_input = input_mapper.map({
           messages: normalize_messages(message),
           response_format: normalize_response_format(response_format),
           tools: tools,
           system: normalize_system(system)
         })
-        result = client.chat(
-          normalized_input[:messages],
-          response_format: normalized_input[:response_format],
-          tools: normalized_input[:tools],
-          system: normalized_input[:system]
-        )
-        output_mapper.map(result)
+
+        if block_given?
+          chat_streaming(normalized_input, &block)
+        else
+          chat_non_streaming(normalized_input)
+        end
       end
 
       def upload_file(file, purpose: "assistants")
@@ -43,6 +43,35 @@ module LlmGateway
       end
 
       private
+
+      def chat_non_streaming(normalized_input)
+        result = client.chat(
+          normalized_input[:messages],
+          response_format: normalized_input[:response_format],
+          tools: normalized_input[:tools],
+          system: normalized_input[:system]
+        )
+        output_mapper.map(result)
+      end
+
+      def chat_streaming(normalized_input, &block)
+        raise "No stream_output_mapper configured for this adapter" unless stream_output_mapper_class
+
+        stream_mapper = stream_output_mapper_class.new
+
+        client.chat(
+          normalized_input[:messages],
+          response_format: normalized_input[:response_format],
+          tools: normalized_input[:tools],
+          system: normalized_input[:system]
+        ) do |raw_sse|
+          normalized_event = stream_mapper.map_event(raw_sse)
+          yield normalized_event if normalized_event
+        end
+
+        accumulated = stream_mapper.to_message
+        output_mapper.map(accumulated)
+      end
 
       def normalize_system(system)
         if system.nil?

@@ -60,6 +60,35 @@ module LlmGateway
       process_response(response)
     end
 
+    def post_stream(url_part, body = nil, extra_headers = {}, &block)
+      endpoint = "#{base_endpoint}/#{url_part.sub(%r{^/}, "")}"
+      uri = URI(endpoint)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      http.read_timeout = 480
+      http.open_timeout = 10
+
+      request = Net::HTTP::Post.new(uri)
+      headers = build_headers.merge(extra_headers)
+      headers.each { |key, value| request[key] = value }
+      request.body = body.to_json if body
+
+      http.request(request) do |response|
+        unless response.code.to_i == 200
+          # Collect full body for error handling
+          full_body = +""
+          response.read_body { |chunk| full_body << chunk }
+          # Create a response-like object with the body for handle_error
+          error_response = Net::HTTPResponse::CODE_TO_OBJ[response.code]
+          response.instance_variable_set(:@body, full_body)
+          response.instance_variable_set(:@read, true)
+          handle_error(response)
+        end
+
+        parse_sse_stream(response, &block)
+      end
+    end
+
     protected
 
     def make_request(endpoint, method, params = nil, extra_headers = {})
@@ -125,6 +154,38 @@ module LlmGateway
           raise Errors::InternalServerError.new(e.message, e.code)
         else
           raise e # Re-raise the original APIStatusError
+        end
+      end
+    end
+
+    def parse_sse_stream(response)
+      buffer = +""
+      response.read_body do |chunk|
+        buffer << chunk
+        while (idx = buffer.index("\n\n"))
+          raw_event = buffer.slice!(0, idx + 2)
+          event_type = nil
+          data_lines = []
+
+          raw_event.each_line do |line|
+            line = line.chomp
+            if line.start_with?("event:")
+              event_type = line.sub(/^event:\s*/, "")
+            elsif line.start_with?("data:")
+              data_lines << line.sub(/^data:\s*/, "")
+            end
+          end
+
+          next unless event_type && !data_lines.empty?
+
+          data_str = data_lines.join("\n")
+          data = begin
+            LlmGateway::Utils.deep_symbolize_keys(JSON.parse(data_str))
+          rescue JSON::ParserError
+            { raw: data_str }
+          end
+
+          yield({ event: event_type, data: data })
         end
       end
     end

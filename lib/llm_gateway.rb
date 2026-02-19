@@ -17,6 +17,7 @@ require_relative "llm_gateway/clients/groq"
 # Load adapters
 require_relative "llm_gateway/adapters/claude/input_mapper"
 require_relative "llm_gateway/adapters/claude/output_mapper"
+require_relative "llm_gateway/adapters/claude/stream_output_mapper"
 require_relative "llm_gateway/adapters/claude_code/input_mapper"
 require_relative "llm_gateway/adapters/claude_code/output_mapper"
 require_relative "llm_gateway/adapters/open_ai/file_output_mapper"

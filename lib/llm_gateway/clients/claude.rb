@@ -10,7 +10,7 @@ module LlmGateway
         super(model_key: model_key, api_key: api_key)
       end
 
-      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096)
+      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, &block)
         body = {
           model: model_key,
           max_tokens: max_completion_tokens,
@@ -20,7 +20,12 @@ module LlmGateway
         body.merge!(tools: tools) if LlmGateway::Utils.present?(tools)
         body.merge!(system: system) if LlmGateway::Utils.present?(system)
 
-        post("messages", body)
+        if block_given?
+          body[:stream] = true
+          post_stream("messages", body, &block)
+        else
+          post("messages", body)
+        end
       end
 
       def download_file(file_id)

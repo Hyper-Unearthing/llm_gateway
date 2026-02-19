@@ -42,7 +42,7 @@ module LlmGateway
         @token_manager&.on_token_refresh = callback
       end
 
-      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096)
+      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, &block)
         ensure_valid_token
 
         body = {
@@ -58,7 +58,12 @@ module LlmGateway
 
         body.merge!(system: system) if LlmGateway::Utils.present?(system)
 
-        post_with_retry("messages", body)
+        if block_given?
+          body[:stream] = true
+          post_stream_with_retry("messages", body, &block)
+        else
+          post_with_retry("messages", body)
+        end
       end
 
       private
@@ -78,6 +83,16 @@ module LlmGateway
         @token_manager.refresh_access_token
         @access_token = @token_manager.access_token
         post(url_part, body, extra_headers)
+      end
+
+      def post_stream_with_retry(url_part, body = nil, extra_headers = {}, &block)
+        post_stream(url_part, body, extra_headers, &block)
+      rescue Errors::AuthenticationError => e
+        raise e unless @token_manager&.token_expired?
+
+        @token_manager.refresh_access_token
+        @access_token = @token_manager.access_token
+        post_stream(url_part, body, extra_headers, &block)
       end
 
       def prepend_claude_code_identity(system)

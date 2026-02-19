@@ -2,9 +2,9 @@
 
 module LlmGateway
   class Client
-    def self.chat(model, message, response_format: "text", tools: nil, system: nil, api_key: nil, refresh_token: nil, expires_at: nil)
+    def self.chat(model, message, response_format: "text", tools: nil, system: nil, api_key: nil, refresh_token: nil, expires_at: nil, &block)
       adapter = build_adapter_from_model(model, api_key: api_key, refresh_token: refresh_token, expires_at: expires_at)
-      adapter.chat(message, response_format: response_format, tools: tools, system: system)
+      adapter.chat(message, response_format: response_format, tools: tools, system: system, &block)
     end
 
     def self.responses(model, message, response_format: "text", tools: nil, system: nil, api_key: nil)

@@ -4,6 +4,7 @@ require_relative "../adapter"
 require_relative "input_mapper"
 require_relative "output_mapper"
 require_relative "../claude/output_mapper"
+require_relative "../claude/stream_output_mapper"
 
 module LlmGateway
   module Adapters
@@ -14,7 +15,8 @@ module LlmGateway
             client,
             input_mapper: InputMapper,
             output_mapper: OutputMapper,
-            file_output_mapper: Claude::FileOutputMapper
+            file_output_mapper: Claude::FileOutputMapper,
+            stream_output_mapper: Claude::StreamOutputMapper
           )
         end
       end
