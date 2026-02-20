@@ -16,7 +16,7 @@ class DocumentUsageTest < Test
 
   test "cluade upload file" do
     VCR.use_cassette(vcr_cassette_name) do
-      result = LlmGateway::Client.upload_file("anthropic", filename: "test.txt", content: "Hello, world!", mime_type: "text/plain")
+      result = LlmGateway::Client.upload_file("anthropic_apikey_messages", filename: "test.txt", content: "Hello, world!", mime_type: "text/plain")
       expected = {
         id: ->(value, path) { assert_match(/\Afile[-_]/, value, path) },
         created_at: ->(value, path) { assert(Time.iso8601(value), path) },
@@ -41,7 +41,7 @@ class DocumentUsageTest < Test
 
   test "openai upload file" do
     VCR.use_cassette(vcr_cassette_name) do
-      result = LlmGateway::Client.upload_file("openai", filename: "test.txt", content: "Hello, world!", mime_type: "text/plain")
+      result = LlmGateway::Client.upload_file("openai_apikey_completions", filename: "test.txt", content: "Hello, world!", mime_type: "text/plain")
       expected = {
         id: ->(value, path) { assert_match(/\Afile[-_]/, value, path) },
         created_at: ->(value, path) { assert(Time.iso8601(value), path) },

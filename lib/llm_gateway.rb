@@ -36,8 +36,8 @@ require_relative "llm_gateway/adapters/open_ai/chat_completions_adapter"
 require_relative "llm_gateway/adapters/open_ai/responses_adapter"
 require_relative "llm_gateway/adapters/groq/chat_completions_adapter"
 
-# Load builder
-require_relative "llm_gateway/client_builder"
+# Load provider registry
+require_relative "llm_gateway/provider_registry"
 
 module LlmGateway
   class Error < StandardError; end
@@ -65,8 +65,13 @@ module LlmGateway
     end
   end
 
-  def self.build(config)
-    ClientBuilder.build(config)
+  def self.build_provider(config)
+    config = config.transform_keys(&:to_sym)
+    provider_name = config.delete(:provider)
+    entry = ProviderRegistry.resolve(provider_name)
+
+    client = entry[:client].new(**config)
+    entry[:adapter].new(client)
   end
 
   def self.configure(configs)
@@ -78,7 +83,7 @@ module LlmGateway
 
       raise ArgumentError, "Each config entry must have a :name" unless name
 
-      client = ClientBuilder.build(config)
+      client = build_provider(config)
       @configured_clients[name.to_sym] = client
 
       define_singleton_method(name.to_sym) { @configured_clients[name.to_sym] }
@@ -95,4 +100,25 @@ module LlmGateway
     end
     @configured_clients = {}
   end
+
+  # Register built-in providers
+  ProviderRegistry.register("anthropic_apikey_messages",
+    client: Clients::Claude,
+    adapter: Adapters::Claude::MessagesAdapter)
+
+  ProviderRegistry.register("anthropic_oauth_messages",
+    client: Clients::ClaudeCode,
+    adapter: Adapters::ClaudeCode::MessagesAdapter)
+
+  ProviderRegistry.register("openai_apikey_completions",
+    client: Clients::OpenAi,
+    adapter: Adapters::OpenAi::ChatCompletionsAdapter)
+
+  ProviderRegistry.register("openai_apikey_responses",
+    client: Clients::OpenAi,
+    adapter: Adapters::OpenAi::ResponsesAdapter)
+
+  ProviderRegistry.register("groq_apikey_completions",
+    client: Clients::Groq,
+    adapter: Adapters::Groq::ChatCompletionsAdapter)
 end
