@@ -13,21 +13,19 @@ module LlmGateway
     end
 
     def self.build_client(provider, api_key:, model: "none")
-      adapter = ClientBuilder.build(
+      adapter = LlmGateway.build_provider(
         provider: provider,
-        type: "api_key",
-        key: api_key,
-        model: model
+        api_key: api_key,
+        model_key: model
       )
       adapter.client
     end
 
     def self.upload_file(provider, **kwargs)
       api_key = kwargs.delete(:api_key)
-      adapter = ClientBuilder.build(
+      adapter = LlmGateway.build_provider(
         provider: provider,
-        type: "api_key",
-        key: api_key
+        api_key: api_key
       )
       result = adapter.client.upload_file(*kwargs.values)
       adapter.file_output_mapper.map(result)
@@ -35,10 +33,9 @@ module LlmGateway
 
     def self.download_file(provider, **kwargs)
       api_key = kwargs.delete(:api_key)
-      adapter = ClientBuilder.build(
+      adapter = LlmGateway.build_provider(
         provider: provider,
-        type: "api_key",
-        key: api_key
+        api_key: api_key
       )
       result = adapter.client.download_file(*kwargs.values)
       adapter.file_output_mapper.map(result)
@@ -74,21 +71,31 @@ module LlmGateway
 
     def self.build_adapter_from_model(model, api_key: nil, refresh_token: nil, expires_at: nil, api: nil)
       provider = provider_from_model(model)
-      config = { provider: provider, model: model }
 
       if model.start_with?("claude_code/")
-        config[:type] = "oauth"
-        config[:accessToken] = api_key
-        config[:refreshToken] = refresh_token
-        config[:expiresAt] = expires_at
+        LlmGateway.build_provider(
+          provider: "anthropic_oauth_messages",
+          model_key: model,
+          access_token: api_key,
+          refresh_token: refresh_token,
+          expires_at: expires_at
+        )
+      elsif api == "responses"
+        LlmGateway.build_provider(
+          provider: "#{provider}_apikey_responses",
+          model_key: model,
+          api_key: api_key
+        )
       else
-        config[:type] = "api_key"
-        config[:key] = api_key
+        provider_key = case provider
+                       when "anthropic" then "anthropic_apikey_messages"
+                       when "openai" then "openai_apikey_completions"
+                       when "groq" then "groq_apikey_completions"
+                       end
+        config = { provider: provider_key, model_key: model }
+        config[:api_key] = api_key if api_key
+        LlmGateway.build_provider(config)
       end
-
-      config[:api] = api if api
-
-      ClientBuilder.build(config)
     end
 
     private_class_method :build_adapter_from_model
