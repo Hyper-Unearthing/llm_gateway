@@ -18,8 +18,10 @@ group :test do
   gem "minitest", "~> 5.16"
   gem "mocha", "~> 2.0"
   gem "simplecov", "~> 0.22"
-  gem "vcr", "~> 6.0"
+  gem "vcr", "~> 6.4"
   gem "webmock", "~> 3.0"
+  gem "cgi"
+  gem "ostruct"
 end
 
 group :development, :test do
