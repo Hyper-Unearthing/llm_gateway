@@ -10,10 +10,9 @@ require "rubocop/rake_task"
 RuboCop::RakeTask.new
 
 begin
-  require "gem/release"
-
   desc "Release with changelog"
   task :gem_release do
+    require "gem/release"
     # Safety checks: ensure we're on main and up-to-date
     current_branch = `git branch --show-current`.strip
     unless current_branch == "main"
