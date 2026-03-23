@@ -1,17 +1,21 @@
 # frozen_string_literal: true
 
+require_relative "stream_accumulator"
+require_relative "structs"
+
 module LlmGateway
   module Adapters
     class Adapter
-      attr_reader :client, :input_mapper, :output_mapper, :file_output_mapper, :option_mapper, :client_method
+      attr_reader :client, :input_mapper, :output_mapper, :file_output_mapper, :option_mapper, :client_method, :stream_mapper
 
-      def initialize(client, input_mapper:, output_mapper:, file_output_mapper: nil, option_mapper: OptionMapper, client_method: :chat)
+      def initialize(client, input_mapper:, output_mapper:, file_output_mapper: nil, stream_mapper: nil, option_mapper: OptionMapper, client_method: :chat)
         @client = client
         @input_mapper = input_mapper
         @output_mapper = output_mapper
         @file_output_mapper = file_output_mapper
         @option_mapper = option_mapper
         @client_method = client_method
+        @stream_mapper = stream_mapper
       end
 
       def chat(message, response_format: "text", tools: nil, system: nil, **options)
@@ -34,6 +38,45 @@ module LlmGateway
         output_mapper.map(result)
       end
 
+      def stream(message, response_format: "text", tools: nil, system: nil, **options, &block)
+        raise LlmGateway::Errors::MissingMapperForProvider, "No stream_mapper configured" unless stream_mapper
+
+        normalized_input = input_mapper.map({
+          messages: normalize_messages(message),
+          response_format: normalize_response_format(response_format),
+          tools: tools,
+          system: normalize_system(system)
+        })
+
+        accumulator = ::StreamAccumulator.new
+        mapper = stream_mapper.new
+
+        stream_kwargs = {
+          response_format: normalized_input[:response_format],
+          tools: normalized_input[:tools],
+          system: normalized_input[:system]
+        }
+
+        stream_kwargs.merge!(option_mapper.map(options))
+
+        client.public_send(
+          stream_client_method,
+          normalized_input[:messages],
+          **stream_kwargs
+        ) do |chunk|
+          event = mapper.map(chunk)
+          accumulator.push(event)
+          block.call(event) if block && event
+        end
+
+        AssistantMessage.new(
+          accumulator.result.merge(
+            provider: LlmGateway::Client.provider_id_from_client(client),
+            api: stream_api_name
+          )
+        )
+      end
+
       def upload_file(file, purpose: "assistants")
         raise LlmGateway::Errors::MissingMapperForProvider, "No file_output_mapper configured" unless file_output_mapper
 
@@ -49,6 +92,25 @@ module LlmGateway
       end
 
       private
+
+      def stream_client_method
+        :stream
+      end
+
+      def stream_api_name
+        case self
+        when LlmGateway::Adapters::Claude::MessagesAdapter,
+             LlmGateway::Adapters::ClaudeCode::MessagesAdapter
+          "messages"
+        when LlmGateway::Adapters::OpenAi::ChatCompletionsAdapter,
+             LlmGateway::Adapters::Groq::ChatCompletionsAdapter
+          "completions"
+        when LlmGateway::Adapters::OpenAi::ResponsesAdapter
+          "responses"
+        else
+          self.class.name.split("::").last.gsub(/Adapter$/, "").downcase
+        end
+      end
 
       def normalize_system(system)
         if system.nil?

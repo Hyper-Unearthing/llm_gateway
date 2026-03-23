@@ -169,4 +169,18 @@ class Test < Minitest::Test
       end
     end
   end
+
+  def without_vcr
+    WebMock.allow_net_connect!
+    VCR.turned_off(ignore_cassettes: true) do
+      yield
+    end
+  ensure
+    WebMock.disable_net_connect!(allow_localhost: true)
+  end
+
+  def after_teardown
+    WebMock.disable_net_connect!(allow_localhost: true)
+    super
+  end
 end
