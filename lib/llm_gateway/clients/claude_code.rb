@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "claude"
+require_relative "claude_code/oauth_flow"
 require_relative "claude_code/token_manager"
 
 module LlmGateway
@@ -14,8 +15,8 @@ module LlmGateway
         access_token: nil,
         refresh_token: nil,
         expires_at: nil,
-        client_id: ENV["ANTHROPIC_CLIENT_ID"],
-        client_secret: ENV["ANTHROPIC_CLIENT_SECRET"]
+        client_id: OAuthFlow::CLIENT_ID,
+        client_secret: nil
       )
         @base_endpoint = "https://api.anthropic.com/v1"
 

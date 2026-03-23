@@ -8,7 +8,8 @@ module LlmGateway
   module Clients
     class ClaudeCode < Claude
       class TokenManager
-        ANTHROPIC_OAUTH_TOKEN_URL = "https://api.anthropic.com/v1/oauth/token"
+        TOKEN_URL = "https://api.anthropic.com/v1/oauth/token"
+        CLIENT_ID = OAuthFlow::CLIENT_ID
 
         attr_reader :refresh_token, :expires_at, :client_id, :client_secret, :access_token
         attr_accessor :on_token_refresh
@@ -17,8 +18,8 @@ module LlmGateway
           access_token: nil,
           refresh_token:,
           expires_at: nil,
-          client_id: ENV["ANTHROPIC_CLIENT_ID"],
-          client_secret: ENV["ANTHROPIC_CLIENT_SECRET"]
+          client_id: CLIENT_ID,
+          client_secret: nil
         )
           @access_token = access_token
           @refresh_token = refresh_token
@@ -40,24 +41,24 @@ module LlmGateway
         def refresh_access_token
           raise ArgumentError, "Cannot refresh token: refresh_token not provided" unless @refresh_token
           raise ArgumentError, "Cannot refresh token: client_id not provided" unless @client_id
-          raise ArgumentError, "Cannot refresh token: client_secret not provided" unless @client_secret
 
-          uri = URI(ANTHROPIC_OAUTH_TOKEN_URL)
+          uri = URI(TOKEN_URL)
           http = Net::HTTP.new(uri.host, uri.port)
           http.use_ssl = true
           http.read_timeout = 30
           http.open_timeout = 10
 
           request = Net::HTTP::Post.new(uri)
-          request["Content-Type"] = "application/x-www-form-urlencoded"
+          request["Content-Type"] = "application/json"
 
-          body_params = {
+          request_body = {
             grant_type: "refresh_token",
-            refresh_token: @refresh_token,
             client_id: @client_id,
-            client_secret: @client_secret
+            refresh_token: @refresh_token
           }
-          request.body = URI.encode_www_form(body_params)
+          request_body[:client_secret] = @client_secret if @client_secret
+
+          request.body = request_body.to_json
 
           response = http.request(request)
 
