@@ -14,6 +14,9 @@ module LlmGateway
         post("messages", build_body(messages, **kwargs))
       end
 
+      def stream(messages, **kwargs, &block)
+        post_stream("messages", build_body(messages, **kwargs), &block)
+      end
       def download_file(file_id)
         get("files/#{file_id}/content")
       end
