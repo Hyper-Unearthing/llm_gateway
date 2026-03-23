@@ -92,7 +92,7 @@ class FullFlowTest < Test
 
   test "claude full flow" do
     VCR.use_cassette(vcr_cassette_name) do
-      do_the_full_flow("claude-sonnet-4-20250514", "responses")
+      do_the_full_flow("claude-sonnet-4-20250514")
     end
   end
 
