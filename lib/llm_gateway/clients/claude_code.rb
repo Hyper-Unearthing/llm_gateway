@@ -64,6 +64,24 @@ module LlmGateway
         post_with_retry("messages", body)
       end
 
+      def stream(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, thinking: {}, &block)
+        ensure_valid_token
+
+        body = {
+          model: model_key,
+          max_tokens: max_completion_tokens,
+          messages: messages
+        }
+
+        body.merge!(thinking: thinking) if LlmGateway::Utils.present?(thinking)
+        body.merge!(tools: tools) if LlmGateway::Utils.present?(tools)
+
+        system = prepend_claude_code_identity(system)
+        body.merge!(system: system) if LlmGateway::Utils.present?(system)
+
+        post_stream_with_retry("messages", body, &block)
+      end
+
       private
 
       def ensure_valid_token
@@ -81,6 +99,16 @@ module LlmGateway
         @token_manager.refresh_access_token
         @access_token = @token_manager.access_token
         post(url_part, body, extra_headers)
+      end
+
+      def post_stream_with_retry(url_part, body = nil, extra_headers = {}, &block)
+        post_stream(url_part, body, extra_headers, &block)
+      rescue Errors::AuthenticationError => e
+        raise e unless @token_manager&.token_expired?
+
+        @token_manager.refresh_access_token
+        @access_token = @token_manager.access_token
+        post_stream(url_part, body, extra_headers, &block)
       end
 
       def prepend_claude_code_identity(system)
