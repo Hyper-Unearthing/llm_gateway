@@ -81,11 +81,12 @@ module LlmGateway
           expires_at: expires_at
         )
       elsif api == "responses"
-        LlmGateway.build_provider(
+        config = {
           provider: "#{provider}_apikey_responses",
-          model_key: model,
-          api_key: api_key
-        )
+          model_key: model
+        }
+        config[:api_key] = api_key if api_key
+        LlmGateway.build_provider(config)
       else
         provider_key = case provider
         when "anthropic" then "anthropic_apikey_messages"
