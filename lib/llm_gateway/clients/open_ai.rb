@@ -10,29 +10,17 @@ module LlmGateway
         super(model_key: model_key, api_key: api_key)
       end
 
-      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096)
-        body = {
-          model: model_key,
-          messages: system + messages,
-          max_completion_tokens: max_completion_tokens
-        }
-        body[:tools] = tools if tools
-
-        post("chat/completions", body)
+      def chat(messages, **kwargs)
+        post("chat/completions", build_body_chat(messages, **kwargs))
       end
 
-      def responses(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096)
-          body = {
-            model: model_key,
-            max_output_tokens: max_completion_tokens,
-            input: messages.flatten
-          }
-          body[:instructions] = system[0][:content] if system.any?
-          body[:tools] = tools if tools
-          result = post("responses", body)
-          result
+      def responses(messages, **kwargs)
+        body = build_body_responses(
+          messages,
+          **kwargs
+        )
+        post("responses", body)
       end
-
 
       def download_file(file_id)
         get("files/#{file_id}/content")
@@ -51,6 +39,36 @@ module LlmGateway
       end
 
       private
+
+      def build_body_responses(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, reasoning: nil, **options)
+        body = {
+          model: model_key,
+          max_output_tokens: max_completion_tokens,
+          input: messages.flatten
+        }
+        body[:instructions] = system[0][:content] if system.any?
+        body[:tools] = tools if tools
+
+        body[:reasoning] = reasoning if reasoning
+
+        body.merge!(options)
+
+        body
+      end
+
+      def build_body_chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, reasoning: nil, **options)
+        body = {
+          model: model_key,
+          messages: system + messages,
+          max_completion_tokens: max_completion_tokens
+        }
+        body[:tools] = tools if tools
+        body[:response_format] = response_format unless response_format == { type: "text" }
+        body[:reasoning_effort] = reasoning if reasoning
+        body.merge!(options)
+
+        body
+      end
 
       def build_headers
         {

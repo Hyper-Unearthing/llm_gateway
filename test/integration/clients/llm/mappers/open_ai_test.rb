@@ -87,7 +87,7 @@ class OpenAIMapperTest < Test
       id: "resp_6895f8d4a06881919dd57eaa397cc2220e2461b3232f5782",
       usage: { input_tokens: 9152, input_tokens_details: { cached_tokens: 2344 }, output_tokens: 2463, output_tokens_details: { reasoning_tokens: 1600 }, total_tokens: 11615 },
       choices: [
-        { id: "rs_6895f8d92f4881919679a7bafc02ad550e2461b3232f5782", role: nil, content: [ { type: "reasoning", summary: [] } ] },
+        { id: "rs_6895f8d92f4881919679a7bafc02ad550e2461b3232f5782", role: nil, content: [ { type: "reasoning", reasoning: nil, signature: nil } ] },
         {
           id: "ci_6895f90178c481918b88c7bc16b6a6840e2461b3232f5782",
           role: nil,
@@ -99,7 +99,7 @@ class OpenAIMapperTest < Test
             outputs: nil
           } ]
         },
-        { id: "rs_6895f90ab8a88191a4fdfe7a373484310e2461b3232f5782", role: nil, content: [ { type: "reasoning", summary: [] } ] },
+        { id: "rs_6895f90ab8a88191a4fdfe7a373484310e2461b3232f5782", role: nil, content: [ { type: "reasoning", reasoning: nil, signature: nil } ] },
         {
           id: "ci_6895f90fcc488191960aaad6aa489b540e2461b3232f5782",
           role: nil,

@@ -1,0 +1,172 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"o4-mini","messages":[{"role":"developer","content":"Be concise.
+        Mention 8274 and 42 in the final answer."},{"role":"user","content":[{"type":"text","text":"Think
+        hard about how you would do rand(100)/8274. Do not actually execute rand(100)
+        or reveal private chain-of-thought. Briefly explain the method and then give
+        one concrete example using 42 as the random value."}]}],"max_completion_tokens":12288,"reasoning_effort":"high"}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 25 Mar 2026 13:27:58 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - 9e1e41722944b4d0-KUL
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Expose-Headers:
+      - X-Request-ID
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Processing-Ms:
+      - '3663'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      Openai-Version:
+      - '2020-10-01'
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Remaining-Tokens:
+      - '199931'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Ratelimit-Reset-Tokens:
+      - 20ms
+      X-Request-Id:
+      - req_bd28b3744ecc4706a15f594ef3456f68
+      Set-Cookie:
+      - __cf_bm=pdPJHN4VgUGYuDYq5wWSqtX9XAM0OWMjVZEcsXBOcF0-1774445273.9481304-1.0.1.1-587cVVYjKf1tmMLE4mRT44O2j0ubSMS6WLe0kld5hjNiIz30x1vy275i93jpXiY3MhBXY8ZxmB9UoUKv0Xjg_WVO.B8bxrC3V93dkTneGkJQd7F7FBY5jNDTE8_bapk.;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Mar 2026
+        13:57:58 GMT
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ewogICJpZCI6ICJjaGF0Y21wbC1ETklaMTNRYW9XNWJ3U2hRa055YVdobDNoQmFsdiIsCiAgIm9iamVjdCI6ICJjaGF0LmNvbXBsZXRpb24iLAogICJjcmVhdGVkIjogMTc3NDQ0NTI3NSwKICAibW9kZWwiOiAibzQtbWluaS0yMDI1LTA0LTE2IiwKICAiY2hvaWNlcyI6IFsKICAgIHsKICAgICAgImluZGV4IjogMCwKICAgICAgIm1lc3NhZ2UiOiB7CiAgICAgICAgInJvbGUiOiAiYXNzaXN0YW50IiwKICAgICAgICAiY29udGVudCI6ICJNZXRob2Q6IGdlbmVyYXRlIGEgcmFuZG9tIGludGVnZXIgciBmcm9tIDDigJM5OSAodmlhIHJhbmQoMTAwKSksIHRoZW4gY29tcHV0ZSByLzgyNzQgYXMgYSBmbG9hdGluZy1wb2ludCByYXRpby4gIFxuRXhhbXBsZTogaWYgciA9IDQyLCB0aGVuIDQyLzgyNzQg4omIIDAuMDA1MDguIiwKICAgICAgICAicmVmdXNhbCI6IG51bGwsCiAgICAgICAgImFubm90YXRpb25zIjogW10KICAgICAgfSwKICAgICAgImZpbmlzaF9yZWFzb24iOiAic3RvcCIKICAgIH0KICBdLAogICJ1c2FnZSI6IHsKICAgICJwcm9tcHRfdG9rZW5zIjogNzQsCiAgICAiY29tcGxldGlvbl90b2tlbnMiOiAzOTIsCiAgICAidG90YWxfdG9rZW5zIjogNDY2LAogICAgInByb21wdF90b2tlbnNfZGV0YWlscyI6IHsKICAgICAgImNhY2hlZF90b2tlbnMiOiAwLAogICAgICAiYXVkaW9fdG9rZW5zIjogMAogICAgfSwKICAgICJjb21wbGV0aW9uX3Rva2Vuc19kZXRhaWxzIjogewogICAgICAicmVhc29uaW5nX3Rva2VucyI6IDMyMCwKICAgICAgImF1ZGlvX3Rva2VucyI6IDAsCiAgICAgICJhY2NlcHRlZF9wcmVkaWN0aW9uX3Rva2VucyI6IDAsCiAgICAgICJyZWplY3RlZF9wcmVkaWN0aW9uX3Rva2VucyI6IDAKICAgIH0KICB9LAogICJzZXJ2aWNlX3RpZXIiOiAiZGVmYXVsdCIsCiAgInN5c3RlbV9maW5nZXJwcmludCI6IG51bGwKfQo=
+  recorded_at: Wed, 25 Mar 2026 13:27:59 GMT
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"o4-mini","messages":[{"role":"developer","content":"Be concise.
+        Mention 8274 and 42 in the final answer."},{"role":"user","content":[{"type":"text","text":"Think
+        hard about how you would do rand(100)/8274. Do not actually execute rand(100)
+        or reveal private chain-of-thought. Briefly explain the method and then give
+        one concrete example using 42 as the random value."}]},{"role":"assistant","content":[{"type":"text","text":"Method:
+        generate a random integer r from 0–99 (via rand(100)), then compute r/8274
+        as a floating-point ratio.  \nExample: if r = 42, then 42/8274 ≈ 0.00508."}]},{"role":"user","content":[{"type":"text","text":"how
+        are you"}]}],"max_completion_tokens":12288,"reasoning_effort":"high"}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 25 Mar 2026 13:28:04 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - 9e1e4192580a0b29-KUL
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Expose-Headers:
+      - X-Request-ID
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Processing-Ms:
+      - '4322'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      Openai-Version:
+      - '2020-10-01'
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Remaining-Tokens:
+      - '199886'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Ratelimit-Reset-Tokens:
+      - 34ms
+      X-Request-Id:
+      - req_3c1a32ab2c6a4013b7b3a9e59e5c6db3
+      Set-Cookie:
+      - __cf_bm=VGJVIVyymFeRUiH..fxfQMb9fnVzHab0eYfTEZESCHU-1774445279.0994744-1.0.1.1-rmCe1x_LzIa.wYGwP2ZG7BtX3eLSo_R46crugqNvtFN0YKJOxZWRhPMjX_1lepveYWbCmzGa77Ls69eShRsfbb7qhsMLZBgy.eAKf6qk.TJkuLOCsUGxK.8ZD2k4PNbH;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Mar 2026
+        13:58:04 GMT
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ewogICJpZCI6ICJjaGF0Y21wbC1ETklaNmxWeUpCcjBmRndscjkxdWNkcDIzVlY4VSIsCiAgIm9iamVjdCI6ICJjaGF0LmNvbXBsZXRpb24iLAogICJjcmVhdGVkIjogMTc3NDQ0NTI4MCwKICAibW9kZWwiOiAibzQtbWluaS0yMDI1LTA0LTE2IiwKICAiY2hvaWNlcyI6IFsKICAgIHsKICAgICAgImluZGV4IjogMCwKICAgICAgIm1lc3NhZ2UiOiB7CiAgICAgICAgInJvbGUiOiAiYXNzaXN0YW50IiwKICAgICAgICAiY29udGVudCI6ICJJ4oCZbSBkb2luZyB3ZWxs4oCUNDIgb3V0IG9mIDgyNzQsIHRoYW5rcyBmb3IgYXNraW5nISIsCiAgICAgICAgInJlZnVzYWwiOiBudWxsLAogICAgICAgICJhbm5vdGF0aW9ucyI6IFtdCiAgICAgIH0sCiAgICAgICJmaW5pc2hfcmVhc29uIjogInN0b3AiCiAgICB9CiAgXSwKICAidXNhZ2UiOiB7CiAgICAicHJvbXB0X3Rva2VucyI6IDE0MCwKICAgICJjb21wbGV0aW9uX3Rva2VucyI6IDQxOCwKICAgICJ0b3RhbF90b2tlbnMiOiA1NTgsCiAgICAicHJvbXB0X3Rva2Vuc19kZXRhaWxzIjogewogICAgICAiY2FjaGVkX3Rva2VucyI6IDAsCiAgICAgICJhdWRpb190b2tlbnMiOiAwCiAgICB9LAogICAgImNvbXBsZXRpb25fdG9rZW5zX2RldGFpbHMiOiB7CiAgICAgICJyZWFzb25pbmdfdG9rZW5zIjogMzg0LAogICAgICAiYXVkaW9fdG9rZW5zIjogMCwKICAgICAgImFjY2VwdGVkX3ByZWRpY3Rpb25fdG9rZW5zIjogMCwKICAgICAgInJlamVjdGVkX3ByZWRpY3Rpb25fdG9rZW5zIjogMAogICAgfQogIH0sCiAgInNlcnZpY2VfdGllciI6ICJkZWZhdWx0IiwKICAic3lzdGVtX2ZpbmdlcnByaW50IjogbnVsbAp9Cg==
+  recorded_at: Wed, 25 Mar 2026 13:28:04 GMT
+recorded_with: VCR 6.4.0

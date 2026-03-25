@@ -10,17 +10,8 @@ module LlmGateway
         super(model_key: model_key, api_key: api_key)
       end
 
-      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096)
-        body = {
-          model: model_key,
-          max_tokens: max_completion_tokens,
-          messages: messages
-        }
-
-        body.merge!(tools: tools) if LlmGateway::Utils.present?(tools)
-        body.merge!(system: system) if LlmGateway::Utils.present?(system)
-
-        post("messages", body)
+      def chat(messages, **kwargs)
+        post("messages", build_body(messages, **kwargs))
       end
 
       def download_file(file_id)
@@ -32,6 +23,19 @@ module LlmGateway
       end
 
       private
+
+      def build_body(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, **options)
+        body = {
+          model: model_key,
+          max_tokens: max_completion_tokens,
+          messages: messages
+        }
+
+        body.merge!(tools: tools) if LlmGateway::Utils.present?(tools)
+        body.merge!(system: system) if LlmGateway::Utils.present?(system)
+        body.merge!(options)
+        body
+      end
 
       def build_headers
         {
