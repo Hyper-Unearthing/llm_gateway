@@ -14,12 +14,22 @@ module LlmGateway
         post("chat/completions", build_body_chat(messages, **kwargs))
       end
 
+      def stream(messages, **kwargs, &block)
+        body = build_body_chat(messages, **kwargs)
+        body[:stream_options] = (body[:stream_options] || {}).merge(include_usage: true)
+        post_stream("chat/completions", body, &block)
+      end
+
       def responses(messages, **kwargs)
         body = build_body_responses(
           messages,
           **kwargs
         )
         post("responses", body)
+      end
+
+      def stream_responses(messages, **kwargs, &block)
+        post_stream("responses", build_body_responses(messages, **kwargs), &block)
       end
 
       def download_file(file_id)

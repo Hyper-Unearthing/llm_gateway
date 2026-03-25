@@ -5,6 +5,7 @@ require_relative "responses/input_mapper"
 require_relative "responses/output_mapper"
 require_relative "responses/option_mapper"
 require_relative "file_output_mapper"
+require_relative "responses/stream_mapper"
 
 module LlmGateway
   module Adapters
@@ -17,8 +18,15 @@ module LlmGateway
             output_mapper: Responses::OutputMapper,
             file_output_mapper: FileOutputMapper,
             option_mapper: Responses::OptionMapper,
-            client_method: :responses
+            client_method: :responses,
+            stream_mapper: Responses::StreamMapper
           )
+        end
+
+        private
+
+        def stream_client_method
+          :stream_responses
         end
       end
     end

@@ -5,6 +5,7 @@ require_relative "chat_completions/input_mapper"
 require_relative "chat_completions/output_mapper"
 require_relative "chat_completions/option_mapper"
 require_relative "file_output_mapper"
+require_relative "chat_completions/stream_mapper"
 
 module LlmGateway
   module Adapters
@@ -17,7 +18,8 @@ module LlmGateway
             output_mapper: ChatCompletions::OutputMapper,
             file_output_mapper: FileOutputMapper,
             option_mapper: ChatCompletions::OptionMapper,
-            client_method: :chat
+            client_method: :chat,
+            stream_mapper: ChatCompletions::StreamMapper
           )
         end
       end
