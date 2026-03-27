@@ -39,11 +39,10 @@ module Scripts
       tokens = flow.exchange_code(callback_value, auth[:code_verifier], state: auth[:state])
 
       credentials = {
-        type: "oauth",
-        clientId: flow.client_id,
-        accessToken: tokens[:access_token],
-        refreshToken: tokens[:refresh_token],
-        expiresAt: tokens[:expires_at]&.iso8601
+        client_id: flow.client_id,
+        access_token: tokens[:access_token],
+        refresh_token: tokens[:refresh_token],
+        expires_at: tokens[:expires_at]&.iso8601
       }
 
       if @options[:output]
