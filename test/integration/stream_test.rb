@@ -4,8 +4,10 @@ require "test_helper"
 require "vcr"
 require "json"
 require "base64"
+require_relative "../utils/calculator_tool_helper"
 
 class ProvidersJsonTest < Test
+  include CalculatorToolHelper
   def teardown
     LlmGateway.reset_configuration!
   end
