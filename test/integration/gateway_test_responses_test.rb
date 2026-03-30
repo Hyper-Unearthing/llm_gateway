@@ -16,6 +16,7 @@ class GatewayResponsesTest < Test
       model_id,
       message,
       tools: [ weather_tool ],
+      max_completion_tokens: 4096,
       system: "Talk like a pirate"
     )
     result[:choices]&.each do |choice|
@@ -33,6 +34,7 @@ class GatewayResponsesTest < Test
             model_id,
             transcript,
             tools: [ weather_tool ],
+            max_completion_tokens: 4096,
             system: "Talk like a pirate"
           )
           transcript << result
@@ -70,6 +72,7 @@ class GatewayResponsesTest < Test
         "o4-mini",
         "What's the weather in Singapore? reply in 10 words and no special characters",
         tools: [ weather_tool ],
+        max_completion_tokens: 4096,
         system: "Talk like a pirate"
       )
       expected = {
@@ -112,6 +115,7 @@ class GatewayResponsesTest < Test
       result = LlmGateway::Client.responses(
         "o4-mini",
         "What's the weather in Singapore? reply in 10 words and no special characters",
+        max_completion_tokens: 4096,
         system: "Talk like a pirate"
       )
       expected = {
@@ -159,6 +163,7 @@ class GatewayResponsesTest < Test
       result = LlmGateway::Client.responses(
         "o4-mini",
         transcript.flatten,
+        max_completion_tokens: 4096,
         system: "Talk like a pirate"
       )
       expected = {

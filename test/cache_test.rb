@@ -13,7 +13,7 @@ class CacheTest < Test
       stop_reason: "end_turn"
     }.freeze
 
-    def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096)
+    def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480)
       CHAT_RESPONSE
     end
   end

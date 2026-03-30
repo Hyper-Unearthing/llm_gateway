@@ -44,7 +44,7 @@ module LlmGateway
         @token_manager&.on_token_refresh = callback
       end
 
-      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, **options)
+      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, **options)
         ensure_valid_token
 
         body = {
@@ -64,7 +64,7 @@ module LlmGateway
         post_with_retry("messages", body)
       end
 
-      def stream(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, thinking: {}, &block)
+      def stream(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, thinking: {}, &block)
         ensure_valid_token
 
         body = {

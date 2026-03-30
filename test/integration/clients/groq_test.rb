@@ -23,7 +23,7 @@ class GroqClientTest < Test
   test "throws bad request error" do
     error = assert_raises(LlmGateway::Errors::BadRequestError) do
       VCR.use_cassette(vcr_cassette_name) do
-        groq_client.chat([ "i am not a bad" ])
+        groq_client.chat([ "i am not a bad" ], max_completion_tokens: 4096)
       end
     end
     assert_equal "'messages.0' : value must be an object with the discriminator property: 'role'", error.message
@@ -32,7 +32,7 @@ class GroqClientTest < Test
   test "throws authentication error" do
     error = assert_raises(LlmGateway::Errors::AuthenticationError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::Groq.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::Groq.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ], max_completion_tokens: 4096)
       end
     end
     assert_equal "Invalid API Key", error.message
@@ -41,7 +41,7 @@ class GroqClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::Groq.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::Groq.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], max_completion_tokens: 4096)
       end
     end
     assert_equal "The model `randomodel` does not exist or you do not have access to it.", error.message
@@ -50,7 +50,7 @@ class GroqClientTest < Test
   test "throws rate limit error" do
     error = assert_raises(LlmGateway::Errors::PromptTooLong) do
       VCR.use_cassette(vcr_cassette_name) do
-        groq_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ])
+        groq_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ], max_completion_tokens: 4096)
       end
     end
     assert_equal "Please reduce the length of the messages or completion.",

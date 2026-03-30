@@ -50,7 +50,7 @@ module LlmGateway
 
       private
 
-      def build_body_responses(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, reasoning: nil, **options)
+      def build_body_responses(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, reasoning: nil, **options)
         body = {
           model: model_key,
           max_output_tokens: max_completion_tokens,
@@ -66,7 +66,7 @@ module LlmGateway
         body
       end
 
-      def build_body_chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, reasoning: nil, **options)
+      def build_body_chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, reasoning: nil, **options)
         body = {
           model: model_key,
           messages: system + messages,

@@ -27,7 +27,7 @@ module LlmGateway
 
       private
 
-      def build_body(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, **options)
+      def build_body(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, **options)
         body = {
           model: model_key,
           max_tokens: max_completion_tokens,

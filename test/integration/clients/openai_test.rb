@@ -23,7 +23,7 @@ class OpenaiClientTest < Test
   test "throws bad request error" do
     error = assert_raises(LlmGateway::Errors::BadRequestError) do
       VCR.use_cassette(vcr_cassette_name) do
-        openai_client.chat([ "i am not a bad" ])
+        openai_client.chat([ "i am not a bad" ], max_completion_tokens: 4096)
       end
     end
     assert_equal "Invalid type for 'messages[0]': expected an object, but got a string instead.", error.message
@@ -32,7 +32,7 @@ class OpenaiClientTest < Test
   test "throws authentication error" do
     error = assert_raises(LlmGateway::Errors::AuthenticationError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::OpenAi.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::OpenAi.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ], max_completion_tokens: 4096)
       end
     end
     assert_equal "Incorrect API key provided: <BEARER_TOKEN>. You can find your API key at https://platform.openai.com/account/api-keys.",
@@ -42,7 +42,7 @@ class OpenaiClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::OpenAi.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ])
+        LlmGateway::Clients::OpenAi.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], max_completion_tokens: 4096)
       end
     end
     assert_equal "The model `randomodel` does not exist or you do not have access to it.", error.message
@@ -62,7 +62,7 @@ class OpenaiClientTest < Test
   test "throws rate limit error" do
     error = assert_raises(LlmGateway::Errors::RateLimitError) do
       VCR.use_cassette(vcr_cassette_name) do
-        openai_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ])
+        openai_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ], max_completion_tokens: 4096)
       end
     end
     assert_includes error.message, "Request too large for"
