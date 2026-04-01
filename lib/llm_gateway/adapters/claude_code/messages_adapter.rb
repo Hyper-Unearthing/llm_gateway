@@ -5,6 +5,7 @@ require_relative "../anthropic_option_mapper"
 require_relative "input_mapper"
 require_relative "output_mapper"
 require_relative "../claude/output_mapper"
+require_relative "../claude/stream_mapper"
 
 module LlmGateway
   module Adapters
@@ -17,7 +18,8 @@ module LlmGateway
             output_mapper: OutputMapper,
             file_output_mapper: Claude::FileOutputMapper,
             option_mapper: AnthropicOptionMapper,
-            client_method: :chat
+            client_method: :chat,
+            stream_mapper: Claude::StreamMapper
           )
         end
       end

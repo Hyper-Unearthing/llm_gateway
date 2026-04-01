@@ -12,11 +12,14 @@ require_relative "llm_gateway/tool"
 require_relative "llm_gateway/clients/claude"
 require_relative "llm_gateway/clients/claude_code"
 require_relative "llm_gateway/clients/open_ai"
+require_relative "llm_gateway/clients/openai_codex"
 require_relative "llm_gateway/clients/groq"
 
 # Load adapters
 require_relative "llm_gateway/adapters/option_mapper"
 require_relative "llm_gateway/adapters/anthropic_option_mapper"
+require_relative "llm_gateway/adapters/structs"
+
 require_relative "llm_gateway/adapters/claude/input_mapper"
 require_relative "llm_gateway/adapters/claude/output_mapper"
 require_relative "llm_gateway/adapters/claude_code/input_mapper"
@@ -38,6 +41,7 @@ require_relative "llm_gateway/adapters/claude/messages_adapter"
 require_relative "llm_gateway/adapters/claude_code/messages_adapter"
 require_relative "llm_gateway/adapters/open_ai/chat_completions_adapter"
 require_relative "llm_gateway/adapters/open_ai/responses_adapter"
+require_relative "llm_gateway/adapters/openai_codex/responses_adapter"
 require_relative "llm_gateway/adapters/groq/chat_completions_adapter"
 
 # Load provider registry
@@ -62,6 +66,10 @@ module LlmGateway
 
     module OpenAi
       Client = LlmGateway::Clients::OpenAi
+    end
+
+    module OpenAiCodex
+      Client = LlmGateway::Clients::OpenAiCodex
     end
 
     module Groq
@@ -125,4 +133,8 @@ module LlmGateway
   ProviderRegistry.register("groq_apikey_completions",
     client: Clients::Groq,
     adapter: Adapters::Groq::ChatCompletionsAdapter)
+
+  ProviderRegistry.register("openai_oauth_codex",
+    client: Clients::OpenAiCodex,
+    adapter: Adapters::OpenAiCodex::ResponsesAdapter)
 end

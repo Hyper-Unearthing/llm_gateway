@@ -1,0 +1,354 @@
+[
+  {
+    "event": "response.created",
+    "data": {
+      "type": "response.created",
+      "response": {
+        "id": "resp_04e30538c4f63fda0169c4a6cb94ac819188fc1d1328f92ec6",
+        "object": "response",
+        "created_at": 1774495435,
+        "status": "in_progress",
+        "background": false,
+        "completed_at": null,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "incomplete_details": null,
+        "instructions": "You are a helpful assistant.",
+        "max_output_tokens": null,
+        "max_tool_calls": null,
+        "model": "gpt-5.4",
+        "output": [],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt_cache_key": "db73590b-4c6f-4318-92ff-ed2d7b0d056f",
+        "prompt_cache_retention": null,
+        "reasoning": {
+          "effort": "none",
+          "summary": null
+        },
+        "safety_identifier": "user-HsvB364TnRHovzQ3zkQXkZvS",
+        "service_tier": "auto",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "text"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tool_usage": {
+          "image_gen": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "image_tokens": 0,
+              "text_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "image_tokens": 0,
+              "text_tokens": 0
+            },
+            "total_tokens": 0
+          },
+          "web_search": {
+            "num_requests": 0
+          }
+        },
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": null,
+        "user": null,
+        "metadata": {}
+      },
+      "sequence_number": 0
+    }
+  },
+  {
+    "event": "response.in_progress",
+    "data": {
+      "type": "response.in_progress",
+      "response": {
+        "id": "resp_04e30538c4f63fda0169c4a6cb94ac819188fc1d1328f92ec6",
+        "object": "response",
+        "created_at": 1774495435,
+        "status": "in_progress",
+        "background": false,
+        "completed_at": null,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "incomplete_details": null,
+        "instructions": "You are a helpful assistant.",
+        "max_output_tokens": null,
+        "max_tool_calls": null,
+        "model": "gpt-5.4",
+        "output": [],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt_cache_key": "db73590b-4c6f-4318-92ff-ed2d7b0d056f",
+        "prompt_cache_retention": null,
+        "reasoning": {
+          "effort": "none",
+          "summary": null
+        },
+        "safety_identifier": "user-HsvB364TnRHovzQ3zkQXkZvS",
+        "service_tier": "auto",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "text"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tool_usage": {
+          "image_gen": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "image_tokens": 0,
+              "text_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "image_tokens": 0,
+              "text_tokens": 0
+            },
+            "total_tokens": 0
+          },
+          "web_search": {
+            "num_requests": 0
+          }
+        },
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": null,
+        "user": null,
+        "metadata": {}
+      },
+      "sequence_number": 1
+    }
+  },
+  {
+    "event": "response.output_item.added",
+    "data": {
+      "type": "response.output_item.added",
+      "item": {
+        "id": "msg_04e30538c4f63fda0169c4a6cc610c8191b6a943faace186a9",
+        "type": "message",
+        "status": "in_progress",
+        "content": [],
+        "phase": "final_answer",
+        "role": "assistant"
+      },
+      "output_index": 0,
+      "sequence_number": 2
+    }
+  },
+  {
+    "event": "response.content_part.added",
+    "data": {
+      "type": "response.content_part.added",
+      "content_index": 0,
+      "item_id": "msg_04e30538c4f63fda0169c4a6cc610c8191b6a943faace186a9",
+      "output_index": 0,
+      "part": {
+        "type": "output_text",
+        "annotations": [],
+        "logprobs": [],
+        "text": ""
+      },
+      "sequence_number": 3
+    }
+  },
+  {
+    "event": "response.output_text.delta",
+    "data": {
+      "type": "response.output_text.delta",
+      "content_index": 0,
+      "delta": "Hello",
+      "item_id": "msg_04e30538c4f63fda0169c4a6cc610c8191b6a943faace186a9",
+      "logprobs": [],
+      "obfuscation": "2Z5SRj2h0MI",
+      "output_index": 0,
+      "sequence_number": 4
+    }
+  },
+  {
+    "event": "response.output_text.delta",
+    "data": {
+      "type": "response.output_text.delta",
+      "content_index": 0,
+      "delta": " test",
+      "item_id": "msg_04e30538c4f63fda0169c4a6cc610c8191b6a943faace186a9",
+      "logprobs": [],
+      "obfuscation": "wicn8IC0Rx7",
+      "output_index": 0,
+      "sequence_number": 5
+    }
+  },
+  {
+    "event": "response.output_text.delta",
+    "data": {
+      "type": "response.output_text.delta",
+      "content_index": 0,
+      "delta": " successful",
+      "item_id": "msg_04e30538c4f63fda0169c4a6cc610c8191b6a943faace186a9",
+      "logprobs": [],
+      "obfuscation": "wvb1h",
+      "output_index": 0,
+      "sequence_number": 6
+    }
+  },
+  {
+    "event": "response.output_text.done",
+    "data": {
+      "type": "response.output_text.done",
+      "content_index": 0,
+      "item_id": "msg_04e30538c4f63fda0169c4a6cc610c8191b6a943faace186a9",
+      "logprobs": [],
+      "output_index": 0,
+      "sequence_number": 7,
+      "text": "Hello test successful"
+    }
+  },
+  {
+    "event": "response.content_part.done",
+    "data": {
+      "type": "response.content_part.done",
+      "content_index": 0,
+      "item_id": "msg_04e30538c4f63fda0169c4a6cc610c8191b6a943faace186a9",
+      "output_index": 0,
+      "part": {
+        "type": "output_text",
+        "annotations": [],
+        "logprobs": [],
+        "text": "Hello test successful"
+      },
+      "sequence_number": 8
+    }
+  },
+  {
+    "event": "response.output_item.done",
+    "data": {
+      "type": "response.output_item.done",
+      "item": {
+        "id": "msg_04e30538c4f63fda0169c4a6cc610c8191b6a943faace186a9",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "Hello test successful"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      },
+      "output_index": 0,
+      "sequence_number": 9
+    }
+  },
+  {
+    "event": "response.completed",
+    "data": {
+      "type": "response.completed",
+      "response": {
+        "id": "resp_04e30538c4f63fda0169c4a6cb94ac819188fc1d1328f92ec6",
+        "object": "response",
+        "created_at": 1774495435,
+        "status": "completed",
+        "background": false,
+        "completed_at": 1774495436,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "incomplete_details": null,
+        "instructions": "You are a helpful assistant.",
+        "max_output_tokens": null,
+        "max_tool_calls": null,
+        "model": "gpt-5.4",
+        "output": [
+          {
+            "id": "msg_04e30538c4f63fda0169c4a6cc610c8191b6a943faace186a9",
+            "type": "message",
+            "status": "completed",
+            "content": [
+              {
+                "type": "output_text",
+                "annotations": [],
+                "logprobs": [],
+                "text": "Hello test successful"
+              }
+            ],
+            "phase": "final_answer",
+            "role": "assistant"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt_cache_key": "db73590b-4c6f-4318-92ff-ed2d7b0d056f",
+        "prompt_cache_retention": null,
+        "reasoning": {
+          "effort": "none",
+          "summary": null
+        },
+        "safety_identifier": "user-HsvB364TnRHovzQ3zkQXkZvS",
+        "service_tier": "default",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "text"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tool_usage": {
+          "image_gen": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "image_tokens": 0,
+              "text_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "image_tokens": 0,
+              "text_tokens": 0
+            },
+            "total_tokens": 0
+          },
+          "web_search": {
+            "num_requests": 0
+          }
+        },
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 23,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 7,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 30
+        },
+        "user": null,
+        "metadata": {}
+      },
+      "sequence_number": 10
+    }
+  }
+]

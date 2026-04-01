@@ -1,0 +1,2173 @@
+[
+  {
+    "event": "message_start",
+    "data": {
+      "type": "message_start",
+      "message": {
+        "model": "claude-sonnet-4-20250514",
+        "id": "msg_01XAGXXkhCPRfdQu2ynxVEHX",
+        "type": "message",
+        "role": "assistant",
+        "content": [],
+        "stop_reason": null,
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 48,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 2,
+          "service_tier": "standard",
+          "inference_geo": "not_available"
+        }
+      }
+    }
+  },
+  {
+    "event": "content_block_start",
+    "data": {
+      "type": "content_block_start",
+      "index": 0,
+      "content_block": {
+        "type": "thinking",
+        "thinking": "",
+        "signature": ""
+      }
+    }
+  },
+  {
+    "event": "ping",
+    "data": {
+      "type": "ping"
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "The human"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " is asking me to think about"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " \""
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "44 + 27s\"."
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " This could"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " mean"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " a"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " few different things:\n\n1. They"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " might mean"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "44 + 27 *"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " s"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": ","
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " where s"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " is a"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " variable\n2. They might mean "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "44 + 27 seconds"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " ("
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "if"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " \""
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "s\" stands"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " for seconds)\n3. They might"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " have"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " meant"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "44 + 27 = "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "71"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "\n4. They might be"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " asking about"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " some"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " other interpretation"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "\n\nLet"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " me consider"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " the"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " most likely interpret"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "ations:\n\nIf"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " it"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "'s 44 + 27s"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " as"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " an"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " algebra"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "ic expression:\n- This would be"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " 44 + 27s"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": ","
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " which"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " can"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "'t"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " be simplified further without"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " knowing the"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " value of s\n- If"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " s ="
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " 0"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": ", then 44 + 27"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "("
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "0) = 44\n- If"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " s = 1, then 44"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " + 27(1) ="
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " 71\n- If s = "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "2, then 44 + "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "27(2) = 44"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " + 54 = 98"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "\n- And"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " so on...\n\nIf they"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " meant just"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " 44 + 27:"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "\n44"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " + 27 = 71"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": "\n\nThe"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " phrase"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " \"think"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " long and hard\" suggests"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " they want"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " me to consider this"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " deeply"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " or"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " from"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " multiple"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " angles. Let"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " me think about what might"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " be interesting"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " or significant"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " about this"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " expression"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " or"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " these"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": " numbers."
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "thinking_delta",
+        "thinking": ""
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "signature_delta",
+        "signature": "Ev0HCkYICxgCKkALBEsTWS01TWfwl8jeekEf33OFyyj1dUvT8uh67MGacarqEBhVa+YDdomZO3Xn007LQ+rAjtm2j/TEnZAxuh+sEgxPTshSDGqqPB4QnbQaDB87W7bXDwrrUOcs2iIwcSApDB/0kGcu6oBaMnDK8flYHJt9OiaxRc0JgnEe6kR8NwrHHpAmU01/2kHa5paBKuQGazRvoI2DeC3nscQ2x6mIiKUt9rWxY4nle/yYDCdlDkPGbv1OG7915xJCct/A+Nx6YSyVA8bDMKzy8YQYW0o1eWm7mrzJ6GuJsPhrWzOR4IkCdG/+KPC0o1a8DBNwQ0OvijvRqMGWdTsFk4TmUXLzRkgN88Y4AoFXPDj7rkIlWj6+efleoS9Slv/1QtxarVFelgLSJoS9W8kZPTLh27hCXRFVezlHC5TaZBJDqBlHwsxr6AdVqsyh6jBiD9pbxlCMmeJchvmqJ4ndxVGgHoSmfCMlNjOa//+3fnrWgCXQJpkuFCKPDDwILZSUj8X9zcC6V5GwVHisCelWkWk+6lGTyJktRJYrUTMu4lwB8FEJS2jctmWXZW0+xqsP0zbCEdkz34nLA1h/qN7QaUwmIM3BF+wGLoUQT1Ms4tr+ePU9V5jkOaWzSUcJPzm3RAvetbFZeZRbj6dxms34cAYzZFUUf3CkEyaHxQn70nyHUEiTsU+bArW7w0aXgsD6KMNyA5pg3NVyv/n8LTXVPEzBo6wI8VN5/jJZnmcruLPkeRo7k437Vyy/lwwRRrux2HT3Ct1XLpDhZLteYNdFglMFeSfBp7pjnU6M/+Xmcu7LSjuOiNo/tCss4H8g8USsdsvFa3DgTt6WkmMRBWYHEGZDIOWP6Ne7hRR4qRL6UzqePOdwtUlYqtn4+/HXOKCxm3WIxU/i2qW4Q2zXPqeK7QmmZonu8UCGIwYwLPDYn4A/gb1MEgvBxcnbeq+I1aLZfOmgjvEWLs3wrbkWB8WKYp6yB5bfYbms0J6c44H/iFhOR/5ZLT2ojAi26LNBFDIRwel4XS+TcSs5jr/ND1dWYj+hSlITrxxkYPl6yA0TLKR9lPiAu0xqDnU6iEiHjRvX7VI13xmOuDCe+QIQvDxgYiIsBC+bXt5Bh7f4rgOadnBE6DyEmrAwqJOqFW8G8kJooyc63jRyE1FyI5Q3vVb20qclWzx1ez9YLgV4nVjMg61RLFqwdkjhYyJT4lGAqqrzvAx5PCku0QBrShhK+m2unyYNRpRtKp/2olqOM6WqmRdKswR7IHukysmQA2z3Xh1QI4Jemrfj6qMGdnvIVCwLTERbF/vaPVTAYrwCMbf7VXK98eE+5zIg+Nl48sHtW0EiE/rVORRuhYZX9RgB"
+      }
+    }
+  },
+  {
+    "event": "content_block_stop",
+    "data": {
+      "type": "content_block_stop",
+      "index": 0
+    }
+  },
+  {
+    "event": "content_block_start",
+    "data": {
+      "type": "content_block_start",
+      "index": 1,
+      "content_block": {
+        "type": "text",
+        "text": ""
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "Looking"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " at \""
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "44 + 27s\", I"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " can interpret"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " this in"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " several ways:\n\n**As"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " an algebraic expression:**\n- This"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " represents"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " a"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " linear"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " function"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": ": f"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "(s"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": ") = 44 + 27"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "s\n- The"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " slope"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " is 27, meaning for each"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " unit"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " increase in s, the value increases"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " by 27"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "\n- When"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " s = 0, the"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " value is 44 "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "(the y-intercept)"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "\n- When s = 1, we"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " get 44"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " + 27 = 71"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "\n- When s = 2,"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " we get 44 + 54"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " = 98\n\n**If"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " you meant 44 + 27"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " ="
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " 71:**\n-"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " These"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " are interesting"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " numbers"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": ": 44 is"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "4×"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "11,"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "27 is 3³"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": ", and"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " 71 is prime"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "\n- "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "71"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " is actually"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " the largest two"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "-digit prime whose"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " digits are"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " also"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " prime"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "\n\n**Pattern"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " considerations"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": ":**\n- 44 has"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " repeated"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " digits"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "\n- 27 = 3³"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " (perfect"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " cube)\n- The"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " digits"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " 4,"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " 4"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": ", "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "2"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": ", 7 sum"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " to 17"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "\n- 71"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " reversed"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " is 17"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "\n\n**"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "If"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " \""
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "s\" represents seconds or"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " another unit:**\n- This could be"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " a time"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " calculation"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " or"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " rate"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " problem"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "\n- "
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "44 base"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " units"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " plus"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " 27 units"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " per"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " second ("
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "or other"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " rate)"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "\n\nWhat"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " specific"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " aspect"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " of this expression were"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " you hoping I"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "'d explore"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": "?"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " The mathematical"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " properties"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": ", a"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": " particular application"
+      }
+    }
+  },
+  {
+    "event": "content_block_delta",
+    "data": {
+      "type": "content_block_delta",
+      "index": 1,
+      "delta": {
+        "type": "text_delta",
+        "text": ", or something else entirely?"
+      }
+    }
+  },
+  {
+    "event": "content_block_stop",
+    "data": {
+      "type": "content_block_stop",
+      "index": 1
+    }
+  },
+  {
+    "event": "message_delta",
+    "data": {
+      "type": "message_delta",
+      "delta": {
+        "stop_reason": "end_turn",
+        "stop_sequence": null
+      },
+      "usage": {
+        "input_tokens": 48,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 615
+      }
+    }
+  },
+  {
+    "event": "message_stop",
+    "data": {
+      "type": "message_stop"
+    }
+  }
+]

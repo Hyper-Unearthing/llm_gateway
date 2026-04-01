@@ -14,6 +14,9 @@ module LlmGateway
         post("messages", build_body(messages, **kwargs))
       end
 
+      def stream(messages, **kwargs, &block)
+        post_stream("messages", build_body(messages, **kwargs), &block)
+      end
       def download_file(file_id)
         get("files/#{file_id}/content")
       end
@@ -24,7 +27,7 @@ module LlmGateway
 
       private
 
-      def build_body(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, **options)
+      def build_body(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, **options)
         body = {
           model: model_key,
           max_tokens: max_completion_tokens,

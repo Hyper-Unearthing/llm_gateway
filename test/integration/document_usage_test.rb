@@ -9,6 +9,7 @@ class DocumentUsageTest < Test
       result = LlmGateway::Client.chat(
         "claude-sonnet-4-20250514",
         message,
+        max_completion_tokens: 4096,
       )
       assert("abc", result[:choices][0][:content][0][:text])
     end
@@ -72,6 +73,7 @@ class DocumentUsageTest < Test
       result = LlmGateway::Client.chat(
         "o4-mini",
         message,
+        max_completion_tokens: 4096,
       )
       assert("abc", result[:choices][0][:content][0][:text])
     end

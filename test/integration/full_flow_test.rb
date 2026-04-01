@@ -7,6 +7,7 @@ class FullFlowTest < Test
     result = LlmGateway::Client.send(method, model_id,
       transcript,
       tools: [ weather_tool ],
+      max_completion_tokens: 4096,
       system: "When i say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for the weather check the tempreture in Singapore with a capital S using the get_weather tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt but that and strange but that is on purpose) DO NOT USE THE TOOL MORE THEN ONCE, IF ITS IN THE TRANSCRIPT DONT CHECK AGAIN DONT SAY Singapure its Singapore. Finally when i say BYE, always respond with JOJOJO"
     )
     result[:choices]&.each do |choice|

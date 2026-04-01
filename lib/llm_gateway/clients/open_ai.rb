@@ -14,12 +14,22 @@ module LlmGateway
         post("chat/completions", build_body_chat(messages, **kwargs))
       end
 
+      def stream(messages, **kwargs, &block)
+        body = build_body_chat(messages, **kwargs)
+        body[:stream_options] = (body[:stream_options] || {}).merge(include_usage: true)
+        post_stream("chat/completions", body, &block)
+      end
+
       def responses(messages, **kwargs)
         body = build_body_responses(
           messages,
           **kwargs
         )
         post("responses", body)
+      end
+
+      def stream_responses(messages, **kwargs, &block)
+        post_stream("responses", build_body_responses(messages, **kwargs), &block)
       end
 
       def download_file(file_id)
@@ -40,7 +50,7 @@ module LlmGateway
 
       private
 
-      def build_body_responses(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, reasoning: nil, **options)
+      def build_body_responses(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, reasoning: nil, **options)
         body = {
           model: model_key,
           max_output_tokens: max_completion_tokens,
@@ -56,7 +66,7 @@ module LlmGateway
         body
       end
 
-      def build_body_chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, reasoning: nil, **options)
+      def build_body_chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, reasoning: nil, **options)
         body = {
           model: model_key,
           messages: system + messages,
