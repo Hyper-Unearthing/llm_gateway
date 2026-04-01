@@ -12,7 +12,9 @@ module LlmGateway
           super(
             client,
             input_mapper: InputMapper,
-            output_mapper: OutputMapper
+            output_mapper: OutputMapper,
+            option_mapper: OptionMapper,
+            client_method: :chat
           )
         end
       end

@@ -25,6 +25,8 @@ module LlmGateway
             map_tool_use_content(content)
           when "tool_result"
             map_tool_result_content(content)
+          when "thinking", "reasoning"
+            map_reasoning_content(content)
           else
             content
           end
@@ -78,6 +80,23 @@ module LlmGateway
             tool_use_id: content[:tool_use_id],
             content: content[:content]
           }
+        end
+
+        def map_reasoning_content(content)
+          if direction == LlmGateway::DIRECTION_IN
+            result = {
+              type: "thinking",
+              thinking: content[:reasoning]
+            }
+            result[:signature] = content[:signature] unless content[:signature].nil?
+            result
+          else
+            {
+              type: "reasoning",
+              reasoning: content[:thinking] || content[:reasoning],
+              signature: content[:signature]
+            }
+          end
         end
       end
     end

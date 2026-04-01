@@ -44,7 +44,7 @@ module LlmGateway
         @token_manager&.on_token_refresh = callback
       end
 
-      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096)
+      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, **options)
         ensure_valid_token
 
         body = {
@@ -59,6 +59,7 @@ module LlmGateway
         system = prepend_claude_code_identity(system)
 
         body.merge!(system: system) if LlmGateway::Utils.present?(system)
+        body.merge!(options)
 
         post_with_retry("messages", body)
       end

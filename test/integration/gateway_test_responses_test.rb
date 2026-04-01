@@ -86,7 +86,7 @@ class GatewayResponsesTest < Test
           {
             id: ->(value, path) { assert_match(/\Ars_/, value, path) },
             role: nil,
-            content: [ { type: "reasoning", summary: [] } ]
+            content: [ { type: "reasoning", reasoning: nil, signature: nil } ]
           },
           {
             id: ->(value, path) { assert_match(/\Afc_/, value, path) },
@@ -128,7 +128,7 @@ class GatewayResponsesTest < Test
           {
             id: ->(value, path) { assert_match(/\Ars_/, value, path) },
             role: nil,
-            content: [ { type: "reasoning", summary: [] } ]
+            content: [ { type: "reasoning", reasoning: nil, signature: nil } ]
           },
           {
             id: ->(value, path) { assert_match(/\Amsg_/, value, path) },
@@ -150,7 +150,7 @@ class GatewayResponsesTest < Test
     VCR.use_cassette(vcr_cassette_name) do
       # Use the IDs baked into the VCR cassette for the transcript input
       prior_choices = [
-        { id: "rs_68a2cb2df6ac819f8a0f5bd8cda1588e09f86defd479c195", role: nil, content: [ { type: "reasoning", summary: [] } ] },
+        { id: "rs_68a2cb2df6ac819f8a0f5bd8cda1588e09f86defd479c195", role: nil, content: [ { type: "reasoning", reasoning: nil, signature: nil } ] },
         { id: "msg_68a2cb32dbe8819fb09e4f1ef5a1dc3e09f86defd479c195", role: "assistant", content: [ { type: "text", text: "Ahoy matey Singapore be hot and humid with tropical showers" } ] }
       ]
       transcript = []
@@ -175,7 +175,7 @@ class GatewayResponsesTest < Test
           {
             id: ->(value, path) { assert_match(/\Ars_/, value, path) },
             role: nil,
-            content: [ { type: "reasoning", summary: [] } ]
+            content: [ { type: "reasoning", reasoning: nil, signature: nil } ]
           },
           {
             id: ->(value, path) { assert_match(/\Amsg_/, value, path) },
@@ -210,7 +210,7 @@ class GatewayResponsesTest < Test
           {
             id: ->(value, path) { assert_match(/\Ars_/, value, path) },
             role: nil,
-            content: [ { type: "reasoning", summary: [] } ]
+            content: [ { type: "reasoning", reasoning: nil, signature: nil } ]
           },
           {
             id: ->(value, path) { assert_match(/\Amsg_/, value, path) },

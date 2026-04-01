@@ -1,0 +1,214 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","max_tokens":12288,"messages":[{"role":"user","content":[{"type":"text","text":"Think
+        hard about how you would do rand(100)/8274. Do not actually execute rand(100)
+        or reveal private chain-of-thought. Briefly explain the method and then give
+        one concrete example using 42 as the random value."}]}],"system":[{"type":"text","text":"Be
+        concise. Mention 8274 and 42 in the final answer."}],"thinking":{"type":"enabled","budget_tokens":10240}}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 25 Mar 2026 13:27:50 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2026-03-25T13:27:43Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2026-03-25T13:27:50Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '1000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2026-03-25T13:27:42Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2026-03-25T13:27:43Z'
+      Request-Id:
+      - req_011CZPsnYDRgZse64xNfkMYX
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '8042'
+      Vary:
+      - Accept-Encoding
+      Server-Timing:
+      - x-originResponse;dur=8045
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - _cfuvid=UVdyiK3UHNzmWBhQx_U3YqpM5VQpfkcMpXvfVKqAlp8-1774445262.546441-1.0.1.1-70v3pdyXy2t8narGYNGs5rm3lOWbWeoQzXYrs2Apl0g;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
+      Cf-Ray:
+      - 9e1e412aec4af58c-KUL
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJtb2RlbCI6ImNsYXVkZS1zb25uZXQtNC0yMDI1MDUxNCIsImlkIjoibXNnXzAxMzR3am9ZMWRMSk11U0t3OW1RRE53RCIsInR5cGUiOiJtZXNzYWdlIiwicm9sZSI6ImFzc2lzdGFudCIsImNvbnRlbnQiOlt7InR5cGUiOiJ0aGlua2luZyIsInRoaW5raW5nIjoiVGhlIHVzZXIgaXMgYXNraW5nIG1lIHRvIHRoaW5rIGFib3V0IGhvdyB0byBjb21wdXRlIHJhbmQoMTAwKS84Mjc0LCB3aGVyZSByYW5kKDEwMCkgd291bGQgZ2VuZXJhdGUgYSByYW5kb20gbnVtYmVyLiBUaGV5IHNwZWNpZmljYWxseSBkb24ndCB3YW50IG1lIHRvIGV4ZWN1dGUgYW55IHJhbmRvbSBmdW5jdGlvbiBvciByZXZlYWwgbXkgcHJpdmF0ZSBjaGFpbiBvZiB0aG91Z2h0LlxuXG5UaGV5IHdhbnQgbWUgdG86XG4xLiBCcmllZmx5IGV4cGxhaW4gdGhlIG1ldGhvZCBmb3IgY29tcHV0aW5nIHJhbmQoMTAwKS84Mjc0XG4yLiBHaXZlIGEgY29uY3JldGUgZXhhbXBsZSB1c2luZyA0MiBhcyB0aGUgcmFuZG9tIHZhbHVlXG4zLiBCZSBjb25jaXNlXG40LiBNZW50aW9uIGJvdGggODI3NCBhbmQgNDIgaW4gdGhlIGZpbmFsIGFuc3dlclxuXG5TbyByYW5kKDEwMCkgdHlwaWNhbGx5IGdlbmVyYXRlcyBhIHJhbmRvbSBpbnRlZ2VyIGZyb20gMCB0byA5OSAoaW5jbHVzaXZlKSwgb3Igc29tZXRpbWVzIDEgdG8gMTAwIGRlcGVuZGluZyBvbiB0aGUgaW1wbGVtZW50YXRpb24uIEknbGwgYXNzdW1lIGl0J3MgMCB0byA5OS5cblxuVGhlIG1ldGhvZCB3b3VsZCBiZTpcbjEuIEdlbmVyYXRlIGEgcmFuZG9tIGludGVnZXIgYmV0d2VlbiAwIGFuZCA5OVxuMi4gRGl2aWRlIHRoYXQgaW50ZWdlciBieSA4Mjc0XG4zLiBUaGUgcmVzdWx0IHdvdWxkIGJlIGEgZGVjaW1hbCBudW1iZXIgYmV0d2VlbiAwIGFuZCBhcHByb3hpbWF0ZWx5IDAuMDEyIChzaW5jZSA5OS84Mjc0IOKJiCAwLjAxMilcblxuRm9yIHRoZSBjb25jcmV0ZSBleGFtcGxlIHdpdGggNDI6XG40Mi84Mjc0ID0gMC4wMDUwNy4uLiAoYXBwcm94aW1hdGVseSlcblxuTGV0IG1lIGNhbGN1bGF0ZSB0aGlzIG1vcmUgcHJlY2lzZWx5OlxuNDIgw7cgODI3NCA9IDAuMDA1MDc3Li4uIiwic2lnbmF0dXJlIjoiRXN3SUNtQUlEQmdDS2tCT2lqMzd0TktNbVBCM3FSU3ZBNlNaRHVGajYweVFjL2IyY0ZFalc1U1lWTzVIblNmMU9RNXBINGRJTERna0h3eWVxZVF6V2ZtSG9DTTdacXJTQkJoK01oaGpiR0YxWkdVdGMyOXVibVYwTFRRdE1qQXlOVEExTVRRU0RLcUtrNjdXTGRqVzRIUVZSUm9NcU54T1lVYi9sNzBUNTBOc0lqQmNFZEtRV2FUR1BMZGg5L1dlaWgvQUkrZWtYeUw0UHpIVXluUmExNS9yd2lyU0xNMDVuU3BLUFdGc1FKMjlremtxbVFmaXEvRzFRWW9yWlZ4QTVmS1pDeHY3QTlFaC8wbFZrSU9uTXNzekN3M1RJL095YzVPZmVCTWIwUnM0ekFvZ09pZzNrYy90cVNwTE1wL08ybzVudnYrUGNvNGFLVi9rbXhLS2hrVEVhcXdadGZwK1RRRkhyai9DdkNONWtkS3R3NWk3ZXI0RjZuZkVzRVFFZmtPcVNQTkRqWi9QVTZKcE9STHVjcWkrUk5XZkJRNjRpNUYweUs3KytZZlZjSnpOcVpxSVp6c1VDTlZYekkrZFNTcTl4cjBzK3ViMWlTTWxWS01QN09yZ0RKajhtc1RBT05qQXBTRGxSQmFqRHBHamp6OW50b1l1VldQZkx2Qkd6aE1CVEtTZUkwRSs2RU9zZVVOMDdyQzlVRmUxOHlhamx5aHZ4dXJZcjNRTE9RbDQ3Q3RJUFZmVXZJN01lY2tIWXZ1ZkZXbXhtWnJsUXNWVnl6Z3BRZFo1WWZHd0lORGlFYUxDTUNyZXhrc0syMnlrc2s4MVY2LzkwNEZ2TFE3TEpCbmxyb0NKdXFKU0FtYm1GOGtaRHlHR0IxdVJRYUNESEQyaEQ2MHRpbnpmKysrdC9xeXlKZVpoSGxnNVIxMWxrbUYzMVc0NGc2OTVWMTNKK3dVZ2UxVUlGSGk3eit1b1hKa2UwTm1jRHdFVWdVaVZ2VkdXVURNdDZ1YWFHMGx4SjcrallDWjNzTEJvdnB1dEJjUnlEbUdaaE9SelBwU2FJZ3VkOFlzOWpLT0V4bmMyQU0yZDl2RnJhR24xQzlkTmxCTUJvK2Nocll3dUtBYTBhZUVWMXROMjl2NzhmSEdHQjRYTXlnNUs0ZXpCd2pvbUhTd1RBQzY4VUtOS094a2hPR2o3ZElmMDVCUEpmRVpQWXVkNEt1WlMzUTh6SFlnTWs1d0c1aTR1M1E4cWg1ZG5kVzROc1BYNnRiY2paNmJiWG5OQ1dKb0pRdUcyMWUvWG02ejlvSWZ3OHY4b3Vhb1pqTXBWZVZZek1XVG9GWEgxOGdHVVlIRG5mODB0U1luNmhlQ1oveXJOdGpSV2NEOXE1YjA2UU1BdXdCN1VrOUQ4Tms4Und4YmpBd2FyNGpHa3FLakc3L3VyRDV5ajVVY2o1bjVpVTdWRTBhQXpqQlp6dFh2QklnYTY1aFZaUnVDOUpyczdHL3hlNWYvajloV244TE0zOXAzMStDQXlXN3orV1BIbllWZTRQZENRRVBuYzdYNmNtckpjR0xhTWlRUmxuTUpPUjFWNnQ3MFVLUVpmaFF6WEFHcTY0cVZUQlZlZ3JjeThsTDRRNXJXc1ZrQytMOHpXUmdmbC9wVGU2Ymc1SUN2cnhnYWNLM0ZDSjIvZVA0aXB6OHBaT0ptNmp5SzZMcUNUVjhTVWFSREIwNHNkSThXbW1NUE9lTmRPa1Rzc0lBQmcyVUtvUEwxSWh0S1FMYW1tUjd3R0Y0Mk1waXEwM1E2QjJrb3RyaHhQUzRuVTVUZzhkQjZMdXlwMlFuaUlCdHhJeWpqWllTbFUwSW5XVXhTZzErWUsyQmhWdE1lZjZLWFBVSFBlWjR0MThZN1Y2V1RMNE9EQ2hDNnppWEJsdXhHY0VWVzJaT3ladlR3azM1dHAzeUFMcFRTRm5oOFlBUT09In0seyJ0eXBlIjoidGV4dCIsInRleHQiOiIqKk1ldGhvZDoqKiBHZW5lcmF0ZSBhIHJhbmRvbSBpbnRlZ2VyIGZyb20gMC05OSwgdGhlbiBwZXJmb3JtIHNpbXBsZSBkaXZpc2lvbiBieSB0aGUgY29uc3RhbnQgODI3NC4gVGhpcyB5aWVsZHMgYSBzbWFsbCBkZWNpbWFsIHJlc3VsdCBiZXR3ZWVuIDAgYW5kIGFwcHJveGltYXRlbHkgMC4wMTIuXG5cbioqRXhhbXBsZToqKiBJZiB0aGUgcmFuZG9tIHZhbHVlIGlzIDQyLCB0aGVuIDQyLzgyNzQgPSAwLjAwNTA3NyAoYXBwcm94aW1hdGVseSkuXG5cblRoZSBvcGVyYXRpb24gZGl2aWRlcyB0aGUgcmFuZG9tIGludGVnZXIgNDIgYnkgdGhlIGNvbnN0YW50IDgyNzQgdG8gcHJvZHVjZSBhIHNtYWxsIGZyYWN0aW9uYWwgcmVzdWx0LiJ9XSwic3RvcF9yZWFzb24iOiJlbmRfdHVybiIsInN0b3Bfc2VxdWVuY2UiOm51bGwsInVzYWdlIjp7ImlucHV0X3Rva2VucyI6MTA3LCJjYWNoZV9jcmVhdGlvbl9pbnB1dF90b2tlbnMiOjAsImNhY2hlX3JlYWRfaW5wdXRfdG9rZW5zIjowLCJjYWNoZV9jcmVhdGlvbiI6eyJlcGhlbWVyYWxfNW1faW5wdXRfdG9rZW5zIjowLCJlcGhlbWVyYWxfMWhfaW5wdXRfdG9rZW5zIjowfSwib3V0cHV0X3Rva2VucyI6Mzg0LCJzZXJ2aWNlX3RpZXIiOiJzdGFuZGFyZCIsImluZmVyZW5jZV9nZW8iOiJub3RfYXZhaWxhYmxlIn19
+  recorded_at: Wed, 25 Mar 2026 13:27:50 GMT
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","max_tokens":12288,"messages":[{"role":"user","content":[{"type":"text","text":"Think
+        hard about how you would do rand(100)/8274. Do not actually execute rand(100)
+        or reveal private chain-of-thought. Briefly explain the method and then give
+        one concrete example using 42 as the random value."}]},{"role":"assistant","content":[{"type":"thinking","thinking":"The
+        user is asking me to think about how to compute rand(100)/8274, where rand(100)
+        would generate a random number. They specifically don''t want me to execute
+        any random function or reveal my private chain of thought.\n\nThey want me
+        to:\n1. Briefly explain the method for computing rand(100)/8274\n2. Give a
+        concrete example using 42 as the random value\n3. Be concise\n4. Mention both
+        8274 and 42 in the final answer\n\nSo rand(100) typically generates a random
+        integer from 0 to 99 (inclusive), or sometimes 1 to 100 depending on the implementation.
+        I''ll assume it''s 0 to 99.\n\nThe method would be:\n1. Generate a random
+        integer between 0 and 99\n2. Divide that integer by 8274\n3. The result would
+        be a decimal number between 0 and approximately 0.012 (since 99/8274 ≈ 0.012)\n\nFor
+        the concrete example with 42:\n42/8274 = 0.00507... (approximately)\n\nLet
+        me calculate this more precisely:\n42 ÷ 8274 = 0.005077...","signature":"EswICmAIDBgCKkBOij37tNKMmPB3qRSvA6SZDuFj60yQc/b2cFEjW5SYVO5HnSf1OQ5pH4dILDgkHwyeqeQzWfmHoCM7ZqrSBBh+MhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQSDKqKk67WLdjW4HQVRRoMqNxOYUb/l70T50NsIjBcEdKQWaTGPLdh9/Weih/AI+ekXyL4PzHUynRa15/rwirSLM05nSpKPWFsQJ29kzkqmQfiq/G1QYorZVxA5fKZCxv7A9Eh/0lVkIOnMsszCw3TI/Oyc5OfeBMb0Rs4zAogOig3kc/tqSpLMp/O2o5nvv+Pco4aKV/kmxKKhkTEaqwZtfp+TQFHrj/CvCN5kdKtw5i7er4F6nfEsEQEfkOqSPNDjZ/PU6JpORLucqi+RNWfBQ64i5F0yK7++YfVcJzNqZqIZzsUCNVXzI+dSSq9xr0s+ub1iSMlVKMP7OrgDJj8msTAONjApSDlRBajDpGjjz9ntoYuVWPfLvBGzhMBTKSeI0E+6EOseUN07rC9UFe18yajlyhvxurYr3QLOQl47CtIPVfUvI7MeckHYvufFWmxmZrlQsVVyzgpQdZ5YfGwINDiEaLCMCrexksK22yksk81V6/904FvLQ7LJBnlroCJuqJSAmbmF8kZDyGGB1uRQaCDHD2hD60tinzf+++t/qyyJeZhHlg5R11lkmF31W44g695V13J+wUge1UIFHi7z+uoXJke0NmcDwEUgUiVvVGWUDMt6uaaG0lxJ7+jYCZ3sLBovputBcRyDmGZhORzPpSaIgud8Ys9jKOExnc2AM2d9vFraGn1C9dNlBMBo+chrYwuKAa0aeEV1tN29v78fHGGB4XMyg5K4ezBwjomHSwTAC68UKNKOxkhOGj7dIf05BPJfEZPYud4KuZS3Q8zHYgMk5wG5i4u3Q8qh5dndW4NsPX6tbcjZ6bbXnNCWJoJQuG21e/Xm6z9oIfw8v8ouaoZjMpVeVYzMWToFXH18gGUYHDnf80tSYn6heCZ/yrNtjRWcD9q5b06QMAuwB7Uk9D8Nk8RwxbjAwar4jGkqKjG7/urD5yj5Ucj5n5iU7VE0aAzjBZztXvBIga65hVZRuC9Jrs7G/xe5f/j9hWn8LM39p31+CAyW7z+WPHnYVe4PdCQEPnc7X6cmrJcGLaMiQRlnMJOR1V6t70UKQZfhQzXAGq64qVTBVegrcy8lL4Q5rWsVkC+L8zWRgfl/pTe6bg5ICvrxgacK3FCJ2/eP4ipz8pZOJm6jyK6LqCTV8SUaRDB04sdI8WmmMPOeNdOkTssIABg2UKoPL1IhtKQLammR7wGF42Mpiq03Q6B2kotrhxPS4nU5Tg8dB6Luyp2QniIBtxIyjjZYSlU0InWUxSg1+YK2BhVtMef6KXPUHPeZ4t18Y7V6WTL4ODChC6ziXBluxGcEVW2ZOyZvTwk35tp3yALpTSFnh8YAQ=="},{"type":"text","text":"**Method:**
+        Generate a random integer from 0-99, then perform simple division by the constant
+        8274. This yields a small decimal result between 0 and approximately 0.012.\n\n**Example:**
+        If the random value is 42, then 42/8274 = 0.005077 (approximately).\n\nThe
+        operation divides the random integer 42 by the constant 8274 to produce a
+        small fractional result."}]},{"role":"user","content":[{"type":"text","text":"how
+        are you"}]}],"system":[{"type":"text","text":"Be concise. Mention 8274 and
+        42 in the final answer."}],"thinking":{"type":"enabled","budget_tokens":10240}}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 25 Mar 2026 13:27:53 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2026-03-25T13:27:51Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2026-03-25T13:27:53Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '1000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2026-03-25T13:27:51Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2026-03-25T13:27:51Z'
+      Request-Id:
+      - req_011CZPsoA1UPmrAEJkKJH5WC
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '2693'
+      Vary:
+      - Accept-Encoding
+      Server-Timing:
+      - x-originResponse;dur=2695
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - _cfuvid=TZi1ROA8IWOCojl5eYkzkwCpjXVaUJHYLTSx.IqQDp4-1774445270.9290166-1.0.1.1-gvRA7g_sM_ZlH_OHolQhH_DGGT6byHjp.2LAYMcqYOE;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
+      Cf-Ray:
+      - 9e1e415f4a384748-KUL
+    body:
+      encoding: ASCII-8BIT
+      string: '{"model":"claude-sonnet-4-20250514","id":"msg_015qt2CDZDEXjTw48PJrD9X6","type":"message","role":"assistant","content":[{"type":"thinking","thinking":"The
+        human is asking \"how are you\" which is a common greeting/check-in question.
+        This is a simple, friendly question that doesn''t relate to the previous technical
+        discussion about rand(100)/8274. I should respond in a natural, conversational
+        way while being genuine about my nature as an AI.","signature":"EuUDCmAIDBgCKkAL7xh1EkuuhZV52LFgiHWNaFeKi2Iob9vqfwycwdO9xKt8PltVTX0eaocHzRQmhBSmazL+Az4r4ZIsCcsTrqUdMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQSDE5qjMRzaWB5yNChvhoM22rDdIxBmVKWtvAzIjBEZYuU6JTn4F8/UkCVvgtW2n9FA1mG9WZ0GrsSZZ+nmNhtT5izCaNkmji6D7nzClIqsgLTGw306szXD2eKoeqJzDJ43wQGZ4F+akkjE7oeDGOJDd3gmcYz91NTy7l8NN/Z/M3FNmOU47qrbCGCgNVFqZsZH9B18FrxoXLGeLzwreYnwo4ZdQyWkXkjCF0m+MMsaRYHo7vqWb8RI2Z4zmQadt9BdUJuuS0TSbzcvlISVY9BBCKpQuywscvLrVwWj3nhDfKglEPhQoQMHp94vYBHLgEJMj079ng//+sl+P7W6LCj/M/mx0WhtjqUNfoXp/KS5Xhpv2ce2G7FCH9Ms+7RAAs5UfkpiOZvIrsG/FnwX9xzZeWyfCo0IIU4fhP4H4m0rC82QR+wSPrt6viIeZdc3rPIwblE5i0XL6LKkSnnT/iSVyeY+9BkXEvzhCXEQjJkhxNxpe/AjvHLJFnULmAWFXzDL+oYAQ=="},{"type":"text","text":"I''m
+        doing well, thank you for asking! I''m here and ready to help with whatever
+        questions or tasks you might have. How are you doing today?"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":212,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":107,"service_tier":"standard","inference_geo":"not_available"}}'
+  recorded_at: Wed, 25 Mar 2026 13:27:53 GMT
+recorded_with: VCR 6.4.0

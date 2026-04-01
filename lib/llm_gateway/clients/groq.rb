@@ -10,7 +10,7 @@ module LlmGateway
         super(model_key: model_key, api_key: api_key)
       end
 
-      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096)
+      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 4096, **options)
         body = {
           model: model_key,
           messages: system + messages,
@@ -19,6 +19,7 @@ module LlmGateway
           response_format: response_format,
           tools: tools
         }
+        body.merge!(options)
 
         post("chat/completions", body)
       end

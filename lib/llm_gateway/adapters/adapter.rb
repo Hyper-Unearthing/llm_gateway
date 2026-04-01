@@ -3,28 +3,34 @@
 module LlmGateway
   module Adapters
     class Adapter
-      attr_reader :client, :input_mapper, :output_mapper, :file_output_mapper
+      attr_reader :client, :input_mapper, :output_mapper, :file_output_mapper, :option_mapper, :client_method
 
-      def initialize(client, input_mapper:, output_mapper:, file_output_mapper: nil)
+      def initialize(client, input_mapper:, output_mapper:, file_output_mapper: nil, option_mapper: OptionMapper, client_method: :chat)
         @client = client
         @input_mapper = input_mapper
         @output_mapper = output_mapper
         @file_output_mapper = file_output_mapper
+        @option_mapper = option_mapper
+        @client_method = client_method
       end
 
-      def chat(message, response_format: "text", tools: nil, system: nil)
+      def chat(message, response_format: "text", tools: nil, system: nil, **options)
         normalized_input = input_mapper.map({
           messages: normalize_messages(message),
           response_format: normalize_response_format(response_format),
           tools: tools,
           system: normalize_system(system)
         })
-        result = client.chat(
-          normalized_input[:messages],
+
+        client_kwargs = {
           response_format: normalized_input[:response_format],
           tools: normalized_input[:tools],
           system: normalized_input[:system]
-        )
+        }
+
+        client_kwargs.merge!(option_mapper.map(options))
+
+        result = client.public_send(client_method, normalized_input[:messages], **client_kwargs)
         output_mapper.map(result)
       end
 

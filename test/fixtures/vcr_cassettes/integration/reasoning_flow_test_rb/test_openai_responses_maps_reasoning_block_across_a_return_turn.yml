@@ -1,0 +1,332 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"o4-mini","max_output_tokens":12288,"input":[{"role":"user","content":[{"type":"input_text","text":"Think
+        hard about how you would do rand(100)/8274. Do not actually execute rand(100)
+        or reveal private chain-of-thought. Briefly explain the method and then give
+        one concrete example using 42 as the random value."}]}],"instructions":"Be
+        concise. Mention 8274 and 42 in the final answer.","reasoning":{"effort":"high","summary":"detailed"}}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 25 Mar 2026 14:41:40 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Remaining-Tokens:
+      - '199719'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Ratelimit-Reset-Tokens:
+      - 84ms
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      X-Request-Id:
+      - req_d0b524d1c41148afafc82c2a12da3cfe
+      Openai-Processing-Ms:
+      - '9718'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=zwyfill1PMRwI8Ep2Na0YlVbT0.h658fVjmhirbELr8-1774449690.5099258-1.0.1.1-0QNFUBcBO2AnMCPl4YVfee3oB7fJzrYnHQjLKr7v1vlOMaQDG7SyKV85THCqATudTYiS6e_l4AznpTiEWYROQ5IkUKAuX8TPT4ZFxsy7i9Nz9971mbpslA7GK8ZEcebs;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Mar 2026
+        15:11:40 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Cf-Ray:
+      - 9e1ead45abce3cd8-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "resp_030042c4f3e449f90069c3f41aebb48197889b84031cab5b6c",
+          "object": "response",
+          "created_at": 1774449690,
+          "status": "completed",
+          "background": false,
+          "billing": {
+            "payer": "developer"
+          },
+          "completed_at": 1774449700,
+          "error": null,
+          "frequency_penalty": 0.0,
+          "incomplete_details": null,
+          "instructions": "Be concise. Mention 8274 and 42 in the final answer.",
+          "max_output_tokens": 12288,
+          "max_tool_calls": null,
+          "model": "o4-mini-2025-04-16",
+          "output": [
+            {
+              "id": "rs_030042c4f3e449f90069c3f41b6294819790999ba73f669c9d",
+              "type": "reasoning",
+              "summary": [
+                {
+                  "type": "summary_text",
+                  "text": "**Explaining the method briefly**\n\nI'm thinking about how to approach the user's request. The task involves generating a random integer with values ranging from 0 to 99 by calling a process. After that, I\u2019ll divide this integer by 8274 to yield a decimal value. For example, if the randomly generated number is 42, I\u2019d perform the division 42/8274, which is approximately 0.0050747. So to wrap it up: use the integer 42, divide by 8274, and get that decimal result!"
+                },
+                {
+                  "type": "summary_text",
+                  "text": "**Calculating the division precisely**\n\nLet\u2019s break down the math here. To find 42 divided by 8274, I realize the approximate result is around 0.005074. Using long division, when I multiply 8274 by 0.005, it gives me 41.37, with a difference of 0.63 remaining. I can also calculate 1/8274, which is roughly 0.000120791. When I multiply that by 42, I get approximately 0.0050732. So, it\u2019s safe to say that 42/8274 is about 0.005074. Just to clarify the method: use the integer from rand(100), and for x = 42, I arrive at 0.00507."
+                }
+              ]
+            },
+            {
+              "id": "msg_030042c4f3e449f90069c3f42453608197bf4ec945bc2ace77",
+              "type": "message",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "annotations": [],
+                  "logprobs": [],
+                  "text": "Method:  \n1. Call rand(100) to get an integer x between 0 and 99.  \n2. Compute the ratio x/8274.  \n\nExample (using 42 as the \u201crandom\u201d output):  \n42/8274 \u2248 0.00507"
+                }
+              ],
+              "role": "assistant"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "presence_penalty": 0.0,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "prompt_cache_retention": null,
+          "reasoning": {
+            "effort": "high",
+            "summary": "detailed"
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": true,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "text"
+            },
+            "verbosity": "medium"
+          },
+          "tool_choice": "auto",
+          "tools": [],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 74,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 569,
+            "output_tokens_details": {
+              "reasoning_tokens": 448
+            },
+            "total_tokens": 643
+          },
+          "user": null,
+          "metadata": {}
+        }
+  recorded_at: Wed, 25 Mar 2026 14:41:40 GMT
+- request:
+    method: post
+    uri: https://api.openai.com/v1/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"o4-mini","max_output_tokens":12288,"input":[{"role":"user","content":[{"type":"input_text","text":"Think
+        hard about how you would do rand(100)/8274. Do not actually execute rand(100)
+        or reveal private chain-of-thought. Briefly explain the method and then give
+        one concrete example using 42 as the random value."}]},{"role":"assistant","content":[{"type":"output_text","text":"Method:  \n1.
+        Call rand(100) to get an integer x between 0 and 99.  \n2. Compute the ratio
+        x/8274.  \n\nExample (using 42 as the “random” output):  \n42/8274 ≈ 0.00507"}]},{"role":"user","content":[{"type":"input_text","text":"how
+        are you"}]}],"instructions":"Be concise. Mention 8274 and 42 in the final
+        answer.","reasoning":{"effort":"high","summary":"detailed"}}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 25 Mar 2026 14:41:48 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Remaining-Tokens:
+      - '199648'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Ratelimit-Reset-Tokens:
+      - 105ms
+      Openai-Version:
+      - '2020-10-01'
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      X-Request-Id:
+      - req_ca0bc6117df64485a9a719802439bcbe
+      Openai-Processing-Ms:
+      - '7500'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=2RaNeFVVM04hN408bhF0tMWPFF5P7KgwPJvWIxu4884-1774449700.784747-1.0.1.1-dUzXfZ0wHQ0xIkpC1Y8Hc4BPehhBIz_WDsz_EF6_9mN8Xe630EGckKKmlp4CvZtfGy04mP8x0seCYeN43VXoe47V0vrrbdDZT9hhvKPGjxCMZGlJmcJXf4Z.HUiye5Q9;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Mar 2026
+        15:11:48 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Cf-Ray:
+      - 9e1ead85ec31ad7a-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "id": "resp_0a8699af11357ae20069c3f424ea5481909e1e0452730b1ee1",
+          "object": "response",
+          "created_at": 1774449700,
+          "status": "completed",
+          "background": false,
+          "billing": {
+            "payer": "developer"
+          },
+          "completed_at": 1774449708,
+          "error": null,
+          "frequency_penalty": 0.0,
+          "incomplete_details": null,
+          "instructions": "Be concise. Mention 8274 and 42 in the final answer.",
+          "max_output_tokens": 12288,
+          "max_tool_calls": null,
+          "model": "o4-mini-2025-04-16",
+          "output": [
+            {
+              "id": "rs_0a8699af11357ae20069c3f42534688190a46ef8669508a8ba",
+              "type": "reasoning",
+              "summary": [
+                {
+                  "type": "summary_text",
+                  "text": "**Incorporating specific numbers**\n\nThe user simply asked how I'm doing, but the developer specified I should mention 8274 and 42 in my response. I could say, \"I'm fine, thank you! Just so you know, 42 divided by 8274 is approximately 0.00507.\" Or perhaps I could just mention the numbers directly. It\u2019s an unusual request, but I aim to keep it concise while incorporating both numbers into my answer effectively. Let\u2019s see how that works!"
+                },
+                {
+                  "type": "summary_text",
+                  "text": "**Formulating a concise response**\n\nThe developer has asked me to mention 8274 and 42 in my answer. I think I should respond to the user\u2019s \"how are you\" while incorporating those numbers. I could say, \"I'm doing well, thanks! By the way, 42 divided by 8274 is about 0.00507.\" This keeps it concise while still sharing both numbers in context. It might feel a bit odd, but hey, I\u2019m making sure to follow the guidelines! Let\u2019s go with that!"
+                }
+              ]
+            },
+            {
+              "id": "msg_0a8699af11357ae20069c3f42bf178819087bee9ebb0cd4881",
+              "type": "message",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "annotations": [],
+                  "logprobs": [],
+                  "text": "I\u2019m doing well, thanks for asking! For example, 42/8274 \u2248 0.00507."
+                }
+              ],
+              "role": "assistant"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "presence_penalty": 0.0,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "prompt_cache_retention": null,
+          "reasoning": {
+            "effort": "high",
+            "summary": "detailed"
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": true,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "text"
+            },
+            "verbosity": "medium"
+          },
+          "tool_choice": "auto",
+          "tools": [],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 145,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 497,
+            "output_tokens_details": {
+              "reasoning_tokens": 448
+            },
+            "total_tokens": 642
+          },
+          "user": null,
+          "metadata": {}
+        }
+  recorded_at: Wed, 25 Mar 2026 14:41:48 GMT
+recorded_with: VCR 6.4.0

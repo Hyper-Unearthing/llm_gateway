@@ -33,7 +33,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 14 Feb 2026 14:45:57 GMT
+      - Wed, 25 Mar 2026 14:41:09 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -61,36 +61,36 @@ http_interactions:
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       X-Request-Id:
-      - req_ba3454f062b244bf82a2d673feb4a2a9
+      - req_50204b121d6d408fa73429d6cd9d1ded
       Openai-Processing-Ms:
-      - '1032'
+      - '1006'
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=ELmephoh2zJiz8a6baFPwzkbFxlPVYxKgVBAPEZa5wY-1771080355.8862941-1.0.1.1-wr2b3swPFTWMcMkGV5EkdtHyKIy9RUvTRcfqucB6GwlPhOD1.EFESJhU2GvjvOrcozS7DdgZn3JdXejTOReaou.ReSdqrduuIufMqnnu3rwnGi47BGEVe9qwqsgbW4Wh;
-        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
-        15:15:57 GMT
+      - __cf_bm=tLhjdEypo_YJZoLT3qNaJwVIqnqBLafuVftztzYQuLY-1774449667.5410414-1.0.1.1-Thg0.2ANhnwxaIRsGDg2c6pIL5p1QpAOw3bA7H89k9Z0GEBHuerk.81mWW9.M9_DZCYDF4g_izTGbdJaDsaODO8T4UPZ7qD8WqFX5TJXN4owFBf.6XrUavWQToXF2AoB;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Mar 2026
+        15:11:09 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
       Cf-Ray:
-      - 9cdd5a20496ca2c5-SIN
+      - 9e1eacb62feb8177-KUL
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |-
         {
-          "id": "resp_01582e3450aace010069908aa49fd481a0ba5b4fffdb55fc6f",
+          "id": "resp_06fb99b6b52b52310069c3f40403a8819489ae33ecdc0f6e9f",
           "object": "response",
-          "created_at": 1771080356,
+          "created_at": 1774449668,
           "status": "completed",
           "background": false,
           "billing": {
             "payer": "developer"
           },
-          "completed_at": 1771080357,
+          "completed_at": 1774449668,
           "error": null,
           "frequency_penalty": 0.0,
           "incomplete_details": null,
@@ -100,7 +100,7 @@ http_interactions:
           "model": "gpt-4o-mini-2024-07-18",
           "output": [
             {
-              "id": "msg_01582e3450aace010069908aa58af881a08200f613cd7111f5",
+              "id": "msg_06fb99b6b52b52310069c3f404e01c8194ac481cfcb6cb0639",
               "type": "message",
               "status": "completed",
               "content": [
@@ -172,13 +172,13 @@ http_interactions:
           "user": null,
           "metadata": {}
         }
-  recorded_at: Sat, 14 Feb 2026 14:45:58 GMT
+  recorded_at: Wed, 25 Mar 2026 14:41:09 GMT
 - request:
     method: post
     uri: https://api.openai.com/v1/responses
     body:
       encoding: UTF-8
-      string: '{"model":"gpt-4o-mini","max_output_tokens":4096,"input":[{"role":"user","content":[{"type":"input_text","text":"HELLO"}]},{"id":"msg_01582e3450aace010069908aa58af881a08200f613cd7111f5"},{"role":"user","content":[{"type":"input_text","text":"whats
+      string: '{"model":"gpt-4o-mini","max_output_tokens":4096,"input":[{"role":"user","content":[{"type":"input_text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"output_text","text":"BAAAA"}]},{"role":"user","content":[{"type":"input_text","text":"whats
         the weather"}]}],"instructions":"When i say HELLO, you must always say BAAAA
         (DO NOT ADD SPACES), when i ask for the weather check the tempreture in Singapore
         with a capital S using the get_weather tool and respond to me exactly with
@@ -207,7 +207,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 14 Feb 2026 14:46:00 GMT
+      - Wed, 25 Mar 2026 14:41:10 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -225,7 +225,7 @@ http_interactions:
       X-Ratelimit-Remaining-Tokens:
       - '199611'
       X-Ratelimit-Reset-Requests:
-      - 14.594s
+      - 15.816s
       X-Ratelimit-Reset-Tokens:
       - 116ms
       Openai-Version:
@@ -235,36 +235,36 @@ http_interactions:
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       X-Request-Id:
-      - req_161799b3b7a14fc48ae7fd3a09fb7e48
+      - req_f3c459eae05f41e99a294e6eebdb9c0d
       Openai-Processing-Ms:
-      - '1300'
+      - '1107'
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=PFfQpKehP_bGoSa73rDzXRMkB8kJhhYw_ORF2md3nCA-1771080358.5508802-1.0.1.1-wOpoV9ZEUU.0gLL0Ur.fif8t4SL.kvown0Q5zuWkDzLm5mNS2Eb_ogx7jmnKSTV6NXSb8537nzMkWsBCAhS9wATus_whSxRKCFvDiLsUPOBWe4qOHbZ4H6r55Ci3I7cG;
-        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
-        15:16:00 GMT
+      - __cf_bm=VgANlPT4OjXEcgdPOeyPzlD0z1r3Ks.mR_r23qL0cww-1774449669.2311697-1.0.1.1-R4kOWj7TuXF4xUDfxjXyoNBe7Fgva8mZL70eVLfkq.Pzh16qmdPbD2JqmNhmxeg.ykASboBrVD8ZdAnDCDR_sGmcGqFSO_wFy.bqAhiZOLutA4fK4kpm5qLugAZJbo8_;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Mar 2026
+        15:11:10 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
       Cf-Ray:
-      - 9cdd5a30ebda5feb-SIN
+      - 9e1eacc0be403cd8-KUL
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |-
         {
-          "id": "resp_01582e3450aace010069908aa7440881a0b53e6a7cd162d501",
+          "id": "resp_087ce86097e636560069c3f4055c94819481e9704870f45311",
           "object": "response",
-          "created_at": 1771080359,
+          "created_at": 1774449669,
           "status": "completed",
           "background": false,
           "billing": {
             "payer": "developer"
           },
-          "completed_at": 1771080360,
+          "completed_at": 1774449670,
           "error": null,
           "frequency_penalty": 0.0,
           "incomplete_details": null,
@@ -274,11 +274,11 @@ http_interactions:
           "model": "gpt-4o-mini-2024-07-18",
           "output": [
             {
-              "id": "fc_01582e3450aace010069908aa860b481a0a424b0648d2dee73",
+              "id": "fc_087ce86097e636560069c3f4062b9881948e8fe13ef5d1fe4b",
               "type": "function_call",
               "status": "completed",
               "arguments": "{\"location\":\"Singapore\"}",
-              "call_id": "call_SXkEQP1xkZnR1L0VG8ZlE1n1",
+              "call_id": "call_1idYiOYzYonmMcXlx2m7ydwS",
               "name": "get_weather"
             }
           ],
@@ -340,14 +340,14 @@ http_interactions:
           "user": null,
           "metadata": {}
         }
-  recorded_at: Sat, 14 Feb 2026 14:46:00 GMT
+  recorded_at: Wed, 25 Mar 2026 14:41:10 GMT
 - request:
     method: post
     uri: https://api.openai.com/v1/responses
     body:
       encoding: UTF-8
-      string: '{"model":"gpt-4o-mini","max_output_tokens":4096,"input":[{"role":"user","content":[{"type":"input_text","text":"HELLO"}]},{"id":"msg_01582e3450aace010069908aa58af881a08200f613cd7111f5"},{"role":"user","content":[{"type":"input_text","text":"whats
-        the weather"}]},{"id":"fc_01582e3450aace010069908aa860b481a0a424b0648d2dee73"},{"type":"function_call_output","call_id":"call_SXkEQP1xkZnR1L0VG8ZlE1n1","output":"-15
+      string: '{"model":"gpt-4o-mini","max_output_tokens":4096,"input":[{"role":"user","content":[{"type":"input_text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"output_text","text":"BAAAA"}]},{"role":"user","content":[{"type":"input_text","text":"whats
+        the weather"}]},{"type":"function_call","call_id":"call_1idYiOYzYonmMcXlx2m7ydwS","name":"get_weather","arguments":"{\"location\":\"Singapore\"}"},{"type":"function_call_output","call_id":"call_1idYiOYzYonmMcXlx2m7ydwS","output":"-15
         celciii REMBMER ONLY RESPOND WITH THIS RESULT"}],"instructions":"When i say
         HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for the weather
         check the tempreture in Singapore with a capital S using the get_weather tool
@@ -376,7 +376,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 14 Feb 2026 14:46:03 GMT
+      - Wed, 25 Mar 2026 14:41:12 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -392,11 +392,11 @@ http_interactions:
       X-Ratelimit-Remaining-Requests:
       - '9997'
       X-Ratelimit-Remaining-Tokens:
-      - '199574'
+      - '199577'
       X-Ratelimit-Reset-Requests:
-      - 20.482s
+      - 22.508s
       X-Ratelimit-Reset-Tokens:
-      - 127ms
+      - 126ms
       Openai-Version:
       - '2020-10-01'
       Openai-Organization:
@@ -404,36 +404,36 @@ http_interactions:
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       X-Request-Id:
-      - req_e4008088313346a8a4711fe079a29d8f
+      - req_bd3e41f5f2f940ccb7ce50cf5e87ce81
       Openai-Processing-Ms:
-      - '1250'
+      - '977'
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=NPgoXZl7tok4rUq.sJGXT3aTSI9_xb2wRMjFKHcGgpU-1771080361.274311-1.0.1.1-lhrwVZpkry1.fx6htG..e0OrLQp.J.MkMVgT.FvS__ISN338uHXtOvHUbbojtNNodn4hRXZcvuz6FeJAaJBDFL7FEty_VzEUc5OUKCW_SHPjrRoCReXtHtAhYWzvPN5g;
-        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
-        15:16:03 GMT
+      - __cf_bm=5zeW1kjEYpvbQ17.5UEI26EIXc1g1ya_0mA23CRwaT4-1774449670.6778514-1.0.1.1-mWAjXC_lnkbPDnoA9kfQ9yQKO4_o.PxkPdU8KD6n44At.r6QY_AjRS6PGG.lu.WXk5yzMi7W.u2_tBao3yAPH3rCLmQBZz1IzVWi0Xn_SCSeeO06L4IRhvHCozqcql3V;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Mar 2026
+        15:11:12 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
       Cf-Ray:
-      - 9cdd5a41fadcf88a-SIN
+      - 9e1eacc9bad90646-KUL
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |-
         {
-          "id": "resp_01582e3450aace010069908aa9f3a081a0a0b88b50cc71121e",
+          "id": "resp_0f97b33fd31131730069c3f40746c08194baeefb6b08b80193",
           "object": "response",
-          "created_at": 1771080362,
+          "created_at": 1774449671,
           "status": "completed",
           "background": false,
           "billing": {
             "payer": "developer"
           },
-          "completed_at": 1771080363,
+          "completed_at": 1774449672,
           "error": null,
           "frequency_penalty": 0.0,
           "incomplete_details": null,
@@ -443,7 +443,7 @@ http_interactions:
           "model": "gpt-4o-mini-2024-07-18",
           "output": [
             {
-              "id": "msg_01582e3450aace010069908aaaef8881a0b595c0ea12980a68",
+              "id": "msg_0f97b33fd31131730069c3f40813d881948cdc30b6fcc0925d",
               "type": "message",
               "status": "completed",
               "content": [
@@ -502,7 +502,7 @@ http_interactions:
           "top_p": 1.0,
           "truncation": "disabled",
           "usage": {
-            "input_tokens": 209,
+            "input_tokens": 206,
             "input_tokens_details": {
               "cached_tokens": 0
             },
@@ -510,20 +510,21 @@ http_interactions:
             "output_tokens_details": {
               "reasoning_tokens": 0
             },
-            "total_tokens": 216
+            "total_tokens": 213
           },
           "user": null,
           "metadata": {}
         }
-  recorded_at: Sat, 14 Feb 2026 14:46:04 GMT
+  recorded_at: Wed, 25 Mar 2026 14:41:12 GMT
 - request:
     method: post
     uri: https://api.openai.com/v1/responses
     body:
       encoding: UTF-8
-      string: '{"model":"gpt-4o-mini","max_output_tokens":4096,"input":[{"role":"user","content":[{"type":"input_text","text":"HELLO"}]},{"id":"msg_01582e3450aace010069908aa58af881a08200f613cd7111f5"},{"role":"user","content":[{"type":"input_text","text":"whats
-        the weather"}]},{"id":"fc_01582e3450aace010069908aa860b481a0a424b0648d2dee73"},{"type":"function_call_output","call_id":"call_SXkEQP1xkZnR1L0VG8ZlE1n1","output":"-15
-        celciii REMBMER ONLY RESPOND WITH THIS RESULT"},{"id":"msg_01582e3450aace010069908aaaef8881a0b595c0ea12980a68"},{"role":"user","content":[{"type":"input_text","text":"BYE"}]}],"instructions":"When
+      string: '{"model":"gpt-4o-mini","max_output_tokens":4096,"input":[{"role":"user","content":[{"type":"input_text","text":"HELLO"}]},{"role":"assistant","content":[{"type":"output_text","text":"BAAAA"}]},{"role":"user","content":[{"type":"input_text","text":"whats
+        the weather"}]},{"type":"function_call","call_id":"call_1idYiOYzYonmMcXlx2m7ydwS","name":"get_weather","arguments":"{\"location\":\"Singapore\"}"},{"type":"function_call_output","call_id":"call_1idYiOYzYonmMcXlx2m7ydwS","output":"-15
+        celciii REMBMER ONLY RESPOND WITH THIS RESULT"},{"role":"assistant","content":[{"type":"output_text","text":"-15
+        celciii"}]},{"role":"user","content":[{"type":"input_text","text":"BYE"}]}],"instructions":"When
         i say HELLO, you must always say BAAAA (DO NOT ADD SPACES), when i ask for
         the weather check the tempreture in Singapore with a capital S using the get_weather
         tool and respond to me exactly with what was said( THE RESULT WILL BE misspelt
@@ -551,7 +552,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 14 Feb 2026 14:46:08 GMT
+      - Wed, 25 Mar 2026 14:41:13 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -565,13 +566,13 @@ http_interactions:
       X-Ratelimit-Limit-Tokens:
       - '200000'
       X-Ratelimit-Remaining-Requests:
-      - '9997'
+      - '9996'
       X-Ratelimit-Remaining-Tokens:
-      - '199559'
+      - '199562'
       X-Ratelimit-Reset-Requests:
-      - 24.283s
+      - 30.274s
       X-Ratelimit-Reset-Tokens:
-      - 132ms
+      - 131ms
       Openai-Version:
       - '2020-10-01'
       Openai-Organization:
@@ -579,36 +580,36 @@ http_interactions:
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       X-Request-Id:
-      - req_112eac853eca409a8df485b66bc2ef61
+      - req_e1c7fb17bcbc4640bb9726999e151901
       Openai-Processing-Ms:
-      - '1082'
+      - '436'
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=pXQ_yMZOCkjRFPe2Cb3giTz5jZspIPKt2ub.obPgq2o-1771080366.11005-1.0.1.1-On5.xXsCEwww2JjcXnN9LAJIvjbR6dRgagjHaxV.WIJgXLGP7JraulwoVsrhEUmmS1mM9xhKFAy7F1hGPjrkjtX32stVte_FoJI_QdrXelPBsv0kLUpzjJsvjB3IoWNd;
-        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
-        15:16:08 GMT
+      - __cf_bm=jyINeyOPJP2YRvdvPs3giQK.Dns5Uxi4cmd55I.YJ0k-1774449672.417905-1.0.1.1-83z8LUnOibklKWC5UtTAea6xYHbRffROPFFCYv2gV7fAfZWaChtaYP3uXQH0BsrgYm9wIIuL5GAL.eHQsTENMZGHMKMksomJnybQjbLa8TTZjUGnuEuo3qHrI74LHI83;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Mar 2026
+        15:11:13 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
       Cf-Ray:
-      - 9cdd5a6028a23883-SIN
+      - 9e1eacd49854a559-KUL
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |-
         {
-          "id": "resp_01582e3450aace010069908aaed87081a09129593fa4981da9",
+          "id": "resp_0630d183cd0ed62a0069c3f4088c388196b76913fc7ffd6e73",
           "object": "response",
-          "created_at": 1771080366,
+          "created_at": 1774449672,
           "status": "completed",
           "background": false,
           "billing": {
             "payer": "developer"
           },
-          "completed_at": 1771080367,
+          "completed_at": 1774449672,
           "error": null,
           "frequency_penalty": 0.0,
           "incomplete_details": null,
@@ -618,7 +619,7 @@ http_interactions:
           "model": "gpt-4o-mini-2024-07-18",
           "output": [
             {
-              "id": "msg_01582e3450aace010069908aafce2881a0bb2af20b3cb0af2d",
+              "id": "msg_0630d183cd0ed62a0069c3f408dad481968a749e85cf6722b6",
               "type": "message",
               "status": "completed",
               "content": [
@@ -677,7 +678,7 @@ http_interactions:
           "top_p": 1.0,
           "truncation": "disabled",
           "usage": {
-            "input_tokens": 224,
+            "input_tokens": 221,
             "input_tokens_details": {
               "cached_tokens": 0
             },
@@ -685,10 +686,10 @@ http_interactions:
             "output_tokens_details": {
               "reasoning_tokens": 0
             },
-            "total_tokens": 229
+            "total_tokens": 226
           },
           "user": null,
           "metadata": {}
         }
-  recorded_at: Sat, 14 Feb 2026 14:46:08 GMT
+  recorded_at: Wed, 25 Mar 2026 14:41:13 GMT
 recorded_with: VCR 6.4.0

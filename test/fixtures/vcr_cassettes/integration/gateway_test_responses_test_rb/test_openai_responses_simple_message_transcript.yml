@@ -5,7 +5,8 @@ http_interactions:
     uri: https://api.openai.com/v1/responses
     body:
       encoding: UTF-8
-      string: '{"model":"o4-mini","max_output_tokens":4096,"input":[{"id":"rs_68a2cb2df6ac819f8a0f5bd8cda1588e09f86defd479c195"},{"id":"msg_68a2cb32dbe8819fb09e4f1ef5a1dc3e09f86defd479c195"},{"role":"user","content":[{"type":"input_text","text":"what
+      string: '{"model":"o4-mini","max_output_tokens":4096,"input":[{"role":"assistant","content":[{"type":"output_text","text":"Ahoy
+        matey Singapore be hot and humid with tropical showers"}]},{"role":"user","content":[{"type":"input_text","text":"what
         did you think about during your last response"}]}],"instructions":"Talk like
         a pirate"}'
     headers:
@@ -27,7 +28,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 14 Feb 2026 14:43:07 GMT
+      - Wed, 25 Mar 2026 14:40:35 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -55,36 +56,36 @@ http_interactions:
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       X-Request-Id:
-      - req_b8195ad856d84df7b6f1484c030d0b8d
+      - req_cb428232ce2c4683905fa5011d75bdfe
       Openai-Processing-Ms:
-      - '4485'
+      - '4939'
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - __cf_bm=Nl.lyiPdvFUyC.WcwAqh0qh2XLf.7P4PDoCTF6HH.GY-1771080182.2373831-1.0.1.1-9kbfvVVUSWWhkIeQLsQRZag_WhIs5.GngeIplzpRxpv8fMcQclHnvJmWg0tdawV45D9jUbNtOwd_e1sZCWIKL6lqUiW_dKL3URAP3dh67wt_LslMhI8goTbduviGyPV9;
-        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
-        15:13:07 GMT
+      - __cf_bm=ABshYdU0bQTzL2X4BN6iMZRWk917ynfX.pO9QFRugLU-1774449629.8530054-1.0.1.1-m2jkBBcaSKMjMtSfzmXapcaSdMUyFqP.a3sk89qqn5Ad99dsDq1p5p2CZTM6FaKEBuoJi_5dvN7QfyLlo9AxM_by5aNTfaCtHqWMCEtT9X8hWsYxs1zIw9VVDJ8AqI3j;
+        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Wed, 25 Mar 2026
+        15:10:35 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Content-Type-Options:
       - nosniff
       Cf-Ray:
-      - 9cdd55e2ff2ef8de-SIN
+      - 9e1eabca9f692441-KUL
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |-
         {
-          "id": "resp_09f86defd479c19500699089f6b3e0819f8fe007ef5aa1d3a4",
+          "id": "resp_0ee8dab0038f2cb10069c3f3de7d308190a2a8528eec1e636a",
           "object": "response",
-          "created_at": 1771080182,
+          "created_at": 1774449630,
           "status": "completed",
           "background": false,
           "billing": {
             "payer": "developer"
           },
-          "completed_at": 1771080187,
+          "completed_at": 1774449635,
           "error": null,
           "frequency_penalty": 0.0,
           "incomplete_details": null,
@@ -94,12 +95,12 @@ http_interactions:
           "model": "o4-mini-2025-04-16",
           "output": [
             {
-              "id": "rs_09f86defd479c19500699089f79c0c819f996f740d44750f49",
+              "id": "rs_0ee8dab0038f2cb10069c3f3df35c48190b96407880b3e154c",
               "type": "reasoning",
               "summary": []
             },
             {
-              "id": "msg_09f86defd479c19500699089fa5b18819fba7d841f54310da9",
+              "id": "msg_0ee8dab0038f2cb10069c3f3e27f608190b77e734aefa6c534",
               "type": "message",
               "status": "completed",
               "content": [
@@ -107,7 +108,7 @@ http_interactions:
                   "type": "output_text",
                   "annotations": [],
                   "logprobs": [],
-                  "text": "Arrr, matey, me private thoughts be like buried treasure\u2014kept below deck! What I can share be this: I recalled that Singapore\u2019s weather be hot an\u2019 humid with tropical showers, then I shaped me words to sound like a salty pirate\u2019s tale."
+                  "text": "Arr, matey! I don\u2019t be havin\u2019 human thoughts like ye do. I was merely focusin\u2019 on answerin\u2019 yer question about Singapore\u2019s weather in proper pirate lingo\u2014kept it short, salty, and true to the tropics."
                 }
               ],
               "role": "assistant"
@@ -142,14 +143,14 @@ http_interactions:
             "input_tokens_details": {
               "cached_tokens": 0
             },
-            "output_tokens": 411,
+            "output_tokens": 341,
             "output_tokens_details": {
-              "reasoning_tokens": 320
+              "reasoning_tokens": 256
             },
-            "total_tokens": 452
+            "total_tokens": 382
           },
           "user": null,
           "metadata": {}
         }
-  recorded_at: Sat, 14 Feb 2026 14:43:07 GMT
+  recorded_at: Wed, 25 Mar 2026 14:40:35 GMT
 recorded_with: VCR 6.4.0

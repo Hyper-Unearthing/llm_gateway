@@ -15,6 +15,8 @@ module LlmGateway
             case content[:type]
             when "text"
               map_text_content(content)
+            when "image"
+              map_image_content(content)
             when "message"
               map_messages(content)
             when "output_text"
@@ -25,6 +27,8 @@ module LlmGateway
               map_tool_use_content(content)
             when "tool_result"
               map_tool_result_content(content)
+            when "reasoning"
+              map_reasoning_content(content)
             else
               content
             end
@@ -59,11 +63,44 @@ module LlmGateway
             }
           end
 
+          def map_reasoning_content(content)
+            if direction == LlmGateway::DIRECTION_IN
+              return { id: content[:id] } if content[:id]
+
+              content
+            else
+              {
+                type: "reasoning",
+                reasoning: normalize_reasoning_text(content[:summary]),
+                signature: content[:signature]
+              }
+            end
+          end
+
+          def map_image_content(content)
+            {
+              type: "input_image",
+              image_url: "data:#{content[:media_type]};base64,#{content[:data]}"
+            }
+          end
+
           def map_text_content(content)
             {
               type: "input_text",
               text: content[:text]
             }
+          end
+
+          def normalize_reasoning_text(summary)
+            return summary if summary.is_a?(String)
+            return nil unless summary.is_a?(Array)
+            return nil if summary.empty?
+
+            summary.filter_map do |item|
+              next item if item.is_a?(String)
+
+              item[:text] || item[:summary_text] || item[:reasoning]
+            end.join("\n")
           end
         end
       end

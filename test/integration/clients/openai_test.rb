@@ -74,6 +74,7 @@ class OpenaiClientTest < Test
       openai_client.chat([ { 'role': "user", 'content': "hello" } ])
     end
   end
+
   test "throws conflict error" do
     stub_error_response({ type: "conflict", message: "resource conflict" }, 409)
     assert_raises(LlmGateway::Errors::ConflictError) do

@@ -29,18 +29,18 @@ module LlmGateway
             return messages unless messages
             mapper = message_mapper
 
-            # First map messages like Claude
-            messages.map do |msg|
-              if msg[:id]
-                msg = msg.merge(role: "assistant")
+            messages.flat_map do |msg|
+              if msg[:id] && msg[:content].is_a?(Array)
+                # Full AssistantMessage#to_h — expand content for stateless multi-turn
+                map_assistant_history_message(msg)
+              elsif msg[:id]
+                # Bare item-reference (e.g. manually constructed { id: "item_xxx" })
                 msg.slice(:id)
               else
                 content = if msg[:content].is_a?(Array)
                     msg[:content].map do |content|
                       mapper.map_content(content)
                     end
-                elsif msg[:id]
-                  mapper.map_content(msg)
                 else
                   [ mapper.map_content(msg[:content]) ]
                 end
@@ -54,6 +54,39 @@ module LlmGateway
                 end
               end
             end
+          end
+
+          # Map a full AssistantMessage#to_h into Responses API input items for
+          # stateless multi-turn conversations.
+          #
+          #   text blocks   → { role: "assistant", content: [{ type: "output_text", ... }] }
+          #   tool_use blocks → top-level function_call items
+          #   thinking blocks → omitted (model handles reasoning internally)
+          def self.map_assistant_history_message(msg)
+            blocks = (msg[:content] || []).map { |b| b.transform_keys(&:to_sym) }
+
+            text_blocks     = blocks.select { |b| b[:type] == "text" }
+            tool_use_blocks = blocks.select { |b| b[:type] == "tool_use" }
+
+            result = []
+
+            if text_blocks.any?
+              result << {
+                role: "assistant",
+                content: text_blocks.map { |b| { type: "output_text", text: b[:text] } }
+              }
+            end
+
+            tool_use_blocks.each do |b|
+              result << {
+                type: "function_call",
+                call_id: b[:id],
+                name: b[:name],
+                arguments: b[:input].is_a?(Hash) ? b[:input].to_json : (b[:input] || {}).to_json
+              }
+            end
+
+            result
           end
         end
       end

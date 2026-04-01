@@ -15,6 +15,8 @@ require_relative "llm_gateway/clients/open_ai"
 require_relative "llm_gateway/clients/groq"
 
 # Load adapters
+require_relative "llm_gateway/adapters/option_mapper"
+require_relative "llm_gateway/adapters/anthropic_option_mapper"
 require_relative "llm_gateway/adapters/claude/input_mapper"
 require_relative "llm_gateway/adapters/claude/output_mapper"
 require_relative "llm_gateway/adapters/claude_code/input_mapper"
@@ -22,11 +24,13 @@ require_relative "llm_gateway/adapters/claude_code/output_mapper"
 require_relative "llm_gateway/adapters/open_ai/file_output_mapper"
 require_relative "llm_gateway/adapters/open_ai/chat_completions/input_mapper"
 require_relative "llm_gateway/adapters/open_ai/chat_completions/output_mapper"
+require_relative "llm_gateway/adapters/open_ai/chat_completions/option_mapper"
 require_relative "llm_gateway/adapters/groq/input_mapper"
 require_relative "llm_gateway/adapters/groq/output_mapper"
 require_relative "llm_gateway/adapters/open_ai/file_output_mapper"
 require_relative "llm_gateway/adapters/open_ai/responses/input_mapper"
 require_relative "llm_gateway/adapters/open_ai/responses/output_mapper"
+require_relative "llm_gateway/adapters/open_ai/responses/option_mapper"
 
 # Load adapter classes
 require_relative "llm_gateway/adapters/adapter"
