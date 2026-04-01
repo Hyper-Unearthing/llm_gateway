@@ -191,6 +191,28 @@ class OpenAiCodexClientTest < Test
     end
   end
 
+  test "chat accepts unified reasoning option" do
+    stub_stream_success
+
+    codex_client.chat([ { role: "user", content: "Hi" } ], reasoning: { effort: "high" })
+
+    assert_requested(:post, CODEX_ENDPOINT) do |req|
+      body = JSON.parse(req.body)
+      body["reasoning"] == { "effort" => "high", "summary" => "detailed" }
+    end
+  end
+
+  test "stream accepts unified reasoning option" do
+    stub_stream_success
+
+    codex_client.stream([ { role: "user", content: "Hi" } ], reasoning: "low") { |_e| }
+
+    assert_requested(:post, CODEX_ENDPOINT) do |req|
+      body = JSON.parse(req.body)
+      body["reasoning"] == { "effort" => "low", "summary" => "detailed" }
+    end
+  end
+
   # ---------------------------------------------------------------------------
   # Headers
   # ---------------------------------------------------------------------------

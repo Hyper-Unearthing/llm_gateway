@@ -85,10 +85,10 @@ module LlmGateway
       # response Hash is returned.  With a block, raw SSE event hashes are
       # yielded as they arrive.
       def chat(messages, response_format: { type: "text" }, tools: nil, system: [],
-               max_completion_tokens: 20480, **_options, &block)
+               max_completion_tokens: 20480, reasoning: nil, **_options, &block)
         ensure_valid_token
 
-        body = build_codex_body(messages, system, tools, max_completion_tokens)
+        body = build_codex_body(messages, system, tools, max_completion_tokens, reasoning:)
 
         if block_given?
           post_stream_with_retry("responses", body, &block)
@@ -106,9 +106,9 @@ module LlmGateway
 
       # Streaming interface: yields raw SSE event hashes to the block.
       def stream(messages, response_format: { type: "text" }, tools: nil, system: [],
-                 max_completion_tokens: 20480, thinking: {}, **_options, &block)
+                 max_completion_tokens: 20480, reasoning: nil, **_options, &block)
         ensure_valid_token
-        body = build_codex_body(messages, system, tools, max_completion_tokens, thinking:)
+        body = build_codex_body(messages, system, tools, max_completion_tokens, reasoning:)
         post_stream_with_retry("responses", body, &block)
       end
 
@@ -150,7 +150,7 @@ module LlmGateway
       # Body builder
       # ------------------------------------------------------------------
 
-      def build_codex_body(messages, system, tools, max_completion_tokens, thinking: nil)
+      def build_codex_body(messages, system, tools, max_completion_tokens, reasoning: nil)
         instructions = Array(system).filter_map { |s|
           s.is_a?(Hash) ? s[:content] : s
         }.join("\n")
@@ -171,14 +171,14 @@ module LlmGateway
         body[:tools]                   = tools                 if tools
 
         # Resolve reasoning effort: constructor-level @reasoning_effort takes
-        # precedence, then fall back to the per-call thinking: param.
-        effort = @reasoning_effort || resolve_reasoning_effort(thinking)
+        # precedence, then fall back to the unified per-call reasoning: param.
+        effort = @reasoning_effort || resolve_reasoning_effort(reasoning)
         body[:reasoning] = { effort: effort, summary: "detailed" } if effort
 
         body
       end
 
-      # Translate the generic thinking: param (string effort OR hash with :effort
+      # Translate a reasoning value (string effort OR hash with :effort
       # key) into a plain effort string understood by the Codex backend.
       # Anthropic-style hashes (type: "enabled", budget_tokens: …) are ignored
       # because the Codex backend has no equivalent concept.
