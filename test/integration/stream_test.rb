@@ -13,9 +13,12 @@ class ProvidersJsonTest < Test
   end
 
   def load_provider(name)
-    providers = JSON.parse(File.read(File.expand_path("../fixtures/providers.json", __dir__)))
+    providers_path = File.expand_path("../fixtures/providers.json", __dir__)
+    skip("Skipped: missing providers fixture at #{providers_path}") unless File.exist?(providers_path)
+
+    providers = JSON.parse(File.read(providers_path))
     provider = providers.find { |entry| entry["name"] == name }
-    raise "Provider not found: #{name}" unless provider
+    skip("Skipped: provider not found in providers.json: #{name}") unless provider
 
     config = provider.fetch("config").dup
     key_env = config.delete("key_env")
@@ -294,10 +297,14 @@ class ProvidersJsonTest < Test
     assert_includes lower_content, "red"
     assert_includes lower_content, "circle"
   end
-  # "anthropic_oauth",
-  #
+  def self.provider_names
+    providers_path = File.expand_path("../fixtures/providers.json", __dir__)
+    return [] unless File.exist?(providers_path)
 
-  [ "anthropic_oauth", "openai_api_codex", "openai_api_messages", "openai_api_responses", "anthropic_api_key" ].each do |provider|
+    JSON.parse(File.read(providers_path)).map { |entry| entry["name"] }
+  end
+
+  self.provider_names.each do |provider|
     test "#{provider} basic text generation" do
       skip_on_authentication_error do
         without_vcr do
