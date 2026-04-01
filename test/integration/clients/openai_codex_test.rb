@@ -16,8 +16,8 @@ class OpenAiCodexClientTest < Test
   def codex_client(access_token: "test-access-token", model_key: "gpt-4o", account_id: "acct_123")
     LlmGateway::Clients::OpenAiCodex.new(
       access_token: access_token,
-      model_key:    model_key,
-      account_id:   account_id
+      model_key: model_key,
+      account_id: account_id
     )
   end
 
@@ -36,19 +36,19 @@ class OpenAiCodexClientTest < Test
     else
       [
         {
-          type:    "message",
-          role:    "assistant",
-          id:      "msg_#{response_id}",
+          type: "message",
+          role: "assistant",
+          id: "msg_#{response_id}",
           content: [ { type: "output_text", text: text } ]
         }
       ]
     end
 
     response_obj = {
-      id:     response_id,
-      model:  model,
+      id: response_id,
+      model: model,
       output: output,
-      usage:  { input_tokens: 10, output_tokens: 5 }
+      usage: { input_tokens: 10, output_tokens: 5 }
     }
 
     "event: response.completed\ndata: #{JSON.generate(response: response_obj)}\n\n"
@@ -57,8 +57,8 @@ class OpenAiCodexClientTest < Test
   def stub_stream_success(**kwargs)
     stub_request(:post, CODEX_ENDPOINT)
       .to_return(
-        status:  200,
-        body:    completed_sse_body(**kwargs),
+        status: 200,
+        body: completed_sse_body(**kwargs),
         headers: { "Content-Type" => "text/event-stream" }
       )
   end
@@ -66,8 +66,8 @@ class OpenAiCodexClientTest < Test
   def stub_error_response(error_hash, status_code)
     stub_request(:post, CODEX_ENDPOINT)
       .to_return(
-        status:  status_code,
-        body:    { error: error_hash }.to_json,
+        status: status_code,
+        body: { error: error_hash }.to_json,
         headers: { "Content-Type" => "application/json" }
       )
   end
@@ -180,7 +180,7 @@ class OpenAiCodexClientTest < Test
     stub_stream_success
 
     client = LlmGateway::Clients::OpenAiCodex.new(
-      access_token:     "tok",
+      access_token: "tok",
       reasoning_effort: "medium"
     )
     client.chat([ { role: "user", content: "Hi" } ])
@@ -314,11 +314,11 @@ class OpenAiCodexClientTest < Test
   test "creates token manager when refresh_token is provided" do
     stub_request(:post, "https://auth.openai.com/oauth/token")
       .to_return(
-        status:  200,
-        body:    {
-          access_token:  "new-access-token",
+        status: 200,
+        body: {
+          access_token: "new-access-token",
           refresh_token: "new-refresh-token",
-          expires_in:    3600
+          expires_in: 3600
         }.to_json,
         headers: { "Content-Type" => "application/json" }
       )
@@ -332,9 +332,9 @@ class OpenAiCodexClientTest < Test
 
   test "skips eager refresh when access_token is supplied alongside refresh_token" do
     client = LlmGateway::Clients::OpenAiCodex.new(
-      access_token:  "existing-token",
+      access_token: "existing-token",
       refresh_token: "refresh-token",
-      expires_at:    Time.now + 3600
+      expires_at: Time.now + 3600
     )
 
     refute_nil client.token_manager
@@ -353,10 +353,16 @@ class OpenAiCodexClientTest < Test
     client.instance_variable_set(:@token_manager, token_manager)
 
     stub_request(:post, CODEX_ENDPOINT).to_return(
-      { status: 401, body: { error: { type: "authentication_error", message: "expired" } }.to_json,
-        headers: { "Content-Type" => "application/json" } },
-      { status: 200, body: completed_sse_body(response_id: "resp_retry"),
-        headers: { "Content-Type" => "text/event-stream" } }
+      {
+        status: 401,
+        body: { error: { type: "authentication_error", message: "expired" } }.to_json,
+        headers: { "Content-Type" => "application/json" }
+      },
+      {
+        status: 200,
+        body: completed_sse_body(response_id: "resp_retry"),
+        headers: { "Content-Type" => "text/event-stream" }
+      }
     )
 
     result = client.chat([ { role: "user", content: "Hi" } ])
@@ -386,19 +392,19 @@ class OpenAiCodexClientTest < Test
 
     stub_request(:post, "https://auth.openai.com/oauth/token")
       .to_return(
-        status:  200,
-        body:    {
-          access_token:  "refreshed",
+        status: 200,
+        body: {
+          access_token: "refreshed",
           refresh_token: "new-rt",
-          expires_in:    3600
+          expires_in: 3600
         }.to_json,
         headers: { "Content-Type" => "application/json" }
       )
 
     client = LlmGateway::Clients::OpenAiCodex.new(
-      access_token:  "tok",
+      access_token: "tok",
       refresh_token: "rt",
-      expires_at:    Time.now + 3600
+      expires_at: Time.now + 3600
     )
     client.on_token_refresh = callback
     client.token_manager.refresh_access_token!
@@ -450,7 +456,7 @@ class OpenAiCodexClientTest < Test
   test "TokenManager token_expired? returns false for future expiry" do
     tm = LlmGateway::Clients::OpenAiCodex::TokenManager.new(
       refresh_token: "rt",
-      expires_at:    Time.now + 3600
+      expires_at: Time.now + 3600
     )
     refute tm.token_expired?
   end
@@ -458,7 +464,7 @@ class OpenAiCodexClientTest < Test
   test "TokenManager token_expired? returns true for past expiry" do
     tm = LlmGateway::Clients::OpenAiCodex::TokenManager.new(
       refresh_token: "rt",
-      expires_at:    Time.now - 1
+      expires_at: Time.now - 1
     )
     assert tm.token_expired?
   end
@@ -468,18 +474,18 @@ class OpenAiCodexClientTest < Test
 
     stub_request(:post, "https://auth.openai.com/oauth/token")
       .to_return(
-        status:  200,
-        body:    {
-          access_token:  "new-at",
+        status: 200,
+        body: {
+          access_token: "new-at",
           refresh_token: "new-rt",
-          expires_in:    7200
+          expires_in: 7200
         }.to_json,
         headers: { "Content-Type" => "application/json" }
       )
 
     tm = LlmGateway::Clients::OpenAiCodex::TokenManager.new(
       refresh_token: "old-rt",
-      expires_at:    Time.now - 1
+      expires_at: Time.now - 1
     )
     tm.on_token_refresh = ->(at, rt, exp) { received << { at: at, rt: rt, exp: exp } }
 
