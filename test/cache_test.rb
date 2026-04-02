@@ -13,7 +13,7 @@ class CacheTest < Test
       stop_reason: "end_turn"
     }.freeze
 
-    def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480)
+    def chat(messages, tools: nil, system: [], max_completion_tokens: 20480)
       CHAT_RESPONSE
     end
   end
@@ -31,7 +31,6 @@ class CacheTest < Test
     client = TestClient.new
     client.expects(:chat).once.with(
       [ { role: "user", content: [ { type: "text", text: "return the content of the document exactly", cache_control: { 'type': "ephemeral" } } ] } ],
-      response_format: anything,
       tools: anything,
       system: anything
     ).returns(TestClient::CHAT_RESPONSE)
@@ -46,7 +45,6 @@ class CacheTest < Test
     client = TestClient.new
     client.expects(:chat).once.with(
       anything,
-      response_format: anything,
       tools: anything,
       system: [ { type: "text", text: "do it proper", cache_control: { 'type': "ephemeral" } } ]
     ).returns(TestClient::CHAT_RESPONSE)
@@ -64,7 +62,6 @@ class CacheTest < Test
 
     client.expects(:chat).once.with(
       anything,
-      response_format: anything,
       tools: tools,
       system: anything
     ).returns(TestClient::CHAT_RESPONSE)

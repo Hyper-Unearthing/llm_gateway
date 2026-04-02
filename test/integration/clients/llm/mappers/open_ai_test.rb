@@ -8,7 +8,6 @@ class OpenAIMapperTest < Test
       messages: [ { role: "user", content: "What's the weather in Singapore? reply in 10 words and no special characters" },
              { content: [ { id: "call_gpXfy9l9QNmShNEbNI1FyuUZ", type: "tool_use", name: "get_weather", input: { location: "Singapore" } } ] },
              { role: "developer", content: [ { content: "-15 celcius", type: "tool_result", tool_use_id: "call_gpXfy9l9QNmShNEbNI1FyuUZ" } ] } ],
-      response_format: { type: "text" },
       tools: [ { name: "get_weather", description: "Get current weather for a location", input_schema: { type: "object", properties: { location: { type: "string", description: "City name" } }, required: [ "location" ] } } ],
       system: [ { role: "system", content: "Talk like a pirate" } ]
     }
@@ -16,7 +15,6 @@ class OpenAIMapperTest < Test
 
     expectation ={
       system: [ { role: "developer", content: "Talk like a pirate" } ],
-      response_format: { type: "text" },
       messages: [ { role: "user", content: [ { type: "text", text: "What's the weather in Singapore? reply in 10 words and no special characters" } ] },
        {
          role: "assistant",
@@ -122,7 +120,6 @@ class OpenAIMapperTest < Test
       messages: [ { role: "user", content: "What's the weather in Singapore? reply in 10 words and no special characters" },
              { role: "assistant", content: [ { id: "call_gpXfy9l9QNmShNEbNI1FyuUZ", type: "tool_use", name: "get_weather", input: { location: "Singapore" } } ] },
              { role: "developer", content: [ { content: "-15 celcius", type: "tool_result", tool_use_id: "call_gpXfy9l9QNmShNEbNI1FyuUZ" } ] } ],
-      response_format: { type: "text" },
       tools: [ { name: "get_weather", description: "Get current weather for a location", input_schema: { type: "object", properties: { location: { type: "string", description: "City name" } }, required: [ "location" ] } } ],
       system: [ { role: "system", content: "Talk like a pirate" } ]
     }
@@ -130,7 +127,6 @@ class OpenAIMapperTest < Test
 
     expectation ={
       system: [ { role: "developer", content: "Talk like a pirate" } ],
-      response_format: { type: "text" },
       messages: [ { role: "user", content: [ { type: "text", text: "What's the weather in Singapore? reply in 10 words and no special characters" } ] },
        {
          role: "assistant",

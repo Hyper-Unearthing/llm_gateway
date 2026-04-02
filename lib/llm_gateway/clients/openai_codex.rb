@@ -84,7 +84,7 @@ module LlmGateway
       # Without a block the stream is consumed internally and the completed
       # response Hash is returned.  With a block, raw SSE event hashes are
       # yielded as they arrive.
-      def chat(messages, response_format: { type: "text" }, tools: nil, system: [],
+      def chat(messages, tools: nil, system: [],
                max_completion_tokens: 20480, reasoning: nil, **_options, &block)
         ensure_valid_token
 
@@ -105,7 +105,7 @@ module LlmGateway
       end
 
       # Streaming interface: yields raw SSE event hashes to the block.
-      def stream(messages, response_format: { type: "text" }, tools: nil, system: [],
+      def stream(messages, tools: nil, system: [],
                  max_completion_tokens: 20480, reasoning: nil, **_options, &block)
         ensure_valid_token
         body = build_codex_body(messages, system, tools, max_completion_tokens, reasoning:)
