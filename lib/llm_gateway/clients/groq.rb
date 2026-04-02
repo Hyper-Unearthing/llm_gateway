@@ -10,13 +10,10 @@ module LlmGateway
         super(model_key: model_key, api_key: api_key)
       end
 
-      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, **options)
+      def chat(messages, tools: nil, system: [], **options)
         body = {
           model: model_key,
           messages: system + messages,
-          temperature: 0,
-          max_completion_tokens: max_completion_tokens,
-          response_format: response_format,
           tools: tools
         }
         body.merge!(options)

@@ -13,7 +13,7 @@ class CacheTest < Test
       stop_reason: "end_turn"
     }.freeze
 
-    def chat(messages, tools: nil, system: [], max_completion_tokens: 20480)
+    def chat(messages, tools: nil, system: [], max_tokens: 20480)
       CHAT_RESPONSE
     end
   end
@@ -32,7 +32,8 @@ class CacheTest < Test
     client.expects(:chat).once.with(
       [ { role: "user", content: [ { type: "text", text: "return the content of the document exactly", cache_control: { 'type': "ephemeral" } } ] } ],
       tools: anything,
-      system: anything
+      system: anything,
+      max_tokens: anything
     ).returns(TestClient::CHAT_RESPONSE)
 
     adapter = LlmGateway::Adapters::Claude::MessagesAdapter.new client
@@ -46,7 +47,8 @@ class CacheTest < Test
     client.expects(:chat).once.with(
       anything,
       tools: anything,
-      system: [ { type: "text", text: "do it proper", cache_control: { 'type': "ephemeral" } } ]
+      system: [ { type: "text", text: "do it proper", cache_control: { 'type': "ephemeral" } } ],
+      max_tokens: anything
     ).returns(TestClient::CHAT_RESPONSE)
 
     adapter = LlmGateway::Adapters::Claude::MessagesAdapter.new client
@@ -63,7 +65,8 @@ class CacheTest < Test
     client.expects(:chat).once.with(
       anything,
       tools: tools,
-      system: anything
+      system: anything,
+      max_tokens: anything
     ).returns(TestClient::CHAT_RESPONSE)
 
     adapter.chat("hello", tools: tools)

@@ -2,7 +2,7 @@
 
 require_relative "../adapter"
 require_relative "../open_ai/responses/output_mapper"
-require_relative "../open_ai/responses/option_mapper"
+require_relative "option_mapper"
 require_relative "../open_ai/responses/stream_mapper"
 require_relative "../open_ai/file_output_mapper"
 require_relative "input_mapper"
@@ -27,7 +27,7 @@ module LlmGateway
             input_mapper: OpenAiCodex::InputMapper,
             output_mapper: OpenAi::Responses::OutputMapper,
             file_output_mapper: OpenAi::FileOutputMapper,
-            option_mapper: OpenAi::Responses::OptionMapper,
+            option_mapper: OptionMapper,
             client_method: :chat,
             stream_mapper: OpenAi::Responses::StreamMapper
           )

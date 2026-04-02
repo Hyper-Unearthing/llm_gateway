@@ -8,6 +8,8 @@ module LlmGateway
 
         def map(options)
           mapped_options = options.dup
+          mapped_options[:temperature] ||= 0
+          mapped_options[:max_completion_tokens] ||= 20480
           mapped_options[:response_format] = normalize_response_format(mapped_options[:response_format] || "text")
           mapped_options
         end

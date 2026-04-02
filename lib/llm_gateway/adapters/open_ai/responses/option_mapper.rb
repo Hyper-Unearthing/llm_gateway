@@ -10,10 +10,14 @@ module LlmGateway
           module_function
 
           def map(options)
-            return options unless options.key?(:reasoning)
+            mapped_options = options.dup
 
-            reasoning = options[:reasoning]
-            mapped_options = options.reject { |key, _| key == :reasoning }
+            max_completion_tokens = mapped_options.delete(:max_completion_tokens)
+            mapped_options[:max_output_tokens] = max_completion_tokens || mapped_options[:max_output_tokens] || 20_480
+
+            return mapped_options unless mapped_options.key?(:reasoning)
+
+            reasoning = mapped_options.delete(:reasoning)
             return mapped_options if reasoning.nil? || reasoning.to_s == "none"
 
             mapped_options.merge(reasoning: normalize_reasoning(reasoning))

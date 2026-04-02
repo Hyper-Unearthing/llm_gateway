@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_relative "../adapter"
-require_relative "../anthropic_option_mapper"
 require_relative "input_mapper"
+require_relative "option_mapper"
 require_relative "output_mapper"
 require_relative "../claude/output_mapper"
 require_relative "../claude/stream_mapper"
@@ -17,7 +17,7 @@ module LlmGateway
             input_mapper: InputMapper,
             output_mapper: OutputMapper,
             file_output_mapper: Claude::FileOutputMapper,
-            option_mapper: AnthropicOptionMapper,
+            option_mapper: OptionMapper,
             client_method: :chat,
             stream_mapper: Claude::StreamMapper
           )
