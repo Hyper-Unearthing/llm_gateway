@@ -41,10 +41,21 @@ module LlmGateway
           end
 
           def map_tool_result_content(content)
+            output = content[:content]
+            if output.is_a?(Array)
+              output = output.map do |item|
+                if item.is_a?(Hash)
+                  map_content(item.transform_keys(&:to_sym))
+                else
+                  item
+                end
+              end
+            end
+
             {
               "type": "function_call_output",
               "call_id": content[:tool_use_id],
-              "output": content[:content]
+              "output": output
             }
           end
 
@@ -58,7 +69,7 @@ module LlmGateway
 
           def map_output_text_content(content)
             {
-              type: "text",
+              type: direction == LlmGateway::DIRECTION_IN ? "input_text" : "text",
               text: content[:text]
             }
           end
