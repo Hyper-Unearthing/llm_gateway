@@ -90,10 +90,17 @@ module LlmGateway
         end
 
         def map_tool_result_content(content)
+          mapped_content = content[:content]
+          if mapped_content.is_a?(Array)
+            mapped_content = mapped_content.map do |item|
+              item.is_a?(Hash) ? map_content(item.transform_keys(&:to_sym)) : item
+            end
+          end
+
           {
             role: "tool",
             tool_call_id: content[:tool_use_id],
-            content: content[:content]
+            content: mapped_content
           }
         end
         end

@@ -14,14 +14,25 @@ module LlmGateway
 
           def self.map_tools(tools)
             return tools unless tools
+            mapper = message_mapper
 
             tools.map do |tool|
-              {
+              mapped_tool = {
                 type: "function",
                 name: tool[:name],
                 description: tool[:description],
                 parameters: tool[:input_schema]
               }
+
+              [ :contents, :content ].each do |key|
+                next unless tool[key].is_a?(Array)
+
+                mapped_tool[key] = tool[key].map do |entry|
+                  entry.is_a?(Hash) ? mapper.map_content(entry.transform_keys(&:to_sym)) : entry
+                end
+              end
+
+              mapped_tool
             end
           end
 
