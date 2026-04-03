@@ -12,7 +12,8 @@ require_relative "llm_gateway/tool"
 require_relative "llm_gateway/clients/claude"
 require_relative "llm_gateway/clients/claude_code"
 require_relative "llm_gateway/clients/open_ai"
-require_relative "llm_gateway/clients/openai_codex"
+require_relative "llm_gateway/clients/openai_codex/oauth_flow"
+require_relative "llm_gateway/clients/openai_codex/token_manager"
 require_relative "llm_gateway/clients/groq"
 
 # Load adapters
@@ -66,7 +67,7 @@ module LlmGateway
     end
 
     module OpenAiCodex
-      Client = LlmGateway::Clients::OpenAiCodex
+      Client = LlmGateway::Clients::OpenAi
     end
 
     module Groq
@@ -128,6 +129,6 @@ module LlmGateway
     adapter: Adapters::Groq::ChatCompletionsAdapter)
 
   ProviderRegistry.register("openai_oauth_codex",
-    client: Clients::OpenAiCodex,
+    client: Clients::OpenAi,
     adapter: Adapters::OpenAiCodex::ResponsesAdapter)
 end

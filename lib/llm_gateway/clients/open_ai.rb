@@ -5,8 +5,13 @@ require_relative "../base_client"
 module LlmGateway
   module Clients
     class OpenAi < BaseClient
-      def initialize(model_key: "gpt-4o", api_key: ENV["OPENAI_API_KEY"])
+      CODEX_BASE_ENDPOINT = "https://chatgpt.com/backend-api/codex"
+
+      attr_reader :account_id
+
+      def initialize(model_key: "gpt-4o", api_key: ENV["OPENAI_API_KEY"], account_id: nil)
         @base_endpoint = "https://api.openai.com/v1"
+        @account_id = account_id
         super(model_key: model_key, api_key: api_key)
       end
 
@@ -57,6 +62,36 @@ module LlmGateway
         post_stream("responses", body, &block)
       end
 
+      def get_oauth_access_token(access_token:, refresh_token:, expires_at:, account_id: nil, &block)
+        token_manager = LlmGateway::Clients::OpenAi::TokenManager.new(
+          access_token: access_token,
+          refresh_token: refresh_token,
+          expires_at: expires_at,
+          account_id: account_id
+        )
+        token_manager.on_token_refresh = block if block_given?
+        token_manager.ensure_valid_token
+        token_manager.access_token
+      end
+
+      def chat_codex(messages, tools: nil, system: [], account_id: nil, **options)
+        body = build_codex_body(messages, system, tools, **options)
+
+        completed_response = nil
+        post_codex_stream("responses", body, account_id: account_id) do |raw_sse|
+          if raw_sse[:event] == "response.completed"
+            completed_response = raw_sse.dig(:data, :response)
+          end
+        end
+
+        completed_response
+      end
+
+      def stream_codex(messages, tools: nil, system: [], account_id: nil, **options, &block)
+        body = build_codex_body(messages, system, tools, **options)
+        post_codex_stream("responses", body, account_id: account_id, &block)
+      end
+
       def download_file(file_id)
         get("files/#{file_id}/content")
       end
@@ -75,6 +110,63 @@ module LlmGateway
 
       private
 
+      def build_codex_body(messages, system, tools, **options)
+        instructions = Array(system).filter_map { |s| s.is_a?(Hash) ? s[:content] : s }.join("\n")
+        instructions = "You are a helpful assistant." if instructions.empty?
+
+        body = {
+          model: model_key,
+          instructions: instructions,
+          input: messages,
+          store: false,
+          include: [ "reasoning.encrypted_content" ],
+          stream: true
+        }
+
+        body[:tools] = tools if tools
+        body.merge!(options)
+
+        body
+      end
+
+      def codex_headers(account_id: nil)
+        effective_account_id = account_id || @account_id
+
+        headers = {
+          "content-type" => "application/json",
+          "Authorization" => "Bearer #{api_key}",
+          "OpenAI-Beta" => "responses=experimental"
+        }
+        headers["chatgpt-account-id"] = effective_account_id if effective_account_id
+        headers
+      end
+
+      def post_codex_stream(url_part, body = nil, account_id: nil, &block)
+        endpoint = "#{CODEX_BASE_ENDPOINT}/#{url_part.sub(%r{^/}, "")}"
+        uri = URI(endpoint)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        http.read_timeout = 480
+        http.open_timeout = 10
+
+        body.merge!(stream: true)
+        request = Net::HTTP::Post.new(uri)
+        codex_headers(account_id: account_id).each { |key, value| request[key] = value }
+        request.body = body.to_json if body
+
+        http.request(request) do |response|
+          unless response.code.to_i == 200
+            full_body = +""
+            response.read_body { |chunk| full_body << chunk }
+            response.instance_variable_set(:@body, full_body)
+            response.instance_variable_set(:@read, true)
+            handle_error(response)
+          end
+
+          parse_sse_stream(response, &block)
+        end
+      end
+
       def build_headers
         {
           "content-type" => "application/json",
@@ -92,9 +184,9 @@ module LlmGateway
         when 503
           raise Errors::OverloadError.new(error["message"], error_code)
         end
-
         # If we get here, we didn't handle it specifically
-        raise Errors::APIStatusError.new(error["message"], error_code)
+        message = error["message"] || "OpenAI request failed with status #{response.code}"
+        raise Errors::APIStatusError.new(message, error_code)
       end
     end
   end
