@@ -22,8 +22,6 @@ require_relative "llm_gateway/adapters/structs"
 
 require_relative "llm_gateway/adapters/claude/input_mapper"
 require_relative "llm_gateway/adapters/claude/output_mapper"
-require_relative "llm_gateway/adapters/claude_code/input_mapper"
-require_relative "llm_gateway/adapters/claude_code/output_mapper"
 require_relative "llm_gateway/adapters/open_ai/file_output_mapper"
 require_relative "llm_gateway/adapters/open_ai/chat_completions/input_mapper"
 require_relative "llm_gateway/adapters/open_ai/chat_completions/output_mapper"
@@ -38,7 +36,6 @@ require_relative "llm_gateway/adapters/open_ai/responses/option_mapper"
 # Load adapter classes
 require_relative "llm_gateway/adapters/adapter"
 require_relative "llm_gateway/adapters/claude/messages_adapter"
-require_relative "llm_gateway/adapters/claude_code/messages_adapter"
 require_relative "llm_gateway/adapters/open_ai/chat_completions_adapter"
 require_relative "llm_gateway/adapters/open_ai/responses_adapter"
 require_relative "llm_gateway/adapters/openai_codex/responses_adapter"
@@ -117,10 +114,6 @@ module LlmGateway
   ProviderRegistry.register("anthropic_apikey_messages",
     client: Clients::Claude,
     adapter: Adapters::Claude::MessagesAdapter)
-
-  ProviderRegistry.register("anthropic_oauth_messages",
-    client: Clients::ClaudeCode,
-    adapter: Adapters::ClaudeCode::MessagesAdapter)
 
   ProviderRegistry.register("openai_apikey_completions",
     client: Clients::OpenAi,

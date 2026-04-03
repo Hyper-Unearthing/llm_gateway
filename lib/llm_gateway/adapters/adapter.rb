@@ -95,8 +95,7 @@ module LlmGateway
 
       def stream_api_name
         case self
-        when LlmGateway::Adapters::Claude::MessagesAdapter,
-             LlmGateway::Adapters::ClaudeCode::MessagesAdapter
+        when LlmGateway::Adapters::Claude::MessagesAdapter
           "messages"
         when LlmGateway::Adapters::OpenAi::ChatCompletionsAdapter,
              LlmGateway::Adapters::Groq::ChatCompletionsAdapter

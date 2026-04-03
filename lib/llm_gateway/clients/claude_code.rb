@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 require_relative "claude"
-require_relative "claude_code/oauth_flow"
-require_relative "claude_code/token_manager"
 
 module LlmGateway
   module Clients
     class ClaudeCode < Claude
+      require_relative "claude_code/oauth_flow"
+      require_relative "claude_code/token_manager"
+
       CLAUDE_CODE_VERSION = "2.1.2"
       attr_reader :token_manager, :access_token
 

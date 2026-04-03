@@ -144,4 +144,78 @@ class ClaudeClientTest < Test
     assert_equal "tool_use", result[:content][0][:type]
     assert_equal "get_weather", result[:content][0][:name]
   end
+
+  test "uses claude code oauth headers for sk-ant-oat api keys" do
+    stub_request(:post, "https://api.anthropic.com/v1/messages")
+      .to_return(status: 200, body: { id: "msg_1", content: [], usage: {} }.to_json,
+                 headers: { 'Content-Type': "application/json" })
+
+    LlmGateway::Clients::Claude.new(api_key: "sk-ant-oat-abc").chat([ { role: "user", content: "hello" } ])
+
+    assert_requested(:post, "https://api.anthropic.com/v1/messages",
+                     headers: {
+                       "Authorization" => "Bearer sk-ant-oat-abc",
+                       "anthropic-beta" => "claude-code-20250219,oauth-2025-04-20",
+                       "anthropic-dangerous-direct-browser-access" => "true",
+                       "x-app" => "cli"
+                     })
+  end
+
+  test "prepends claude code identity for sk-ant-oat api keys" do
+    stub_request(:post, "https://api.anthropic.com/v1/messages")
+      .with { |request|
+        body = JSON.parse(request.body)
+        system = body["system"]
+        system.is_a?(Array) &&
+          system.length == 1 &&
+          system[0]["type"] == "text" &&
+          system[0]["text"] == "You are Claude Code, Anthropic's official CLI for Claude."
+      }
+      .to_return(status: 200, body: { id: "msg_1", content: [], usage: {} }.to_json,
+                 headers: { 'Content-Type': "application/json" })
+
+    LlmGateway::Clients::Claude.new(api_key: "sk-ant-oat-abc").chat([ { role: "user", content: "hello" } ])
+  end
+
+  test "get_oauth_access_token returns existing non-expired token" do
+    token = claude_client.get_oauth_access_token(
+      access_token: "valid-token",
+      refresh_token: "refresh-token",
+      expires_at: Time.now + 3600
+    )
+
+    assert_equal "valid-token", token
+  end
+
+  test "get_oauth_access_token refreshes expired token and fires callback" do
+    callback_payload = nil
+
+    stub_request(:post, "https://api.anthropic.com/v1/oauth/token")
+      .to_return(
+        status: 200,
+        body: {
+          access_token: "new-access-token",
+          refresh_token: "new-refresh-token",
+          expires_in: 3600
+        }.to_json,
+        headers: { 'Content-Type': "application/json" }
+      )
+
+    token = claude_client.get_oauth_access_token(
+      access_token: "expired-token",
+      refresh_token: "refresh-token",
+      expires_at: Time.now - 60
+    ) do |access_token, refresh_token, expires_at|
+      callback_payload = {
+        access_token: access_token,
+        refresh_token: refresh_token,
+        expires_at: expires_at
+      }
+    end
+
+    assert_equal "new-access-token", token
+    assert_equal "new-access-token", callback_payload[:access_token]
+    assert_equal "new-refresh-token", callback_payload[:refresh_token]
+    assert callback_payload[:expires_at].is_a?(Time)
+  end
 end
