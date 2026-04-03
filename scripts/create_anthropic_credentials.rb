@@ -3,6 +3,7 @@
 
 require "optparse"
 require "json"
+require "fileutils"
 require_relative "../lib/llm_gateway"
 
 module Scripts
@@ -11,7 +12,7 @@ module Scripts
       @options = {
         client_id: LlmGateway::Clients::ClaudeCode::OAuthFlow::CLIENT_ID,
         scopes: LlmGateway::Clients::ClaudeCode::OAuthFlow::DEFAULT_SCOPES,
-        output: nil
+        output: File.expand_path(ENV.fetch("LLM_GATEWAY_AUTH_FILE", "~/.config/llm_gateway/auth.json"))
       }
       parse_options(argv)
     end
@@ -45,10 +46,7 @@ module Scripts
         expires_at: tokens[:expires_at]&.iso8601
       }
 
-      if @options[:output]
-        File.write(@options[:output], JSON.pretty_generate(credentials) + "\n")
-        puts "Credentials written to #{@options[:output]}"
-      end
+      persist_credentials("anthropic", credentials)
 
       puts "Credentials:"
       puts JSON.pretty_generate(credentials)
@@ -80,6 +78,21 @@ module Scripts
           @options[:output] = value
         end
       end.parse!(argv)
+    end
+
+    def persist_credentials(provider, credentials)
+      output_path = File.expand_path(@options[:output])
+      FileUtils.mkdir_p(File.dirname(output_path))
+
+      existing = if File.exist?(output_path)
+        JSON.parse(File.read(output_path))
+      else
+        {}
+      end
+
+      existing[provider] = credentials
+      File.write(output_path, JSON.pretty_generate(existing) + "\n")
+      puts "Credentials written to #{output_path}"
     end
 
     def shell_escape(value)
