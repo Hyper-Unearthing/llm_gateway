@@ -10,7 +10,11 @@ module LlmGateway
 
         def map(options)
           mapped_options = OpenAi::Responses::OptionMapper.map(options)
-          mapped_options[:max_completion_tokens] ||= 20480
+
+          # Codex endpoint currently rejects token limit parameters.
+          mapped_options.delete(:max_output_tokens)
+          mapped_options.delete(:max_completion_tokens)
+
           mapped_options
         end
       end
