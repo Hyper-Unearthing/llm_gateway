@@ -185,7 +185,14 @@ module LlmGateway
           raise Errors::OverloadError.new(error["message"], error_code)
         end
         # If we get here, we didn't handle it specifically
-        message = error["message"] || "OpenAI request failed with status #{response.code}"
+        fallback_body = response.body.to_s.strip
+        fallback_message = if fallback_body.empty?
+          "OpenAI request failed with status #{response.code}"
+        else
+          "OpenAI request failed with status #{response.code}: #{fallback_body}"
+        end
+
+        message = error["message"] || fallback_message
         raise Errors::APIStatusError.new(message, error_code)
       end
     end
