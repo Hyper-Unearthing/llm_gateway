@@ -26,7 +26,7 @@ class ClaudeCodeClientTest < Test
   test "throws bad request error" do
     error = assert_raises(LlmGateway::Errors::BadRequestError) do
       VCR.use_cassette(vcr_cassette_name) do
-        claude_code_client.chat("i am not a list", max_completion_tokens: 4096)
+        claude_code_client.chat("i am not a list", max_tokens: 4096)
       end
     end
     assert_equal "messages: Input should be a valid list", error.message
@@ -35,7 +35,7 @@ class ClaudeCodeClientTest < Test
 
   test "works" do
     VCR.use_cassette(vcr_cassette_name) do
-      result = claude_code_client.chat([ { 'role': "user", 'content': "aqklcsa," } ], max_completion_tokens: 4096)
+      result = claude_code_client.chat([ { 'role': "user", 'content': "aqklcsa," } ], max_tokens: 4096)
       assert result[:id], "Expected response to have an id"
       assert result[:content], "Expected response to have content"
     end
@@ -44,7 +44,7 @@ class ClaudeCodeClientTest < Test
   test "throws prompt too long" do
     error = assert_raises(LlmGateway::Errors::PromptTooLong) do
       VCR.use_cassette(vcr_cassette_name) do
-        claude_code_client.chat([ { 'role': "user", 'content': "aqklcsa," * 40_000 } ], max_completion_tokens: 4096)
+        claude_code_client.chat([ { 'role': "user", 'content': "aqklcsa," * 40_000 } ], max_tokens: 4096)
       end
     end
     assert_equal "prompt is too long: 224967 tokens > 200000 maximum", error.message
@@ -54,7 +54,7 @@ class ClaudeCodeClientTest < Test
   test "throws authentication error" do
     error = assert_raises(LlmGateway::Errors::AuthenticationError) do
       VCR.use_cassette(vcr_cassette_name) do
-        claude_code_client(access_token: "invalid-token").chat([ { 'role': "user", 'content': "hello" } ], max_completion_tokens: 4096)
+        claude_code_client(access_token: "invalid-token").chat([ { 'role': "user", 'content': "hello" } ], max_tokens: 4096)
       end
     end
     assert_equal "Invalid bearer token", error.message
@@ -64,7 +64,7 @@ class ClaudeCodeClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        claude_code_client(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], max_completion_tokens: 4096)
+        claude_code_client(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], max_tokens: 4096)
       end
     end
     assert_equal "model: randomodel", error.message

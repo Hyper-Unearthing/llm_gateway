@@ -3,6 +3,7 @@
 module LlmGateway
   module Adapters
     module AnthropicOptionMapper
+      DEFAULT_MAX_TOKENS = 20_480
       REASONING_EFFORT_BUDGET_TOKENS = {
         "low" => 1024,
         "medium" => 5 * 1024,
@@ -13,13 +14,13 @@ module LlmGateway
       module_function
 
       def map(options)
-        return options unless options.key?(:reasoning)
-
+        mapped_options = options.reject { |key, _| %i[reasoning max_completion_tokens].include?(key) }
+        mapped_options[:max_tokens] = options[:max_completion_tokens] || 20480
         reasoning = options[:reasoning]
-        mapped_options = options.reject { |key, _| key == :reasoning }
         return mapped_options if reasoning.nil? || reasoning.to_s == "none"
 
-        mapped_options.merge(thinking: normalize_reasoning(reasoning))
+        mapped_options[:thinking] = normalize_reasoning(reasoning)
+        mapped_options
       end
 
       def normalize_reasoning(reasoning)

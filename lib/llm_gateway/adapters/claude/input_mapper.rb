@@ -9,7 +9,6 @@ module LlmGateway
         def self.map(data)
           {
             messages: map_messages(data[:messages]),
-            response_format: data[:response_format],
             tools: data[:tools],
             system: map_system(data[:system])
           }

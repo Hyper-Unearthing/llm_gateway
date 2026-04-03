@@ -44,12 +44,11 @@ module LlmGateway
         @token_manager&.on_token_refresh = callback
       end
 
-      def chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, **options)
+      def chat(messages, tools: nil, system: [], **options)
         ensure_valid_token
 
         body = {
           model: model_key,
-          max_tokens: max_completion_tokens,
           messages: messages
         }
 
@@ -64,20 +63,19 @@ module LlmGateway
         post_with_retry("messages", body)
       end
 
-      def stream(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, thinking: {}, &block)
+      def stream(messages, tools: nil, system: [], **options, &block)
         ensure_valid_token
 
         body = {
           model: model_key,
-          max_tokens: max_completion_tokens,
           messages: messages
         }
 
-        body.merge!(thinking: thinking) if LlmGateway::Utils.present?(thinking)
         body.merge!(tools: tools) if LlmGateway::Utils.present?(tools)
 
         system = prepend_claude_code_identity(system)
         body.merge!(system: system) if LlmGateway::Utils.present?(system)
+        body.merge!(options)
 
         post_stream_with_retry("messages", body, &block)
       end

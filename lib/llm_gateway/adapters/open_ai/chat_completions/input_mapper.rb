@@ -11,17 +11,12 @@ module LlmGateway
         def self.map(data)
           {
             messages: map_messages(data[:messages]),
-            response_format: map_response_format(data[:response_format]),
             tools: map_tools(data[:tools]),
             system: map_system(data[:system])
           }
         end
 
         private
-
-        def self.map_response_format(response_format)
-          response_format
-        end
 
         def self.map_messages(messages)
           return messages unless messages

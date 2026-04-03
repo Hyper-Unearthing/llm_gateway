@@ -7,6 +7,10 @@ class GroqClientTest < Test
     WebMock.reset!
   end
 
+  def mapped_options(**options)
+    LlmGateway::Adapters::Groq::OptionMapper.map(options)
+  end
+
   def stub_error_response(error, status_code = 200)
     stub_request(:post, "https://api.groq.com/openai/v1/chat/completions")
       .to_return(status: status_code,
@@ -23,7 +27,7 @@ class GroqClientTest < Test
   test "throws bad request error" do
     error = assert_raises(LlmGateway::Errors::BadRequestError) do
       VCR.use_cassette(vcr_cassette_name) do
-        groq_client.chat([ "i am not a bad" ], max_completion_tokens: 4096)
+        groq_client.chat([ "i am not a bad" ], **mapped_options(max_completion_tokens: 4096))
       end
     end
     assert_equal "'messages.0' : value must be an object with the discriminator property: 'role'", error.message
@@ -32,7 +36,7 @@ class GroqClientTest < Test
   test "throws authentication error" do
     error = assert_raises(LlmGateway::Errors::AuthenticationError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::Groq.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ], max_completion_tokens: 4096)
+        LlmGateway::Clients::Groq.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ], **mapped_options(max_completion_tokens: 4096))
       end
     end
     assert_equal "Invalid API Key", error.message
@@ -41,7 +45,7 @@ class GroqClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::Groq.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], max_completion_tokens: 4096)
+        LlmGateway::Clients::Groq.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], **mapped_options(max_completion_tokens: 4096))
       end
     end
     assert_equal "The model `randomodel` does not exist or you do not have access to it.", error.message
@@ -50,7 +54,7 @@ class GroqClientTest < Test
   test "throws rate limit error" do
     error = assert_raises(LlmGateway::Errors::PromptTooLong) do
       VCR.use_cassette(vcr_cassette_name) do
-        groq_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ], max_completion_tokens: 4096)
+        groq_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ], **mapped_options(max_completion_tokens: 4096))
       end
     end
     assert_equal "Please reduce the length of the messages or completion.",

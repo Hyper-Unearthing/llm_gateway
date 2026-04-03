@@ -3,6 +3,7 @@
 require_relative "../adapter"
 require_relative "input_mapper"
 require_relative "output_mapper"
+require_relative "option_mapper"
 
 module LlmGateway
   module Adapters

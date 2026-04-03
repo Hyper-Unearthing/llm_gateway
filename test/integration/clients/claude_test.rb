@@ -24,7 +24,7 @@ class ClaudeClientTest < Test
   test "throws bad request error" do
     error = assert_raises(LlmGateway::Errors::BadRequestError) do
       VCR.use_cassette(vcr_cassette_name) do
-        claude_client.chat("i am not a list", max_completion_tokens: 4096)
+        claude_client.chat("i am not a list", max_tokens: 4096)
       end
     end
     assert_equal "messages: Input should be a valid list", error.message
@@ -34,7 +34,7 @@ class ClaudeClientTest < Test
   test "throws throws prompt too long " do
     error = assert_raises(LlmGateway::Errors::PromptTooLong) do
       VCR.use_cassette(vcr_cassette_name) do
-        claude_client.chat([ { 'role': "user", 'content': "aqklcsa," * 40_000 } ], max_completion_tokens: 4096)
+        claude_client.chat([ { 'role': "user", 'content': "aqklcsa," * 40_000 } ], max_tokens: 4096)
       end
     end
     assert_equal "prompt is too long: 224996 tokens > 200000 maximum", error.message
@@ -44,7 +44,7 @@ class ClaudeClientTest < Test
   test "throws authentication error" do
     error = assert_raises(LlmGateway::Errors::AuthenticationError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::Claude.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ], max_completion_tokens: 4096)
+        LlmGateway::Clients::Claude.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ], max_tokens: 4096)
       end
     end
     assert_equal "invalid x-api-key", error.message
@@ -54,7 +54,7 @@ class ClaudeClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::Claude.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], max_completion_tokens: 4096)
+        LlmGateway::Clients::Claude.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], max_tokens: 4096)
       end
     end
     assert_equal "model: randomodel", error.message

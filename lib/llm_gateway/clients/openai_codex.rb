@@ -84,14 +84,13 @@ module LlmGateway
       # Without a block the stream is consumed internally and the completed
       # response Hash is returned.  With a block, raw SSE event hashes are
       # yielded as they arrive.
-      def chat(messages, response_format: { type: "text" }, tools: nil, system: [],
-               max_completion_tokens: 20480, reasoning: nil, **_options, &block)
+      def chat(messages, tools: nil, system: [], **options)
         ensure_valid_token
 
-        body = build_codex_body(messages, system, tools, max_completion_tokens, reasoning:)
+        body = build_codex_body(messages, system, tools, **options)
 
         if block_given?
-          post_stream_with_retry("responses", body, &block)
+          post_stream_with_retry("responses", body) { |event| yield event }
         else
           # Codex requires streaming; accumulate and return the completed response.
           completed_response = nil
@@ -105,10 +104,10 @@ module LlmGateway
       end
 
       # Streaming interface: yields raw SSE event hashes to the block.
-      def stream(messages, response_format: { type: "text" }, tools: nil, system: [],
-                 max_completion_tokens: 20480, reasoning: nil, **_options, &block)
+      def stream(messages, tools: nil, system: [], **options, &block)
         ensure_valid_token
-        body = build_codex_body(messages, system, tools, max_completion_tokens, reasoning:)
+
+        body = build_codex_body(messages, system, tools, **options)
         post_stream_with_retry("responses", body, &block)
       end
 
@@ -150,7 +149,7 @@ module LlmGateway
       # Body builder
       # ------------------------------------------------------------------
 
-      def build_codex_body(messages, system, tools, max_completion_tokens, reasoning: nil)
+      def build_codex_body(messages, system, tools, **options)
         instructions = Array(system).filter_map { |s|
           s.is_a?(Hash) ? s[:content] : s
         }.join("\n")
@@ -165,14 +164,13 @@ module LlmGateway
           stream: true
         }
 
-        # max_output_tokens is not supported by the Codex backend endpoint.
         body[:prompt_cache_key]        = @prompt_cache_key     if @prompt_cache_key
         body[:prompt_cache_retention]  = "24h"                 if @prompt_cache_key
         body[:tools]                   = tools                 if tools
 
         # Resolve reasoning effort: constructor-level @reasoning_effort takes
         # precedence, then fall back to the unified per-call reasoning: param.
-        effort = @reasoning_effort || resolve_reasoning_effort(reasoning)
+        effort = @reasoning_effort || resolve_reasoning_effort(options[:reasoning])
         body[:reasoning] = { effort: effort, summary: "detailed" } if effort
 
         body

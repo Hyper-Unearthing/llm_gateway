@@ -18,16 +18,14 @@ module LlmGateway
         @stream_mapper = stream_mapper
       end
 
-      def chat(message, response_format: "text", tools: nil, system: nil, **options)
+      def chat(message, tools: nil, system: nil, **options)
         normalized_input = input_mapper.map({
           messages: normalize_messages(message),
-          response_format: normalize_response_format(response_format),
           tools: tools,
           system: normalize_system(system)
         })
 
         client_kwargs = {
-          response_format: normalized_input[:response_format],
           tools: normalized_input[:tools],
           system: normalized_input[:system]
         }
@@ -38,12 +36,11 @@ module LlmGateway
         output_mapper.map(result)
       end
 
-      def stream(message, response_format: "text", tools: nil, system: nil, **options, &block)
+      def stream(message, tools: nil, system: nil, **options, &block)
         raise LlmGateway::Errors::MissingMapperForProvider, "No stream_mapper configured" unless stream_mapper
 
         normalized_input = input_mapper.map({
           messages: normalize_messages(message),
-          response_format: normalize_response_format(response_format),
           tools: tools,
           system: normalize_system(system)
         })
@@ -52,7 +49,6 @@ module LlmGateway
         mapper = stream_mapper.new
 
         stream_kwargs = {
-          response_format: normalized_input[:response_format],
           tools: normalized_input[:tools],
           system: normalized_input[:system]
         }
@@ -129,14 +125,6 @@ module LlmGateway
           [ { role: "user", content: message } ]
         else
           message
-        end
-      end
-
-      def normalize_response_format(response_format)
-        if response_format.is_a?(String)
-          { type: response_format }
-        else
-          response_format
         end
       end
     end

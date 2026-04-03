@@ -10,26 +10,51 @@ module LlmGateway
         super(model_key: model_key, api_key: api_key)
       end
 
-      def chat(messages, **kwargs)
-        post("chat/completions", build_body_chat(messages, **kwargs))
+      def chat(messages, tools: nil, system: [], **options)
+        body = {
+          model: model_key,
+          messages: system + messages
+        }
+        body[:tools] = tools if tools
+        body.merge!(options)
+
+        post("chat/completions", body)
       end
 
-      def stream(messages, **kwargs, &block)
-        body = build_body_chat(messages, **kwargs)
+      def stream(messages, tools: nil, system: [], **options, &block)
+        body = {
+          model: model_key,
+          messages: system + messages
+        }
+        body[:tools] = tools if tools
+        body.merge!(options)
         body[:stream_options] = (body[:stream_options] || {}).merge(include_usage: true)
+
         post_stream("chat/completions", body, &block)
       end
 
-      def responses(messages, **kwargs)
-        body = build_body_responses(
-          messages,
-          **kwargs
-        )
+      def responses(messages, tools: nil, system: [], **options)
+        body = {
+          model: model_key,
+          input: messages.flatten
+        }
+        body[:instructions] = system[0][:content] if system.any?
+        body[:tools] = tools if tools
+        body.merge!(options)
+
         post("responses", body)
       end
 
-      def stream_responses(messages, **kwargs, &block)
-        post_stream("responses", build_body_responses(messages, **kwargs), &block)
+      def stream_responses(messages, tools: nil, system: [], **options, &block)
+        body = {
+          model: model_key,
+          input: messages.flatten
+        }
+        body[:instructions] = system[0][:content] if system.any?
+        body[:tools] = tools if tools
+        body.merge!(options)
+
+        post_stream("responses", body, &block)
       end
 
       def download_file(file_id)
@@ -49,36 +74,6 @@ module LlmGateway
       end
 
       private
-
-      def build_body_responses(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, reasoning: nil, **options)
-        body = {
-          model: model_key,
-          max_output_tokens: max_completion_tokens,
-          input: messages.flatten
-        }
-        body[:instructions] = system[0][:content] if system.any?
-        body[:tools] = tools if tools
-
-        body[:reasoning] = reasoning if reasoning
-
-        body.merge!(options)
-
-        body
-      end
-
-      def build_body_chat(messages, response_format: { type: "text" }, tools: nil, system: [], max_completion_tokens: 20480, reasoning: nil, **options)
-        body = {
-          model: model_key,
-          messages: system + messages,
-          max_completion_tokens: max_completion_tokens
-        }
-        body[:tools] = tools if tools
-        body[:response_format] = response_format unless response_format == { type: "text" }
-        body[:reasoning_effort] = reasoning if reasoning
-        body.merge!(options)
-
-        body
-      end
 
       def build_headers
         {
