@@ -13,16 +13,14 @@ class ClientBuilderTest < Test
     assert_instance_of LlmGateway::Clients::Claude, adapter.client
   end
 
-  test "builds claude code client with oauth messages provider" do
+  test "builds claude client with anthropic messages provider" do
     adapter = LlmGateway.build_provider({
-      provider: "anthropic_oauth_messages",
-      access_token: "test-access-token",
-      refresh_token: "test-refresh-token",
-      expires_at: Time.now + 3600
+      provider: "anthropic_apikey_messages",
+      api_key: "sk-ant-oat-test-token"
     })
 
-    assert_instance_of LlmGateway::Adapters::ClaudeCode::MessagesAdapter, adapter
-    assert_instance_of LlmGateway::Clients::ClaudeCode, adapter.client
+    assert_instance_of LlmGateway::Adapters::Claude::MessagesAdapter, adapter
+    assert_instance_of LlmGateway::Clients::Claude, adapter.client
   end
 
   test "builds openai client with default completions adapter" do
@@ -76,7 +74,6 @@ class ClientBuilderTest < Test
 
   test "provider registry exposes built in providers" do
     assert LlmGateway::ProviderRegistry.registered?("anthropic_apikey_messages")
-    assert LlmGateway::ProviderRegistry.registered?("anthropic_oauth_messages")
     assert LlmGateway::ProviderRegistry.registered?("openai_apikey_completions")
     assert LlmGateway::ProviderRegistry.registered?("openai_apikey_responses")
     assert LlmGateway::ProviderRegistry.registered?("groq_apikey_completions")

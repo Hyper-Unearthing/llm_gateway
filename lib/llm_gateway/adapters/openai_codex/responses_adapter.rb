@@ -28,7 +28,7 @@ module LlmGateway
             output_mapper: OpenAi::Responses::OutputMapper,
             file_output_mapper: OpenAi::FileOutputMapper,
             option_mapper: OptionMapper,
-            client_method: :chat,
+            client_method: :chat_codex,
             stream_mapper: OpenAi::Responses::StreamMapper
           )
         end
@@ -36,7 +36,7 @@ module LlmGateway
         private
 
         def stream_client_method
-          :stream
+          :stream_codex
         end
 
         def stream_api_name

@@ -10,7 +10,7 @@ require "time"
 
 module LlmGateway
   module Clients
-    class OpenAiCodex < OpenAi
+    class OpenAi
       class OAuthFlow
         CLIENT_ID    = "app_EMoamEEZ73f0CkXaXp7hrann"
         AUTHORIZE_URL = "https://auth.openai.com/oauth/authorize"

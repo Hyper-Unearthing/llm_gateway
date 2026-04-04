@@ -3,22 +3,23 @@
 
 require "optparse"
 require "json"
+require "fileutils"
 require_relative "../lib/llm_gateway"
 
 module Scripts
   class CreateOpenAiCodexCredentials
     def initialize(argv)
       @options = {
-        client_id: LlmGateway::Clients::OpenAiCodex::OAuthFlow::CLIENT_ID,
-        redirect_uri: LlmGateway::Clients::OpenAiCodex::OAuthFlow::REDIRECT_URI,
-        scope: LlmGateway::Clients::OpenAiCodex::OAuthFlow::SCOPE,
-        output: nil
+        client_id: LlmGateway::Clients::OpenAi::OAuthFlow::CLIENT_ID,
+        redirect_uri: LlmGateway::Clients::OpenAi::OAuthFlow::REDIRECT_URI,
+        scope: LlmGateway::Clients::OpenAi::OAuthFlow::SCOPE,
+        output: File.expand_path(ENV.fetch("LLM_GATEWAY_AUTH_FILE", "~/.config/llm_gateway/auth.json"))
       }
       parse_options(argv)
     end
 
     def run
-      flow = LlmGateway::Clients::OpenAiCodex::OAuthFlow.new(
+      flow = LlmGateway::Clients::OpenAi::OAuthFlow.new(
         client_id: @options[:client_id],
         redirect_uri: @options[:redirect_uri],
         scope: @options[:scope]
@@ -49,10 +50,7 @@ module Scripts
         expires_at: tokens[:expires_at]&.iso8601
       }
 
-      if @options[:output]
-        File.write(@options[:output], JSON.pretty_generate(credentials) + "\n")
-        puts "Credentials written to #{@options[:output]}"
-      end
+      persist_credentials("openai", credentials)
 
       puts ""
       puts "Credentials:"
@@ -90,6 +88,21 @@ module Scripts
           @options[:output] = value
         end
       end.parse!(argv)
+    end
+
+    def persist_credentials(provider, credentials)
+      output_path = File.expand_path(@options[:output])
+      FileUtils.mkdir_p(File.dirname(output_path))
+
+      existing = if File.exist?(output_path)
+        JSON.parse(File.read(output_path))
+      else
+        {}
+      end
+
+      existing[provider] = credentials
+      File.write(output_path, JSON.pretty_generate(existing) + "\n")
+      puts "Credentials written to #{output_path}"
     end
 
     def shell_escape(value)
