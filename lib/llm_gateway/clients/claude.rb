@@ -97,11 +97,8 @@ module LlmGateway
       end
 
       def handle_client_specific_errors(response, error)
-        case response.code.to_i
-        when 400
-          if error["message"]&.start_with?("prompt is too long")
-            raise Errors::PromptTooLong.new(error["message"], error["type"])
-          end
+        if Errors.context_overflow_message?(error["message"])
+          raise Errors::PromptTooLong.new(error["message"], error["type"])
         end
 
         # If we get here, we didn't handle it specifically

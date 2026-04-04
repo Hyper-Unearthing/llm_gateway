@@ -33,24 +33,21 @@ module LlmGateway
       def handle_client_specific_errors(response, error)
         # Groq likely uses 'code' like OpenAI since it's OpenAI-compatible
         error_code = error["code"]
+        error_message = error["message"]
+
+        if Errors.context_overflow_message?(error_message)
+          raise Errors::PromptTooLong.new(error_message, error["type"])
+        end
 
         case response.code.to_i
-        when 400
-          if error["message"]&.match?(/reduce the length of the messages/i)
-            raise Errors::PromptTooLong.new(error["message"], error["type"])
-          end
-        when 413
-          if error["message"]&.start_with?("Request too large")
-            raise Errors::PromptTooLong.new(error["message"], error["type"])
-          end
         when 429
           raise Errors::RateLimitError.new(error["type"], error_code) if error_code == "rate_limit_exceeded"
 
-          raise Errors::OverloadError.new(error["message"], error_code)
+          raise Errors::OverloadError.new(error_message, error_code)
         end
 
         # If we get here, we didn't handle it specifically
-        raise Errors::APIStatusError.new(error["message"], error_code)
+        raise Errors::APIStatusError.new(error_message, error_code)
       end
     end
   end
