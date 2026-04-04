@@ -177,12 +177,17 @@ module LlmGateway
       def handle_client_specific_errors(response, error)
         # OpenAI uses 'code' instead of 'type' for error codes
         error_code = error["code"]
+        error_message = error["message"]
+
+        if Errors.context_overflow_message?(error_message)
+          raise Errors::PromptTooLong.new(error_message, error_code)
+        end
 
         case response.code.to_i
         when 429
-          raise Errors::RateLimitError.new(error["message"], error_code)
+          raise Errors::RateLimitError.new(error_message, error_code)
         when 503
-          raise Errors::OverloadError.new(error["message"], error_code)
+          raise Errors::OverloadError.new(error_message, error_code)
         end
         # If we get here, we didn't handle it specifically
         fallback_body = response.body.to_s.strip

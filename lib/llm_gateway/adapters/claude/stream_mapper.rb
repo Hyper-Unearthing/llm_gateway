@@ -73,6 +73,10 @@ module LlmGateway
             message = error[:message] || "Stream error"
             code = error[:type]
 
+            if LlmGateway::Errors.context_overflow_message?(message)
+              raise LlmGateway::Errors::PromptTooLong.new(message, code)
+            end
+
             if code == "overloaded_error"
               raise LlmGateway::Errors::OverloadError.new(message, code)
             end

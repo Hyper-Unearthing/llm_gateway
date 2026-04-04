@@ -328,6 +328,11 @@ module LlmGateway
             error = data[:error].is_a?(Hash) ? data[:error] : data
             message = error[:message] || "Stream error"
             code = error[:code] || error[:type]
+
+            if LlmGateway::Errors.context_overflow_message?(message)
+              raise LlmGateway::Errors::PromptTooLong.new(message, code)
+            end
+
             raise LlmGateway::Errors::APIStatusError.new(message, code)
           end
         end
