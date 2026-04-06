@@ -88,7 +88,7 @@ module LlmGateway
 
         last_user_message = mapped_messages[last_user_index]
         original_blocks = Array(last_user_message[:content])
-        tagged_indices = [(original_blocks.length - 2), (original_blocks.length - 1)].select { |i| i >= 0 }
+        tagged_indices = [ (original_blocks.length - 2), (original_blocks.length - 1) ].select { |i| i >= 0 }
 
         content_blocks = original_blocks.each_with_index.map do |block, index|
           block = block.is_a?(Hash) ? block.dup : { type: "text", text: block.to_s }
