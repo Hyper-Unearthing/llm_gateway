@@ -64,7 +64,7 @@ class OpenaiClientTest < Test
   end
 
   test "throws rate limit error" do
-    error = assert_raises(LlmGateway::Errors::RateLimitError) do
+    error = assert_raises(LlmGateway::Errors::PromptTooLong) do
       VCR.use_cassette(vcr_cassette_name) do
         openai_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ], **mapped_chat_options(max_completion_tokens: 4096))
       end
