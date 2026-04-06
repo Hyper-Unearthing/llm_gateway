@@ -10,7 +10,7 @@ require "time"
 
 module LlmGateway
   module Clients
-    class ClaudeCode < Claude
+    class ClaudeCode
       class OAuthFlow
         CLIENT_ID = "9d1c250a-e61b-44d9-88ed-5944d1962f5e"
         TOKEN_URL = "https://api.anthropic.com/v1/oauth/token"

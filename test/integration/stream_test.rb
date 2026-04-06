@@ -5,39 +5,14 @@ require "vcr"
 require "json"
 require "base64"
 require_relative "../utils/calculator_tool_helper"
+require_relative "../utils/live_test_helper"
 
 class ProvidersJsonTest < Test
   include CalculatorToolHelper
+  include LiveTestHelper
+
   def teardown
     LlmGateway.reset_configuration!
-  end
-
-  def load_provider(name)
-    providers_path = File.expand_path("../fixtures/providers.json", __dir__)
-    skip("Skipped: missing providers fixture at #{providers_path}") unless File.exist?(providers_path)
-
-    providers = JSON.parse(File.read(providers_path))
-    provider = providers.find { |entry| entry["name"] == name }
-    skip("Skipped: provider not found in providers.json: #{name}") unless provider
-
-    config = provider.fetch("config").dup
-    key_env = config.delete("key_env")
-    config["key"] = ENV.fetch(key_env) if key_env
-
-    LlmGateway.configure([
-      {
-        "name" => provider.fetch("name"),
-        "config" => config
-      }
-    ])
-
-    LlmGateway.public_send(name)
-  end
-
-  def skip_on_authentication_error
-    yield
-  rescue LlmGateway::Errors::AuthenticationError => e
-    skip("Skipped due to authentication error: #{e.message}")
   end
 
   def assert_basic_text_generation_result(message, expected_text)
@@ -297,108 +272,89 @@ class ProvidersJsonTest < Test
     assert_includes lower_content, "red"
     assert_includes lower_content, "circle"
   end
-  def self.provider_names
-    providers_path = File.expand_path("../fixtures/providers.json", __dir__)
-    return [] unless File.exist?(providers_path)
-
-    JSON.parse(File.read(providers_path)).map { |entry| entry["name"] }
-  end
-
-  self.provider_names.each do |provider|
-    test "#{provider} basic text generation" do
+  def self.define_stream_tests_for(name:, provider:, model:)
+    test "#{name} basic text generation" do
       skip_on_authentication_error do
         without_vcr do
-          adapter = load_provider(provider)
+          adapter = load_provider(provider:, model:)
           basic_text_generation_test(adapter)
         end
       end
     end
 
-    test "#{provider} basic tool call" do
+    test "#{name} basic tool call" do
       skip_on_authentication_error do
         without_vcr do
-          adapter = load_provider(provider)
+          adapter = load_provider(provider:, model:)
           basic_tool_call(adapter)
         end
       end
     end
 
-    test "#{provider} basic thinking" do
+    test "#{name} basic thinking" do
       skip_on_authentication_error do
         without_vcr do
-          adapter = load_provider(provider)
+          adapter = load_provider(provider:, model:)
           basic_thinking_test(adapter, reasoning: "high")
         end
       end
     end
 
-    test "#{provider} text streaming" do
+    test "#{name} text streaming" do
       skip_on_authentication_error do
         without_vcr do
-          adapter = load_provider(provider)
+          adapter = load_provider(provider:, model:)
           basic_streaming_text_test(adapter)
         end
       end
     end
 
-    test "#{provider}  multi turn tool streaming" do
+    test "#{name} multi turn tool streaming" do
       skip_on_authentication_error do
         without_vcr do
-          adapter = load_provider(provider)
+          adapter = load_provider(provider:, model:)
           multi_turn_tool_stream_test(adapter, reasoning: "high")
         end
       end
     end
 
-    test "#{provider} image streaming" do
+    test "#{name} image streaming" do
       skip_on_authentication_error do
         without_vcr do
-          adapter = load_provider(provider)
+          adapter = load_provider(provider:, model:)
           basic_image_streaming_test(adapter)
         end
       end
     end
   end
 
-  # test "loads providers json and does anthropic basic text generation" do
-  #   without_vcr do
-  #     adapter = load_provider("anthropic_oauth")
-  #     basic_text_generation_test(adapter)
-  #   end
-  # end
+  define_stream_tests_for(
+    name: "openai_apikey_completions_gpt_5_1",
+    provider: "openai_apikey_completions",
+    model: "gpt-5.1"
+  )
 
-  # test "loads providers json and does anthropic basic tool call" do
-  #   without_vcr do
-  #     adapter = load_provider("anthropic_oauth")
-  #     basic_tool_call(adapter)
-  #   end
-  # end
+  define_stream_tests_for(
+    name: "anthropic_apikey_messages_claude_sonnet_4",
+    provider: "anthropic_apikey_messages",
+    model: "claude-sonnet-4-20250514"
+  )
 
-  # test "loads providers json and does anthropic basic thinking" do
-  #   without_vcr do
-  #     adapter = load_provider("anthropic_oauth")
-  #     basic_thinking_test(adapter)
-  #   end
-  # end
+  define_stream_tests_for(
+    name: "openai_apikey_responses_gpt_5_4",
+    provider: "openai_apikey_responses",
+    model: "gpt-5.4"
+  )
 
-  # test "loads providers json and does anthropic text streaming" do
-  #   without_vcr do
-  #     adapter = load_provider("anthropic_oauth")
-  #     basic_streaming_text_test(adapter)
-  #   end
-  # end
+  define_stream_tests_for(
+    name: "anthropic_oauth_messages_claude_sonnet_4",
+    provider: "anthropic_oauth_messages",
+    model: "claude-sonnet-4-20250514"
+  )
 
-  # test "loads providers json and does anthropic multi turn tool streaming" do
-  #   without_vcr do
-  #     adapter = load_provider("anthropic_oauth")
-  #     multi_turn_tool_stream_test(adapter)
-  #   end
-  # end
-
-  # test "loads providers json and does anthropic image streaming" do
-  #   without_vcr do
-  #     adapter = load_provider("anthropic_oauth")
-  #     basic_image_streaming_test(adapter)
-  #   end
-  # end
+  define_stream_tests_for(
+    name: "openai_oauth_codex_gpt_5_4",
+    provider: "openai_oauth_codex",
+    model: "gpt-5.4"
+  )
 end

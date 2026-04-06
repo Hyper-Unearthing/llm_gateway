@@ -64,7 +64,7 @@ class OpenaiClientTest < Test
   end
 
   test "throws rate limit error" do
-    error = assert_raises(LlmGateway::Errors::RateLimitError) do
+    error = assert_raises(LlmGateway::Errors::PromptTooLong) do
       VCR.use_cassette(vcr_cassette_name) do
         openai_client.chat([ { 'role': "user", 'content': "aqklcsa," * 100_000 } ], **mapped_chat_options(max_completion_tokens: 4096))
       end
@@ -112,5 +112,74 @@ class OpenaiClientTest < Test
     assert_raises(LlmGateway::Errors::APIStatusError) do
       openai_client.chat([ { 'role': "user", 'content': "hello" } ])
     end
+  end
+
+  test "get_oauth_access_token returns existing non-expired codex token" do
+    token = openai_client.get_oauth_access_token(
+      access_token: "valid-token",
+      refresh_token: "refresh-token",
+      expires_at: Time.now + 3600
+    )
+
+    assert_equal "valid-token", token
+  end
+
+  test "get_oauth_access_token refreshes expired codex token and fires callback" do
+    callback_payload = nil
+
+    stub_request(:post, "https://auth.openai.com/oauth/token")
+      .to_return(
+        status: 200,
+        body: {
+          access_token: "new-access-token",
+          refresh_token: "new-refresh-token",
+          expires_in: 3600
+        }.to_json,
+        headers: { 'Content-Type': "application/json" }
+      )
+
+    token = openai_client.get_oauth_access_token(
+      access_token: "expired-token",
+      refresh_token: "refresh-token",
+      expires_at: Time.now - 60
+    ) do |access_token, refresh_token, expires_at|
+      callback_payload = {
+        access_token: access_token,
+        refresh_token: refresh_token,
+        expires_at: expires_at
+      }
+    end
+
+    assert_equal "new-access-token", token
+    assert_equal "new-access-token", callback_payload[:access_token]
+    assert_equal "new-refresh-token", callback_payload[:refresh_token]
+    assert callback_payload[:expires_at].is_a?(Time)
+  end
+
+  test "chat_codex routes through codex endpoint" do
+    stub_request(:post, "https://chatgpt.com/backend-api/codex/responses")
+      .to_return(
+        status: 200,
+        body: "event: response.completed\ndata: #{JSON.generate(response: { id: "resp_1", model: "gpt-4o", output: [], usage: {} })}\n\n",
+        headers: { "Content-Type" => "text/event-stream" }
+      )
+
+    result = LlmGateway::Clients::OpenAi.new(api_key: "oauth-token").chat_codex([ { role: "user", content: "hello" } ])
+
+    assert_equal "resp_1", result[:id]
+  end
+
+  test "stream_codex yields codex SSE events" do
+    stub_request(:post, "https://chatgpt.com/backend-api/codex/responses")
+      .to_return(
+        status: 200,
+        body: "event: response.completed\ndata: #{JSON.generate(response: { id: "resp_stream", model: "gpt-4o", output: [], usage: {} })}\n\n",
+        headers: { "Content-Type" => "text/event-stream" }
+      )
+
+    events = []
+    LlmGateway::Clients::OpenAi.new(api_key: "oauth-token").stream_codex([ { role: "user", content: "hello" } ]) { |e| events << e }
+
+    assert events.any? { |e| e[:event] == "response.completed" }
   end
 end

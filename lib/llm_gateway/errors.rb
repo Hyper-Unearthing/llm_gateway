@@ -31,6 +31,27 @@ module LlmGateway
     class UnsupportedProvider < ClientError; end
     class MissingMapperForProvider < ClientError; end
 
+    OVERFLOW_PATTERNS = [
+      /prompt is too long/i, # Anthropic
+      /exceeds the context window/i, # OpenAI
+      /reduce the length of the messages/i, # Groq
+      /maximum context length is \d+ tokens/i,
+      /context[_ ]length[_ ]exceeded/i,
+      /too many tokens/i,
+      /token limit exceeded/i,
+      /request too large.*tokens per min/i, # OpenAI TPM wording
+      /input tokens per minute/i, # Anthropic TPM wording
+      /reduce the prompt length/i,
+      /input or output tokens must be reduced/i
+    ].freeze
+
+    def self.context_overflow_message?(message)
+      text = message.to_s
+      return false if text.empty?
+
+      OVERFLOW_PATTERNS.any? { |pattern| pattern.match?(text) }
+    end
+
     class PromptError < BaseError; end
 
     class HallucinationError < PromptError; end

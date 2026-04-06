@@ -12,7 +12,8 @@ require_relative "llm_gateway/tool"
 require_relative "llm_gateway/clients/claude"
 require_relative "llm_gateway/clients/claude_code"
 require_relative "llm_gateway/clients/open_ai"
-require_relative "llm_gateway/clients/openai_codex"
+require_relative "llm_gateway/clients/openai_codex/oauth_flow"
+require_relative "llm_gateway/clients/openai_codex/token_manager"
 require_relative "llm_gateway/clients/groq"
 
 # Load adapters
@@ -22,9 +23,8 @@ require_relative "llm_gateway/adapters/structs"
 
 require_relative "llm_gateway/adapters/claude/input_mapper"
 require_relative "llm_gateway/adapters/claude/output_mapper"
-require_relative "llm_gateway/adapters/claude_code/input_mapper"
-require_relative "llm_gateway/adapters/claude_code/output_mapper"
 require_relative "llm_gateway/adapters/open_ai/file_output_mapper"
+require_relative "llm_gateway/adapters/open_ai/prompt_cache_option_mapper"
 require_relative "llm_gateway/adapters/open_ai/chat_completions/input_mapper"
 require_relative "llm_gateway/adapters/open_ai/chat_completions/output_mapper"
 require_relative "llm_gateway/adapters/open_ai/chat_completions/option_mapper"
@@ -38,7 +38,6 @@ require_relative "llm_gateway/adapters/open_ai/responses/option_mapper"
 # Load adapter classes
 require_relative "llm_gateway/adapters/adapter"
 require_relative "llm_gateway/adapters/claude/messages_adapter"
-require_relative "llm_gateway/adapters/claude_code/messages_adapter"
 require_relative "llm_gateway/adapters/open_ai/chat_completions_adapter"
 require_relative "llm_gateway/adapters/open_ai/responses_adapter"
 require_relative "llm_gateway/adapters/openai_codex/responses_adapter"
@@ -69,7 +68,7 @@ module LlmGateway
     end
 
     module OpenAiCodex
-      Client = LlmGateway::Clients::OpenAiCodex
+      Client = LlmGateway::Clients::OpenAi
     end
 
     module Groq
@@ -118,10 +117,6 @@ module LlmGateway
     client: Clients::Claude,
     adapter: Adapters::Claude::MessagesAdapter)
 
-  ProviderRegistry.register("anthropic_oauth_messages",
-    client: Clients::ClaudeCode,
-    adapter: Adapters::ClaudeCode::MessagesAdapter)
-
   ProviderRegistry.register("openai_apikey_completions",
     client: Clients::OpenAi,
     adapter: Adapters::OpenAi::ChatCompletionsAdapter)
@@ -135,6 +130,6 @@ module LlmGateway
     adapter: Adapters::Groq::ChatCompletionsAdapter)
 
   ProviderRegistry.register("openai_oauth_codex",
-    client: Clients::OpenAiCodex,
+    client: Clients::OpenAi,
     adapter: Adapters::OpenAiCodex::ResponsesAdapter)
 end

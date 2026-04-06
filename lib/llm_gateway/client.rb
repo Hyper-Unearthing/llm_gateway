@@ -42,7 +42,6 @@ module LlmGateway
     end
 
     def self.provider_from_model(model)
-      return "anthropic" if model.start_with?("claude_code/")
       return "anthropic" if model.start_with?("claude")
       return "groq" if model.start_with?("llama")
       return "openai" if model.start_with?("gpt") ||
@@ -72,15 +71,7 @@ module LlmGateway
     def self.build_adapter_from_model(model, api_key: nil, refresh_token: nil, expires_at: nil, api: nil)
       provider = provider_from_model(model)
 
-      if model.start_with?("claude_code/")
-        LlmGateway.build_provider(
-          provider: "anthropic_oauth_messages",
-          model_key: model,
-          access_token: api_key,
-          refresh_token: refresh_token,
-          expires_at: expires_at
-        )
-      elsif api == "responses"
+      if api == "responses"
         config = {
           provider: "#{provider}_apikey_responses",
           model_key: model
