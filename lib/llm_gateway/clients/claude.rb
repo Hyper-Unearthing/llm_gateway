@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "uri"
 require_relative "../base_client"
 
 module LlmGateway
@@ -41,19 +42,81 @@ module LlmGateway
 
       private
 
-      def build_body(messages, tools: nil, system: [], **options)
+      def build_body(messages, tools: nil, system: [], cache_retention: nil, **options)
         body = {
           model: model_key,
-          messages: messages
+          messages: apply_message_cache_control(messages, cache_retention)
         }
 
         body.merge!(tools: tools) if LlmGateway::Utils.present?(tools)
 
         system = prepend_claude_code_identity(system) if claude_code_oauth_api_key?
+        system = apply_system_cache_control(system, cache_retention)
 
         body.merge!(system: system) if LlmGateway::Utils.present?(system)
         body.merge!(options)
         body
+      end
+
+      def apply_system_cache_control(system, cache_retention)
+        return system if system.nil? || system.empty? || !system.is_a?(Array)
+
+        cache_control = anthropic_cache_control_for(cache_retention)
+        return system if cache_control.nil?
+
+        last_index = system.length - 1
+        system.each_with_index.map do |block, index|
+          block = block.dup
+          if index == last_index
+            block[:cache_control] = cache_control
+          else
+            block.delete(:cache_control)
+          end
+          block
+        end
+      end
+
+      def apply_message_cache_control(messages, cache_retention)
+        return messages if messages.nil? || messages.empty? || !messages.is_a?(Array)
+
+        cache_control = anthropic_cache_control_for(cache_retention)
+        return messages if cache_control.nil?
+
+        mapped_messages = messages.map(&:dup)
+        last_user_index = mapped_messages.rindex { |message| message[:role] == "user" }
+        return mapped_messages unless last_user_index
+
+        last_user_message = mapped_messages[last_user_index]
+        original_blocks = Array(last_user_message[:content])
+        tagged_indices = [(original_blocks.length - 2), (original_blocks.length - 1)].select { |i| i >= 0 }
+
+        content_blocks = original_blocks.each_with_index.map do |block, index|
+          block = block.is_a?(Hash) ? block.dup : { type: "text", text: block.to_s }
+          if tagged_indices.include?(index)
+            block[:cache_control] = cache_control
+          else
+            block.delete(:cache_control)
+          end
+          block
+        end
+
+        mapped_messages[last_user_index] = last_user_message.merge(content: content_blocks)
+        mapped_messages
+      end
+
+      def anthropic_cache_control_for(cache_retention)
+        return nil if cache_retention.nil?
+
+        retention = cache_retention.to_s
+        return nil if retention == "none"
+
+        cache_control = { type: "ephemeral" }
+        cache_control = cache_control.merge(ttl: "1h") if retention == "long" && anthropic_official_api?
+        cache_control
+      end
+
+      def anthropic_official_api?
+        URI(base_endpoint).host == "api.anthropic.com"
       end
 
       def build_headers
@@ -101,7 +164,6 @@ module LlmGateway
           raise Errors::PromptTooLong.new(error["message"], error["type"])
         end
 
-        # If we get here, we didn't handle it specifically
         raise Errors::APIStatusError.new(error["message"], error["type"])
       end
     end

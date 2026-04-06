@@ -129,7 +129,7 @@ module LlmGateway
         body
       end
 
-      def codex_headers(account_id: nil)
+      def codex_headers(account_id: nil, **options)
         effective_account_id = account_id || @account_id
 
         headers = {
@@ -152,6 +152,9 @@ module LlmGateway
         body.merge!(stream: true)
         request = Net::HTTP::Post.new(uri)
         codex_headers(account_id: account_id).each { |key, value| request[key] = value }
+        prompt_cache_key = body.delete(:prompt_cache_key)
+        request[:session_id] = prompt_cache_key if prompt_cache_key
+
         request.body = body.to_json if body
 
         http.request(request) do |response|

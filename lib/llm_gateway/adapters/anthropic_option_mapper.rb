@@ -14,8 +14,12 @@ module LlmGateway
       module_function
 
       def map(options)
-        mapped_options = options.reject { |key, _| %i[reasoning max_completion_tokens].include?(key) }
+        mapped_options = options.reject { |key, _| %i[reasoning max_completion_tokens prompt_cache_retention cache_key prompt_cache_key].include?(key) }
         mapped_options[:max_tokens] = options[:max_completion_tokens] || 20480
+
+        retention = options[:cache_retention]
+        mapped_options[:cache_retention] = retention unless retention.nil?
+
         reasoning = options[:reasoning]
         return mapped_options if reasoning.nil? || reasoning.to_s == "none"
 

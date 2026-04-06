@@ -15,6 +15,11 @@ module LlmGateway
           mapped_options.delete(:max_output_tokens)
           mapped_options.delete(:max_completion_tokens)
 
+          # Codex transport does not use retention flags in the request body.
+          mapped_options.delete(:prompt_cache_retention)
+          mapped_options.delete(:cacheRetention)
+          mapped_options.delete(:cache_retention)
+
           mapped_options
         end
       end

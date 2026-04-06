@@ -5,6 +5,8 @@ module LlmGateway
     module OpenAi
       module Responses
         module OptionMapper
+          include LlmGateway::Adapters::OpenAi::PromptCacheOptionMapper
+
           VALID_REASONING_LEVELS = %w[low medium high xhigh].freeze
 
           module_function
@@ -14,6 +16,9 @@ module LlmGateway
 
             max_completion_tokens = mapped_options.delete(:max_completion_tokens)
             mapped_options[:max_output_tokens] = max_completion_tokens || mapped_options[:max_output_tokens] || 20_480
+
+            map_cache_key!(mapped_options)
+            map_prompt_cache_retention!(mapped_options)
 
             return mapped_options unless mapped_options.key?(:reasoning)
 
