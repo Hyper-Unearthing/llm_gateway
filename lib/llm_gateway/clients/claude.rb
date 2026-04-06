@@ -43,17 +43,21 @@ module LlmGateway
       private
 
       def build_body(messages, tools: nil, system: [], cache_retention: nil, **options)
+        cache_control = anthropic_cache_control_for(cache_retention)
+
         body = {
           model: model_key,
-          messages: apply_message_cache_control(messages, cache_retention)
+          messages: messages
         }
 
+        tools = apply_tools_cache_control(tools, cache_retention)
         body.merge!(tools: tools) if LlmGateway::Utils.present?(tools)
 
         system = prepend_claude_code_identity(system) if claude_code_oauth_api_key?
         system = apply_system_cache_control(system, cache_retention)
 
         body.merge!(system: system) if LlmGateway::Utils.present?(system)
+        body.merge!(cache_control: cache_control) unless cache_control.nil?
         body.merge!(options)
         body
       end
@@ -76,32 +80,22 @@ module LlmGateway
         end
       end
 
-      def apply_message_cache_control(messages, cache_retention)
-        return messages if messages.nil? || messages.empty? || !messages.is_a?(Array)
+      def apply_tools_cache_control(tools, cache_retention)
+        return tools if tools.nil? || tools.empty? || !tools.is_a?(Array)
 
         cache_control = anthropic_cache_control_for(cache_retention)
-        return messages if cache_control.nil?
+        return tools if cache_control.nil?
 
-        mapped_messages = messages.map(&:dup)
-        last_user_index = mapped_messages.rindex { |message| message[:role] == "user" }
-        return mapped_messages unless last_user_index
-
-        last_user_message = mapped_messages[last_user_index]
-        original_blocks = Array(last_user_message[:content])
-        tagged_indices = [ (original_blocks.length - 2), (original_blocks.length - 1) ].select { |i| i >= 0 }
-
-        content_blocks = original_blocks.each_with_index.map do |block, index|
-          block = block.is_a?(Hash) ? block.dup : { type: "text", text: block.to_s }
-          if tagged_indices.include?(index)
-            block[:cache_control] = cache_control
+        last_index = tools.length - 1
+        tools.each_with_index.map do |tool, index|
+          tool = tool.dup
+          if index == last_index
+            tool[:cache_control] = cache_control
           else
-            block.delete(:cache_control)
+            tool.delete(:cache_control)
           end
-          block
+          tool
         end
-
-        mapped_messages[last_user_index] = last_user_message.merge(content: content_blocks)
-        mapped_messages
       end
 
       def anthropic_cache_control_for(cache_retention)
