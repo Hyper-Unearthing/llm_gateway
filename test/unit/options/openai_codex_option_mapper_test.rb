@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require_relative "option_mapper_fixture"
 
 class OpenAiCodexOptionMapperTest < Test
   test "keeps prompt_cache_key but removes retention fields" do
@@ -26,5 +27,19 @@ class OpenAiCodexOptionMapperTest < Test
     mapped = LlmGateway::Adapters::OpenAiCodex::OptionMapper.map(reasoning: "low")
 
     assert_equal({ effort: "low", summary: "detailed" }, mapped[:reasoning])
+  end
+
+  test "maps all supported options into final output" do
+    mapped = LlmGateway::Adapters::OpenAiCodex::OptionMapper.map(OptionMapperFixture.superset_options)
+
+    assert_equal(
+      {
+        prompt_cache_key: "abc",
+        reasoning: { effort: "high", summary: "detailed" },
+        temperature: 0.2,
+        response_format: "json_object"
+      },
+      mapped
+    )
   end
 end

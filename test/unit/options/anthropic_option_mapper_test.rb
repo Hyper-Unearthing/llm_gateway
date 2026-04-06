@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require_relative "option_mapper_fixture"
 
 class AnthropicOptionMapperTest < Test
   test "maps max_completion_tokens to max_tokens" do
@@ -47,5 +48,20 @@ class AnthropicOptionMapperTest < Test
     assert_raises(ArgumentError) do
       LlmGateway::Adapters::AnthropicOptionMapper.map(reasoning: "extreme")
     end
+  end
+
+  test "maps all supported options into final output" do
+    mapped = LlmGateway::Adapters::AnthropicOptionMapper.map(OptionMapperFixture.superset_options)
+
+    assert_equal(
+      {
+        max_tokens: 1234,
+        cache_retention: "long",
+        thinking: { type: "enabled", budget_tokens: 10 * 1024 },
+        temperature: 0.2,
+        output_config: { format: "json_schema" }
+      },
+      mapped
+    )
   end
 end

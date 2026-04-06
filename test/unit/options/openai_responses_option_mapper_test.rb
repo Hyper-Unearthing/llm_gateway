@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require_relative "option_mapper_fixture"
 
 class OpenAiResponsesOptionMapperTest < Test
   test "maps max_completion_tokens to max_output_tokens" do
@@ -58,5 +59,21 @@ class OpenAiResponsesOptionMapperTest < Test
     assert_raises(ArgumentError) do
       LlmGateway::Adapters::OpenAi::Responses::OptionMapper.map(cache_retention: "week")
     end
+  end
+
+  test "maps all supported options into final output" do
+    mapped = LlmGateway::Adapters::OpenAi::Responses::OptionMapper.map(OptionMapperFixture.superset_options)
+
+    assert_equal(
+      {
+        max_output_tokens: 1234,
+        prompt_cache_key: "abc",
+        prompt_cache_retention: "24h",
+        reasoning: { effort: "high", summary: "detailed" },
+        temperature: 0.2,
+        response_format: "json_object"
+      },
+      mapped
+    )
   end
 end
