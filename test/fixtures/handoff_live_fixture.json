@@ -1,0 +1,269 @@
+[
+  {
+    "role": "user",
+    "content": "Think hard about this, then use the math_operation tool to double 21 by multiplying 21 and 2. Call the tool."
+  },
+  {
+    "id": "chatcmpl-DRw3SegtQRvgf86rt5lvu6E1adD2W",
+    "model": "gpt-5.1-2025-11-13",
+    "usage": {
+      "input_tokens": 189,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 80,
+      "reasoning_tokens": 49
+    },
+    "role": "assistant",
+    "stop_reason": "tool_use",
+    "provider": "openai",
+    "api": "completions",
+    "content": [
+      {
+        "id": "call_Zu112TyzOtdDOW9bvWtglzqD",
+        "type": "tool_use",
+        "name": "math_operation",
+        "input": {
+          "a": 21,
+          "b": 2,
+          "operation": "multiply"
+        }
+      }
+    ]
+  },
+  {
+    "role": "developer",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "call_Zu112TyzOtdDOW9bvWtglzqD",
+        "content": "42"
+      }
+    ]
+  },
+  {
+    "id": "chatcmpl-DRw3fnFMJwyKr8wuWiRtqi7uACZkq",
+    "model": "gpt-5.1-2025-11-13",
+    "usage": {
+      "input_tokens": 226,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 4,
+      "reasoning_tokens": 0
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "completions",
+    "content": [
+      {
+        "type": "text",
+        "text": "42"
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": "Think hard about this, then use the math_operation tool to double 21 by multiplying 21 and 2. Call the tool."
+  },
+  {
+    "id": "resp_094ddc157c4cf5230069d4bfce75588196bc6cd5428168c7fb",
+    "model": "gpt-5.4-2026-03-05",
+    "usage": {
+      "input_tokens": 107,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 70,
+      "reasoning_tokens": 42
+    },
+    "role": "assistant",
+    "stop_reason": "tool_use",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "reasoning",
+        "reasoning": "**Calculating multiplication**\n\nI see that I need to use the math_operation tool in commentary. The user is prompting me to think hard about the task, but it seems like I can keep it straightforward. I should just call the tool to multiply 21 and 2 directly without overthinking it. So I'll go ahead and do that without getting caught up in too much reasoning. It looks like I’m all set to perform this multiplication!",
+        "signature": ""
+      },
+      {
+        "id": "call_hJseujYbLEbOyyrpc0XkTOkD",
+        "type": "tool_use",
+        "name": "math_operation",
+        "input": {
+          "a": 21,
+          "b": 2,
+          "operation": "multiply"
+        }
+      }
+    ]
+  },
+  {
+    "role": "developer",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "call_hJseujYbLEbOyyrpc0XkTOkD",
+        "content": "42"
+      }
+    ]
+  },
+  {
+    "id": "resp_01e2dfcfe88ef7600069d4bfd73a9c8193ae4d945073d7060a",
+    "model": "gpt-5.4-2026-03-05",
+    "usage": {
+      "input_tokens": 145,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 5,
+      "reasoning_tokens": 0
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "text",
+        "text": "42"
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": "Think hard about this, then use the math_operation tool to double 21 by multiplying 21 and 2. Call the tool."
+  },
+  {
+    "id": "resp_0dfb6412ee59614a0169d4bfd8d0f08191839cf67b5f91eeaa",
+    "model": "gpt-5.4",
+    "usage": {
+      "input_tokens": 117,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 49,
+      "reasoning_tokens": 21
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "reasoning",
+        "reasoning": "",
+        "signature": ""
+      },
+      {
+        "id": "call_oZnWijR9AOEK7zjMPCc7Pmul",
+        "type": "tool_use",
+        "name": "math_operation",
+        "input": {
+          "a": 21,
+          "b": 2,
+          "operation": "multiply"
+        }
+      }
+    ]
+  },
+  {
+    "role": "developer",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "call_oZnWijR9AOEK7zjMPCc7Pmul",
+        "content": "42"
+      }
+    ]
+  },
+  {
+    "id": "resp_09aae1053c3251af0169d4bfdd0540819191a6ffe3d7a6a654",
+    "model": "gpt-5.4",
+    "usage": {
+      "input_tokens": 155,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 5,
+      "reasoning_tokens": 0
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "text",
+        "text": "42"
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": "Think hard about this, then use the math_operation tool to double 21 by multiplying 21 and 2. Call the tool."
+  },
+  {
+    "id": "msg_01JoWVZRYDBEwPyJVBbXA9w6",
+    "model": "claude-sonnet-4-20250514",
+    "usage": {
+      "input_tokens": 1008,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 190,
+      "reasoning_tokens": 0
+    },
+    "role": "assistant",
+    "stop_reason": "tool_use",
+    "provider": "anthropic",
+    "api": "messages",
+    "content": [
+      {
+        "type": "reasoning",
+        "reasoning": "The user is asking me to double 21 by multiplying 21 and 2. This is a straightforward math operation.\n\nI need to use the math_operation tool with:\n- a = 21\n- b = 2  \n- operation = \"multiply\"\n\nLet me call the tool with these parameters.",
+        "signature": "Eq8DCmIIDBgCKkC3tsKyBe9/TiIE7ZhITQe4Ff42v1VOq3VgqMK1Od4LX21XVzcS8M9/Ee1/Kbjad/nacJZgO8vMDOAsmjvuDjqsMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIM6T9P9+8DA2b2BwOTGgzCc609ODSfucad010iMEvmGC6nQhVjizy0XTOFJIvwbbisOqRKf3Ou0iY70TNTxeCM1OPRqQxL/tVXtPKo7Sr6AWQcRX7uGabAPk0w5u5o9lfenaaKf/yc5MfXemIbpUszckrmVAoVk+7Cz0QDpdCk7D/AswqSC1upPv9oGfIOhuz0X+6z3KL23LEr2XzEN56/2bkd3chWIxRS/Vw4hMAsf3wN+cG0c9CHHg7USXM8exQJEkVxfj5qeN1YLMkY8Jc0Q+qwiyl4eBud7CNHNqPn6AL9MSMZIIseOudfOXDBDiS3oSn77MZg2Z86oC5bJ31TlhZqDYz9/mdimeQs57tFIJgEkp4aZxgtCg6GoKNWJ8L1PswiMwB5Ky4CghI9DPQsNElFul9IFr2mjPybMcgPkc9Ga6EAuT3Tw9cYAQ=="
+      },
+      {
+        "type": "text",
+        "text": "I'll use the math_operation tool to multiply 21 by 2 to double it."
+      },
+      {
+        "id": "toolu_01UWAwgrrBkDjzVqFUmtkESa",
+        "type": "tool_use",
+        "name": "math_operation",
+        "input": {
+          "a": 21,
+          "b": 2,
+          "operation": "multiply"
+        }
+      }
+    ]
+  },
+  {
+    "role": "developer",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "toolu_01UWAwgrrBkDjzVqFUmtkESa",
+        "content": "42"
+      }
+    ]
+  },
+  {
+    "id": "msg_01BTUwvscWaNgkeREvswdB56",
+    "model": "claude-sonnet-4-20250514",
+    "usage": {
+      "input_tokens": 1406,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 31,
+      "reasoning_tokens": 0
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "anthropic",
+    "api": "messages",
+    "content": [
+      {
+        "type": "text",
+        "text": "The result of doubling 21 by multiplying it by 2 is 42."
+      }
+    ]
+  }
+]

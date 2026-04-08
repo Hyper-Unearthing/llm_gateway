@@ -6,6 +6,7 @@ require_relative "option_mapper"
 require_relative "../open_ai/responses/stream_mapper"
 require_relative "../open_ai/file_output_mapper"
 require_relative "input_mapper"
+require_relative "../input_message_sanitizer"
 
 module LlmGateway
   module Adapters
@@ -25,6 +26,7 @@ module LlmGateway
           super(
             client,
             input_mapper: OpenAiCodex::InputMapper,
+            input_sanitizer: LlmGateway::Adapters::InputMessageSanitizer,
             output_mapper: OpenAi::Responses::OutputMapper,
             file_output_mapper: OpenAi::FileOutputMapper,
             option_mapper: OptionMapper,

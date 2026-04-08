@@ -2,6 +2,7 @@
 
 require_relative "../adapter"
 require_relative "chat_completions/input_mapper"
+require_relative "chat_completions/input_message_sanitizer"
 require_relative "chat_completions/output_mapper"
 require_relative "chat_completions/option_mapper"
 require_relative "file_output_mapper"
@@ -15,6 +16,7 @@ module LlmGateway
           super(
             client,
             input_mapper: ChatCompletions::InputMapper,
+            input_sanitizer: ChatCompletions::InputMessageSanitizer,
             output_mapper: ChatCompletions::OutputMapper,
             file_output_mapper: FileOutputMapper,
             option_mapper: ChatCompletions::OptionMapper,

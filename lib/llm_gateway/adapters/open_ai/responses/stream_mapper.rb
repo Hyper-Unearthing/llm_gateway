@@ -13,7 +13,6 @@ module LlmGateway
 
             event_type = chunk[:event]
             data = chunk[:data] || {}
-
             raise_stream_error!(data) if event_type == "error" || data[:error] || data[:type] == "error"
 
             case event_type
@@ -186,7 +185,6 @@ module LlmGateway
 
           def map_response_completed(response)
             stash_response(response)
-
             AssistantStreamMessageEvent.new(
               type: message_started? ? :message_delta : :message_start,
               delta: pending_message_attributes.merge(role: pending_message_attributes[:role] || "assistant", stop_reason: stop_reason_for(response)),
@@ -213,7 +211,7 @@ module LlmGateway
             output = response[:output] || []
             last_item = output.last || {}
 
-            last_item[:type] == "function_call" ? "tool_use" : "stop"
+            tool_state.any? || last_item[:type] == "function_call" ? "tool_use" : "stop"
           end
 
           def ensure_message_started(role: "assistant")
