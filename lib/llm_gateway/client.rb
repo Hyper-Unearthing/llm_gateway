@@ -53,9 +53,7 @@ module LlmGateway
 
     def self.provider_id_from_client(client)
       case client
-      when LlmGateway::Clients::ClaudeCode
-        "claude_code"
-      when LlmGateway::Clients::Claude
+      when LlmGateway::Clients::Anthropic
         "anthropic"
       when LlmGateway::Clients::OpenAi
         "openai"

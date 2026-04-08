@@ -4,7 +4,7 @@ require "test_helper"
 
 class ClaudeCacheControlTest < Test
   test "when cache retention is passed it adds cache_control to last system and tool blocks and sets top-level cache_control" do
-    client = LlmGateway::Clients::Claude.new(model_key: "claude-3", api_key: "test")
+    client = LlmGateway::Clients::Anthropic.new(model_key: "claude-3", api_key: "test")
 
     body = client.send(
       :build_body,
@@ -43,7 +43,7 @@ class ClaudeCacheControlTest < Test
   end
 
   test "uses ttl for long retention on official anthropic base url" do
-    client = LlmGateway::Clients::Claude.new(model_key: "claude-3", api_key: "test")
+    client = LlmGateway::Clients::Anthropic.new(model_key: "claude-3", api_key: "test")
 
     body = client.send(
       :build_body,
@@ -60,7 +60,7 @@ class ClaudeCacheControlTest < Test
   end
 
   test "does not mutate existing cache control when retention is none" do
-    client = LlmGateway::Clients::Claude.new(model_key: "claude-3", api_key: "test")
+    client = LlmGateway::Clients::Anthropic.new(model_key: "claude-3", api_key: "test")
 
     body = client.send(
       :build_body,

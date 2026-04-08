@@ -2,10 +2,12 @@
 
 require "uri"
 require_relative "../base_client"
+require_relative "claude_code/oauth_flow"
+require_relative "claude_code/token_manager"
 
 module LlmGateway
   module Clients
-    class Claude < BaseClient
+    class Anthropic < BaseClient
       CLAUDE_CODE_VERSION = "2.1.2"
 
       def initialize(model_key: "claude-3-7-sonnet-20250219", api_key: ENV["ANTHROPIC_API_KEY"])

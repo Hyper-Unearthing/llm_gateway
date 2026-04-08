@@ -72,7 +72,7 @@ module LiveTestHelper
 
     case provider
     when "anthropic"
-      token = LlmGateway::Clients::Claude.new.get_oauth_access_token(
+      token = LlmGateway::Clients::Anthropic.new.get_oauth_access_token(
         access_token: creds["access_token"],
         refresh_token: creds["refresh_token"],
         expires_at: creds["expires_at"]

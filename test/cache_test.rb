@@ -40,7 +40,7 @@ class CacheTest < Test
       max_tokens: anything
     ).returns(TestClient::CHAT_RESPONSE)
 
-    adapter = LlmGateway::Adapters::Claude::MessagesAdapter.new client
+    adapter = LlmGateway::Adapters::Anthropic::MessagesAdapter.new client
 
     adapter.chat(message)
   end
@@ -55,14 +55,14 @@ class CacheTest < Test
       max_tokens: anything
     ).returns(TestClient::CHAT_RESPONSE)
 
-    adapter = LlmGateway::Adapters::Claude::MessagesAdapter.new client
+    adapter = LlmGateway::Adapters::Anthropic::MessagesAdapter.new client
 
     adapter.chat("hello", system: [ { role: "system", content: "do it proper", cache_control: { 'type': "ephemeral" } } ])
   end
 
   test "when cache marker passed with tool" do
     client = TestClient.new
-    adapter = LlmGateway::Adapters::Claude::MessagesAdapter.new client
+    adapter = LlmGateway::Adapters::Anthropic::MessagesAdapter.new client
 
     tools = [ { name: "get_weather", description: "Get current weather for a location", cache_control: { 'type': "ephemeral" }, input_schema: { type: "object", properties: { location: { type: "string", description: "City name" } }, required: [ "location" ] } } ]
 

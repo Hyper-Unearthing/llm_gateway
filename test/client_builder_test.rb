@@ -9,8 +9,8 @@ class ClientBuilderTest < Test
       api_key: "sk-ant-test-key"
     })
 
-    assert_instance_of LlmGateway::Adapters::Claude::MessagesAdapter, adapter
-    assert_instance_of LlmGateway::Clients::Claude, adapter.client
+    assert_instance_of LlmGateway::Adapters::Anthropic::MessagesAdapter, adapter
+    assert_instance_of LlmGateway::Clients::Anthropic, adapter.client
   end
 
   test "builds claude client with anthropic messages provider" do
@@ -19,8 +19,8 @@ class ClientBuilderTest < Test
       api_key: "sk-ant-oat-test-token"
     })
 
-    assert_instance_of LlmGateway::Adapters::Claude::MessagesAdapter, adapter
-    assert_instance_of LlmGateway::Clients::Claude, adapter.client
+    assert_instance_of LlmGateway::Adapters::Anthropic::MessagesAdapter, adapter
+    assert_instance_of LlmGateway::Clients::Anthropic, adapter.client
   end
 
   test "builds openai client with default completions adapter" do

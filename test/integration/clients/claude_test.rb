@@ -18,7 +18,7 @@ class ClaudeClientTest < Test
   end
 
   def claude_client
-    LlmGateway::Clients::Claude.new
+    LlmGateway::Clients::Anthropic.new
   end
 
   test "throws bad request error" do
@@ -44,7 +44,7 @@ class ClaudeClientTest < Test
   test "throws authentication error" do
     error = assert_raises(LlmGateway::Errors::AuthenticationError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::Claude.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ], max_tokens: 4096)
+        LlmGateway::Clients::Anthropic.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ], max_tokens: 4096)
       end
     end
     assert_equal "invalid x-api-key", error.message
@@ -54,7 +54,7 @@ class ClaudeClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::Claude.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], max_tokens: 4096)
+        LlmGateway::Clients::Anthropic.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], max_tokens: 4096)
       end
     end
     assert_equal "model: randomodel", error.message
@@ -150,7 +150,7 @@ class ClaudeClientTest < Test
       .to_return(status: 200, body: { id: "msg_1", content: [], usage: {} }.to_json,
                  headers: { 'Content-Type': "application/json" })
 
-    LlmGateway::Clients::Claude.new(api_key: "sk-ant-oat-abc").chat([ { role: "user", content: "hello" } ])
+    LlmGateway::Clients::Anthropic.new(api_key: "sk-ant-oat-abc").chat([ { role: "user", content: "hello" } ])
 
     assert_requested(:post, "https://api.anthropic.com/v1/messages",
                      headers: {
@@ -174,7 +174,7 @@ class ClaudeClientTest < Test
       .to_return(status: 200, body: { id: "msg_1", content: [], usage: {} }.to_json,
                  headers: { 'Content-Type': "application/json" })
 
-    LlmGateway::Clients::Claude.new(api_key: "sk-ant-oat-abc").chat([ { role: "user", content: "hello" } ])
+    LlmGateway::Clients::Anthropic.new(api_key: "sk-ant-oat-abc").chat([ { role: "user", content: "hello" } ])
   end
 
   test "get_oauth_access_token returns existing non-expired token" do

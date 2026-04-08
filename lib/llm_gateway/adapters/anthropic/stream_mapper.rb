@@ -4,7 +4,7 @@ require_relative "../structs.rb"
 
 module LlmGateway
   module Adapters
-    module Claude
+    module Anthropic
       class StreamMapper
         def map(chunk)
           case chunk[:event]

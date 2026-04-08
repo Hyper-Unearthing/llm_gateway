@@ -2,7 +2,7 @@
 
 module LlmGateway
   module Adapters
-    module Claude
+    module Anthropic
       class FileOutputMapper
         def self.map(data)
           data.delete(:type) # Didnt see much value in this only option is "file"

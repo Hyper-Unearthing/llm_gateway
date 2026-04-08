@@ -2,7 +2,7 @@
 
 module LlmGateway
   module Adapters
-    module Claude
+    module Anthropic
       class BidirectionalMessageMapper
         attr_reader :direction
 

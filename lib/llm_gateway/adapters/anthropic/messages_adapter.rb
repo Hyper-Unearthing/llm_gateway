@@ -9,7 +9,7 @@ require_relative "stream_mapper"
 
 module LlmGateway
   module Adapters
-    module Claude
+    module Anthropic
       class MessagesAdapter < Adapter
         def initialize(client)
           super(

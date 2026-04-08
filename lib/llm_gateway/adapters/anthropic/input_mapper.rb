@@ -4,7 +4,7 @@ require_relative "bidirectional_message_mapper"
 
 module LlmGateway
   module Adapters
-    module Claude
+    module Anthropic
       class InputMapper
         def self.map(data)
           {
