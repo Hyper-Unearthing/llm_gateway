@@ -62,7 +62,7 @@ module LlmGateway
       when LlmGateway::Clients::Groq
         "groq"
       else
-        raise LlmGateway::Errors::UnsupportedProvider, client.class.name
+        client.class.name.downcase
       end
     end
 

@@ -6,11 +6,12 @@ require_relative "structs"
 module LlmGateway
   module Adapters
     class Adapter
-      attr_reader :client, :input_mapper, :output_mapper, :file_output_mapper, :option_mapper, :client_method, :stream_mapper
+      attr_reader :client, :input_mapper, :input_sanitizer, :output_mapper, :file_output_mapper, :option_mapper, :client_method, :stream_mapper
 
-      def initialize(client, input_mapper:, output_mapper:, file_output_mapper: nil, stream_mapper: nil, option_mapper: OptionMapper, client_method: :chat)
+      def initialize(client, input_mapper:, input_sanitizer: nil, output_mapper:, file_output_mapper: nil, stream_mapper: nil, option_mapper: OptionMapper, client_method: :chat)
         @client = client
         @input_mapper = input_mapper
+        @input_sanitizer = input_sanitizer
         @output_mapper = output_mapper
         @file_output_mapper = file_output_mapper
         @option_mapper = option_mapper
@@ -20,7 +21,7 @@ module LlmGateway
 
       def chat(message, tools: nil, system: nil, **options)
         normalized_input = input_mapper.map({
-          messages: normalize_messages(message),
+          messages: sanitize_messages(normalize_messages(message)),
           tools: tools,
           system: normalize_system(system)
         })
@@ -40,7 +41,7 @@ module LlmGateway
         raise LlmGateway::Errors::MissingMapperForProvider, "No stream_mapper configured" unless stream_mapper
 
         normalized_input = input_mapper.map({
-          messages: normalize_messages(message),
+          messages: sanitize_messages(normalize_messages(message)),
           tools: tools,
           system: normalize_system(system)
         })
@@ -105,6 +106,23 @@ module LlmGateway
         else
           self.class.name.split("::").last.gsub(/Adapter$/, "").downcase
         end
+      end
+
+      def sanitize_messages(messages)
+        return messages unless input_sanitizer
+
+        target_provider = LlmGateway::Client.provider_id_from_client(client)
+        target_api = stream_api_name
+        target_model = client.model_key
+
+        return messages if target_provider.nil? || target_api.nil? || target_model.nil?
+
+        input_sanitizer.sanitize(
+          messages,
+          target_provider: target_provider,
+          target_api: target_api,
+          target_model: target_model
+        )
       end
 
       def normalize_system(system)

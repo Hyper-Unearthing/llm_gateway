@@ -5,6 +5,10 @@ require "test_helper"
 
 class CacheTest < Test
   class TestClient
+    attr_reader :model_key
+    def initialize
+      @model_key = "claude-3"
+    end
     CHAT_RESPONSE = {
       id: "msg_123",
       model: "claude-3",
