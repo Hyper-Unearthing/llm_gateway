@@ -2,14 +2,14 @@
 
 require "test_helper"
 require "json"
-require_relative "../utils/live_test_helper"
-require_relative "../utils/calculator_tool_helper"
+require_relative "../../utils/live_test_helper"
+require_relative "../../utils/calculator_tool_helper"
 
 class HandoffLiveTest < Test
   include LiveTestHelper
   include CalculatorToolHelper
 
-  FIXTURE_PATH = File.expand_path("../fixtures/handoff_live_fixture.json", __dir__)
+  FIXTURE_PATH = File.expand_path("../../fixtures/handoff_live_fixture.json", __dir__)
 
   PAIRS = [
     { provider: "openai_apikey_completions", model: "gpt-5.1" },
@@ -40,7 +40,7 @@ class HandoffLiveTest < Test
   end
 
   def self.define_handoff_test_for(provider:, model:)
-    test "#{provider}_#{model} handoff_live_test" do
+    test "live_handoff_#{provider}_#{model}" do
       skip_on_authentication_error do
         without_vcr do
           run_handoff_for(provider:, model:)

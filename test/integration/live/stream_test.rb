@@ -4,8 +4,8 @@ require "test_helper"
 require "vcr"
 require "json"
 require "base64"
-require_relative "../utils/calculator_tool_helper"
-require_relative "../utils/live_test_helper"
+require_relative "../../utils/calculator_tool_helper"
+require_relative "../../utils/live_test_helper"
 
 class ProvidersJsonTest < Test
   include CalculatorToolHelper
@@ -238,7 +238,7 @@ class ProvidersJsonTest < Test
   end
 
   def basic_image_streaming_test(adapter)
-    image_path = File.expand_path("../fixtures/red-circle.png", __dir__)
+    image_path = File.expand_path("../../fixtures/red-circle.png", __dir__)
     image_data = Base64.strict_encode64(File.binread(image_path))
 
     prompt = [
@@ -273,7 +273,7 @@ class ProvidersJsonTest < Test
     assert_includes lower_content, "circle"
   end
   def self.define_stream_tests_for(name:, provider:, model:)
-    test "#{name} basic text generation" do
+    test "live_basic_text_generation_#{provider}_#{model}" do
       skip_on_authentication_error do
         without_vcr do
           adapter = load_provider(provider:, model:)
@@ -282,7 +282,7 @@ class ProvidersJsonTest < Test
       end
     end
 
-    test "#{name} basic tool call" do
+    test "live_basic_tool_call_#{provider}_#{model}" do
       skip_on_authentication_error do
         without_vcr do
           adapter = load_provider(provider:, model:)
@@ -291,7 +291,7 @@ class ProvidersJsonTest < Test
       end
     end
 
-    test "#{name} basic thinking" do
+    test "live_basic_thinking_#{provider}_#{model}" do
       skip_on_authentication_error do
         without_vcr do
           adapter = load_provider(provider:, model:)
@@ -300,7 +300,7 @@ class ProvidersJsonTest < Test
       end
     end
 
-    test "#{name} text streaming" do
+    test "live_text_streaming_#{provider}_#{model}" do
       skip_on_authentication_error do
         without_vcr do
           adapter = load_provider(provider:, model:)
@@ -309,7 +309,7 @@ class ProvidersJsonTest < Test
       end
     end
 
-    test "#{name} multi turn tool streaming" do
+    test "live_multi_turn_tool_streaming_#{provider}_#{model}" do
       skip_on_authentication_error do
         without_vcr do
           adapter = load_provider(provider:, model:)
@@ -318,7 +318,7 @@ class ProvidersJsonTest < Test
       end
     end
 
-    test "#{name} image streaming" do
+    test "live_image_streaming_#{provider}_#{model}" do
       skip_on_authentication_error do
         without_vcr do
           adapter = load_provider(provider:, model:)

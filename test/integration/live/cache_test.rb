@@ -3,7 +3,7 @@
 require "test_helper"
 require "net/http"
 require "uri"
-require_relative "../utils/live_test_helper"
+require_relative "../../utils/live_test_helper"
 
 class CacheLiveTest < Test
   include LiveTestHelper
@@ -70,7 +70,7 @@ class CacheLiveTest < Test
   end
 
   def self.define_cache_tests_for(name:, provider:, model:, options: {})
-    test "#{name} cache read tokens on second turn" do
+    test "live_cache_read_tokens_on_second_turn_#{name}_#{provider}_#{model}" do
       skip_on_authentication_error do
         without_vcr do
           adapter = load_provider(provider:, model:)
