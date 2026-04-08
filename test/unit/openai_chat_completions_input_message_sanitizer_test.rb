@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative "../../lib/llm_gateway/adapters/open_ai/chat_completions/input_message_sanitizer"
+require_relative "../../lib/llm_gateway/adapters/openai/chat_completions/input_message_sanitizer"
 
-class OpenAiChatCompletionsInputMessageSanitizerTest < Test
-  SANITIZER = LlmGateway::Adapters::OpenAi::ChatCompletions::InputMessageSanitizer
+class OpenAIChatCompletionsInputMessageSanitizerTest < Test
+  SANITIZER = LlmGateway::Adapters::OpenAI::ChatCompletions::InputMessageSanitizer
 
   test "normalizes responses-style tool_use id and corresponding tool_result reference" do
     source_id = "call:abc/123|item_999"

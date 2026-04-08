@@ -3,9 +3,9 @@
 require "test_helper"
 require_relative "option_mapper_fixture"
 
-class OpenAiCodexOptionMapperTest < Test
+class OpenAICodexOptionMapperTest < Test
   test "keeps prompt_cache_key but removes retention fields" do
-    mapped = LlmGateway::Adapters::OpenAiCodex::OptionMapper.map(
+    mapped = LlmGateway::Adapters::OpenAICodex::OptionMapper.map(
       cache_key: "abc",
       cache_retention: "long"
     )
@@ -17,20 +17,20 @@ class OpenAiCodexOptionMapperTest < Test
   end
 
   test "removes token limit options" do
-    mapped = LlmGateway::Adapters::OpenAiCodex::OptionMapper.map(max_completion_tokens: 999)
+    mapped = LlmGateway::Adapters::OpenAICodex::OptionMapper.map(max_completion_tokens: 999)
 
     refute mapped.key?(:max_output_tokens)
     refute mapped.key?(:max_completion_tokens)
   end
 
   test "inherits reasoning mapping from openai responses" do
-    mapped = LlmGateway::Adapters::OpenAiCodex::OptionMapper.map(reasoning: "low")
+    mapped = LlmGateway::Adapters::OpenAICodex::OptionMapper.map(reasoning: "low")
 
     assert_equal({ effort: "low", summary: "detailed" }, mapped[:reasoning])
   end
 
   test "maps all supported options into final output" do
-    mapped = LlmGateway::Adapters::OpenAiCodex::OptionMapper.map(OptionMapperFixture.superset_options)
+    mapped = LlmGateway::Adapters::OpenAICodex::OptionMapper.map(OptionMapperFixture.superset_options)
 
     assert_equal(
       {

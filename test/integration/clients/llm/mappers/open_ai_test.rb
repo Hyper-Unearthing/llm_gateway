@@ -31,7 +31,7 @@ class OpenAIMapperTest < Test
         function: { name: "get_weather", description: "Get current weather for a location", parameters: { type: "object", properties: { location: { type: "string", description: "City name" } }, required: [ "location" ] } }
       } ]
     }
-    result = LlmGateway::Adapters::OpenAi::ChatCompletions::InputMapper.map(input)
+    result = LlmGateway::Adapters::OpenAI::ChatCompletions::InputMapper.map(input)
     assert_equal expectation, result
   end
 
@@ -79,7 +79,7 @@ class OpenAIMapperTest < Test
        } ]
     }
 
-    result = LlmGateway::Adapters::OpenAi::Responses::OutputMapper.map(input)
+    result = LlmGateway::Adapters::OpenAI::Responses::OutputMapper.map(input)
     expected = {
       model: "gpt-5-2025-08-07",
       id: "resp_6895f8d4a06881919dd57eaa397cc2220e2461b3232f5782",
@@ -143,7 +143,7 @@ class OpenAIMapperTest < Test
         function: { name: "get_weather", description: "Get current weather for a location", parameters: { type: "object", properties: { location: { type: "string", description: "City name" } }, required: [ "location" ] } }
       } ]
     }
-    result = LlmGateway::Adapters::OpenAi::ChatCompletions::InputMapper.map(input)
+    result = LlmGateway::Adapters::OpenAI::ChatCompletions::InputMapper.map(input)
 
     assert_equal expectation, result
   end

@@ -6,7 +6,7 @@ require "time"
 
 module LlmGateway
   module Clients
-    class ClaudeCode
+    module ClaudeCode
       class TokenManager
         TOKEN_URL = "https://api.anthropic.com/v1/oauth/token"
         CLIENT_ID = OAuthFlow::CLIENT_ID

@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require_relative "../open_ai/responses/option_mapper"
+require_relative "../openai/responses/option_mapper"
 
 module LlmGateway
   module Adapters
-    module OpenAiCodex
+    module OpenAICodex
       module OptionMapper
         module_function
 
         def map(options)
-          mapped_options = OpenAi::Responses::OptionMapper.map(options)
+          mapped_options = OpenAI::Responses::OptionMapper.map(options)
 
           # Codex endpoint currently rejects token limit parameters.
           mapped_options.delete(:max_output_tokens)

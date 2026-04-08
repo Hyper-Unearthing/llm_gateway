@@ -27,7 +27,7 @@ class ConfigureTest < Test
 
     assert_respond_to LlmGateway, :anthropic_sonnet
     assert_respond_to LlmGateway, :groq
-    assert_instance_of LlmGateway::Adapters::Claude::MessagesAdapter, LlmGateway.anthropic_sonnet
+    assert_instance_of LlmGateway::Adapters::Anthropic::MessagesAdapter, LlmGateway.anthropic_sonnet
     assert_instance_of LlmGateway::Adapters::Groq::ChatCompletionsAdapter, LlmGateway.groq
   end
 

@@ -2,7 +2,7 @@
 
 require "test_helper"
 require "json"
-require_relative "../../lib/llm_gateway/adapters/claude/stream_mapper"
+require_relative "../../lib/llm_gateway/adapters/anthropic/stream_mapper"
 require_relative "../../lib/llm_gateway/adapters/stream_accumulator"
 
 ANTHROPIC_STREAM_TEXT_EVENTS_FIXTURE = JSON.parse(File.read(File.expand_path("../fixtures/anthropic_stream/text_events.json", __dir__)), symbolize_names: true)
@@ -11,7 +11,7 @@ ANTHROPIC_STREAM_THINKING_EVENTS_FIXTURE = JSON.parse(File.read(File.expand_path
 
 class StreamTest < Test
   test "test chunk mapping text only" do
-    mapper = LlmGateway::Adapters::Claude::StreamMapper.new
+    mapper = LlmGateway::Adapters::Anthropic::StreamMapper.new
 
     accumulator = StreamAccumulator.new
     ANTHROPIC_STREAM_TEXT_EVENTS_FIXTURE.each do |chunk|
@@ -30,7 +30,7 @@ class StreamTest < Test
   end
 
   test "test chunk mapping text and tools" do
-    mapper = LlmGateway::Adapters::Claude::StreamMapper.new
+    mapper = LlmGateway::Adapters::Anthropic::StreamMapper.new
 
     accumulator = StreamAccumulator.new
     ANTHROPIC_STREAM_TOOL_EVENTS_FIXTURE.each do |chunk|
@@ -52,7 +52,7 @@ class StreamTest < Test
   end
 
   test "test chunk mapping text and thinking" do
-    mapper = LlmGateway::Adapters::Claude::StreamMapper.new
+    mapper = LlmGateway::Adapters::Anthropic::StreamMapper.new
 
     accumulator = StreamAccumulator.new
     ANTHROPIC_STREAM_THINKING_EVENTS_FIXTURE.each do |chunk|

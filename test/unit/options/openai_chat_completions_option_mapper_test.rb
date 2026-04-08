@@ -3,15 +3,15 @@
 require "test_helper"
 require_relative "option_mapper_fixture"
 
-class OpenAiChatCompletionsOptionMapperTest < Test
+class OpenAIChatCompletionsOptionMapperTest < Test
   test "sets default max_completion_tokens" do
-    mapped = LlmGateway::Adapters::OpenAi::ChatCompletions::OptionMapper.map({})
+    mapped = LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map({})
 
     assert_equal 20_480, mapped[:max_completion_tokens]
   end
 
   test "maps cache_key and short retention" do
-    mapped = LlmGateway::Adapters::OpenAi::ChatCompletions::OptionMapper.map(
+    mapped = LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(
       cache_key: "abc",
       cache_retention: "short"
     )
@@ -21,7 +21,7 @@ class OpenAiChatCompletionsOptionMapperTest < Test
   end
 
   test "maps long retention" do
-    mapped = LlmGateway::Adapters::OpenAi::ChatCompletions::OptionMapper.map(
+    mapped = LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(
       cache_key: "abc",
       cache_retention: "long"
     )
@@ -31,7 +31,7 @@ class OpenAiChatCompletionsOptionMapperTest < Test
   end
 
   test "none retention removes prompt cache key" do
-    mapped = LlmGateway::Adapters::OpenAi::ChatCompletions::OptionMapper.map(
+    mapped = LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(
       cache_key: "abc",
       cache_retention: "none"
     )
@@ -41,21 +41,21 @@ class OpenAiChatCompletionsOptionMapperTest < Test
   end
 
   test "defaults retention to short when cache_key is present" do
-    mapped = LlmGateway::Adapters::OpenAi::ChatCompletions::OptionMapper.map(cache_key: "abc")
+    mapped = LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(cache_key: "abc")
 
     assert_equal "abc", mapped[:prompt_cache_key]
     assert_equal "in_memory", mapped[:prompt_cache_retention]
   end
 
   test "maps reasoning to reasoning_effort" do
-    mapped = LlmGateway::Adapters::OpenAi::ChatCompletions::OptionMapper.map(reasoning: "high")
+    mapped = LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(reasoning: "high")
 
     assert_equal "high", mapped[:reasoning_effort]
     refute mapped.key?(:reasoning)
   end
 
   test "none reasoning is removed" do
-    mapped = LlmGateway::Adapters::OpenAi::ChatCompletions::OptionMapper.map(reasoning: "none")
+    mapped = LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(reasoning: "none")
 
     refute mapped.key?(:reasoning)
     refute mapped.key?(:reasoning_effort)
@@ -63,18 +63,18 @@ class OpenAiChatCompletionsOptionMapperTest < Test
 
   test "raises for invalid reasoning" do
     assert_raises(ArgumentError) do
-      LlmGateway::Adapters::OpenAi::ChatCompletions::OptionMapper.map(reasoning: "extreme")
+      LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(reasoning: "extreme")
     end
   end
 
   test "raises for invalid cache retention" do
     assert_raises(ArgumentError) do
-      LlmGateway::Adapters::OpenAi::ChatCompletions::OptionMapper.map(cache_retention: "week")
+      LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(cache_retention: "week")
     end
   end
 
   test "maps all supported options into final output" do
-    mapped = LlmGateway::Adapters::OpenAi::ChatCompletions::OptionMapper.map(OptionMapperFixture.superset_options)
+    mapped = LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(OptionMapperFixture.superset_options)
 
     assert_equal(
       {

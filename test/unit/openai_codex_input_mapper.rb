@@ -4,9 +4,9 @@ require "test_helper"
 require "json"
 require_relative "../../lib/llm_gateway/adapters/openai_codex/input_mapper"
 
-MAPPER = LlmGateway::Adapters::OpenAiCodex::InputMapper
+MAPPER = LlmGateway::Adapters::OpenAICodex::InputMapper
 
-class OpenAiCodexInputMapperTest < Test
+class OpenAICodexInputMapperTest < Test
   # ---------------------------------------------------------------------------
   # map / map_messages — happy-path pass-through
   # ---------------------------------------------------------------------------

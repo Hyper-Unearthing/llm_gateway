@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require "json"
-require_relative "../open_ai/responses/input_mapper"
+require_relative "../openai/responses/input_mapper"
 
 module LlmGateway
   module Adapters
-    module OpenAiCodex
+    module OpenAICodex
       # Custom input mapper for the Codex backend.
       #
       # The Codex Responses endpoint rejects several content block types that
@@ -22,7 +22,7 @@ module LlmGateway
       #   - function_call / tool_use blocks inside an assistant turn are
       #     promoted to top-level function_call items so that Codex can match
       #     them against the subsequent function_call_output items.
-      class InputMapper < OpenAi::Responses::InputMapper
+      class InputMapper < OpenAI::Responses::InputMapper
         def self.map_messages(messages)
           return messages unless messages.is_a?(Array)
 

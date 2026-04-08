@@ -27,8 +27,7 @@ module LlmGateway
         provider: provider,
         api_key: api_key
       )
-      result = adapter.client.upload_file(*kwargs.values)
-      adapter.file_output_mapper.map(result)
+      adapter.upload_file(**kwargs)
     end
 
     def self.download_file(provider, **kwargs)
@@ -37,8 +36,7 @@ module LlmGateway
         provider: provider,
         api_key: api_key
       )
-      result = adapter.client.download_file(*kwargs.values)
-      adapter.file_output_mapper.map(result)
+      adapter.download_file(**kwargs)
     end
 
     def self.provider_from_model(model)
@@ -53,11 +51,9 @@ module LlmGateway
 
     def self.provider_id_from_client(client)
       case client
-      when LlmGateway::Clients::ClaudeCode
-        "claude_code"
-      when LlmGateway::Clients::Claude
+      when LlmGateway::Clients::Anthropic
         "anthropic"
-      when LlmGateway::Clients::OpenAi
+      when LlmGateway::Clients::OpenAI
         "openai"
       when LlmGateway::Clients::Groq
         "groq"
