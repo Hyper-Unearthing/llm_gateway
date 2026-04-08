@@ -27,8 +27,7 @@ module LlmGateway
         provider: provider,
         api_key: api_key
       )
-      result = adapter.client.upload_file(*kwargs.values)
-      adapter.file_output_mapper.map(result)
+      adapter.upload_file(**kwargs)
     end
 
     def self.download_file(provider, **kwargs)
@@ -37,8 +36,7 @@ module LlmGateway
         provider: provider,
         api_key: api_key
       )
-      result = adapter.client.download_file(*kwargs.values)
-      adapter.file_output_mapper.map(result)
+      adapter.download_file(**kwargs)
     end
 
     def self.provider_from_model(model)

@@ -56,7 +56,7 @@ class GroqMapperTest < Test
       model: "llama-3.3-70b-versatile",
       id: "chatcmpl-3e519c7b-4d0c-456a-b752-e572d9174545"
     }
-    result = LlmGateway::Adapters::Groq::OutputMapper.map(input)
+    result = LlmGateway::Adapters::OpenAI::ChatCompletions::OutputMapper.map(input)
     assert_equal output, result
   end
 
@@ -74,7 +74,8 @@ class GroqMapperTest < Test
       tool_calls: [ { id: "call_tc9dHBkYgba7fDlJk6zk8Pr3", type: "function", function: { name: "Bash", arguments: "{\"command\":\"find . -maxdepth 2 -type f -iname 'readme*'\",\"timeout\":120000}" } } ]
     },
      { role: "tool", tool_call_id: "call_tc9dHBkYgba7fDlJk6zk8Pr3", content: "./README.md\n"  } ]
-    result = LlmGateway::Adapters::Groq::InputMapper.map(input)
+    adapter = LlmGateway::Adapters::Groq::ChatCompletionsAdapter.new(Object.new)
+    result = adapter.send(:map_input, input)
 
     assert_equal output, result[:messages]
   end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "../adapter"
+require_relative "../openai/acts_like_responses"
 require_relative "../openai/responses/output_mapper"
 require_relative "option_mapper"
 require_relative "../openai/responses/stream_mapper"
@@ -11,38 +12,25 @@ require_relative "../input_message_sanitizer"
 module LlmGateway
   module Adapters
     module OpenAICodex
-      # Adapter for LlmGateway::Clients::OpenAI.
-      #
-      # Reuses the OpenAI Responses output/stream mappers because the Codex
-      # backend speaks the same Responses API wire format.  Uses a custom
-      # InputMapper that strips Codex-incompatible content blocks (unsigned
-      # thinking, reasoning, summary_text) and normalises assistant content
-      # directionality.  The client always streams internally, so we drive the
-      # non-streaming path through +client.chat+ (which accumulates the stream
-      # and returns the completed response object) and the streaming path
-      # through +client.stream+.
       class ResponsesAdapter < Adapter
-        def initialize(client)
-          super(
-            client,
-            input_mapper: OpenAICodex::InputMapper,
-            input_sanitizer: LlmGateway::Adapters::InputMessageSanitizer,
-            output_mapper: OpenAI::Responses::OutputMapper,
-            file_output_mapper: OpenAI::FileOutputMapper,
-            option_mapper: OptionMapper,
-            client_method: :chat_codex,
-            stream_mapper: OpenAI::Responses::StreamMapper
-          )
-        end
+        include ActsLikeOpenAIResponses
 
         private
 
-        def stream_client_method
-          :stream_codex
+        def input_mapper
+          OpenAICodex::InputMapper
         end
 
-        def stream_api_name
-          "responses"
+        def option_mapper
+          OptionMapper
+        end
+
+        def perform_chat(messages, tools:, system:, **options)
+          client.chat_codex(messages, tools: tools, system: system, **options)
+        end
+
+        def perform_stream(messages, tools:, system:, **options, &block)
+          client.stream_codex(messages, tools: tools, system: system, **options, &block)
         end
       end
     end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "../adapter"
+require_relative "acts_like_messages"
 require_relative "../anthropic_option_mapper"
 require_relative "../input_message_sanitizer"
 require_relative "input_mapper"
@@ -11,18 +12,7 @@ module LlmGateway
   module Adapters
     module Anthropic
       class MessagesAdapter < Adapter
-        def initialize(client)
-          super(
-            client,
-            input_mapper: InputMapper,
-            input_sanitizer: LlmGateway::Adapters::InputMessageSanitizer,
-            output_mapper: OutputMapper,
-            file_output_mapper: FileOutputMapper,
-            option_mapper: AnthropicOptionMapper,
-            client_method: :chat,
-            stream_mapper: StreamMapper
-          )
-        end
+        include ActsLikeAnthropicMessages
       end
     end
   end
