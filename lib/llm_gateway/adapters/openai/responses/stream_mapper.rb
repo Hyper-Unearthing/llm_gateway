@@ -4,7 +4,7 @@ require_relative "../../structs"
 
 module LlmGateway
   module Adapters
-    module OpenAi
+    module OpenAI
       module Responses
         class StreamMapper
           def map(chunk)

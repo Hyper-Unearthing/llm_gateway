@@ -4,7 +4,7 @@ require_relative "../../input_message_sanitizer"
 
 module LlmGateway
   module Adapters
-    module OpenAi
+    module OpenAI
       module ChatCompletions
         class InputMessageSanitizer < LlmGateway::Adapters::InputMessageSanitizer
           def self.sanitize(messages, target_provider:, target_api:, target_model:)

@@ -4,9 +4,9 @@ require "base64"
 
 module LlmGateway
   module Adapters
-    module OpenAi
+    module OpenAI
       module Responses
-        class BidirectionalMessageMapper < OpenAi::ChatCompletions::BidirectionalMessageMapper
+        class BidirectionalMessageMapper < OpenAI::ChatCompletions::BidirectionalMessageMapper
           def map_content(content)
             # Convert string content to text format
             #

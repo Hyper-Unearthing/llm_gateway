@@ -2,7 +2,7 @@
 
 module LlmGateway
   module Adapters
-    module OpenAi
+    module OpenAI
       class FileOutputMapper
         def self.map(data)
           bytes = data.delete(:bytes)

@@ -4,7 +4,7 @@ require_relative "../base_client"
 
 module LlmGateway
   module Clients
-    class OpenAi < BaseClient
+    class OpenAI < BaseClient
       CODEX_BASE_ENDPOINT = "https://chatgpt.com/backend-api/codex"
 
       attr_reader :account_id
@@ -63,7 +63,7 @@ module LlmGateway
       end
 
       def get_oauth_access_token(access_token:, refresh_token:, expires_at:, account_id: nil, &block)
-        token_manager = LlmGateway::Clients::OpenAi::TokenManager.new(
+        token_manager = LlmGateway::Clients::OpenAI::TokenManager.new(
           access_token: access_token,
           refresh_token: refresh_token,
           expires_at: expires_at,

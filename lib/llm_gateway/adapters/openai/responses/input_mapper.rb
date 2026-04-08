@@ -5,9 +5,9 @@ require_relative "bidirectional_message_mapper"
 
 module LlmGateway
   module Adapters
-    module OpenAi
+    module OpenAI
       module Responses
-        class InputMapper < OpenAi::ChatCompletions::InputMapper
+        class InputMapper < OpenAI::ChatCompletions::InputMapper
           def self.message_mapper
             BidirectionalMessageMapper.new(LlmGateway::DIRECTION_IN)
           end

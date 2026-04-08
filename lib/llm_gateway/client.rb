@@ -55,7 +55,7 @@ module LlmGateway
       case client
       when LlmGateway::Clients::Anthropic
         "anthropic"
-      when LlmGateway::Clients::OpenAi
+      when LlmGateway::Clients::OpenAI
         "openai"
       when LlmGateway::Clients::Groq
         "groq"

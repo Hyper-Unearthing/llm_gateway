@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "../open_ai/chat_completions/bidirectional_message_mapper"
+require_relative "../openai/chat_completions/bidirectional_message_mapper"
 
 module LlmGateway
   module Adapters
     module Groq
-      class BidirectionalMessageMapper < OpenAi::ChatCompletions::BidirectionalMessageMapper
+      class BidirectionalMessageMapper < OpenAI::ChatCompletions::BidirectionalMessageMapper
         private
 
         def map_file_content(content)

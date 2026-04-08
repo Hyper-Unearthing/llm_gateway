@@ -2,7 +2,7 @@
 
 module LlmGateway
   module Adapters
-    module OpenAi
+    module OpenAI
       module ChatCompletions
         class OutputMapper
         def self.map(data)

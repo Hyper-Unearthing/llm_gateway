@@ -98,10 +98,10 @@ module LlmGateway
         case self
         when LlmGateway::Adapters::Anthropic::MessagesAdapter
           "messages"
-        when LlmGateway::Adapters::OpenAi::ChatCompletionsAdapter,
+        when LlmGateway::Adapters::OpenAI::ChatCompletionsAdapter,
              LlmGateway::Adapters::Groq::ChatCompletionsAdapter
           "completions"
-        when LlmGateway::Adapters::OpenAi::ResponsesAdapter
+        when LlmGateway::Adapters::OpenAI::ResponsesAdapter
           "responses"
         else
           self.class.name.split("::").last.gsub(/Adapter$/, "").downcase

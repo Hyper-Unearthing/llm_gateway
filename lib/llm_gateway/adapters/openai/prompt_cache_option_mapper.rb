@@ -2,7 +2,7 @@
 
 module LlmGateway
   module Adapters
-    module OpenAi
+    module OpenAI
       module PromptCacheOptionMapper
         def self.included(base)
           base.extend(self)

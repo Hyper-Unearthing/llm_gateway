@@ -8,7 +8,7 @@ class OpenaiClientTest < Test
   end
 
   def mapped_chat_options(**options)
-    LlmGateway::Adapters::OpenAi::ChatCompletions::OptionMapper.map(options)
+    LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(options)
   end
 
   def stub_error_response(error, status_code = 200)
@@ -21,7 +21,7 @@ class OpenaiClientTest < Test
   end
 
   def openai_client
-    LlmGateway::Clients::OpenAi.new
+    LlmGateway::Clients::OpenAI.new
   end
 
   test "throws bad request error" do
@@ -36,7 +36,7 @@ class OpenaiClientTest < Test
   test "throws authentication error" do
     error = assert_raises(LlmGateway::Errors::AuthenticationError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::OpenAi.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ], **mapped_chat_options(max_completion_tokens: 4096))
+        LlmGateway::Clients::OpenAI.new(api_key: "123").chat([ { 'role': "user", 'content': "hello" } ], **mapped_chat_options(max_completion_tokens: 4096))
       end
     end
     assert_equal "Incorrect API key provided: <BEARER_TOKEN>. You can find your API key at https://platform.openai.com/account/api-keys.",
@@ -46,7 +46,7 @@ class OpenaiClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::OpenAi.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], **mapped_chat_options(max_completion_tokens: 4096))
+        LlmGateway::Clients::OpenAI.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], **mapped_chat_options(max_completion_tokens: 4096))
       end
     end
     assert_equal "The model `randomodel` does not exist or you do not have access to it.", error.message
@@ -54,7 +54,7 @@ class OpenaiClientTest < Test
 
   test "embeddings api" do
     VCR.use_cassette(vcr_cassette_name) do
-      response = LlmGateway::Clients::OpenAi.new(model_key: "text-embedding-3-small").generate_embeddings("hello world")
+      response = LlmGateway::Clients::OpenAI.new(model_key: "text-embedding-3-small").generate_embeddings("hello world")
       assert(response[:usage], prompt_tokens: 2, total_tokens: 2)
       assert(response[:object], "list")
       assert(response[:model], "text-embedding-3-small")
@@ -164,7 +164,7 @@ class OpenaiClientTest < Test
         headers: { "Content-Type" => "text/event-stream" }
       )
 
-    result = LlmGateway::Clients::OpenAi.new(api_key: "oauth-token").chat_codex([ { role: "user", content: "hello" } ])
+    result = LlmGateway::Clients::OpenAI.new(api_key: "oauth-token").chat_codex([ { role: "user", content: "hello" } ])
 
     assert_equal "resp_1", result[:id]
   end
@@ -178,7 +178,7 @@ class OpenaiClientTest < Test
       )
 
     events = []
-    LlmGateway::Clients::OpenAi.new(api_key: "oauth-token").stream_codex([ { role: "user", content: "hello" } ]) { |e| events << e }
+    LlmGateway::Clients::OpenAI.new(api_key: "oauth-token").stream_codex([ { role: "user", content: "hello" } ]) { |e| events << e }
 
     assert events.any? { |e| e[:event] == "response.completed" }
   end

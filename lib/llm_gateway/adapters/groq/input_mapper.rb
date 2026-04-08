@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require_relative "bidirectional_message_mapper"
-require_relative "../open_ai/chat_completions/input_mapper"
+require_relative "../openai/chat_completions/input_mapper"
 
 module LlmGateway
   module Adapters
     module Groq
-      class InputMapper < OpenAi::ChatCompletions::InputMapper
+      class InputMapper < OpenAI::ChatCompletions::InputMapper
         private
 
         def self.map_system(system)

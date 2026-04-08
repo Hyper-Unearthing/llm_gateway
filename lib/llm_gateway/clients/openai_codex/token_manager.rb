@@ -6,7 +6,7 @@ require "time"
 
 module LlmGateway
   module Clients
-    class OpenAi
+    class OpenAI
       class TokenManager
         attr_reader :access_token, :refresh_token, :expires_at, :account_id, :client_id
         attr_accessor :on_token_refresh

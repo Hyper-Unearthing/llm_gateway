@@ -12,7 +12,7 @@ require_relative "llm_gateway/tool"
 require_relative "llm_gateway/clients/anthropic"
 require_relative "llm_gateway/clients/claude_code/oauth_flow"
 require_relative "llm_gateway/clients/claude_code/token_manager"
-require_relative "llm_gateway/clients/open_ai"
+require_relative "llm_gateway/clients/openai"
 require_relative "llm_gateway/clients/openai_codex/oauth_flow"
 require_relative "llm_gateway/clients/openai_codex/token_manager"
 require_relative "llm_gateway/clients/groq"
@@ -24,23 +24,23 @@ require_relative "llm_gateway/adapters/structs"
 
 require_relative "llm_gateway/adapters/anthropic/input_mapper"
 require_relative "llm_gateway/adapters/anthropic/output_mapper"
-require_relative "llm_gateway/adapters/open_ai/file_output_mapper"
-require_relative "llm_gateway/adapters/open_ai/prompt_cache_option_mapper"
-require_relative "llm_gateway/adapters/open_ai/chat_completions/input_mapper"
-require_relative "llm_gateway/adapters/open_ai/chat_completions/output_mapper"
-require_relative "llm_gateway/adapters/open_ai/chat_completions/option_mapper"
+require_relative "llm_gateway/adapters/openai/file_output_mapper"
+require_relative "llm_gateway/adapters/openai/prompt_cache_option_mapper"
+require_relative "llm_gateway/adapters/openai/chat_completions/input_mapper"
+require_relative "llm_gateway/adapters/openai/chat_completions/output_mapper"
+require_relative "llm_gateway/adapters/openai/chat_completions/option_mapper"
 require_relative "llm_gateway/adapters/groq/input_mapper"
 require_relative "llm_gateway/adapters/groq/output_mapper"
-require_relative "llm_gateway/adapters/open_ai/file_output_mapper"
-require_relative "llm_gateway/adapters/open_ai/responses/input_mapper"
-require_relative "llm_gateway/adapters/open_ai/responses/output_mapper"
-require_relative "llm_gateway/adapters/open_ai/responses/option_mapper"
+require_relative "llm_gateway/adapters/openai/file_output_mapper"
+require_relative "llm_gateway/adapters/openai/responses/input_mapper"
+require_relative "llm_gateway/adapters/openai/responses/output_mapper"
+require_relative "llm_gateway/adapters/openai/responses/option_mapper"
 
 # Load adapter classes
 require_relative "llm_gateway/adapters/adapter"
 require_relative "llm_gateway/adapters/anthropic/messages_adapter"
-require_relative "llm_gateway/adapters/open_ai/chat_completions_adapter"
-require_relative "llm_gateway/adapters/open_ai/responses_adapter"
+require_relative "llm_gateway/adapters/openai/chat_completions_adapter"
+require_relative "llm_gateway/adapters/openai/responses_adapter"
 require_relative "llm_gateway/adapters/openai_codex/responses_adapter"
 require_relative "llm_gateway/adapters/groq/chat_completions_adapter"
 
@@ -57,6 +57,7 @@ module LlmGateway
   # Backward-compatible aliases for renamed clients/adapters
   module Clients
     Claude = Anthropic
+    OpenAi = OpenAI
   end
 
   module Adapters
@@ -74,12 +75,29 @@ module LlmGateway
       Client = LlmGateway::Clients::Anthropic
     end
 
+    module OpenAI
+      Client = LlmGateway::Clients::OpenAI
+    end
+
     module OpenAi
-      Client = LlmGateway::Clients::OpenAi
+      Client = LlmGateway::Clients::OpenAI
+      ChatCompletionsAdapter = LlmGateway::Adapters::OpenAI::ChatCompletionsAdapter
+      ResponsesAdapter = LlmGateway::Adapters::OpenAI::ResponsesAdapter
+      PromptCacheOptionMapper = LlmGateway::Adapters::OpenAI::PromptCacheOptionMapper
+      FileOutputMapper = LlmGateway::Adapters::OpenAI::FileOutputMapper
+      ChatCompletions = LlmGateway::Adapters::OpenAI::ChatCompletions
+      Responses = LlmGateway::Adapters::OpenAI::Responses
+    end
+
+    module OpenAICodex
+      Client = LlmGateway::Clients::OpenAI
     end
 
     module OpenAiCodex
-      Client = LlmGateway::Clients::OpenAi
+      Client = LlmGateway::Clients::OpenAI
+      ResponsesAdapter = LlmGateway::Adapters::OpenAICodex::ResponsesAdapter
+      InputMapper = LlmGateway::Adapters::OpenAICodex::InputMapper
+      OptionMapper = LlmGateway::Adapters::OpenAICodex::OptionMapper
     end
 
     module Groq
@@ -129,18 +147,18 @@ module LlmGateway
     adapter: Adapters::Anthropic::MessagesAdapter)
 
   ProviderRegistry.register("openai_apikey_completions",
-    client: Clients::OpenAi,
-    adapter: Adapters::OpenAi::ChatCompletionsAdapter)
+    client: Clients::OpenAI,
+    adapter: Adapters::OpenAI::ChatCompletionsAdapter)
 
   ProviderRegistry.register("openai_apikey_responses",
-    client: Clients::OpenAi,
-    adapter: Adapters::OpenAi::ResponsesAdapter)
+    client: Clients::OpenAI,
+    adapter: Adapters::OpenAI::ResponsesAdapter)
 
   ProviderRegistry.register("groq_apikey_completions",
     client: Clients::Groq,
     adapter: Adapters::Groq::ChatCompletionsAdapter)
 
   ProviderRegistry.register("openai_oauth_codex",
-    client: Clients::OpenAi,
-    adapter: Adapters::OpenAiCodex::ResponsesAdapter)
+    client: Clients::OpenAI,
+    adapter: Adapters::OpenAICodex::ResponsesAdapter)
 end

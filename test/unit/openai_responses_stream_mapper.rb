@@ -2,16 +2,16 @@
 
 require "test_helper"
 require "json"
-require_relative "../../lib/llm_gateway/adapters/open_ai/responses/stream_mapper"
+require_relative "../../lib/llm_gateway/adapters/openai/responses/stream_mapper"
 require_relative "../../lib/llm_gateway/adapters/stream_accumulator"
 
 OPENAI_RESPONSES_STREAM_TEXT_EVENTS_FIXTURE = JSON.parse(File.read(File.expand_path("../fixtures/openai_responses_stream/text_events.json", __dir__)), symbolize_names: true)
 OPENAI_RESPONSES_STREAM_TOOL_EVENTS_FIXTURE = JSON.parse(File.read(File.expand_path("../fixtures/openai_responses_stream/tool_events.json", __dir__)), symbolize_names: true)
 OPENAI_RESPONSES_STREAM_REASONING_EVENTS_FIXTURE = JSON.parse(File.read(File.expand_path("../fixtures/openai_responses_stream/reasoning_events.json", __dir__)), symbolize_names: true)
 
-class OpenAiResponsesStreamMapperTest < Test
+class OpenAIResponsesStreamMapperTest < Test
   test "accumulates streamed text chunks" do
-    mapper = LlmGateway::Adapters::OpenAi::Responses::StreamMapper.new
+    mapper = LlmGateway::Adapters::OpenAI::Responses::StreamMapper.new
     accumulator = StreamAccumulator.new
 
     OPENAI_RESPONSES_STREAM_TEXT_EVENTS_FIXTURE.each do |chunk|
@@ -40,7 +40,7 @@ class OpenAiResponsesStreamMapperTest < Test
   end
 
   test "accumulates streamed tool call chunks" do
-    mapper = LlmGateway::Adapters::OpenAi::Responses::StreamMapper.new
+    mapper = LlmGateway::Adapters::OpenAI::Responses::StreamMapper.new
     accumulator = StreamAccumulator.new
 
     OPENAI_RESPONSES_STREAM_TOOL_EVENTS_FIXTURE.each do |chunk|
@@ -74,7 +74,7 @@ class OpenAiResponsesStreamMapperTest < Test
   end
 
   test "accumulates streamed text when reasoning usage is present" do
-    mapper = LlmGateway::Adapters::OpenAi::Responses::StreamMapper.new
+    mapper = LlmGateway::Adapters::OpenAI::Responses::StreamMapper.new
     accumulator = StreamAccumulator.new
 
     OPENAI_RESPONSES_STREAM_REASONING_EVENTS_FIXTURE.each do |chunk|

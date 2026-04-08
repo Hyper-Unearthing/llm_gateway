@@ -5,7 +5,7 @@ require_relative "bidirectional_message_mapper"
 
 module LlmGateway
   module Adapters
-    module OpenAi
+    module OpenAI
       module Responses
         class OutputMapper
           def self.map(data)

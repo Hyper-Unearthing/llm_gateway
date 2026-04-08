@@ -2,16 +2,16 @@
 
 require "test_helper"
 require "json"
-require_relative "../../lib/llm_gateway/adapters/open_ai/chat_completions/stream_mapper"
+require_relative "../../lib/llm_gateway/adapters/openai/chat_completions/stream_mapper"
 require_relative "../../lib/llm_gateway/adapters/stream_accumulator"
 
 OPENAI_STREAM_TEXT_EVENTS_FIXTURE = JSON.parse(File.read(File.expand_path("../fixtures/openai_stream/text_events.json", __dir__)), symbolize_names: true)
 OPENAI_STREAM_TOOL_EVENTS_FIXTURE = JSON.parse(File.read(File.expand_path("../fixtures/openai_stream/tool_events.json", __dir__)), symbolize_names: true)
 OPENAI_STREAM_REASONING_EVENTS_FIXTURE = JSON.parse(File.read(File.expand_path("../fixtures/openai_stream/reasoning_events.json", __dir__)), symbolize_names: true)
 
-class OpenAiStreamMapperTest < Test
+class OpenAIStreamMapperTest < Test
   test "accumulates streamed text chunks" do
-    mapper = LlmGateway::Adapters::OpenAi::ChatCompletions::StreamMapper.new
+    mapper = LlmGateway::Adapters::OpenAI::ChatCompletions::StreamMapper.new
     accumulator = StreamAccumulator.new
 
     OPENAI_STREAM_TEXT_EVENTS_FIXTURE.each do |chunk|
@@ -40,7 +40,7 @@ class OpenAiStreamMapperTest < Test
   end
 
   test "accumulates streamed tool call chunks" do
-    mapper = LlmGateway::Adapters::OpenAi::ChatCompletions::StreamMapper.new
+    mapper = LlmGateway::Adapters::OpenAI::ChatCompletions::StreamMapper.new
     accumulator = StreamAccumulator.new
 
     OPENAI_STREAM_TOOL_EVENTS_FIXTURE.each do |chunk|
@@ -74,7 +74,7 @@ class OpenAiStreamMapperTest < Test
   end
 
   test "accumulates streamed text when reasoning usage is present" do
-    mapper = LlmGateway::Adapters::OpenAi::ChatCompletions::StreamMapper.new
+    mapper = LlmGateway::Adapters::OpenAI::ChatCompletions::StreamMapper.new
     accumulator = StreamAccumulator.new
 
     OPENAI_STREAM_REASONING_EVENTS_FIXTURE.each do |chunk|

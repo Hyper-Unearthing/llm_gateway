@@ -10,7 +10,7 @@ require_relative "responses/stream_mapper"
 
 module LlmGateway
   module Adapters
-    module OpenAi
+    module OpenAI
       class ResponsesAdapter < Adapter
         def initialize(client)
           super(

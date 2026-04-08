@@ -87,7 +87,7 @@ module LiveTestHelper
       persist_auth_credentials("anthropic", { "access_token" => token }) if token != creds["access_token"]
       token
     when "openai"
-      token = LlmGateway::Clients::OpenAi.new.get_oauth_access_token(
+      token = LlmGateway::Clients::OpenAI.new.get_oauth_access_token(
         access_token: creds["access_token"],
         refresh_token: creds["refresh_token"],
         expires_at: creds["expires_at"],

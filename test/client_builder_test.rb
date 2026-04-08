@@ -29,8 +29,8 @@ class ClientBuilderTest < Test
       api_key: "sk-openai-test-key"
     })
 
-    assert_instance_of LlmGateway::Adapters::OpenAi::ChatCompletionsAdapter, adapter
-    assert_instance_of LlmGateway::Clients::OpenAi, adapter.client
+    assert_instance_of LlmGateway::Adapters::OpenAI::ChatCompletionsAdapter, adapter
+    assert_instance_of LlmGateway::Clients::OpenAI, adapter.client
   end
 
   test "builds openai client with responses api" do
@@ -39,8 +39,8 @@ class ClientBuilderTest < Test
       api_key: "sk-openai-test-key"
     })
 
-    assert_instance_of LlmGateway::Adapters::OpenAi::ResponsesAdapter, adapter
-    assert_instance_of LlmGateway::Clients::OpenAi, adapter.client
+    assert_instance_of LlmGateway::Adapters::OpenAI::ResponsesAdapter, adapter
+    assert_instance_of LlmGateway::Clients::OpenAI, adapter.client
   end
 
   test "builds groq client" do

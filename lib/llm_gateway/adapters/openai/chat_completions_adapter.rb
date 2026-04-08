@@ -10,7 +10,7 @@ require_relative "chat_completions/stream_mapper"
 
 module LlmGateway
   module Adapters
-    module OpenAi
+    module OpenAI
       class ChatCompletionsAdapter < Adapter
         def initialize(client)
           super(
