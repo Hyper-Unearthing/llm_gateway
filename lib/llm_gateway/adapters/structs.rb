@@ -10,7 +10,7 @@ class BaseStruct < Dry::Struct
 end
 
 class AssistantStreamEvent < BaseStruct
-  EventType = Types::Coercible::Symbol.enum(:text_start, :text_delta, :text_end, :tool_start, :tool_delta, :tool_end, :reasoning_start, :reasoning_delta, :reasoning_end, :thinking_start, :thinking_delta, :thinking_end)
+  EventType = Types::Coercible::Symbol.enum(:text_start, :text_delta, :text_end, :tool_start, :tool_delta, :tool_end, :reasoning_start, :reasoning_delta, :reasoning_end)
 
   attribute :type, EventType
   attribute :delta, Types::Coercible::String.default { "" }
@@ -29,9 +29,6 @@ class AssistantStreamReasoningEvent < AssistantStreamEvent
   attribute :signature, Types::Coercible::String.default { "" }
   attribute :content_index, Types::Integer
 end
-
-# Backward-compatible alias
-AssistantStreamThinkingEvent = AssistantStreamReasoningEvent
 
 class AssistantStreamMessageEvent < BaseStruct
   EventType = Types::Coercible::Symbol.enum(:message_start, :message_delta, :message_end)
