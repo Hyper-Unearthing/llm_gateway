@@ -139,7 +139,28 @@ module LlmGateway
     @configured_clients = {}
   end
 
-  # Register built-in providers
+  # Register built-in providers (canonical keys)
+  ProviderRegistry.register("anthropic_messages",
+    client: Clients::Anthropic,
+    adapter: Adapters::Anthropic::MessagesAdapter)
+
+  ProviderRegistry.register("openai_completions",
+    client: Clients::OpenAI,
+    adapter: Adapters::OpenAI::ChatCompletionsAdapter)
+
+  ProviderRegistry.register("openai_responses",
+    client: Clients::OpenAI,
+    adapter: Adapters::OpenAI::ResponsesAdapter)
+
+  ProviderRegistry.register("groq_completions",
+    client: Clients::Groq,
+    adapter: Adapters::Groq::ChatCompletionsAdapter)
+
+  ProviderRegistry.register("openai_codex",
+    client: Clients::OpenAI,
+    adapter: Adapters::OpenAICodex::ResponsesAdapter)
+
+  # Backward-compatible aliases (deprecated)
   ProviderRegistry.register("anthropic_apikey_messages",
     client: Clients::Anthropic,
     adapter: Adapters::Anthropic::MessagesAdapter)

@@ -69,16 +69,16 @@ module LlmGateway
 
       if api == "responses"
         config = {
-          provider: "#{provider}_apikey_responses",
+          provider: "#{provider}_responses",
           model_key: model
         }
         config[:api_key] = api_key if api_key
         LlmGateway.build_provider(config)
       else
         provider_key = case provider
-        when "anthropic" then "anthropic_apikey_messages"
-        when "openai" then "openai_apikey_completions"
-        when "groq" then "groq_apikey_completions"
+        when "anthropic" then "anthropic_messages"
+        when "openai" then "openai_completions"
+        when "groq" then "groq_completions"
         end
         config = { provider: provider_key, model_key: model }
         config[:api_key] = api_key if api_key
