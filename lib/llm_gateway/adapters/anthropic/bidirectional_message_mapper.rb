@@ -13,6 +13,7 @@ module LlmGateway
         def map_content(content)
           # Convert string content to text format
           content = { type: "text", text: content } unless content.is_a?(Hash)
+          content = content.transform_keys(&:to_sym)
 
           case content[:type]
           when "text"
@@ -25,6 +26,8 @@ module LlmGateway
             map_tool_use_content(content)
           when "tool_result"
             map_tool_result_content(content)
+          when "server_tool_result"
+            map_server_tool_result_content(content)
           when "thinking", "reasoning"
             map_reasoning_content(content)
           else
@@ -87,6 +90,28 @@ module LlmGateway
             tool_use_id: content[:tool_use_id],
             content: mapped_content
           }
+        end
+
+        def map_server_tool_result_content(content)
+          {
+            type: native_server_tool_result_type(content),
+            tool_use_id: content[:tool_use_id],
+            content: content[:content]
+          }
+        end
+
+        def native_server_tool_result_type(content)
+          return content[:name] if content[:name] && content[:name] != "server_tool_result"
+
+          result_type = content.dig(:content, :type)
+          case result_type
+          when "bash_code_execution_result"
+            "bash_code_execution_tool_result"
+          when /^text_editor_code_execution_.*_result$/
+            "text_editor_code_execution_tool_result"
+          else
+            content[:name] || "server_tool_result"
+          end
         end
 
         def map_reasoning_content(content)

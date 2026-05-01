@@ -22,6 +22,7 @@ module LlmGateway
           message_mapper = BidirectionalMessageMapper.new(LlmGateway::DIRECTION_IN)
 
           messages.map do |msg|
+            msg = LlmGateway::Utils.deep_symbolize_keys(msg)
             msg = msg.merge(role: "user") if msg[:role] == "developer"
 
             content = if msg[:content].is_a?(Array)

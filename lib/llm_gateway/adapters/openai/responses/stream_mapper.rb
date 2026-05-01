@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+
 require_relative "../../structs"
 
 module LlmGateway
@@ -8,9 +10,27 @@ module LlmGateway
       module Responses
         class StreamMapper
           def map(chunk)
-            queued_event = shift_queued_event
-            return queued_event if queued_event
+            if queued_events.any?
+              pending_events = queued_events.dup
+              @queued_events = []
 
+              event = map_chunk(chunk)
+              newly_queued_events = queued_events.dup
+              @queued_events = pending_events + [event].compact + newly_queued_events
+
+              return shift_queued_event
+            end
+
+            map_chunk(chunk)
+          end
+
+          def drain
+            shift_queued_event
+          end
+
+          private
+
+          def map_chunk(chunk)
             event_type = chunk[:event]
             data = chunk[:data] || {}
             raise_stream_error!(data) if event_type == "error" || data[:error] || data[:type] == "error"
@@ -27,6 +47,10 @@ module LlmGateway
               map_content_part_added(data)
             when "response.content_part.done", "response.output_text.done"
               map_text_done(data)
+            when "response.code_interpreter_call_code.delta"
+              map_code_interpreter_code_delta(data)
+            when "response.code_interpreter_call.in_progress", "response.code_interpreter_call.interpreting", "response.code_interpreter_call.completed", "response.code_interpreter_call_code.done"
+              nil
             when "response.output_text.delta"
               AssistantStreamEvent.new(
                 type: :text_delta,
@@ -57,8 +81,6 @@ module LlmGateway
             end
           end
 
-          private
-
           def map_output_item_added(data)
             item = data[:item] || {}
             output_index = data[:output_index] || 0
@@ -83,7 +105,27 @@ module LlmGateway
                 content_index: register_content_index(output_index),
                 delta: "",
                 id: item[:call_id] || item[:id],
-                name: item[:name]
+                name: item[:name],
+                tool_type: "tool_use"
+              )
+            when "code_interpreter_call"
+              stash_role("assistant")
+              mark_tool_started(output_index)
+              code_interpreter_state[output_index] = {
+                id: item[:id],
+                container_id: item[:container_id],
+                outputs: item[:outputs],
+                input_opened: false,
+                input_closed: false
+              }
+              container_id_to_tool_id[item[:container_id]] = item[:id] if item[:container_id]
+              AssistantToolStartEvent.new(
+                type: :tool_start,
+                content_index: register_content_index(output_index),
+                delta: "",
+                id: item[:id],
+                name: "code_interpreter_call",
+                tool_type: "server_tool_use"
               )
             else
               nil
@@ -99,6 +141,10 @@ module LlmGateway
               map_reasoning_done(output_index, item)
             when "function_call"
               map_function_call_done(output_index, item)
+            when "code_interpreter_call"
+              map_code_interpreter_done(output_index, item)
+            when "message"
+              emit_container_file_citations(item)
             else
               nil
             end
@@ -152,7 +198,8 @@ module LlmGateway
               content_index: register_content_index(output_index),
               delta: "",
               id: item[:call_id] || item[:id],
-              name: item[:name]
+              name: item[:name],
+              tool_type: "tool_use"
             )
           end
 
@@ -168,10 +215,59 @@ module LlmGateway
           end
 
           def map_text_done(data)
+            emit_container_file_citations(data)
             AssistantStreamEvent.new(
               type: :text_end,
               content_index: content_index_for(data[:output_index] || 0),
               delta: ""
+            )
+          end
+
+          def map_code_interpreter_code_delta(data)
+            output_index = data[:output_index] || 0
+            state = code_interpreter_state[output_index] ||= {
+              id: nil,
+              container_id: nil,
+              outputs: nil,
+              input_opened: false,
+              input_closed: false
+            }
+            delta = escape_json_string_fragment(data[:delta] || "")
+            delta = "{\"code\":\"#{delta}" unless state[:input_opened]
+            state[:input_opened] = true
+
+            AssistantStreamEvent.new(
+              type: :tool_delta,
+              content_index: content_index_for(output_index),
+              delta: delta
+            )
+          end
+
+          def map_code_interpreter_done(output_index, item)
+            state = code_interpreter_state[output_index] ||= {}
+            state[:id] ||= item[:id]
+            state[:container_id] = item[:container_id] if item.key?(:container_id)
+            state[:outputs] = item[:outputs] if item.key?(:outputs)
+            container_id_to_tool_id[state[:container_id]] = state[:id] if state[:container_id] && state[:id]
+            return nil if state[:input_closed]
+
+            opening = state[:input_opened] ? "" : "{\"code\":\""
+            state[:input_opened] = true
+            closing = "\"," + JSON.generate(container_id: state[:container_id], outputs: state[:outputs])[1..]
+            state[:input_closed] = true
+
+            queue_event(
+              AssistantStreamEvent.new(
+                type: :tool_end,
+                content_index: content_index_for(output_index),
+                delta: ""
+              )
+            )
+
+            AssistantStreamEvent.new(
+              type: :tool_delta,
+              content_index: content_index_for(output_index),
+              delta: opening + closing
             )
           end
 
@@ -181,6 +277,48 @@ module LlmGateway
               content_index: content_index_for(data[:output_index] || 0),
               delta: ""
             )
+          end
+
+          def emit_container_file_citations(data)
+            annotations = extract_annotations(data).select { |annotation| annotation[:type] == "container_file_citation" }
+            annotations.each do |annotation|
+              container_id = annotation[:container_id]
+              file_id = annotation[:file_id]
+              filename = annotation[:filename]
+              tool_id = container_id_to_tool_id[container_id]
+              next unless tool_id
+
+              key = [tool_id, container_id, file_id, filename]
+              next if emitted_citation_keys[key]
+
+              emitted_citation_keys[key] = true
+              content_index = register_content_index("citation:#{emitted_citation_keys.length}")
+              queue_event(
+                AssistantToolResultStartEvent.new(
+                  type: :tool_result_start,
+                  content_index: content_index,
+                  delta: JSON.generate(container_id: container_id, file_id: file_id, filename: filename),
+                  tool_use_id: tool_id,
+                  name: "server_tool_result"
+                )
+              )
+            end
+            nil
+          end
+
+          def extract_annotations(data)
+            annotations = []
+            annotations.concat(Array(data[:annotations]))
+            annotations.concat(Array(data.dig(:part, :annotations)))
+            annotations.concat(Array(data.dig(:item, :annotations)))
+            Array(data.dig(:item, :content)).each do |content_part|
+              annotations.concat(Array(content_part[:annotations])) if content_part.is_a?(Hash)
+            end
+            annotations
+          end
+
+          def escape_json_string_fragment(value)
+            JSON.generate(value)[1...-1]
           end
 
           def map_response_completed(response)
@@ -265,6 +403,18 @@ module LlmGateway
 
           def tool_state
             @tool_state ||= {}
+          end
+
+          def code_interpreter_state
+            @code_interpreter_state ||= {}
+          end
+
+          def container_id_to_tool_id
+            @container_id_to_tool_id ||= {}
+          end
+
+          def emitted_citation_keys
+            @emitted_citation_keys ||= {}
           end
 
           def stash_response(response)

@@ -36,13 +36,22 @@ class StreamAccumulator
       blocks[event.content_index][:text] += event.delta
     when :tool_start
       blocks[event.content_index] = {
-        type: "tool_use",
+        type: event.tool_type,
         id: event.id,
         name: event.name,
         input: ""
       }
     when :tool_delta, :tool_end
       blocks[event.content_index][:input] += event.delta
+    when :tool_result_start
+      blocks[event.content_index] = {
+        type: event.name,
+        tool_use_id: event.tool_use_id,
+        content: ""
+      }
+      blocks[event.content_index][:content] += event.delta
+    when :tool_result_delta, :tool_result_end
+      blocks[event.content_index][:content] += event.delta
     when :message_start
       message_hash.merge!(event.delta)
       usage_hash.each_key do |key|
@@ -74,10 +83,21 @@ class StreamAccumulator
   private
 
   def serialized_blocks
-    blocks.map do |block|
-      next block unless block[:type] == "tool_use"
+    blocks.compact.map do |block|
+      if ["tool_use", "server_tool_use"].include?(block[:type])
+        next block.merge(input: LlmGateway::Utils.deep_symbolize_keys(parse_tool_input(block[:input])))
+      end
 
-      block.merge(input: LlmGateway::Utils.deep_symbolize_keys(parse_tool_input(block[:input])))
+      if block[:type].end_with?("_tool_result")
+        next {
+          type: "server_tool_result",
+          tool_use_id: block[:tool_use_id],
+          name: block[:type],
+          content: LlmGateway::Utils.deep_symbolize_keys(parse_tool_input(block[:content]))
+        }
+      end
+
+      block
     end
   end
 
