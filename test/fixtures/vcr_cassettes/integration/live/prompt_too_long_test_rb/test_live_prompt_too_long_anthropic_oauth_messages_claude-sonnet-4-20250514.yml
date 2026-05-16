@@ -1,0 +1,75 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: "<huge prompt body redacted>"
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - claude-cli/2.1.2 (external, cli)
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Anthropic-Dangerous-Direct-Browser-Access:
+      - 'true'
+      Anthropic-Beta:
+      - claude-code-20250219,oauth-2025-04-20
+      X-App:
+      - cli
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sat, 16 May 2026 06:06:54 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Should-Retry:
+      - 'false'
+      Request-Id:
+      - req_011Cb5kEKoDixJL2EKydupuB
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 158912a9-5288-4061-b004-8c1100f6ed5b
+      Traceresponse:
+      - 00-c7c059f6f0b3df6d00b1f749ab6213ee-c0512d5b8b447a12-01
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '281'
+      Vary:
+      - Accept-Encoding
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - _cfuvid=PvoLa__XHaYLYK0fHWRT00qEXTJ6p9G4cAd3sVsxBCw-1778911611.242441-1.0.1.1-xxfJLmtuH9hSc73CMahzqwr.c5Tz_NFaM8d__Nwssy8;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
+      Cf-Ray:
+      - 9fc832e24d99ce6a-SIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"type":"error","error":{"type":"invalid_request_error","message":"prompt
+        is too long: 203738 tokens > 200000 maximum"},"request_id":"req_011Cb5kEKoDixJL2EKydupuB"}'
+  recorded_at: Sat, 16 May 2026 06:06:54 GMT
+recorded_with: VCR 6.4.0

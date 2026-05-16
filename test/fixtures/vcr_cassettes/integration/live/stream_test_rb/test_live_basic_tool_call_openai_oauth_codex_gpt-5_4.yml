@@ -1,0 +1,161 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://chatgpt.com/backend-api/codex/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-5.4","instructions":"You are a helpful assistant.","input":[{"role":"user","content":[{"type":"input_text","text":"Calculate
+        15 + 27 using the math_operation tool"}]}],"store":false,"include":["reasoning.encrypted_content"],"stream":true,"tools":[{"type":"function","name":"math_operation","description":"Perform
+        a basic math operation on two numbers","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The
+        first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The
+        operation to perform"}},"required":["a","b","operation"]}}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - chatgpt.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Openai-Beta:
+      - responses=experimental
+      Chatgpt-Account-Id:
+      - 6f6473c8-41a9-4ebd-8dce-e9692a4fc18a
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 16 May 2026 06:23:12 GMT
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      X-Codex-Active-Limit:
+      - premium
+      X-Codex-Plan-Type:
+      - plus
+      X-Codex-Primary-Used-Percent:
+      - '35'
+      X-Codex-Secondary-Used-Percent:
+      - '8'
+      X-Codex-Primary-Window-Minutes:
+      - '300'
+      X-Codex-Primary-Over-Secondary-Limit-Percent:
+      - '0'
+      X-Codex-Secondary-Window-Minutes:
+      - '10080'
+      X-Codex-Primary-Reset-After-Seconds:
+      - '2879'
+      X-Codex-Secondary-Reset-After-Seconds:
+      - '521993'
+      X-Codex-Primary-Reset-At:
+      - '1778915470'
+      X-Codex-Secondary-Reset-At:
+      - '1779434584'
+      X-Codex-Credits-Has-Credits:
+      - 'False'
+      X-Codex-Credits-Balance:
+      - ''
+      X-Codex-Credits-Unlimited:
+      - 'False'
+      X-Models-Etag:
+      - W/"39001e349c339d8c717a1662fa261fb7"
+      X-Oai-Request-Id:
+      - b46c5477-ecad-4294-bdb5-ded5a803cb07
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cross-Origin-Opener-Policy:
+      - same-origin-allow-popups
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - __cf_bm=ynQyxGCwhbvrMelmgyCWYhMhmDNMptZMwoYkEvws8EY-1778912591.6783907-1.0.1.1-Sj2wu5sZ.StQsr1cUJ3DiBizjPAkehgbYh1ijZ6TOOOp.QPvYJHpCxfL51vgYFfBSySSZtfOcYdhnv2i4CBsZQvQ3bJeZV3gEMeYJe473IWfG5MYPRzDihTSAEGMQ8DS;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=chatgpt.com; Expires=Sat,
+        16 May 2026 06:53:12 GMT
+      Report-To:
+      - '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Us6278jC4Y4e2SU7p3Zp094yj1DZLpGZHYw0D19QkHUz7q1CqBoiXMz8LrKIT6RnwCjWP5lDmBrtJxDKzBld7Xfopv4FAOCZXB3YEIMHRL%2FIijoaW7OBr1YhrNzI"}]}'
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Cf-Ray:
+      - 9fc84ad1f8b813df-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |+
+        event: response.created
+        data: {"type":"response.created","response":{"id":"resp_08d78d47ab5e1af4016a080d4fedf481918106a8e8c480122f","object":"response","created_at":1778912591,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"d127d23b-58bd-4598-ae4f-ddf6c919a141","prompt_cache_retention":"24h","reasoning":{"effort":"none","summary":null},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"auto","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":0}
+
+        event: response.in_progress
+        data: {"type":"response.in_progress","response":{"id":"resp_08d78d47ab5e1af4016a080d4fedf481918106a8e8c480122f","object":"response","created_at":1778912591,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"d127d23b-58bd-4598-ae4f-ddf6c919a141","prompt_cache_retention":"24h","reasoning":{"effort":"none","summary":null},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"auto","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":1}
+
+        event: response.output_item.added
+        data: {"type":"response.output_item.added","item":{"id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","type":"function_call","status":"in_progress","arguments":"","call_id":"call_q00fOm7jbaQnvH5LDTra662J","name":"math_operation"},"output_index":0,"sequence_number":2}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"{\"","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"SrLB7DIhXp9FpO","output_index":0,"sequence_number":3}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"a","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"OI9zMz3tbF6xoML","output_index":0,"sequence_number":4}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"\":","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"GD0OSJl28BP2Nt","output_index":0,"sequence_number":5}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"15","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"kLCsLPvQeD1wBQ","output_index":0,"sequence_number":6}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":",\"","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"DsL0sfasyWKdwM","output_index":0,"sequence_number":7}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"b","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"6WR3pPEaJiu5K55","output_index":0,"sequence_number":8}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"\":","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"qKg0TWeMqLYOjG","output_index":0,"sequence_number":9}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"27","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"uQFDKdlP2cldqr","output_index":0,"sequence_number":10}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":",\"","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"Lgq0y7a5xvIBNn","output_index":0,"sequence_number":11}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"operation","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"BerQz5L","output_index":0,"sequence_number":12}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"\":\"","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"txoEo4MwldjPM","output_index":0,"sequence_number":13}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"add","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"VVIU5Z0Z6Ijby","output_index":0,"sequence_number":14}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"\"}","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","obfuscation":"I6NFVvpJWQeXCI","output_index":0,"sequence_number":15}
+
+        event: response.function_call_arguments.done
+        data: {"type":"response.function_call_arguments.done","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}","item_id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","output_index":0,"sequence_number":16}
+
+        event: response.output_item.done
+        data: {"type":"response.output_item.done","item":{"id":"fc_08d78d47ab5e1af4016a080d50bb1c8191ac0f6e3bd815806c","type":"function_call","status":"completed","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}","call_id":"call_q00fOm7jbaQnvH5LDTra662J","name":"math_operation"},"output_index":0,"sequence_number":17}
+
+        event: response.completed
+        data: {"type":"response.completed","response":{"id":"resp_08d78d47ab5e1af4016a080d4fedf481918106a8e8c480122f","object":"response","created_at":1778912591,"status":"completed","background":false,"completed_at":1778912593,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"d127d23b-58bd-4598-ae4f-ddf6c919a141","prompt_cache_retention":"24h","reasoning":{"effort":"none","summary":null},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"default","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":{"input_tokens":101,"input_tokens_details":{"cached_tokens":0},"output_tokens":26,"output_tokens_details":{"reasoning_tokens":0},"total_tokens":127},"user":null,"metadata":{}},"sequence_number":18}
+
+  recorded_at: Sat, 16 May 2026 06:23:13 GMT
+recorded_with: VCR 6.4.0
+...
