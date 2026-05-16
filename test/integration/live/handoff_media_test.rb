@@ -22,7 +22,7 @@ class HandoffMediaLiveTest < Test
     LlmGateway.reset_configuration!
   end
 
-  def run_handoff_for(provider:, model:)
+  def run_handoff_for(provider:, model:, adapter:)
     skip "Missing fixture at #{FIXTURE_PATH}. Run: ruby scripts/generate_handoff_media_fixture.rb" unless File.exist?(FIXTURE_PATH)
 
     base_transcript = symbolize(JSON.parse(File.read(FIXTURE_PATH)))
@@ -32,7 +32,6 @@ class HandoffMediaLiveTest < Test
       content: "What did you see, and how many times did you see it? Answer with an Arabic numeral for the count."
     }
 
-    adapter = load_provider(provider:, model:)
     response = adapter.stream(transcript, tools: [ readfile_tool ], reasoning: "high")
     refute_equal "error", response.stop_reason, "#{provider}/#{model} failed: #{response.error_message}"
 
@@ -45,10 +44,8 @@ class HandoffMediaLiveTest < Test
 
   def self.define_handoff_test_for(provider:, model:)
     test "live_handoff_media_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          run_handoff_for(provider:, model:)
-        end
+      with_vcr_adapter(provider:, model:,) do |adapter|
+        run_handoff_for(provider:, model:, adapter: adapter)
       end
     end
   end
