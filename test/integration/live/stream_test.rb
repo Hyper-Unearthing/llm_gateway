@@ -7,7 +7,7 @@ require "base64"
 require_relative "../../utils/calculator_tool_helper"
 require_relative "../../utils/live_test_helper"
 
-class ProvidersJsonTest < Test
+class StreamTest < Test
   include CalculatorToolHelper
   include LiveTestHelper
 
@@ -89,7 +89,7 @@ class ProvidersJsonTest < Test
   end
 
   def basic_thinking_test(adapter, reasoning: "high")
-    prompt = "Think long and hard about #{rand(100_000)} + 27"
+    prompt = "Think long and hard about 42 + 27"
     thinking_started = false
     thinking_chunks = ""
     thinking_completed = false
@@ -272,88 +272,60 @@ class ProvidersJsonTest < Test
     assert_includes lower_content, "red"
     assert_includes lower_content, "circle"
   end
-  def self.define_stream_tests_for(name:, provider:, model:)
-    test "live_basic_text_generation_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          basic_text_generation_test(adapter)
-        end
-      end
-    end
 
+  def self.define_stream_tests_for(provider:, model:)
     test "live_basic_tool_call_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          basic_tool_call(adapter)
-        end
+      with_vcr_adapter(provider:, model:) do |adapter|
+        basic_tool_call(adapter)
       end
     end
 
     test "live_basic_thinking_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          basic_thinking_test(adapter, reasoning: "high")
-        end
+      with_vcr_adapter(provider:, model:) do |adapter|
+        basic_thinking_test(adapter, reasoning: "high")
       end
     end
 
     test "live_text_streaming_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          basic_streaming_text_test(adapter)
-        end
+      with_vcr_adapter(provider:, model:) do |adapter|
+        basic_streaming_text_test(adapter)
       end
     end
 
     test "live_multi_turn_tool_streaming_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          multi_turn_tool_stream_test(adapter, reasoning: "high")
-        end
+      with_vcr_adapter(provider:, model:) do |adapter|
+        multi_turn_tool_stream_test(adapter, reasoning: "high")
       end
     end
 
     test "live_image_streaming_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          basic_image_streaming_test(adapter)
-        end
+      with_vcr_adapter(provider:, model:) do |adapter|
+        basic_image_streaming_test(adapter)
       end
     end
   end
 
   define_stream_tests_for(
-    name: "openai_apikey_completions_gpt_5_1",
     provider: "openai_apikey_completions",
     model: "gpt-5.1"
   )
 
   define_stream_tests_for(
-    name: "anthropic_apikey_messages_claude_sonnet_4",
     provider: "anthropic_apikey_messages",
     model: "claude-sonnet-4-20250514"
   )
 
   define_stream_tests_for(
-    name: "openai_apikey_responses_gpt_5_4",
     provider: "openai_apikey_responses",
     model: "gpt-5.4"
   )
 
   define_stream_tests_for(
-    name: "anthropic_oauth_messages_claude_sonnet_4",
     provider: "anthropic_oauth_messages",
     model: "claude-sonnet-4-20250514"
   )
 
   define_stream_tests_for(
-    name: "openai_oauth_codex_gpt_5_4",
     provider: "openai_oauth_codex",
     model: "gpt-5.4"
   )

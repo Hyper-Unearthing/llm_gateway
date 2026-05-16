@@ -70,6 +70,10 @@ VCR.configure do |config|
       auths
     end
   end
+
+  config.before_record(:redact_large_request_body) do |interaction|
+    interaction.request.body = "<huge prompt body redacted>"
+  end
 end
 
 def vcr_cassette_name(test_method_name = self.name)
