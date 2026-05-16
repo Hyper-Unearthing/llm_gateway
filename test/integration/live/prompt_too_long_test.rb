@@ -25,8 +25,7 @@ class PromptTooLongLiveTest < Test
 
   def self.define_prompt_too_long_debug_test(provider:, model:)
     test "live_prompt_too_long_#{provider}_#{model}" do
-      without_vcr do
-        adapter = load_provider(provider:, model:)
+      with_vcr_adapter(provider:, model:, redact_request_body: true) do |adapter|
         assert_prompt_too_long(adapter, provider)
       end
     end

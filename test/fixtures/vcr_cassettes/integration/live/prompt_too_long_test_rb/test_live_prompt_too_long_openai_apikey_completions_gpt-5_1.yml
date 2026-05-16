@@ -1,0 +1,86 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: "<huge prompt body redacted>"
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 429
+      message: Too Many Requests
+    headers:
+      Date:
+      - Sat, 16 May 2026 06:07:12 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '409'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cf_bm=Fn9y5zWag0AtWPrp.2d3lQb0GHjCxT7mAaMQfmzJu_o-1778911625.7382078-1.0.1.1-MsigP2b7AT4SrXNRlvd8HGNEZaKB0l4N9WjdP7BNpchfwgSO7ZM95szBBBlRtsUq7FgMarQnyix8ebtppc6jP6Jb1vs_GVNUvyk_X4tw.JelEJbQRe.n2oCkeJ6L0S2m;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Sat,
+        16 May 2026 06:37:12 GMT
+      - _cfuvid=00OmKBw6Ma3J9rpuBmsKZ_jUniJVEJdo6R9c1Tbe1Gg-1778911625.7382078-1.0.1.1-hdGbuyOotjKyyTsPNAZi7ivSA6i4xME_WH8MXCbaXRI;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com
+      Cf-Ray:
+      - 9fc8333cdf41b68d-KUL
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Origin
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
+      X-Content-Type-Options:
+      - nosniff
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      X-Ratelimit-Limit-Requests:
+      - '500'
+      X-Ratelimit-Limit-Tokens:
+      - '500000'
+      X-Ratelimit-Remaining-Requests:
+      - '499'
+      X-Ratelimit-Remaining-Tokens:
+      - '500000'
+      X-Ratelimit-Reset-Requests:
+      - 120ms
+      X-Ratelimit-Reset-Tokens:
+      - 0s
+      X-Request-Id:
+      - req_a4ce570629694119bc2284fd906a395e
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |
+        {
+            "error": {
+                "message": "Request too large for gpt-5.1 in organization org-dqNN3UJQeaIK1sswLJZkvMks on tokens per min (TPM): Limit 500000, Requested 1620012. The input or output tokens must be reduced in order to run successfully. Visit https://platform.openai.com/account/rate-limits to learn more.",
+                "type": "tokens",
+                "param": null,
+                "code": "rate_limit_exceeded"
+            }
+        }
+  recorded_at: Sat, 16 May 2026 06:07:12 GMT
+recorded_with: VCR 6.4.0

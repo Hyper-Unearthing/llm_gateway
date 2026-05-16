@@ -1,0 +1,112 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://chatgpt.com/backend-api/codex/responses
+    body:
+      encoding: UTF-8
+      string: "<huge prompt body redacted>"
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - chatgpt.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Openai-Beta:
+      - responses=experimental
+      Chatgpt-Account-Id:
+      - 6f6473c8-41a9-4ebd-8dce-e9692a4fc18a
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 16 May 2026 06:06:47 GMT
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      X-Codex-Active-Limit:
+      - premium
+      X-Codex-Plan-Type:
+      - plus
+      X-Codex-Primary-Used-Percent:
+      - '29'
+      X-Codex-Secondary-Used-Percent:
+      - '7'
+      X-Codex-Primary-Window-Minutes:
+      - '300'
+      X-Codex-Primary-Over-Secondary-Limit-Percent:
+      - '0'
+      X-Codex-Secondary-Window-Minutes:
+      - '10080'
+      X-Codex-Primary-Reset-After-Seconds:
+      - '3867'
+      X-Codex-Secondary-Reset-After-Seconds:
+      - '522981'
+      X-Codex-Primary-Reset-At:
+      - '1778915472'
+      X-Codex-Secondary-Reset-At:
+      - '1779434586'
+      X-Codex-Credits-Has-Credits:
+      - 'False'
+      X-Codex-Credits-Balance:
+      - ''
+      X-Codex-Credits-Unlimited:
+      - 'False'
+      X-Models-Etag:
+      - W/"39001e349c339d8c717a1662fa261fb7"
+      X-Oai-Request-Id:
+      - 8006b06f-34d7-47fb-af8b-3f0cc8d6b091
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cross-Origin-Opener-Policy:
+      - same-origin-allow-popups
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - __cf_bm=jQ92ekA7TIpuQTbtuALa3ZpWprJmVVM25R3CzUF2rcc-1778911603.1830654-1.0.1.1-7yBOOj.iHW8pCkTgQt3js.bC5TpUJNU2FQlaHqgUXkgrJ3Sb8p.2wRNpBW9A4DOjsMU0r64_L47FPMhUTZ44sPLRbs0NYnzn15ZboeT4am0xdCfcwjxfaQMiCFHwPcBf;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=chatgpt.com; Expires=Sat,
+        16 May 2026 06:36:47 GMT
+      Report-To:
+      - '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=NZ5twlJ4PQuPCBpv69an6VkQnEA5zYu%2BtC%2FXiKIxGMRbQu5ojFXeNp%2BvmR18E1GpaZlHYvvjG1DQ3aZTZMCqkphh0JIfo%2BkyuGvFBRstQ9pAAqe3VQjYiqQFeJM4"}]}'
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Cf-Ray:
+      - 9fc832afedeed869-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |+
+        event: response.created
+        data: {"type":"response.created","response":{"id":"resp_0775d2ed7549395a016a0809759d00819194564402e661b38b","object":"response","created_at":1778911605,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"49f80cf2-bd88-4b8e-ad74-df6ccb6fe8dd","prompt_cache_retention":"24h","reasoning":{"effort":"none","summary":null},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"auto","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":0}
+
+        event: response.in_progress
+        data: {"type":"response.in_progress","response":{"id":"resp_0775d2ed7549395a016a0809759d00819194564402e661b38b","object":"response","created_at":1778911605,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"49f80cf2-bd88-4b8e-ad74-df6ccb6fe8dd","prompt_cache_retention":"24h","reasoning":{"effort":"none","summary":null},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"auto","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":1}
+
+        event: error
+        data: {"type":"error","error":{"type":"invalid_request_error","code":"context_length_exceeded","message":"Your input exceeds the context window of this model. Please adjust your input and try again.","param":"input"},"sequence_number":2}
+
+        event: response.failed
+        data: {"type":"response.failed","response":{"id":"resp_0775d2ed7549395a016a0809759d00819194564402e661b38b","object":"response","created_at":1778911605,"status":"failed","background":false,"completed_at":null,"error":{"code":"context_length_exceeded","message":"Your input exceeds the context window of this model. Please adjust your input and try again."},"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"49f80cf2-bd88-4b8e-ad74-df6ccb6fe8dd","prompt_cache_retention":"24h","reasoning":{"effort":"none","summary":null},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"auto","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":3}
+
+  recorded_at: Sat, 16 May 2026 06:06:51 GMT
+recorded_with: VCR 6.4.0
+...

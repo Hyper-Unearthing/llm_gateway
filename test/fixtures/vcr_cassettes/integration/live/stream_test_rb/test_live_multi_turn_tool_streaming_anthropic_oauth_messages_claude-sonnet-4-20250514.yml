@@ -1,0 +1,328 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","messages":[{"role":"user","content":[{"type":"text","text":"Think
+        about this briefly, then calculate 42 * 17 and 453 + 434 using the math_operation
+        tool."}]}],"tools":[{"name":"math_operation","description":"Perform a basic
+        math operation on two numbers","input_schema":{"type":"object","properties":{"a":{"type":"number","description":"The
+        first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The
+        operation to perform"}},"required":["a","b","operation"]}}],"system":[{"type":"text","text":"You
+        are Claude Code, Anthropic''s official CLI for Claude."},{"type":"text","text":"You
+        are a helpful assistant that can use tools to answer questions."}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":10240},"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - claude-cli/2.1.2 (external, cli)
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Anthropic-Dangerous-Direct-Browser-Access:
+      - 'true'
+      Anthropic-Beta:
+      - claude-code-20250219,oauth-2025-04-20
+      X-App:
+      - cli
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 16 May 2026 06:23:31 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Anthropic-Ratelimit-Unified-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-5h-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-5h-Reset:
+      - '1778925600'
+      Anthropic-Ratelimit-Unified-5h-Utilization:
+      - '0.02'
+      Anthropic-Ratelimit-Unified-7d-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-7d-Reset:
+      - '1779274800'
+      Anthropic-Ratelimit-Unified-7d-Utilization:
+      - '0.0'
+      Anthropic-Ratelimit-Unified-Representative-Claim:
+      - five_hour
+      Anthropic-Ratelimit-Unified-Fallback-Percentage:
+      - '0.5'
+      Anthropic-Ratelimit-Unified-Reset:
+      - '1778925600'
+      Anthropic-Ratelimit-Unified-Overage-Disabled-Reason:
+      - org_level_disabled
+      Anthropic-Ratelimit-Unified-Overage-Status:
+      - rejected
+      Request-Id:
+      - req_011Cb5mW1e8r71U2C5rYYqzn
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 158912a9-5288-4061-b004-8c1100f6ed5b
+      Traceresponse:
+      - 00-629a474b7560866e4815cf84e56f1042-348e6a35a07457ec-01
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '636'
+      Vary:
+      - Accept-Encoding
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - _cfuvid=_7_TLM5Pq4ml5bYywzNiuNiqnyXrW2xBFUTtMk273nw-1778912611.0047214-1.0.1.1-wZkX4zfsOAyaNbw9nquIpynOdh6b6Kb21a0GIRUT5Jw;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
+      Cf-Ray:
+      - 9fc84b4ac9fdfd2b-SIN
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        event: message_start
+        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01B5X6tnSSGDiNdMKwYpM2KH","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":530,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":8,"service_tier":"standard","inference_geo":"not_available"}}   }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}       }
+
+        event: ping
+        data: {"type": "ping"}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"The user is asking me to calculate two"} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" math problems:\n1. 42 * 17 (multiplication)\n2. 453 + 434 (addition)\n\nI"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" need to use the math_operation tool for both of these. Let me check the parameters:\n- For 42 * 17: a=42, b=17, operation=\"multiply\"\n- For 453"}        }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" + 434: a=453, b=434, operation=\"add\"\n\nBoth calculations have all the required parameters, so I can proceed with the tool calls."} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":""}              }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"Er8ECmIIDRgCKkD1miWrS6UU41vKrLqBkxr92YiU7ejQtUmP/GSG+KdzWNfIJktYrIHFkNtGkOQ7ks4/aLpvUXcvhCChXmumq4SIMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIMKWr/2Xjs59oaUOr+Ggy19s4PVugGVOfTF70iMHbGWgE1rwKeF3QlzqhrwIGqKaMK0txGcl54aZjkiYMblC92aKEzkfbxUyzFIIkWRSqKAyZCvCwywwIukfOLYdqu81ppK63Or+BPUeWKNIuz1L8LN/xjGBcfCxdA52ZAl7TAhVDV2f0bs1sc1Wpe8bWe7crmypx+yh5gEAPJsMEj8dDUjfCMXrVcemA+6guMrv8p9AR+mUzwaGkdzId+opsnppDp4DmkPPDMmgMz78ZSvw8C5zCe4rBw5x9gF4rDMJWDqHWpyhhRdoLSFVm8rgl3jZc+3mgN7pUweWWyrTJMXtYYgn+UKYdgeDN9jYaz3Xwxi12wHPb+kycQ4azGojLxXN0gIcmHEzfWjexA6SzzegiadHw3X4smmGJJMSwcOkxvBHZyuvHzi+PAiF1GbfXZzLwtIFFp3cXhDygO0irPmrLrJGjF3EE3YNVQ64CMBJF/crRuiFfwXm0DOdb8LDVykb+t1qhV/HKTm6YYTOLRBQPr6aUJfcm5Gmn2a0Me+QuQrndZM8IWGQbD/l8+2FdAzgcu4FmnkPefwy3t52nKPCv0z376EKmgBhys4UAPqZSfdegvMYfXb5J7jFQYAQ=="}     }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":0   }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"I'll calculate both of those math problems for you using the math operation tool."}      }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":1  }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":2,"content_block":{"type":"tool_use","id":"toolu_01BMhy12LVR5F3fb5bmNmwZC","name":"math_operation","input":{},"caller":{"type":"direct"}}           }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":2,"delta":{"type":"input_json_delta","partial_json":""}       }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":2,"delta":{"type":"input_json_delta","partial_json":"{\"a\": 42"}   }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":2,"delta":{"type":"input_json_delta","partial_json":", "}             }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":2,"delta":{"type":"input_json_delta","partial_json":"\"b\""}           }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":2,"delta":{"type":"input_json_delta","partial_json":": 17"}               }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":2,"delta":{"type":"input_json_delta","partial_json":", \"o"}          }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":2,"delta":{"type":"input_json_delta","partial_json":"peratio"}          }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":2,"delta":{"type":"input_json_delta","partial_json":"n\": \"m"}        }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":2,"delta":{"type":"input_json_delta","partial_json":"ultipl"}          }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":2,"delta":{"type":"input_json_delta","partial_json":"y\"}"}  }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":2     }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":3,"content_block":{"type":"tool_use","id":"toolu_01BGeCNoXmgHPLQrez4SBfkR","name":"math_operation","input":{},"caller":{"type":"direct"}}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":3,"delta":{"type":"input_json_delta","partial_json":""}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":3,"delta":{"type":"input_json_delta","partial_json":"{\"a\": 453"}     }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":3,"delta":{"type":"input_json_delta","partial_json":", \"b\":"}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":3,"delta":{"type":"input_json_delta","partial_json":" 434"}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":3,"delta":{"type":"input_json_delta","partial_json":", \"o"} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":3,"delta":{"type":"input_json_delta","partial_json":"per"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":3,"delta":{"type":"input_json_delta","partial_json":"ati"}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":3,"delta":{"type":"input_json_delta","partial_json":"on\": \"a"}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":3,"delta":{"type":"input_json_delta","partial_json":"dd\"}"}     }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":3             }
+
+        event: message_delta
+        data: {"type":"message_delta","delta":{"stop_reason":"tool_use","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":530,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":302}         }
+
+        event: message_stop
+        data: {"type":"message_stop"      }
+
+  recorded_at: Sat, 16 May 2026 06:23:34 GMT
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","messages":[{"role":"user","content":[{"type":"text","text":"Think
+        about this briefly, then calculate 42 * 17 and 453 + 434 using the math_operation
+        tool."}]},{"role":"assistant","content":[{"type":"thinking","thinking":"The
+        user is asking me to calculate two math problems:\n1. 42 * 17 (multiplication)\n2.
+        453 + 434 (addition)\n\nI need to use the math_operation tool for both of
+        these. Let me check the parameters:\n- For 42 * 17: a=42, b=17, operation=\"multiply\"\n-
+        For 453 + 434: a=453, b=434, operation=\"add\"\n\nBoth calculations have all
+        the required parameters, so I can proceed with the tool calls.","signature":"Er8ECmIIDRgCKkD1miWrS6UU41vKrLqBkxr92YiU7ejQtUmP/GSG+KdzWNfIJktYrIHFkNtGkOQ7ks4/aLpvUXcvhCChXmumq4SIMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIMKWr/2Xjs59oaUOr+Ggy19s4PVugGVOfTF70iMHbGWgE1rwKeF3QlzqhrwIGqKaMK0txGcl54aZjkiYMblC92aKEzkfbxUyzFIIkWRSqKAyZCvCwywwIukfOLYdqu81ppK63Or+BPUeWKNIuz1L8LN/xjGBcfCxdA52ZAl7TAhVDV2f0bs1sc1Wpe8bWe7crmypx+yh5gEAPJsMEj8dDUjfCMXrVcemA+6guMrv8p9AR+mUzwaGkdzId+opsnppDp4DmkPPDMmgMz78ZSvw8C5zCe4rBw5x9gF4rDMJWDqHWpyhhRdoLSFVm8rgl3jZc+3mgN7pUweWWyrTJMXtYYgn+UKYdgeDN9jYaz3Xwxi12wHPb+kycQ4azGojLxXN0gIcmHEzfWjexA6SzzegiadHw3X4smmGJJMSwcOkxvBHZyuvHzi+PAiF1GbfXZzLwtIFFp3cXhDygO0irPmrLrJGjF3EE3YNVQ64CMBJF/crRuiFfwXm0DOdb8LDVykb+t1qhV/HKTm6YYTOLRBQPr6aUJfcm5Gmn2a0Me+QuQrndZM8IWGQbD/l8+2FdAzgcu4FmnkPefwy3t52nKPCv0z376EKmgBhys4UAPqZSfdegvMYfXb5J7jFQYAQ=="},{"type":"text","text":"I''ll
+        calculate both of those math problems for you using the math operation tool."},{"type":"tool_use","id":"toolu_01BMhy12LVR5F3fb5bmNmwZC","name":"math_operation","input":{"a":42,"b":17,"operation":"multiply"}},{"type":"tool_use","id":"toolu_01BGeCNoXmgHPLQrez4SBfkR","name":"math_operation","input":{"a":453,"b":434,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_01BMhy12LVR5F3fb5bmNmwZC","content":"714"}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_01BGeCNoXmgHPLQrez4SBfkR","content":"887"}]}],"tools":[{"name":"math_operation","description":"Perform
+        a basic math operation on two numbers","input_schema":{"type":"object","properties":{"a":{"type":"number","description":"The
+        first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The
+        operation to perform"}},"required":["a","b","operation"]}}],"system":[{"type":"text","text":"You
+        are Claude Code, Anthropic''s official CLI for Claude."},{"type":"text","text":"You
+        are a helpful assistant that can use tools to answer questions."}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":10240},"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - claude-cli/2.1.2 (external, cli)
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Anthropic-Dangerous-Direct-Browser-Access:
+      - 'true'
+      Anthropic-Beta:
+      - claude-code-20250219,oauth-2025-04-20
+      X-App:
+      - cli
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 16 May 2026 06:23:35 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Anthropic-Ratelimit-Unified-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-5h-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-5h-Reset:
+      - '1778925600'
+      Anthropic-Ratelimit-Unified-5h-Utilization:
+      - '0.02'
+      Anthropic-Ratelimit-Unified-7d-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-7d-Reset:
+      - '1779274800'
+      Anthropic-Ratelimit-Unified-7d-Utilization:
+      - '0.0'
+      Anthropic-Ratelimit-Unified-Representative-Claim:
+      - five_hour
+      Anthropic-Ratelimit-Unified-Fallback-Percentage:
+      - '0.5'
+      Anthropic-Ratelimit-Unified-Reset:
+      - '1778925600'
+      Anthropic-Ratelimit-Unified-Overage-Disabled-Reason:
+      - org_level_disabled
+      Anthropic-Ratelimit-Unified-Overage-Status:
+      - rejected
+      Request-Id:
+      - req_011Cb5mWJMDutEnZgaMCHAy6
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 158912a9-5288-4061-b004-8c1100f6ed5b
+      Traceresponse:
+      - 00-b838ee553c14eb10c6c4ce9ea971063f-8b496664ee8c2ca1-01
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '682'
+      Vary:
+      - Accept-Encoding
+      Set-Cookie:
+      - _cfuvid=LepqyRXEfpELvHdusv8mHehEUzACQaUIqC2ehZ1BmgM-1778912614.9125586-1.0.1.1-z1kdnDx.xO.uu_tmmvsdw_NOe5Zd8l6mLMTo6nwUtzw;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
+      X-Robots-Tag:
+      - none
+      Cf-Cache-Status:
+      - DYNAMIC
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Cf-Ray:
+      - 9fc84b633d9481cb-SIN
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ZXZlbnQ6IG1lc3NhZ2Vfc3RhcnQKZGF0YTogeyJ0eXBlIjoibWVzc2FnZV9zdGFydCIsIm1lc3NhZ2UiOnsibW9kZWwiOiJjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQiLCJpZCI6Im1zZ18wMUVmcU0zSDUxcm1RZFNhdzlBWEJuYXgiLCJ0eXBlIjoibWVzc2FnZSIsInJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50IjpbXSwic3RvcF9yZWFzb24iOm51bGwsInN0b3Bfc2VxdWVuY2UiOm51bGwsInN0b3BfZGV0YWlscyI6bnVsbCwidXNhZ2UiOnsiaW5wdXRfdG9rZW5zIjo4OTcsImNhY2hlX2NyZWF0aW9uX2lucHV0X3Rva2VucyI6MCwiY2FjaGVfcmVhZF9pbnB1dF90b2tlbnMiOjAsImNhY2hlX2NyZWF0aW9uIjp7ImVwaGVtZXJhbF81bV9pbnB1dF90b2tlbnMiOjAsImVwaGVtZXJhbF8xaF9pbnB1dF90b2tlbnMiOjB9LCJvdXRwdXRfdG9rZW5zIjozLCJzZXJ2aWNlX3RpZXIiOiJzdGFuZGFyZCIsImluZmVyZW5jZV9nZW8iOiJub3RfYXZhaWxhYmxlIn19IH0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX3N0YXJ0CmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfc3RhcnQiLCJpbmRleCI6MCwiY29udGVudF9ibG9jayI6eyJ0eXBlIjoidGV4dCIsInRleHQiOiIifSAgICAgIH0KCmV2ZW50OiBwaW5nCmRhdGE6IHsidHlwZSI6ICJwaW5nIn0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX2RlbHRhCmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfZGVsdGEiLCJpbmRleCI6MCwiZGVsdGEiOnsidHlwZSI6InRleHRfZGVsdGEiLCJ0ZXh0IjoiSGVyZSBhcmUgeW91ciJ9ICAgIH0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX2RlbHRhCmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfZGVsdGEiLCJpbmRleCI6MCwiZGVsdGEiOnsidHlwZSI6InRleHRfZGVsdGEiLCJ0ZXh0IjoiIHJlc3VsdHM6XG4tIDQyIMOXIDE3ID0gKio3MTQqKlxuLSA0NTMgKyA0MzQgPSAqKjg4NyoqIn0gICAgICB9CgpldmVudDogY29udGVudF9ibG9ja19zdG9wCmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfc3RvcCIsImluZGV4IjowfQoKZXZlbnQ6IG1lc3NhZ2VfZGVsdGEKZGF0YTogeyJ0eXBlIjoibWVzc2FnZV9kZWx0YSIsImRlbHRhIjp7InN0b3BfcmVhc29uIjoiZW5kX3R1cm4iLCJzdG9wX3NlcXVlbmNlIjpudWxsLCJzdG9wX2RldGFpbHMiOm51bGx9LCJ1c2FnZSI6eyJpbnB1dF90b2tlbnMiOjg5NywiY2FjaGVfY3JlYXRpb25faW5wdXRfdG9rZW5zIjowLCJjYWNoZV9yZWFkX2lucHV0X3Rva2VucyI6MCwib3V0cHV0X3Rva2VucyI6MzR9fQoKZXZlbnQ6IG1lc3NhZ2Vfc3RvcApkYXRhOiB7InR5cGUiOiJtZXNzYWdlX3N0b3AiICAgICAgICB9Cgo=
+  recorded_at: Sat, 16 May 2026 06:23:36 GMT
+recorded_with: VCR 6.4.0

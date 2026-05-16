@@ -41,6 +41,20 @@ module LiveTestHelper
     skip("Skipped due to provider error: #{e.message}")
   end
 
+  def with_vcr_adapter(provider:, model:, redact_request_body: false)
+    cassette_name = vcr_cassette_name
+    match_requests_on = redact_request_body ? %i[method uri] : %i[method uri json_body]
+
+    cassette_options = { match_requests_on: match_requests_on }
+    cassette_options[:tag] = :redact_large_request_body if redact_request_body
+
+    VCR.use_cassette(cassette_name, cassette_options) do
+      skip_on_authentication_error do
+        yield load_provider(provider: provider, model: model)
+      end
+    end
+  end
+
   def auth_file_path
     File.expand_path(ENV.fetch("LLM_GATEWAY_AUTH_FILE", "~/.config/llm_gateway/auth.json"))
   end

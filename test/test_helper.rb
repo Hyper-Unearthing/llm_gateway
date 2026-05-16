@@ -70,6 +70,14 @@ VCR.configure do |config|
       auths
     end
   end
+
+  config.before_record(:redact_set_cookie_headers) do |interaction|
+    interaction.response.headers["Set-Cookie"] = [ "<SET_COOKIE>" ] if interaction.response.headers.key?("Set-Cookie")
+  end
+
+  config.before_record(:redact_large_request_body) do |interaction|
+    interaction.request.body = "<huge prompt body redacted>"
+  end
 end
 
 def vcr_cassette_name(test_method_name = self.name)

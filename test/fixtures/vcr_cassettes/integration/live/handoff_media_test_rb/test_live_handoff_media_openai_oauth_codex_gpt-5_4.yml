@@ -1,0 +1,401 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://chatgpt.com/backend-api/codex/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-5.4","instructions":"You are a helpful assistant.","input":[{"role":"user","content":[{"type":"input_text","text":"Use
+        the readfile tool with path test/fixtures/red-circle.png and tell me what
+        is in the image."}]},{"type":"function_call","call_id":"call_B3cofRsZGydQAi43AznrACwG","name":"readfile","arguments":"{\"path\":\"test/fixtures/red-circle.png\"}"},{"type":"function_call_output","call_id":"call_B3cofRsZGydQAi43AznrACwG","output":[{"type":"input_text","text":"Read
+        image file [image/png]"},{"type":"input_image","image_url":"data:image/png;base64,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"}]},{"role":"assistant","content":[{"type":"output_text","text":"The
+        image is a simple graphic of a red circle, likely centered on a plain or transparent
+        background with no other visible elements."}]},{"role":"user","content":[{"type":"input_text","text":"Use
+        the readfile tool with path test/fixtures/red-circle.png and tell me what
+        is in the image."}]},{"role":"assistant","content":[{"type":"output_text","text":"**Using
+        readfile tool**\n\nI''m needing to comply by using the readfile tool. I should
+        inspect the binary, which might return either base64 or raw data? It''s important
+        to use the commentary channel for this tool. So, let''s go ahead and do the
+        readfile function! That should set me on the right path for what I need. I''m
+        looking forward to seeing what results I get!"}]},{"type":"function_call","call_id":"call_EVbpgd1XysoV56HBtxvSdfo3","name":"readfile","arguments":"{\"path\":\"test/fixtures/red-circle.png\"}"},{"type":"function_call_output","call_id":"call_EVbpgd1XysoV56HBtxvSdfo3","output":[{"type":"input_text","text":"Read
+        image file [image/png]"},{"type":"input_image","image_url":"data:image/png;base64,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"}]},{"role":"assistant","content":[{"type":"output_text","text":"The
+        image shows a solid red circle centered on a white background."}]},{"role":"user","content":[{"type":"input_text","text":"Use
+        the readfile tool with path test/fixtures/red-circle.png and tell me what
+        is in the image."}]},{"type":"function_call","call_id":"call_Kf3VCHSWxq0R3cF63EYjoob8","name":"readfile","arguments":"{\"path\":\"test/fixtures/red-circle.png\"}"},{"type":"function_call_output","call_id":"call_Kf3VCHSWxq0R3cF63EYjoob8","output":[{"type":"input_text","text":"Read
+        image file [image/png]"},{"type":"input_image","image_url":"data:image/png;base64,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"}]},{"role":"assistant","content":[{"type":"output_text","text":"The
+        image shows a solid red circle centered on a white background."}]},{"role":"user","content":[{"type":"input_text","text":"Use
+        the readfile tool with path test/fixtures/red-circle.png and tell me what
+        is in the image."}]},{"role":"assistant","content":[{"type":"output_text","text":"The
+        user is asking me to use the readfile tool to read a file at the path \"test/fixtures/red-circle.png\"
+        and then tell them what is in the image. \n\nI need to call the readfile function
+        with the exact path they provided: \"test/fixtures/red-circle.png\"\n\nHowever,
+        I should note that the readfile tool will return the file contents, but since
+        this is a PNG image file, the contents will be binary data that I won''t be
+        able to interpret as an actual image. I won''t be able to see or analyze the
+        visual contents of the image - I''ll only get the raw file data.\n\nLet me
+        make the function call first and then explain this limitation."}]},{"type":"function_call","call_id":"toolu_01X1hqyFZcMP4pjx4QqJNvzt","name":"readfile","arguments":"{\"path\":\"test/fixtures/red-circle.png\"}"},{"type":"function_call_output","call_id":"toolu_01X1hqyFZcMP4pjx4QqJNvzt","output":[{"type":"input_text","text":"Read
+        image file [image/png]"},{"type":"input_image","image_url":"data:image/png;base64,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"}]},{"role":"assistant","content":[{"type":"output_text","text":"Based
+        on reading the file, I can see that the image contains a simple red circle
+        on a white background. The image appears to be a basic geometric shape - specifically
+        a solid red circular shape centered in the frame. This matches what the filename
+        \"red-circle.png\" suggests."}]},{"role":"user","content":[{"type":"input_text","text":"What
+        did you see, and how many times did you see it? Answer with an Arabic numeral
+        for the count."}]}],"store":false,"include":["reasoning.encrypted_content"],"stream":true,"tools":[{"type":"function","name":"readfile","description":"Reads
+        a file and returns its contents","parameters":{"type":"object","properties":{"path":{"type":"string","description":"Path
+        to a file"}},"required":["path"]}}],"reasoning":{"effort":"high","summary":"detailed"}}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - chatgpt.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Openai-Beta:
+      - responses=experimental
+      Chatgpt-Account-Id:
+      - 6f6473c8-41a9-4ebd-8dce-e9692a4fc18a
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 16 May 2026 07:50:14 GMT
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      X-Codex-Active-Limit:
+      - premium
+      X-Codex-Plan-Type:
+      - plus
+      X-Codex-Primary-Used-Percent:
+      - '2'
+      X-Codex-Secondary-Used-Percent:
+      - '10'
+      X-Codex-Primary-Window-Minutes:
+      - '300'
+      X-Codex-Primary-Over-Secondary-Limit-Percent:
+      - '0'
+      X-Codex-Secondary-Window-Minutes:
+      - '10080'
+      X-Codex-Primary-Reset-After-Seconds:
+      - '17670'
+      X-Codex-Secondary-Reset-After-Seconds:
+      - '516771'
+      X-Codex-Primary-Reset-At:
+      - '1778935483'
+      X-Codex-Secondary-Reset-At:
+      - '1779434584'
+      X-Codex-Credits-Has-Credits:
+      - 'False'
+      X-Codex-Credits-Balance:
+      - ''
+      X-Codex-Credits-Unlimited:
+      - 'False'
+      X-Models-Etag:
+      - W/"39001e349c339d8c717a1662fa261fb7"
+      X-Oai-Request-Id:
+      - e771a5ae-2466-4020-8a50-8ef87cd8d7ab
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      Cross-Origin-Opener-Policy:
+      - same-origin-allow-popups
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Cf-Cache-Status:
+      - DYNAMIC
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - __cf_bm=yBGv5cwXHpadEMEOP.ja68qITVZXWq6olfzuytTLb5k-1778917813.5673866-1.0.1.1-p1dmBU9ds7sCYujwtO1e4GegBFo_PzrwoqGNHLAJBuQSxfcWleCHp0eswzmk.GgsNPYHphwdfs8XpHOrmZq5RVYRfHDFJlrVmKwWvTe6SDX9Rcl9QkKLIuYjoT_azDu.;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=chatgpt.com; Expires=Sat,
+        16 May 2026 08:20:14 GMT
+      Report-To:
+      - '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=NyqJbdXrh1ztIVb0QrQ4VBAiVRhwluOjCqiiYzXNoP%2Fw8Exc9VU%2FsroRbOEMluz95Z%2BPoqv0m2TUzO2T53NRahaKmdbsyYmRynQqTtUy36%2FyyIcc%2FdHy%2B%2BmDxTbw"}]}'
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Cf-Ray:
+      - 9fc8ca4ecef1256b-SIN
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |+
+        event: response.created
+        data: {"type":"response.created","response":{"id":"resp_0c0dc61ed32a06c3016a0821b61ae48191831136556a589cff","object":"response","created_at":1778917814,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"b0ff157c-4d99-4108-afa9-f0dc96f98747","prompt_cache_retention":"24h","reasoning":{"effort":"high","summary":"detailed"},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"auto","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[{"type":"function","description":"Reads a file and returns its contents","name":"readfile","parameters":{"type":"object","properties":{"path":{"type":"string","description":"Path to a file"}},"required":["path"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":0}
+
+        event: response.in_progress
+        data: {"type":"response.in_progress","response":{"id":"resp_0c0dc61ed32a06c3016a0821b61ae48191831136556a589cff","object":"response","created_at":1778917814,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"b0ff157c-4d99-4108-afa9-f0dc96f98747","prompt_cache_retention":"24h","reasoning":{"effort":"high","summary":"detailed"},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"auto","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[{"type":"function","description":"Reads a file and returns its contents","name":"readfile","parameters":{"type":"object","properties":{"path":{"type":"string","description":"Path to a file"}},"required":["path"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":1}
+
+        event: response.output_item.added
+        data: {"type":"response.output_item.added","item":{"id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","type":"reasoning","encrypted_content":"gAAAAABqCCG3JmO3rhCnfEtloOB5PK_HRXMB_xkN9hMvCg2zxikXpXxlrd0msa03I1E7B76_byehjuDhtG8dJ81h4MKnnF8jPR0yOm161zyLp06KtyXL5iXwqLJSIk7PEjfFfWx9zLOzoGNuw3bY4jdV9TvEcW5UcI60maASvHvLftJ70TgucDFex1jdqh5b2943TXqZkXMXTVqtnfCkDlTRHgf06ahkj5sZHNYhIJr58XkTRhTcSQ3dv_-mKr2icTXG9KiFd29sXGdWSKmDOBy4P90wbgOJUL3Bg4PTrcksceTwKaWGwMGPd-AtSz1KMUEtQPrKUC2-fG47AdeIA9kppvop8PBij84MUyXoBpricyT_EJla-f4Yg4HBmLO1xfYsh-BPrRIxHyA57AwETutatLm9EC17XPY5eFal_-OVm1nD8p-gZc7AJIm909WwVt8ZS5Pjk0Vj7hEkr0C3af1iQN3bCMkMUW-4Eprp1DZJtjNRJVuqDCRnHFNRQbr1LNuVOzr8cRvOnU072cjxW0YpOg6x5FEP43oVuPM8RlA6EbmaF3xeEmsp_PMIeWa0gbx5RsOab3jR_cIjSRrMfPq0us_2zn2qSovx3raP1oVEWuLpV3G7mZH53WXjUdRORaLrEPlYJVS3fTuxfqZZNqTvbC-ji8Aa4xNU_Ap5kf6dtbBk4ntYB-uT7DqqftlxrCutmyz-Wx5s8mLOelX0MzjWpob3AExDhTgf2_9WFBJvuwl0e6PacHLbdvLCQq4lF11MMVi1wTJmcP-7C4zv0rKTU2umk20pesxVqS4rGZgVFiNoZ8kslMEX_IyRAIDVph_OwD2ZMrJ_IK5bPNm2kyEKzJpufjlCfsXKUXH4HoETQ2_PmwwpVPnNzr1abxEKwsRAjQMAycBgHorW1Rv_o4URlxQ1EZLZzQ==","summary":[]},"output_index":0,"sequence_number":2}
+
+        event: response.reasoning_summary_part.added
+        data: {"type":"response.reasoning_summary_part.added","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","output_index":0,"part":{"type":"summary_text","text":""},"sequence_number":3,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":"**Counting image views**\n\nThe","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"hnv","output_index":0,"sequence_number":4,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" user","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"YaiM7xMziXT","output_index":0,"sequence_number":5,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" wants","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"aUFQnAaeAF","output_index":0,"sequence_number":6,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" to","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"Sehyojb06Rb0m","output_index":0,"sequence_number":7,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" know","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"AFdro34w9A9","output_index":0,"sequence_number":8,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" how","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"Y8lUOV2oXGOK","output_index":0,"sequence_number":9,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" many","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"LKsvIaW99Ek","output_index":0,"sequence_number":10,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" times","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"J8NGlsekey","output_index":0,"sequence_number":11,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" I've","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"R2c05E7wY5P","output_index":0,"sequence_number":12,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" seen","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"RV2Z4vVJeYy","output_index":0,"sequence_number":13,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" an","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"LiTo7NEEav91W","output_index":0,"sequence_number":14,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" image","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"leMZgJlR81","output_index":0,"sequence_number":15,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" and","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"OD1aMrveocZJ","output_index":0,"sequence_number":16,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" what","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"TByCQBz7Rli","output_index":0,"sequence_number":17,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" that","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"e6IkA9r45x4","output_index":0,"sequence_number":18,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" image","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"flCAS4j6em","output_index":0,"sequence_number":19,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" is","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"6oFSSpTPckRkB","output_index":0,"sequence_number":20,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":".","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"IeHBry4jVqz9Gji","output_index":0,"sequence_number":21,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" Based","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"P3POp3JOVH","output_index":0,"sequence_number":22,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" on","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"oH1UVyeb9t36d","output_index":0,"sequence_number":23,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" our","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"PzIh53PehQ1i","output_index":0,"sequence_number":24,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" conversation","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"mIu","output_index":0,"sequence_number":25,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":",","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"f3K9ErKfIYEfhMB","output_index":0,"sequence_number":26,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" I've","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"aThUrARM8f7","output_index":0,"sequence_number":27,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" called","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"VRK5MN7qC","output_index":0,"sequence_number":28,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" the","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"WUKJD5X7YVKl","output_index":0,"sequence_number":29,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" read","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"nR08IZS20IS","output_index":0,"sequence_number":30,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":"file","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"Gew80tnMONss","output_index":0,"sequence_number":31,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" function","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"BEzaR2A","output_index":0,"sequence_number":32,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" four","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"Rrmrr8jujyd","output_index":0,"sequence_number":33,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" times","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"dZOCQKavWI","output_index":0,"sequence_number":34,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" and","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"b9DgN1VyGce7","output_index":0,"sequence_number":35,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" saw","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"L0IV7zc9BvPY","output_index":0,"sequence_number":36,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" a","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"UNNI2edfNf9tHG","output_index":0,"sequence_number":37,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" red","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"IK8novnv1Xka","output_index":0,"sequence_number":38,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" circle","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"d3RUxQTYp","output_index":0,"sequence_number":39,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" each","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"8R6uEUmYiZe","output_index":0,"sequence_number":40,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" time","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"3oGOLgj7kDT","output_index":0,"sequence_number":41,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":".","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"yRsd5AB1hdKUK18","output_index":0,"sequence_number":42,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" So","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"sQQ89zKuNftEx","output_index":0,"sequence_number":43,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":",","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"c5kVQWlMpHrPWnj","output_index":0,"sequence_number":44,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" my","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"vuVmmk6DrVeBs","output_index":0,"sequence_number":45,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" answer","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"fiYIX5jD3","output_index":0,"sequence_number":46,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" should","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"QcjqH8opS","output_index":0,"sequence_number":47,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" be","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"2cp9LRs1XV54H","output_index":0,"sequence_number":48,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" concise","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"f9BfVDAX","output_index":0,"sequence_number":49,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":":","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"KkNUQmrhitzyN1D","output_index":0,"sequence_number":50,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" \"","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"z9M6zXp3uE977K","output_index":0,"sequence_number":51,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":"A","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"KhOYKWBLNUQ6aRa","output_index":0,"sequence_number":52,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" red","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"ru0abDbDVvFf","output_index":0,"sequence_number":53,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" circle","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"tW2g8cAmX","output_index":0,"sequence_number":54,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":",","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"hTK6Pb8RarL1Utf","output_index":0,"sequence_number":55,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" 4","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"ScZu9Jq8Xu71qK","output_index":0,"sequence_number":56,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":".\"","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"G2uiKrqFAlxqJ1","output_index":0,"sequence_number":57,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" I","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"qASwHhW9j83bsR","output_index":0,"sequence_number":58,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" want","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"IkW0DtbE3FO","output_index":0,"sequence_number":59,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" to","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"biaLscKkcHcVX","output_index":0,"sequence_number":60,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" make","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"oFmBE8xfcvC","output_index":0,"sequence_number":61,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" sure","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"jDgLcyXbyzF","output_index":0,"sequence_number":62,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" I'm","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"7rpjGIpiQOvh","output_index":0,"sequence_number":63,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" providing","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"1sHeo7","output_index":0,"sequence_number":64,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" the","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"Szppp9nKjjaI","output_index":0,"sequence_number":65,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" information","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"FBD2","output_index":0,"sequence_number":66,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" clearly","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"AKvv6llh","output_index":0,"sequence_number":67,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" without","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"paZ0tlqe","output_index":0,"sequence_number":68,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" any","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"WSjNa1oxVTaU","output_index":0,"sequence_number":69,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":" fluff","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"mpsBghUpPW","output_index":0,"sequence_number":70,"summary_index":0}
+
+        event: response.reasoning_summary_text.delta
+        data: {"type":"response.reasoning_summary_text.delta","delta":"!","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","obfuscation":"gpIFrchi21c5Bsc","output_index":0,"sequence_number":71,"summary_index":0}
+
+        event: response.reasoning_summary_text.done
+        data: {"type":"response.reasoning_summary_text.done","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","output_index":0,"sequence_number":72,"summary_index":0,"text":"**Counting image views**\n\nThe user wants to know how many times I've seen an image and what that image is. Based on our conversation, I've called the readfile function four times and saw a red circle each time. So, my answer should be concise: \"A red circle, 4.\" I want to make sure I'm providing the information clearly without any fluff!"}
+
+        event: response.reasoning_summary_part.done
+        data: {"type":"response.reasoning_summary_part.done","item_id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","output_index":0,"part":{"type":"summary_text","text":"**Counting image views**\n\nThe user wants to know how many times I've seen an image and what that image is. Based on our conversation, I've called the readfile function four times and saw a red circle each time. So, my answer should be concise: \"A red circle, 4.\" I want to make sure I'm providing the information clearly without any fluff!"},"sequence_number":73,"summary_index":0}
+
+        event: response.output_item.done
+        data: {"type":"response.output_item.done","item":{"id":"rs_0c0dc61ed32a06c3016a0821b752388191a81619dc760be576","type":"reasoning","encrypted_content":"gAAAAABqCCG6LKvIywoWY-4KM6oOZ9wnO2O2Di3MyEmu3Z8AsfJkSfs02ftVxqcYWj1tDV4uRE3giIr7MSX2uVGy0BFNr4AlUMFG7goBsfLhp_yxSSWiJ_xjO5u7kn_UwPil3YqY74vZuVhY2NKMmWqxZcVDwjlt1Z-xEknr5Ju93qgLFFYzKhP_-3jpDnYXAJ_r6-9CqGSgNujZcwZhL3cJXggaesrjzzr2fEWOOqngfR6uB5lj5_zLetz7Kw_LNJ2NqTZg2qpY6AjMjTnrtM5bUVFreitB6CKCftX6lvXGj-CPaAt20fAOwhE22IDYR8J17Rsds09oLrzvPioAeE5wRjnhfhyguklta36NlpmOfxyYSZkNFw8LJDdyqgfPoGVNTEJw6p23NqhR2jYX74PjzKA1l3v4ZktW-yal3h7XcRUHR_kSFWTYm_YL5y12dVPYgdovjEZlpbef7tCol-Is6h83SMOMiEW4abJ7EFR_X2oymfhjTlGxDnsolhWju6SYW5FROClXn0mD-CdXEp_Z_ftctvHxVH4SQ2TARaHeCLmJ13S_cvKzHdB9xAHFrRZU1vESmXsjYrQGzOjw5eYkz4ZoQgL1xWOkVFsGDawFbLF7yQRT3Gg60FMrhEQtrdax0DU1oB_2mICJOzVgDThV860IKQQxEPaJcvX4dajbEzAKHS0N5HhQ_t9h0VhvJPnXqUkFUfLZiZBWJ9kywn6l-73EvfZ1svC3kS4vrB4FaByXvjrLmxjkl6OLbtWwQqEUtSLaYhGskA4P1gDkIOZs2g2jV1tXjhnLTRHH2NLccrnL-4uafJIt1jzvl7qm2mFw-gXdu4JvT0gYvJvjIn65dp4FoO4il3Ii2KFwxhdwflqj6D9c-_ihGqJuZWdUyvs8EMh3Yu6W70cbyeCXRUd9EXHycd5JWkl10qBwsnXJcBaQFBCrKUEMLoHIO5-UxAP9sLF2f8aEsmbsdv5t0By9tbYMRFZzQyOxO7SHkPyTMVrxA8h53hpb6stz0GRJIM0WGARSQy1E8hbo7pSpNarPv4JPv8GJm2qErKYMQONK5weQOzt7ZLK6xIaJHpi2L3jgrNAt6d01_QVVA-VbQY7O_d_chSjh6Qnj25M2UVfz4OyYta5rAmMjdAMyIBE4O1OnVIdZlAWjwLprgeEx4A6gJnm4marLR9CMfhTp3uDubbTP-VLE3fM53M9gWeq0FtQyHYDV5nwtQC9QcT1veoITEdbSLcg--_zA52X2gym0P7gX9bf7rNcXkzqK4BsbghXIBzOQxbnMH4Rnvdt3sIpTel7fSjqTv65qRC7BFoUbFExBX8viDQrVotmaqfSKR0azUbVj0Uregva-bUyYh2iNhnA1IC9xuZTSbKAx6ASVZid8GDz5EsspWrYvH91yojHh4sXt72znKyyY5y0xBpyFYa-uSxlNbBHHSnzkdkqODbmkjN8avoBoMfOtZa5ZadJwiotogYtYg0KbV5b_nDaUWOP3zp9sv8lwg0Q-whVGz1IhWy3SZpE=","summary":[{"type":"summary_text","text":"**Counting image views**\n\nThe user wants to know how many times I've seen an image and what that image is. Based on our conversation, I've called the readfile function four times and saw a red circle each time. So, my answer should be concise: \"A red circle, 4.\" I want to make sure I'm providing the information clearly without any fluff!"}]},"output_index":0,"sequence_number":74}
+
+        event: response.output_item.added
+        data: {"type":"response.output_item.added","item":{"id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","type":"message","status":"in_progress","content":[],"phase":"final_answer","role":"assistant"},"output_index":1,"sequence_number":75}
+
+        event: response.content_part.added
+        data: {"type":"response.content_part.added","content_index":0,"item_id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","output_index":1,"part":{"type":"output_text","annotations":[],"logprobs":[],"text":""},"sequence_number":76}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":"A","item_id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","logprobs":[],"obfuscation":"L3qZGh8ApCbdIe7","output_index":1,"sequence_number":77}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" red","item_id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","logprobs":[],"obfuscation":"VFsmgxATmMQ4","output_index":1,"sequence_number":78}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" circle","item_id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","logprobs":[],"obfuscation":"fYNJMJIw1","output_index":1,"sequence_number":79}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":",","item_id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","logprobs":[],"obfuscation":"1UvxjsMpDKi9DUI","output_index":1,"sequence_number":80}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" ","item_id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","logprobs":[],"obfuscation":"B7bwifl5NhxE1DS","output_index":1,"sequence_number":81}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":"4","item_id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","logprobs":[],"obfuscation":"2WUR5ZLFzbP3uBt","output_index":1,"sequence_number":82}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":".","item_id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","logprobs":[],"obfuscation":"wKAbo9LCD5c7H0P","output_index":1,"sequence_number":83}
+
+        event: response.output_text.done
+        data: {"type":"response.output_text.done","content_index":0,"item_id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","logprobs":[],"output_index":1,"sequence_number":84,"text":"A red circle, 4."}
+
+        event: response.content_part.done
+        data: {"type":"response.content_part.done","content_index":0,"item_id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","output_index":1,"part":{"type":"output_text","annotations":[],"logprobs":[],"text":"A red circle, 4."},"sequence_number":85}
+
+        event: response.output_item.done
+        data: {"type":"response.output_item.done","item":{"id":"msg_0c0dc61ed32a06c3016a0821ba9d14819198032f7f04e19494","type":"message","status":"completed","content":[{"type":"output_text","annotations":[],"logprobs":[],"text":"A red circle, 4."}],"phase":"final_answer","role":"assistant"},"output_index":1,"sequence_number":86}
+
+        event: response.completed
+        data: {"type":"response.completed","response":{"id":"resp_0c0dc61ed32a06c3016a0821b61ae48191831136556a589cff","object":"response","created_at":1778917814,"status":"completed","background":false,"completed_at":1778917818,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"b0ff157c-4d99-4108-afa9-f0dc96f98747","prompt_cache_retention":"24h","reasoning":{"effort":"high","summary":"detailed"},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"default","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[{"type":"function","description":"Reads a file and returns its contents","name":"readfile","parameters":{"type":"object","properties":{"path":{"type":"string","description":"Path to a file"}},"required":["path"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":{"input_tokens":952,"input_tokens_details":{"cached_tokens":0},"output_tokens":104,"output_tokens_details":{"reasoning_tokens":96},"total_tokens":1056},"user":null,"metadata":{}},"sequence_number":87}
+
+  recorded_at: Sat, 16 May 2026 07:50:18 GMT
+recorded_with: VCR 6.4.0
+...

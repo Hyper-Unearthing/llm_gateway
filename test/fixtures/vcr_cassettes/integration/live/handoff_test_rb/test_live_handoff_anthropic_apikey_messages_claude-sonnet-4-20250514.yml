@@ -1,0 +1,166 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","messages":[{"role":"user","content":[{"type":"text","text":"Think
+        hard about this, then use the math_operation tool to double 21 by multiplying
+        21 and 2. Call the tool."}]},{"role":"assistant","content":[{"type":"tool_use","id":"call_Zu112TyzOtdDOW9bvWtglzqD","name":"math_operation","input":{"a":21,"b":2,"operation":"multiply"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"call_Zu112TyzOtdDOW9bvWtglzqD","content":"42"}]},{"role":"assistant","content":[{"type":"text","text":"42"}]},{"role":"user","content":[{"type":"text","text":"Think
+        hard about this, then use the math_operation tool to double 21 by multiplying
+        21 and 2. Call the tool."}]},{"role":"assistant","content":[{"type":"text","text":"**Calculating
+        multiplication**\n\nI see that I need to use the math_operation tool in commentary.
+        The user is prompting me to think hard about the task, but it seems like I
+        can keep it straightforward. I should just call the tool to multiply 21 and
+        2 directly without overthinking it. So I''ll go ahead and do that without
+        getting caught up in too much reasoning. It looks like I’m all set to perform
+        this multiplication!"},{"type":"tool_use","id":"call_hJseujYbLEbOyyrpc0XkTOkD","name":"math_operation","input":{"a":21,"b":2,"operation":"multiply"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"call_hJseujYbLEbOyyrpc0XkTOkD","content":"42"}]},{"role":"assistant","content":[{"type":"text","text":"42"}]},{"role":"user","content":[{"type":"text","text":"Think
+        hard about this, then use the math_operation tool to double 21 by multiplying
+        21 and 2. Call the tool."}]},{"role":"assistant","content":[{"type":"tool_use","id":"call_oZnWijR9AOEK7zjMPCc7Pmul","name":"math_operation","input":{"a":21,"b":2,"operation":"multiply"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"call_oZnWijR9AOEK7zjMPCc7Pmul","content":"42"}]},{"role":"assistant","content":[{"type":"text","text":"42"}]},{"role":"user","content":[{"type":"text","text":"Think
+        hard about this, then use the math_operation tool to double 21 by multiplying
+        21 and 2. Call the tool."}]},{"role":"assistant","content":[{"type":"thinking","thinking":"The
+        user is asking me to double 21 by multiplying 21 and 2. This is a straightforward
+        math operation.\n\nI need to use the math_operation tool with:\n- a = 21\n-
+        b = 2  \n- operation = \"multiply\"\n\nLet me call the tool with these parameters.","signature":"Eq8DCmIIDBgCKkC3tsKyBe9/TiIE7ZhITQe4Ff42v1VOq3VgqMK1Od4LX21XVzcS8M9/Ee1/Kbjad/nacJZgO8vMDOAsmjvuDjqsMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIM6T9P9+8DA2b2BwOTGgzCc609ODSfucad010iMEvmGC6nQhVjizy0XTOFJIvwbbisOqRKf3Ou0iY70TNTxeCM1OPRqQxL/tVXtPKo7Sr6AWQcRX7uGabAPk0w5u5o9lfenaaKf/yc5MfXemIbpUszckrmVAoVk+7Cz0QDpdCk7D/AswqSC1upPv9oGfIOhuz0X+6z3KL23LEr2XzEN56/2bkd3chWIxRS/Vw4hMAsf3wN+cG0c9CHHg7USXM8exQJEkVxfj5qeN1YLMkY8Jc0Q+qwiyl4eBud7CNHNqPn6AL9MSMZIIseOudfOXDBDiS3oSn77MZg2Z86oC5bJ31TlhZqDYz9/mdimeQs57tFIJgEkp4aZxgtCg6GoKNWJ8L1PswiMwB5Ky4CghI9DPQsNElFul9IFr2mjPybMcgPkc9Ga6EAuT3Tw9cYAQ=="},{"type":"text","text":"I''ll
+        use the math_operation tool to multiply 21 by 2 to double it."},{"type":"tool_use","id":"toolu_01UWAwgrrBkDjzVqFUmtkESa","name":"math_operation","input":{"a":21,"b":2,"operation":"multiply"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_01UWAwgrrBkDjzVqFUmtkESa","content":"42"}]},{"role":"assistant","content":[{"type":"text","text":"The
+        result of doubling 21 by multiplying it by 2 is 42."}]},{"role":"user","content":[{"type":"text","text":"How
+        many tool calls have you made"}]}],"tools":[{"name":"math_operation","description":"Perform
+        a basic math operation on two numbers","input_schema":{"type":"object","properties":{"a":{"type":"number","description":"The
+        first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The
+        operation to perform"}},"required":["a","b","operation"]}}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":10240},"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 16 May 2026 07:47:10 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '449000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2026-05-16T07:47:09Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2026-05-16T07:47:09Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '1000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2026-05-16T07:47:09Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '539000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2026-05-16T07:47:09Z'
+      Request-Id:
+      - req_011Cb5ssw8LNAnoA1h6KweSZ
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Traceresponse:
+      - 00-453eba3df825909a81d0321d68ba3094-cfeb2c9de2326ffa-01
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '1282'
+      Vary:
+      - Accept-Encoding
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - _cfuvid=U7CnEYX4IY7eJUVTRll6FpckQZi8ut9Jgye9ihwE_Uk-1778917629.305452-1.0.1.1-LBHZO87B3mm9uKgfd2PjwvqkIzaXtO02CR.ZnzQXJ2I;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
+      Cf-Ray:
+      - 9fc8c5cf29fcfd77-SIN
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        event: message_start
+        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01Sn4TPtwRQWM8fyzgc8qw3a","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":1171,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":1,"service_tier":"standard","inference_geo":"not_available"}}    }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}       }
+
+        event: ping
+        data: {"type": "ping"}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"Let"}          }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" me count the tool calls I've made in this conversation:\n\n1. First response: I made one"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" call to math_operation to multiply 21 and 2\n2. Second response: I made one call to math_operation to multiply 21 and 2  \n3. Third response: I made one call to math_operation to multiply"}}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" 21 and 2\n4. Fourth response: I made one call to math_operation to multiply 21 and 2\n\nSo I've made 4 tool calls total in this conversation."}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"EuQECmIIDRgCKkADyRhZxZvhkZ+mWVsMD4xmMFzM5THZSrKRfE19Ugh7mKZUrqGMmnVasBhd8CfwtjLStZW/33sOw9HXT6kc87lRMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIMLH5fDMa8Rh9ljQHiGgzHelmejYuezb/ogTciMH2GyjMovCCdNPn0r7mWRYMJRihBCraRjp4zhqN0dFFIPgi/S2dTgvf0xB1C5VQOoSqvA5tTH6AEClaXt9dOvBB+gV1080b26Lexvvbw+PAC6LO616rwyNQTjzLZBBauD8ZyFTaef+Za1d9IN9QMzQt32u+ZUk5ga48QITjzqYTSnJS+bMAsLJaIbdbAeA21gR0t79vcbHpZ7iid/dspDPXqzD7yNY4ivkto+a1al7Fb5J1ZTfoxySMUOhydVdzKY4F/m7Ew9wAfI+w5n0kltFookllnUYWRvfCdV9rEBI6MPlNLBEBFnPAtX0wDr/WRNeWRXR6Y6igbHK2sTsaE4gvW4KTh+M5mVmm8YAtO/XT5Zhp4b8wOZgNy+t1IBmuxg6cLzK9MBvU1w8stpoATFdxE85QLiioSvMBJuaz53zszJvJ0yqgVBEnVozLyKmGdz5uGK43xhyZqg8rljNPHAX2+UrxbybOUl1WjEfqw0E+Og9q/u2CKAGcqxMDKtqQPIPx9M2H1mN796bbO7eJPCp9+6sy+NmtecRtsA+tnE1b1zyNql0OxtnUmfV8qV9+GfXm5VrYV1hOLpvX0KwLpAAvk+1AqiRXDIgyHKZScQLsnuCW3p6kEA/6IqoXDYTSa7GAJGAE="} }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":0   }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"I have"}       }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" made 4 tool calls in this conversation. Each time you asked me to double 21 by multiplying it by 2, I made one call to the math_operation tool with"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" the parameters a=21, b=2, and operation=multiply."}           }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":1 }
+
+        event: message_delta
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":1171,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":184}           }
+
+        event: message_stop
+        data: {"type":"message_stop"              }
+
+  recorded_at: Sat, 16 May 2026 07:47:13 GMT
+recorded_with: VCR 6.4.0
+...

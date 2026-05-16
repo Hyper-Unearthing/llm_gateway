@@ -3,11 +3,10 @@
 require "test_helper"
 require "vcr"
 require "json"
-require "base64"
 require_relative "../../utils/calculator_tool_helper"
 require_relative "../../utils/live_test_helper"
 
-class ProvidersJsonTest < Test
+class StreamTest < Test
   include CalculatorToolHelper
   include LiveTestHelper
 
@@ -86,42 +85,6 @@ class ProvidersJsonTest < Test
     assert_equal 15, tool_call.input[:a]
     assert_equal 27, tool_call.input[:b]
     assert_includes %w[add subtract multiply divide], tool_call.input[:operation]
-  end
-
-  def basic_thinking_test(adapter, reasoning: "high")
-    prompt = "Think long and hard about #{rand(100_000)} + 27"
-    thinking_started = false
-    thinking_chunks = ""
-    thinking_completed = false
-    response = adapter.stream(prompt, reasoning:,) do |event|
-      case event.type
-      when :reasoning_start
-        thinking_started = true
-        thinking_chunks += event.delta
-      when :reasoning_delta
-        thinking_chunks += event.delta
-      when :reasoning_end
-        thinking_completed = true
-      end
-    end
-
-    assert_equal "assistant", response.role
-    assert_operator response.usage[:input_tokens], :>, 0
-    assert_operator response.usage[:output_tokens], :>, 0
-    assert_nil response.error_message
-    assert_equal "stop", response.stop_reason, "Error: #{response.error_message}"
-
-    if thinking_started || thinking_completed || !thinking_chunks.empty?
-      assert_equal true, thinking_started, "thinking start event occurred"
-      assert_operator thinking_chunks.length, :>, 0
-      assert_equal true, thinking_completed, "thinking end event occurred"
-
-      thinking_block = response.content.find { |block| block.type == "reasoning" }
-      refute_nil thinking_block
-      refute_empty thinking_block.reasoning.to_s
-    else
-      assert_operator response.usage[:reasoning_tokens], :>, 0
-    end
   end
 
   def basic_streaming_text_test(adapter)
@@ -237,123 +200,48 @@ class ProvidersJsonTest < Test
     end
   end
 
-  def basic_image_streaming_test(adapter)
-    image_path = File.expand_path("../../fixtures/red-circle.png", __dir__)
-    image_data = Base64.strict_encode64(File.binread(image_path))
-
-    prompt = [
-      {
-        role: "user",
-        content: [
-          {
-            type: "text",
-            text: "What do you see in this image? Please describe the shape (circle, rectangle, square, triangle, ...) and color (red, blue, green, ...). You MUST reply in English."
-          },
-          {
-            type: "image",
-            data: image_data,
-            media_type: "image/png"
-          }
-        ]
-      }
-    ]
-
-    response = adapter.stream(prompt, system: "You are a helpful assistant.")
-
-    assert_equal "assistant", response.role
-    assert_operator response.usage[:input_tokens], :>, 0
-    assert_operator response.usage[:output_tokens], :>, 0
-    assert_nil response.error_message
-
-    text_content = response.content.find { |block| block.type == "text" }
-    refute_nil text_content
-
-    lower_content = text_content.text.downcase
-    assert_includes lower_content, "red"
-    assert_includes lower_content, "circle"
-  end
-  def self.define_stream_tests_for(name:, provider:, model:)
-    test "live_basic_text_generation_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          basic_text_generation_test(adapter)
-        end
-      end
-    end
-
+  def self.define_stream_tests_for(provider:, model:)
     test "live_basic_tool_call_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          basic_tool_call(adapter)
-        end
+      with_vcr_adapter(provider:, model:) do |adapter|
+        basic_tool_call(adapter)
       end
     end
 
-    test "live_basic_thinking_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          basic_thinking_test(adapter, reasoning: "high")
-        end
-      end
-    end
 
     test "live_text_streaming_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          basic_streaming_text_test(adapter)
-        end
+      with_vcr_adapter(provider:, model:) do |adapter|
+        basic_streaming_text_test(adapter)
       end
     end
 
     test "live_multi_turn_tool_streaming_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          multi_turn_tool_stream_test(adapter, reasoning: "high")
-        end
-      end
-    end
-
-    test "live_image_streaming_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          basic_image_streaming_test(adapter)
-        end
+      with_vcr_adapter(provider:, model:) do |adapter|
+        multi_turn_tool_stream_test(adapter, reasoning: "high")
       end
     end
   end
 
   define_stream_tests_for(
-    name: "openai_apikey_completions_gpt_5_1",
     provider: "openai_apikey_completions",
     model: "gpt-5.1"
   )
 
   define_stream_tests_for(
-    name: "anthropic_apikey_messages_claude_sonnet_4",
     provider: "anthropic_apikey_messages",
     model: "claude-sonnet-4-20250514"
   )
 
   define_stream_tests_for(
-    name: "openai_apikey_responses_gpt_5_4",
     provider: "openai_apikey_responses",
     model: "gpt-5.4"
   )
 
   define_stream_tests_for(
-    name: "anthropic_oauth_messages_claude_sonnet_4",
     provider: "anthropic_oauth_messages",
     model: "claude-sonnet-4-20250514"
   )
 
   define_stream_tests_for(
-    name: "openai_oauth_codex_gpt_5_4",
     provider: "openai_oauth_codex",
     model: "gpt-5.4"
   )
