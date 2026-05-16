@@ -71,6 +71,10 @@ VCR.configure do |config|
     end
   end
 
+  config.before_record(:redact_set_cookie_headers) do |interaction|
+    interaction.response.headers["Set-Cookie"] = [ "<SET_COOKIE>" ] if interaction.response.headers.key?("Set-Cookie")
+  end
+
   config.before_record(:redact_large_request_body) do |interaction|
     interaction.request.body = "<huge prompt body redacted>"
   end
