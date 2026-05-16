@@ -71,14 +71,11 @@ class CacheLiveTest < Test
 
   def self.define_cache_tests_for(name:, provider:, model:, options: {})
     test "live_cache_read_tokens_on_second_turn_#{name}_#{provider}_#{model}" do
-      skip_on_authentication_error do
-        without_vcr do
-          adapter = load_provider(provider:, model:)
-          if provider.start_with?("anthropic") && options[:cache_retention].to_s == "none"
-            assert_no_cache_hit_on_second_turn(adapter, options: options)
-          else
-            assert_cache_hit_on_second_turn(adapter, options: options)
-          end
+      with_vcr_adapter(provider:, model:, redact_request_body: true) do |adapter|
+        if provider.start_with?("anthropic") && options[:cache_retention].to_s == "none"
+          assert_no_cache_hit_on_second_turn(adapter, options: options)
+        else
+          assert_cache_hit_on_second_turn(adapter, options: options)
         end
       end
     end
