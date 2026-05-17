@@ -39,11 +39,8 @@ module LiveTestHelper
 
   def skip_on_authentication_error
     yield
-  rescue LlmGateway::Errors::AuthenticationError,
-         LlmGateway::Errors::BadRequestError,
-         LlmGateway::Errors::RateLimitError,
-         LlmGateway::Errors::APIStatusError => e
-    skip("Skipped due to provider error: #{e.message}")
+  rescue LlmGateway::Errors::AuthenticationError => e
+    skip("Skipped due to authentication error: #{e.message}")
   end
 
   def with_vcr_adapter(provider:, model:, redact_request_body: false)
