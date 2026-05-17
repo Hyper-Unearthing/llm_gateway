@@ -4,7 +4,7 @@ require "test_helper"
 
 class ClaudeCacheControlTest < Test
   test "when cache retention is passed it adds cache_control to last system and tool blocks and sets top-level cache_control" do
-    client = LlmGateway::Clients::Anthropic.new(model_key: "claude-3", api_key: "test")
+    client = LlmGateway::Clients::Anthropic.new(api_key: "test")
 
     body = client.send(
       :build_body,
@@ -21,7 +21,8 @@ class ClaudeCacheControlTest < Test
         { name: "tool_1", description: "Tool 1", input_schema: { type: "object", properties: {} } },
         { name: "tool_2", description: "Tool 2", input_schema: { type: "object", properties: {} } }
       ],
-      cache_retention: "short"
+      cache_retention: "short",
+      model: "claude-3"
     )
 
     expected_cache_control = { type: "ephemeral" }
@@ -43,14 +44,15 @@ class ClaudeCacheControlTest < Test
   end
 
   test "uses ttl for long retention on official anthropic base url" do
-    client = LlmGateway::Clients::Anthropic.new(model_key: "claude-3", api_key: "test")
+    client = LlmGateway::Clients::Anthropic.new(api_key: "test")
 
     body = client.send(
       :build_body,
       [ { role: "user", content: [ { type: "text", text: "hello" } ] } ],
       system: [ { type: "text", text: "system" } ],
       tools: [ { name: "tool_1", description: "Tool 1", input_schema: { type: "object", properties: {} } } ],
-      cache_retention: "long"
+      cache_retention: "long",
+      model: "claude-3"
     )
 
     assert_equal({ type: "ephemeral", ttl: "1h" }, body[:cache_control])
@@ -60,14 +62,15 @@ class ClaudeCacheControlTest < Test
   end
 
   test "does not mutate existing cache control when retention is none" do
-    client = LlmGateway::Clients::Anthropic.new(model_key: "claude-3", api_key: "test")
+    client = LlmGateway::Clients::Anthropic.new(api_key: "test")
 
     body = client.send(
       :build_body,
       [ { role: "user", content: [ { type: "text", text: "hello", cache_control: { type: "ephemeral" } } ] } ],
       system: [ { type: "text", text: "system", cache_control: { type: "ephemeral" } } ],
       tools: [ { name: "tool_1", description: "Tool 1", cache_control: { type: "ephemeral" }, input_schema: { type: "object", properties: {} } } ],
-      cache_retention: "none"
+      cache_retention: "none",
+      model: "claude-3"
     )
 
     assert_nil body[:cache_control]

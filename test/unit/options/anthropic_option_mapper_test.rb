@@ -76,12 +76,12 @@ class AnthropicOptionMapperTest < Test
     attr_reader :options
 
     def initialize
-      super(model_key: "claude-sonnet-4-20250514", api_key: "test-key")
+      super(api_key: "test-key")
     end
 
-    def stream(_messages, tools:, system:, **options)
+    def stream(_messages, tools:, system:, model: DEFAULT_MODEL, **options)
       @options = options
-      yield({ event: "message_start", data: { message: { id: "msg_123", model: model_key, role: "assistant" } } })
+      yield({ event: "message_start", data: { message: { id: "msg_123", model: model, role: "assistant" } } })
       yield({ event: "message_delta", data: { delta: { stop_reason: "end_turn" } } })
       yield({ event: "message_stop", data: {} })
     end

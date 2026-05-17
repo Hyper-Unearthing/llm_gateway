@@ -6,11 +6,9 @@ require "json"
 
 module LlmGateway
   class BaseClient
-    attr_accessor
-    attr_reader :api_key, :model_key, :base_endpoint
+    attr_reader :api_key, :base_endpoint
 
-    def initialize(model_key:, api_key:)
-      @model_key = model_key
+    def initialize(api_key:)
       @api_key = api_key
     end
 

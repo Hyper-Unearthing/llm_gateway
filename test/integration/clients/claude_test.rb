@@ -44,7 +44,7 @@ class ClaudeClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::Anthropic.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], max_tokens: 4096)
+        LlmGateway::Clients::Anthropic.new.chat([ { 'role': "user", 'content': "hello" } ], model: "randomodel", max_tokens: 4096)
       end
     end
     assert_equal "model: randomodel", error.message

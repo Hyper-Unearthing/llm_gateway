@@ -6,18 +6,20 @@ module LlmGateway
   module Clients
     class OpenAI < BaseClient
       CODEX_BASE_ENDPOINT = "https://chatgpt.com/backend-api/codex"
+      DEFAULT_MODEL = "gpt-4o"
+      DEFAULT_EMBEDDINGS_MODEL = "text-embedding-3-small"
 
       attr_reader :account_id
 
-      def initialize(model_key: "gpt-4o", api_key: ENV["OPENAI_API_KEY"], account_id: nil)
+      def initialize(api_key: ENV["OPENAI_API_KEY"], account_id: nil)
         @base_endpoint = "https://api.openai.com/v1"
         @account_id = account_id
-        super(model_key: model_key, api_key: api_key)
+        super(api_key: api_key)
       end
 
-      def chat(messages, tools: nil, system: [], **options)
+      def chat(messages, tools: nil, system: [], model: DEFAULT_MODEL, **options)
         body = {
-          model: model_key,
+          model: model,
           messages: system + messages
         }
         body[:tools] = tools if tools
@@ -26,9 +28,9 @@ module LlmGateway
         post("chat/completions", body)
       end
 
-      def stream(messages, tools: nil, system: [], **options, &block)
+      def stream(messages, tools: nil, system: [], model: DEFAULT_MODEL, **options, &block)
         body = {
-          model: model_key,
+          model: model,
           messages: system + messages
         }
         body[:tools] = tools if tools
@@ -38,9 +40,9 @@ module LlmGateway
         post_stream("chat/completions", body, &block)
       end
 
-      def responses(messages, tools: nil, system: [], **options)
+      def responses(messages, tools: nil, system: [], model: DEFAULT_MODEL, **options)
         body = {
-          model: model_key,
+          model: model,
           input: messages.flatten
         }
         body[:instructions] = system[0][:content] if system.any?
@@ -50,9 +52,9 @@ module LlmGateway
         post("responses", body)
       end
 
-      def stream_responses(messages, tools: nil, system: [], **options, &block)
+      def stream_responses(messages, tools: nil, system: [], model: DEFAULT_MODEL, **options, &block)
         body = {
-          model: model_key,
+          model: model,
           input: messages.flatten
         }
         body[:instructions] = system[0][:content] if system.any?
@@ -74,8 +76,8 @@ module LlmGateway
         token_manager.access_token
       end
 
-      def chat_codex(messages, tools: nil, system: [], account_id: nil, **options)
-        body = build_codex_body(messages, system, tools, **options)
+      def chat_codex(messages, tools: nil, system: [], account_id: nil, model: DEFAULT_MODEL, **options)
+        body = build_codex_body(messages, system, tools, model: model, **options)
 
         completed_response = nil
         post_codex_stream("responses", body, account_id: account_id) do |raw_sse|
@@ -87,8 +89,8 @@ module LlmGateway
         completed_response
       end
 
-      def stream_codex(messages, tools: nil, system: [], account_id: nil, **options, &block)
-        body = build_codex_body(messages, system, tools, **options)
+      def stream_codex(messages, tools: nil, system: [], account_id: nil, model: DEFAULT_MODEL, **options, &block)
+        body = build_codex_body(messages, system, tools, model: model, **options)
         post_codex_stream("responses", body, account_id: account_id, &block)
       end
 
@@ -96,10 +98,10 @@ module LlmGateway
         get("files/#{file_id}/content")
       end
 
-      def generate_embeddings(input)
+      def generate_embeddings(input, model: DEFAULT_EMBEDDINGS_MODEL)
         body = {
           input:,
-          model: model_key
+          model: model
         }
         post("embeddings", body)
       end
@@ -110,12 +112,12 @@ module LlmGateway
 
       private
 
-      def build_codex_body(messages, system, tools, **options)
+      def build_codex_body(messages, system, tools, model:, **options)
         instructions = Array(system).filter_map { |s| s.is_a?(Hash) ? s[:content] : s }.join("\n")
         instructions = "You are a helpful assistant." if instructions.empty?
 
         body = {
-          model: model_key,
+          model: model,
           instructions: instructions,
           input: messages,
           store: false,

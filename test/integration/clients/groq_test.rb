@@ -45,7 +45,7 @@ class GroqClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::Groq.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], **mapped_options(max_completion_tokens: 4096))
+        LlmGateway::Clients::Groq.new.chat([ { 'role': "user", 'content': "hello" } ], model: "randomodel", **mapped_options(max_completion_tokens: 4096))
       end
     end
     assert_equal "The model `randomodel` does not exist or you do not have access to it.", error.message
