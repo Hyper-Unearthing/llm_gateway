@@ -1,5 +1,31 @@
 # Changelog
 
+## [v0.4.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.4.0) (2026-05-17)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.3.0...v0.4.0)
+
+**Merged pull requests:**
+
+- docs: update docs new code [\#51](https://github.com/Hyper-Unearthing/llm_gateway/pull/51) ([billybonks](https://github.com/billybonks))
+- test: rework live tests to use vcr [\#50](https://github.com/Hyper-Unearthing/llm_gateway/pull/50) ([billybonks](https://github.com/billybonks))
+- refactor: update provider keys [\#49](https://github.com/Hyper-Unearthing/llm_gateway/pull/49) ([billybonks](https://github.com/billybonks))
+- Refactor/major internal organisation [\#48](https://github.com/Hyper-Unearthing/llm_gateway/pull/48) ([billybonks](https://github.com/billybonks))
+- cross provider handoff support [\#47](https://github.com/Hyper-Unearthing/llm_gateway/pull/47) ([billybonks](https://github.com/billybonks))
+- Refactor provider usage and especially oauth [\#46](https://github.com/Hyper-Unearthing/llm_gateway/pull/46) ([billybonks](https://github.com/billybonks))
+- Refactor/options [\#45](https://github.com/Hyper-Unearthing/llm_gateway/pull/45) ([billybonks](https://github.com/billybonks))
+- fix: map content blocks in tools as well [\#44](https://github.com/Hyper-Unearthing/llm_gateway/pull/44) ([billybonks](https://github.com/billybonks))
+- Streaming support [\#43](https://github.com/Hyper-Unearthing/llm_gateway/pull/43) ([billybonks](https://github.com/billybonks))
+- feat: try to simplify api and provider combination [\#42](https://github.com/Hyper-Unearthing/llm_gateway/pull/42) ([billybonks](https://github.com/billybonks))
+- feat: add reasoning effort parameter [\#41](https://github.com/Hyper-Unearthing/llm_gateway/pull/41) ([billybonks](https://github.com/billybonks))
+- Feat/backport streaming [\#40](https://github.com/Hyper-Unearthing/llm_gateway/pull/40) ([billybonks](https://github.com/billybonks))
+- fix: cache control [\#39](https://github.com/Hyper-Unearthing/llm_gateway/pull/39) ([billybonks](https://github.com/billybonks))
+- feat: configure [\#38](https://github.com/Hyper-Unearthing/llm_gateway/pull/38) ([billybonks](https://github.com/billybonks))
+- fix: alias clients to old classname until 1.0 [\#36](https://github.com/Hyper-Unearthing/llm_gateway/pull/36) ([billybonks](https://github.com/billybonks))
+- refactor: adapter to split clients from adapter [\#35](https://github.com/Hyper-Unearthing/llm_gateway/pull/35) ([billybonks](https://github.com/billybonks))
+- test: make tests less brittle when regenerating vcr [\#34](https://github.com/Hyper-Unearthing/llm_gateway/pull/34) ([billybonks](https://github.com/billybonks))
+- Clean up gems and delete sample code [\#33](https://github.com/Hyper-Unearthing/llm_gateway/pull/33) ([billybonks](https://github.com/billybonks))
+- feat: add clade subscription as a seperate provider [\#32](https://github.com/Hyper-Unearthing/llm_gateway/pull/32) ([billybonks](https://github.com/billybonks))
+
 ## [v0.3.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.3.0) (2025-08-19)
 
 [Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.2.0...v0.3.0)
