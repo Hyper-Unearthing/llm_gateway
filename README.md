@@ -1,283 +1,630 @@
-# LlmGateway
+# llm_gateway
 
 Provide a unified translation interface for LLM Provider API's, While allowing developers to have as much control as possible, This does make it more complicated because we dont want developers to be blocked at using something that the provider supports. As time progress the library will mature and support more responses
 
+## Table of Contents
+
+- [Principles:](#principles)
+- [Installation](#installation)
+- [Supported Providers](#supported-providers)
+- [Quick Start: Streaming (all events)](#quick-start-streaming-all-events)
+  - [Stream API without handling events (final result only)](#stream-api-without-handling-events-final-result-only)
+- [Migration guides](#migration-guides)
+- [Tools](#tools)
+  - [Defining Tools](#defining-tools)
+  - [Handling Tool Calls](#handling-tool-calls)
+- [Image Input](#image-input)
+- [Thinking / Reasoning](#thinking--reasoning)
+  - [Streaming Thinking Content](#streaming-thinking-content)
+  - [How reasoning values are mapped](#how-reasoning-values-are-mapped)
+- [Cross-Provider Handoffs](#cross-provider-handoffs)
+- [Context Serialization](#context-serialization)
+- [OAuth](#oauth)
+  - [Get initial tokens (Codex / OpenAI OAuth)](#get-initial-tokens-codex--openai-oauth)
+  - [Get initial tokens (Anthropic OAuth)](#get-initial-tokens-anthropic-oauth)
+  - [Get a refresh token](#get-a-refresh-token)
+  - [Exchange refresh token for access token](#exchange-refresh-token-for-access-token)
+  - [Pass access token in provider requests](#pass-access-token-in-provider-requests)
+  - [Token refresh responsibility](#token-refresh-responsibility)
+    - [Library’s role (llm_gateway)](#librarys-role-llm_gateway)
+    - [User/app’s role](#userapps-role)
 
 ## Principles:
 1. Transcription integrity is most important
 2. Input messages must have bidirectional integrity
 3. Allow developers as much control as possible
 
-## Assumptions
-things that do not support unidirectional format, probably cant be sent between providers
-
-## Mechanics
-Messages either support unidirectional or bidirectional format. (unidirectional means we can format it as an output but should not be added as an input).
-
-The result from the llm is in the format that can be sent to the provider, but if you want to consolidate complex messages like code_execution, you must run a mapper we provide manually, but dont send that format back to the provider.
-
-### bidirectional Support
-Messages
-- Text
-- Tool Use
-- Tool Response
-
-Tools
-- Server Tools
-- Tools
-
-### Unidirectional Support
-- Server Tool Use Reponse
-
-### Example flow
-
-
-```mermaid
-sequenceDiagram
-        actor developer
-        participant llm_gateway
-        participant llm_provider
-
-        developer ->> llm_gateway: Send Text Message
-        llm_gateway ->> llm_gateway: transform to provider format
-        llm_gateway ->> llm_provider: Transformed Text Message
-        llm_provider ->> llm_gateway: Response <br />(transcript in provider format)
-        llm_gateway ->> developer:  Response <br />(transcript in combination <br />of gatway and provider formats)
-        Note over llm_gateway,developer: llm_gateway will transform <br /> messages that support bi-direction
-        developer ->> developer: save the transcript
-        loop ProcessMessage
-            developer ->> llm_gateway: format message
-            llm_gateway ->> developer: return transformed message
-            Note over llm_gateway,developer: if the message: <br /> supports bidirection format returns as is <br /> otherwise will transform <br />into consolidated format
-            developer ->> developer: append earlier saved transcript
-            Note over developer, developer: for example tool use
-        end
-        developer -> llm_gateway: Transcript
-        llm_gateway ->> llm_gateway: transform to provider format
-        Note over llm_gateway,llm_gateway: non bidirectional messages are sent as is
-        llm_gateway ->> llm_provider: etc etc etc
-
-
-
-```
-
-## Supported Providers
-Anthropic, OpenAi, Groq
-
-
 ## Installation
-
-Add the gem to your application's Gemfile:
-
-```bash
-bundle add llm_gateway
-```
-
-Or install it yourself:
 
 ```bash
 gem install llm_gateway
 ```
 
-## Usage
-
-### Basic Chat
+Or add it to your `Gemfile`:
 
 ```ruby
-require 'llm_gateway'
+gem "llm_gateway"
+```
 
-# Simple text completion
-LlmGateway::Client.chat(
-  'claude-sonnet-4-20250514',
-  'What is the capital of France?'
+## Supported Providers
+
+| Provider  | Provider Key                 | Auth  | API Surface            |
+|-----------|------------------------------|-------|------------------------|
+| Anthropic | `anthropic_messages`         | API key | Messages             |
+| OpenAI    | `openai_completions`         | API key | Chat Completions     |
+| OpenAI    | `openai_responses`           | API key | Responses            |
+| OpenAI Codex | `openai_codex`            | OAuth   | Responses            |
+| Groq      | `groq_completions`           | API key | Chat Completions     |
+
+Legacy keys (`*_apikey_*`, `*_oauth_*`) are still supported for backward compatibility.
+
+## Quick Start: Streaming (all events)
+
+```ruby
+require "llm_gateway"
+require "json"
+
+# Build a provider adapter directly (not via prebuilt config)
+adapter = LlmGateway.build_provider(
+  provider: "openai_responses", # or anthropic_messages, groq_completions, ...
+  api_key: ENV.fetch("OPENAI_API_KEY"),
+  model_key: "gpt-5.4"
 )
 
-# With system message
-LlmGateway::Client.chat(
-  'gpt-4',
-  'What is the capital of France?',
-  system: 'You are a helpful geography teacher.'
-)
-
-# With inline file
-LlmGateway::Client.chat(
-  "claude-sonnet-4-20250514",
-  [
-    {
-      role: "user", content: [
-        { type: "text", text: "return the content of the document exactly" },
-        { type: "file", data: "abc\n", media_type: "text/plain", name: "small.txt"  }
-      ]
-    },
-  ]
-)
-
-# Transcript
-LlmGateway::Client.chat('llama-3.3-70b-versatile',[
-    { role: "user", content: "Tell Me a joke" },
-    { role: "assistant", content: "what kind of content"},
-    { role: "user", content: "About Sparkling water" },
-  ]
-)
-
-
-# Tool usage
-LlmGateway::Client.chat('gpt-5',[
-    { role: "user", content: "What's the weather in Singapore? reply in 10 words and no special characters" },
-    { role: "assistant",
-        content: [
-          { id: "call_gpXfy9l9QNmShNEbNI1FyuUZ", type: "tool_use", name: "get_weather", input: { location: "Singapore" } }
-        ]
-    },
-    { role: "developer",
-      content: [
-        { content: "-15 celcius", type: "tool_result", tool_use_id: "call_gpXfy9l9QNmShNEbNI1FyuUZ" }
-      ]
+tools = [
+  {
+    name: "get_time",
+    description: "Get the current time",
+    input_schema: {
+      type: "object",
+      properties: {
+        timezone: { type: "string", description: "Optional timezone, e.g. America/New_York" }
+      }
     }
-  ],
-  tools: [ { name: "get_weather", description: "Get current weather for a location", input_schema: { type: "object", properties: { location: { type: "string", description: "City name" } }, required: [ "location" ] } } ]
-)
-```
+  }
+]
 
-### Supported Roles
+transcript = [
+  { role: "user", content: "What time is it? Think briefly, then call get_time." }
+]
 
-- user
-- developer
-- assistant
+streamed_tool_args = Hash.new { |h, k| h[k] = +"" }
 
-#### Examples
-```ruby
-# tool call
-{ role: "developer",
-  content: [
-    { content: "-15 celcius", type: "tool_result", tool_use_id: "call_gpXfy9l9QNmShNEbNI1FyuUZ" }
-  ]
-}
-# plain message
-{ role: "user", content: "What's the weather in Singapore? reply in 10 words and no special characters" }
+response = adapter.stream(transcript, tools: tools, reasoning: "high") do |event|
+  case event.type
+  # AssistantStreamMessageEvent
+  when :message_start
+    puts "\n[message_start] #{event.delta.inspect}"
+  when :message_delta
+    puts "\n[message_delta] #{event.delta.inspect} usage+=#{event.usage_increment.inspect}"
+  when :message_end
+    puts "\n[message_end]"
 
-# plain response
-{ role: "assistant", content: "what kind of content"},
+  # Text events
+  when :text_start
+    puts "\n[text_start] index=#{event.content_index}"
+    print event.delta unless event.delta.empty?
+  when :text_delta
+    print event.delta
+  when :text_end
+    puts "\n[text_end] index=#{event.content_index}"
 
-# tool call response
-{ role: "assistant",
-    content: [
-      { id: "call_gpXfy9l9QNmShNEbNI1FyuUZ", type: "tool_use", name: "get_weather", input: { location: "Singapore" } }
-    ]
-},
-```
+  # Tool-call events
+  when :tool_start
+    puts "\n[tool_start] id=#{event.id} name=#{event.name} index=#{event.content_index}"
+  when :tool_delta
+    streamed_tool_args[event.content_index] << event.delta
+    print event.delta
+  when :tool_end
+    puts "\n[tool_end] index=#{event.content_index}"
+    begin
+      puts "tool args: #{JSON.parse(streamed_tool_args[event.content_index])}"
+    rescue JSON::ParserError
+      puts "tool args (partial/raw): #{streamed_tool_args[event.content_index]}"
+    end
 
-developer is an open ai role, but i thought it was usefull for tracing if message sent from server or user so i added
-it to the list of roles, when it is not supported it will be mapped to user instead.
+  # Reasoning events
+  when :reasoning_start
+    puts "\n[reasoning_start] sig=#{event.respond_to?(:signature) ? event.signature : ""}"
+    print event.delta
+  when :reasoning_delta
+    print event.delta
+  when :reasoning_end
+    puts "\n[reasoning_end]"
 
-you can assume developer and user to be interchangeable
+  end
+end
 
+# Final AssistantMessage (assembled from the stream)
+puts "\n\n=== Final assistant message ==="
+puts "id: #{response.id}"
+puts "model: #{response.model}"
+puts "provider/api: #{response.provider}/#{response.api}"
+puts "role: #{response.role}"
+puts "stop_reason: #{response.stop_reason}"
+puts "error_message: #{response.error_message.inspect}" if response.error_message
+puts "usage: #{response.usage.inspect}"
 
-### Files
-
-Many providers offer the ability to upload files which can be referenced in conversations, or for other purposes like batching. Downloading files is also used for when llm generates something or batches complete.
-
-## Examples
-
-```ruby
-# Upload File
-result = LlmGateway::Client.upload_file("openai", filename: "test.txt", content: "Hello, world!", mime_type: "text/plain")
-result = LlmGateway::Client.download_file("openai", file_id: "file-Kb6X7f8YDffu7FG1NcaPVu")
-# Response Format
-{
-  id: "file-Kb6X7f8YDffu7FG1NcaPVu",
-  size_bytes: 13,  # follows anthropic naming cause clearer
-  created_at: "2025-08-08T06:03:16.000000Z", # follow anthropic style cause easier to read as human
-  filename: "test.txt",
-  mime_type: nil,
-  downloadable: true, # anthropic returns this for other providers it is infered
-  expires_at: nil,
-  purpose: "user_data" # for anthropic this is always user_data
-}
-```
-
-### Sample Application
-
-See the [file search bot example](sample/claude_code_clone/) for a complete working application that demonstrates:
-- Creating reusable Prompt and Tool classes
-- Handling conversation transcripts with tool execution
-- Building an interactive terminal interface
-
-To run the sample:
-
-```bash
-cd sample/claude_code_clone
-ruby run.rb
-```
-
-The bot will prompt for your model and API key, then allow you to ask natural language questions about finding files and searching directories.
-
-### Response Format
-
-All providers return responses in a consistent format:
-
-```ruby
-{
-  choices: [
-    {
-      content: [
-        { type: 'text', text: 'The capital of France is Paris.' }
-      ],
-      finish_reason: 'end_turn',
-      role: 'assistant'
-    }
-  ],
-  usage: {
-    input_tokens: 15,
-    output_tokens: 8,
-    total_tokens: 23
-  },
-  model: 'claude-sonnet-4-20250514',
-  id: 'msg_abc123'
-}
-```
-
-### Error Handling
-
-LlmGateway provides consistent error handling across all providers:
-
-```ruby
-begin
-  result = LlmGateway::Client.chat('invalid-model', 'Hello')
-rescue LlmGateway::Errors::UnsupportedModel => e
-  puts "Unsupported model: #{e.message}"
-rescue LlmGateway::Errors::AuthenticationError => e
-  puts "Authentication failed: #{e.message}"
-rescue LlmGateway::Errors::RateLimitError => e
-  puts "Rate limit exceeded: #{e.message}"
+response.content.each do |block|
+  case block.type
+  when "text"
+    puts "text: #{block.text}"
+  when "reasoning"
+    puts "reasoning: #{block.reasoning}"
+    puts "signature: #{block.signature}" if block.respond_to?(:signature) && block.signature
+  when "tool_use"
+    puts "tool_use: #{block.name}(#{block.input.inspect}) id=#{block.id}"
+  end
 end
 ```
 
-## Development
+Stream callback event families:
+- `AssistantStreamMessageEvent`: `:message_start`, `:message_delta`, `:message_end`
+- `AssistantStreamEvent` (and subclasses):
+  - Text: `:text_start`, `:text_delta`, `:text_end`
+  - Tool call: `:tool_start`, `:tool_delta`, `:tool_end`
+  - Reasoning: `:reasoning_start`, `:reasoning_delta`, `:reasoning_end`
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+### Stream API without handling events (final result only)
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+If you only care about the final `AssistantMessage`, call `stream` without a block:
 
-### Regenerating vcr
-these env variables are required for all the vcr tests
+```ruby
+require "llm_gateway"
 
+adapter = LlmGateway.build_provider(
+  provider: "openai_apikey_responses",
+  api_key: ENV.fetch("OPENAI_API_KEY"),
+  model_key: "gpt-5.4"
+)
+
+result = adapter.stream("Write one short sentence about Ruby.")
+
+puts result.role         # "assistant"
+puts result.stop_reason  # "stop" (usually)
+puts result.usage.inspect
+
+text = result.content
+  .select { |block| block.type == "text" }
+  .map(&:text)
+  .join
+
+puts text
 ```
-export ANTHROPIC_ACCESS_TOKEN='asd'
-export ANTHROPIC_REFRESH_TOKEN='asd'
-export ANTHROPIC_API_KEY='asd'
-export GROQ_API_KEY='asd'
-export OPENAI_API_KEY='asdas'
+
+## Migration guides
+
+- [Migrating from `chat` to `stream`](docs/chat-to-stream-migration.md) — use `stream` without a block when you only need the final response.
+
+## Tools
+
+### Defining Tools
+
+```ruby
+weather_tool = {
+  name: "get_weather",
+  description: "Get current weather for a location",
+  input_schema: {
+    type: "object",
+    properties: {
+      location: { type: "string", description: "City name or coordinates" },
+      units: {
+        type: "string",
+        enum: ["celsius", "fahrenheit"],
+        default: "celsius"
+      }
+    },
+    required: ["location"]
+  }
+}
 ```
 
-## Contributing
+### Handling Tool Calls
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Hyper-Unearthing/llm_gateway. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/Hyper-Unearthing/llm_gateway/blob/master/CODE_OF_CONDUCT.md).
+Use `stream` without a block, inspect returned `tool_use` blocks, execute tools, append `tool_result`, then continue:
 
-## License
+```ruby
+require "llm_gateway"
+require "json"
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+adapter = LlmGateway.build_provider(
+  provider: "openai_apikey_responses",
+  api_key: ENV.fetch("OPENAI_API_KEY"),
+  model_key: "gpt-5.4"
+)
 
-## Code of Conduct
+weather_tool = {
+  name: "get_weather",
+  description: "Get current weather for a location",
+  input_schema: {
+    type: "object",
+    properties: {
+      location: { type: "string" },
+      units: { type: "string", enum: ["celsius", "fahrenheit"], default: "celsius" }
+    },
+    required: ["location"]
+  }
+}
 
-Everyone interacting in the LlmGateway project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/Hyper-Unearthing/llm_gateway/blob/master/CODE_OF_CONDUCT.md).
+def execute_weather_api(args)
+  # Replace with real API call
+  {
+    location: args[:location] || args["location"],
+    units: args[:units] || args["units"] || "celsius",
+    temperature: 14,
+    condition: "Cloudy"
+  }
+end
+
+transcript = [
+  { role: "user", content: "What is the weather in London?" }
+]
+
+# 1) First model pass (stream API, no event block)
+response = adapter.stream(transcript, tools: [weather_tool])
+transcript << response.to_h
+
+# 2) Execute tool calls returned by the model
+response.content.each do |block|
+  next unless block.type == "tool_use"
+
+  tool_result = execute_weather_api(block.input)
+
+  transcript << {
+    role: "developer",
+    content: [
+      {
+        type: "tool_result",
+        tool_use_id: block.id,
+        content: JSON.generate(tool_result)
+      }
+    ]
+  }
+end
+
+# 3) Continue the conversation after tool execution
+if response.content.any? { |b| b.type == "tool_use" }
+  final_response = adapter.stream(transcript, tools: [weather_tool])
+
+  final_text = final_response.content
+    .select { |b| b.type == "text" }
+    .map(&:text)
+    .join
+
+  puts final_text
+end
+```
+
+Notes:
+- Tool calls are returned as `ToolCall` blocks with `type: "tool_use"`, `id`, `name`, and `input`.
+- Tool results are sent back in the transcript as `{ type: "tool_result", tool_use_id:, content: }` blocks.
+- For multimodal-capable models, `tool_result` content can include image blocks when supported by the provider/model.
+
+## Image Input
+
+Send images by including an `image` content block in a user message.
+
+```ruby
+require "llm_gateway"
+require "base64"
+
+adapter = LlmGateway.build_provider(
+  provider: "openai_apikey_responses",
+  api_key: ENV.fetch("OPENAI_API_KEY"),
+  model_key: "gpt-5.4"
+)
+
+image_b64 = Base64.strict_encode64(File.binread("./chart.png"))
+
+message = [
+  {
+    role: "user",
+    content: [
+      { type: "text", text: "What do you see in this image?" },
+      { type: "image", data: image_b64, media_type: "image/png" }
+    ]
+  }
+]
+
+result = adapter.stream(message) # stream API, no event block
+
+text = result.content
+  .select { |b| b.type == "text" }
+  .map(&:text)
+  .join
+
+puts text
+```
+
+Tip: use a model/provider combination that supports vision input.
+
+## Thinking / Reasoning
+
+You can request higher-effort reasoning by passing `reasoning:` to `stream`.
+
+```ruby
+require "llm_gateway"
+
+adapter = LlmGateway.build_provider(
+  provider: "openai_apikey_responses",
+  api_key: ENV.fetch("OPENAI_API_KEY"),
+  model_key: "gpt-5.4"
+)
+
+result = adapter.stream(
+  "Think step by step and then compute 482 * 17.",
+  reasoning: "high"
+)
+
+puts "stop_reason: #{result.stop_reason}"
+puts "usage: #{result.usage.inspect}" # may include reasoning_tokens depending on provider
+
+result.content.each do |block|
+  case block.type
+  when "reasoning"
+    puts "[reasoning] #{block.reasoning}"
+    puts "[signature] #{block.signature}" if block.respond_to?(:signature) && block.signature
+  when "text"
+    puts "[text] #{block.text}"
+  end
+end
+```
+
+### Streaming Thinking Content
+
+If you want incremental thinking/reasoning tokens as they arrive, pass a block to `stream` and handle reasoning events:
+
+```ruby
+reasoning_text = +""
+
+result = adapter.stream("Solve 99 * 99 with brief reasoning.", reasoning: "high") do |event|
+  case event.type
+  when :reasoning_start
+    print "\n[thinking start]\n"
+    reasoning_text << event.delta
+  when :reasoning_delta
+    reasoning_text << event.delta
+    print event.delta
+  when :reasoning_end
+    print "\n[thinking end]\n"
+  end
+end
+
+puts "\nCollected reasoning chars: #{reasoning_text.length}"
+puts "Final stop_reason: #{result.stop_reason}"
+```
+
+### How reasoning values are mapped
+
+`llm_gateway` normalizes provider-specific reasoning/thinking output into shared structures:
+
+- Stream events:
+  - `:reasoning_start/:reasoning_delta/:reasoning_end`
+- Final content block:
+  - `ReasoningContent` with `type: "reasoning"`
+  - fields: `reasoning` and optional `signature`
+- Usage accounting:
+  - normalized in `result.usage` when provided by the upstream API
+  - may include `:reasoning_tokens` plus standard token counters
+
+In practice this means you can:
+- listen to `:reasoning_*` stream event variants, and
+- always read final reasoning text from `result.content` blocks where `block.type == "reasoning"`.
+
+Notes:
+- Reasoning output appears as `ReasoningContent` blocks with `type: "reasoning"`.
+- Some providers/models expose explicit reasoning content; others may only reflect reasoning effort in usage fields.
+- In streamed callbacks, reasoning events are emitted as `:reasoning_*` variants.
+
+## Cross-Provider Handoffs
+
+Internally, `llm_gateway` handles handoffs by normalizing message history into a provider-agnostic shape, then remapping that shape to the target provider API on each request.
+
+What happens under the hood on `stream`/`chat`:
+
+1. **Normalize input**
+   - String input is converted to a user message.
+   - `system` is normalized into system message objects.
+   - Prior assistant turns (including `response.to_h`) are treated as structured transcript entries.
+
+2. **Map into canonical gateway format**
+   - Provider-specific differences (content block names, tool-call shapes, reasoning/thinking variants) are unified into shared structs.
+
+3. **Sanitize for target provider/model**
+   - Before sending, messages are sanitized for the destination provider/API/model.
+   - Unsupported or provider-specific fields are adjusted/translated where possible.
+
+4. **Map to outbound provider payload**
+   - The adapter input mapper converts canonical messages/tools/options into the exact wire format expected by the selected provider endpoint.
+
+5. **Map response back to canonical output**
+   - Stream chunks are mapped into normalized stream events.
+   - Final output is accumulated into a normalized `AssistantMessage` (`id`, `model`, `usage`, `stop_reason`, `content`, etc.).
+
+Why this matters:
+- A transcript produced by one provider can be reused with another provider without manually rewriting message structure.
+- Tool calls/reasoning/text are exposed through a consistent API even when upstream event formats differ.
+- Your app can keep one conversation state format while switching providers for cost, latency, capability, or reliability reasons.
+
+## Context Serialization
+
+`llm_gateway` contexts are plain Ruby hashes/arrays, so they can be serialized to JSON and restored later.
+
+```ruby
+require "llm_gateway"
+require "json"
+
+adapter = LlmGateway.build_provider(
+  provider: "openai_apikey_responses",
+  api_key: ENV.fetch("OPENAI_API_KEY"),
+  model_key: "gpt-5.4"
+)
+
+# Build context (transcript)
+transcript = [
+  { role: "user", content: "Plan a 3-day trip to Tokyo." }
+]
+
+# Run one turn and persist assistant output
+first = adapter.stream(transcript)
+transcript << first.to_h
+
+# Serialize (store in DB/file/cache)
+json_context = JSON.generate(transcript)
+
+# ...later / elsewhere...
+restored_transcript = JSON.parse(json_context)
+
+# Continue conversation from restored context
+restored_transcript << { role: "user", content: "Now make it budget-friendly." }
+second = adapter.stream(restored_transcript)
+
+puts second.content.select { |b| b.type == "text" }.map(&:text).join
+```
+
+What to persist:
+- full transcript array (including assistant messages from `response.to_h`)
+- any tool result messages you appended
+- optional app metadata (user id, conversation id, timestamps) alongside the transcript
+
+Tip: if you serialize to JSON, keys become strings on parse; `llm_gateway` accepts standard hash input and normalizes internally.
+
+## OAuth
+
+Use OAuth-capable providers (for example `openai_codex` and `anthropic_oauth_messages`) by supplying an `access_token` when building the adapter.
+
+### Get initial tokens (Codex / OpenAI OAuth)
+
+```ruby
+require "llm_gateway"
+
+flow = LlmGateway::Clients::OpenAI::OAuthFlow.new
+
+# 1) Start flow (generate auth URL + PKCE verifier + state)
+start = flow.start
+puts "Open in browser: #{start[:authorization_url]}"
+
+# 2) After user auth, paste redirect URL (or raw code)
+# Example: http://localhost:1455/auth/callback?code=...&state=...
+print "Paste callback URL or code: "
+input = STDIN.gets&.strip
+
+# 3) Exchange for initial tokens
+tokens = flow.exchange_code(input, start[:code_verifier], expected_state: start[:state])
+
+puts tokens
+# => {
+#   access_token: "...",
+#   refresh_token: "...",
+#   expires_at: <Time>,
+#   account_id: "..."
+# }
+```
+
+### Get initial tokens (Anthropic OAuth)
+
+```ruby
+require "llm_gateway"
+
+flow = LlmGateway::Clients::ClaudeCode::OAuthFlow.new
+
+# 1) Start flow (auth URL + PKCE verifier + state)
+start = flow.start
+puts "Open in browser: #{start[:authorization_url]}"
+
+# 2) After user auth, paste callback URL (or code)
+# Example callback contains ?code=...&state=...
+print "Paste callback URL or code: "
+input = STDIN.gets&.strip
+
+# 3) Exchange for initial tokens
+tokens = flow.exchange_code(input, start[:code_verifier], state: start[:state])
+
+puts tokens
+# => {
+#   access_token: "...",
+#   refresh_token: "...",
+#   expires_at: <Time>
+# }
+```
+
+### Get a refresh token
+
+### Exchange refresh token for access token
+
+Use the built-in token managers in this repo. `on_token_refresh` block will be called when the refresh token is updated and should be persisted.
+
+OpenAI Codex OAuth:
+
+```ruby
+require "llm_gateway"
+
+manager = LlmGateway::Clients::OpenAI::TokenManager.new(
+  refresh_token: stored_refresh_token,
+  access_token: stored_access_token,   # optional
+  expires_at: stored_expires_at         # optional
+)
+
+manager.on_token_refresh = lambda do |new_access_token, new_refresh_token, new_expires_at|
+  # Persist updated credentials in your DB/secrets store
+end
+
+current_access_token = manager.access_token
+```
+
+Anthropic OAuth:
+
+```ruby
+require "llm_gateway"
+
+manager = LlmGateway::Clients::ClaudeCode::TokenManager.new(
+  refresh_token: stored_refresh_token,
+  access_token: stored_access_token,    # optional
+  expires_at: stored_expires_at,        # optional
+  client_id: ENV.fetch("ANTHROPIC_CLIENT_ID"),
+  client_secret: ENV["ANTHROPIC_CLIENT_SECRET"] # optional depending on app setup
+)
+
+manager.on_token_refresh = lambda do |new_access_token, new_refresh_token, new_expires_at|
+  # Persist updated credentials
+end
+
+current_access_token = manager.access_token
+```
+
+### Pass access token in provider requests
+
+Build the provider with the current access token:
+
+```ruby
+adapter = LlmGateway.build_provider(
+  provider: "openai_codex",
+  access_token: current_access_token,
+  model_key: "gpt-5.4"
+)
+
+result = adapter.stream("Hello from OAuth auth")
+puts result.content.select { |b| b.type == "text" }.map(&:text).join
+```
+
+If your app refreshes tokens in the background, rebuild the adapter (or recreate client state) with the newest `access_token` before subsequent calls.
+
+### Token refresh responsibility
+
+#### Library’s role (llm_gateway)
+
+- Provides token manager helpers.
+- Detects expiry from expires_at.
+- Refreshes access token when asked (ensure_valid_token / refresh methods).
+- Returns updated token values and triggers on_token_refresh callback after successful refresh.
+- Uses whatever access token you pass into provider requests.
+
+#### User/app’s role
+
+- Persist tokens securely (DB/secrets store).
+- Store and pass access_token, refresh_token, expires_at into the token manager.
+- Implement on_token_refresh to save updated credentials.
+- Decide refresh/retry policy at app level (e.g., retry failed request after refresh when appropriate).
+- Rebuild client/provider state with latest access token for future calls.
+
+In short: library executes refresh mechanics; your app owns token lifecycle persistence and operational policy.
