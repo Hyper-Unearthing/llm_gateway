@@ -27,11 +27,9 @@ require_relative "llm_gateway/adapters/anthropic/output_mapper"
 require_relative "llm_gateway/adapters/openai/file_output_mapper"
 require_relative "llm_gateway/adapters/openai/prompt_cache_option_mapper"
 require_relative "llm_gateway/adapters/openai/chat_completions/input_mapper"
-require_relative "llm_gateway/adapters/openai/chat_completions/output_mapper"
 require_relative "llm_gateway/adapters/openai/chat_completions/option_mapper"
 require_relative "llm_gateway/adapters/openai/file_output_mapper"
 require_relative "llm_gateway/adapters/openai/responses/input_mapper"
-require_relative "llm_gateway/adapters/openai/responses/output_mapper"
 require_relative "llm_gateway/adapters/openai/responses/option_mapper"
 
 # Load adapter classes
@@ -48,10 +46,6 @@ require_relative "llm_gateway/provider_registry"
 module LlmGateway
   class Error < StandardError; end
 
-  # Direction constants for message mappers
-  DIRECTION_IN = :in
-  DIRECTION_OUT = :out
-
   # Backward-compatible aliases for renamed clients/adapters
   module Clients
     Claude = Anthropic
@@ -63,9 +57,7 @@ module LlmGateway
       Client = LlmGateway::Clients::Anthropic
       MessagesAdapter = LlmGateway::Adapters::Anthropic::MessagesAdapter
       InputMapper = LlmGateway::Adapters::Anthropic::InputMapper
-      OutputMapper = LlmGateway::Adapters::Anthropic::OutputMapper
       StreamMapper = LlmGateway::Adapters::Anthropic::StreamMapper
-      BidirectionalMessageMapper = LlmGateway::Adapters::Anthropic::BidirectionalMessageMapper
       FileOutputMapper = LlmGateway::Adapters::Anthropic::FileOutputMapper
     end
 

@@ -11,8 +11,6 @@ module LlmGateway
 
       def input_sanitizer = InputMessageSanitizer
 
-      def output_mapper = Anthropic::OutputMapper
-
       def file_output_mapper = Anthropic::FileOutputMapper
 
       def option_mapper = AnthropicOptionMapper

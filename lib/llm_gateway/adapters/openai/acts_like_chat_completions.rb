@@ -10,8 +10,6 @@ module LlmGateway
 
       def input_sanitizer = OpenAI::ChatCompletions::InputMessageSanitizer
 
-      def output_mapper = OpenAI::ChatCompletions::OutputMapper
-
       def file_output_mapper = OpenAI::FileOutputMapper
 
       def option_mapper = OpenAI::ChatCompletions::OptionMapper

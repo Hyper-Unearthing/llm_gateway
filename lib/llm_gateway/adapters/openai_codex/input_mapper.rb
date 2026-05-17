@@ -26,7 +26,7 @@ module LlmGateway
         def self.map_messages(messages)
           return messages unless messages.is_a?(Array)
 
-          mapper  = message_mapper
+          mapper = self
           stripped = strip_reasoning_blocks(messages)
 
           mapped = stripped.each_with_object([]) do |msg, acc|
@@ -85,7 +85,7 @@ module LlmGateway
         end
 
         # Ensure assistant messages carry "output_text" rather than "input_text".
-        # The BidirectionalMessageMapper maps plain text blocks to "input_text";
+        # The base Responses input mapper maps plain text blocks to "input_text";
         # Codex is strict about directionality and rejects "input_text" on the
         # assistant side.
         def self.normalize_assistant_content_types(messages)
@@ -114,7 +114,7 @@ module LlmGateway
         #                               signature *is* the serialised item)
         # - tool_use / function_call → top-level function_call item
         # - text / *_text variants   → output_text inside an assistant content block
-        # - anything else            → delegated to the BidirectionalMessageMapper
+        # - anything else            → delegated to the Responses input mapper
         def self.map_assistant_content(content, mapper)
           text_parts = []
           items      = []
