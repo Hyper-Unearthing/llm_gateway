@@ -628,3 +628,19 @@ If your app refreshes tokens in the background, rebuild the adapter (or recreate
 - Rebuild client/provider state with latest access token for future calls.
 
 In short: library executes refresh mechanics; your app owns token lifecycle persistence and operational policy.
+
+## Contributing
+
+### Recording VCR cassettes
+
+Live integration tests use VCR cassettes stored under `test/fixtures/vcr_cassettes`. To record a new cassette, run the target test with real provider credentials available in your environment or `.env`:
+
+```bash
+bundle exec ruby -Itest test/integration/live/stream_test.rb
+```
+
+Cassette names are derived from the test file and test name, with VCR sanitizing path segments such as `stream_test.rb` to `stream_test_rb`.
+
+For OAuth-backed providers (`anthropic_oauth_messages`, `openai_oauth_codex`), the live test helper only loads real OAuth credentials while the cassette is being recorded. Once the cassette exists, replay uses placeholder tokens/account IDs so the test suite can run without local OAuth state. API-key providers still require the relevant API key when recording. Sensitive authorization headers and selected response headers are redacted before cassettes are written.
+
+Some tests pass `redact_request_body: true` to `with_vcr_adapter`; those cassettes match on method and URI only and replace large request bodies with `"<huge prompt body redacted>"`.
