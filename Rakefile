@@ -3,6 +3,7 @@
 require "bundler/gem_tasks"
 require "minitest/test_task"
 
+ENV["LLM_GATEWAY_DELETE_UNUSED_VCR_CASSETTES"] ||= "1"
 Minitest::TestTask.create
 
 require "rubocop/rake_task"

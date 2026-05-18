@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "dotenv"
+require "set"
 Dotenv.load(".env")
 
 require "simplecov"
@@ -43,6 +44,24 @@ rescue JSON::ParserError
   request.body
 end
 
+module LlmGatewayVcrCassetteTracking
+  USED_CASSETTES = Set.new
+
+  def use_cassette(name, *args, **kwargs, &block)
+    if name
+      cassette_path = File.join(
+        VCR.configuration.cassette_library_dir,
+        "#{name.to_s.tr('.', '_')}.yml"
+      )
+      USED_CASSETTES << File.expand_path(cassette_path)
+    end
+
+    super
+  end
+end
+
+VCR.singleton_class.prepend(LlmGatewayVcrCassetteTracking)
+
 VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = false
   config.cassette_library_dir = "test/fixtures/vcr_cassettes"
@@ -78,6 +97,26 @@ VCR.configure do |config|
   config.before_record(:redact_large_request_body) do |interaction|
     interaction.request.body = "<huge prompt body redacted>"
   end
+end
+
+Minitest.after_run do
+  next unless ENV["LLM_GATEWAY_DELETE_UNUSED_VCR_CASSETTES"] == "1"
+  next if ENV["TEST"]
+
+  cassette_library_dir = File.expand_path(VCR.configuration.cassette_library_dir)
+  existing_cassettes = Dir.glob(File.join(cassette_library_dir, "**", "*.yml")).map do |path|
+    File.expand_path(path)
+  end
+  unused_cassettes = existing_cassettes - LlmGatewayVcrCassetteTracking::USED_CASSETTES.to_a
+
+  unused_cassettes.each { |path| File.delete(path) }
+
+  Dir.glob(File.join(cassette_library_dir, "**", "*"))
+     .select { |path| File.directory?(path) }
+     .sort_by { |path| -path.length }
+     .each { |path| Dir.rmdir(path) if Dir.empty?(path) }
+
+  puts "Deleted #{unused_cassettes.size} unused VCR cassette(s)." unless unused_cassettes.empty?
 end
 
 def vcr_cassette_name(test_method_name = self.name)
