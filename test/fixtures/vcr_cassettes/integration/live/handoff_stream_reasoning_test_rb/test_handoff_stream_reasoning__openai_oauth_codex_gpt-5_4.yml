@@ -1,0 +1,297 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://chatgpt.com/backend-api/codex/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-5.4","instructions":"You are a helpful assistant.","input":[{"role":"user","content":[{"type":"input_text","text":"You
+        are receiving recorded final outputs from previous reasoning streaming tests.\nEach
+        previous test asked the assistant to think about 42 + 27. Read the JSON and
+        answer in one\nshort sentence with the arithmetic result and the number of
+        recorded outputs as Arabic numerals.\n\n[\n  {\n    \"pair\": \"anthropic_apikey_messages_claude-sonnet-4-20250514\",\n    \"result\":
+        {\n      \"live_basic_thinking_anthropic_apikey_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_01NPKPMGakEE8NFCKmnh2oiz\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 94,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        992,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"reasoning\",\n            \"reasoning\":
+        \"The human is asking me to think long and hard about 42 + 27. This is a simple
+        arithmetic problem, but they''re asking me to think \\\"long and hard\\\"
+        about it, which suggests they might want me to explore it more deeply or consider
+        different aspects of this calculation.\\n\\nLet me start with the basic calculation:\\n42
+        + 27 = 69\\n\\nBut since they want me to think long and hard about it, let
+        me explore different ways to think about this:\\n\\n1. Basic addition:\\n42
+        + 27\\nI can break this down:\\n40 + 20 = 60\\n2 + 7 = 9\\n60 + 9 = 69\\n\\n2.
+        Different mental math approaches:\\n- I could round: 42 + 27 ≈ 40 + 30 = 70,
+        then adjust by subtracting 1 (since I added 3 to 27 and subtracted 2 from
+        42), so 70 - 1 = 69\\n- I could think of it as 42 + 30 - 3 = 72 - 3 = 69\\n-
+        Or 45 + 27 - 3 = 72 - 3 = 69\\n\\n3. Properties I notice:\\n- 42 is even,
+        27 is odd, so the sum will be odd\\n- Both numbers are composite\\n- 42 =
+        2 × 3 × 7\\n- 27 = 3³ = 3 × 3 × 3\\n- The result 69 = 3 × 23\\n\\n4. In different
+        number bases:\\n- In base 10: 42 + 27 = 69\\n- In binary: 101010₂ + 11011₂
+        = 1000101₂\\n- In hexadecimal: 2A₁₆ + 1B₁₆ = 45₁₆\\n\\n\\n- 42 carries cultural
+        significance as the answer to life, the universe, and everything from The
+        Hitchhiker''s Guide to the Galaxy, while 69 itself has various cultural associations.
+        Looking at digit patterns, reversing them gives 24 + 72 = 96, and the digits
+        of 69 sum to 15, which reduces to 6. The result is divisible by 3 since both
+        original numbers share that factor.\",\n            \"signature\": \"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\"\n          },\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"Let me explore this calculation from multiple
+        angles:\\n\\n**The straightforward answer:** 42 + 27 = 69\\n\\n**But let''s
+        dig deeper...**\\n\\n**Mental math approaches:**\\n- Break it down: (40 +
+        20) + (2 + 7) = 60 + 9 = 69\\n- Round and adjust: 40 + 30 = 70, then subtract
+        1 = 69\\n- Or: 42 + 30 - 3 = 72 - 3 = 69\\n\\n**Number properties:**\\n- 42
+        = 2 × 3 × 7 (highly composite)\\n- 27 = 3³ (perfect cube)\\n- 69 = 3 × 23
+        (the result shares the factor 3 with both addends)\\n\\n**Pattern observations:**\\n-
+        Even + odd = odd ✓\\n- The digital root: 6+9 = 15 → 1+5 = 6\\n- Reversing
+        digits: 24 + 72 = 96 (interesting!)\\n\\n**Cultural note:** 42 being \\\"the
+        answer to life, the universe, and everything\\\" makes this calculation oddly
+        philosophical - we''re adding the meaning of existence to 27 and getting 69.\\n\\n**Visual
+        verification:**\\n```\\n   42\\n + 27\\n ----\\n   69\\n```\\n\\nNo matter
+        how I approach it - whether through careful arithmetic, mental shortcuts,
+        or mathematical exploration - the answer remains elegantly simple: **69**.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"anthropic_oauth_messages_claude-sonnet-4-20250514\",\n    \"result\": {\n      \"live_basic_thinking_anthropic_oauth_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_01PJQzUJVB2ZmCGohwKqK2nj\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 124,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        804,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"reasoning\",\n            \"reasoning\":
+        \"The user is asking me to \\\"think long and hard\\\" about 42 + 27. This
+        is a simple arithmetic problem, but they''re asking me to think deeply about
+        it. Let me consider this from multiple angles:\\n\\n1. Basic arithmetic: 42
+        + 27 = 69\\n\\n2. Let me break this down step by step:\\n   42 + 27\\n   =
+        40 + 2 + 20 + 7\\n   = 40 + 20 + 2 + 7\\n   = 60 + 9\\n   = 69\\n\\n3. I could
+        think about this in different ways:\\n   - 42 + 27 = 42 + 30 - 3 = 72 - 3
+        = 69\\n   - 42 + 27 = 45 - 3 + 27 = 45 + 24 = 69\\n   - 42 + 27 = 50 - 8 +
+        27 = 50 + 19 = 69\\n\\n4. In binary:\\n   42 = 101010\\n   27 = 011011\\n   Adding:
+        1000101 = 69 in decimal\\n\\n5. Cultural/mathematical significance:\\n   -
+        42 is famously \\\"the answer to the ultimate question of life, the universe,
+        and everything\\\" from Douglas Adams'' \\\"The Hitchhiker''s Guide to the
+        Galaxy\\\"\\n   - 27 = 3³ (3 cubed)\\n   - 69... well, that''s often considered
+        a humorous number due to its appearance\\n\\n6. Number theory aspects:\\n   -
+        42 = 2 × 3 × 7\\n   - 27 = 3³\\n   - 69 = 3 × 23\\n\\nThe user said to \\\"think
+        long and hard\\\" so maybe they want me to explore various aspects rather
+        than just give the simple answer.\",\n            \"signature\": \"EpAKCmIIDRgCKkDUH/I5NQwuIes/JEwe05m4e/3/I+XJy50WlTVogr1XvP1L41eZGbSw6tNl0gmqaSFhgkcNzd9yhQFxbw93IkMEMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIMrDp6RluBYzf8d1D1Ggyz30sVph2Zsu0Ii8AiMEtMk7MxPC2Ca1mAR3T7KaetixcJmU3RlwxLHS8OG0h8aAXMpQiIfirHhpli5+a6ICrbCH/2cCrXGnxO2Z3qc/aBOVGKekIhY7V5rhDKH47lSRD4iKOWNVo3BdnxEgv9Gy6Z/rezH1F20ZCiY6lo96xf00EO94IkJ11NEQdlOIeVSEZakCUwRcZnSaI6gEPs+d26UnH3OaRqBrKUxRua8HAudlgWTJMle3I2m+ymLh3yO6LUbgHG0UerYuPKRYALYEIfgLS76ORZ4sfflBi3jU1qIkZH42qmdUuPkKkFPyGF/pp7owjfCFc6PUsg1O74bpYdOXhRBkEwYd8kJwm01LAmAzd2DSgmO8cbN9McvAsT0tnZgQpB/RF7UErZgBWy3wMz7bAKauFJf10XFkQCH4+MwSgqZNwmPV/NONhAJyfBv+iIP1kT0a6bAfcFrIq65SXyQvCEAqRQJ81m+P1m4Gfd1XdEklfGRVYMFBXaVb2Ja9M1NQaf2wODR1liPZ58h+ETkCzMAQ9ckGnnBTDHDXdq3TYL2kOJfkUedP15qyeN8/v87D463SAHP7PHJ09j/YeGWCUsCFFKF8w3PvSucdZFTR6Pbwfx/I8IOsNeYbG2NLrA1rpT2a7yB0k52Zq2SV6j6JEkzSlDw2PCU00UAVjX2qrGxTHbONSVVLQqrMtzAIF6Zo55s7bmqoxzYK1YBNAycGlJS5falQCy9Lmh0d2m2CH4BvffhheLoTWkBwwJssDflOEbMSAw5b9pULCDH8cN8RmVi4vRnXYsIzPVCexuG0DkalBRcKXxOG6UmkvaowlAt9dhwIHUHsuJogZS1It1xsPvSfRUPT39IX8WTTq5gXcJcHESugfUdo26YCcU8qjGAg0I89iLcQOsDGM3TdZIo+ON+EPB5w3JH4ye9SIwfTchYS/pzRQGHDpcVJPDiBmtMr+96QPeo9KvqHsuMC/2kf/PHdO9yNKETyRcvikFSxYeFQ/5C6W2OyketDmdKe5WFNCfby8WvvneAl4rfvDXjGpC9v1n8iK3VDTP3Yzrx13u1rq+l/qFiijHCzfyrhTHn/ffCoEiD0EWopj66zZkgYQX7rP0FOd2gz9O5Fy9rSfE6vmPwtyOlGnbg8fod4E/Jp3yms5EbT0bwTRZOKIhZGiukyW4bHFaxIcN6WXzt5GfYaOTcdXlMg7v2KxobEOUq1Q8X2A6vm8Si+CY1i5W+RCejp1d8GkFYgAj/3V0k0tVxgKRIhg0yc9BXP6N+JyvvJk6da/RlpsRjlnZzBAlByuvCh+4fWwfRIyUZUUnIqDHn9oW/aeyqz0YveMuuwlI1HASl3KbkH1qfw9HicdNZfVF/IzMo1XQMetUPRY6m7QaQq3BouEqaLS3aT2CGW4EEG+WxdiLJ83to6PzrDpx66op8O1iPlWwiM5HtP0RgVPiM7Pr8eD7BmAT3gLOsgFBEFXZheF3lklhTQG2k3RS37mTJAZpZ77yNXj6waVf2cKwx20WVDcYHLNLNZupfAXTY4Ja8V/wllRXANzu9Dt8NrkydWC1k1xRwP5vGAE=\"\n          },\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"Let me approach 42 + 27 from several angles:\\n\\n**The
+        straightforward calculation:**\\n42 + 27 = 69\\n\\n**Breaking it down:**\\n-
+        42 + 27\\n- = (40 + 2) + (20 + 7)  \\n- = 40 + 20 + 2 + 7\\n- = 60 + 9 = 69\\n\\n**Alternative
+        mental math approaches:**\\n- 42 + 30 - 3 = 72 - 3 = 69\\n- 45 - 3 + 27 =
+        45 + 24 = 69\\n- Round 42 to 40: 40 + 27 = 67, then add back 2 = 69\\n\\n**Some
+        interesting observations:**\\n- 42 is famously \\\"the answer to life, the
+        universe, and everything\\\" (Douglas Adams)\\n- 27 = 3³ (a perfect cube)\\n-
+        69 = 3 × 23 (where 23 is prime)\\n- In binary: 42 (101010) + 27 (011011) =
+        69 (1000101)\\n\\n**Pattern recognition:**\\n42 and 27 are both multiples
+        of 3 (42 = 3×14, 27 = 3×9), so their sum 69 = 3×23 is also divisible by 3.\\n\\nThe
+        answer is definitively **69**, but the journey to get there can take many
+        paths!\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_apikey_completions_gpt-5.1\",\n    \"result\": {\n      \"live_basic_thinking_openai_apikey_completions_gpt-5.1\":
+        {\n        \"id\": \"chatcmpl-Dg2i6JQuFV59Wh43MraiGgMWVmwUN\",\n        \"model\":
+        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input_tokens\":
+        16,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 206,\n          \"reasoning_tokens\": 141\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"42 + 27 = 69.\\n\\nIf we “think long and
+        hard” about it:\\n\\n- Break 27 into 20 and 7  \\n- 42 + 20 = 62  \\n- 62
+        + 7 = 69  \\n\\nSame result: 69.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_apikey_responses_gpt-5.4\",\n    \"result\": {\n      \"live_basic_thinking_openai_apikey_responses_gpt-5.4\":
+        {\n        \"id\": \"resp_0394a7695c102f62006a080d529f888190a413d15bd56904c5\",\n        \"model\":
+        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input_tokens\":
+        16,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 112,\n          \"reasoning_tokens\": 99\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"type\":
+        \"reasoning\",\n            \"reasoning\": \"**Calculating the sum**\\n\\nThe
+        user asked me to think long and hard about 42 + 27. It seems they want the
+        result presented thoughtfully. The answer is 69, and I should just deliver
+        that. While it crossed my mind that this could be a prompt injection attempt,
+        it’s just a straightforward math problem. I’ll provide the answer clearly
+        and concisely without revealing too much of my internal thought process. So,
+        I’ll go ahead and say 42 + 27 equals 69.\",\n            \"signature\": \"\"\n          },\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"42 + 27 = 69\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_oauth_codex_gpt-5.4\",\n    \"result\": {\n      \"live_basic_thinking_openai_oauth_codex_gpt-5.4\":
+        {\n        \"id\": \"resp_087342961525cded016a080d3903b48191a9d85cd9abd03bfe\",\n        \"model\":
+        \"gpt-5.4\",\n        \"usage\": {\n          \"input_tokens\": 26,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        82,\n          \"reasoning_tokens\": 73\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"openai\",\n        \"api\": \"responses\",\n        \"content\":
+        [\n          {\n            \"type\": \"reasoning\",\n            \"reasoning\":
+        \"**Calculating a simple sum**\\n\\nIt seems the user is asking me to think
+        about the sum of 42 and 27. This looks like a straightforward arithmetic request,
+        and I don''t need to overcomplicate it. The answer is simply \\\"42 + 27 =
+        69.\\\" I’ll keep it concise and craft my response accordingly. It’s a simple
+        calculation, but it’s always good to double-check to ensure I’m giving the
+        right answer!\",\n            \"signature\": \"\"\n          },\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"42 + 27 = 69.\"\n          }\n        ]\n      }\n    }\n  }\n]\n"}]}],"store":false,"include":["reasoning.encrypted_content"],"stream":true,"reasoning":{"effort":"high","summary":"detailed"}}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - chatgpt.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Openai-Beta:
+      - responses=experimental
+      Chatgpt-Account-Id:
+      - 6f6473c8-41a9-4ebd-8dce-e9692a4fc18a
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 18 May 2026 13:39:09 GMT
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - cloudflare
+      X-Codex-Active-Limit:
+      - premium
+      X-Codex-Plan-Type:
+      - plus
+      X-Codex-Primary-Used-Percent:
+      - '24'
+      X-Codex-Secondary-Used-Percent:
+      - '16'
+      X-Codex-Primary-Window-Minutes:
+      - '300'
+      X-Codex-Primary-Over-Secondary-Limit-Percent:
+      - '0'
+      X-Codex-Secondary-Window-Minutes:
+      - '10080'
+      X-Codex-Primary-Reset-After-Seconds:
+      - '2124'
+      X-Codex-Secondary-Reset-After-Seconds:
+      - '478358'
+      X-Codex-Primary-Reset-At:
+      - '1779113672'
+      X-Codex-Secondary-Reset-At:
+      - '1779589906'
+      X-Codex-Credits-Has-Credits:
+      - 'False'
+      X-Codex-Credits-Balance:
+      - ''
+      X-Codex-Credits-Unlimited:
+      - 'False'
+      X-Models-Etag:
+      - W/"39001e349c339d8c717a1662fa261fb7"
+      X-Oai-Request-Id:
+      - de984964-45dc-481a-bb01-886f44cd1fdc
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      Cross-Origin-Opener-Policy:
+      - same-origin-allow-popups
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Cf-Cache-Status:
+      - DYNAMIC
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - __cf_bm=SK8YeiqeL.N6e0yTcqDrclZ5HJ1jdWCf5YEchdJC8Qw-1779111548.609094-1.0.1.1-ej4I99jhFffQP5ITDpVPreY5crX5BtuaWcfU5uGWwX9YJV9Hv7agcIHDWPXJK2HeqfnX4ZPbvMCzA0me3XTrc3q2wp7.vs1KDrSD62mhZza6e3qyZI55SZLOhLLeF9Ah;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=chatgpt.com; Expires=Mon,
+        18 May 2026 14:09:09 GMT
+      Report-To:
+      - '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=h0StGY6wm6J5UHKaqpn6ZUiMpg%2BP1ZkOlofq1l0qB2PGa3JjRzyqYYqAk8UZ7Af%2FyX6UN2odhmZw%2BCs1LK0fdWnZ%2FGEjFdA4y7jYd1T7IY1vliNsOI4tCRtJ%2Bb3H"}]}'
+      Nel:
+      - '{"report_to":"cf-nel","success_fraction":0.01,"max_age":604800}'
+      Cf-Ray:
+      - 9fdb442acd3e9d24-SIN
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |+
+        event: response.created
+        data: {"type":"response.created","response":{"id":"resp_0dfacec88ef13fe1016a0b167cfac481919f896edef7482e8c","object":"response","created_at":1779111548,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"0f1a31b1-7de1-4a71-9112-53b10b557f9d","prompt_cache_retention":"24h","reasoning":{"effort":"high","summary":"detailed"},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"auto","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":0}
+
+        event: response.in_progress
+        data: {"type":"response.in_progress","response":{"id":"resp_0dfacec88ef13fe1016a0b167cfac481919f896edef7482e8c","object":"response","created_at":1779111548,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"0f1a31b1-7de1-4a71-9112-53b10b557f9d","prompt_cache_retention":"24h","reasoning":{"effort":"high","summary":"detailed"},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"auto","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":1}
+
+        event: response.output_item.added
+        data: {"type":"response.output_item.added","item":{"id":"rs_0dfacec88ef13fe1016a0b167d6ae4819191e26341cf67bc09","type":"reasoning","encrypted_content":"gAAAAABqCxZ9E4kBp_2lKdCRBUq8KHQ3J063WxfwtFYmAkxU1RTtA7lYhQgjxNhEHhs1HTRUr3WthXSgqFW4H99OGuhYG6Ckng69_kvzayfdOKKvV_f1fxqPrDKV7uTvrymT7tk-es1cb4E-DFSF3QhaVj9PIh_C9cZOMxhyTjZBQ1yMyAYgiXnY4g-JJKT6CO2eASfx5k3UjJ-QweVKHqAiYAeBlPiKu2F5hYFrtGPi6_hCLOskIQtlv19qzLEFDH_OsPxbRXor8sR7sAfqxSpWIorbBh_lO3oZC3suTHgHnLrzp6DM-vJb9-T8modCnOR-wHP1FOqg3IMDD0GUxqn3KpLqDRGpuZvrpE3uaQ_Xqz3zZeiOikbtlPlekoCnGzK_CdZ7DFPiQDgj9_qGGTiuFqKuQMHYV65e6mpuFP4SGDFXvr0JDF--qu_gOnsS-acKUS-uKvg2C8zpRToHMSJWiatUfoFc2G0bMdn55qxlKSxFPWgSFbRLiRfoGgbD-ija9qGIRivS3u5-Necewt6bYtnssIzYvPHDFizbD07Hrkf1I1bH0lI-z3EyGiB3uLeeq7f3SukUzt2vG6LqdCv3JCB5hKksWSO4exUWbPca9n0PRUGsRuMqMizEbo1JwTqzCJ_A7aqR7TrDxIU3YILq3xkR8u3giQO1l6xB0arpP1ERV8YeSXF-XJnpI1-s8UaYQ5kx36nkxWSKesRc-XNMFD4bjBInS2B3Ms68HFtLBlEDQlYAQWDVQF8QqgvH9pCS70O7DPRkw9pRsvhqJgKEGYy_SXWNUZSP4B-FJxlRua5AzcGUgYALpr8FuDW7zK8we6OFCO7oC5stgynuOEAy0KPE-UXWyQqW3VDbVIQpOQBYKMolGnwM5Kqf1utiJAgxxe1okFl-Begk6zZix2cIbflHsASVuw==","summary":[]},"output_index":0,"sequence_number":2}
+
+        event: response.output_item.done
+        data: {"type":"response.output_item.done","item":{"id":"rs_0dfacec88ef13fe1016a0b167d6ae4819191e26341cf67bc09","type":"reasoning","encrypted_content":"gAAAAABqCxaBbFRo9Zr7RV6YR8cf1-JHLI1XAMeA79MyH5XK7a7jyzuoeTH6Rt_ivs_RpyoTUTmsJWYWJYj5AWVK5F-_SBndMy01GJz805fw6t4fQWDFDzrjYVLy9qT38WpGAQK1w90Y_3F_02KiD9lcXf9oqAi8gJA6yyS4VlF_67ZUdeIJkVr3F83opSvT66azdl5Dp6wGNDeBQ-T11CrmG6L9NZY0liU-U1WZhDSeYqW2o99SqOU1WUEreWmRZjpHjP5OnMJp1XZjGobDj1ENE42-b9E0NdMWSbp3zCw4QnovgPh_CC1LCtmMngfgUnaEwGTGwiDs8QdkovjqCaBgIRWNi8aojdPrPOWKR40i45-64KSXDLeB0w27H8x0UBVOVunsuVMfwoQ7T-BBzGspAqkawfz9Xz5wAMDmBVUa3e_TYeLIX-whGb-ePD1iFLdU1A_ugy4SA0KMX3DKksutIO_GReUPOXwtIL5mvqzxLE8haYKzsDoAyyqmhgQ-UfG860Uz3aodBhn7t7Hjr8JZJitGE6XUHiR-K3qiF6TwEIgI05QpPb6EywqKNvqpkfKum2ORAZuabjDQtObCgiZG_d7Ra_MeGxrntmTm4bgA0p-uBZqDBJfK9D5YtHM8epW658Nyh074edZACZ63Fva3DdFfUVZ6V_ejful8jaBxuWJLKRXo_Xbb5ACspqzAQFFWwsxR0_mk_ZVBBlDw3l-6zxJ8bInnXGf4t56EtDIveeiaZZWPbZtwP2rQSXQ2QZLjE33VM9aG3P2Y-DJ4C1gPRSRbJVk9V_isPiLbJrhcoA4-AKHTMEI0n8hr6N3OG8aeHVF8wDYHWtQhefPR3yYAwSqud8bWEQr9FSIuZuHihBspgURBSPsLa1ZD8SvVQfXGGo7he6xaPiMvM-fRu4d5gObhe5hQ-0vYl_ics5zAa15pKtjaZ6yJZD4enmNTeorCB7BZkSHpJqriUMah3n6cAW_HiMnGi9qTAacWMrciUJesdzDTZCOKj0lDtm08FHukBLzmjG8kdV03F0YbvNeLBHKlxr-CqjyuGaBND2MIzsJ8fROO37YfUa6cg5q4CybkGgku0MC4KEVT-jf9RBKaaW0Tf7LUMmzCBicqgHZIZqpDzzbnFwbM5PjrCX43T1M5oh3628R9Yi_6x-p_EXFKfzCGw5HG7OpnnV9iesbwD5bnjORxreQrj9gGXnL1VL6Luii98mAP_gApcNw3U3ukmuGWPi6JC-bLdbiW4MGcqXkozq_jMI-osIAxKR_S6hNuk5dpwsU6x5ozMHlgNejJYIm8ALq2ViHYW8RF7DMeofOdP389OnJkdjqPG8A1fFtnaihaeXkMOHz-GRAu3z1Bpru3Hbhdh0Zo9bWaCR3VqNKjuIVpLWlsxlFWc2A42771a-C1fdsQIEMVJsDpqBSKAoigqjPvAR4E0gfsJdSLRhTSqSV2RNoW_HjfIccRek5ZsQQxPovVjgBLk3rdjWAjbftqW33dGa3e3GKeJKTNu6do2lW9Kxc24ndVIDN8KpDlG3n-KvdJfNZWOlWQpbK4st0CvCVmRZMWc8k6swXiXEvuOxlgp0PXdK0AWgfmbLOP6NC9pcKH6AAFCFKJoUOsV0tZn2aVtIqCBba8vAQ9F_n1N2Uria0257nvnDa1W1af46RMjMmY5oP0yEfrNaWeWWaPBrYvA9Dn7kxQfuSF-LVzYh9ivV0OmDD0laXl9YYNDvS9fwya8OGtYqKw5uSmZEc4ql_3pWsUzLkDoJlQj8Zw0V4Nmj1VscQJOs7wzVPq_YDKFqWMZwDAx6f31q5ATCBJg6z6KX_cDcjhOfVY6Z9ccVTAD2VMIkJ8tIl6nWFesetdnXNr","summary":[]},"output_index":0,"sequence_number":3}
+
+        event: response.output_item.added
+        data: {"type":"response.output_item.added","item":{"id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","type":"message","status":"in_progress","content":[],"phase":"final_answer","role":"assistant"},"output_index":1,"sequence_number":4}
+
+        event: response.content_part.added
+        data: {"type":"response.content_part.added","content_index":0,"item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","output_index":1,"part":{"type":"output_text","annotations":[],"logprobs":[],"text":""},"sequence_number":5}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":"42","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"GwkwPaTpQnJWcU","output_index":1,"sequence_number":6}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" +","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"W3eS7PBbcv3lxK","output_index":1,"sequence_number":7}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" ","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"Ycg5iTzjA3p4X8k","output_index":1,"sequence_number":8}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":"27","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"ncdqsst5rPhFIs","output_index":1,"sequence_number":9}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" =","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"Q6mYgFhlrQ2kN3","output_index":1,"sequence_number":10}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" ","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"K38WQuYDDJMvbB0","output_index":1,"sequence_number":11}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":"69","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"8kKtSVE1AbWh7g","output_index":1,"sequence_number":12}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":",","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"Ue1KQjp4Kq7c1bR","output_index":1,"sequence_number":13}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" and","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"QwsFa6d8KWTv","output_index":1,"sequence_number":14}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" there","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"snkltCS9cq","output_index":1,"sequence_number":15}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" are","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"hORd40NyytZC","output_index":1,"sequence_number":16}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" ","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"rwdNo1i6t8oFOeJ","output_index":1,"sequence_number":17}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":"5","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"ARNHfZKiPk6zzCw","output_index":1,"sequence_number":18}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" recorded","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"i91DhOZ","output_index":1,"sequence_number":19}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" outputs","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"WGI0wpqm","output_index":1,"sequence_number":20}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":".","item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"obfuscation":"Bj9bzCWr5F6dhq9","output_index":1,"sequence_number":21}
+
+        event: response.output_text.done
+        data: {"type":"response.output_text.done","content_index":0,"item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","logprobs":[],"output_index":1,"sequence_number":22,"text":"42 + 27 = 69, and there are 5 recorded outputs."}
+
+        event: response.content_part.done
+        data: {"type":"response.content_part.done","content_index":0,"item_id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","output_index":1,"part":{"type":"output_text","annotations":[],"logprobs":[],"text":"42 + 27 = 69, and there are 5 recorded outputs."},"sequence_number":23}
+
+        event: response.output_item.done
+        data: {"type":"response.output_item.done","item":{"id":"msg_0dfacec88ef13fe1016a0b16818f7881918f75ae502e42790b","type":"message","status":"completed","content":[{"type":"output_text","annotations":[],"logprobs":[],"text":"42 + 27 = 69, and there are 5 recorded outputs."}],"phase":"final_answer","role":"assistant"},"output_index":1,"sequence_number":24}
+
+        event: response.completed
+        data: {"type":"response.completed","response":{"id":"resp_0dfacec88ef13fe1016a0b167cfac481919f896edef7482e8c","object":"response","created_at":1779111548,"status":"completed","background":false,"completed_at":1779111553,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":"You are a helpful assistant.","max_output_tokens":null,"max_tool_calls":null,"model":"gpt-5.4","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":"0f1a31b1-7de1-4a71-9112-53b10b557f9d","prompt_cache_retention":"24h","reasoning":{"effort":"high","summary":"detailed"},"safety_identifier":"user-HsvB364TnRHovzQ3zkQXkZvS","service_tier":"default","store":false,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":{"input_tokens":5859,"input_tokens_details":{"cached_tokens":0},"output_tokens":167,"output_tokens_details":{"reasoning_tokens":150},"total_tokens":6026},"user":null,"metadata":{}},"sequence_number":25}
+
+  recorded_at: Mon, 18 May 2026 13:39:13 GMT
+recorded_with: VCR 6.4.0
+...
