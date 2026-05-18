@@ -37,7 +37,7 @@ class OpenAICodexOptionMapperTest < Test
         prompt_cache_key: "abc",
         reasoning: { effort: "high", summary: "detailed" },
         temperature: 0.2,
-        response_format: "json_object"
+        text: { format: { type: "json_object" } }
       },
       mapped
     )
