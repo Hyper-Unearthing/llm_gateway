@@ -1,0 +1,23 @@
+{
+  "live_basic_thinking_openai_apikey_completions_gpt-5.1": {
+    "id": "chatcmpl-Dg2i6JQuFV59Wh43MraiGgMWVmwUN",
+    "model": "gpt-5.1-2025-11-13",
+    "usage": {
+      "input_tokens": 16,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 206,
+      "reasoning_tokens": 141
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "completions",
+    "content": [
+      {
+        "type": "text",
+        "text": "42 + 27 = 69.\n\nIf we “think long and hard” about it:\n\n- Break 27 into 20 and 7  \n- 42 + 20 = 62  \n- 62 + 7 = 69  \n\nSame result: 69."
+      }
+    ]
+  }
+}

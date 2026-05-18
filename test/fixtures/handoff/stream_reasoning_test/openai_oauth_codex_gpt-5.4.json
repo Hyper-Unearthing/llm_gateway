@@ -1,0 +1,28 @@
+{
+  "live_basic_thinking_openai_oauth_codex_gpt-5.4": {
+    "id": "resp_087342961525cded016a080d3903b48191a9d85cd9abd03bfe",
+    "model": "gpt-5.4",
+    "usage": {
+      "input_tokens": 26,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 82,
+      "reasoning_tokens": 73
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "reasoning",
+        "reasoning": "**Calculating a simple sum**\n\nIt seems the user is asking me to think about the sum of 42 and 27. This looks like a straightforward arithmetic request, and I don't need to overcomplicate it. The answer is simply \"42 + 27 = 69.\" I’ll keep it concise and craft my response accordingly. It’s a simple calculation, but it’s always good to double-check to ensure I’m giving the right answer!",
+        "signature": ""
+      },
+      {
+        "type": "text",
+        "text": "42 + 27 = 69."
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "live_image_streaming_openai_apikey_responses_gpt-5.4": {
+    "id": "resp_0e060a99c2b1c553006a080d700f708196ac1ef403e6daa515",
+    "model": "gpt-5.4-2026-03-05",
+    "usage": {
+      "input_tokens": 114,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 8,
+      "reasoning_tokens": 0
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "text",
+        "text": "A red circle."
+      }
+    ]
+  }
+}

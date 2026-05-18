@@ -1,0 +1,221 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","messages":[{"role":"user","content":[{"type":"text","text":"You
+        are receiving recorded final outputs from previous general streaming test
+        runs.\nThe records include text streaming and tool-use streaming results.
+        Read the JSON and answer in one\nshort sentence. Include all of these facts
+        as Arabic numerals where numeric: the number of recorded\noutputs, the tool-call
+        sum 15 + 27, the multiplication result 42 * 17, and the sum 453 + 434.\n\n[\n  {\n    \"pair\":
+        \"anthropic_apikey_messages_claude-sonnet-4-20250514\",\n    \"result\": {\n      \"live_multi_turn_tool_streaming_anthropic_apikey_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_01HqPzRRCiNqFt44RKZoyqTu\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 1434,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        35,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"Here
+        are your calculations:\\n- 42 × 17 = 714\\n- 453 + 434 = 887\"\n          }\n        ]\n      },\n      \"live_text_streaming_anthropic_apikey_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_01338vvFNjWiP7bKQUCKfDkS\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 30,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        10,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"1\\n2\\n3\"\n          }\n        ]\n      },\n      \"live_basic_tool_call_anthropic_apikey_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_017gFdPN1ZD5xsf54AP5mLoK\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 914,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        110,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"tool_use\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"I''ll
+        calculate 15 + 27 for you using the math_operation tool.\"\n          },\n          {\n            \"id\":
+        \"toolu_011B4QyTiSmWa1Wr13oNmTZR\",\n            \"type\": \"tool_use\",\n            \"name\":
+        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
+        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"anthropic_oauth_messages_claude-sonnet-4-20250514\",\n    \"result\": {\n      \"live_multi_turn_tool_streaming_anthropic_oauth_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_01YRbxTuYJ8hRUsDJVfoNHj8\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 1464,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        33,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"Here
+        are the results:\\n- 42 × 17 = 714\\n- 453 + 434 = 887\"\n          }\n        ]\n      },\n      \"live_basic_tool_call_anthropic_oauth_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_01YBk7SKDeKTmGWVnaMiBxAF\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 944,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        115,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"tool_use\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"I''ll
+        calculate 15 + 27 for you using the math_operation tool.\"\n          },\n          {\n            \"id\":
+        \"toolu_014QjR8NBZxwjAYHVVZtQJpJ\",\n            \"type\": \"tool_use\",\n            \"name\":
+        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
+        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      },\n      \"live_text_streaming_anthropic_oauth_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_01XqTGJreUwzt3JLTCVcX6mD\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 58,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        10,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"1\\n2\\n3\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_apikey_completions_gpt-5.1\",\n    \"result\": {\n      \"live_multi_turn_tool_streaming_openai_apikey_completions_gpt-5.1\":
+        {\n        \"id\": \"chatcmpl-DgsAorWgbcvwfUEGirlnE1Sn977uD\",\n        \"model\":
+        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input_tokens\":
+        278,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 27,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"Here are the results:\\n\\n- 42 * 17 =
+        714  \\n- 453 + 434 = 887\"\n          }\n        ]\n      },\n      \"live_text_streaming_openai_apikey_completions_gpt-5.1\":
+        {\n        \"id\": \"chatcmpl-DgsB8aI6Y1Osz5UiUwBFWFsn0CH0i\",\n        \"model\":
+        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input_tokens\":
+        13,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 14,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"1  \\n2  \\n3\"\n          }\n        ]\n      },\n      \"live_basic_tool_call_openai_apikey_completions_gpt-5.1\":
+        {\n        \"id\": \"chatcmpl-DgsB6oCp31SpN2yUaHeuVw8YeKTkZ\",\n        \"model\":
+        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input_tokens\":
+        173,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 31,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"tool_use\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"id\":
+        \"call_lFxx23OmT0ToGUCZOZTTZfib\",\n            \"type\": \"tool_use\",\n            \"name\":
+        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
+        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_apikey_responses_gpt-5.4\",\n    \"result\": {\n      \"live_text_streaming_openai_apikey_responses_gpt-5.4\":
+        {\n        \"id\": \"resp_0d578639f2de0814006a0b120985708193966e046567eec838\",\n        \"model\":
+        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input_tokens\":
+        13,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 9,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"1\\n2\\n3\"\n          }\n        ]\n      },\n      \"live_basic_tool_call_openai_apikey_responses_gpt-5.4\":
+        {\n        \"id\": \"resp_0ac0d26b65301b88006a0b11f76c00819498fc8a3c3a454fd3\",\n        \"model\":
+        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input_tokens\":
+        91,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 26,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"tool_use\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"id\":
+        \"call_FOcPAk79QeAm8mWtlml5Wc7l\",\n            \"type\": \"tool_use\",\n            \"name\":
+        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
+        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      },\n      \"live_multi_turn_tool_streaming_openai_apikey_responses_gpt-5.4\":
+        {\n        \"id\": \"resp_05bbf2bae73ba875006a0b11dfa4c48190bca813d588d2ffb5\",\n        \"model\":
+        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input_tokens\":
+        201,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 19,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"42 × 17 = 714  \\n453 + 434 = 887\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_oauth_codex_gpt-5.4\",\n    \"result\": {\n      \"live_multi_turn_tool_streaming_openai_oauth_codex_gpt-5.4\":
+        {\n        \"id\": \"resp_0daeed2a53f29c44016a0b1202232481919e3cbb2703cee257\",\n        \"model\":
+        \"gpt-5.4\",\n        \"usage\": {\n          \"input_tokens\": 201,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        16,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"openai\",\n        \"api\": \"responses\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"42
+        × 17 = 714  \\n453 + 434 = 887\"\n          }\n        ]\n      },\n      \"live_text_streaming_openai_oauth_codex_gpt-5.4\":
+        {\n        \"id\": \"resp_096f383d2254ad5a016a0b11ee99788191ae07c5125b2b0d1a\",\n        \"model\":
+        \"gpt-5.4\",\n        \"usage\": {\n          \"input_tokens\": 23,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        8,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"openai\",\n        \"api\": \"responses\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"1,
+        2, 3\"\n          }\n        ]\n      },\n      \"live_basic_tool_call_openai_oauth_codex_gpt-5.4\":
+        {\n        \"id\": \"resp_0345a8d954a2c46f016a0b11ecea088191a4a7d7fb4c432614\",\n        \"model\":
+        \"gpt-5.4\",\n        \"usage\": {\n          \"input_tokens\": 101,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        26,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"tool_use\",\n        \"provider\": \"openai\",\n        \"api\": \"responses\",\n        \"content\":
+        [\n          {\n            \"id\": \"call_Ogv0m80F84ORDO5AQa4NvskL\",\n            \"type\":
+        \"tool_use\",\n            \"name\": \"math_operation\",\n            \"input\":
+        {\n              \"a\": 15,\n              \"b\": 27,\n              \"operation\":
+        \"add\"\n            }\n          }\n        ]\n      }\n    }\n  }\n]\n"}]}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":10240},"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 18 May 2026 13:38:33 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '450000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '448000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2026-05-18T13:38:32Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '90000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2026-05-18T13:38:32Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '1000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2026-05-18T13:38:32Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '540000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '538000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2026-05-18T13:38:32Z'
+      Request-Id:
+      - req_011CbA8HrDyLmvXnaJBfHHgz
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Traceresponse:
+      - 00-9a1eb646ff62c2604dea81d6a24bc4ef-ef2763136f32015b-01
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '1117'
+      Vary:
+      - Accept-Encoding
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - _cfuvid=FYaK7YJ1Hd8WXE7J3hiJW4D1ebfSLYnTXi2oUbYIlRQ-1779111511.8439717-1.0.1.1-WoSV2kNwWWBZzyeNkwzVwZZ95Qaw3kcaPx_1y_qBq3E;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
+      Cf-Ray:
+      - 9fdb434508efefdf-SIN
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ZXZlbnQ6IG1lc3NhZ2Vfc3RhcnQKZGF0YTogeyJ0eXBlIjoibWVzc2FnZV9zdGFydCIsIm1lc3NhZ2UiOnsibW9kZWwiOiJjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQiLCJpZCI6Im1zZ18wMTFERlFKYkQ5VkFiMlg5ZlpYeEZUU1giLCJ0eXBlIjoibWVzc2FnZSIsInJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50IjpbXSwic3RvcF9yZWFzb24iOm51bGwsInN0b3Bfc2VxdWVuY2UiOm51bGwsInN0b3BfZGV0YWlscyI6bnVsbCwidXNhZ2UiOnsiaW5wdXRfdG9rZW5zIjo0MTM4LCJjYWNoZV9jcmVhdGlvbl9pbnB1dF90b2tlbnMiOjAsImNhY2hlX3JlYWRfaW5wdXRfdG9rZW5zIjowLCJjYWNoZV9jcmVhdGlvbiI6eyJlcGhlbWVyYWxfNW1faW5wdXRfdG9rZW5zIjowLCJlcGhlbWVyYWxfMWhfaW5wdXRfdG9rZW5zIjowfSwib3V0cHV0X3Rva2VucyI6MSwic2VydmljZV90aWVyIjoic3RhbmRhcmQiLCJpbmZlcmVuY2VfZ2VvIjoibm90X2F2YWlsYWJsZSJ9fSAgfQoKZXZlbnQ6IGNvbnRlbnRfYmxvY2tfc3RhcnQKZGF0YTogeyJ0eXBlIjoiY29udGVudF9ibG9ja19zdGFydCIsImluZGV4IjowLCJjb250ZW50X2Jsb2NrIjp7InR5cGUiOiJ0aGlua2luZyIsInRoaW5raW5nIjoiIiwic2lnbmF0dXJlIjoiIn0gIH0KCmV2ZW50OiBwaW5nCmRhdGE6IHsidHlwZSI6ICJwaW5nIn0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX2RlbHRhCmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfZGVsdGEiLCJpbmRleCI6MCwiZGVsdGEiOnsidHlwZSI6InRoaW5raW5nX2RlbHRhIiwidGhpbmtpbmciOiJMZXQifSAgICAgICAgICAgICB9CgpldmVudDogY29udGVudF9ibG9ja19kZWx0YQpkYXRhOiB7InR5cGUiOiJjb250ZW50X2Jsb2NrX2RlbHRhIiwiaW5kZXgiOjAsImRlbHRhIjp7InR5cGUiOiJ0aGlua2luZ19kZWx0YSIsInRoaW5raW5nIjoiIG1lIGFuYWx5emUgdGhpcyBKU09OIGRhdGEgc3RlcCBieSBzdGVwLlxuXG5GaXJzdCwgSSBuZWVkIHRvIGNvdW50IHRoZSBudW1iZXIifSAgICAgICAgICAgICAgfQoKZXZlbnQ6IGNvbnRlbnRfYmxvY2tfZGVsdGEKZGF0YTogeyJ0eXBlIjoiY29udGVudF9ibG9ja19kZWx0YSIsImluZGV4IjowLCJkZWx0YSI6eyJ0eXBlIjoidGhpbmtpbmdfZGVsdGEiLCJ0aGlua2luZyI6IiBvZiByZWNvcmRlZCBvdXRwdXRzLiBJIGNhbiBzZWUgdGhlcmUgYXJlIHNldmVyYWwgcGFpcnMgYW5kIGVhY2ggcGFpciBjb250YWlucyBtdWx0aXBsZSJ9ICAgfQoKZXZlbnQ6IGNvbnRlbnRfYmxvY2tfZGVsdGEKZGF0YTogeyJ0eXBlIjoiY29udGVudF9ibG9ja19kZWx0YSIsImluZGV4IjowLCJkZWx0YSI6eyJ0eXBlIjoidGhpbmtpbmdfZGVsdGEiLCJ0aGlua2luZyI6IiB0ZXN0IHJlc3VsdHM6XG5cbjEuIFwiYW50aHJvcGljX2FwaWtleV9tZXNzYWdlc19jbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTRcIiAtIGNvbnRhaW5zIDMgb3V0cHV0cyJ9ICAgICAgIH0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX2RlbHRhCmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfZGVsdGEiLCJpbmRleCI6MCwiZGVsdGEiOnsidHlwZSI6InRoaW5raW5nX2RlbHRhIiwidGhpbmtpbmciOiI6XG4gICAtIGxpdmVfbXVsdGlfdHVybl90b29sX3N0cmVhbWluZ19hbnRocm9waWNfYXBpa2V5X21lc3NhZ2VzX2NsYXVkZS1zb25uZXQtNC0yMDI1MDUxNFxuICAgLSBsaXZlX3RleHRfc3RyZWFtaW5nX2FudGhyb3BpY19hcGlrZXlfbWVzc2FnZXNfY2xhdWRlLXNvbm5ldCJ9ICAgICB9CgpldmVudDogY29udGVudF9ibG9ja19kZWx0YQpkYXRhOiB7InR5cGUiOiJjb250ZW50X2Jsb2NrX2RlbHRhIiwiaW5kZXgiOjAsImRlbHRhIjp7InR5cGUiOiJ0aGlua2luZ19kZWx0YSIsInRoaW5raW5nIjoiLTQtMjAyNTA1MTRcbiAgIC0gbGl2ZV9iYXNpY190b29sX2NhbGxfYW50aHJvcGljX2FwaWtleV9tZXNzYWdlc19jbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTRcblxuMi4gXCJhbnRocm9waWNfb2F1dGhfbWVzc2FnZXNfY2xhdWRlLXNvbm5ldC00LTIwMjUwNTE0XCIgLSBjb250YWlucyAzIG91dHB1dHM6In0gICAgICAgICAgICAgICB9CgpldmVudDogY29udGVudF9ibG9ja19kZWx0YQpkYXRhOiB7InR5cGUiOiJjb250ZW50X2Jsb2NrX2RlbHRhIiwiaW5kZXgiOjAsImRlbHRhIjp7InR5cGUiOiJ0aGlua2luZ19kZWx0YSIsInRoaW5raW5nIjoiXG4gICAtIGxpdmVfbXVsdGlfdHVybl90b29sX3N0cmVhbWluZ19hbnRocm9waWNfb2F1dGhfbWVzc2FnZXNfY2xhdWRlLXNvbm5ldC00LTIwMjUwNTE0XG4gICAtIGxpdmVfYmFzaWNfdG9vbF9jYWxsX2FudGhyb3BpY19vYXV0aF9tZXNzYWdlc19jbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTRcbiAgICJ9ICAgICAgfQoKZXZlbnQ6IGNvbnRlbnRfYmxvY2tfZGVsdGEKZGF0YTogeyJ0eXBlIjoiY29udGVudF9ibG9ja19kZWx0YSIsImluZGV4IjowLCJkZWx0YSI6eyJ0eXBlIjoidGhpbmtpbmdfZGVsdGEiLCJ0aGlua2luZyI6Ii0gbGl2ZV90ZXh0X3N0cmVhbWluZ19hbnRocm9waWNfb2F1dGhfbWVzc2FnZXNfY2xhdWRlLXNvbm5ldC00LTIwMjUwNTE0XG5cbjMuIFwib3BlbmFpX2FwaWtleV9jb21wbGV0aW9uc19ncHQtNS4xXCIgLSBjb250YWlucyAzIG91dHB1dHM6XG4gICAtIGxpdmVfbXVsdGkifSAgfQoKZXZlbnQ6IGNvbnRlbnRfYmxvY2tfZGVsdGEKZGF0YTogeyJ0eXBlIjoiY29udGVudF9ibG9ja19kZWx0YSIsImluZGV4IjowLCJkZWx0YSI6eyJ0eXBlIjoidGhpbmtpbmdfZGVsdGEiLCJ0aGlua2luZyI6Il90dXJuX3Rvb2xfc3RyZWFtaW5nX29wZW5haV9hcGlrZXlfY29tcGxldGlvbnNfZ3B0LTUuMVxuICAgLSBsaXZlX3RleHRfc3RyZWFtaW5nX29wZW5haV9hcGlrZXlfY29tcGxldGlvbnNfZ3B0LTUuMVxuICAgLSBsaXZlX2Jhc2ljX3Rvb2xfY2FsbF9vcGVuYWlfYXBpa2V5X2NvbXBsZXQifSAgICAgIH0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX2RlbHRhCmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfZGVsdGEiLCJpbmRleCI6MCwiZGVsdGEiOnsidHlwZSI6InRoaW5raW5nX2RlbHRhIiwidGhpbmtpbmciOiJpb25zX2dwdC01LjFcblxuNC4gXCJvcGVuYWlfYXBpa2V5X3Jlc3BvbnNlc19ncHQtNS40XCIgLSBjb250YWlucyAzIG91dHB1dHM6XG4gICAtIGxpdmVfdGV4dF9zdHJlYW1pbmdfb3BlbmFpX2FwaWtleV9yZXNwb25zZXNfZ3B0LTUuNFxuICAgLSBsaXZlX2Jhc2ljXyJ9ICAgIH0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX2RlbHRhCmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfZGVsdGEiLCJpbmRleCI6MCwiZGVsdGEiOnsidHlwZSI6InRoaW5raW5nX2RlbHRhIiwidGhpbmtpbmciOiJ0b29sX2NhbGxfb3BlbmFpX2FwaWtleV9yZXNwb25zZXNfZ3B0LTUuNFxuIn19CgpldmVudDogY29udGVudF9ibG9ja19kZWx0YQpkYXRhOiB7InR5cGUiOiJjb250ZW50X2Jsb2NrX2RlbHRhIiwiaW5kZXgiOjAsImRlbHRhIjp7InR5cGUiOiJ0aGlua2luZ19kZWx0YSIsInRoaW5raW5nIjoiICAgLSBsaXZlX211bHRpX3R1cm5fIn0gICAgICB9CgpldmVudDogY29udGVudF9ibG9ja19kZWx0YQpkYXRhOiB7InR5cGUiOiJjb250ZW50X2Jsb2NrX2RlbHRhIiwiaW5kZXgiOjAsImRlbHRhIjp7InR5cGUiOiJ0aGlua2luZ19kZWx0YSIsInRoaW5raW5nIjoidG9vbF9zdHJlYW1pbmdfb3BlbmFpX2FwaWtleV9yZXNwb25zZXNfZ3B0LTUuNFxuXG41LiBcIm9wZW5haV9vYXV0aF9jb2RleF9ncHQtNS40XCIgLSBjb250YWlucyAzIG91dHB1dHM6XG4gICAtIGxpdmVfbXVsdGlfdHVybl90b29sX3N0cmVhbWluZ19vcGVuYWlfb2F1dGhfY29kZXgifSAgICAgICB9CgpldmVudDogY29udGVudF9ibG9ja19kZWx0YQpkYXRhOiB7InR5cGUiOiJjb250ZW50X2Jsb2NrX2RlbHRhIiwiaW5kZXgiOjAsImRlbHRhIjp7InR5cGUiOiJ0aGlua2luZ19kZWx0YSIsInRoaW5raW5nIjoiX2dwdC01LjRcbiAgIC0gbGl2ZV90ZXh0X3N0cmVhbWluZ19vcGVuYWlfb2F1dGhfY29kZXhfZ3B0LTUuNFxuICAgLSBsaXZlX2Jhc2ljX3Rvb2xfY2FsbF9vcGVuYWlfb2F1dGhfY29kZXhfZ3B0LTUuNFxuXG5UaGF0In0gICAgICAgICAgICB9CgpldmVudDogY29udGVudF9ibG9ja19kZWx0YQpkYXRhOiB7InR5cGUiOiJjb250ZW50X2Jsb2NrX2RlbHRhIiwiaW5kZXgiOjAsImRlbHRhIjp7InR5cGUiOiJ0aGlua2luZ19kZWx0YSIsInRoaW5raW5nIjoiIGdpdmVzIG1lIGEgdG90YWwgb2YgMTUgcmVjb3JkZWQgb3V0cHV0cyBhY3Jvc3MgYWxsIGNvbmZpZ3VyYXRpb25zLiJ9ICB9CgpldmVudDogY29udGVudF9ibG9ja19kZWx0YQpkYXRhOiB7InR5cGUiOiJjb250ZW50X2Jsb2NrX2RlbHRhIiwiaW5kZXgiOjAsImRlbHRhIjp7InR5cGUiOiJ0aGlua2luZ19kZWx0YSIsInRoaW5raW5nIjoiXG5cbk5vdyBJIn0gICAgICAgfQoKZXZlbnQ6IGNvbnRlbnRfYmxvY2tfZGVsdGEKZGF0YTogeyJ0eXBlIjoiY29udGVudF9ibG9ja19kZWx0YSIsImluZGV4IjowLCJkZWx0YSI6eyJ0eXBlIjoidGhpbmtpbmdfZGVsdGEiLCJ0aGlua2luZyI6IiBuZWVkIHRvIHdvcmsgdGhyb3VnaCB0aGUgY2FsY3VsYXRpb25zOiBhZGRpbmcgMTUgYW5kIDI3IHlpZWxkcyA0Miwgd2hpY2gifX0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX2RlbHRhCmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfZGVsdGEiLCJpbmRleCI6MCwiZGVsdGEiOnsidHlwZSI6InRoaW5raW5nX2RlbHRhIiwidGhpbmtpbmciOiIgd2hlbiBtdWx0aXBsaWVkIGJ5IDE3IHByb2R1Y2VzIDcxNC4gQWRkaXRpb25hbGx5LCA0NTMgcGx1cyA0MzQgZXF1YWxzIDg4Ny4gSSBjYW4ifSAgICAgICAgICAgICAgfQoKZXZlbnQ6IGNvbnRlbnRfYmxvY2tfZGVsdGEKZGF0YTogeyJ0eXBlIjoiY29udGVudF9ibG9ja19kZWx0YSIsImluZGV4IjowLCJkZWx0YSI6eyJ0eXBlIjoidGhpbmtpbmdfZGVsdGEiLCJ0aGlua2luZyI6IiB2ZXJpZnkgdGhlc2UgcmVzdWx0cyBhcHBlYXIgdGhyb3VnaG91dCB0aGUgY29udGVudCB3aXRoIG11bHRpcGxlIHJlZmVyZW5jZXMgdG8gXCI0MiDDlyAxNyA9ICJ9ICAgICAgICAgICAgICAgfQoKZXZlbnQ6IGNvbnRlbnRfYmxvY2tfZGVsdGEKZGF0YTogeyJ0eXBlIjoiY29udGVudF9ibG9ja19kZWx0YSIsImluZGV4IjowLCJkZWx0YSI6eyJ0eXBlIjoidGhpbmtpbmdfZGVsdGEiLCJ0aGlua2luZyI6IjcxNFwiIGFuZCBcIjQ1MyArIDQzNCA9IDg4N1wiLCBhbG9uZyB3aXRoIHRvb2wgY2FsbHMgc2hvd2luZyB0aGUgbWF0aF9vcGVyYXRpb24gaW5wdXRzLiJ9ICAgICAgICAgICAgIH0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX2RlbHRhCmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfZGVsdGEiLCJpbmRleCI6MCwiZGVsdGEiOnsidHlwZSI6InNpZ25hdHVyZV9kZWx0YSIsInNpZ25hdHVyZSI6IkVvQVNDbUlJRFJnQ0trQ0U3eEFqSkRFZTNDU2REM0dpQmg3NkxlT28yM0lSV0xGNVRhQzcwbmtDUWJhZ1hhMDFteDFRTkc3OHRSaHBsdU5MS1IvY1l4N2xIblhpN0xXenhnZmJNaGhqYkdGMVpHVXRjMjl1Ym1WMExUUXRNakF5TlRBMU1UUTRBQklNRDMzb1k5VnFoMW0zdDdhckdnd29yZWlRYi9iT09YSFRmTXdpTUVhNU9EVkQxOFVYL0xRcy9MeWNLN2JDdHUvNHlZSytHdkh5LzJrT1gzWS9OMmhndXNKeTA0MzJqNnM0Zm5La2xDckxFTzdKeGlwcjNtd3Y5SW5vZlhCMDI0a3hnUEtiS21VeFVTb2NBY3JXRFNnRHlpYjRFS2JIN3Zkb1V5c2ZUNWZIQUNtQXN4MmRtYWNYejY1NldYclZQZURVT3pqNFI5SGZ1WGFUTU0rZHFvdXAxdmtqTkJNZk5QdWZjdEsyVzdQY2ZOOFBoL0NKVVpNT3RTcm03VXRUWUs4TkU0ZjN2S1loTmRNemJLdFlYQWlIUEthRDZQOFRpZnJUeFVNc0s3cVA2VzU4NXFMQXpFRVZ4bHQ3SWp3RG40UkJ2bHJpU3NqY3hjZUIwSlhjR1orVFVNMnc5OGp0aG1WWGlMbDZXSThJa2YvZVhvbDljK09aWDNyQUc4RnZPT0NGd1Z3T21QaHdMZU9HYklEOC8zUlp3MjlWVTBMTDJqUUc1STJXa09xQklIRGhRb1VmTWhHTmNOOW9KSU01ZlM0YXFVUXY3RUw3ck8zbGlUQ1lSRmxva2JNNnZVNysxOTlrTFBQVjdUK0tuTGFKWUliT3ZPOTEwTVhFTDJhOVVOa2o3TjZmTkl3Rzl2ZzR0TnllU1NESk9uVmhwZEhPV3d3OFExRnhkT011VnZjK3BVMnArUzltRUxSTnVESlFsdjNQNVZuQ01MZVBnZE1GS0JieUNpS2RqcW5qWmRQRzNQTUhHaHg2dWx5Y3ZQbjNFbjNrVEtRMzB0Z3h0aUYydDdSVzdHZWJVN3hSdXBVQzNNQjFta2Qzb2tvU3NZL200VmE0SWFZcG9IVHU2WEt5WGxZSUFwU1NpUFp2LzRaUnJjbE40Q0w1a1U5MC9ZWHJEYWF0YXJGckFJZmUvbTVaY3ZtTjhwRlc4eUVuMVpZM3AvbFVNVjUrU045RWRRbWs2a2k1enQyTnNvWmRGb0IrcnR0ZFJTLzFVK3pZbWVuSTRVQm9qa3llbUxtZzFpRjVNNTlSS1BpZmYrY0w2ZGN5a3JRdE92cEZ0OTczbllYZFVKUVRrYVpSeDk2eEdneFNXU3RzbzlZN00renZodkNNdHd5OXVvNGh6NFk1ZDN2UUE0Mjd1RzI2TWd6aTlGdk1ocjJ4cjBwbzd6bkJtRmprc0NMOWgzNkJRNkZpU1Q3N202dzk3Tk95TWlBUXM3cm8vL3JBUEtKcWYwQUhIMlFjNWdnR3c3R1NMbGR4MDlSeG1rRXUwbUh6OHRYTlpVWWU3dXg5NFFTc01mL3czbXMrbzl4UFA4TWVPK0VWbjI0R0wxdHgvblkzQ2NPblF2UWFXSnNtUm5kc241aktUU1VBT1ZBTmdzL3RIK2pvOEN3VDlJTG5INTd1RDFUVm01QThCRUliclBqa2FkNTRJTTVaR0x2UllCVllReVE3YzJyNG83Z1ppbmxXM3F2UTk3dFRXV0dRaFBoWHIvQ0oxMXJ5WXBMSjh0VmFkeXdSakpCZjRCK0srbzl6aFFWRitRd2pBMTlIcFdDVit6UG4xQjU1WDlRMmQ3eitxMk9jVm5Ec0tMMnFRRElLMjI4QWxRSVJkcVFEdHM2NkVDeGZRRThMVWc0R2FOc3lHVFBzTWRXeUV2N0dkK2hCSnlKTlh3OStvTkM3S1owczQyQy9HMGtwaVVCNHhHbldZWGxpTlVIN2FDbEdOMHlQUlkzdXIwVGoydDErUjlGZlo4d3EzdkxaMWdXakFGNTdHbkw5eXhRK0VBOWlTSkVkTWVKZmZDdFJ4OW9jQ0xFTE9lZjJpd3BhdTEvVy9FdnpMK2ZLUEhwQ1hsTWdDMXI4U3M5WmxSWlc2SVhrajJlaXhON2RUSnZkbkw0VWpoNkxxSDR4OHMwZnFWa0tBNVV2cFF3MlVuU3BFb29BbEJXUThiZmdZZWdUT3QzTmpxMGptK2V2OW5ZYWZPby9zajFqVkZCRGpDOU1GekxCeFRyMS9pNUNpT2FkbXptR2xjOFU2NUtWeHQwc0xUYnBoT21UYmdXT0Zqa1ZyWEJiVmJ2M1BwMUU1NGxOR3JLYW8yK2lnbkxGZVg0RGVhM1dvelI5RU1TS2VYckFWVEE4ZHJ3UHFBbHRqakVZbWhXZThNNnUvTGNhVkowMDhWS0hqeFYzY0VzUGNQTnRybitrK1dGSDBqZElhamFuVTY3citCNTF0NkRTK2JteldMMVhxTnFIc3EvdjIyREZhakJhRFlpZ1FmRk4wN1h3TXBsSFNqYU1ZQnQ2dVpjeVJFYk1uUmN6UHJ4MTJxdnkzSjBmTkMrM2Q2dUw4VjJZMkRDU1VmVytvaUVLaUVuZzBUNnBnWnJ4bzdaS3BNUEV5ZW1EOUZwZ3B0dFVmZmtQOExOL3RXTDFzSmJOYzNQbVh5T045RHBYelAyQUJpK1paVmJmOFp1dUJCeWZyTkxLTmtoWm5nanZSMDJMaUVwU1FnOUV6MzMraktnYlRwMjlhT091YW5sMUV1TUkxRStWSGo1RnRaQ0FvTlJCYXhCN2dhdTVlWjV1SDZKbkFwRFV6VjFFMDJneGNEM2I1bENIMXJudXRnUCtrTi9RTmhBdHBRdkNJZFpIV0JOclFLa0lGamRWTGdMR3pQMnJMQ3ZzREg2SEVpRWZlUnplV0ZTWHN2STNRWWQ1YWRSRklDWTNNSVpLUEYrZ2MzOHVRaVA5SXN1ekpRaTI0OHRQYUlSLzBJbFpaWEVUQ1NrSUNTMHpzVHp2QlJzVW9mSTVlWlpuaEpQdmNiMVkwdUpNWFBRSVN4S3V4Yzk5Qk1vTFYzclpOYzZFd2FiSFV6b3VQWC9VMTIrQmlEdXB5OHFNSXlISHFETVVKVklmTDhQL1JoZ1lDT2loYXZwa2Via3hvbkdybUxVNTNhZHV1Vkg1dWhCWlhzbnZzLzhpTDNBWngrWU1JUlhQVlVJSE1lbkJVME5sMnNCLzlsYW1FeW9yYmFESXlHSUlBSjhKeGN2YkxDa1VURGtTeXJkb2thVGUvVjVpaVFvSEJZNFVGd0pEbjM3UmkxU2ZqZy91b25NbDRoTGZtMVNiVm1WVXR0TEF3MUVvL2ZHeWwxZHhIVHNycXdBSmJ6a3Rha21wZVFhajR3QTdHbnJsVWF6ODVHRVFQbXppMEFzTmVUUndlODhtUDVTdk93TXVCYm5RQlpRbU9Gc0twek9jWUVzeTN2dWxGeUJYODZDYVYwZS9RRTNFUWR2ZzBsT243Zk56Ny8vd2JVTzl5aVFDTTVETHRFOEJZSUZOWjRhTlpaN3V0b1N3aTJ4VkM1bEthaDR4RWlUWTJiNDJQVm9SeS9VMHJ1TVkwN3BNbUVJV2dCUVBiSGtyYmw5Y2x0UlFjM2M0Sm1iOHlNZ2h5Ny8xeVFJOHdkV3oyM3FsSHMreENsSlY5SE40OXgxSXZFYjc0R2RWWmZmZExOVldXQytmRXdzWkJNT1NHQlo1YXhSc0Vlc2VqelhBZzB2enZ2NXlvOERUQjhLeTdtR2xhcWdzNkNPSkdMZCs2K0h3clgrcGUvaVVVODZaMnVuRjIxeEQvNG85aytNbE1mWDc0M3lwSTBubDNOaU1TRWJ1bTlwWEJxZThBTjRUeUw2NXVVUVZIWDhkNGVNVlRpdCtTU0ptblk4eWdQRXVXdnR6a1FBcllFTzhBU1lqaXFpRHg2elZZci9vR3hlZ2xOaHp3bXZ3NU5WenlPVkRnZXI5M0M2bVJKR2xRK2RUZE1WY2FqZEpnY0x3Z3cwZCtlMjU0R2wyWmZMdThJeTlZS21rSHlZcjN0ZEpzZDJtNEMzaWZVVkRSUmhCVkZ6REN6djNsWHJBV0lKbTQ3ck9HQUU9In0gICAgICAgICAgIH0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX3N0b3AKZGF0YTogeyJ0eXBlIjoiY29udGVudF9ibG9ja19zdG9wIiwiaW5kZXgiOjAgIH0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX3N0YXJ0CmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfc3RhcnQiLCJpbmRleCI6MSwiY29udGVudF9ibG9jayI6eyJ0eXBlIjoidGV4dCIsInRleHQiOiIifSAgICAgICAgICAgICAgfQoKZXZlbnQ6IGNvbnRlbnRfYmxvY2tfZGVsdGEKZGF0YTogeyJ0eXBlIjoiY29udGVudF9ibG9ja19kZWx0YSIsImluZGV4IjoxLCJkZWx0YSI6eyJ0eXBlIjoidGV4dF9kZWx0YSIsInRleHQiOiJUaGlzIEpTT04gY29udGFpbnMifSAgICAgfQoKZXZlbnQ6IGNvbnRlbnRfYmxvY2tfZGVsdGEKZGF0YTogeyJ0eXBlIjoiY29udGVudF9ibG9ja19kZWx0YSIsImluZGV4IjoxLCJkZWx0YSI6eyJ0eXBlIjoidGV4dF9kZWx0YSIsInRleHQiOiIgMTUgcmVjb3JkZWQgb3V0cHV0cyBmcm9tIHN0cmVhbWluZyB0ZXN0cywgd2l0aCB0b29sLWNhbGwgc3VtIDE1ICsgMjcgPSA0MiwifX0KCmV2ZW50OiBjb250ZW50X2Jsb2NrX2RlbHRhCmRhdGE6IHsidHlwZSI6ImNvbnRlbnRfYmxvY2tfZGVsdGEiLCJpbmRleCI6MSwiZGVsdGEiOnsidHlwZSI6InRleHRfZGVsdGEiLCJ0ZXh0IjoiIG11bHRpcGxpY2F0aW9uIHJlc3VsdCA0MiAqIDE3ID0gNzE0LCBhbmQgc3VtIDQ1MyArIDQzNCA9IDg4Ny4ifSAgICAgICAgfQoKZXZlbnQ6IGNvbnRlbnRfYmxvY2tfc3RvcApkYXRhOiB7InR5cGUiOiJjb250ZW50X2Jsb2NrX3N0b3AiLCJpbmRleCI6MSAgICB9CgpldmVudDogbWVzc2FnZV9kZWx0YQpkYXRhOiB7InR5cGUiOiJtZXNzYWdlX2RlbHRhIiwiZGVsdGEiOnsic3RvcF9yZWFzb24iOiJlbmRfdHVybiIsInN0b3Bfc2VxdWVuY2UiOm51bGwsInN0b3BfZGV0YWlscyI6bnVsbH0sInVzYWdlIjp7ImlucHV0X3Rva2VucyI6NDEzOCwiY2FjaGVfY3JlYXRpb25faW5wdXRfdG9rZW5zIjowLCJjYWNoZV9yZWFkX2lucHV0X3Rva2VucyI6MCwib3V0cHV0X3Rva2VucyI6ODUzfX0KCmV2ZW50OiBtZXNzYWdlX3N0b3AKZGF0YTogeyJ0eXBlIjoibWVzc2FnZV9zdG9wIiAgICAgICAgICAgICAgfQoK
+  recorded_at: Mon, 18 May 2026 13:38:43 GMT
+recorded_with: VCR 6.4.0

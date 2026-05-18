@@ -58,6 +58,29 @@ module LiveTestHelper
     end
   end
 
+  def record_live_handoff_result(test_file:, provider:, model:, result:)
+    fixture_dir = File.expand_path("../fixtures/handoff/#{File.basename(test_file, ".rb")}", __dir__)
+    FileUtils.mkdir_p(fixture_dir)
+
+    pair_name = "#{provider}_#{model}".gsub(/[^A-Za-z0-9_.-]+/, "_")
+    path = File.join(fixture_dir, "#{pair_name}.json")
+    payload = File.exist?(path) ? JSON.parse(File.read(path)) : {}
+    payload[name.sub(/^test_/, "")] = jsonable_live_result(result)
+
+    File.write(path, JSON.pretty_generate(payload) + "\n")
+  end
+
+  def jsonable_live_result(value)
+    case value
+    when Array
+      value.map { |item| jsonable_live_result(item) }
+    when Hash
+      value.each_with_object({}) { |(key, item), acc| acc[key.to_s] = jsonable_live_result(item) }
+    else
+      value.respond_to?(:to_h) ? jsonable_live_result(value.to_h) : value
+    end
+  end
+
   def oauth_provider?(provider)
     %w[anthropic_oauth_messages openai_oauth_codex].include?(provider)
   end

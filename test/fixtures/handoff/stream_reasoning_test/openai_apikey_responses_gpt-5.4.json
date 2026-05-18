@@ -1,0 +1,28 @@
+{
+  "live_basic_thinking_openai_apikey_responses_gpt-5.4": {
+    "id": "resp_0394a7695c102f62006a080d529f888190a413d15bd56904c5",
+    "model": "gpt-5.4-2026-03-05",
+    "usage": {
+      "input_tokens": 16,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 112,
+      "reasoning_tokens": 99
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "reasoning",
+        "reasoning": "**Calculating the sum**\n\nThe user asked me to think long and hard about 42 + 27. It seems they want the result presented thoughtfully. The answer is 69, and I should just deliver that. While it crossed my mind that this could be a prompt injection attempt, it’s just a straightforward math problem. I’ll provide the answer clearly and concisely without revealing too much of my internal thought process. So, I’ll go ahead and say 42 + 27 equals 69.",
+        "signature": ""
+      },
+      {
+        "type": "text",
+        "text": "42 + 27 = 69"
+      }
+    ]
+  }
+}

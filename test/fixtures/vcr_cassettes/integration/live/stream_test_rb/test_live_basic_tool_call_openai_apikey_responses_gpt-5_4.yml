@@ -29,7 +29,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 16 May 2026 06:23:45 GMT
+      - Mon, 18 May 2026 13:19:51 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -37,7 +37,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - 9fc84ba60ff8ceb6-KUL
+      - 9fdb27e95a2e8408-SIN
       Cf-Cache-Status:
       - DYNAMIC
       Server:
@@ -53,7 +53,7 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '161'
+      - '153'
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
@@ -71,73 +71,73 @@ http_interactions:
       X-Ratelimit-Reset-Tokens:
       - 64ms
       X-Request-Id:
-      - req_8de4fed01c914ccfa864fefb2834d0ac
+      - req_188ac771cb69430494533719dbfe526b
       Set-Cookie:
-      - __cf_bm=cRmvmU3OLYRrQ2mhz.wDB5HzoguXWjNKKja8_aMzeiE-1778912625.60526-1.0.1.1-j4loU2OqC5vtdD.btLqc9n8C5wsMH7hIRxVX3W20v9SQ57FfXAMr3F_6MuLDmP6ucVihK1.WL3lqzpyLFo4dFx3DTOxgU58ScNu8nXCfLoAIDK0.jrHgbE4X4QTvH4vH;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Sat,
-        16 May 2026 06:53:45 GMT
+      - __cf_bm=pfx4yeIlQqX7wcGoHA9sV1rPbmVntsuyMaU_NXscrlA-1779110391.253539-1.0.1.1-u6_eQnms1iB10MsgpIy8OlxffNzFzwxnWlwjHcuVFclgumc4vn0ISjY_RGgs75axqNqWRasHFrAIa54_AYqXxKB8HN.bfw4id.SZ8P9MDmIBCeAwE.UM58cs1COxUMYV;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Mon,
+        18 May 2026 13:49:51 GMT
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: UTF-8
       string: |+
         event: response.created
-        data: {"type":"response.created","response":{"id":"resp_0c55ce0248236456006a080d71c0448197adf940735e0d131a","object":"response","created_at":1778912625,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-5.4-2026-03-05","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"in_memory","reasoning":{"effort":"none","summary":null},"safety_identifier":null,"service_tier":"auto","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":0}
+        data: {"type":"response.created","response":{"id":"resp_0ac0d26b65301b88006a0b11f76c00819498fc8a3c3a454fd3","object":"response","created_at":1779110391,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-5.4-2026-03-05","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"in_memory","reasoning":{"effort":"none","summary":null},"safety_identifier":null,"service_tier":"auto","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":0}
 
         event: response.in_progress
-        data: {"type":"response.in_progress","response":{"id":"resp_0c55ce0248236456006a080d71c0448197adf940735e0d131a","object":"response","created_at":1778912625,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-5.4-2026-03-05","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"in_memory","reasoning":{"effort":"none","summary":null},"safety_identifier":null,"service_tier":"auto","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":1}
+        data: {"type":"response.in_progress","response":{"id":"resp_0ac0d26b65301b88006a0b11f76c00819498fc8a3c3a454fd3","object":"response","created_at":1779110391,"status":"in_progress","background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-5.4-2026-03-05","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"in_memory","reasoning":{"effort":"none","summary":null},"safety_identifier":null,"service_tier":"auto","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":1}
 
         event: response.output_item.added
-        data: {"type":"response.output_item.added","item":{"id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","type":"function_call","status":"in_progress","arguments":"","call_id":"call_GYN9NJStjfuoEYVeEhtKYPpU","name":"math_operation"},"output_index":0,"sequence_number":2}
+        data: {"type":"response.output_item.added","item":{"id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","type":"function_call","status":"in_progress","arguments":"","call_id":"call_FOcPAk79QeAm8mWtlml5Wc7l","name":"math_operation"},"output_index":0,"sequence_number":2}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":"{\"","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"V3C6CAcLwSAPxm","output_index":0,"sequence_number":3}
+        data: {"type":"response.function_call_arguments.delta","delta":"{\"","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"uv2lslQ4cLxCgI","output_index":0,"sequence_number":3}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":"a","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"6yf5HCi7bx1Ercp","output_index":0,"sequence_number":4}
+        data: {"type":"response.function_call_arguments.delta","delta":"a","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"7Wu5lfzxSX1K533","output_index":0,"sequence_number":4}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":"\":","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"DodUtQauqrMyY3","output_index":0,"sequence_number":5}
+        data: {"type":"response.function_call_arguments.delta","delta":"\":","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"UyuFE8X71e13fX","output_index":0,"sequence_number":5}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":"15","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"cgqVPaPzWNSC27","output_index":0,"sequence_number":6}
+        data: {"type":"response.function_call_arguments.delta","delta":"15","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"gZdp1OQ5Z9tdzc","output_index":0,"sequence_number":6}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":",\"","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"ej1GDwcJxo7LTk","output_index":0,"sequence_number":7}
+        data: {"type":"response.function_call_arguments.delta","delta":",\"","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"SKT33hcCHlaTIw","output_index":0,"sequence_number":7}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":"b","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"8LiutjzC2HPmE9V","output_index":0,"sequence_number":8}
+        data: {"type":"response.function_call_arguments.delta","delta":"b","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"7gXEjJINcqxXMgl","output_index":0,"sequence_number":8}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":"\":","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"DBJHcuMwsRsuYX","output_index":0,"sequence_number":9}
+        data: {"type":"response.function_call_arguments.delta","delta":"\":","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"Z7LNypAMecvMdF","output_index":0,"sequence_number":9}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":"27","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"aXX5rEfj4uuDoR","output_index":0,"sequence_number":10}
+        data: {"type":"response.function_call_arguments.delta","delta":"27","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"gaf8xNDq1L2nkI","output_index":0,"sequence_number":10}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":",\"","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"FNQFaUnnzaGLf5","output_index":0,"sequence_number":11}
+        data: {"type":"response.function_call_arguments.delta","delta":",\"","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"mKTljQ75reqYiX","output_index":0,"sequence_number":11}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":"operation","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"u1H2920","output_index":0,"sequence_number":12}
+        data: {"type":"response.function_call_arguments.delta","delta":"operation","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"MeX3Noo","output_index":0,"sequence_number":12}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":"\":\"","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"06hVjC3H8XMbG","output_index":0,"sequence_number":13}
+        data: {"type":"response.function_call_arguments.delta","delta":"\":\"","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"ZHRBCJME1bs1d","output_index":0,"sequence_number":13}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":"add","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"UDtuNAH1wmn9H","output_index":0,"sequence_number":14}
+        data: {"type":"response.function_call_arguments.delta","delta":"add","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"z2vfZgxVzoup8","output_index":0,"sequence_number":14}
 
         event: response.function_call_arguments.delta
-        data: {"type":"response.function_call_arguments.delta","delta":"\"}","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","obfuscation":"fgJVPBaP7l9eFh","output_index":0,"sequence_number":15}
+        data: {"type":"response.function_call_arguments.delta","delta":"\"}","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","obfuscation":"L9wnEh3TfJpqPp","output_index":0,"sequence_number":15}
 
         event: response.function_call_arguments.done
-        data: {"type":"response.function_call_arguments.done","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}","item_id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","output_index":0,"sequence_number":16}
+        data: {"type":"response.function_call_arguments.done","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}","item_id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","output_index":0,"sequence_number":16}
 
         event: response.output_item.done
-        data: {"type":"response.output_item.done","item":{"id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","type":"function_call","status":"completed","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}","call_id":"call_GYN9NJStjfuoEYVeEhtKYPpU","name":"math_operation"},"output_index":0,"sequence_number":17}
+        data: {"type":"response.output_item.done","item":{"id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","type":"function_call","status":"completed","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}","call_id":"call_FOcPAk79QeAm8mWtlml5Wc7l","name":"math_operation"},"output_index":0,"sequence_number":17}
 
         event: response.completed
-        data: {"type":"response.completed","response":{"id":"resp_0c55ce0248236456006a080d71c0448197adf940735e0d131a","object":"response","created_at":1778912625,"status":"completed","background":false,"completed_at":1778912626,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-5.4-2026-03-05","moderation":null,"output":[{"id":"fc_0c55ce0248236456006a080d7243f081979ed62ae731af094f","type":"function_call","status":"completed","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}","call_id":"call_GYN9NJStjfuoEYVeEhtKYPpU","name":"math_operation"}],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"in_memory","reasoning":{"effort":"none","summary":null},"safety_identifier":null,"service_tier":"default","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":{"input_tokens":91,"input_tokens_details":{"cached_tokens":0},"output_tokens":26,"output_tokens_details":{"reasoning_tokens":0},"total_tokens":117},"user":null,"metadata":{}},"sequence_number":18}
+        data: {"type":"response.completed","response":{"id":"resp_0ac0d26b65301b88006a0b11f76c00819498fc8a3c3a454fd3","object":"response","created_at":1779110391,"status":"completed","background":false,"completed_at":1779110392,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-5.4-2026-03-05","moderation":null,"output":[{"id":"fc_0ac0d26b65301b88006a0b11f7d900819497a601994e8baf2e","type":"function_call","status":"completed","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}","call_id":"call_FOcPAk79QeAm8mWtlml5Wc7l","name":"math_operation"}],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"in_memory","reasoning":{"effort":"none","summary":null},"safety_identifier":null,"service_tier":"default","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":{"input_tokens":91,"input_tokens_details":{"cached_tokens":0},"output_tokens":26,"output_tokens_details":{"reasoning_tokens":0},"total_tokens":117},"user":null,"metadata":{}},"sequence_number":18}
 
-  recorded_at: Sat, 16 May 2026 06:23:46 GMT
+  recorded_at: Mon, 18 May 2026 13:19:52 GMT
 recorded_with: VCR 6.4.0
 ...
