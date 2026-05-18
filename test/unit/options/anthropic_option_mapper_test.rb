@@ -4,49 +4,56 @@ require "test_helper"
 require_relative "option_mapper_fixture"
 
 class AnthropicOptionMapperTest < Test
-  test "maps max_completion_tokens to max_tokens" do
-    mapped = LlmGateway::Adapters::AnthropicOptionMapper.map(max_completion_tokens: 321)
+  test "passes mapped managed options and provider-native options through adapter to client" do
+    client = AnthropicOptionsFakeClient.new
+    adapter = LlmGateway::Adapters::Anthropic::MessagesAdapter.new(client)
 
-    assert_equal 321, mapped[:max_tokens]
-    refute mapped.key?(:max_completion_tokens)
+    adapter.stream(
+      "hello",
+      max_completion_tokens: 321,
+      reasoning: "high",
+      response_format: "json_object",
+      container: "container_123",
+      service_tier: "standard_only",
+      stop_sequences: [ "END" ],
+      top_k: 10,
+      top_p: 0.9
+    )
+
+    assert_equal(
+      {
+        max_tokens: 321,
+        thinking: { type: "enabled", budget_tokens: 10_240 },
+        output_config: { format: "json_schema" },
+        container: "container_123",
+        service_tier: "standard_only",
+        stop_sequences: [ "END" ],
+        top_k: 10,
+        top_p: 0.9
+      },
+      client.options
+    )
   end
 
-  test "sets default max_tokens" do
-    mapped = LlmGateway::Adapters::AnthropicOptionMapper.map({})
+  test "raises for unknown provider options" do
+    error = assert_raises(ArgumentError) do
+      LlmGateway::Adapters::AnthropicOptionMapper.map(unknown_option: true)
+    end
 
-    assert_equal 20_480, mapped[:max_tokens]
+    assert_includes error.message, "unknown_option"
   end
 
-  test "forwards cache_retention as is" do
-    mapped = LlmGateway::Adapters::AnthropicOptionMapper.map(cache_retention: "long")
-
-    assert_equal "long", mapped[:cache_retention]
-    refute mapped.key?(:prompt_cache_retention)
-  end
-
-  test "forwards none cache_retention" do
-    mapped = LlmGateway::Adapters::AnthropicOptionMapper.map(cache_retention: "none")
-
-    assert_equal "none", mapped[:cache_retention]
-  end
-
-  test "maps reasoning to thinking with budget tokens" do
-    mapped = LlmGateway::Adapters::AnthropicOptionMapper.map(reasoning: "high")
-
-    assert_equal({ type: "enabled", budget_tokens: 10_240 }, mapped[:thinking])
-    refute mapped.key?(:reasoning)
-  end
-
-  test "none reasoning is removed" do
-    mapped = LlmGateway::Adapters::AnthropicOptionMapper.map(reasoning: "none")
-
-    refute mapped.key?(:thinking)
-    refute mapped.key?(:reasoning)
-  end
-
-  test "raises for invalid reasoning" do
+  test "does not handle transcript tools or system as options" do
     assert_raises(ArgumentError) do
-      LlmGateway::Adapters::AnthropicOptionMapper.map(reasoning: "extreme")
+      LlmGateway::Adapters::AnthropicOptionMapper.map(messages: [])
+    end
+
+    assert_raises(ArgumentError) do
+      LlmGateway::Adapters::AnthropicOptionMapper.map(tools: [])
+    end
+
+    assert_raises(ArgumentError) do
+      LlmGateway::Adapters::AnthropicOptionMapper.map(system: "You are helpful")
     end
   end
 
@@ -63,5 +70,20 @@ class AnthropicOptionMapperTest < Test
       },
       mapped
     )
+  end
+
+  class AnthropicOptionsFakeClient < LlmGateway::Clients::Anthropic
+    attr_reader :options
+
+    def initialize
+      super(model_key: "claude-sonnet-4-20250514", api_key: "test-key")
+    end
+
+    def stream(_messages, tools:, system:, **options)
+      @options = options
+      yield({ event: "message_start", data: { message: { id: "msg_123", model: model_key, role: "assistant" } } })
+      yield({ event: "message_delta", data: { delta: { stop_reason: "end_turn" } } })
+      yield({ event: "message_stop", data: {} })
+    end
   end
 end
