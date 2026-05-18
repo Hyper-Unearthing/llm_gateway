@@ -8,6 +8,14 @@ require_relative "../../utils/live_test_helper"
 class StreamImageTest < Test
   include LiveTestHelper
 
+  PAIRS = [
+    { provider: "openai_apikey_completions", model: "gpt-5.1" },
+    { provider: "anthropic_apikey_messages", model: "claude-sonnet-4-20250514" },
+    { provider: "openai_apikey_responses", model: "gpt-5.4" },
+    { provider: "anthropic_oauth_messages", model: "claude-sonnet-4-20250514" },
+    { provider: "openai_oauth_codex", model: "gpt-5.4" }
+  ].freeze
+
   def teardown
     LlmGateway.reset_configuration!
   end
@@ -46,38 +54,20 @@ class StreamImageTest < Test
     lower_content = text_content.text.downcase
     assert_includes lower_content, "red"
     assert_includes lower_content, "circle"
+
+    response
   end
 
   def self.define_stream_image_tests_for(provider:, model:)
     test "live_image_streaming_#{provider}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
-        basic_image_streaming_test(adapter)
+        response = basic_image_streaming_test(adapter)
+        record_live_handoff_result(test_file: __FILE__, provider:, model:, result: response)
       end
     end
   end
 
-  define_stream_image_tests_for(
-    provider: "openai_apikey_completions",
-    model: "gpt-5.1"
-  )
-
-  define_stream_image_tests_for(
-    provider: "anthropic_apikey_messages",
-    model: "claude-sonnet-4-20250514"
-  )
-
-  define_stream_image_tests_for(
-    provider: "openai_apikey_responses",
-    model: "gpt-5.4"
-  )
-
-  define_stream_image_tests_for(
-    provider: "anthropic_oauth_messages",
-    model: "claude-sonnet-4-20250514"
-  )
-
-  define_stream_image_tests_for(
-    provider: "openai_oauth_codex",
-    model: "gpt-5.4"
-  )
+  PAIRS.each do |pair|
+    define_stream_image_tests_for(provider: pair[:provider], model: pair[:model])
+  end
 end

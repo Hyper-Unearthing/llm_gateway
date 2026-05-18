@@ -10,6 +10,14 @@ class StreamTest < Test
   include CalculatorToolHelper
   include LiveTestHelper
 
+  PAIRS = [
+    { provider: "openai_apikey_completions", model: "gpt-5.1" },
+    { provider: "anthropic_apikey_messages", model: "claude-sonnet-4-20250514" },
+    { provider: "openai_apikey_responses", model: "gpt-5.4" },
+    { provider: "anthropic_oauth_messages", model: "claude-sonnet-4-20250514" },
+    { provider: "openai_oauth_codex", model: "gpt-5.4" }
+  ].freeze
+
   def teardown
     LlmGateway.reset_configuration!
   end
@@ -85,6 +93,8 @@ class StreamTest < Test
     assert_equal 15, tool_call.input[:a]
     assert_equal 27, tool_call.input[:b]
     assert_includes %w[add subtract multiply divide], tool_call.input[:operation]
+
+    response
   end
 
   def basic_streaming_text_test(adapter)
@@ -109,6 +119,8 @@ class StreamTest < Test
     assert_equal true, text_completed, "text end event occurred"
     assert_equal "assistant", response.role
     assert response.content.any? { |block| block.type == "text" }
+
+    response
   end
 
   def multi_turn_tool_stream_test(adapter)
@@ -122,6 +134,7 @@ class StreamTest < Test
     all_text_content = +""
     has_seen_tool_calls = false
     max_turns = 5
+    final_response = nil
 
     max_turns.times do
       streamed_tool_args = Hash.new { |hash, key| hash[key] = +"" }
@@ -144,6 +157,7 @@ class StreamTest < Test
         end
       end
 
+      final_response = response
       transcript << response.to_h
 
       results = []
@@ -188,51 +202,34 @@ class StreamTest < Test
       assert_includes all_text_content, "714"
       assert_includes all_text_content, "887"
     end
+
+    final_response
   end
 
   def self.define_stream_tests_for(provider:, model:)
     test "live_basic_tool_call_#{provider}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
-        basic_tool_call(adapter)
+        response = basic_tool_call(adapter)
+        record_live_handoff_result(test_file: __FILE__, provider:, model:, result: response)
       end
     end
 
-
     test "live_text_streaming_#{provider}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
-        basic_streaming_text_test(adapter)
+        response = basic_streaming_text_test(adapter)
+        record_live_handoff_result(test_file: __FILE__, provider:, model:, result: response)
       end
     end
 
     test "live_multi_turn_tool_streaming_#{provider}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
-        multi_turn_tool_stream_test(adapter)
+        response = multi_turn_tool_stream_test(adapter)
+        record_live_handoff_result(test_file: __FILE__, provider:, model:, result: response)
       end
     end
   end
 
-  define_stream_tests_for(
-    provider: "openai_apikey_completions",
-    model: "gpt-5.1"
-  )
-
-  define_stream_tests_for(
-    provider: "anthropic_apikey_messages",
-    model: "claude-sonnet-4-20250514"
-  )
-
-  define_stream_tests_for(
-    provider: "openai_apikey_responses",
-    model: "gpt-5.4"
-  )
-
-  define_stream_tests_for(
-    provider: "anthropic_oauth_messages",
-    model: "claude-sonnet-4-20250514"
-  )
-
-  define_stream_tests_for(
-    provider: "openai_oauth_codex",
-    model: "gpt-5.4"
-  )
+  PAIRS.each do |pair|
+    define_stream_tests_for(provider: pair[:provider], model: pair[:model])
+  end
 end

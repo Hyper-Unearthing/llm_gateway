@@ -7,6 +7,14 @@ require_relative "../../utils/live_test_helper"
 class StreamReasoningTest < Test
   include LiveTestHelper
 
+  PAIRS = [
+    { provider: "openai_apikey_completions", model: "gpt-5.1" },
+    { provider: "anthropic_apikey_messages", model: "claude-sonnet-4-20250514" },
+    { provider: "openai_apikey_responses", model: "gpt-5.4" },
+    { provider: "anthropic_oauth_messages", model: "claude-sonnet-4-20250514" },
+    { provider: "openai_oauth_codex", model: "gpt-5.4" }
+  ].freeze
+
   def teardown
     LlmGateway.reset_configuration!
   end
@@ -45,38 +53,20 @@ class StreamReasoningTest < Test
     else
       assert_operator response.usage[:reasoning_tokens], :>, 0
     end
+
+    response
   end
 
   def self.define_stream_reasoning_tests_for(provider:, model:)
     test "live_basic_thinking_#{provider}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
-        basic_thinking_test(adapter, reasoning: "high")
+        response = basic_thinking_test(adapter, reasoning: "high")
+        record_live_handoff_result(test_file: __FILE__, provider:, model:, result: response)
       end
     end
   end
 
-  define_stream_reasoning_tests_for(
-    provider: "openai_apikey_completions",
-    model: "gpt-5.1"
-  )
-
-  define_stream_reasoning_tests_for(
-    provider: "anthropic_apikey_messages",
-    model: "claude-sonnet-4-20250514"
-  )
-
-  define_stream_reasoning_tests_for(
-    provider: "openai_apikey_responses",
-    model: "gpt-5.4"
-  )
-
-  define_stream_reasoning_tests_for(
-    provider: "anthropic_oauth_messages",
-    model: "claude-sonnet-4-20250514"
-  )
-
-  define_stream_reasoning_tests_for(
-    provider: "openai_oauth_codex",
-    model: "gpt-5.4"
-  )
+  PAIRS.each do |pair|
+    define_stream_reasoning_tests_for(provider: pair[:provider], model: pair[:model])
+  end
 end

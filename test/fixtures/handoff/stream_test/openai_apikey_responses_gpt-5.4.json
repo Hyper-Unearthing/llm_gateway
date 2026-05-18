@@ -1,0 +1,71 @@
+{
+  "live_text_streaming_openai_apikey_responses_gpt-5.4": {
+    "id": "resp_0d578639f2de0814006a0b120985708193966e046567eec838",
+    "model": "gpt-5.4-2026-03-05",
+    "usage": {
+      "input_tokens": 13,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 9,
+      "reasoning_tokens": 0
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "text",
+        "text": "1\n2\n3"
+      }
+    ]
+  },
+  "live_basic_tool_call_openai_apikey_responses_gpt-5.4": {
+    "id": "resp_0ac0d26b65301b88006a0b11f76c00819498fc8a3c3a454fd3",
+    "model": "gpt-5.4-2026-03-05",
+    "usage": {
+      "input_tokens": 91,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 26,
+      "reasoning_tokens": 0
+    },
+    "role": "assistant",
+    "stop_reason": "tool_use",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "id": "call_FOcPAk79QeAm8mWtlml5Wc7l",
+        "type": "tool_use",
+        "name": "math_operation",
+        "input": {
+          "a": 15,
+          "b": 27,
+          "operation": "add"
+        }
+      }
+    ]
+  },
+  "live_multi_turn_tool_streaming_openai_apikey_responses_gpt-5.4": {
+    "id": "resp_05bbf2bae73ba875006a0b11dfa4c48190bca813d588d2ffb5",
+    "model": "gpt-5.4-2026-03-05",
+    "usage": {
+      "input_tokens": 201,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 19,
+      "reasoning_tokens": 0
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "text",
+        "text": "42 × 17 = 714  \n453 + 434 = 887"
+      }
+    ]
+  }
+}
