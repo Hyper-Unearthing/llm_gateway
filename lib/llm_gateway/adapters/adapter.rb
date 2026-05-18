@@ -12,23 +12,6 @@ module LlmGateway
         @client = client
       end
 
-      def chat(message, tools: nil, system: nil, **options)
-        normalized_input = map_input({
-          messages: sanitize_messages(normalize_messages(message)),
-          tools: tools,
-          system: normalize_system(system)
-        })
-
-        result = perform_chat(
-          normalized_input[:messages],
-          tools: normalized_input[:tools],
-          system: normalized_input[:system],
-          **map_options(options)
-        )
-
-        map_output(result)
-      end
-
       def stream(message, tools: nil, system: nil, **options, &block)
         raise LlmGateway::Errors::MissingMapperForProvider, "No stream_mapper configured" unless stream_mapper
 
@@ -92,10 +75,6 @@ module LlmGateway
         nil
       end
 
-      def output_mapper
-        raise NotImplementedError, "#{self.class} must implement #output_mapper"
-      end
-
       def file_output_mapper
         nil
       end
@@ -108,16 +87,8 @@ module LlmGateway
         input_mapper.map(input)
       end
 
-      def map_output(output)
-        output_mapper.map(output)
-      end
-
       def map_options(options)
         option_mapper.map(options)
-      end
-
-      def perform_chat(messages, tools:, system:, **options)
-        client.chat(messages, tools: tools, system: system, **options)
       end
 
       def perform_stream(messages, tools:, system:, **options, &block)

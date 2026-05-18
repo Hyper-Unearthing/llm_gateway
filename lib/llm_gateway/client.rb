@@ -1,24 +1,17 @@
 # frozen_string_literal: true
 
+
 module LlmGateway
   class Client
-    def self.chat(model, message, tools: nil, system: nil, api_key: nil, refresh_token: nil, expires_at: nil, **options)
-      adapter = build_adapter_from_model(model, api_key: api_key, refresh_token: refresh_token, expires_at: expires_at)
-      adapter.chat(message, tools: tools, system: system, **options)
-    end
-
-    def self.responses(model, message, tools: nil, system: nil, api_key: nil, **options)
-      adapter = build_adapter_from_model(model, api_key: api_key, api: "responses")
-      adapter.chat(message, tools: tools, system: system, **options)
-    end
-
-    def self.build_client(provider, api_key:, model: "none")
-      adapter = LlmGateway.build_provider(
-        provider: provider,
-        api_key: api_key,
-        model_key: model
-      )
-      adapter.client
+    def self.provider_id_from_client(client)
+      case client
+      when LlmGateway::Clients::Anthropic
+        "anthropic"
+      when LlmGateway::Clients::OpenAI
+        "openai"
+      when LlmGateway::Clients::Groq
+        "groq"
+      end
     end
 
     def self.upload_file(provider, **kwargs)
@@ -38,54 +31,5 @@ module LlmGateway
       )
       adapter.download_file(**kwargs)
     end
-
-    def self.provider_from_model(model)
-      return "anthropic" if model.start_with?("claude")
-      return "groq" if model.start_with?("llama")
-      return "openai" if model.start_with?("gpt") ||
-                         model.start_with?("o4-") ||
-                         model.start_with?("openai")
-
-      raise LlmGateway::Errors::UnsupportedModel, model
-    end
-
-    def self.provider_id_from_client(client)
-      case client
-      when LlmGateway::Clients::Anthropic
-        "anthropic"
-      when LlmGateway::Clients::OpenAI
-        "openai"
-      when LlmGateway::Clients::Groq
-        "groq"
-      else
-        client.class.name.downcase
-      end
-    end
-
-    # --- private helpers ---
-
-    def self.build_adapter_from_model(model, api_key: nil, refresh_token: nil, expires_at: nil, api: nil)
-      provider = provider_from_model(model)
-
-      if api == "responses"
-        config = {
-          provider: "#{provider}_responses",
-          model_key: model
-        }
-        config[:api_key] = api_key if api_key
-        LlmGateway.build_provider(config)
-      else
-        provider_key = case provider
-        when "anthropic" then "anthropic_messages"
-        when "openai" then "openai_completions"
-        when "groq" then "groq_completions"
-        end
-        config = { provider: provider_key, model_key: model }
-        config[:api_key] = api_key if api_key
-        LlmGateway.build_provider(config)
-      end
-    end
-
-    private_class_method :build_adapter_from_model
   end
 end
