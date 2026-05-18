@@ -78,7 +78,8 @@ Tests live under `test/unit/options/`.
    - Keep this comment updated whenever the whitelist changes.
 
 4. **Implement managed option mapping in the mapper only**
-   - Start from a duplicate/copy of the user options.
+   - Match the coding style and structure of the closest existing mapper before changing behavior. For example, Anthropic and OpenAI Chat Completions use named default constants, `VALID_OPTIONS`, `MANAGED_OPTIONS`, a `map` method that builds `mapped_options`, explicit normalizer helpers, and `validate_options!` near the mapper.
+   - Prefer `mapped_options = options.reject { |key, _| MANAGED_OPTIONS.include?(key) }` when a mapper has multiple managed aliases; this makes alias removal explicit and keeps pass-through provider-native options obvious.
    - Remove managed aliases after mapping so the final hash contains only provider-native option keys.
    - Preserve valid provider-native options that are not managed.
    - Apply provider-specific defaults only in the mapper.
@@ -92,8 +93,14 @@ Tests live under `test/unit/options/`.
    - Validate the returned hash, not merely the input hash, so bad mapped output is caught.
 
 6. **Tests**
+   - Match the structure and naming style of the closest existing provider/API option test before adding cases. For Anthropic and OpenAI Chat Completions, prefer a compact set of broad tests:
+     - one adapter-boundary test named like `passes mapped managed options and provider-native options through adapter to client`
+     - one unknown provider option rejection test
+     - one structural field rejection test
+     - one superset/final output mapper test
    - Prefer testing option behavior at the adapter boundary by stubbing the provider client and asserting the exact options passed to the client's request/stream method. This verifies that managed options are mapped before the client and that valid provider-native options pass through the adapter layer unchanged.
-   - Keep pure mapper tests for validation/error behavior and small normalization helpers when useful, but avoid relying only on direct `OptionMapper.map(...)` assertions for passthrough behavior.
+   - Keep pure mapper tests for validation/error behavior, final-output superset assertions, and small normalization helpers when useful, but avoid relying only on direct `OptionMapper.map(...)` assertions for passthrough behavior.
+   - Fake clients in adapter-boundary stream tests should yield enough realistic stream chunks for the adapter's stream mapper and accumulator to complete without errors; do not yield only terminal/usage chunks if the mapper expects started content/tool state.
    - Add/update tests for:
      - each managed option mapping relevant to the provider/API
      - pass-through of valid provider-native options together with representative managed options in the same adapter-level test
