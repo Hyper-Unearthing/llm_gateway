@@ -111,35 +111,27 @@ class StreamTest < Test
     assert response.content.any? { |block| block.type == "text" }
   end
 
-  def multi_turn_tool_stream_test(adapter, reasoning: "high")
+  def multi_turn_tool_stream_test(adapter)
     transcript = [
       {
         role: "user",
-        content: "Think about this briefly, then calculate 42 * 17 and 453 + 434 using the math_operation tool."
+        content: "Calculate 42 * 17 and 453 + 434 using the math_operation tool."
       }
     ]
 
     all_text_content = +""
-    has_seen_thinking = false
     has_seen_tool_calls = false
     max_turns = 5
 
     max_turns.times do
       streamed_tool_args = Hash.new { |hash, key| hash[key] = +"" }
 
-      stream_kwargs = {
-        tools: [ math_operation_tool ],
-        system: "You are a helpful assistant that can use tools to answer questions."
-      }
-      stream_kwargs[:reasoning] = reasoning if reasoning
-
       response = adapter.stream(
         transcript,
-        **stream_kwargs
+        tools: [ math_operation_tool ],
+        system: "You are a helpful assistant that can use tools to answer questions."
       ) do |event|
         case event.type
-        when :reasoning_start, :reasoning_delta, :reasoning_end
-          has_seen_thinking = true
         when :tool_start
           has_seen_tool_calls = true
           assert_equal "math_operation", event.name
@@ -159,8 +151,6 @@ class StreamTest < Test
         case block.type
         when "text"
           all_text_content += block.text
-        when "reasoning"
-          has_seen_thinking = true
         when "tool_use"
           has_seen_tool_calls = true
 
@@ -190,7 +180,7 @@ class StreamTest < Test
       break if response.stop_reason == "stop"
     end
 
-    assert_equal true, (has_seen_thinking || has_seen_tool_calls)
+    assert_equal true, has_seen_tool_calls
 
     if all_text_content.empty?
       assert_equal true, has_seen_tool_calls
@@ -216,7 +206,7 @@ class StreamTest < Test
 
     test "live_multi_turn_tool_streaming_#{provider}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
-        multi_turn_tool_stream_test(adapter, reasoning: "high")
+        multi_turn_tool_stream_test(adapter)
       end
     end
   end
