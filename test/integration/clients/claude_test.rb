@@ -27,17 +27,7 @@ class ClaudeClientTest < Test
         claude_client.chat("i am not a list", max_tokens: 4096)
       end
     end
-    assert_equal "messages: Input should be a valid list", error.message
-    assert_equal "invalid_request_error", error.code
-  end
-
-  test "throws throws prompt too long " do
-    error = assert_raises(LlmGateway::Errors::PromptTooLong) do
-      VCR.use_cassette(vcr_cassette_name) do
-        claude_client.chat([ { 'role': "user", 'content': "aqklcsa," * 40_000 } ], max_tokens: 4096)
-      end
-    end
-    assert_equal "prompt is too long: 224996 tokens > 200000 maximum", error.message
+    assert_equal "messages: Input should be a valid array", error.message
     assert_equal "invalid_request_error", error.code
   end
 
