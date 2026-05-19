@@ -1,0 +1,222 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-sonnet-4-20250514","messages":[{"role":"user","content":[{"type":"text","text":"You
+        are receiving recorded final outputs from previous streaming tool-call test
+        runs.\nRead the JSON and answer in one short sentence. Include all of these
+        facts as Arabic numerals\nwhere numeric: the number of recorded outputs and
+        the tool-call sum 15 + 27.\n\n[\n  {\n    \"pair\": \"anthropic_apikey_messages_claude-sonnet-4-20250514\",\n    \"result\":
+        {\n      \"live_basic_tool_call_anthropic_apikey_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_01FJXR7FwdHYzXcs8e9yWdB3\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 914,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        115,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"tool_use\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"I''ll
+        calculate 15 + 27 for you using the math_operation tool.\"\n          },\n          {\n            \"id\":
+        \"toolu_01XPLBhPETQEPojK4d3SwQwM\",\n            \"type\": \"tool_use\",\n            \"name\":
+        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
+        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"anthropic_oauth_messages_claude-sonnet-4-20250514\",\n    \"result\": {\n      \"live_basic_tool_call_anthropic_oauth_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_01U2hYxQPRqarjwXy7GSgVfP\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 944,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        113,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"tool_use\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"I''ll
+        calculate 15 + 27 using the math_operation tool.\"\n          },\n          {\n            \"id\":
+        \"toolu_012UCLg4PSsanvkFqsGcQQrV\",\n            \"type\": \"tool_use\",\n            \"name\":
+        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
+        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_apikey_completions_gpt-5.1\",\n    \"result\": {\n      \"live_basic_tool_call_openai_apikey_completions_gpt-5.1\":
+        {\n        \"id\": \"chatcmpl-Dh8YdEAG3J6FSwc8bzL41nK6iJvHt\",\n        \"model\":
+        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input_tokens\":
+        173,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 31,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"tool_use\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"id\":
+        \"call_kNZPdCrYiBwQThkT2XetjOud\",\n            \"type\": \"tool_use\",\n            \"name\":
+        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
+        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_apikey_responses_gpt-5.4\",\n    \"result\": {\n      \"live_basic_tool_call_openai_apikey_responses_gpt-5.4\":
+        {\n        \"id\": \"resp_067b2f2b40613133006a0c07fc2df48196acdf3f99c61c218d\",\n        \"model\":
+        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input_tokens\":
+        91,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 26,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"tool_use\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"id\":
+        \"call_2lpvHGYOsCYgapiiw0S4wJJ0\",\n            \"type\": \"tool_use\",\n            \"name\":
+        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
+        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_oauth_codex_gpt-5.4\",\n    \"result\": {\n      \"live_basic_tool_call_openai_oauth_codex_gpt-5.4\":
+        {\n        \"id\": \"resp_08d45c08871bec76016a0c080203848191a4ad666441082231\",\n        \"model\":
+        \"gpt-5.4\",\n        \"usage\": {\n          \"input_tokens\": 101,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        26,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"tool_use\",\n        \"provider\": \"openai\",\n        \"api\": \"responses\",\n        \"content\":
+        [\n          {\n            \"id\": \"call_AMb9J6HBDtM0EWewOsTpJ7SN\",\n            \"type\":
+        \"tool_use\",\n            \"name\": \"math_operation\",\n            \"input\":
+        {\n              \"a\": 15,\n              \"b\": 27,\n              \"operation\":
+        \"add\"\n            }\n          }\n        ]\n      }\n    }\n  }\n]\n"}]}],"system":[{"type":"text","text":"You
+        are Claude Code, Anthropic''s official CLI for Claude."}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":10240},"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - claude-cli/2.1.2 (external, cli)
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Anthropic-Dangerous-Direct-Browser-Access:
+      - 'true'
+      Anthropic-Beta:
+      - claude-code-20250219,oauth-2025-04-20
+      X-App:
+      - cli
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 19 May 2026 06:49:51 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Anthropic-Ratelimit-Unified-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-5h-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-5h-Reset:
+      - '1779175200'
+      Anthropic-Ratelimit-Unified-5h-Utilization:
+      - '0.22'
+      Anthropic-Ratelimit-Unified-7d-Status:
+      - allowed
+      Anthropic-Ratelimit-Unified-7d-Reset:
+      - '1779274800'
+      Anthropic-Ratelimit-Unified-7d-Utilization:
+      - '0.02'
+      Anthropic-Ratelimit-Unified-Representative-Claim:
+      - five_hour
+      Anthropic-Ratelimit-Unified-Fallback-Percentage:
+      - '0.5'
+      Anthropic-Ratelimit-Unified-Reset:
+      - '1779175200'
+      Anthropic-Ratelimit-Unified-Overage-Disabled-Reason:
+      - org_level_disabled
+      Anthropic-Ratelimit-Unified-Overage-Status:
+      - rejected
+      Request-Id:
+      - req_011CbBUwCxmJ12XBxx1Tq8CB
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Anthropic-Organization-Id:
+      - 158912a9-5288-4061-b004-8c1100f6ed5b
+      Traceresponse:
+      - 00-4acbb78b5f35508b575b2b41a55dcb00-5a6c34d7e023c1fb-01
+      Server:
+      - cloudflare
+      X-Envoy-Upstream-Service-Time:
+      - '981'
+      Vary:
+      - Accept-Encoding
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - _cfuvid=1QjnvxSc5xeN4pbRC9G5H2k2QeRW7YZ27LRrvNkDZPg-1779173390.7227945-1.0.1.1-P9bmR0H9x_RBbBXu8LMkzjfrEwOtm4IhqYSkNgspndg;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
+      Cf-Ray:
+      - 9fe129fc0ef39e1e-SIN
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        event: message_start
+        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_019gAcGw85j7BobGorQfqr2h","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":1795,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":1,"service_tier":"standard","inference_geo":"not_available"}}   }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}         }
+
+        event: ping
+        data: {"type": "ping"}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"Let"}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" me analyze this JSON data to extract the required information:\n\n1. I need to count the number of recorded"} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" outputs\n2. I need to calculate the tool-call sum 15"}             }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" + 27\n\nLooking at the JSON structure, I can see there are 5 different test runs"}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"/pairs:\n\n1. \"anthropic_apikey_messages_claude-sonnet-4-"}        }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"20250514\"\n2. \"anthropic_oauth_messages_claude-sonnet-4-20250514\"\n3. \""}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"openai_apikey_completions_gpt-5.1\"\n4. \"openai_apikey_responses_gpt-5.4\"\n5. \"openai_oauth_codex_gpt-5.4\"\n\nSo there"}   }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" are 5 recorded outputs.\n\nFor the tool-call sum, I can see that in each test run, there's a tool"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"_use call to \"math_operation\" with inputs:\n- \"a\": 15\n- \"b\": 27\n- \"operation\":"}          }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" \"add\"\n\nSo the sum is 15 + 27 = 42.\n\nThe user wants me to answer in one"}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" short sentence including both facts as Arabic numerals."}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":""}              }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"Es4HCmIIDRgCKkDDrUDIVvwGrIlDtvcNFMqcdTwZOc+bYoLImv0AQURVjk37JHr7RH+bLLPLxHLr8ljpT5rRfhShvnJql4Iymuc0MhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIMssn8iVq9un8l6xI7Ggxmo+hlGZ9beVdXWaUiMASrLq7cAcIibSDq6+F7KViAd0e/voz9kh+tylHhxqzcy0mWia5VCBaHQxjdqEZ+EiqZBu86+HXbTuzexq9heJ1dQ+oOtTdKscMw5R720z6PkJLCDpkzSefgOA5mxonHrEbFkAvEqqAEC2TB8hBkv/NYz6ymoHhZyi+xmgNoVtGpGIUyyTMhlPZ4u1PQbb8C3FDLGH/NUhwBEcETdbHcZNjSNx7gn0aN5lpt1beUPiR0PnlUEbxeGFp9goNJ3mDevxZ75RqEk8hgR7O8utHhZA+xRPh3yVDk32+TN/Y/etuqru8XhGZumrHo9+Gw9nlG7QhRBHd6pzDSVK1M14xrmBDd8i6s66SR4X3Cyb8osyfow2lGv3gY2O5dEPsT9j0HW5GnVl3/8LG7e3K38scJ7UPeav/k2zCLJpFPaCE6/ppdscJ1thKBJ9kfAbKtmEgNutbeA3VT7guLPhiyUscC8bqcqgagokyn9uPejbZO9cwEcPPiYfE2lPIoO+GGDeCk7aP1tTR++0atmI2bdcJE1e2fuWuaA3K7NVCy9AclNQaUTC0bP+1IGD1LlW5pftdLt20vnXkeltoaQjh5H+Bl+61rBZMFeVRuDBLp8VjRa2spoZV8mzrlijxeIqnJbm6QRdZYzh8n/0EYarv4ME+uPKfXUvMCVytgSYMmg+suZm7wcmKPpRqa2rpPm7Ow9si/XV3P/rHVLeeqmonCcoug3n07dJDQstVyvAlX7zXeMn11qr5InT5E36nNn/JNdE6r2Wa6YHhCRiDtX5EIrucFeBXGZyoCQKwsS1ILxkjl+lOYP1Vrddrwq5M48WDW+5Wh0rTkyU8/uKd+KKEYi/48nNpn3fEwMB/zK9/Yuyc09XdHqj/9h3h/WJfjNmOePyxXCaV1qz0nKDqvjzgo7VopWhC10kuLyUKoC2lzvmUjTvTAXpaEpKqHSj+GI0ujGy8Zb47IqwQ2YpA+QDvRouiBXOeq6bZ5/aJlgJ1gl4Lqi0BEW/86bc+RyUvIbSZXyjTSRXmwEMM97xjvHMyrU0bjk1Il5jEVlaE/wDJIAfRoIDd8aIzsb+tb5E25Q2eXbwTcsyxjW8Y+jRAdiJa6Yo+TjPqhraUFyUDkp3qwEf0YAQ=="}  }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":0            }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"There are 5 recorded outputs and the tool-call sum 15 + 27 equals 42."}              }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":1             }
+
+        event: message_delta
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":1795,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":301}          }
+
+        event: message_stop
+        data: {"type":"message_stop"    }
+
+  recorded_at: Tue, 19 May 2026 06:49:57 GMT
+recorded_with: VCR 6.4.0
+...

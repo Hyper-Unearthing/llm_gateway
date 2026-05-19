@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.anthropic.com/v1/messages
     body:
       encoding: UTF-8
-      string: '{"model":"randomodel","max_tokens":4096,"messages":[{"role":"user","content":"hello"}]}'
+      string: '{"model":"randomodel","messages":[{"role":"user","content":"hello"}],"max_tokens":4096}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -29,7 +29,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sat, 14 Feb 2026 14:44:07 GMT
+      - Tue, 19 May 2026 06:47:02 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -39,26 +39,33 @@ http_interactions:
       X-Should-Retry:
       - 'false'
       Request-Id:
-      - req_011CY894oCzKRAnqEUvV5P6v
+      - req_011CbBUinJc959nvMXUi5Y44
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Traceresponse:
+      - 00-e71eb41fd632b63da653428343c5853a-691ef13a9afbc380-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '132'
+      - '9'
+      Vary:
+      - Accept-Encoding
       Cf-Cache-Status:
       - DYNAMIC
-      X-Robots-Tag:
-      - none
+      Set-Cookie:
+      - _cfuvid=LGX_BYRVZy6Fvg2JSZFZXWBdgcyxWbBmDNRH7Q4k.x4-1779173222.1092207-1.0.1.1-TQJynErRDeaHZBT1Q9gI1af2oTAkJNnF8dfkn.vxIQw;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
       Cf-Ray:
-      - 9cdd577a2ce781d4-SIN
+      - 9fe125de2c654a50-SIN
     body:
       encoding: ASCII-8BIT
       string: '{"type":"error","error":{"type":"not_found_error","message":"model:
-        randomodel"},"request_id":"req_011CY894oCzKRAnqEUvV5P6v"}'
-  recorded_at: Sat, 14 Feb 2026 14:44:07 GMT
+        randomodel"},"request_id":"req_011CbBUinJc959nvMXUi5Y44"}'
+  recorded_at: Tue, 19 May 2026 06:47:02 GMT
 recorded_with: VCR 6.4.0

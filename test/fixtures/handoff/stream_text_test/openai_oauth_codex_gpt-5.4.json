@@ -1,0 +1,23 @@
+{
+  "live_text_streaming_openai_oauth_codex_gpt-5.4": {
+    "id": "resp_00e8c86802bb17fe016a0b23e415cc81919f8954c70b66004a",
+    "model": "gpt-5.4",
+    "usage": {
+      "input_tokens": 23,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 8,
+      "reasoning_tokens": 0
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "text",
+        "text": "1, 2, 3"
+      }
+    ]
+  }
+}

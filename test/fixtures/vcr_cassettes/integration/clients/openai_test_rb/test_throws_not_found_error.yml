@@ -25,33 +25,36 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sat, 14 Feb 2026 14:44:01 GMT
+      - Tue, 19 May 2026 06:50:03 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
       - chunked
       Connection:
       - keep-alive
-      Vary:
-      - Origin
-      X-Request-Id:
-      - req_f98f68c539d14dccacfd67d8abeda8a5
-      X-Openai-Proxy-Wasm:
-      - v0.1
-      Server:
-      - cloudflare
+      Cf-Ray:
+      - 9fe12a4d4ed46141-SIN
       Cf-Cache-Status:
       - DYNAMIC
-      Set-Cookie:
-      - __cf_bm=d.LNTPHYn9PouTW.CXK.nSxgV9At64cC76ZDPvF2Zcc-1771080240.2710922-1.0.1.1-xF4P3VI52u.6ZnCjL7OqHTp9ZrtKoXgAE9VJBFPYu.zz99f_55teBs1q2afWyw6EXS8QZQNaXBIZS1jW8en.sk2BwW6qyVN21cbAddbp1o0YAB4gqLjpEq2YHYoxtXD2;
-        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
-        15:14:01 GMT
+      Server:
+      - cloudflare
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Origin
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
       X-Content-Type-Options:
       - nosniff
-      Cf-Ray:
-      - 9cdd574dab55ff7e-SIN
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      X-Request-Id:
+      - req_58e3e7fc5711448885fbf61195e6029a
+      Set-Cookie:
+      - __cf_bm=jiKA.pkk8Fgf.uEhQIoJwDr6wS1mRkoN2Y92BcSVJgY-1779173403.7255845-1.0.1.1-CHiDOafN_AnG.ZGjJaKrRnF._t9xzifpP33KxgDdsdANaXSQ4yo_WL5qqesvyxiPQrVmp0hnDbmW7TCe67sXRBVk9bYQlkQIRj9D6Q6MMpc4V4Mznex99fuq8YyQwDR4;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Tue,
+        19 May 2026 07:20:03 GMT
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -65,5 +68,5 @@ http_interactions:
                 "code": "model_not_found"
             }
         }
-  recorded_at: Sat, 14 Feb 2026 14:44:01 GMT
+  recorded_at: Tue, 19 May 2026 06:50:03 GMT
 recorded_with: VCR 6.4.0

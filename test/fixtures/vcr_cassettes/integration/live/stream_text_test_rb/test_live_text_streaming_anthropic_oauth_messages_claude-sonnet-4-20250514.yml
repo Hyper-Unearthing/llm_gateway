@@ -35,7 +35,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 18 May 2026 13:19:40 GMT
+      - Tue, 19 May 2026 06:49:09 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -49,74 +49,74 @@ http_interactions:
       Anthropic-Ratelimit-Unified-5h-Status:
       - allowed
       Anthropic-Ratelimit-Unified-5h-Reset:
-      - '1779127800'
+      - '1779175200'
       Anthropic-Ratelimit-Unified-5h-Utilization:
-      - '0.0'
+      - '0.22'
       Anthropic-Ratelimit-Unified-7d-Status:
       - allowed
       Anthropic-Ratelimit-Unified-7d-Reset:
       - '1779274800'
       Anthropic-Ratelimit-Unified-7d-Utilization:
-      - '0.0'
+      - '0.02'
       Anthropic-Ratelimit-Unified-Representative-Claim:
       - five_hour
       Anthropic-Ratelimit-Unified-Fallback-Percentage:
       - '0.5'
       Anthropic-Ratelimit-Unified-Reset:
-      - '1779127800'
+      - '1779175200'
       Anthropic-Ratelimit-Unified-Overage-Disabled-Reason:
       - org_level_disabled
       Anthropic-Ratelimit-Unified-Overage-Status:
       - rejected
       Request-Id:
-      - req_011CbA6qpPzjzTQdkbvC5dWZ
+      - req_011CbBUt7wJfd5usuXqnqHn1
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 158912a9-5288-4061-b004-8c1100f6ed5b
       Traceresponse:
-      - 00-4316f7513aa4cad730a09735118eb257-71327016cb574fd0-01
+      - 00-0913c32eaa0e9430f783910a9d1a7b78-617b67e80020e26d-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '7970'
+      - '721'
       Vary:
       - Accept-Encoding
-      Cf-Cache-Status:
-      - DYNAMIC
       Set-Cookie:
-      - _cfuvid=lh6W6y_MBAiHm4wd35uewqCQXWABk4PmhmRdKoPEwC8-1779110371.8922548-1.0.1.1-HcpsPbOI1XU1fZsJsdJO7wsymqk56tqSRae6OAN1vSM;
+      - _cfuvid=vnhBSQRXBHz38GykI1OExFytsRd5v4Yaa3rbkoyz.zg-1779173348.8483746-1.0.1.1-OlyWtsrSnsICo0_VThaqO1b.pTA5NDi456Ud6y4CgZA;
         HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
       X-Robots-Tag:
       - none
+      Cf-Cache-Status:
+      - DYNAMIC
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 9fdb27705c40c49b-SIN
+      - 9fe128f64b788331-SIN
     body:
       encoding: ASCII-8BIT
       string: |+
         event: message_start
-        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01XqTGJreUwzt3JLTCVcX6mD","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":29,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":1,"service_tier":"standard","inference_geo":"not_available"}}         }
+        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01NSpFEf4hGB3CxyNq9FRkhb","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":29,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":1,"service_tier":"standard","inference_geo":"not_available"}}             }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}               }
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}            }
 
         event: ping
         data: {"type": "ping"}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"1\n2\n3"}             }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"1\n2\n3"}              }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":0           }
+        data: {"type":"content_block_stop","index":0    }
 
         event: message_delta
-        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":29,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":9}             }
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":29,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":9}              }
 
         event: message_stop
-        data: {"type":"message_stop"    }
+        data: {"type":"message_stop" }
 
-  recorded_at: Mon, 18 May 2026 13:19:40 GMT
+  recorded_at: Tue, 19 May 2026 06:49:09 GMT
 recorded_with: VCR 6.4.0
 ...

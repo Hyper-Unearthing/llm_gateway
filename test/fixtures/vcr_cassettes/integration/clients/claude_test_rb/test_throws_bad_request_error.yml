@@ -5,8 +5,7 @@ http_interactions:
     uri: https://api.anthropic.com/v1/messages
     body:
       encoding: UTF-8
-      string: '{"model":"claude-3-7-sonnet-20250219","max_tokens":4096,"messages":"i
-        am not a list"}'
+      string: '{"model":"claude-3-7-sonnet-20250219","messages":"i am not a list","max_tokens":4096}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -30,36 +29,43 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Sat, 14 Feb 2026 14:44:10 GMT
+      - Tue, 19 May 2026 06:47:04 GMT
       Content-Type:
       - application/json
-      Content-Length:
-      - '152'
+      Transfer-Encoding:
+      - chunked
       Connection:
       - keep-alive
       X-Should-Retry:
       - 'false'
       Request-Id:
-      - req_011CY894xsuZuzLb6LirnWoD
+      - req_011CbBUiurn6vEoQCGXD9MQ9
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Traceresponse:
+      - 00-b839a9fa1588ac0f7b92caaae801bfe2-31361f18fdf9a917-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '102'
+      - '48'
+      Vary:
+      - Accept-Encoding
       Cf-Cache-Status:
       - DYNAMIC
-      X-Robots-Tag:
-      - none
+      Set-Cookie:
+      - _cfuvid=76rbGanFuuBUS7l0bqKMoKMjc15b_XZJIt4_nSF6V8I-1779173223.9287236-1.0.1.1-1NDh7hiNIu3IxTqhCCFDbRlQiW7xFfUOXtDL6Or19BY;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
       Cf-Ray:
-      - 9cdd57880daa1658-SIN
+      - 9fe125e98c215feb-SIN
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: '{"type":"error","error":{"type":"invalid_request_error","message":"messages:
-        Input should be a valid list"},"request_id":"req_011CY894xsuZuzLb6LirnWoD"}'
-  recorded_at: Sat, 14 Feb 2026 14:44:10 GMT
+        Input should be a valid array"},"request_id":"req_011CbBUiurn6vEoQCGXD9MQ9"}'
+  recorded_at: Tue, 19 May 2026 06:47:04 GMT
 recorded_with: VCR 6.4.0

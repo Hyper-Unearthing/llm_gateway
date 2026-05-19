@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.groq.com/openai/v1/chat/completions
     body:
       encoding: UTF-8
-      string: '{"model":"openai/gpt-oss-20b","messages":["i am not a bad"],"temperature":0,"max_completion_tokens":4096,"response_format":{"type":"text"},"tools":null}'
+      string: '{"model":"openai/gpt-oss-20b","messages":["i am not a bad"],"tools":null,"max_completion_tokens":4096,"temperature":0,"response_format":{"type":"text"}}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -25,7 +25,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Sat, 14 Feb 2026 14:43:45 GMT
+      - Tue, 19 May 2026 06:50:05 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -41,11 +41,11 @@ http_interactions:
       X-Groq-Region:
       - bom
       X-Request-Id:
-      - req_01khe9q4jdfqhbtr1g0p9r2jky
+      - req_01krzfzcykfk4vgk8901b9pc5b
       Set-Cookie:
-      - __cf_bm=TEhwch8CyhA9ZWyXS_IrNs5bpWC6gtMnXLMifCrhfkU-1771080225.3070385-1.0.1.1-Fh5HmqfSVHm5FkGg61s97VoJtY0nyS7AiFDeDF2fIlQeZWMtr49lO2aaGfQvzYZujVD5jFVkPJ2kIEJpB333mqJYHYKh0tYiULrpPA4W2fu.eqD_jg7hAiIoEhxNBiKg;
-        HttpOnly; Secure; Path=/; Domain=groq.com; Expires=Sat, 14 Feb 2026 15:13:45
-        GMT
+      - __cf_bm=ydUSzfs00T8p5i3x_W0H.C_FO2rftySZOpTJ8BT.FcY-1779173405.617032-1.0.1.1-qKZJTdgmLqjrDxw3bT6nocb8lzoPC862crf_wfhDaOV2i7fEec4zAsw3Cmgbn54bQFbFH5WeK4M2Eh8te.t2ZM.ge0iLyrcefxNz7Gnc3wnFhAP4l_2kGqlPEHGqlY8J;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=groq.com; Expires=Tue, 19
+        May 2026 07:20:05 GMT
       Via:
       - 1.1 google
       Strict-Transport-Security:
@@ -53,7 +53,7 @@ http_interactions:
       Cf-Cache-Status:
       - DYNAMIC
       Cf-Ray:
-      - 9cdd56f02a5d9ce4-SIN
+      - 9fe12a591d96f8c6-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -62,5 +62,5 @@ http_interactions:
         the discriminator property: ''role''","type":"invalid_request_error"}}
 
         '
-  recorded_at: Sat, 14 Feb 2026 14:43:45 GMT
+  recorded_at: Tue, 19 May 2026 06:50:05 GMT
 recorded_with: VCR 6.4.0

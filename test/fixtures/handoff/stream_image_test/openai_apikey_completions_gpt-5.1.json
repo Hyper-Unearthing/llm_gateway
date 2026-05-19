@@ -1,6 +1,6 @@
 {
   "live_image_streaming_openai_apikey_completions_gpt-5.1": {
-    "id": "chatcmpl-Dg2hlDakOlhZVWMNrdGgfoerpdgj9",
+    "id": "chatcmpl-Dh8Y81vEYap50oFAlfIivp9ju15KO",
     "model": "gpt-5.1-2025-11-13",
     "usage": {
       "input_tokens": 265,
