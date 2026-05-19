@@ -39,7 +39,7 @@ class StreamAccumulator
         type: "tool_use",
         id: event.id,
         name: event.name,
-        input: ""
+        input: event.delta.to_s
       }
     when :tool_delta, :tool_end
       blocks[event.content_index][:input] += event.delta

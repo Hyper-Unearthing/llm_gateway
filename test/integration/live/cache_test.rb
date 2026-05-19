@@ -68,6 +68,14 @@ class CacheLiveTest < Test
       options: {
         cache_retention: "none"
       }
+    },
+    {
+      name: "groq_completions_none",
+      provider: "groq_completions",
+      model: "openai/gpt-oss-120b",
+      options: {
+        cache_retention: "none"
+      }
     }
   ].freeze
 

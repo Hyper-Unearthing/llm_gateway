@@ -13,7 +13,8 @@ class StreamImageTest < Test
     { provider: "anthropic_apikey_messages", model: "claude-sonnet-4-20250514" },
     { provider: "openai_apikey_responses", model: "gpt-5.4" },
     { provider: "anthropic_oauth_messages", model: "claude-sonnet-4-20250514" },
-    { provider: "openai_oauth_codex", model: "gpt-5.4" }
+    { provider: "openai_oauth_codex", model: "gpt-5.4" },
+    { provider: "groq_completions", model: "meta-llama/llama-4-scout-17b-16e-instruct", options: { max_completion_tokens: 8192, reasoning: "none" } }
   ].freeze
 
   def teardown

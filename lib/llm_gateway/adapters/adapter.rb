@@ -24,16 +24,23 @@ module LlmGateway
         accumulator = ::StreamAccumulator.new
         mapper = stream_mapper.new
 
+        emit_event = lambda do |event|
+          Array(event).each do |single_event|
+            accumulator.push(single_event)
+            block.call(single_event) if block && single_event
+          end
+        end
+
         perform_stream(
           normalized_input[:messages],
           tools: normalized_input[:tools],
           system: normalized_input[:system],
           **map_options(options)
         ) do |chunk|
-          event = mapper.map(chunk)
-          accumulator.push(event)
-          block.call(event) if block && event
+          emit_event.call(mapper.map(chunk))
         end
+
+        mapper.drain { |event| emit_event.call(event) } if mapper.respond_to?(:drain)
 
         AssistantMessage.new(
           accumulator.result.merge(

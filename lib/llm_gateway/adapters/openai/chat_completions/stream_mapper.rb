@@ -8,9 +8,6 @@ module LlmGateway
       module ChatCompletions
         class StreamMapper
           def map(chunk)
-            queued_event = shift_queued_event
-            return queued_event if queued_event
-
             data = chunk[:data] || {}
             raise_stream_error!(data) if chunk[:event] == "error" || data[:error] || data[:type] == "error"
 
@@ -35,12 +32,11 @@ module LlmGateway
             nil
           end
 
-          private
-
           def map_choice_delta(data, choice, delta)
             if !message_started? && delta[:tool_calls]&.any?
               @message_started = true
               stash_message_attributes(data, delta)
+              mark_reasoning_completed_if_needed
               return tool_event(delta[:tool_calls].first)
             end
 
@@ -57,11 +53,20 @@ module LlmGateway
               )
             end
 
-            if (content = delta[:content]) && !content.empty?
-              return text_event(content, choice[:index] || 0)
+            if (reasoning = delta[:reasoning]) && !reasoning.empty?
+              return reasoning_event(reasoning)
             end
 
-            return tool_event(delta[:tool_calls].first) if delta[:tool_calls]&.any?
+            if (content = delta[:content]) && !content.empty?
+              reasoning_end = close_reasoning_if_needed
+              text = text_event(content, choice[:index] || 0)
+              return reasoning_end ? [ reasoning_end, text ] : text
+            end
+
+            if delta[:tool_calls]&.any?
+              mark_reasoning_completed_if_needed
+              return tool_event(delta[:tool_calls].first)
+            end
 
             nil
           end
@@ -70,11 +75,16 @@ module LlmGateway
             normalized = normalize_stop_reason(finish_reason)
             stash_pending_finish_delta(stop_reason: normalized)
 
+            reasoning_end = close_reasoning_if_needed
+            return reasoning_end if reasoning_end
+
             case normalized
             when "tool_use"
               AssistantStreamEvent.new(type: :tool_end, content_index: last_started_tool_index || 0, delta: "")
             else
-              AssistantStreamEvent.new(type: :text_end, content_index: last_started_text_index || 0, delta: "")
+              return nil unless last_started_text_index
+
+              AssistantStreamEvent.new(type: :text_end, content_index: last_started_text_index, delta: "")
             end
           end
 
@@ -102,6 +112,7 @@ module LlmGateway
           end
 
           def text_event(content, content_index)
+            content_index = text_content_index(content_index)
             @last_started_text_index = content_index
 
             if started_text_blocks.include?(content_index)
@@ -112,29 +123,90 @@ module LlmGateway
             end
           end
 
+          # Groq exposes OpenAI-compatible chat completion chunks, but may include
+          # `delta.reasoning` before normal `delta.content`. The helpers below keep
+          # those reasoning blocks in the normalized content order and close them
+          # before text/tool blocks begin.
+          def reasoning_event(reasoning)
+            @last_started_reasoning_index ||= next_content_index
+            @reasoning_open = true
+
+            if @reasoning_started
+              AssistantStreamReasoningEvent.new(type: :reasoning_delta, content_index: @last_started_reasoning_index, delta: reasoning, signature: "")
+            else
+              @reasoning_started = true
+              AssistantStreamReasoningEvent.new(type: :reasoning_start, content_index: @last_started_reasoning_index, delta: reasoning, signature: "")
+            end
+          end
+
+          def close_reasoning_if_needed
+            return nil unless @reasoning_open
+
+            mark_reasoning_completed_if_needed
+            AssistantStreamReasoningEvent.new(type: :reasoning_end, content_index: @last_started_reasoning_index, delta: "", signature: "")
+          end
+
+          def mark_reasoning_completed_if_needed
+            return unless @reasoning_open
+
+            @reasoning_open = false
+            @reasoning_completed = true
+          end
+
+          def text_content_index(default_index)
+            @text_content_index ||= @reasoning_completed ? next_content_index : default_index
+          end
+
+          def next_content_index
+            used = started_text_blocks + started_tool_blocks
+            used << @last_started_reasoning_index if @last_started_reasoning_index
+            compact_used = used.compact
+            compact_used.empty? ? 0 : compact_used.max + 1
+          end
+
           def tool_event(tool_call)
-            tool_index = tool_call[:index] || 0
+            raw_tool_index = tool_call[:index] || 0
+            tool_index = tool_content_index(raw_tool_index)
             @last_started_tool_index = tool_index
             function = tool_call[:function] || {}
             arguments = function[:arguments] || ""
 
             unless started_tool_blocks.include?(tool_index)
-              pending_tool_calls[tool_index] = merge_tool_call(pending_tool_calls[tool_index], tool_call)
-              pending = pending_tool_calls[tool_index]
+              pending_tool_calls[raw_tool_index] = merge_tool_call(pending_tool_calls[raw_tool_index], tool_call)
+              pending = pending_tool_calls[raw_tool_index]
 
               return nil unless pending[:id] && pending.dig(:function, :name)
 
               started_tool_blocks << tool_index
-              return AssistantToolStartEvent.new(
+              start_event = AssistantToolStartEvent.new(
                 type: :tool_start,
                 content_index: tool_index,
                 delta: "",
                 id: pending[:id],
                 name: pending.dig(:function, :name)
               )
+              buffered_arguments = pending.dig(:function, :arguments).to_s
+              return start_event if buffered_arguments.empty?
+
+              return [
+                start_event,
+                AssistantStreamEvent.new(type: :tool_delta, content_index: tool_index, delta: buffered_arguments)
+              ]
             end
 
             AssistantStreamEvent.new(type: :tool_delta, content_index: tool_index, delta: arguments)
+          end
+
+          def tool_content_index(raw_tool_index)
+            tool_content_indexes[raw_tool_index] ||= if @reasoning_completed || @last_started_reasoning_index
+              next_content_index
+            else
+              raw_tool_index
+            end
+          end
+
+          def tool_content_indexes
+            @tool_content_indexes ||= {}
           end
 
           def stash_message_attributes(data, delta)
@@ -216,12 +288,8 @@ module LlmGateway
             @last_started_tool_index
           end
 
-          def shift_queued_event
-            queued_events.shift
-          end
-
-          def queued_events
-            @queued_events ||= []
+          def last_started_reasoning_index
+            @last_started_reasoning_index
           end
 
           def raise_stream_error!(data)
