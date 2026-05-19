@@ -25,25 +25,37 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Sat, 14 Feb 2026 16:03:41 GMT
+      - Tue, 19 May 2026 06:50:03 GMT
       Content-Type:
       - application/json
       Content-Length:
       - '208'
       Connection:
       - keep-alive
+      Cf-Ray:
+      - 9fe12a4739d3d98b-SIN
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
       Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
       - X-Request-ID
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '12'
+      - '18'
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
       - '2020-10-01'
-      Server:
-      - cloudflare
+      X-Openai-Proxy-Wasm:
+      - v0.1
       X-Ratelimit-Limit-Requests:
       - '500'
       X-Ratelimit-Remaining-Requests:
@@ -51,21 +63,11 @@ http_interactions:
       X-Ratelimit-Reset-Requests:
       - 120ms
       X-Request-Id:
-      - req_46404286598e482e88c5d729168cade2
-      X-Openai-Proxy-Wasm:
-      - v0.1
-      Cf-Cache-Status:
-      - DYNAMIC
+      - req_b8cfcbb679ca4a03b8f5174e07e5cc1c
       Set-Cookie:
-      - __cf_bm=SA0Ze1AvTx9o.2OIWEI0n6pxQS5QB5XyFevAKrHLEOU-1771085020.7427557-1.0.1.1-LPqwbE0YsRrMSueEHiVp9cRjfy23_FFdNc_PrtyRZLAvVo9V2B16Si16I2mwGQaFDOph3A4zjJcR2Rg4amEjE9Aogq1JEbj1I23RAtrf6Hs2YmCZ4_hWKWicPnFMpKLE;
-        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
-        16:33:41 GMT
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-      X-Content-Type-Options:
-      - nosniff
-      Cf-Ray:
-      - 9cddcc03aacc9958-SIN
+      - __cf_bm=P.MYT4rh04QkkL6dIfdUVBByZSK.D9j5OEWm9r51iBY-1779173402.757705-1.0.1.1-T0YR1f9u6CM26QuCr4aWDguaqs7VOfRjJc0QhWJb3BXBsQx8wxewv7lT.fRsscEeZBKGOJ508EsYuDHKA0SoOLjWteVFlgeiqEQ_bklEe93khNQNFkH5vH7CQXWfyEp8;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Tue,
+        19 May 2026 07:20:03 GMT
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -79,5 +81,5 @@ http_interactions:
             "code": "invalid_type"
           }
         }
-  recorded_at: Sat, 14 Feb 2026 16:03:41 GMT
+  recorded_at: Tue, 19 May 2026 06:50:03 GMT
 recorded_with: VCR 6.4.0

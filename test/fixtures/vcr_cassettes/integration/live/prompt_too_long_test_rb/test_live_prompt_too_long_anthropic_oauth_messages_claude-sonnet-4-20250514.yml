@@ -33,7 +33,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Sat, 16 May 2026 06:06:54 GMT
+      - Tue, 19 May 2026 06:48:53 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -43,33 +43,33 @@ http_interactions:
       X-Should-Retry:
       - 'false'
       Request-Id:
-      - req_011Cb5kEKoDixJL2EKydupuB
+      - req_011CbBUroCew4b1Y45W3SJMH
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 158912a9-5288-4061-b004-8c1100f6ed5b
       Traceresponse:
-      - 00-c7c059f6f0b3df6d00b1f749ab6213ee-c0512d5b8b447a12-01
+      - 00-dc3b643ad9c9ef8538317630a906e1c1-f09d832f7ed00b87-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '281'
+      - '216'
       Vary:
       - Accept-Encoding
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - _cfuvid=PvoLa__XHaYLYK0fHWRT00qEXTJ6p9G4cAd3sVsxBCw-1778911611.242441-1.0.1.1-xxfJLmtuH9hSc73CMahzqwr.c5Tz_NFaM8d__Nwssy8;
+      - _cfuvid=Cr0yHkfFsYqMT6UUdtOCIPOEmxF4lRzuYjfTR33omMo-1779173330.6288028-1.0.1.1-piD.7ViyH8MyZneJDtjLqcG_AInWOpZEquw8xF3qsCo;
         HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       X-Robots-Tag:
       - none
       Cf-Ray:
-      - 9fc832e24d99ce6a-SIN
+      - 9fe128846d3e3883-SIN
     body:
       encoding: ASCII-8BIT
       string: '{"type":"error","error":{"type":"invalid_request_error","message":"prompt
-        is too long: 203738 tokens > 200000 maximum"},"request_id":"req_011Cb5kEKoDixJL2EKydupuB"}'
-  recorded_at: Sat, 16 May 2026 06:06:54 GMT
+        is too long: 203738 tokens > 200000 maximum"},"request_id":"req_011CbBUroCew4b1Y45W3SJMH"}'
+  recorded_at: Tue, 19 May 2026 06:48:53 GMT
 recorded_with: VCR 6.4.0

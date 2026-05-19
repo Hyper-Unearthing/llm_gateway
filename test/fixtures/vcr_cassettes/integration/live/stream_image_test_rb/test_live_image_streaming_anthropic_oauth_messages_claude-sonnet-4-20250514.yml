@@ -37,7 +37,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 16 May 2026 06:23:42 GMT
+      - Tue, 19 May 2026 06:49:06 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -51,55 +51,55 @@ http_interactions:
       Anthropic-Ratelimit-Unified-5h-Status:
       - allowed
       Anthropic-Ratelimit-Unified-5h-Reset:
-      - '1778925600'
+      - '1779175200'
       Anthropic-Ratelimit-Unified-5h-Utilization:
-      - '0.02'
+      - '0.22'
       Anthropic-Ratelimit-Unified-7d-Status:
       - allowed
       Anthropic-Ratelimit-Unified-7d-Reset:
       - '1779274800'
       Anthropic-Ratelimit-Unified-7d-Utilization:
-      - '0.0'
+      - '0.02'
       Anthropic-Ratelimit-Unified-Representative-Claim:
       - five_hour
       Anthropic-Ratelimit-Unified-Fallback-Percentage:
       - '0.5'
       Anthropic-Ratelimit-Unified-Reset:
-      - '1778925600'
+      - '1779175200'
       Anthropic-Ratelimit-Unified-Overage-Disabled-Reason:
       - org_level_disabled
       Anthropic-Ratelimit-Unified-Overage-Status:
       - rejected
       Request-Id:
-      - req_011Cb5mWmLwDBzvn7bPSpFwS
+      - req_011CbBUsrvB3iPBWF3QRN9pM
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 158912a9-5288-4061-b004-8c1100f6ed5b
       Traceresponse:
-      - 00-234b3d61ba1e775a2bea3802c0a05055-944e7f5caba35779-01
+      - 00-49987c84326842a9f4b3ae8c2848f04a-d3125252924382d6-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '860'
+      - '795'
       Vary:
       - Accept-Encoding
-      Cf-Cache-Status:
-      - DYNAMIC
       Set-Cookie:
-      - _cfuvid=riM_.MBf4rrDb3ZVFzXa06tulxerCTqnl7WB.B86za8-1778912621.2252557-1.0.1.1-xIitNMn8er7xpWpizDJZfZ7iNoQghmILUKKVtrx.ps0;
+      - _cfuvid=IgzsL_VC234oihGpS1pIRvJ4QSxdZhXskOkM4JhQzJU-1779173345.3231113-1.0.1.1-e78isKkHjd82BPpPWEPa01.seV3lN7GEs7jiuCytg70;
         HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
       X-Robots-Tag:
       - none
+      Cf-Cache-Status:
+      - DYNAMIC
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 9fc84b8aa8fcfde3-SIN
+      - 9fe128e049facdde-SIN
     body:
       encoding: ASCII-8BIT
       string: |+
         event: message_start
-        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01AQgWWJcwPFgQu9625HQjKx","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":135,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":2,"service_tier":"standard","inference_geo":"not_available"}}}
+        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_012RMMJbsb5JBoZS8KyjD5kh","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":135,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":2,"service_tier":"standard","inference_geo":"not_available"}}            }
 
         event: content_block_start
         data: {"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}              }
@@ -108,23 +108,23 @@ http_interactions:
         data: {"type": "ping"}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"I see"}  }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"I see"}}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":" a red circle in this image. The shape is"}      }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":" a red circle in this image. The shape is a perfect circle and the color is bright"}            }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":" a perfect circle and the color is red."}              }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":" red."}  }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":0 }
+        data: {"type":"content_block_stop","index":0       }
 
         event: message_delta
-        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":135,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":24}            }
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":135,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":25}         }
 
         event: message_stop
-        data: {"type":"message_stop"   }
+        data: {"type":"message_stop"              }
 
-  recorded_at: Sat, 16 May 2026 06:23:42 GMT
+  recorded_at: Tue, 19 May 2026 06:49:06 GMT
 recorded_with: VCR 6.4.0
 ...

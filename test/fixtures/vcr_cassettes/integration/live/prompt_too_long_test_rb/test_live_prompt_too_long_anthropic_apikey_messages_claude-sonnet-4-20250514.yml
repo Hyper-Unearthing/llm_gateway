@@ -29,7 +29,7 @@ http_interactions:
       message: Too Many Requests
     headers:
       Date:
-      - Sat, 16 May 2026 06:06:42 GMT
+      - Tue, 19 May 2026 06:48:50 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -49,32 +49,32 @@ http_interactions:
       Anthropic-Ratelimit-Requests-Remaining:
       - '999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2026-05-16T06:06:42Z'
+      - '2026-05-19T06:48:50Z'
       Request-Id:
-      - req_011Cb5kDaFMCrsfwPXtFPgnQ
+      - req_011CbBUrbA7757HpoWv2JBxR
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
       Traceresponse:
-      - 00-cc9601adcbeb459a91a526333bec020c-b373691dbbb3bbad-01
+      - 00-e1da61be7ecbeab0185eeb2518c4f340-3834a3383782df1d-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '57'
+      - '63'
       Vary:
       - Accept-Encoding
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - _cfuvid=ryk4I6lr0l1wrKFFnHnA2irVoRe_UVB6yD0p.Z3k9Yw-1778911601.0462232-1.0.1.1-d_q6KcbIVj1iePJBbw2EHReRREwkmBR_P.nVPY0P4wQ;
+      - _cfuvid=iKMhdFcm9dmXnG0oiyUeVZXN0Ii0Ol1Ii00l0H4xsYc-1779173327.8258724-1.0.1.1-iNr8LZ8kOiwpt9BDzrz77YfVa6_qkMO24Kp6vKpVLzs;
         HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       X-Robots-Tag:
       - none
       Cf-Ray:
-      - 9fc832a28e591ff3-SIN
+      - 9fe12872e9ecf884-SIN
     body:
       encoding: ASCII-8BIT
       string: '{"type":"error","error":{"type":"rate_limit_error","message":"This
@@ -84,6 +84,6 @@ http_interactions:
         see the response headers for current usage. Please reduce the prompt length
         or the maximum tokens requested, or try again later. You may also contact
         sales at https://claude.com/contact-sales to discuss your options for a rate
-        limit increase."},"request_id":"req_011Cb5kDaFMCrsfwPXtFPgnQ"}'
-  recorded_at: Sat, 16 May 2026 06:06:42 GMT
+        limit increase."},"request_id":"req_011CbBUrbA7757HpoWv2JBxR"}'
+  recorded_at: Tue, 19 May 2026 06:48:50 GMT
 recorded_with: VCR 6.4.0

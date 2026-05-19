@@ -1,12 +1,12 @@
 {
   "live_image_streaming_openai_apikey_responses_gpt-5.4": {
-    "id": "resp_0e060a99c2b1c553006a080d700f708196ac1ef403e6daa515",
+    "id": "resp_065de5c18ed0755f006a0c07de194481909328a7cc6eb794d8",
     "model": "gpt-5.4-2026-03-05",
     "usage": {
       "input_tokens": 114,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 0,
-      "output_tokens": 8,
+      "output_tokens": 12,
       "reasoning_tokens": 0
     },
     "role": "assistant",
@@ -16,7 +16,7 @@
     "content": [
       {
         "type": "text",
-        "text": "A red circle."
+        "text": "A red circle on a white background."
       }
     ]
   }

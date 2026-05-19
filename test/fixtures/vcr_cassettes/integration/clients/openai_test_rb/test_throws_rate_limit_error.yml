@@ -25,15 +25,36 @@ http_interactions:
       message: Too Many Requests
     headers:
       Date:
-      - Sat, 14 Feb 2026 16:03:59 GMT
+      - Tue, 19 May 2026 06:50:02 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
       - '406'
       Connection:
       - keep-alive
+      Set-Cookie:
+      - __cf_bm=Z14CX5NPRVys7S7MEMFBw0E7GMXWV.NvhG8.81Hn2R0-1779173401.829814-1.0.1.1-GqpTXSV0nnrHZKo8TJsSOLpqD0.UkSeAtD75O20b8FW8fBtVilgvrua1N_FkdDLhWuwTUk_ucbcDNaq9eNPt5MNUNJLo_SPMQB85MLPFhdFcGdGIxCouetGu0peiD.8V;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Tue,
+        19 May 2026 07:20:02 GMT
+      - _cfuvid=HvNRhQkiKl0VxQ0SWpM166PB0W1qr5T9vaixlGZuq80-1779173401.829814-1.0.1.1-niVzNIayUQAc4YXy37QV9LgdoxJvg5JjEdfxRZy.X7g;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com
+      Cf-Ray:
+      - 9fe12a41686596d2-SIN
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
       Vary:
       - Origin
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
+      X-Content-Type-Options:
+      - nosniff
+      X-Openai-Proxy-Wasm:
+      - v0.1
       X-Ratelimit-Limit-Requests:
       - '500'
       X-Ratelimit-Limit-Tokens:
@@ -47,25 +68,7 @@ http_interactions:
       X-Ratelimit-Reset-Tokens:
       - 0s
       X-Request-Id:
-      - req_1a9ddf177f2b4df8b73111089f2283d3
-      X-Openai-Proxy-Wasm:
-      - v0.1
-      Server:
-      - cloudflare
-      Cf-Cache-Status:
-      - DYNAMIC
-      Set-Cookie:
-      - __cf_bm=cqAfgogZINJSxfCVJJx_H4LQ88EVDUC16JH07IXUmFQ-1771085038.3018987-1.0.1.1-e_LdaORWCTZ.BFbhze_qmOy9iJb6h12RwNxywgvOw0xEtrmYIgFVejYfvqPuaOt8wxZMRuvtTDf0oAy8t7a4y2nCn1Bte5CoIk8UUfFopZatQiOUwxK8z4A.BNZLCvXK;
-        HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sat, 14 Feb 2026
-        16:33:59 GMT
-      - _cfuvid=9RjMluhfvWUxyC1omFDTfHi82Hdlzj8WiSnJmBaeNis-1771085038.3018987-1.0.1.1-yHIsXM0.Jsqxa2xAnbWEqBmNg6DSdW2.b1KfSanvIEE;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-      X-Content-Type-Options:
-      - nosniff
-      Cf-Ray:
-      - 9cddcc715a5587d2-SIN
+      - req_f895a987d81e4917a4d52b361a7287b6
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -79,5 +82,5 @@ http_interactions:
                 "code": "rate_limit_exceeded"
             }
         }
-  recorded_at: Sat, 14 Feb 2026 16:03:59 GMT
+  recorded_at: Tue, 19 May 2026 06:50:02 GMT
 recorded_with: VCR 6.4.0

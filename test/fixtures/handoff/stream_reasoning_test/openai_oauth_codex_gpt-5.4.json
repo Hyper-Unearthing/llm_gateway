@@ -1,13 +1,13 @@
 {
   "live_basic_thinking_openai_oauth_codex_gpt-5.4": {
-    "id": "resp_087342961525cded016a080d3903b48191a9d85cd9abd03bfe",
+    "id": "resp_0de830a86de00ebd016a0c07ba404c8191b18ff96526cd295c",
     "model": "gpt-5.4",
     "usage": {
       "input_tokens": 26,
       "cache_creation_input_tokens": 0,
       "cache_read_input_tokens": 0,
-      "output_tokens": 82,
-      "reasoning_tokens": 73
+      "output_tokens": 97,
+      "reasoning_tokens": 83
     },
     "role": "assistant",
     "stop_reason": "stop",
@@ -16,7 +16,7 @@
     "content": [
       {
         "type": "reasoning",
-        "reasoning": "**Calculating a simple sum**\n\nIt seems the user is asking me to think about the sum of 42 and 27. This looks like a straightforward arithmetic request, and I don't need to overcomplicate it. The answer is simply \"42 + 27 = 69.\" I’ll keep it concise and craft my response accordingly. It’s a simple calculation, but it’s always good to double-check to ensure I’m giving the right answer!",
+        "reasoning": "**Calculating a simple sum**\n\nThe user is asking me to think long and hard about 42 + 27. I get the sense this could be a straightforward arithmetic question, possibly expecting a simple answer without extended reasoning. Even though they mentioned thinking, I feel I can provide a concise response. So, after pondering it, I think I'll just say: \"I thought about it, and the answer is 69.\" That should do the trick!",
         "signature": ""
       },
       {

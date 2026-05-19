@@ -1,0 +1,29 @@
+{
+  "live_basic_tool_call_openai_oauth_codex_gpt-5.4": {
+    "id": "resp_08d45c08871bec76016a0c080203848191a4ad666441082231",
+    "model": "gpt-5.4",
+    "usage": {
+      "input_tokens": 101,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 26,
+      "reasoning_tokens": 0
+    },
+    "role": "assistant",
+    "stop_reason": "tool_use",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "id": "call_AMb9J6HBDtM0EWewOsTpJ7SN",
+        "type": "tool_use",
+        "name": "math_operation",
+        "input": {
+          "a": 15,
+          "b": 27,
+          "operation": "add"
+        }
+      }
+    ]
+  }
+}
