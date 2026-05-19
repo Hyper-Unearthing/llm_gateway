@@ -1,0 +1,132 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.groq.com/openai/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"meta-llama/llama-4-scout-17b-16e-instruct","messages":[{"role":"user","content":[{"type":"text","text":"You
+        are receiving recorded final outputs from previous image streaming tests.\nEach
+        output describes the same image. Read the JSON, infer what all previous assistants
+        saw,\nand answer in one short sentence. Include the shape, color, and the
+        number of recorded outputs\nas an Arabic numeral.\n\n[\n  {\n    \"pair\":
+        \"anthropic_apikey_messages_claude-sonnet-4-20250514\",\n    \"result\": {\n      \"live_image_streaming_anthropic_apikey_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_01TvkroeJuCSKgzaMuoxghvD\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 242,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        29,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"I
+        see a red circle in this image. The shape is a perfect circle and the color
+        is bright red.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"anthropic_oauth_messages_claude-sonnet-4-20250514\",\n    \"result\": {\n      \"live_image_streaming_anthropic_oauth_messages_claude-sonnet-4-20250514\":
+        {\n        \"id\": \"msg_012RMMJbsb5JBoZS8KyjD5kh\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
+        {\n          \"input_tokens\": 270,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        27,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"I
+        see a red circle in this image. The shape is a perfect circle and the color
+        is bright red.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"groq_completions_meta-llama_llama-4-scout-17b-16e-instruct\",\n    \"result\":
+        {\n      \"live_image_streaming_groq_completions_meta-llama/llama-4-scout-17b-16e-instruct\":
+        {\n        \"id\": \"chatcmpl-e9d292f7-7458-415b-95f1-be6c49e29d33\",\n        \"model\":
+        \"meta-llama/llama-4-scout-17b-16e-instruct\",\n        \"usage\": {\n          \"input_tokens\":
+        209,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 18,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"groq\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"I see a circle. The circle is red and it
+        is on a white background.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_apikey_completions_gpt-5.1\",\n    \"result\": {\n      \"live_image_streaming_openai_apikey_completions_gpt-5.1\":
+        {\n        \"id\": \"chatcmpl-Dh8Y81vEYap50oFAlfIivp9ju15KO\",\n        \"model\":
+        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input_tokens\":
+        265,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 19,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"I see a red circle on a white background.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_apikey_responses_gpt-5.4\",\n    \"result\": {\n      \"live_image_streaming_openai_apikey_responses_gpt-5.4\":
+        {\n        \"id\": \"resp_065de5c18ed0755f006a0c07de194481909328a7cc6eb794d8\",\n        \"model\":
+        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input_tokens\":
+        114,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 12,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"A red circle on a white background.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"openai_oauth_codex_gpt-5.4\",\n    \"result\": {\n      \"live_image_streaming_openai_oauth_codex_gpt-5.4\":
+        {\n        \"id\": \"resp_06bd1afb2e5bd478016a0c07e360b88191ab1d5ef520a14032\",\n        \"model\":
+        \"gpt-5.4\",\n        \"usage\": {\n          \"input_tokens\": 114,\n          \"cache_creation_input_tokens\":
+        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
+        8,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"openai\",\n        \"api\": \"responses\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"A
+        red circle.\"\n          }\n        ]\n      }\n    }\n  }\n]\n"}]}],"tools":null,"stream_options":{"include_usage":true},"max_completion_tokens":8192,"temperature":0,"response_format":{"type":"text"},"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.groq.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 19 May 2026 07:43:08 GMT
+      Content-Type:
+      - text/event-stream
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Server:
+      - cloudflare
+      Vary:
+      - Origin
+      X-Groq-Region:
+      - bom
+      X-Ratelimit-Limit-Requests:
+      - '500000'
+      X-Ratelimit-Limit-Tokens:
+      - '300000'
+      X-Ratelimit-Remaining-Requests:
+      - '499999'
+      X-Ratelimit-Remaining-Tokens:
+      - '290402'
+      X-Ratelimit-Reset-Requests:
+      - 172ms
+      X-Ratelimit-Reset-Tokens:
+      - 1.919s
+      X-Request-Id:
+      - req_01krzk0hfbe0q95v7v9jpfds2n
+      Via:
+      - 1.1 google
+      Set-Cookie:
+      - __cf_bm=jv3RxOU_EUr2HU6fQh5v.cUCMJmsjKjXivDSu7IG1U0-1779176588.741245-1.0.1.1-dPM.u8hz1_2zrcSPZtxi24gSfAI44lo1Fy4ZCPUKIIcSmD0dkaqEU8Qn28VzomnzslQYlY8WMDIpo62B57id.VMKpNfcbEboMNVdhumBEHdxiyd_i6YKIALM9TuAtnBW;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=groq.com; Expires=Tue, 19
+        May 2026 08:13:08 GMT
+      Strict-Transport-Security:
+      - max-age=15552000
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cf-Ray:
+      - 9fe1780fae6fc0f0-KUL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ZGF0YTogeyJpZCI6ImNoYXRjbXBsLWE0YWU3YTBiLTEwZGMtNGM5NS1hMGU3LTg1MGIzMjZjOWVkMSIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NzkxNzY1ODgsIm1vZGVsIjoibWV0YS1sbGFtYS9sbGFtYS00LXNjb3V0LTE3Yi0xNmUtaW5zdHJ1Y3QiLCJzeXN0ZW1fZmluZ2VycHJpbnQiOiJmcF8zN2RhNjA4ZmMxIiwiY2hvaWNlcyI6W3siaW5kZXgiOjAsImRlbHRhIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50IjoiIn0sImxvZ3Byb2JzIjpudWxsLCJmaW5pc2hfcmVhc29uIjpudWxsfV0sInhfZ3JvcSI6eyJpZCI6InJlcV8wMWtyemswaGZiZTBxOTV2N3Y5anBmZHMybiIsInNlZWQiOjE4MjU0Njg4Mjd9fQoKZGF0YTogeyJpZCI6ImNoYXRjbXBsLWE0YWU3YTBiLTEwZGMtNGM5NS1hMGU3LTg1MGIzMjZjOWVkMSIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NzkxNzY1ODgsIm1vZGVsIjoibWV0YS1sbGFtYS9sbGFtYS00LXNjb3V0LTE3Yi0xNmUtaW5zdHJ1Y3QiLCJzeXN0ZW1fZmluZ2VycHJpbnQiOiJmcF8zN2RhNjA4ZmMxIiwiY2hvaWNlcyI6W3siaW5kZXgiOjAsImRlbHRhIjp7ImNvbnRlbnQiOiJBbGwifSwibG9ncHJvYnMiOm51bGwsImZpbmlzaF9yZWFzb24iOm51bGx9XX0KCmRhdGE6IHsiaWQiOiJjaGF0Y21wbC1hNGFlN2EwYi0xMGRjLTRjOTUtYTBlNy04NTBiMzI2YzllZDEiLCJvYmplY3QiOiJjaGF0LmNvbXBsZXRpb24uY2h1bmsiLCJjcmVhdGVkIjoxNzc5MTc2NTg4LCJtb2RlbCI6Im1ldGEtbGxhbWEvbGxhbWEtNC1zY291dC0xN2ItMTZlLWluc3RydWN0Iiwic3lzdGVtX2ZpbmdlcnByaW50IjoiZnBfMzdkYTYwOGZjMSIsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJjb250ZW50IjoiIHByZXZpb3VzIn0sImxvZ3Byb2JzIjpudWxsLCJmaW5pc2hfcmVhc29uIjpudWxsfV19CgpkYXRhOiB7ImlkIjoiY2hhdGNtcGwtYTRhZTdhMGItMTBkYy00Yzk1LWEwZTctODUwYjMyNmM5ZWQxIiwib2JqZWN0IjoiY2hhdC5jb21wbGV0aW9uLmNodW5rIiwiY3JlYXRlZCI6MTc3OTE3NjU4OCwibW9kZWwiOiJtZXRhLWxsYW1hL2xsYW1hLTQtc2NvdXQtMTdiLTE2ZS1pbnN0cnVjdCIsInN5c3RlbV9maW5nZXJwcmludCI6ImZwXzM3ZGE2MDhmYzEiLCJjaG9pY2VzIjpbeyJpbmRleCI6MCwiZGVsdGEiOnsiY29udGVudCI6IiBhc3Npc3RhbnRzIn0sImxvZ3Byb2JzIjpudWxsLCJmaW5pc2hfcmVhc29uIjpudWxsfV19CgpkYXRhOiB7ImlkIjoiY2hhdGNtcGwtYTRhZTdhMGItMTBkYy00Yzk1LWEwZTctODUwYjMyNmM5ZWQxIiwib2JqZWN0IjoiY2hhdC5jb21wbGV0aW9uLmNodW5rIiwiY3JlYXRlZCI6MTc3OTE3NjU4OCwibW9kZWwiOiJtZXRhLWxsYW1hL2xsYW1hLTQtc2NvdXQtMTdiLTE2ZS1pbnN0cnVjdCIsInN5c3RlbV9maW5nZXJwcmludCI6ImZwXzM3ZGE2MDhmYzEiLCJjaG9pY2VzIjpbeyJpbmRleCI6MCwiZGVsdGEiOnsiY29udGVudCI6IiBzYXcifSwibG9ncHJvYnMiOm51bGwsImZpbmlzaF9yZWFzb24iOm51bGx9XX0KCmRhdGE6IHsiaWQiOiJjaGF0Y21wbC1hNGFlN2EwYi0xMGRjLTRjOTUtYTBlNy04NTBiMzI2YzllZDEiLCJvYmplY3QiOiJjaGF0LmNvbXBsZXRpb24uY2h1bmsiLCJjcmVhdGVkIjoxNzc5MTc2NTg4LCJtb2RlbCI6Im1ldGEtbGxhbWEvbGxhbWEtNC1zY291dC0xN2ItMTZlLWluc3RydWN0Iiwic3lzdGVtX2ZpbmdlcnByaW50IjoiZnBfMzdkYTYwOGZjMSIsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJjb250ZW50IjoiIGEifSwibG9ncHJvYnMiOm51bGwsImZpbmlzaF9yZWFzb24iOm51bGx9XX0KCmRhdGE6IHsiaWQiOiJjaGF0Y21wbC1hNGFlN2EwYi0xMGRjLTRjOTUtYTBlNy04NTBiMzI2YzllZDEiLCJvYmplY3QiOiJjaGF0LmNvbXBsZXRpb24uY2h1bmsiLCJjcmVhdGVkIjoxNzc5MTc2NTg4LCJtb2RlbCI6Im1ldGEtbGxhbWEvbGxhbWEtNC1zY291dC0xN2ItMTZlLWluc3RydWN0Iiwic3lzdGVtX2ZpbmdlcnByaW50IjoiZnBfMzdkYTYwOGZjMSIsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJjb250ZW50IjoiIHJlZCJ9LCJsb2dwcm9icyI6bnVsbCwiZmluaXNoX3JlYXNvbiI6bnVsbH1dfQoKZGF0YTogeyJpZCI6ImNoYXRjbXBsLWE0YWU3YTBiLTEwZGMtNGM5NS1hMGU3LTg1MGIzMjZjOWVkMSIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NzkxNzY1ODgsIm1vZGVsIjoibWV0YS1sbGFtYS9sbGFtYS00LXNjb3V0LTE3Yi0xNmUtaW5zdHJ1Y3QiLCJzeXN0ZW1fZmluZ2VycHJpbnQiOiJmcF8zN2RhNjA4ZmMxIiwiY2hvaWNlcyI6W3siaW5kZXgiOjAsImRlbHRhIjp7ImNvbnRlbnQiOiIgY2lyY2xlIn0sImxvZ3Byb2JzIjpudWxsLCJmaW5pc2hfcmVhc29uIjpudWxsfV19CgpkYXRhOiB7ImlkIjoiY2hhdGNtcGwtYTRhZTdhMGItMTBkYy00Yzk1LWEwZTctODUwYjMyNmM5ZWQxIiwib2JqZWN0IjoiY2hhdC5jb21wbGV0aW9uLmNodW5rIiwiY3JlYXRlZCI6MTc3OTE3NjU4OCwibW9kZWwiOiJtZXRhLWxsYW1hL2xsYW1hLTQtc2NvdXQtMTdiLTE2ZS1pbnN0cnVjdCIsInN5c3RlbV9maW5nZXJwcmludCI6ImZwXzM3ZGE2MDhmYzEiLCJjaG9pY2VzIjpbeyJpbmRleCI6MCwiZGVsdGEiOnsiY29udGVudCI6IiwifSwibG9ncHJvYnMiOm51bGwsImZpbmlzaF9yZWFzb24iOm51bGx9XX0KCmRhdGE6IHsiaWQiOiJjaGF0Y21wbC1hNGFlN2EwYi0xMGRjLTRjOTUtYTBlNy04NTBiMzI2YzllZDEiLCJvYmplY3QiOiJjaGF0LmNvbXBsZXRpb24uY2h1bmsiLCJjcmVhdGVkIjoxNzc5MTc2NTg4LCJtb2RlbCI6Im1ldGEtbGxhbWEvbGxhbWEtNC1zY291dC0xN2ItMTZlLWluc3RydWN0Iiwic3lzdGVtX2ZpbmdlcnByaW50IjoiZnBfMzdkYTYwOGZjMSIsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJjb250ZW50IjoiIGFuZCJ9LCJsb2dwcm9icyI6bnVsbCwiZmluaXNoX3JlYXNvbiI6bnVsbH1dfQoKZGF0YTogeyJpZCI6ImNoYXRjbXBsLWE0YWU3YTBiLTEwZGMtNGM5NS1hMGU3LTg1MGIzMjZjOWVkMSIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NzkxNzY1ODgsIm1vZGVsIjoibWV0YS1sbGFtYS9sbGFtYS00LXNjb3V0LTE3Yi0xNmUtaW5zdHJ1Y3QiLCJzeXN0ZW1fZmluZ2VycHJpbnQiOiJmcF8zN2RhNjA4ZmMxIiwiY2hvaWNlcyI6W3siaW5kZXgiOjAsImRlbHRhIjp7ImNvbnRlbnQiOiIgdGhlcmUifSwibG9ncHJvYnMiOm51bGwsImZpbmlzaF9yZWFzb24iOm51bGx9XX0KCmRhdGE6IHsiaWQiOiJjaGF0Y21wbC1hNGFlN2EwYi0xMGRjLTRjOTUtYTBlNy04NTBiMzI2YzllZDEiLCJvYmplY3QiOiJjaGF0LmNvbXBsZXRpb24uY2h1bmsiLCJjcmVhdGVkIjoxNzc5MTc2NTg4LCJtb2RlbCI6Im1ldGEtbGxhbWEvbGxhbWEtNC1zY291dC0xN2ItMTZlLWluc3RydWN0Iiwic3lzdGVtX2ZpbmdlcnByaW50IjoiZnBfMzdkYTYwOGZjMSIsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJjb250ZW50IjoiIGFyZSJ9LCJsb2dwcm9icyI6bnVsbCwiZmluaXNoX3JlYXNvbiI6bnVsbH1dfQoKZGF0YTogeyJpZCI6ImNoYXRjbXBsLWE0YWU3YTBiLTEwZGMtNGM5NS1hMGU3LTg1MGIzMjZjOWVkMSIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NzkxNzY1ODgsIm1vZGVsIjoibWV0YS1sbGFtYS9sbGFtYS00LXNjb3V0LTE3Yi0xNmUtaW5zdHJ1Y3QiLCJzeXN0ZW1fZmluZ2VycHJpbnQiOiJmcF8zN2RhNjA4ZmMxIiwiY2hvaWNlcyI6W3siaW5kZXgiOjAsImRlbHRhIjp7ImNvbnRlbnQiOiIgIn0sImxvZ3Byb2JzIjpudWxsLCJmaW5pc2hfcmVhc29uIjpudWxsfV19CgpkYXRhOiB7ImlkIjoiY2hhdGNtcGwtYTRhZTdhMGItMTBkYy00Yzk1LWEwZTctODUwYjMyNmM5ZWQxIiwib2JqZWN0IjoiY2hhdC5jb21wbGV0aW9uLmNodW5rIiwiY3JlYXRlZCI6MTc3OTE3NjU4OCwibW9kZWwiOiJtZXRhLWxsYW1hL2xsYW1hLTQtc2NvdXQtMTdiLTE2ZS1pbnN0cnVjdCIsInN5c3RlbV9maW5nZXJwcmludCI6ImZwXzM3ZGE2MDhmYzEiLCJjaG9pY2VzIjpbeyJpbmRleCI6MCwiZGVsdGEiOnsiY29udGVudCI6ItmmIn0sImxvZ3Byb2JzIjpudWxsLCJmaW5pc2hfcmVhc29uIjpudWxsfV19CgpkYXRhOiB7ImlkIjoiY2hhdGNtcGwtYTRhZTdhMGItMTBkYy00Yzk1LWEwZTctODUwYjMyNmM5ZWQxIiwib2JqZWN0IjoiY2hhdC5jb21wbGV0aW9uLmNodW5rIiwiY3JlYXRlZCI6MTc3OTE3NjU4OCwibW9kZWwiOiJtZXRhLWxsYW1hL2xsYW1hLTQtc2NvdXQtMTdiLTE2ZS1pbnN0cnVjdCIsInN5c3RlbV9maW5nZXJwcmludCI6ImZwXzM3ZGE2MDhmYzEiLCJjaG9pY2VzIjpbeyJpbmRleCI6MCwiZGVsdGEiOnsiY29udGVudCI6IiByZWNvcmRlZCJ9LCJsb2dwcm9icyI6bnVsbCwiZmluaXNoX3JlYXNvbiI6bnVsbH1dfQoKZGF0YTogeyJpZCI6ImNoYXRjbXBsLWE0YWU3YTBiLTEwZGMtNGM5NS1hMGU3LTg1MGIzMjZjOWVkMSIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NzkxNzY1ODgsIm1vZGVsIjoibWV0YS1sbGFtYS9sbGFtYS00LXNjb3V0LTE3Yi0xNmUtaW5zdHJ1Y3QiLCJzeXN0ZW1fZmluZ2VycHJpbnQiOiJmcF8zN2RhNjA4ZmMxIiwiY2hvaWNlcyI6W3siaW5kZXgiOjAsImRlbHRhIjp7ImNvbnRlbnQiOiIgb3V0cHV0cyJ9LCJsb2dwcm9icyI6bnVsbCwiZmluaXNoX3JlYXNvbiI6bnVsbH1dfQoKZGF0YTogeyJpZCI6ImNoYXRjbXBsLWE0YWU3YTBiLTEwZGMtNGM5NS1hMGU3LTg1MGIzMjZjOWVkMSIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NzkxNzY1ODgsIm1vZGVsIjoibWV0YS1sbGFtYS9sbGFtYS00LXNjb3V0LTE3Yi0xNmUtaW5zdHJ1Y3QiLCJzeXN0ZW1fZmluZ2VycHJpbnQiOiJmcF8zN2RhNjA4ZmMxIiwiY2hvaWNlcyI6W3siaW5kZXgiOjAsImRlbHRhIjp7ImNvbnRlbnQiOiIuIn0sImxvZ3Byb2JzIjpudWxsLCJmaW5pc2hfcmVhc29uIjpudWxsfV19CgpkYXRhOiB7ImlkIjoiY2hhdGNtcGwtYTRhZTdhMGItMTBkYy00Yzk1LWEwZTctODUwYjMyNmM5ZWQxIiwib2JqZWN0IjoiY2hhdC5jb21wbGV0aW9uLmNodW5rIiwiY3JlYXRlZCI6MTc3OTE3NjU4OCwibW9kZWwiOiJtZXRhLWxsYW1hL2xsYW1hLTQtc2NvdXQtMTdiLTE2ZS1pbnN0cnVjdCIsInN5c3RlbV9maW5nZXJwcmludCI6ImZwXzM3ZGE2MDhmYzEiLCJjaG9pY2VzIjpbeyJpbmRleCI6MCwiZGVsdGEiOnt9LCJsb2dwcm9icyI6bnVsbCwiZmluaXNoX3JlYXNvbiI6InN0b3AifV0sInhfZ3JvcSI6eyJpZCI6InJlcV8wMWtyemswaGZiZTBxOTV2N3Y5anBmZHMybiIsInVzYWdlIjp7InF1ZXVlX3RpbWUiOjAuMDUxMjM3NTQ2LCJwcm9tcHRfdG9rZW5zIjoxNDA2LCJwcm9tcHRfdGltZSI6MC4wNTY1NTk2NTQsImNvbXBsZXRpb25fdG9rZW5zIjoxNywiY29tcGxldGlvbl90aW1lIjowLjAzODM3Nzc1OCwidG90YWxfdG9rZW5zIjoxNDIzLCJ0b3RhbF90aW1lIjowLjA5NDkzNzQxMn19LCJ1c2FnZSI6eyJxdWV1ZV90aW1lIjowLjA1MTIzNzU0NiwicHJvbXB0X3Rva2VucyI6MTQwNiwicHJvbXB0X3RpbWUiOjAuMDU2NTU5NjU0LCJjb21wbGV0aW9uX3Rva2VucyI6MTcsImNvbXBsZXRpb25fdGltZSI6MC4wMzgzNzc3NTgsInRvdGFsX3Rva2VucyI6MTQyMywidG90YWxfdGltZSI6MC4wOTQ5Mzc0MTJ9fQoKZGF0YTogeyJpZCI6ImNoYXRjbXBsLWE0YWU3YTBiLTEwZGMtNGM5NS1hMGU3LTg1MGIzMjZjOWVkMSIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NzkxNzY1ODgsIm1vZGVsIjoibWV0YS1sbGFtYS9sbGFtYS00LXNjb3V0LTE3Yi0xNmUtaW5zdHJ1Y3QiLCJzeXN0ZW1fZmluZ2VycHJpbnQiOiJmcF8zN2RhNjA4ZmMxIiwiY2hvaWNlcyI6W10sInVzYWdlIjp7InF1ZXVlX3RpbWUiOjAuMDUxMjM3NTQ2LCJwcm9tcHRfdG9rZW5zIjoxNDA2LCJwcm9tcHRfdGltZSI6MC4wNTY1NTk2NTQsImNvbXBsZXRpb25fdG9rZW5zIjoxNywiY29tcGxldGlvbl90aW1lIjowLjAzODM3Nzc1OCwidG90YWxfdG9rZW5zIjoxNDIzLCJ0b3RhbF90aW1lIjowLjA5NDkzNzQxMn0sInNlcnZpY2VfdGllciI6Im9uX2RlbWFuZCJ9CgpkYXRhOiBbRE9ORV0KCg==
+  recorded_at: Tue, 19 May 2026 07:43:08 GMT
+recorded_with: VCR 6.4.0

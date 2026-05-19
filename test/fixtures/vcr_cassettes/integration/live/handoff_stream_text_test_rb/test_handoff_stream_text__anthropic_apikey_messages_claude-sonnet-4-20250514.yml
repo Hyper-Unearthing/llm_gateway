@@ -24,6 +24,17 @@ http_interactions:
         10,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
         \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
         [\n          {\n            \"type\": \"text\",\n            \"text\": \"1\\n2\\n3\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"groq_completions_openai_gpt-oss-120b\",\n    \"result\": {\n      \"live_text_streaming_groq_completions_openai/gpt-oss-120b\":
+        {\n        \"id\": \"chatcmpl-f6e2b386-811c-408a-8933-7143247d3a6b\",\n        \"model\":
+        \"openai/gpt-oss-120b\",\n        \"usage\": {\n          \"input_tokens\":
+        78,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 54,\n          \"reasoning_tokens\": 37\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"groq\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
+        \"reasoning\",\n            \"reasoning\": \"The user asks: \\\"Count from
+        1 to 3\\\". Simple. Provide 1, 2, 3. Probably just \\\"1, 2, 3\\\".\",\n            \"signature\":
+        \"\"\n          },\n          {\n            \"type\": \"text\",\n            \"text\":
+        \"1, 2, 3.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
         \"openai_apikey_completions_gpt-5.1\",\n    \"result\": {\n      \"live_text_streaming_openai_apikey_completions_gpt-5.1\":
         {\n        \"id\": \"chatcmpl-DgtMsgPicZ0QfUTphF8dor6Fdpg0T\",\n        \"model\":
         \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input_tokens\":
@@ -71,7 +82,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 19 May 2026 06:50:43 GMT
+      - Tue, 19 May 2026 07:13:42 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -85,116 +96,113 @@ http_interactions:
       Anthropic-Ratelimit-Input-Tokens-Remaining:
       - '449000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2026-05-19T06:50:43Z'
+      - '2026-05-19T07:13:41Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2026-05-19T06:50:43Z'
+      - '2026-05-19T07:13:41Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '1000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2026-05-19T06:50:43Z'
+      - '2026-05-19T07:13:41Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '540000'
       Anthropic-Ratelimit-Tokens-Remaining:
       - '539000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2026-05-19T06:50:43Z'
+      - '2026-05-19T07:13:41Z'
       Request-Id:
-      - req_011CbBV14GVbP2NF7bpDgess
+      - req_011CbBWkdvcn9LdVJ2Govz5z
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
       Traceresponse:
-      - 00-ba3c09173a1217d8bac659904f452f66-7bfbc7bfe254a33f-01
+      - 00-6187befe4aab42033790dffbcbda3e1c-283227f40794501d-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '784'
+      - '845'
       Vary:
       - Accept-Encoding
-      Cf-Cache-Status:
-      - DYNAMIC
       Set-Cookie:
-      - _cfuvid=dLpUWopA6G4YILLc6ZEe_Th_cVe_WmpphqFOC1ms5AA-1779173442.9376097-1.0.1.1-O.22YAagUyJ_8pmgJr40DaBC9TlqkOFBXv3HlurG3N0;
+      - _cfuvid=fv7wzMC367twcgLUlbuRMPYl6_h1IWuog.DKRSMb7No-1779174820.8287923-1.0.1.1-6SZLTEIPhLOTELIwo.KuqTsqiwu5MlDDejgxbdg2sJs;
         HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
       X-Robots-Tag:
       - none
+      Cf-Cache-Status:
+      - DYNAMIC
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 9fe12b425b7c9b9f-SIN
+      - 9fe14ce62c01ce8d-SIN
     body:
       encoding: ASCII-8BIT
       string: |+
         event: message_start
-        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01PXktX493tGy26dX8zDgaLR","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":1379,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":8,"service_tier":"standard","inference_geo":"not_available"}}          }
+        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01WhR11Uqrv2No3HP2PxrLWU","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":1709,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":5,"service_tier":"standard","inference_geo":"not_available"}}  }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""} }
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}}
 
         event: ping
         data: {"type": "ping"}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"Looking at the JSON data provided, I"}      }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"Let me analyze the JSON"}            }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" need to:\n\n1. Count the number of recorded outputs\n2. Check what the previous assistants counted\n3. Answer in one short sentence with the count"}              }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" data:\n\n1. I need to count the number of recorded outputs\n2. I need to check if the"}              }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" as an Arabic numeral\n\nLet me examine the JSON structure:\n\nThere are 5"}      }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" previous assistants counted from 1 to 3\n\nLooking at the JSON, I can see 6 pairs/"}        }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" main entries in the array:\n1. anthropic_apikey_messages_claude-sonnet-4-20250514 "}          }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"entries:\n1. anthropic_apikey_messages_claude-sonnet-4-20250514 - output:"}               }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"- content shows \"1\\n2\\n3\"\n2. anthropic_oauth_messages_claude-sonnet-4-20250514 - content shows"}}
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" \"1\\n2\\n3\"\n2. anthropic_oauth_messages_claude-sonnet-4-20250514 - output: \"1\\n2\\n3\"  \n3. groq_completions_openai_"}        }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" \"1\\n2\\n3\" \n3. openai_apikey_completions_gpt-5.1 - content shows \"1  \\n2  \\n3\"\n4. openai_apikey_responses_gpt-"}        }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"gpt-oss-120b - output: \"1, 2, 3.\"\n4. openai_apikey_completions_gpt-5.1 - output: \"1  \\n2  \\n3\"\n5. openai_api"}           }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"5.4 - content shows \"1, 2, 3\"\n5. openai_oauth_codex_gpt-5.4 - content shows \"1, 2, 3\"\n\nSo there are 5 recorded outputs total"}          }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"key_responses_gpt-5.4 - output: \"1, 2, 3\"\n6. openai_oauth_codex_gpt-5.4 - output: \"1, 2, 3\"\n\nSo there are 6 recorded"}          }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":".\n\nLooking at what the previous assistants counted, they all show variations of counting from 1 to 3:"}}
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" outputs, and all of them show the assistants counting from 1 to 3 in various"}         }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n- \"1\\n2\\n3\" (appears twice)\n- \"1  \\n2  \\n3\" (once)"}         }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" formats."}      }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n- \"1, 2, 3\" (appears twice)\n\nSo all previous assistants counted from 1 to 3, just"}     }
-
-        event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" with different formatting."}            }
-
-        event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"EtsICmIIDRgCKkDvrwnpSbBT2PKkM2crUwKFw67RnDNfJlBjcQO8hXL2oDYu75J1t0kZXB0r2OGfYcoQPgxnvOpvJysoNVfx8E5EMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIMnt24KL5H22ElkRRSGgwGg50eBDdsr67HzUIiMJCFMQYvGMYvnZGPB7fijet55oakOYNhVq6eoIrski9b1Natgi/rcETxs+x4AsdRviqmBwLRlE1wCKMBF9bvgadJIjnX0jluS5CsXxbXTdQGM20HdjErCJe5BxL89EWOR0bjHRRUXWqoEzMsS8UgkFmFTHQgF9GJCLfdGjD3LsJ+LD7tWGdsSzS9PVVGHc9bGKqXbaK7imUZRCr7SFN9y0hQGPlDOAh3pHDOt+lYD7wxuwFv3q7VeOvuOVfik52WGs5i/vG8Gta5YLbtFh/8f4rmVj/dwM7FwiKNXf5U7Ekpx4Zeh9WmQMuCYVugwvq6vgNOBXGwSC8XBPaOW/q/Z4AXljn07OWAj0YIAgHZTZvKi2KfQdUPAep/yn0TkG6a+8EwNMFJzU68hz2AipMN42y5jrRpnTP/NQmHfFIRRS2mt0SEU0r8FXn6c68jEw1aQ080NmU7GiJOXHpspo4+MKGO8Alwm6EkqUnqHud2YaJDjZjdHE4f+IsyiqYHvMUGdsW+VeuNiTlNID5EZzHn4roi1K4n9tfTkJmaAFLOYLJRWmxwF+QhUPAYUtmqbtl1m5lDtkHBpHH3A23EF5HqAi092zfwTddpPGUFJmnXegStvNhcMCZwUvULAF4I4E8EcavEGq5xVzHhPwjNDLY56W4JlngoyJbF9+p+tkm7y7PfRnEPQVbiaDZnnB/BBD5sZHfZsJkXyhoaP43vBjE8c9+zbHuwqywbdEvdDDuT3UPK0LbNoWSzjiWuzbtx1LQPA0iWMbMQUVMH2kQE1zK69XMZBssZ+sGZG+RICFpsb6GibBy3P6Q5qiXL6rwkKDzACgVTSHuyCvH4QUgaqcXQPtH6PF9bXqJBqtJkwKaUvrazTq9PfOqlzbUXnnIe2kdr0KEoDl2Vod9lBXavPh3rE3aNH55BAdj4Nc0TswhZjaXIMOIGgxXDnEg3pziP8qn2gySqQY7vI9Ms9nuBPmnG66CIuCAi2/OW6adYIpRDWh5gLwB/5msJx71cswlDdJlqVhycngb+dKjkjkWg8CTQR4FFNinwG5rd7glzsHHqXN/LcoVTwO+jfQ9wGE4h9WR1D2sMCPzuxnSSsRSJxlDRSJOw5U2xpA87uNs4e85Y5M3kJIcYYE4btnbz/ycEiQ486bEahNiwRNfTrwzTFEm9oDuvqrnAYzOvDEUnalTqDq/oKi2+OP07YTNYmNqfs4tU73Qd4InejXIdm3VxNh8lYeWpmI2eUtKabPCgwJ+bltlmWka42MiBdEzTFOU88r1InlWQb6zW1w9JVo+hhNZEX4icpfLwG7dYuoQYAQ=="}       }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"Eu8GCmIIDRgCKkBWxlAnwGs7ATnEJej1hxmMyCg3YwIeVAqFtH1Bl4NYxUbFA8x35qJpsq2UTZUm/W0VIb/K5w/NIZtjHSNUO7PQMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIMCZIMqQHPVh6cN28zGgxdU8fGCpe4nEgrzAUiMJOwZoXV6Kgoi7xDjo5EBxR61NjUr7r1cjDbF5JdsLrCPu0JEPfBXaF7hxZVeCJVzCq6BZZ29/47einrpYz2A5vArUPwbM5kP1a7+zl/5B3WmpLchvm2NarkOJFaBdvkwndZ7nRHYO4qgujadcAudLptjK7FsBkcdi1gxosj4zRWgJln0P7qFaKBw5GyE2UV7sbnp/0Z7UI6WuxtJnOkixqCAPiGAQUl1r4Tov+2y87uoCNrMyITOKcgZgjI0NZAkEBTKsLCpg7Wrc4Vj7yko7/Wbvr5uSe5/fjv7HbuosAsE6mP9ZHJEFxjVGpJvkS78MB2uooYE6ANa2jUSasm/lxT6LFt+6BavFKm2bkpXfM58AoegXn7JNmQ7lrWBsVPqNrhwXDGJoUZWLXIWDNKThAa7lTjLtOfoX+q1KMkb26kqySwNvgNJJWqnwqAEGBAr7T1ZvCu4inbTt726DnVpxMuqekrQs/t4UI4KBVqqj3jsdXSLT1dwSg5AGJnw38IlQh+ps+tji0EkSHka/y36SfndrGsOf80BWINvYM96VDJmfEXVHyHeiiuApJHJ218QPoUXgAPO5c/kHFoC6yqhus4aYuF3SFQDeDbW+ahWfBfThpqbk7L3ha2ZqN7rvWMteSNCD9icm0xMPVIjPTyTMQgOYVXAWvA4TXVp+wKvcBugSqn+y8qSqV+8dg4JFh8nufs29dqL+FqghwZbeYLjD+6Q+NuGlYF+SKXZSJK+JrCJ4LoJ5S9mWLaLvA9a8J0tHwEQeuYuZd3De3Gp092KPgot/9QHKdIJXi7Xbk/Z0PHx4q3UVYBxN9KqTZFgEBktqUyW1N3ZxZ9mTOVWcdgT1vWytik8iqk1dZwWx0sNZ7GAFR28BkcsAEYN8rnXLaer223KF5tKhVVe7vuBqA2a5eMosKx0ukkrYmsiZ08/FtjZ7BB1KIqFJ/rMqiJMW6IOAMPSUyjVo/VWMzygmUjHGQJG8W0OB0CoNa3801uGAE="} }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":0        }
+        data: {"type":"content_block_stop","index":0    }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}      }
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}       }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"There are 5 recorded outputs where the previous assistants counted from 1 to 3."}      }
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"There are 6 recorded outputs and the previous assistants counted from 1 to"}   }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" 3."} }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":1       }
+        data: {"type":"content_block_stop","index":1  }
 
         event: message_delta
-        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":1379,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":360}           }
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":1709,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":311}              }
 
         event: message_stop
-        data: {"type":"message_stop"               }
+        data: {"type":"message_stop"           }
 
-  recorded_at: Tue, 19 May 2026 06:50:48 GMT
+  recorded_at: Tue, 19 May 2026 07:13:46 GMT
 recorded_with: VCR 6.4.0
 ...

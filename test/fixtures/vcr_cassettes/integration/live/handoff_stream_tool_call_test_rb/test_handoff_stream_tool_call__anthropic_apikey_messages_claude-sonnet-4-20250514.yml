@@ -32,6 +32,19 @@ http_interactions:
         \"toolu_012UCLg4PSsanvkFqsGcQQrV\",\n            \"type\": \"tool_use\",\n            \"name\":
         \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
         27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"groq_completions_openai_gpt-oss-120b\",\n    \"result\": {\n      \"live_basic_tool_call_groq_completions_openai/gpt-oss-120b\":
+        {\n        \"id\": \"chatcmpl-e2d65870-ed2a-4261-947c-39b50f28d419\",\n        \"model\":
+        \"openai/gpt-oss-120b\",\n        \"usage\": {\n          \"input_tokens\":
+        167,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
+        0,\n          \"output_tokens\": 63,\n          \"reasoning_tokens\": 22\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"tool_use\",\n        \"provider\":
+        \"groq\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
+        \"reasoning\",\n            \"reasoning\": \"We need to call the math_operation
+        tool with a=15, b=27, operation \\\"add\\\".\",\n            \"signature\":
+        \"\"\n          },\n          {\n            \"id\": \"fc_bf8e2b9f-8373-468e-a208-d25d411e1b77\",\n            \"type\":
+        \"tool_use\",\n            \"name\": \"math_operation\",\n            \"input\":
+        {\n              \"a\": 15,\n              \"b\": 27,\n              \"operation\":
+        \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
         \"openai_apikey_completions_gpt-5.1\",\n    \"result\": {\n      \"live_basic_tool_call_openai_apikey_completions_gpt-5.1\":
         {\n        \"id\": \"chatcmpl-Dh8YdEAG3J6FSwc8bzL41nK6iJvHt\",\n        \"model\":
         \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input_tokens\":
@@ -85,7 +98,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 19 May 2026 06:49:47 GMT
+      - Tue, 19 May 2026 07:12:52 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -99,110 +112,113 @@ http_interactions:
       Anthropic-Ratelimit-Input-Tokens-Remaining:
       - '449000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2026-05-19T06:49:46Z'
+      - '2026-05-19T07:12:51Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '90000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2026-05-19T06:49:46Z'
+      - '2026-05-19T07:12:51Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '1000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2026-05-19T06:49:46Z'
+      - '2026-05-19T07:12:51Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '540000'
       Anthropic-Ratelimit-Tokens-Remaining:
       - '539000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2026-05-19T06:49:46Z'
+      - '2026-05-19T07:12:51Z'
       Request-Id:
-      - req_011CbBUvrYSCiuF7SHxAxYez
+      - req_011CbBWgyCsKXHGm4KVZvm1W
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
       Traceresponse:
-      - 00-85584998543686a6d8d9203393f41af6-72bc5b548cdda72f-01
+      - 00-5b41bfb172a0332a31cd8f55d88cf3d8-23f5ccef8c276e91-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '1021'
+      - '942'
       Vary:
       - Accept-Encoding
-      Set-Cookie:
-      - _cfuvid=cwq0nq9_I6.vt82kDFTZJ7l.z6j4OpIgnR5XHlfTbqI-1779173385.8989081-1.0.1.1-IlI3nRHYUf.dKGAB3._yqGp56ycSBOB1dT9GK1g.ENg;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
-      X-Robots-Tag:
-      - none
       Cf-Cache-Status:
       - DYNAMIC
+      Set-Cookie:
+      - _cfuvid=.lTxjbooKFtpWLWaeu1BOjLqp8lCM_icZEvOLsqvnRw-1779174771.22228-1.0.1.1-Ul2AkRgvRn.2cfjUZUlAeiK7ER0ASDHZwvmYdTdTH_k;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
       Cf-Ray:
-      - 9fe129dddb33b486-SIN
+      - 9fe14bb02fc69aaf-SIN
     body:
       encoding: ASCII-8BIT
       string: |+
         event: message_start
-        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_018ydpmJT2RHzSp8LUzg7dHz","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":1780,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":5,"service_tier":"standard","inference_geo":"not_available"}}     }
+        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01WpD5P5MeiifSxwzWACKSDv","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":2160,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":1,"service_tier":"standard","inference_geo":"not_available"}}        }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}           }
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}}
 
         event: ping
         data: {"type": "ping"}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"Let me analyze the JSON"}            }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"Let"}          }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" to find the required information:\n\n1. Number of recorded outputs: I need to count how many test runs are"}        }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" me analyze the JSON data provided:\n\n1. I need to count the number of recorded outputs\n2. I need to calculate 15 + 27\n3. I"}               }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" recorded. Looking at the JSON, I can see there are 5 pairs/results:\n   - anthropic_apikey"}             }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" need to include both facts in a short sentence\n\nLooking at the JSON"}              }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"_messages_claude-sonnet-4-20250514\n   - anthropic_oauth_messages_claude-sonnet-4-20250514\n   - openai_apikey_completions_gpt-5.1\n   - openai_apikey_responses_gpt"}   }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":", I can see there are 6 entries in the array:\n1"}}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"-5.4\n   - openai_oauth_codex_gpt-5.4\n\nSo there are 5 recorded outputs.\n\n2. Tool-call sum 15 + 27: Looking at all the tool calls, they"}             }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":". anthropic_apikey_messages_claude-sonnet-4-20250514\n2. anthropic_oauth_messages_claude-sonnet-4-20250514 \n3. groq_completions_openai_gpt-oss-120b"}     }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" all have the same input:\n   - a: 15\n   - b: 27\n   - operation: \"add\"\n\nSo the sum is 15 + 27 = "}}
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n4. openai_apikey_completions_gpt-5.1\n5. openai_apikey_responses_gpt-5.4\n6. openai_oauth_codex_gpt-5.4\n\nSo there are 6 recorded"} }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"42.\n\nI need to include both facts as Arabic numerals in one short sentence."}        }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" outputs.\n\nFor the calculation: 15 + 27 = 42\n\nI need to include both facts ("}             }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"Eu8GCmIIDRgCKkCNRYfjHAhyvNzOiDxz5UQCx16lrFd8OWB3XAqtn6hEela+O9eUDUjc5fuYnvrbBggf5dwY0b5Viv17FudmAri4MhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIM1QsvQNFXZyJ+e8pMGgwtwrZhIL2PKvmUwIQiMJCN9URDKdqCToRA06QECX6YB0s8mlMAwcqlCkUOmd2nrxQtO8GzE6VkJ8VcY0Wf+yq6BXB2kpPuNN1cgqwZCYpzclujyLxxcabThByLnWt/O/2Fxd7xfbkf9T3MJygYj5xFtIqmxSwvVET+wMpGcspmAPr2WwqT09Ae+ORd60bgFE8Z0o4jaBU2ytI1Aw1ZgSLaoBv22zhriWtOvuUEplIZ78XQ4H8cHubyPj9a0T3sf+wX28mvrC1c7t84gna+qkNmiJQcCvIHszYdEaj32RpSi4AZ6O6yp2+m7Ug/xJAIE/AXp76/55xTib35h0QTSg1mQiwe1koEiIg1+lopdEC0vFaW4cwveegoabD1ItDSDZVIv5G3JA9JYgtY03SUubvltK3rWG9BvjVQSVf3A209AdDaz6AW4dUQXZJoW/i/tX+me+E3O1a6KIEsjlhoJCjwNoroiruCYxdig3pTUpjJBOG/UvRFUOjC7WRvm9Lh0ZP4EfFlxp0b1oqyjSqyOL0neY2VkDeHSVoyLL+qtXtTfsc5H/rv0jtksREXpiKmZioNyJILyCBI/449YSZV9CZ9rBYIRgPZppQSL72p08xOkHG05RH/VBh/PHps+UpvCtswgJigBmIWe6Av0W4ZcAKASCQkLvEnvkF2aV87jsN5fKhfG0QS5rEtwY3LT4gRjJUtf/agKRxuDPKeWRPrqhuEWJNlOhnuWQ0NwU49agaXjvD/dxoBPgras4f4tP4anOuYc4YMl9C4TJJtWn6AZQRB8i4zxFH9QaJPBCztOv2GWtLqffVArGpPz8mvSGTi6EbzYacUy9N3GPvFiytyb/Nobln0lUhPihDEOZ0pC4m3hrovTVwPlw0Vb1Ea7DpfjC+ClZlz78vB/nFUwfIR9q+q50TMJZlSgh6HAT84ukIXE2qqntT5ZhvbhsdVpAfxAVtn446OstqNPSHcm3pF4M9Uyp2X5gk8QHCnpfMLx5JJAcoFbbjSASbMdgQKGAE="}   }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"6 recorded outputs and the sum 42) as Arabic numerals in one"}             }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" short sentence."}          }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"Et0GCmIIDRgCKkDmdCCIA4hUKdOUNpParC7u6AN7+1XSVW1GUMsQVmcJnvDpkHg57ZKiRzCs/l1VkrMUXz6rFPFs89vbY0bcN0DHMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIM2Hmn53hg1qmhsXR5Ggx7POdpPdPrlnTMwnwiMG2GcLkzMW+gNvFByU29ytpioM8YeAO+jYoLmlhcInrgSyR25WbhiNH38z2NBJTkcyqoBRFdhDA+i6Mz+jDM6vy9Zk4n0J09eRZFPtacAReHs7xvNHOtxusyUW2XE0VFtPjaaQnZHO5BgdTbdk+fe8IGxT6LwClwyEdvgQXwS4vIUWy94u6lsl4jz91PVpt71g5twiPBdzxl/Pmgv7PfzWTVHSX+zw/gI5UwWKTJbIEMLezbGFymcojMI3A5zb4J1PVr4kUhP/kLef9tNRg+oQTeVGn9ok8KQgzPpe/d5ke/O+MES1domp6u8Dga0kjGOjY/fbxDlMnLZeCNwcx5kkHXqwQ3KC432UXUgHHJcsEzQSj0R27boW6hzd/2MBCGAEE2SYskpzxteinRP9uJyHzxK/kXO59+bBhNaia2kVdFaaHXCJ0C0ZhenqIGiQy2Cis/6RL7dDAlDbSIn5YOAP0S439XW82+agyPp3wtUaWmK5EW6hGEkXu2cJcJPaifmQbSwo0GNzEMHlla+vYcSU9SZB4+VNxXRI6O3rdqU311aZgyBb/YeWon9d2eewcIqmifn0fs1Sjyl4AVLcNjgVoJ5iFEKeFRGMYOZkOc1Ftws4GKEFrihxE0Cr+SM/It2SzybsfkOnxIXOOiYak6uKqIMLGc+yA3C1/ErsDpkKl1DBAb+wi8oMw8BFnOlronmDNb1zgTP8B8UnqNkuxvbqKjVEzAwHDdbJVPTJXlcQAdhlGRMYvKRkVF7bBNMLg0+tjgQjnnrkmLCP0Fi/CLS1/2mt0RpxCmp67W3/yvcw9fkb0iGWuHvFRtI5v7xgfZP1K9pjYwaRy56cEH3NDbtthL+Ec4pj4cxpt90MeIuJJcFAUt5zxdmG0LRM5T5RMfcvwQf47XIesOMAVQ6u0jiucTAiQokb8/4ZYpRGdXCAF7RwaQdWErRxQsmdfmgv7fjI00dZRUtG1nbX8XGAE="}    }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":0       }
+        data: {"type":"content_block_stop","index":0  }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}   }
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}            }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"There"}     }
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"There are 6 recorded outputs from the streaming tool-call test runs and the sum of 15 + 27 equals"}     }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" are 5 recorded outputs from streaming tool-call test runs, all performing the calculation 15 + 27 ="}            }
-
-        event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" 42."}           }
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" 42."}         }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":1              }
+        data: {"type":"content_block_stop","index":1               }
 
         event: message_delta
-        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":1780,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":273}    }
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":2160,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":272}            }
 
         event: message_stop
-        data: {"type":"message_stop"        }
+        data: {"type":"message_stop"     }
 
-  recorded_at: Tue, 19 May 2026 06:49:50 GMT
+  recorded_at: Tue, 19 May 2026 07:12:56 GMT
 recorded_with: VCR 6.4.0
 ...

@@ -1,0 +1,28 @@
+{
+  "live_text_streaming_groq_completions_openai/gpt-oss-120b": {
+    "id": "chatcmpl-f6e2b386-811c-408a-8933-7143247d3a6b",
+    "model": "openai/gpt-oss-120b",
+    "usage": {
+      "input_tokens": 78,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 54,
+      "reasoning_tokens": 37
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "groq",
+    "api": "completions",
+    "content": [
+      {
+        "type": "reasoning",
+        "reasoning": "The user asks: \"Count from 1 to 3\". Simple. Provide 1, 2, 3. Probably just \"1, 2, 3\".",
+        "signature": ""
+      },
+      {
+        "type": "text",
+        "text": "1, 2, 3."
+      }
+    ]
+  }
+}
