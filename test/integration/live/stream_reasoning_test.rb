@@ -19,12 +19,12 @@ class StreamReasoningTest < Test
     LlmGateway.reset_configuration!
   end
 
-  def basic_thinking_test(adapter, reasoning: "high")
+  def basic_thinking_test(adapter, reasoning: "high", options: {})
     prompt = "Think long and hard about 42 + 27"
     thinking_started = false
     thinking_chunks = ""
     thinking_completed = false
-    response = adapter.stream(prompt, reasoning:,) do |event|
+    response = adapter.stream(prompt, reasoning:, **options) do |event|
       case event.type
       when :reasoning_start
         thinking_started = true
@@ -57,16 +57,16 @@ class StreamReasoningTest < Test
     response
   end
 
-  def self.define_stream_reasoning_tests_for(provider:, model:)
+  def self.define_stream_reasoning_tests_for(provider:, model:, options: {})
     test "live_basic_thinking_#{provider}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
-        response = basic_thinking_test(adapter, reasoning: "high")
+        response = basic_thinking_test(adapter, reasoning: "high", options: options)
         record_live_handoff_result(test_file: __FILE__, provider:, model:, result: response)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_stream_reasoning_tests_for(provider: pair[:provider], model: pair[:model])
+    define_stream_reasoning_tests_for(provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 end

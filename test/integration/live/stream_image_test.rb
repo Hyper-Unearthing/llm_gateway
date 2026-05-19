@@ -20,7 +20,7 @@ class StreamImageTest < Test
     LlmGateway.reset_configuration!
   end
 
-  def basic_image_streaming_test(adapter)
+  def basic_image_streaming_test(adapter, options: {})
     image_path = File.expand_path("../../fixtures/red-circle.png", __dir__)
     image_data = Base64.strict_encode64(File.binread(image_path))
 
@@ -41,7 +41,7 @@ class StreamImageTest < Test
       }
     ]
 
-    response = adapter.stream(prompt, system: "You are a helpful assistant.")
+    response = adapter.stream(prompt, system: "You are a helpful assistant.", **options)
 
     assert_equal "assistant", response.role
     assert_operator response.usage[:input_tokens], :>, 0
@@ -58,16 +58,16 @@ class StreamImageTest < Test
     response
   end
 
-  def self.define_stream_image_tests_for(provider:, model:)
+  def self.define_stream_image_tests_for(provider:, model:, options: {})
     test "live_image_streaming_#{provider}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
-        response = basic_image_streaming_test(adapter)
+        response = basic_image_streaming_test(adapter, options: options)
         record_live_handoff_result(test_file: __FILE__, provider:, model:, result: response)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_stream_image_tests_for(provider: pair[:provider], model: pair[:model])
+    define_stream_image_tests_for(provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 end

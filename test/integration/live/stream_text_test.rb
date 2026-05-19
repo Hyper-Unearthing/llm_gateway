@@ -19,12 +19,12 @@ class StreamTextTest < Test
     LlmGateway.reset_configuration!
   end
 
-  def basic_streaming_text_test(adapter)
+  def basic_streaming_text_test(adapter, options: {})
     text_started = false
     text_chunks = ""
     text_completed = false
 
-    response = adapter.stream("Count from 1 to 3") do |event|
+    response = adapter.stream("Count from 1 to 3", **options) do |event|
       case event.type
       when :text_start
         text_started = true
@@ -45,16 +45,16 @@ class StreamTextTest < Test
     response
   end
 
-  def self.define_stream_tests_for(provider:, model:)
+  def self.define_stream_tests_for(provider:, model:, options: {})
     test "live_text_streaming_#{provider}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
-        response = basic_streaming_text_test(adapter)
+        response = basic_streaming_text_test(adapter, options: options)
         record_live_handoff_result(test_file: __FILE__, provider:, model:, result: response)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_stream_tests_for(provider: pair[:provider], model: pair[:model])
+    define_stream_tests_for(provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 end
