@@ -16,7 +16,7 @@ class HandoffStreamImageLiveTest < Test
     LlmGateway.reset_configuration!
   end
 
-  def run_handoff_stream_image_for(provider:, model:, adapter:)
+  def run_handoff_stream_image_for(provider:, model:, adapter:, options: {})
     records = load_recorded_outputs
 
     prompt = <<~PROMPT
@@ -28,25 +28,27 @@ class HandoffStreamImageLiveTest < Test
       #{JSON.pretty_generate(records)}
     PROMPT
 
-    response = adapter.stream(prompt, reasoning: "high")
+    response = adapter.stream(prompt, reasoning: "high", **options)
     refute_equal "error", response.stop_reason, "#{provider}/#{model} failed: #{response.error_message}"
 
     text = response.content.select { |block| block.type == "text" }.map(&:text).join(" ").downcase
     assert_includes text, "red"
     assert_includes text, "circle"
-    assert_includes text, records.length.to_s
+    expected_count = records.length.to_s
+    arabic_indic_count = expected_count.tr("0-9", "٠-٩")
+    assert text.include?(expected_count) || text.include?(arabic_indic_count), "Expected #{text.inspect} to include #{expected_count.inspect} or #{arabic_indic_count.inspect}"
   end
 
-  def self.define_handoff_stream_image_test_for(provider:, model:)
+  def self.define_handoff_stream_image_test_for(provider:, model:, options: {})
     test "handoff_stream_image__#{provider}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
-        run_handoff_stream_image_for(provider:, model:, adapter:)
+        run_handoff_stream_image_for(provider:, model:, adapter:, options:)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_handoff_stream_image_test_for(provider: pair[:provider], model: pair[:model])
+    define_handoff_stream_image_test_for(provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 
   private

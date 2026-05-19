@@ -5,7 +5,7 @@ require_relative "../base_client"
 module LlmGateway
   module Clients
     class Groq < BaseClient
-      def initialize(model_key: "openai/gpt-oss-20b", api_key: ENV["GROQ_API_KEY"])
+      def initialize(model_key: "openai/gpt-oss-120b", api_key: ENV["GROQ_API_KEY"])
         @base_endpoint = "https://api.groq.com/openai/v1"
         super(model_key: model_key, api_key: api_key)
       end
@@ -19,6 +19,18 @@ module LlmGateway
         body.merge!(options)
 
         post("chat/completions", body)
+      end
+
+      def stream(messages, tools: nil, system: [], **options, &block)
+        body = {
+          model: model_key,
+          messages: system + messages,
+          tools: tools,
+          stream_options: { include_usage: true }
+        }
+        body.merge!(options)
+
+        post_stream("chat/completions", body, &block)
       end
 
       private

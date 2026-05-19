@@ -3,7 +3,8 @@
 require_relative "../adapter"
 require_relative "../openai/acts_like_chat_completions"
 require_relative "../input_message_sanitizer"
-require_relative "../openai/chat_completions/input_mapper"
+require_relative "../openai/chat_completions/stream_mapper"
+require_relative "input_mapper"
 require_relative "option_mapper"
 
 module LlmGateway
@@ -15,7 +16,7 @@ module LlmGateway
         private
 
         def file_output_mapper = nil
-        def stream_mapper = nil
+        def input_mapper = Groq::InputMapper
         def option_mapper = Groq::OptionMapper
 
         def map_input(input)

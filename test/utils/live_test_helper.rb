@@ -20,6 +20,11 @@ module LiveTestHelper
       api_key = ENV["ANTHROPIC_API_KEY"].to_s
       skip("Skipped: missing ANTHROPIC_API_KEY") if api_key.empty?
       config["api_key"] = api_key
+    when "groq_completions"
+      config["api_key"] = "vcr-replay-token" if replaying_vcr
+      api_key = ENV["GROQ_API_KEY"].to_s
+      skip("Skipped: missing GROQ_API_KEY") if api_key.empty?
+      config["api_key"] = api_key
     when "anthropic_oauth_messages"
       config["provider"] = "anthropic_apikey_messages"
       config["api_key"] = replaying_vcr ? "sk-ant-oat-vcr-replay-token" : oauth_access_token_for("anthropic")
