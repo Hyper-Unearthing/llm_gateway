@@ -8,6 +8,69 @@ require_relative "../../utils/live_test_helper"
 class CacheLiveTest < Test
   include LiveTestHelper
 
+  PAIRS = [
+    {
+      name: "openai_apikey_completions",
+      provider: "openai_apikey_completions",
+      model: "gpt-5.1",
+      options: {
+        cache_key: "openai_apikey_completions",
+        cache_retention: "short"
+      }
+    },
+    {
+      name: "openai_apikey_completions_none",
+      provider: "openai_apikey_completions",
+      model: "gpt-5.1",
+      options: {
+        cache_key: "openai_apikey_completions_none",
+        cache_retention: "none"
+      }
+    },
+    {
+      name: "openai_apikey_responses",
+      provider: "openai_apikey_responses",
+      model: "gpt-5.4",
+      options: {
+        cache_key: "openai_apikey_responses",
+        cache_retention: "short"
+      }
+    },
+    {
+      name: "openai_apikey_responses_none",
+      provider: "openai_apikey_responses",
+      model: "gpt-5.4",
+      options: {
+        cache_key: "openai_apikey_responses_none",
+        cache_retention: "none"
+      }
+    },
+    {
+      name: "openai_oauth_codex",
+      provider: "openai_oauth_codex",
+      model: "gpt-5.4",
+      options: {
+        cache_key: "openai_oauth_codex"
+      }
+    },
+    {
+      name: "anthropic_apikey_messages",
+      provider: "anthropic_apikey_messages",
+      model: "claude-sonnet-4-20250514",
+      options: {
+        cache_retention: "short"
+      }
+    },
+    {
+      name: "anthropic_apikey_messages_none",
+      provider: "anthropic_apikey_messages",
+      model: "claude-sonnet-4-20250514",
+      options: {
+        cache_retention: "none"
+      }
+    }
+  ].freeze
+
   DOCUMENT_URL = "https://gist.githubusercontent.com/billybonks/f343b02cc67535475b8819d281763c21/raw/c55972e604ecc9b5b998ed44d9e9575cebaf2fc8/responses.md"
 
   def teardown
@@ -81,70 +144,12 @@ class CacheLiveTest < Test
     end
   end
 
-  define_cache_tests_for(
-    name: "openai_apikey_completions",
-    provider: "openai_apikey_completions",
-    model: "gpt-5.1",
-    options: {
-      cache_key: "openai_apikey_completions",
-      cache_retention: "short"
-    }
-  )
-
-  define_cache_tests_for(
-    name: "openai_apikey_completions_none",
-    provider: "openai_apikey_completions",
-    model: "gpt-5.1",
-    options: {
-      cache_key: "openai_apikey_completions_none",
-      cache_retention: "none"
-    }
-  )
-
-  define_cache_tests_for(
-    name: "openai_apikey_responses",
-    provider: "openai_apikey_responses",
-    model: "gpt-5.4",
-    options: {
-      cache_key: "openai_apikey_responses",
-      cache_retention: "short"
-    }
-  )
-
-  define_cache_tests_for(
-    name: "openai_apikey_responses_none",
-    provider: "openai_apikey_responses",
-    model: "gpt-5.4",
-    options: {
-      cache_key: "openai_apikey_responses_none",
-      cache_retention: "none"
-    }
-  )
-
-  define_cache_tests_for(
-    name: "openai_oauth_codex",
-    provider: "openai_oauth_codex",
-    model: "gpt-5.4",
-    options: {
-      cache_key: "openai_oauth_codex"
-    }
-  )
-
-  define_cache_tests_for(
-    name: "anthropic_apikey_messages",
-    provider: "anthropic_apikey_messages",
-    model: "claude-sonnet-4-20250514",
-    options: {
-      cache_retention: "short"
-    }
-  )
-
-  define_cache_tests_for(
-    name: "anthropic_apikey_messages_none",
-    provider: "anthropic_apikey_messages",
-    model: "claude-sonnet-4-20250514",
-    options: {
-      cache_retention: "none"
-    }
-  )
+  PAIRS.each do |pair|
+    define_cache_tests_for(
+      name: pair[:name],
+      provider: pair[:provider],
+      model: pair[:model],
+      options: pair[:options]
+    )
+  end
 end

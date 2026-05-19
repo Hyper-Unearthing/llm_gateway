@@ -22,13 +22,13 @@ class StreamToolCallTest < Test
     LlmGateway.reset_configuration!
   end
 
-  def basic_tool_call(adapter)
+  def basic_tool_call(adapter, options: {})
     prompt = "Calculate 15 + 27 using the math_operation tool"
     accumulated_tool_args = ""
     has_tool_start = false
     has_tool_delta = false
     has_tool_end = false
-    response = adapter.stream(prompt, tools: [ math_operation_tool ]) do |event|
+    response = adapter.stream(prompt, tools: [ math_operation_tool ], **options) do |event|
       if event.type == :tool_start
         has_tool_start = true
         assert_equal "math_operation", event.name
@@ -68,16 +68,16 @@ class StreamToolCallTest < Test
     response
   end
 
-  def self.define_stream_tests_for(provider:, model:)
+  def self.define_stream_tests_for(provider:, model:, options: {})
     test "live_basic_tool_call_#{provider}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
-        response = basic_tool_call(adapter)
+        response = basic_tool_call(adapter, options: options)
         record_live_handoff_result(test_file: __FILE__, provider:, model:, result: response)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_stream_tests_for(provider: pair[:provider], model: pair[:model])
+    define_stream_tests_for(provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 end
