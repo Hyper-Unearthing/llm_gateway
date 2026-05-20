@@ -1,5 +1,22 @@
 # Changelog
 
+## [v0.5.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.5.0) (2026-05-20)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.4.0...v0.5.0)
+
+**Merged pull requests:**
+
+- Refactor stream mapper accumulation [\#61](https://github.com/Hyper-Unearthing/llm_gateway/pull/61) ([billybonks](https://github.com/billybonks))
+- feat\(groq\): add stream support for groq [\#60](https://github.com/Hyper-Unearthing/llm_gateway/pull/60) ([billybonks](https://github.com/billybonks))
+- test\(feat\): allow options to be passed in model pairs [\#59](https://github.com/Hyper-Unearthing/llm_gateway/pull/59) ([billybonks](https://github.com/billybonks))
+- Focus streaming and Claude client tests [\#58](https://github.com/Hyper-Unearthing/llm_gateway/pull/58) ([billybonks](https://github.com/billybonks))
+- feat\(test\): automatically delete unused vcrs [\#57](https://github.com/Hyper-Unearthing/llm_gateway/pull/57) ([billybonks](https://github.com/billybonks))
+- refactor: handoff test [\#56](https://github.com/Hyper-Unearthing/llm_gateway/pull/56) ([billybonks](https://github.com/billybonks))
+- Refactor/options clients [\#55](https://github.com/Hyper-Unearthing/llm_gateway/pull/55) ([billybonks](https://github.com/billybonks))
+- burn: all the old code [\#54](https://github.com/Hyper-Unearthing/llm_gateway/pull/54) ([billybonks](https://github.com/billybonks))
+- test: only skip actual auth errors [\#53](https://github.com/Hyper-Unearthing/llm_gateway/pull/53) ([billybonks](https://github.com/billybonks))
+- test: dont try refresh token when using vcr only when regenerating [\#52](https://github.com/Hyper-Unearthing/llm_gateway/pull/52) ([billybonks](https://github.com/billybonks))
+
 ## [v0.4.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.4.0) (2026-05-17)
 
 [Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.3.0...v0.4.0)
