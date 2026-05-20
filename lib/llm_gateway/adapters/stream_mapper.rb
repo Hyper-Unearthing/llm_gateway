@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "stream_accumulator"
-require_relative "structs"
+require_relative "normalized_stream_accumulator"
 
 module LlmGateway
   module Adapters
@@ -12,16 +11,16 @@ module LlmGateway
 
       private
 
-      def emit(event, &block)
-        Array(event).each do |single_event|
-          accumulator.push(single_event, &block) if single_event
+      def accumulator
+        @accumulator ||= LlmGateway::Adapters::NormalizedStreamAccumulator.new
+      end
+
+      def push_patches(patches, &block)
+        patches.each do |patch|
+          accumulator.push(patch, &block)
         end
 
         nil
-      end
-
-      def accumulator
-        @accumulator ||= ::StreamAccumulator.new
       end
 
       def raise_stream_error!(data, overload_codes: [])

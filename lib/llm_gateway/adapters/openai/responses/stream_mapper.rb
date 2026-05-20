@@ -8,193 +8,117 @@ module LlmGateway
       module Responses
         class StreamMapper < LlmGateway::Adapters::StreamMapper
           def map(chunk, &block)
-            accumulator
-
             event_type = chunk[:event]
             data = chunk[:data] || {}
             raise_stream_error!(data) if event_type == "error" || data[:error] || data[:type] == "error"
 
-            event = case event_type
-            when "response.created"
-              stash_response(data[:response])
-              nil
-            when "response.output_item.added"
-              map_output_item_added(data)
-            when "response.output_item.done"
-              map_output_item_done(data)
-            when "response.content_part.added"
-              map_content_part_added(data)
-            when "response.content_part.done", "response.output_text.done"
-              map_text_done(data)
-            when "response.output_text.delta"
-              AssistantStreamEvent.new(
-                type: :text_delta,
-                content_index: content_index_for(data[:output_index] || 0),
-                delta: data[:delta] || ""
-              )
-            when "response.function_call_arguments.delta"
-              AssistantStreamEvent.new(
-                type: :tool_delta,
-                content_index: content_index_for(data[:output_index] || 0),
-                delta: data[:delta] || ""
-              )
-            when "response.function_call_arguments.done"
-              map_tool_done(data)
-            when "response.reasoning_summary_text.delta"
-              output_index = data[:output_index] || 0
-              mark_reasoning_has_content(output_index)
-              AssistantStreamReasoningEvent.new(
-                type: :reasoning_delta,
-                content_index: content_index_for(output_index),
-                delta: data[:delta] || "",
-                signature: ""
-              )
-            when "response.completed"
-              map_response_completed(data[:response])
-            else
-              nil
-            end
-
-            emit(event, &block)
+            push_patches(patches_for(event_type, data), &block)
           end
 
           private
 
-          def map_output_item_added(data)
-            item = data[:item] || {}
-            output_index = data[:output_index] || 0
-
-            case item[:type]
-            when "reasoning"
-              mark_reasoning_started(output_index)
-              AssistantStreamReasoningEvent.new(
-                type: :reasoning_start,
-                content_index: register_content_index(output_index),
-                delta: "",
-                signature: ""
-              )
-            when "message"
-              register_content_index(output_index)
-              ensure_message_started(role: item[:role] || "assistant")
-            when "function_call"
-              stash_role("assistant")
-              mark_tool_started(output_index)
-              AssistantToolStartEvent.new(
-                type: :tool_start,
-                content_index: register_content_index(output_index),
-                delta: "",
-                id: item[:call_id] || item[:id],
-                name: item[:name]
-              )
+          def patches_for(event_type, data)
+            case event_type
+            when "response.created"
+              response_created_patches(data[:response])
+            when "response.output_item.added"
+              output_item_added_patches(data)
+            when "response.content_part.added"
+              content_part_added_patches(data)
+            when "response.content_part.done"
+              content_part_done_patches(data)
+            when "response.output_text.delta"
+              [ { type: :text_delta, delta: data[:delta] || "" } ]
+            when "response.function_call_arguments.delta"
+              [ { type: :tool_delta, delta: data[:delta] || "" } ]
+            when "response.function_call_arguments.done"
+              [ { type: :tool_end, delta: "" } ]
+            when "response.reasoning_summary_part.added"
+              [ { type: :reasoning_start, delta: "", signature: "" } ]
+            when "response.reasoning_summary_text.delta"
+              [ { type: :reasoning_delta, delta: data[:delta] || "", signature: "" } ]
+            when "response.reasoning_summary_part.done"
+              [ { type: :reasoning_end, delta: "", signature: "" } ]
+            when "response.completed"
+              response_completed_patches(data[:response])
             else
-              nil
+              []
             end
           end
 
-          def map_output_item_done(data)
-            item = data[:item] || {}
-            output_index = data[:output_index] || 0
-
-            case item[:type]
-            when "reasoning"
-              map_reasoning_done(output_index, item)
-            when "function_call"
-              map_function_call_done(output_index, item)
-            else
-              nil
-            end
-          end
-
-          def map_reasoning_done(output_index, item)
-            content_index = content_index_for(output_index)
-            summary_text = extract_reasoning_summary_text(item)
-
-            if reasoning_started_without_content?(output_index) && !summary_text.empty?
-              mark_reasoning_completed(output_index)
-              return [
-                AssistantStreamReasoningEvent.new(
-                  type: :reasoning_delta,
-                  content_index:,
-                  delta: summary_text,
-                  signature: ""
-                ),
-                AssistantStreamReasoningEvent.new(
-                  type: :reasoning_end,
-                  content_index:,
-                  delta: "",
-                  signature: ""
-                )
-              ]
-            end
-
-            mark_reasoning_completed(output_index)
-            AssistantStreamReasoningEvent.new(
-              type: :reasoning_end,
-              content_index:,
-              delta: "",
-              signature: ""
-            )
-          end
-
-          def map_function_call_done(output_index, item)
-            return nil if tool_started?(output_index)
-
-            mark_tool_started(output_index)
-            content_index = register_content_index(output_index)
+          def response_created_patches(response)
+            response ||= {}
 
             [
-              AssistantToolStartEvent.new(
-                type: :tool_start,
-                content_index:,
-                delta: "",
-                id: item[:call_id] || item[:id],
-                name: item[:name]
-              ),
-              AssistantStreamEvent.new(
-                type: :tool_end,
-                content_index:,
-                delta: ""
-              )
+              {
+                type: :message_start,
+                delta: {
+                  id: response[:id],
+                  model: response[:model],
+                  role: "assistant"
+                }.compact,
+                usage_increment: {}
+              }
             ]
           end
 
-          def map_content_part_added(data)
-            part = data[:part] || {}
-            return nil unless part[:type] == "output_text"
+          def output_item_added_patches(data)
+            item = data[:item] || {}
 
-            AssistantStreamEvent.new(
-              type: :text_start,
-              content_index: content_index_for(data[:output_index] || 0),
-              delta: ""
-            )
-          end
+            case item[:type]
+            when "message"
+              return [] unless accumulator.message_hash.empty?
 
-          def map_text_done(data)
-            AssistantStreamEvent.new(
-              type: :text_end,
-              content_index: content_index_for(data[:output_index] || 0),
-              delta: ""
-            )
-          end
-
-          def map_tool_done(data)
-            AssistantStreamEvent.new(
-              type: :tool_end,
-              content_index: content_index_for(data[:output_index] || 0),
-              delta: ""
-            )
-          end
-
-          def map_response_completed(response)
-            stash_response(response)
-            AssistantStreamMessageEvent.new(
-              type: message_started? ? :message_delta : :message_start,
-              delta: pending_message_attributes.merge(role: pending_message_attributes[:role] || "assistant", stop_reason: stop_reason_for(response)),
-              usage_increment: usage_increment(response)
-            ).tap do
-              @message_started = true
-              clear_pending_message_attributes
+              [
+                {
+                  type: :message_start,
+                  delta: { role: item[:role] || "assistant" },
+                  usage_increment: {}
+                }
+              ]
+            when "function_call"
+              [
+                {
+                  type: :tool_start,
+                  delta: "",
+                  id: item[:call_id] || item[:id],
+                  name: item[:name]
+                }
+              ]
+            else
+              []
             end
+          end
+
+          def content_part_added_patches(data)
+            part = data[:part] || {}
+            return [] unless part[:type] == "output_text"
+
+            [ { type: :text_start, delta: "" } ]
+          end
+
+          def content_part_done_patches(data)
+            part = data[:part] || {}
+            return [] unless part.empty? || part[:type] == "output_text"
+
+            [ { type: :text_end, delta: "" } ]
+          end
+
+          def response_completed_patches(response)
+            response ||= {}
+
+            [
+              {
+                type: accumulator.message_hash.empty? ? :message_start : :message_delta,
+                delta: {
+                  id: response[:id],
+                  model: response[:model],
+                  role: "assistant",
+                  stop_reason: stop_reason_for(response)
+                }.compact,
+                usage_increment: usage_increment(response)
+              }
+            ]
           end
 
           def usage_increment(response)
@@ -213,103 +137,11 @@ module LlmGateway
             output = response[:output] || []
             last_item = output.last || {}
 
-            tool_state.any? || last_item[:type] == "function_call" ? "tool_use" : "stop"
+            tool_seen? || last_item[:type] == "function_call" ? "tool_use" : "stop"
           end
 
-          def ensure_message_started(role: "assistant")
-            return nil if message_started?
-
-            @message_started = true
-            AssistantStreamMessageEvent.new(
-              type: :message_start,
-              delta: pending_message_attributes.merge(role: role).compact,
-              usage_increment: {}
-            ).tap do
-              clear_pending_message_attributes
-            end
-          end
-
-          def extract_reasoning_summary_text(item)
-            Array(item[:summary]).filter_map do |summary|
-              next summary[:text] if summary.is_a?(Hash) && summary[:text]
-              next summary[:summary] if summary.is_a?(Hash) && summary[:summary]
-              next summary if summary.is_a?(String)
-            end.join
-          end
-
-          def mark_reasoning_started(output_index)
-            reasoning_state[output_index] = :started
-          end
-
-          def mark_reasoning_has_content(output_index)
-            reasoning_state[output_index] = :has_content
-          end
-
-          def mark_reasoning_completed(output_index)
-            reasoning_state[output_index] = :completed
-          end
-
-          def reasoning_started_without_content?(output_index)
-            reasoning_state[output_index] == :started
-          end
-
-          def reasoning_state
-            @reasoning_state ||= {}
-          end
-
-          def mark_tool_started(output_index)
-            tool_state[output_index] = :started
-          end
-
-          def tool_started?(output_index)
-            tool_state[output_index] == :started
-          end
-
-          def tool_state
-            @tool_state ||= {}
-          end
-
-          def stash_response(response)
-            response ||= {}
-            @pending_message_attributes = pending_message_attributes.merge(
-              id: response[:id],
-              model: response[:model]
-            ).compact
-          end
-
-          def stash_role(role)
-            @pending_message_attributes = pending_message_attributes.merge(role:)
-          end
-
-          def pending_message_attributes
-            @pending_message_attributes ||= {}
-          end
-
-          def clear_pending_message_attributes
-            @pending_message_attributes = {}
-          end
-
-          def register_content_index(output_index)
-            content_index_map[output_index] ||= next_content_index!
-          end
-
-          def content_index_for(output_index)
-            content_index_map.fetch(output_index) { register_content_index(output_index) }
-          end
-
-          def next_content_index!
-            @next_content_index ||= 0
-            current = @next_content_index
-            @next_content_index += 1
-            current
-          end
-
-          def content_index_map
-            @content_index_map ||= {}
-          end
-
-          def message_started?
-            @message_started ||= false
+          def tool_seen?
+            accumulator.blocks.any? { |content_block| content_block && content_block[:type] == "tool_use" }
           end
         end
       end
