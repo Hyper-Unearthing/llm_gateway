@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "stream_accumulator"
 require_relative "structs"
 
 module LlmGateway
@@ -21,15 +20,7 @@ module LlmGateway
           system: normalize_system(system)
         })
 
-        accumulator = ::StreamAccumulator.new
         mapper = stream_mapper.new
-
-        emit_event = lambda do |event|
-          Array(event).each do |single_event|
-            accumulator.push(single_event)
-            block.call(single_event) if block && single_event
-          end
-        end
 
         perform_stream(
           normalized_input[:messages],
@@ -37,13 +28,11 @@ module LlmGateway
           system: normalized_input[:system],
           **map_options(options)
         ) do |chunk|
-          emit_event.call(mapper.map(chunk))
+          mapper.map(chunk, &block)
         end
 
-        mapper.drain { |event| emit_event.call(event) } if mapper.respond_to?(:drain)
-
         AssistantMessage.new(
-          accumulator.result.merge(
+          mapper.result.merge(
             provider: LlmGateway::Client.provider_id_from_client(client),
             api: api_name
           )

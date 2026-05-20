@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative "../structs.rb"
+require_relative "../stream_mapper"
 
 module LlmGateway
   module Adapters
     module Anthropic
-      class StreamMapper
-        def map(chunk)
+      class StreamMapper < LlmGateway::Adapters::StreamMapper
+        def map(chunk, &block)
           case chunk[:event]
           when "message_start"
             delta = {
@@ -16,80 +16,65 @@ module LlmGateway
             }
             usage_increment = chunk.dig(:data, :message, :usage) || {}
 
-            AssistantStreamMessageEvent.new(type: :message_start, usage_increment:, delta:)
+            accumulator.push({ type: :message_start, usage_increment:, delta: }, &block)
           when "content_block_start"
-            content_index = chunk.dig(:data, :index)
-            delta = chunk.dig(:data, :content_block, :text)
-            current_type = chunk.dig(:data, :content_block, :type)
-            content_block_types[content_index] = current_type
+            content_block = chunk.dig(:data, :content_block) || {}
+            @current_content_block_type = content_block[:type]
 
-            case current_type
+            case @current_content_block_type
             when "thinking"
-              AssistantStreamEvent.new(type: :reasoning_start, content_index:, delta:)
+              accumulator.push({ type: :reasoning_start, delta: content_block[:thinking], signature: "" }, &block)
             when "text"
-              AssistantStreamEvent.new(type: :text_start, content_index:, delta:)
+              accumulator.push({ type: :text_start, delta: content_block[:text] }, &block)
             when "tool_use"
-              id = chunk.dig(:data, :content_block, :id)
-              name = chunk.dig(:data, :content_block, :name)
-              AssistantToolStartEvent.new(type: :tool_start, content_index:, delta:, id:, name:)
+              accumulator.push(
+                {
+                  type: :tool_start,
+                  delta: "",
+                  id: content_block[:id],
+                  name: content_block[:name]
+                },
+                &block
+              )
             end
           when "content_block_delta"
-            content_index = chunk.dig(:data, :index)
-
-            case content_block_types[content_index]
+            case @current_content_block_type
             when "thinking"
               delta = chunk.dig(:data, :delta, :thinking)
-              signature = chunk.dig(:data, :delta, :signature)
-              AssistantStreamReasoningEvent.new(type: :reasoning_delta, signature:, delta:, content_index:)
+              signature = chunk.dig(:data, :delta, :signature) || ""
+              accumulator.push({ type: :reasoning_delta, signature:, delta: }, &block)
             when "text"
               delta = chunk.dig(:data, :delta, :text)
-              AssistantStreamEvent.new(type: :text_delta, content_index:, delta:)
+              accumulator.push({ type: :text_delta, delta: }, &block)
             when "tool_use"
               delta = chunk.dig(:data, :delta, :partial_json)
-              AssistantStreamEvent.new(type: :tool_delta, content_index:, delta:)
+              accumulator.push({ type: :tool_delta, delta: }, &block)
             end
           when "content_block_stop"
-            content_index = chunk.dig(:data, :index)
-            type = case content_block_types[content_index]
+            case @current_content_block_type
             when "thinking"
-              :reasoning_end
+              accumulator.push({ type: :reasoning_end, delta: "", signature: "" }, &block)
             when "text"
-              :text_end
+              accumulator.push({ type: :text_end, delta: "" }, &block)
             when "tool_use"
-              :tool_end
+              accumulator.push({ type: :tool_end, delta: "" }, &block)
             end
-            AssistantStreamEvent.new(type: type, content_index:, delta: "")
+            @current_content_block_type = nil
           when "message_delta"
             delta = normalize_message_delta(chunk.dig(:data, :delta) || {})
             usage_increment = chunk.dig(:data, :usage) || {}
 
-            AssistantStreamMessageEvent.new(type: :message_delta, usage_increment:, delta:)
+            accumulator.push({ type: :message_delta, usage_increment:, delta: }, &block)
           when "message_stop"
-            AssistantStreamMessageEvent.new(type: :message_end, usage_increment: {}, delta: {})
+            accumulator.push({ type: :message_end }, &block)
           when "ping"
             nil
           when "error"
-            error = chunk.dig(:data, :error) || {}
-            message = error[:message] || "Stream error"
-            code = error[:type]
-
-            if LlmGateway::Errors.context_overflow_message?(message)
-              raise LlmGateway::Errors::PromptTooLong.new(message, code)
-            end
-
-            if code == "overloaded_error"
-              raise LlmGateway::Errors::OverloadError.new(message, code)
-            end
-
-            raise LlmGateway::Errors::APIStatusError.new(message, code)
+            raise_stream_error!(chunk.dig(:data, :error) || {}, overload_codes: [ "overloaded_error" ])
           end
         end
 
         private
-
-        def content_block_types
-          @content_block_types ||= {}
-        end
 
         def normalize_message_delta(delta)
           return delta unless delta[:stop_reason] || delta["stop_reason"]
