@@ -34,9 +34,13 @@ module LlmGateway
       #   { type: :reasoning_delta, delta: "...", signature: "" }
       #   { type: :reasoning_end, delta: "", signature: "" }
       #
-      #   { type: :tool_start, id: "...", name: "tool_name", delta: "" }
+      #   { type: :tool_start, id: "...", name: "tool_name", tool_type: "tool_use", delta: "" }
       #   { type: :tool_delta, delta: "{\"a\":" }
       #   { type: :tool_end, delta: "" }
+      #
+      #   { type: :tool_result_start, tool_use_id: "...", name: "server_tool_result", delta: "..." }
+      #   { type: :tool_result_delta, delta: "..." }
+      #   { type: :tool_result_end, delta: "" }
       #
       # Mappers do not provide `content_index`. The accumulator assigns the next
       # public content index when a block starts and reuses the active content
@@ -68,6 +72,9 @@ module LlmGateway
         tool_start: { block_type: :tool, phase: :start },
         tool_delta: { block_type: :tool, phase: :delta },
         tool_end: { block_type: :tool, phase: :end },
+        tool_result_start: { block_type: :tool_result, phase: :start },
+        tool_result_delta: { block_type: :tool_result, phase: :delta },
+        tool_result_end: { block_type: :tool_result, phase: :end },
         reasoning_start: { block_type: :reasoning, phase: :start },
         reasoning_delta: { block_type: :reasoning, phase: :delta },
         reasoning_end: { block_type: :reasoning, phase: :end }
@@ -210,6 +217,16 @@ module LlmGateway
             delta: string_value(event_patch[:delta]),
             id: event_patch[:id],
             name: event_patch[:name],
+            partial:,
+            tool_type: event_patch[:tool_type] || "tool_use"
+          )
+        when :tool_result_start
+          AssistantToolResultStartEvent.new(
+            type:,
+            content_index: event_patch.fetch(:content_index),
+            delta: string_value(event_patch[:delta]),
+            tool_use_id: event_patch[:tool_use_id],
+            name: event_patch[:name],
             partial:
           )
         when :reasoning_start, :reasoning_delta, :reasoning_end
@@ -220,7 +237,7 @@ module LlmGateway
             signature: string_value(event_patch[:signature]),
             partial:
           )
-        when :text_start, :text_delta, :text_end, :tool_delta, :tool_end
+        when :text_start, :text_delta, :text_end, :tool_delta, :tool_end, :tool_result_delta, :tool_result_end
           AssistantStreamEvent.new(
             type:,
             content_index: event_patch.fetch(:content_index),
@@ -246,13 +263,21 @@ module LlmGateway
           blocks[event.content_index][:text] += event.delta
         when :tool_start
           blocks[event.content_index] = {
-            type: "tool_use",
+            type: event.tool_type,
             id: event.id,
             name: event.name,
             input: event.delta.to_s
           }
         when :tool_delta, :tool_end
           blocks[event.content_index][:input] += event.delta
+        when :tool_result_start
+          blocks[event.content_index] = {
+            type: event.name,
+            tool_use_id: event.tool_use_id,
+            content: event.delta.to_s
+          }
+        when :tool_result_delta, :tool_result_end
+          blocks[event.content_index][:content] += event.delta
         when :message_start
           message_hash.merge!(event.delta)
         when :reasoning_start
@@ -305,10 +330,21 @@ module LlmGateway
       end
 
       def serialized_blocks
-        blocks.map do |content_block|
-          next content_block unless content_block[:type] == "tool_use"
+        blocks.compact.map do |content_block|
+          if [ "tool_use", "server_tool_use" ].include?(content_block[:type])
+            next content_block.merge(input: LlmGateway::Utils.deep_symbolize_keys(parse_tool_input(content_block[:input])))
+          end
 
-          content_block.merge(input: LlmGateway::Utils.deep_symbolize_keys(parse_tool_input(content_block[:input])))
+          if content_block[:type]&.end_with?("_tool_result")
+            next {
+              type: "server_tool_result",
+              tool_use_id: content_block[:tool_use_id],
+              name: content_block[:type],
+              content: LlmGateway::Utils.deep_symbolize_keys(parse_tool_input(content_block[:content]))
+            }
+          end
+
+          content_block
         end
       end
 

@@ -52,17 +52,43 @@ class ToolCall < BaseStruct
   end
 end
 
+class ServerToolCall < ToolCall
+  attribute :type, Types::String.enum("server_tool_use")
+end
+
 class ToolResult < BaseStruct
-  attribute :type, Types::String.enum("tool_result")
+  attribute :type, Types::String
   attribute :tool_use_id, Types::String
-  attribute :content, Types::String
+  attribute :content, Types::Any
+
+  def to_h
+    {
+      type: type,
+      tool_use_id: tool_use_id,
+      content: content
+    }
+  end
+end
+
+class ServerToolResult < ToolResult
+  attribute :type, Types::String.enum("server_tool_result")
+  attribute? :name, Types::String.optional
+
+  def to_h
+    result = super
+    result[:name] = name unless name.nil?
+    result
+  end
 end
 
 class PartialAssistantMessage < BaseStruct
   ContentBlock =
     Types.Instance(TextContent) |
     Types.Instance(ReasoningContent) |
-    Types.Instance(ToolCall)
+    Types.Instance(ToolCall) |
+    Types.Instance(ServerToolCall) |
+    Types.Instance(ToolResult) |
+    Types.Instance(ServerToolResult)
 
   attribute? :id, Types::String.optional
   attribute? :model, Types::String.optional
@@ -78,7 +104,7 @@ class PartialAssistantMessage < BaseStruct
   end
 
   def self.build_content_block(block)
-    return block if block.is_a?(TextContent) || block.is_a?(ReasoningContent) || block.is_a?(ToolCall)
+    return block if block.is_a?(TextContent) || block.is_a?(ReasoningContent) || block.is_a?(ToolCall) || block.is_a?(ServerToolCall) || block.is_a?(ToolResult) || block.is_a?(ServerToolResult)
 
     case block[:type] || block["type"]
     when "text"
@@ -86,14 +112,16 @@ class PartialAssistantMessage < BaseStruct
     when "reasoning"
       ReasoningContent.new(block)
     when "thinking"
-      ReasoningContent.new(
-        type: "reasoning",
-        reasoning: block[:thinking] || block["thinking"] || block[:reasoning] || block["reasoning"],
-        signature: block[:signature] || block["signature"]
-      )
+      ReasoningContent.new(type: "reasoning", reasoning: block[:thinking] || block["thinking"] || block[:reasoning] || block["reasoning"], signature: block[:signature] || block["signature"])
     when "tool_use"
       ToolCall.new(block)
+    when "server_tool_use"
+      ServerToolCall.new(block)
     else
+      type = block[:type] || block["type"]
+      return ServerToolResult.new(block) if type == "server_tool_result"
+      return ToolResult.new(block) if type&.end_with?("_tool_result")
+
       raise ArgumentError, "Unsupported content block type: #{block[:type] || block['type']}"
     end
   end
@@ -102,7 +130,7 @@ class PartialAssistantMessage < BaseStruct
 end
 
 class AssistantStreamEvent < BaseStruct
-  EventType = Types::Coercible::Symbol.enum(:text_start, :text_delta, :text_end, :tool_start, :tool_delta, :tool_end, :reasoning_start, :reasoning_delta, :reasoning_end)
+  EventType = Types::Coercible::Symbol.enum(:text_start, :text_delta, :text_end, :tool_start, :tool_delta, :tool_end, :tool_result_start, :tool_result_delta, :tool_result_end, :reasoning_start, :reasoning_delta, :reasoning_end)
 
   attribute :type, EventType
   attribute :delta, Types::Coercible::String.default { "" }
@@ -143,6 +171,13 @@ end
 
 class AssistantToolStartEvent < AssistantStreamEvent
   attribute :id, Types::String
+  attribute :name, Types::String
+  attribute :tool_type, Types::String.default("tool_use".freeze).enum("tool_use", "server_tool_use")
+  attribute :content_index, Types::Integer
+end
+
+class AssistantToolResultStartEvent < AssistantStreamEvent
+  attribute :tool_use_id, Types::String
   attribute :name, Types::String
   attribute :content_index, Types::Integer
 end
