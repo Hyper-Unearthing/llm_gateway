@@ -7,6 +7,9 @@ Provide a unified translation interface for LLM Provider API's, While allowing d
 - [Principles:](#principles)
 - [Installation](#installation)
 - [Supported Providers](#supported-providers)
+- [Stream Options](#stream-options)
+  - [Managed cross-provider options](#managed-cross-provider-options)
+  - [Provider-specific options](#provider-specific-options)
 - [Quick Start: Streaming (all events)](#quick-start-streaming-all-events)
   - [Stream API without handling events (final result only)](#stream-api-without-handling-events-final-result-only)
 - [Migration guides](#migration-guides)
@@ -57,6 +60,52 @@ gem "llm_gateway"
 | Groq      | `groq_completions`           | API key | Chat Completions     |
 
 Legacy keys (`*_apikey_*`, `*_oauth_*`) are still supported for backward compatibility.
+
+## Stream Options
+
+Pass options to `stream` as keyword arguments alongside `tools:` and `system:`:
+
+```ruby
+result = adapter.stream(
+  transcript,
+  system: "You are concise.",
+  reasoning: "high",
+  cache_key: "conversation-123",
+  cache_retention: "short",
+  max_completion_tokens: 2_000
+)
+```
+
+Options are split into two groups:
+
+1. **Managed cross-provider options**: normalized by `llm_gateway` and mapped to each provider API when supported.
+2. **Provider-specific options**: passed through only when that provider/API pair explicitly allows them.
+
+Unknown provider-specific options raise `ArgumentError` with the valid option list for that provider/API pair.
+
+### Managed cross-provider options
+
+| Option | Accepted values | What it means | Provider mapping notes |
+|--------|-----------------|---------------|------------------------|
+| `reasoning` | `"none"`, `"low"`, `"medium"`, `"high"`, `"xhigh"` | Request provider reasoning/thinking effort. | Anthropic maps to `thinking` token budgets. OpenAI Responses maps to `reasoning`. OpenAI Chat Completions maps to `reasoning_effort`. Groq maps to `reasoning_effort` and `reasoning_format: "parsed"`; Groq accepts `"default"`, `"low"`, `"medium"`, `"high"` and does not accept `"xhigh"`. |
+| `cache_key` | String | Stable prompt/session cache key. | OpenAI Chat Completions and OpenAI Responses map this to `prompt_cache_key`. |
+| `cache_retention` | `"short"`, `"long"`, `"none"` | Requested cache retention policy for `cache_key`. | OpenAI maps `"short"` to `"in_memory"`, `"long"` to `"24h"`, and `"none"` removes prompt-cache fields. If `cache_key` is set without retention, OpenAI defaults to `"short"`. |
+| `max_completion_tokens` | Integer | Maximum generated tokens using gateway naming. | Anthropic maps to `max_tokens`; OpenAI Responses maps to `max_output_tokens`; OpenAI/Groq Chat Completions use `max_completion_tokens`. OpenAI Codex currently removes token limit parameters before sending. |
+| `response_format` | String or Hash, provider-dependent | Requested final response shape, e.g. text or JSON. | OpenAI Chat Completions and Groq pass this as `response_format`; OpenAI Responses maps it under `text.format`; Anthropic maps JSON-ish formats to `output_config`. |
+
+### Provider-specific options
+
+Provider-specific options are maintained as explicit allowlists in the option mapper source. Use the mapper link to see the current allowed Ruby option keys and the provider documentation link for upstream meanings and values.
+
+| Provider key | Provider/API pair | Option mapper source | Provider API documentation |
+|--------------|-------------------|----------------------|----------------------------|
+| `anthropic_messages` | Anthropic Messages Create | [`lib/llm_gateway/adapters/anthropic_option_mapper.rb`](lib/llm_gateway/adapters/anthropic_option_mapper.rb) | [Anthropic Messages API](https://platform.claude.com/docs/en/api/messages/create.md) |
+| `openai_completions` | OpenAI Chat Completions Create | [`lib/llm_gateway/adapters/openai/chat_completions/option_mapper.rb`](lib/llm_gateway/adapters/openai/chat_completions/option_mapper.rb) | [OpenAI Chat Completions API](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create/index.md) |
+| `openai_responses` | OpenAI Responses Create | [`lib/llm_gateway/adapters/openai/responses/option_mapper.rb`](lib/llm_gateway/adapters/openai/responses/option_mapper.rb) | [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create/index.md) |
+| `openai_codex` | OpenAI Codex Responses-compatible endpoint | [`lib/llm_gateway/adapters/openai_codex/option_mapper.rb`](lib/llm_gateway/adapters/openai_codex/option_mapper.rb) | [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create/index.md) |
+| `groq_completions` | Groq Chat Completions Create | [`lib/llm_gateway/adapters/groq/option_mapper.rb`](lib/llm_gateway/adapters/groq/option_mapper.rb) | [Groq Chat API](https://console.groq.com/docs/api-reference.md#chat-create) |
+
+Common provider-native options you may pass directly when allowed include OpenAI `prompt_cache_key` / `prompt_cache_retention` and Groq `reasoning_effort` / `reasoning_format`. Prefer the managed options above when you want portable behavior across providers.
 
 ## Quick Start: Streaming (all events)
 
