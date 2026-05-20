@@ -1,21 +1,20 @@
 # frozen_string_literal: true
 
-require_relative "../../structs"
+require_relative "../../stream_mapper"
 
 module LlmGateway
   module Adapters
     module OpenAI
       module Responses
-        class StreamMapper
-          def map(chunk)
-            queued_event = shift_queued_event
-            return queued_event if queued_event
+        class StreamMapper < LlmGateway::Adapters::StreamMapper
+          def map(chunk, &block)
+            accumulator
 
             event_type = chunk[:event]
             data = chunk[:data] || {}
             raise_stream_error!(data) if event_type == "error" || data[:error] || data[:type] == "error"
 
-            case event_type
+            event = case event_type
             when "response.created"
               stash_response(data[:response])
               nil
@@ -55,6 +54,8 @@ module LlmGateway
             else
               nil
             end
+
+            emit(event, &block)
           end
 
           private
@@ -109,21 +110,21 @@ module LlmGateway
             summary_text = extract_reasoning_summary_text(item)
 
             if reasoning_started_without_content?(output_index) && !summary_text.empty?
-              queue_event(
+              mark_reasoning_completed(output_index)
+              return [
+                AssistantStreamReasoningEvent.new(
+                  type: :reasoning_delta,
+                  content_index:,
+                  delta: summary_text,
+                  signature: ""
+                ),
                 AssistantStreamReasoningEvent.new(
                   type: :reasoning_end,
                   content_index:,
                   delta: "",
                   signature: ""
                 )
-              )
-              mark_reasoning_completed(output_index)
-              return AssistantStreamReasoningEvent.new(
-                type: :reasoning_delta,
-                content_index:,
-                delta: summary_text,
-                signature: ""
-              )
+              ]
             end
 
             mark_reasoning_completed(output_index)
@@ -139,21 +140,22 @@ module LlmGateway
             return nil if tool_started?(output_index)
 
             mark_tool_started(output_index)
-            queue_event(
+            content_index = register_content_index(output_index)
+
+            [
+              AssistantToolStartEvent.new(
+                type: :tool_start,
+                content_index:,
+                delta: "",
+                id: item[:call_id] || item[:id],
+                name: item[:name]
+              ),
               AssistantStreamEvent.new(
                 type: :tool_end,
-                content_index: content_index_for(output_index),
+                content_index:,
                 delta: ""
               )
-            )
-
-            AssistantToolStartEvent.new(
-              type: :tool_start,
-              content_index: register_content_index(output_index),
-              delta: "",
-              id: item[:call_id] || item[:id],
-              name: item[:name]
-            )
+            ]
           end
 
           def map_content_part_added(data)
@@ -308,30 +310,6 @@ module LlmGateway
 
           def message_started?
             @message_started ||= false
-          end
-
-          def queue_event(event)
-            queued_events << event
-          end
-
-          def shift_queued_event
-            queued_events.shift
-          end
-
-          def queued_events
-            @queued_events ||= []
-          end
-
-          def raise_stream_error!(data)
-            error = data[:error].is_a?(Hash) ? data[:error] : data
-            message = error[:message] || "Stream error"
-            code = error[:code] || error[:type]
-
-            if LlmGateway::Errors.context_overflow_message?(message)
-              raise LlmGateway::Errors::PromptTooLong.new(message, code)
-            end
-
-            raise LlmGateway::Errors::APIStatusError.new(message, code)
           end
         end
       end

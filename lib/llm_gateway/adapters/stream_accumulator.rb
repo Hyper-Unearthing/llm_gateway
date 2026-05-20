@@ -22,7 +22,7 @@ class StreamAccumulator
     )
   end
 
-  def push(event)
+  def push(event, &block)
     return unless event
 
     case event.type
@@ -69,6 +69,8 @@ class StreamAccumulator
       end
     when :message_end
     end
+
+    block.call(event) if block
   end
 
   private

@@ -1,23 +1,29 @@
 # frozen_string_literal: true
 
-require_relative "../../structs"
+require_relative "../../stream_mapper"
 
 module LlmGateway
   module Adapters
     module OpenAI
       module ChatCompletions
-        class StreamMapper
-          def map(chunk)
+        class StreamMapper < LlmGateway::Adapters::StreamMapper
+          def map(chunk, &block)
+            accumulator
+
             data = chunk[:data] || {}
             raise_stream_error!(data) if chunk[:event] == "error" || data[:error] || data[:type] == "error"
 
             choices = data[:choices] || []
 
             if choices.empty?
-              return message_event(
-                delta: pending_finish_delta,
-                usage_increment: usage_increment(data)
+              emit(
+                message_event(
+                  delta: pending_finish_delta,
+                  usage_increment: usage_increment(data)
+                ),
+                &block
               )
+              return nil
             end
 
             choice = choices.first || {}
@@ -25,10 +31,12 @@ module LlmGateway
             finish_reason = choice[:finish_reason]
 
             event = map_choice_delta(data, choice, delta)
-            return event if event
+            if event
+              emit(event, &block)
+              return nil
+            end
 
-            return finish_event_for(finish_reason) if finish_reason
-
+            emit(finish_event_for(finish_reason), &block) if finish_reason
             nil
           end
 
@@ -290,18 +298,6 @@ module LlmGateway
 
           def last_started_reasoning_index
             @last_started_reasoning_index
-          end
-
-          def raise_stream_error!(data)
-            error = data[:error].is_a?(Hash) ? data[:error] : data
-            message = error[:message] || "Stream error"
-            code = error[:code] || error[:type]
-
-            if LlmGateway::Errors.context_overflow_message?(message)
-              raise LlmGateway::Errors::PromptTooLong.new(message, code)
-            end
-
-            raise LlmGateway::Errors::APIStatusError.new(message, code)
           end
         end
       end

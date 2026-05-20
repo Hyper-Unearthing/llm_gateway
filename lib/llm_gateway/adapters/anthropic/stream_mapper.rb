@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-require_relative "../structs.rb"
+require_relative "../stream_mapper"
 
 module LlmGateway
   module Adapters
     module Anthropic
-      class StreamMapper
-        def map(chunk)
+      class StreamMapper < LlmGateway::Adapters::StreamMapper
+        def map(chunk, &block)
+          accumulator
+
           case chunk[:event]
           when "message_start"
             delta = {
@@ -16,14 +18,14 @@ module LlmGateway
             }
             usage_increment = chunk.dig(:data, :message, :usage) || {}
 
-            AssistantStreamMessageEvent.new(type: :message_start, usage_increment:, delta:)
+            emit(AssistantStreamMessageEvent.new(type: :message_start, usage_increment:, delta:), &block)
           when "content_block_start"
             content_index = chunk.dig(:data, :index)
             delta = chunk.dig(:data, :content_block, :text)
             current_type = chunk.dig(:data, :content_block, :type)
             content_block_types[content_index] = current_type
 
-            case current_type
+            event = case current_type
             when "thinking"
               AssistantStreamEvent.new(type: :reasoning_start, content_index:, delta:)
             when "text"
@@ -33,10 +35,12 @@ module LlmGateway
               name = chunk.dig(:data, :content_block, :name)
               AssistantToolStartEvent.new(type: :tool_start, content_index:, delta:, id:, name:)
             end
+
+            emit(event, &block)
           when "content_block_delta"
             content_index = chunk.dig(:data, :index)
 
-            case content_block_types[content_index]
+            event = case content_block_types[content_index]
             when "thinking"
               delta = chunk.dig(:data, :delta, :thinking)
               signature = chunk.dig(:data, :delta, :signature)
@@ -48,6 +52,8 @@ module LlmGateway
               delta = chunk.dig(:data, :delta, :partial_json)
               AssistantStreamEvent.new(type: :tool_delta, content_index:, delta:)
             end
+
+            emit(event, &block)
           when "content_block_stop"
             content_index = chunk.dig(:data, :index)
             type = case content_block_types[content_index]
@@ -58,30 +64,18 @@ module LlmGateway
             when "tool_use"
               :tool_end
             end
-            AssistantStreamEvent.new(type: type, content_index:, delta: "")
+            emit(AssistantStreamEvent.new(type: type, content_index:, delta: ""), &block)
           when "message_delta"
             delta = normalize_message_delta(chunk.dig(:data, :delta) || {})
             usage_increment = chunk.dig(:data, :usage) || {}
 
-            AssistantStreamMessageEvent.new(type: :message_delta, usage_increment:, delta:)
+            emit(AssistantStreamMessageEvent.new(type: :message_delta, usage_increment:, delta:), &block)
           when "message_stop"
-            AssistantStreamMessageEvent.new(type: :message_end, usage_increment: {}, delta: {})
+            emit(AssistantStreamMessageEvent.new(type: :message_end, usage_increment: {}, delta: {}), &block)
           when "ping"
             nil
           when "error"
-            error = chunk.dig(:data, :error) || {}
-            message = error[:message] || "Stream error"
-            code = error[:type]
-
-            if LlmGateway::Errors.context_overflow_message?(message)
-              raise LlmGateway::Errors::PromptTooLong.new(message, code)
-            end
-
-            if code == "overloaded_error"
-              raise LlmGateway::Errors::OverloadError.new(message, code)
-            end
-
-            raise LlmGateway::Errors::APIStatusError.new(message, code)
+            raise_stream_error!(chunk.dig(:data, :error) || {}, overload_codes: [ "overloaded_error" ])
           end
         end
 
