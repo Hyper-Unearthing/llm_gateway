@@ -5,14 +5,16 @@ require_relative "../base_client"
 module LlmGateway
   module Clients
     class Groq < BaseClient
-      def initialize(model_key: "openai/gpt-oss-120b", api_key: ENV["GROQ_API_KEY"])
+      DEFAULT_MODEL = "openai/gpt-oss-120b"
+
+      def initialize(api_key: ENV["GROQ_API_KEY"])
         @base_endpoint = "https://api.groq.com/openai/v1"
-        super(model_key: model_key, api_key: api_key)
+        super(api_key: api_key)
       end
 
-      def chat(messages, tools: nil, system: [], **options)
+      def chat(messages, tools: nil, system: [], model: DEFAULT_MODEL, **options)
         body = {
-          model: model_key,
+          model: model,
           messages: system + messages,
           tools: tools
         }
@@ -21,9 +23,9 @@ module LlmGateway
         post("chat/completions", body)
       end
 
-      def stream(messages, tools: nil, system: [], **options, &block)
+      def stream(messages, tools: nil, system: [], model: DEFAULT_MODEL, **options, &block)
         body = {
-          model: model_key,
+          model: model,
           messages: system + messages,
           tools: tools,
           stream_options: { include_usage: true }

@@ -46,7 +46,7 @@ class OpenaiClientTest < Test
   test "throws not found error" do
     error = assert_raises(LlmGateway::Errors::NotFoundError) do
       VCR.use_cassette(vcr_cassette_name) do
-        LlmGateway::Clients::OpenAI.new(model_key: "randomodel").chat([ { 'role': "user", 'content': "hello" } ], **mapped_chat_options(max_completion_tokens: 4096))
+        LlmGateway::Clients::OpenAI.new.chat([ { 'role': "user", 'content': "hello" } ], model: "randomodel", **mapped_chat_options(max_completion_tokens: 4096))
       end
     end
     assert_equal "The model `randomodel` does not exist or you do not have access to it.", error.message
@@ -54,7 +54,7 @@ class OpenaiClientTest < Test
 
   test "embeddings api" do
     VCR.use_cassette(vcr_cassette_name) do
-      response = LlmGateway::Clients::OpenAI.new(model_key: "text-embedding-3-small").generate_embeddings("hello world")
+      response = LlmGateway::Clients::OpenAI.new.generate_embeddings("hello world", model: "text-embedding-3-small")
       assert(response[:usage], prompt_tokens: 2, total_tokens: 2)
       assert(response[:object], "list")
       assert(response[:model], "text-embedding-3-small")

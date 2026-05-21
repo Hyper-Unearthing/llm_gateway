@@ -5,10 +5,31 @@ require "time"
 require "fileutils"
 
 module LiveTestHelper
+  ModelBoundAdapter = Struct.new(:adapter, :model) do
+    def chat(message, tools: nil, system: nil, **options)
+      adapter.chat(message, tools: tools, system: system, model: model, **options)
+    end
+
+    def stream(message, tools: nil, system: nil, **options, &block)
+      adapter.stream(message, tools: tools, system: system, model: model, **options, &block)
+    end
+
+    def method_missing(name, *args, **kwargs, &block)
+      if adapter.respond_to?(name)
+        adapter.public_send(name, *args, **kwargs, &block)
+      else
+        super
+      end
+    end
+
+    def respond_to_missing?(name, include_private = false)
+      adapter.respond_to?(name, include_private) || super
+    end
+  end
+
   def load_provider(provider:, model:, replaying_vcr: false, oauth:)
     config = {
-      "provider" => provider,
-      "model_key" => model
+      "provider" => provider
     }
     if provider == "openai_codex"
       config["api_key"] = replaying_vcr ? "vcr-replay-token" : oauth_access_token_for("openai")
@@ -21,7 +42,7 @@ module LiveTestHelper
       config["api_key"] = "vcr-replay-token"
     end
 
-    LlmGateway.build_provider(config)
+    ModelBoundAdapter.new(LlmGateway.build_provider(config), model)
   end
 
   def with_vcr_adapter(provider:, model:, redact_request_body: false, oauth: false)
@@ -91,6 +112,7 @@ module LiveTestHelper
 
   def oauth_access_token_for(provider)
     creds = load_auth_credentials(provider)
+    return creds["access_token"] if defined?(VCR) && VCR.current_cassette && !creds["access_token"].to_s.empty?
 
     case provider
     when "anthropic"

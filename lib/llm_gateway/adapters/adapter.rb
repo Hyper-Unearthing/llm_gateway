@@ -15,7 +15,7 @@ module LlmGateway
         raise LlmGateway::Errors::MissingMapperForProvider, "No stream_mapper configured" unless stream_mapper
 
         normalized_input = map_input({
-          messages: sanitize_messages(normalize_messages(message)),
+          messages: sanitize_messages(normalize_messages(message), target_model: options[:model]),
           tools: tools,
           system: normalize_system(system)
         })
@@ -99,12 +99,11 @@ module LlmGateway
         nil
       end
 
-      def sanitize_messages(messages)
+      def sanitize_messages(messages, target_model: nil)
         return messages unless input_sanitizer
 
         target_provider = LlmGateway::Client.provider_id_from_client(client)
         target_api = api_name
-        target_model = client.model_key
 
         return messages if target_provider.nil? || target_api.nil? || target_model.nil?
 

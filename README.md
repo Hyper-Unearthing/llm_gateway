@@ -59,7 +59,7 @@ gem "llm_gateway"
 | OpenAI Codex | `openai_codex`            | OAuth   | Responses            |
 | Groq      | `groq_completions`           | API key | Chat Completions     |
 
-Legacy keys (`*_apikey_*`, `*_oauth_*`) are still supported for backward compatibility.
+Provider configuration only contains auth/client settings (for example `api_key` or `access_token`). Pass the model per request with `model:` when calling `chat` or `stream`.
 
 ## Stream Options
 
@@ -116,10 +116,8 @@ require "json"
 # Build a provider adapter directly (not via prebuilt config)
 adapter = LlmGateway.build_provider(
   provider: "openai_responses", # or anthropic_messages, groq_completions, ...
-  api_key: ENV.fetch("OPENAI_API_KEY"),
-  model_key: "gpt-5.4"
+  api_key: ENV.fetch("OPENAI_API_KEY")
 )
-
 tools = [
   {
     name: "get_time",
@@ -139,7 +137,7 @@ transcript = [
 
 streamed_tool_args = Hash.new { |h, k| h[k] = +"" }
 
-response = adapter.stream(transcript, tools: tools, reasoning: "high") do |event|
+response = adapter.stream(transcript, tools: tools, model: "gpt-5.4", reasoning: "high") do |event|
   case event.type
   # AssistantStreamMessageEvent
   when :message_start
@@ -223,11 +221,10 @@ require "llm_gateway"
 
 adapter = LlmGateway.build_provider(
   provider: "openai_responses",
-  api_key: ENV.fetch("OPENAI_API_KEY"),
-  model_key: "gpt-5.4"
+  api_key: ENV.fetch("OPENAI_API_KEY")
 )
 
-result = adapter.stream("Write one short sentence about Ruby.")
+result = adapter.stream("Write one short sentence about Ruby.", model: "gpt-5.4")
 
 puts result.role         # "assistant"
 puts result.stop_reason  # "stop" (usually)
@@ -278,10 +275,8 @@ require "json"
 
 adapter = LlmGateway.build_provider(
   provider: "openai_responses",
-  api_key: ENV.fetch("OPENAI_API_KEY"),
-  model_key: "gpt-5.4"
+  api_key: ENV.fetch("OPENAI_API_KEY")
 )
-
 weather_tool = {
   name: "get_weather",
   description: "Get current weather for a location",
@@ -310,7 +305,7 @@ transcript = [
 ]
 
 # 1) First model pass (stream API, no event block)
-response = adapter.stream(transcript, tools: [weather_tool])
+response = adapter.stream(transcript, tools: [weather_tool], model: "gpt-5.4")
 transcript << response.to_h
 
 # 2) Execute tool calls returned by the model
@@ -333,7 +328,7 @@ end
 
 # 3) Continue the conversation after tool execution
 if response.content.any? { |b| b.type == "tool_use" }
-  final_response = adapter.stream(transcript, tools: [weather_tool])
+  final_response = adapter.stream(transcript, tools: [weather_tool], model: "gpt-5.4")
 
   final_text = final_response.content
     .select { |b| b.type == "text" }
@@ -359,10 +354,8 @@ require "base64"
 
 adapter = LlmGateway.build_provider(
   provider: "openai_responses",
-  api_key: ENV.fetch("OPENAI_API_KEY"),
-  model_key: "gpt-5.4"
+  api_key: ENV.fetch("OPENAI_API_KEY")
 )
-
 image_b64 = Base64.strict_encode64(File.binread("./chart.png"))
 
 message = [
@@ -375,7 +368,7 @@ message = [
   }
 ]
 
-result = adapter.stream(message) # stream API, no event block
+result = adapter.stream(message, model: "gpt-5.4") # stream API, no event block
 
 text = result.content
   .select { |b| b.type == "text" }
@@ -396,12 +389,12 @@ require "llm_gateway"
 
 adapter = LlmGateway.build_provider(
   provider: "openai_responses",
-  api_key: ENV.fetch("OPENAI_API_KEY"),
-  model_key: "gpt-5.4"
+  api_key: ENV.fetch("OPENAI_API_KEY")
 )
 
 result = adapter.stream(
   "Think step by step and then compute 482 * 17.",
+  model: "gpt-5.4",
   reasoning: "high"
 )
 
@@ -426,7 +419,7 @@ If you want incremental thinking/reasoning tokens as they arrive, pass a block t
 ```ruby
 reasoning_text = +""
 
-result = adapter.stream("Solve 99 * 99 with brief reasoning.", reasoning: "high") do |event|
+result = adapter.stream("Solve 99 * 99 with brief reasoning.", model: "gpt-5.4", reasoning: "high") do |event|
   case event.type
   when :reasoning_start
     print "\n[thinking start]\n"
@@ -505,17 +498,15 @@ require "json"
 
 adapter = LlmGateway.build_provider(
   provider: "openai_responses",
-  api_key: ENV.fetch("OPENAI_API_KEY"),
-  model_key: "gpt-5.4"
+  api_key: ENV.fetch("OPENAI_API_KEY")
 )
-
 # Build context (transcript)
 transcript = [
   { role: "user", content: "Plan a 3-day trip to Tokyo." }
 ]
 
 # Run one turn and persist assistant output
-first = adapter.stream(transcript)
+first = adapter.stream(transcript, model: "gpt-5.4")
 transcript << first.to_h
 
 # Serialize (store in DB/file/cache)
@@ -526,7 +517,7 @@ restored_transcript = JSON.parse(json_context)
 
 # Continue conversation from restored context
 restored_transcript << { role: "user", content: "Now make it budget-friendly." }
-second = adapter.stream(restored_transcript)
+second = adapter.stream(restored_transcript, model: "gpt-5.4")
 
 puts second.content.select { |b| b.type == "text" }.map(&:text).join
 ```
@@ -648,11 +639,10 @@ Build the provider with the current access token:
 ```ruby
 adapter = LlmGateway.build_provider(
   provider: "openai_codex",
-  access_token: current_access_token,
-  model_key: "gpt-5.4"
+  access_token: current_access_token
 )
 
-result = adapter.stream("Hello from OAuth auth")
+result = adapter.stream("Hello from OAuth auth", model: "gpt-5.4")
 puts result.content.select { |b| b.type == "text" }.map(&:text).join
 ```
 

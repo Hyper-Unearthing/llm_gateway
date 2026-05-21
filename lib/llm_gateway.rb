@@ -100,6 +100,9 @@ module LlmGateway
   def self.build_provider(config)
     config = config.transform_keys(&:to_sym)
     provider_name = config.delete(:provider)
+    if config.key?(:model_key)
+      raise ArgumentError, "model_key is no longer a provider option; pass model: to chat/stream instead"
+    end
     entry = ProviderRegistry.resolve(provider_name)
 
     client = entry[:client].new(**config)

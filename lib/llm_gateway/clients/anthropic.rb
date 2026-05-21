@@ -9,10 +9,11 @@ module LlmGateway
   module Clients
     class Anthropic < BaseClient
       CLAUDE_CODE_VERSION = "2.1.2"
+      DEFAULT_MODEL = "claude-3-7-sonnet-20250219"
 
-      def initialize(model_key: "claude-3-7-sonnet-20250219", api_key: ENV["ANTHROPIC_API_KEY"])
+      def initialize(api_key: ENV["ANTHROPIC_API_KEY"])
         @base_endpoint = "https://api.anthropic.com/v1"
-        super(model_key: model_key, api_key: api_key)
+        super(api_key: api_key)
       end
 
       def chat(messages, **kwargs)
@@ -44,11 +45,11 @@ module LlmGateway
 
       private
 
-      def build_body(messages, tools: nil, system: [], cache_retention: nil, **options)
+      def build_body(messages, tools: nil, system: [], cache_retention: nil, model: DEFAULT_MODEL, **options)
         cache_control = anthropic_cache_control_for(cache_retention)
 
         body = {
-          model: model_key,
+          model: model,
           messages: messages
         }
 

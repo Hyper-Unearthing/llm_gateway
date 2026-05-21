@@ -77,12 +77,12 @@ class OpenAIChatCompletionsOptionMapperTest < Test
     attr_reader :options
 
     def initialize
-      super(model_key: "gpt-4o", api_key: "test-key")
+      super(api_key: "test-key")
     end
 
-    def stream(_messages, tools:, system:, **options)
+    def stream(_messages, tools:, system:, model: DEFAULT_MODEL, **options)
       @options = options
-      yield({ data: { id: "chatcmpl_123", model: model_key, choices: [ { delta: { role: "assistant" } } ] } })
+      yield({ data: { id: "chatcmpl_123", model: model, choices: [ { delta: { role: "assistant" } } ] } })
       yield({ data: { choices: [ { delta: { content: "hi" } } ] } })
       yield({ data: { choices: [ { finish_reason: "stop" } ] } })
       yield({ data: { choices: [], usage: {} } })

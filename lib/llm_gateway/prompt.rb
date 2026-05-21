@@ -2,7 +2,29 @@
 
 module LlmGateway
   class Prompt
-    attr_reader :model
+    UNSET = Object.new.freeze
+
+    attr_reader :provider, :model
+
+    class << self
+      def provider(value = UNSET)
+        @provider = value unless value.equal?(UNSET)
+        @provider
+      end
+
+      def provider=(value)
+        @provider = value
+      end
+
+      def model(value = UNSET)
+        @model = value unless value.equal?(UNSET)
+        @model
+      end
+
+      def model=(value)
+        @model = value
+      end
+    end
 
     def self.before_execute(*methods, &block)
       before_execute_callbacks.concat(methods)
@@ -26,23 +48,19 @@ module LlmGateway
       super
       subclass.instance_variable_set(:@before_execute_callbacks, before_execute_callbacks.dup)
       subclass.instance_variable_set(:@after_execute_callbacks, after_execute_callbacks.dup)
+      subclass.provider = provider
+      subclass.model = model
     end
 
-    def initialize(model)
-      @model = model
-      @connection = if model.is_a?(String)
-        LlmGateway.configured_clients.values.find do |client|
-          client.client.model_key == model
-        end
-      else
-        model
-      end
+    def initialize(provider = nil, model = nil)
+      @provider = provider || self.class.provider
+      @model = model || self.class.model
     end
 
     def run
       run_callbacks(:before_execute, prompt)
 
-      response = post
+      response = stream
 
       response_content = if respond_to?(:extract_response)
         extract_response(response)
@@ -61,12 +79,12 @@ module LlmGateway
       result
     end
 
-    def post
-      if @connection
-        @connection.chat(prompt, tools: tools, system: system_prompt)
-      else
-        LlmGateway::Client.chat(model, prompt, tools: tools, system: system_prompt)
-      end
+    def stream(provider: nil, model: nil, **options)
+      stream_provider = provider || self.provider
+      stream_model = model || self.model
+      options[:model] = stream_model if stream_model
+
+      stream_provider.stream(prompt, tools: tools, system: system_prompt, **options)
     end
 
     def tools

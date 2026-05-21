@@ -111,16 +111,16 @@ class OpenAIResponsesOptionMapperTest < Test
     attr_reader :options
 
     def initialize
-      super(model_key: "gpt-4o", api_key: "test-key")
+      super(api_key: "test-key")
     end
 
-    def stream_responses(_messages, tools:, system:, **options)
+    def stream_responses(_messages, tools:, system:, model: DEFAULT_MODEL, **options)
       @options = options
       yield({ event: "response.output_item.added", data: { output_index: 0, item: { type: "message", role: "assistant" } } })
       yield({ event: "response.content_part.added", data: { output_index: 0, part: { type: "output_text", text: "" } } })
       yield({ event: "response.output_text.delta", data: { output_index: 0, delta: "hi" } })
       yield({ event: "response.output_text.done", data: { output_index: 0, text: "hi" } })
-      yield({ event: "response.completed", data: { response: { id: "resp_123", model: model_key, status: "completed", usage: {} } } })
+      yield({ event: "response.completed", data: { response: { id: "resp_123", model: model, status: "completed", usage: {} } } })
     end
   end
 end
