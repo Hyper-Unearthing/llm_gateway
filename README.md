@@ -222,7 +222,7 @@ If you only care about the final `AssistantMessage`, call `stream` without a blo
 require "llm_gateway"
 
 adapter = LlmGateway.build_provider(
-  provider: "openai_apikey_responses",
+  provider: "openai_responses",
   api_key: ENV.fetch("OPENAI_API_KEY"),
   model_key: "gpt-5.4"
 )
@@ -277,7 +277,7 @@ require "llm_gateway"
 require "json"
 
 adapter = LlmGateway.build_provider(
-  provider: "openai_apikey_responses",
+  provider: "openai_responses",
   api_key: ENV.fetch("OPENAI_API_KEY"),
   model_key: "gpt-5.4"
 )
@@ -358,7 +358,7 @@ require "llm_gateway"
 require "base64"
 
 adapter = LlmGateway.build_provider(
-  provider: "openai_apikey_responses",
+  provider: "openai_responses",
   api_key: ENV.fetch("OPENAI_API_KEY"),
   model_key: "gpt-5.4"
 )
@@ -395,7 +395,7 @@ You can request higher-effort reasoning by passing `reasoning:` to `stream`.
 require "llm_gateway"
 
 adapter = LlmGateway.build_provider(
-  provider: "openai_apikey_responses",
+  provider: "openai_responses",
   api_key: ENV.fetch("OPENAI_API_KEY"),
   model_key: "gpt-5.4"
 )
@@ -504,7 +504,7 @@ require "llm_gateway"
 require "json"
 
 adapter = LlmGateway.build_provider(
-  provider: "openai_apikey_responses",
+  provider: "openai_responses",
   api_key: ENV.fetch("OPENAI_API_KEY"),
   model_key: "gpt-5.4"
 )
@@ -540,7 +540,7 @@ Tip: if you serialize to JSON, keys become strings on parse; `llm_gateway` accep
 
 ## OAuth
 
-Use OAuth-capable providers (for example `openai_codex` and `anthropic_oauth_messages`) by supplying an `access_token` when building the adapter.
+Use OAuth-capable providers (for example `openai_codex` and `anthropic_messages`) by supplying an `access_token` when building the adapter.
 
 ### Get initial tokens (Codex / OpenAI OAuth)
 
@@ -690,6 +690,6 @@ bundle exec ruby -Itest test/integration/live/stream_test.rb
 
 Cassette names are derived from the test file and test name, with VCR sanitizing path segments such as `stream_test.rb` to `stream_test_rb`.
 
-For OAuth-backed providers (`anthropic_oauth_messages`, `openai_oauth_codex`), the live test helper only loads real OAuth credentials while the cassette is being recorded. Once the cassette exists, replay uses placeholder tokens/account IDs so the test suite can run without local OAuth state. API-key providers still require the relevant API key when recording. Sensitive authorization headers and selected response headers are redacted before cassettes are written.
+For OAuth-backed providers (`anthropic_messages`, `openai_codex`), the live test helper only loads real OAuth credentials while the cassette is being recorded. Once the cassette exists, replay uses placeholder tokens/account IDs so the test suite can run without local OAuth state. API-key providers still require the relevant API key when recording. Sensitive authorization headers and selected response headers are redacted before cassettes are written.
 
 Some tests pass `redact_request_body: true` to `with_vcr_adapter`; those cassettes match on method and URI only and replace large request bodies with `"<huge prompt body redacted>"`.

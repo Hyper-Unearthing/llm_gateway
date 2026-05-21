@@ -16,7 +16,7 @@ class HandoffStreamToolCallLiveTest < Test
     LlmGateway.reset_configuration!
   end
 
-  def run_handoff_stream_for(provider:, model:, adapter:)
+  def run_handoff_stream_for(provider_name:, model:, adapter:, options: {})
     records = load_recorded_outputs
 
     prompt = <<~PROMPT
@@ -27,24 +27,24 @@ class HandoffStreamToolCallLiveTest < Test
       #{JSON.pretty_generate(records)}
     PROMPT
 
-    response = adapter.stream(prompt, reasoning: "high")
-    refute_equal "error", response.stop_reason, "#{provider}/#{model} failed: #{response.error_message}"
+    response = adapter.stream(prompt, reasoning: "high", **options)
+    refute_equal "error", response.stop_reason, "#{provider_name}/#{model} failed: #{response.error_message}"
 
     text = response.content.select { |block| block.type == "text" }.map(&:text).join(" ").downcase
     assert_includes text, records.length.to_s
     assert_includes text, "42"
   end
 
-  def self.define_handoff_stream_test_for(provider:, model:)
-    test "handoff_stream_tool_call__#{provider}_#{model}" do
-      with_vcr_adapter(provider:, model:) do |adapter|
-        run_handoff_stream_for(provider:, model:, adapter:)
+  def self.define_handoff_stream_test_for(provider_name:, provider:, model:, oauth:, options: {})
+    test "handoff_stream_tool_call__#{provider_name}_#{model}" do
+      with_vcr_adapter(provider:, model:, oauth:) do |adapter|
+        run_handoff_stream_for(provider_name:, model:, adapter:, options:)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_handoff_stream_test_for(provider: pair[:provider], model: pair[:model])
+    define_handoff_stream_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], oauth: pair[:oauth], options: pair.fetch(:options, {}))
   end
 
   private
