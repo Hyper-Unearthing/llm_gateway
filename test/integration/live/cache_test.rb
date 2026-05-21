@@ -11,7 +11,7 @@ class CacheLiveTest < Test
   PAIRS = [
     {
       name: "openai_apikey_completions",
-      provider: "openai_apikey_completions",
+      provider: "openai_completions",
       model: "gpt-5.1",
       options: {
         cache_key: "openai_apikey_completions",
@@ -20,7 +20,7 @@ class CacheLiveTest < Test
     },
     {
       name: "openai_apikey_completions_none",
-      provider: "openai_apikey_completions",
+      provider: "openai_completions",
       model: "gpt-5.1",
       options: {
         cache_key: "openai_apikey_completions_none",
@@ -29,7 +29,7 @@ class CacheLiveTest < Test
     },
     {
       name: "openai_apikey_responses",
-      provider: "openai_apikey_responses",
+      provider: "openai_responses",
       model: "gpt-5.4",
       options: {
         cache_key: "openai_apikey_responses",
@@ -38,7 +38,7 @@ class CacheLiveTest < Test
     },
     {
       name: "openai_apikey_responses_none",
-      provider: "openai_apikey_responses",
+      provider: "openai_responses",
       model: "gpt-5.4",
       options: {
         cache_key: "openai_apikey_responses_none",
@@ -47,7 +47,7 @@ class CacheLiveTest < Test
     },
     {
       name: "openai_oauth_codex",
-      provider: "openai_oauth_codex",
+      provider: "openai_codex",
       model: "gpt-5.4",
       options: {
         cache_key: "openai_oauth_codex"
@@ -55,7 +55,7 @@ class CacheLiveTest < Test
     },
     {
       name: "anthropic_apikey_messages",
-      provider: "anthropic_apikey_messages",
+      provider: "anthropic_messages",
       model: "claude-sonnet-4-20250514",
       options: {
         cache_retention: "short"
@@ -63,7 +63,7 @@ class CacheLiveTest < Test
     },
     {
       name: "anthropic_apikey_messages_none",
-      provider: "anthropic_apikey_messages",
+      provider: "anthropic_messages",
       model: "claude-sonnet-4-20250514",
       options: {
         cache_retention: "none"
@@ -140,9 +140,9 @@ class CacheLiveTest < Test
       "Expected cache_read_input_tokens to be 0 with options #{options.inspect}, got #{second_response.usage.inspect}"
   end
 
-  def self.define_cache_tests_for(name:, provider:, model:, options: {})
-    test "live_cache_read_tokens_on_second_turn_#{name}_#{provider}_#{model}" do
-      with_vcr_adapter(provider:, model:, redact_request_body: true) do |adapter|
+  def self.define_cache_tests_for(name:, provider:, cassette_provider:, model:, oauth:, options: {})
+    test "live_cache_read_tokens_on_second_turn_#{name}_#{cassette_provider}_#{model}" do
+      with_vcr_adapter(provider:, model:, redact_request_body: true, oauth:,) do |adapter|
         if provider.start_with?("anthropic") && options[:cache_retention].to_s == "none"
           assert_no_cache_hit_on_second_turn(adapter, options: options)
         else
@@ -156,7 +156,9 @@ class CacheLiveTest < Test
     define_cache_tests_for(
       name: pair[:name],
       provider: pair[:provider],
+      cassette_provider: pair[:name].sub(/_none\z/, ""),
       model: pair[:model],
+      oauth: pair[:oauth],
       options: pair[:options]
     )
   end

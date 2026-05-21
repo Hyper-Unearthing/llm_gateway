@@ -153,25 +153,4 @@ module LlmGateway
   ProviderRegistry.register("openai_codex",
     client: Clients::OpenAI,
     adapter: Adapters::OpenAICodex::ResponsesAdapter)
-
-  # Backward-compatible aliases (deprecated)
-  ProviderRegistry.register("anthropic_apikey_messages",
-    client: Clients::Anthropic,
-    adapter: Adapters::Anthropic::MessagesAdapter)
-
-  ProviderRegistry.register("openai_apikey_completions",
-    client: Clients::OpenAI,
-    adapter: Adapters::OpenAI::ChatCompletionsAdapter)
-
-  ProviderRegistry.register("openai_apikey_responses",
-    client: Clients::OpenAI,
-    adapter: Adapters::OpenAI::ResponsesAdapter)
-
-  ProviderRegistry.register("groq_apikey_completions",
-    client: Clients::Groq,
-    adapter: Adapters::Groq::ChatCompletionsAdapter)
-
-  ProviderRegistry.register("openai_oauth_codex",
-    client: Clients::OpenAI,
-    adapter: Adapters::OpenAICodex::ResponsesAdapter)
 end

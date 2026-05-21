@@ -5,7 +5,7 @@ require "test_helper"
 class ClientBuilderTest < Test
   test "builds claude client with api key messages provider" do
     adapter = LlmGateway.build_provider({
-      provider: "anthropic_apikey_messages",
+      provider: "anthropic_messages",
       api_key: "sk-ant-test-key"
     })
 
@@ -15,7 +15,7 @@ class ClientBuilderTest < Test
 
   test "builds claude client with anthropic messages provider" do
     adapter = LlmGateway.build_provider({
-      provider: "anthropic_apikey_messages",
+      provider: "anthropic_messages",
       api_key: "sk-ant-oat-test-token"
     })
 
@@ -25,7 +25,7 @@ class ClientBuilderTest < Test
 
   test "builds openai client with default completions adapter" do
     adapter = LlmGateway.build_provider({
-      provider: "openai_apikey_completions",
+      provider: "openai_completions",
       api_key: "sk-openai-test-key"
     })
 
@@ -35,7 +35,7 @@ class ClientBuilderTest < Test
 
   test "builds openai client with responses api" do
     adapter = LlmGateway.build_provider({
-      provider: "openai_apikey_responses",
+      provider: "openai_responses",
       api_key: "sk-openai-test-key"
     })
 
@@ -45,7 +45,7 @@ class ClientBuilderTest < Test
 
   test "builds groq client" do
     adapter = LlmGateway.build_provider({
-      provider: "groq_apikey_completions",
+      provider: "groq_completions",
       api_key: "gsk-test-key"
     })
 
@@ -64,7 +64,7 @@ class ClientBuilderTest < Test
 
   test "works with string keys" do
     adapter = LlmGateway.build_provider({
-      "provider" => "groq_apikey_completions",
+      "provider" => "groq_completions",
       "api_key" => "gsk-test-key"
     })
 
@@ -73,9 +73,10 @@ class ClientBuilderTest < Test
   end
 
   test "provider registry exposes built in providers" do
-    assert LlmGateway::ProviderRegistry.registered?("anthropic_apikey_messages")
-    assert LlmGateway::ProviderRegistry.registered?("openai_apikey_completions")
-    assert LlmGateway::ProviderRegistry.registered?("openai_apikey_responses")
-    assert LlmGateway::ProviderRegistry.registered?("groq_apikey_completions")
+    assert LlmGateway::ProviderRegistry.registered?("anthropic_messages")
+    assert LlmGateway::ProviderRegistry.registered?("openai_completions")
+    assert LlmGateway::ProviderRegistry.registered?("openai_responses")
+    assert LlmGateway::ProviderRegistry.registered?("groq_completions")
+    assert LlmGateway::ProviderRegistry.registered?("openai_codex")
   end
 end

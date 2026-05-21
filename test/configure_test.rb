@@ -12,14 +12,14 @@ class ConfigureTest < Test
       {
         name: "anthropic_sonnet",
         config: {
-          provider: "anthropic_apikey_messages",
+          provider: "anthropic_messages",
           api_key: "sk-ant-test-key"
         }
       },
       {
         name: "groq",
         config: {
-          provider: "groq_apikey_completions",
+          provider: "groq_completions",
           api_key: "gsk-test-key"
         }
       }
@@ -36,7 +36,7 @@ class ConfigureTest < Test
       {
         name: "my_openai",
         config: {
-          provider: "openai_apikey_completions",
+          provider: "openai_completions",
           api_key: "sk-openai-test-key"
         }
       }
@@ -49,7 +49,7 @@ class ConfigureTest < Test
   test "raises error when name is missing" do
     assert_raises(ArgumentError) do
       LlmGateway.configure([
-        { config: { provider: "groq_apikey_completions", api_key: "gsk-test-key" } }
+        { config: { provider: "groq_completions", api_key: "gsk-test-key" } }
       ])
     end
   end
@@ -59,7 +59,7 @@ class ConfigureTest < Test
       {
         name: "temp_client",
         config: {
-          provider: "groq_apikey_completions",
+          provider: "groq_completions",
           api_key: "gsk-test-key"
         }
       }
@@ -78,7 +78,7 @@ class ConfigureTest < Test
       {
         "name" => "string_key_client",
         "config" => {
-          "provider" => "groq_apikey_completions",
+          "provider" => "groq_completions",
           "api_key" => "gsk-test-key"
         }
       }
