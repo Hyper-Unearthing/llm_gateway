@@ -240,7 +240,8 @@ puts text
 
 ## Migration guides
 
-- [Migrating from `chat` to `stream`](docs/chat-to-stream-migration.md) — use `stream` without a block when you only need the final response.
+- [0.6.0 migration guide](docs/migration_guide_0.6.0.md) — move `model_key` to per-request `model:`, update provider keys, and update `Prompt` usage.
+- [Migrating from `chat` to `stream`](docs/migration-guide.md) — use `stream` without a block when you only need the final response.
 
 ## Tools
 
