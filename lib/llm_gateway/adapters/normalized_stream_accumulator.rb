@@ -97,10 +97,11 @@ module LlmGateway
         type = event_patch.fetch(:type).to_sym
         event_patch = prepare_event_patch(event_patch.merge(type:), type)
 
-        event = build_event(event_patch)
+        event = build_event(event_patch, partial: empty_partial)
         accumulate(event)
         content_index = event.content_index if event.respond_to?(:content_index)
         commit_block_transition(type, content_index)
+        event = build_event(event_patch, partial: partial_message)
         block.call(event) if block
 
         nil
@@ -166,7 +167,7 @@ module LlmGateway
         end
       end
 
-      def build_event(event_patch)
+      def build_event(event_patch, partial:)
         event_patch = symbolize_keys(event_patch)
         type = event_patch.fetch(:type).to_sym
 
@@ -175,7 +176,8 @@ module LlmGateway
           AssistantStreamMessageEvent.new(
             type:,
             delta: symbolize_keys(event_patch[:delta] || {}),
-            usage_increment: symbolize_keys(event_patch[:usage_increment] || {})
+            usage_increment: symbolize_keys(event_patch[:usage_increment] || {}),
+            partial:
           )
         when :tool_start
           AssistantToolStartEvent.new(
@@ -183,20 +185,23 @@ module LlmGateway
             content_index: event_patch.fetch(:content_index),
             delta: string_value(event_patch[:delta]),
             id: event_patch[:id],
-            name: event_patch[:name]
+            name: event_patch[:name],
+            partial:
           )
         when :reasoning_start, :reasoning_delta, :reasoning_end
           AssistantStreamReasoningEvent.new(
             type:,
             content_index: event_patch.fetch(:content_index),
             delta: string_value(event_patch[:delta]),
-            signature: string_value(event_patch[:signature])
+            signature: string_value(event_patch[:signature]),
+            partial:
           )
         when :text_start, :text_delta, :text_end, :tool_delta, :tool_end
           AssistantStreamEvent.new(
             type:,
             content_index: event_patch.fetch(:content_index),
-            delta: string_value(event_patch[:delta])
+            delta: string_value(event_patch[:delta]),
+            partial:
           )
         else
           raise ArgumentError, "Unsupported normalized stream event type: #{type.inspect}"
@@ -245,6 +250,14 @@ module LlmGateway
           end
         when :message_end
         end
+      end
+
+      def empty_partial
+        PartialAssistantMessage.new
+      end
+
+      def partial_message
+        PartialAssistantMessage.new(result)
       end
 
       def serialized_blocks

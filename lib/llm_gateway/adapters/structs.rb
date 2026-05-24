@@ -9,35 +9,6 @@ class BaseStruct < Dry::Struct
   transform_keys(&:to_sym)
 end
 
-class AssistantStreamEvent < BaseStruct
-  EventType = Types::Coercible::Symbol.enum(:text_start, :text_delta, :text_end, :tool_start, :tool_delta, :tool_end, :reasoning_start, :reasoning_delta, :reasoning_end)
-
-  attribute :type, EventType
-  attribute :delta, Types::Coercible::String.default { "" }
-  attribute :content_index, Types::Integer
-end
-
-
-class AssistantToolStartEvent < AssistantStreamEvent
-  attribute :id, Types::String
-  attribute :name, Types::String
-  attribute :content_index, Types::Integer
-end
-
-
-class AssistantStreamReasoningEvent < AssistantStreamEvent
-  attribute :signature, Types::Coercible::String.default { "" }
-  attribute :content_index, Types::Integer
-end
-
-class AssistantStreamMessageEvent < BaseStruct
-  EventType = Types::Coercible::Symbol.enum(:message_start, :message_delta, :message_end)
-
-  attribute :type, EventType
-  attribute :delta, Types::Coercible::Hash.default { {} }
-  attribute :usage_increment, Types::Coercible::Hash.default { {} }
-end
-
 class TextContent < BaseStruct
   attribute :type, Types::String.enum("text")
   attribute :text, Types::String
@@ -87,12 +58,79 @@ class ToolResult < BaseStruct
   attribute :content, Types::String
 end
 
-class AssistantMessage < BaseStruct
+class PartialAssistantMessage < BaseStruct
   ContentBlock =
     Types.Instance(TextContent) |
     Types.Instance(ReasoningContent) |
     Types.Instance(ToolCall)
 
+  attribute? :id, Types::String.optional
+  attribute? :model, Types::String.optional
+  attribute? :usage, Types::Hash.optional
+  attribute? :role, Types::String.enum("assistant").optional
+  attribute? :stop_reason, Types::String.enum("stop", "length", "tool_use", "toolUse", "error", "aborted").optional
+  attribute? :content, Types::Array.of(ContentBlock).optional
+
+  def self.new(attributes = {})
+    attrs = attributes.to_h.transform_keys(&:to_sym)
+    attrs[:content] = Array(attrs[:content]).map { |block| build_content_block(block) } if attrs.key?(:content)
+    super(attrs)
+  end
+
+  def self.build_content_block(block)
+    return block if block.is_a?(TextContent) || block.is_a?(ReasoningContent) || block.is_a?(ToolCall)
+
+    case block[:type] || block["type"]
+    when "text"
+      TextContent.new(block)
+    when "reasoning"
+      ReasoningContent.new(block)
+    when "thinking"
+      ReasoningContent.new(
+        type: "reasoning",
+        reasoning: block[:thinking] || block["thinking"] || block[:reasoning] || block["reasoning"],
+        signature: block[:signature] || block["signature"]
+      )
+    when "tool_use"
+      ToolCall.new(block)
+    else
+      raise ArgumentError, "Unsupported content block type: #{block[:type] || block['type']}"
+    end
+  end
+
+  private_class_method :build_content_block
+end
+
+class AssistantStreamEvent < BaseStruct
+  EventType = Types::Coercible::Symbol.enum(:text_start, :text_delta, :text_end, :tool_start, :tool_delta, :tool_end, :reasoning_start, :reasoning_delta, :reasoning_end)
+
+  attribute :type, EventType
+  attribute :delta, Types::Coercible::String.default { "" }
+  attribute :content_index, Types::Integer
+  attribute :partial, Types.Instance(PartialAssistantMessage)
+end
+
+class AssistantToolStartEvent < AssistantStreamEvent
+  attribute :id, Types::String
+  attribute :name, Types::String
+  attribute :content_index, Types::Integer
+end
+
+class AssistantStreamReasoningEvent < AssistantStreamEvent
+  attribute :signature, Types::Coercible::String.default { "" }
+  attribute :content_index, Types::Integer
+end
+
+class AssistantStreamMessageEvent < BaseStruct
+  EventType = Types::Coercible::Symbol.enum(:message_start, :message_delta, :message_end)
+
+  attribute :type, EventType
+  attribute :delta, Types::Coercible::Hash.default { {} }
+  attribute :usage_increment, Types::Coercible::Hash.default { {} }
+  attribute :partial, Types.Instance(PartialAssistantMessage)
+end
+
+class AssistantMessage < PartialAssistantMessage
   attribute :id, Types::String
   attribute :model, Types::String
   attribute :usage, Types::Hash
@@ -102,12 +140,6 @@ class AssistantMessage < BaseStruct
   attribute :api, Types::String
   attribute? :error_message, Types::String.optional
   attribute :content, Types::Array.of(ContentBlock)
-
-  def self.new(attributes)
-    attrs = attributes.to_h.transform_keys(&:to_sym)
-    attrs[:content] = Array(attrs[:content]).map { |block| build_content_block(block) }
-    super(attrs)
-  end
 
   def to_h
     result = {
@@ -123,23 +155,4 @@ class AssistantMessage < BaseStruct
     result[:error_message] = error_message unless error_message.nil?
     result
   end
-
-  def self.build_content_block(block)
-    return block if block.is_a?(TextContent) || block.is_a?(ReasoningContent) || block.is_a?(ToolCall)
-
-    case block[:type] || block["type"]
-    when "text"
-      TextContent.new(block)
-    when "reasoning"
-      ReasoningContent.new(block)
-    when "thinking"
-      ReasoningContent.new(type: "reasoning", reasoning: block[:thinking] || block["thinking"] || block[:reasoning] || block["reasoning"], signature: block[:signature] || block["signature"])
-    when "tool_use"
-      ToolCall.new(block)
-    else
-      raise ArgumentError, "Unsupported content block type: #{block[:type] || block['type']}"
-    end
-  end
-
-  private_class_method :build_content_block
 end
