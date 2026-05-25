@@ -1,12 +1,21 @@
-{
-  "live_text_streaming_openai_apikey_responses_gpt-5.4": {
-    "id": "resp_0cdc76ce5e23ddaf006a0b23e958ac8197a2261b1398815678",
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Count from 1 to 3"
+      }
+    ]
+  },
+  {
+    "id": "resp_05f27c1554c14558006a164d01bf288199b2ee6275c33425b4",
     "model": "gpt-5.4-2026-03-05",
     "usage": {
       "input": 13,
       "cache_write": 0,
       "cache_read": 0,
-      "output": 11
+      "output": 9
     },
     "role": "assistant",
     "stop_reason": "stop",
@@ -15,8 +24,8 @@
     "content": [
       {
         "type": "text",
-        "text": "1, 2, 3"
+        "text": "1\n2\n3"
       }
     ]
   }
-}
+]

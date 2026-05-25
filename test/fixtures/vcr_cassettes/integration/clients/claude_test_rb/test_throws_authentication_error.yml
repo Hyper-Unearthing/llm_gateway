@@ -29,7 +29,7 @@ http_interactions:
       message: Unauthorized
     headers:
       Date:
-      - Tue, 19 May 2026 06:47:03 GMT
+      - Wed, 27 May 2026 01:43:03 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -39,29 +39,29 @@ http_interactions:
       X-Should-Retry:
       - 'false'
       Request-Id:
-      - req_011CbBUit6rwnU9BXez9zmHb
+      - req_011CbSE1dihu11LeZKNwuDEy
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '9'
+      - '6'
       Vary:
       - Accept-Encoding
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - _cfuvid=rhgB_O5md9xrQ5xXxSyowCnqWe98KEkYkNnRY3Y5okI-1779173223.5184019-1.0.1.1-MxLFrODo.qajQnVcJbABHsRBEXtfBWFX7ZxlfTtteak;
+      - _cfuvid=hxvnkHf7ygozD03pUrUHwEJbOz1VLpfMTsWilkaoraI-1779846183.1900425-1.0.1.1-LDXZpll_AaRqL6rMmfvkSkL7EThb5koODKV.igFrQP8;
         HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       X-Robots-Tag:
       - none
       Cf-Ray:
-      - 9fe125e6edf55fb7-SIN
+      - a0215394eec940c7-SIN
     body:
       encoding: ASCII-8BIT
       string: '{"type":"error","error":{"type":"authentication_error","message":"invalid
-        x-api-key"},"request_id":"req_011CbBUit6rwnU9BXez9zmHb"}'
-  recorded_at: Tue, 19 May 2026 06:47:03 GMT
+        x-api-key"},"request_id":"req_011CbSE1dihu11LeZKNwuDEy"}'
+  recorded_at: Wed, 27 May 2026 01:43:03 GMT
 recorded_with: VCR 6.4.0

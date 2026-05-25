@@ -24,13 +24,13 @@ class StreamToolCallTest < Test
   end
 
   def basic_tool_call(adapter, options: {})
-    prompt = "Calculate 15 + 27 using the math_operation tool"
+    transcript = [ { role: "user", content: [ { type: "text", text: "Calculate 15 + 27 using the math_operation tool" } ] } ]
     accumulated_tool_args = ""
     has_tool_start = false
     has_tool_delta = false
     has_tool_end = false
     message_end_event = nil
-    response = adapter.stream(prompt, tools: [ math_operation_tool ], **options) do |event|
+    response = adapter.stream(transcript, tools: [ math_operation_tool ], **options) do |event|
       if event.type == :tool_start
         has_tool_start = true
         assert_equal "math_operation", event.name
@@ -69,14 +69,27 @@ class StreamToolCallTest < Test
     assert_equal 27, tool_call.input[:b]
     assert_includes %w[add subtract multiply divide], tool_call.input[:operation]
 
-    response
+    transcript << response
+    transcript
   end
 
   def self.define_stream_tests_for(provider_name:, provider:, model:, oauth:, options: {})
     test "live_basic_tool_call_#{provider_name}_#{model}" do
       with_vcr_adapter(provider:, model:, oauth:,) do |adapter|
-        response = basic_tool_call(adapter, options: options)
-        record_live_handoff_result(test_file: __FILE__, provider: provider_name, model:, result: response)
+        transcript = basic_tool_call(adapter, options: options)
+        response = transcript.last
+        tool_call = response.content.find { |block| block.type == "tool_use" }
+        tool_result = {
+          role: "user",
+          content: [
+            {
+              type: "tool_result",
+              tool_use_id: tool_call.id,
+              content: evaluate_math_operation(tool_call.input).to_s
+            }
+          ]
+        }
+        record_live_handoff_result(test_file: __FILE__, provider: provider_name, model:, result: [ *transcript, tool_result ])
       end
     end
   end

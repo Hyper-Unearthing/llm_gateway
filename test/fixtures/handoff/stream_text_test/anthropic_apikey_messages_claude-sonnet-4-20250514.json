@@ -1,6 +1,15 @@
-{
-  "live_text_streaming_anthropic_apikey_messages_claude-sonnet-4-20250514": {
-    "id": "msg_01Mww7hW8BVJ8d8syxGLwbfS",
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Count from 1 to 3"
+      }
+    ]
+  },
+  {
+    "id": "msg_016SYZBg9WqbHk6C6EatetuX",
     "model": "claude-sonnet-4-20250514",
     "usage": {
       "input": 15,
@@ -19,4 +28,4 @@
       }
     ]
   }
-}
+]

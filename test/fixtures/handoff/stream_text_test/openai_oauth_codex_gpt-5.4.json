@@ -1,12 +1,21 @@
-{
-  "live_text_streaming_openai_oauth_codex_gpt-5.4": {
-    "id": "resp_00e8c86802bb17fe016a0b23e415cc81919f8954c70b66004a",
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Count from 1 to 3"
+      }
+    ]
+  },
+  {
+    "id": "resp_0f1f83095c25e544016a164d03f5708191a2a6c5d024362b59",
     "model": "gpt-5.4",
     "usage": {
       "input": 23,
       "cache_write": 0,
       "cache_read": 0,
-      "output": 8
+      "output": 11
     },
     "role": "assistant",
     "stop_reason": "stop",
@@ -19,4 +28,4 @@
       }
     ]
   }
-}
+]

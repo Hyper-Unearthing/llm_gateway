@@ -1,6 +1,15 @@
-{
-  "live_basic_tool_call_anthropic_oauth_messages_claude-sonnet-4-20250514": {
-    "id": "msg_01U2hYxQPRqarjwXy7GSgVfP",
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Calculate 15 + 27 using the math_operation tool"
+      }
+    ]
+  },
+  {
+    "id": "msg_01S1KxJvPrguW1xNxz7Eix69",
     "model": "claude-sonnet-4-20250514",
     "usage": {
       "input": 472,
@@ -18,7 +27,7 @@
         "text": "I'll calculate 15 + 27 using the math_operation tool."
       },
       {
-        "id": "toolu_012UCLg4PSsanvkFqsGcQQrV",
+        "id": "toolu_01SnZrZZvx3xRWEW8ZzRWqAw",
         "type": "tool_use",
         "name": "math_operation",
         "input": {
@@ -28,5 +37,15 @@
         }
       }
     ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "toolu_01SnZrZZvx3xRWEW8ZzRWqAw",
+        "content": "42"
+      }
+    ]
   }
-}
+]

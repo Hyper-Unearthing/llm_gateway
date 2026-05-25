@@ -5,70 +5,17 @@ http_interactions:
     uri: https://api.anthropic.com/v1/messages
     body:
       encoding: UTF-8
-      string: '{"model":"claude-sonnet-4-20250514","messages":[{"role":"user","content":[{"type":"text","text":"You
-        are receiving recorded final outputs from previous streaming tool-call test
-        runs.\nRead the JSON and answer in one short sentence. Include all of these
-        facts as Arabic numerals\nwhere numeric: the number of recorded outputs and
-        the tool-call sum 15 + 27.\n\n[\n  {\n    \"pair\": \"anthropic_apikey_messages_claude-sonnet-4-20250514\",\n    \"result\":
-        {\n      \"live_basic_tool_call_anthropic_apikey_messages_claude-sonnet-4-20250514\":
-        {\n        \"id\": \"msg_01FJXR7FwdHYzXcs8e9yWdB3\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
-        {\n          \"input\": 457,\n          \"cache_write\": 0,\n          \"cache_read\":
-        0,\n          \"output\": 107\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
-        \"tool_use\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
-        [\n          {\n            \"type\": \"text\",\n            \"text\": \"I''ll
-        calculate 15 + 27 for you using the math_operation tool.\"\n          },\n          {\n            \"id\":
-        \"toolu_01XPLBhPETQEPojK4d3SwQwM\",\n            \"type\": \"tool_use\",\n            \"name\":
-        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
-        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
-        \"anthropic_oauth_messages_claude-sonnet-4-20250514\",\n    \"result\": {\n      \"live_basic_tool_call_anthropic_oauth_messages_claude-sonnet-4-20250514\":
-        {\n        \"id\": \"msg_01U2hYxQPRqarjwXy7GSgVfP\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
-        {\n          \"input\": 472,\n          \"cache_write\": 0,\n          \"cache_read\":
-        0,\n          \"output\": 105\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
-        \"tool_use\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
-        [\n          {\n            \"type\": \"text\",\n            \"text\": \"I''ll
-        calculate 15 + 27 using the math_operation tool.\"\n          },\n          {\n            \"id\":
-        \"toolu_012UCLg4PSsanvkFqsGcQQrV\",\n            \"type\": \"tool_use\",\n            \"name\":
-        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
-        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
-        \"groq_completions_openai_gpt-oss-120b\",\n    \"result\": {\n      \"live_basic_tool_call_groq_completions_openai/gpt-oss-120b\":
-        {\n        \"id\": \"chatcmpl-e2d65870-ed2a-4261-947c-39b50f28d419\",\n        \"model\":
-        \"openai/gpt-oss-120b\",\n        \"usage\": {\n          \"input\": 167,\n          \"cache_write\":
-        0,\n          \"cache_read\": 0,\n          \"output\": 63\n        },\n        \"role\":
-        \"assistant\",\n        \"stop_reason\": \"tool_use\",\n        \"provider\":
-        \"groq\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
-        \"reasoning\",\n            \"reasoning\": \"We need to call the math_operation
-        tool with a=15, b=27, operation \\\"add\\\".\",\n            \"signature\":
-        \"\"\n          },\n          {\n            \"id\": \"fc_bf8e2b9f-8373-468e-a208-d25d411e1b77\",\n            \"type\":
-        \"tool_use\",\n            \"name\": \"math_operation\",\n            \"input\":
-        {\n              \"a\": 15,\n              \"b\": 27,\n              \"operation\":
-        \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
-        \"openai_apikey_completions_gpt-5.1\",\n    \"result\": {\n      \"live_basic_tool_call_openai_apikey_completions_gpt-5.1\":
-        {\n        \"id\": \"chatcmpl-Dh8YdEAG3J6FSwc8bzL41nK6iJvHt\",\n        \"model\":
-        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input\": 173,\n          \"cache_write\":
-        0,\n          \"cache_read\": 0,\n          \"output\": 31\n        },\n        \"role\":
-        \"assistant\",\n        \"stop_reason\": \"tool_use\",\n        \"provider\":
-        \"openai\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"id\":
-        \"call_kNZPdCrYiBwQThkT2XetjOud\",\n            \"type\": \"tool_use\",\n            \"name\":
-        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
-        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
-        \"openai_apikey_responses_gpt-5.4\",\n    \"result\": {\n      \"live_basic_tool_call_openai_apikey_responses_gpt-5.4\":
-        {\n        \"id\": \"resp_067b2f2b40613133006a0c07fc2df48196acdf3f99c61c218d\",\n        \"model\":
-        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input\": 91,\n          \"cache_write\":
-        0,\n          \"cache_read\": 0,\n          \"output\": 26\n        },\n        \"role\":
-        \"assistant\",\n        \"stop_reason\": \"tool_use\",\n        \"provider\":
-        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"id\":
-        \"call_2lpvHGYOsCYgapiiw0S4wJJ0\",\n            \"type\": \"tool_use\",\n            \"name\":
-        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
-        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
-        \"openai_oauth_codex_gpt-5.4\",\n    \"result\": {\n      \"live_basic_tool_call_openai_oauth_codex_gpt-5.4\":
-        {\n        \"id\": \"resp_08d45c08871bec76016a0c080203848191a4ad666441082231\",\n        \"model\":
-        \"gpt-5.4\",\n        \"usage\": {\n          \"input\": 101,\n          \"cache_write\":
-        0,\n          \"cache_read\": 0,\n          \"output\": 26\n        },\n        \"role\":
-        \"assistant\",\n        \"stop_reason\": \"tool_use\",\n        \"provider\":
-        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"id\":
-        \"call_AMb9J6HBDtM0EWewOsTpJ7SN\",\n            \"type\": \"tool_use\",\n            \"name\":
-        \"math_operation\",\n            \"input\": {\n              \"a\": 15,\n              \"b\":
-        27,\n              \"operation\": \"add\"\n            }\n          }\n        ]\n      }\n    }\n  }\n]\n"}]}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":10240},"stream":true}'
+      string: '{"model":"claude-sonnet-4-20250514","messages":[{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using the math_operation tool"}]},{"role":"assistant","content":[{"type":"text","text":"I''ll
+        calculate 15 + 27 for you using the math_operation tool."},{"type":"tool_use","id":"toolu_013aJK3RV5buvjJYF1p3HsZ7","name":"math_operation","input":{"a":15,"b":27,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_013aJK3RV5buvjJYF1p3HsZ7","content":"42"}]},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using the math_operation tool"}]},{"role":"assistant","content":[{"type":"text","text":"I''ll
+        calculate 15 + 27 using the math_operation tool."},{"type":"tool_use","id":"toolu_01SnZrZZvx3xRWEW8ZzRWqAw","name":"math_operation","input":{"a":15,"b":27,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_01SnZrZZvx3xRWEW8ZzRWqAw","content":"42"}]},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using the math_operation tool"}]},{"role":"assistant","content":[{"type":"text","text":"We
+        need to call the math_operation tool with a=15, b=27, operation \"add\"."},{"type":"tool_use","id":"fc_a47fff5e-fe12-42b9-a825-09e525cc98a3","name":"math_operation","input":{"a":15,"b":27,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"fc_a47fff5e-fe12-42b9-a825-09e525cc98a3","content":"42"}]},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using the math_operation tool"}]},{"role":"assistant","content":[{"type":"tool_use","id":"call_3b1Mdiz9Wu6nzozRmDc5dsnw","name":"math_operation","input":{"a":15,"b":27,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"call_3b1Mdiz9Wu6nzozRmDc5dsnw","content":"42"}]},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using the math_operation tool"}]},{"role":"assistant","content":[{"type":"tool_use","id":"call_omLvnCy93Gy7qnob0IV8ukMb","name":"math_operation","input":{"a":15,"b":27,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"call_omLvnCy93Gy7qnob0IV8ukMb","content":"42"}]},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using the math_operation tool"}]},{"role":"assistant","content":[{"type":"tool_use","id":"call_JCJ1Dqh751s9WOnbgnPbIBub","name":"math_operation","input":{"a":15,"b":27,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"call_JCJ1Dqh751s9WOnbgnPbIBub","content":"42"}]},{"role":"user","content":[{"type":"text","text":"How
+        many times did you do a calculation and what was the result"}]}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":10240},"stream":true}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -92,7 +39,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 25 May 2026 14:17:26 GMT
+      - Wed, 27 May 2026 01:44:32 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -104,109 +51,106 @@ http_interactions:
       Anthropic-Ratelimit-Input-Tokens-Limit:
       - '800000'
       Anthropic-Ratelimit-Input-Tokens-Remaining:
-      - '799000'
+      - '800000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2026-05-25T14:17:25Z'
+      - '2026-05-27T01:44:31Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '160000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '160000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2026-05-25T14:17:25Z'
+      - '2026-05-27T01:44:31Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '2000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '1999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2026-05-25T14:17:25Z'
+      - '2026-05-27T01:44:31Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '960000'
       Anthropic-Ratelimit-Tokens-Remaining:
-      - '959000'
+      - '960000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2026-05-25T14:17:25Z'
+      - '2026-05-27T01:44:31Z'
       Request-Id:
-      - req_011CbPRvFUVMfPptsv1MfbEp
+      - req_011CbSE88Gr6LnPvLYU4AF3H
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
       Traceresponse:
-      - 00-85b40d27a6432406d6eabc4fa1ddc851-e9e1ce1e1c14453c-01
+      - 00-e47f9cd636c00cd4cb11f2b2aedc22ce-1d9803cd28b1a10f-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '1005'
+      - '626'
       Vary:
       - Accept-Encoding
-      Set-Cookie:
-      - _cfuvid=yIscA44obF_tHGyesS3DBbR0mqnLYGmqNigNRyl_8OQ-1779718645.0645218-1.0.1.1-JTJ0h5XCzeUH.mvD_I6fjj_72yWXZk1_VmjPjAeKyRY;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
-      X-Robots-Tag:
-      - none
       Cf-Cache-Status:
       - DYNAMIC
+      Set-Cookie:
+      - _cfuvid=Y4Qo7ECxfSeoRsyht1pgruC5RzUDSf37bHHmokOone8-1779846271.2512887-1.0.1.1-MCL84cC98BFAo7KSplgWQ_DVYmEQhdwwKYhkikwCvWY;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
       Cf-Ray:
-      - a01529dbaea32203-KUL
+      - a02155bb5b21fdec-SIN
     body:
       encoding: ASCII-8BIT
       string: |+
         event: message_start
-        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01XiWWhU762vd7ypfKebnKcZ","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":2028,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":1,"service_tier":"standard","inference_geo":"not_available"}}  }
+        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01NaxzEuLLb8NUA4AcoH4qfx","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":827,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":7,"service_tier":"standard","inference_geo":"not_available"}}}
 
         event: content_block_start
-        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}      }
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}    }
 
         event: ping
         data: {"type": "ping"}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"I"}          }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"The user is asking me to count"}    }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" need to read the JSON and identify:\n1. The number of recorded outputs\n2. The tool-call sum of 15 + 27\n\nLooking"}             }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" how many times I performed a calculation using the math_operation tool and what the result was. Let me look back at the conversation:\n\n1. First request: Calculate 15 + 27 using"}  }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" at the JSON, I can see there are 6 objects in the array, each representing a recorded output from different"}}
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" the math_operation tool - Result: 42\n2. Second request: Calculate 15 + 27 using the math_operation tool - Result: 42\n3. Third request: Calculate 15 + 27 using the math_operation tool - Result: 42\n4."}             }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" API providers and models. Each one contains tool calls that"}         }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" Fourth request: Calculate 15 + 27 using the math_operation tool - Result: 42\n5. Fifth request: Calculate 15 + 27 using the math_operation tool - Result: 42\n6. Sixth request: Calculate 15 + 27 using"}               }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" perform the math operation of adding 15 + 27.\n\nSo:\n- Number of recorded outputs: 6\n-"}             }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" the math_operation tool - Result: 42\n\nSo I performed the calculation 6 times, and each time the result was 42."}           }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" Tool-call sum 15 + 27 = 42\n\nI need to answer in one short sentence including both facts as Arabic numerals."} }
-
-        event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"EqgFCmwIDhgCKkA28Y8M/c4R/kZDnesxVtwCwtUn/QxG5sIZEjL2DYOWder+0hlfY7mMYgkTTbMD3UouZRHLuqjiAIV9zvKdWyGFMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4AEIIdGhpbmtpbmcSDAi3AqAi3izsc0po0RoMxZdPPVwmRX5CMaaPIjAu7/h+rFByRTzNsFlm8UICANLaGHxU79fBlkqxqi0A7YTnU2914ezlFsA42ESbs1sq6QPCvn7gzCsw9ucC1h5gHknc82vwe3I9vpM/5V6hoCh4iMbvO+0J7JSW/8+VMhQcI+Uyh/0GzGEdsqIJmDNPn5T/GD+dujTsnAqW7g9y+Ry20GAr/+L4K/QtlpAyCW5zlU1UlE/RZCaONZ68UZVPNsgYuTEOF/QqUlsJdZ379f7uGlacTALMlvClAQTShzCFH4eNOd9zcyvPXFRA6H77q6qScPtB3us3yLpASqGDcRWiuoCU6CfSBUCLAvV9WXmoq3CnxHdvO97/AQmkBhhKHWhiOW7NqFAUtDQ9/HgM8XZdJsF1QL42Exxw01z0/w21jmhDHRvmLqlzTG0kJxZrf59+zNUQZff3KqS9yAfuDxoKMbNEIPqL7A/L2pbs7kmvZgtkfZ/SkFsPQbqUid3sGb9MmjY5qD7DzDc03DylttFdVmg4TDik83wrmAc06Jkv/2wHSAEsAARLaTdHL5V/z/PLyhALJ02QULabVPFAEyJhrNyzPQbcv45zfPO5Fpqifbn9GEKjghnUzO0CNVcDtaIdwkXtkhosVM8DvSCszhJ0VrZIuT84Dpl//b8xqkvlWssuZ60Xifd+OyjzkQymP5irlzEOlSNLtdChB3WeN26TrI0we+6hhNUK56pE1vE0O5ODrDPhA7yrE6wYAQ=="}  }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"EpoHCmwIDhgCKkCInfiwn02BJR3tKJZ68Cfvl4Eta+64IFgtURaO2bXGQEloI8W77YI70WcL/acKBlNNFS3qRlSpkDURyVriUdSpMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4AEIIdGhpbmtpbmcSDG42Afz0kDxv+dHTkxoMohhfA73rQX1aR1KyIjBZtLuNZNxUQaKykRdsecqynV9P7T+EEq/U4KFpdJb798hmfbKEVg/Amu6a8IUXXeoq2wVw0DqtRYcSzuFpsIFY8sIdEdizXI9eR0sMcRjn1Eo1WkjcuQ4mavB/jac4dOBq0h+1Oe3sUmYTAuivJ+VN2M0q3lt6HYuwqCUUSMfXVnsaF3VPb1ry9jCRiw72HC5uVqTyT6EWnwmtmdPjgrsRiQ2ZcaEMBjUebXeNQvjTagXQ3lgF4ftBkMwdddVannm+pmMV9h/vAvzfh6mVL8JNH9QzJDq+juy0LZk5Cj+3RTpefTF/+fJWY9RTWGhpJV1Qa4U5YEibg+QkLpY3KA8amike7VOAAKHIuDI8DK92+fJLjG5J5wB2KJwBYJKTkjZCcAU/zufLWMCyuS8JqNGsItzUgJXPvvqKhR1Ff3phpeBIfQVyFZYrzoKM/5voqPFccgU3wXssBDk8DAZVYX+izkt9k4HuhtqoYfGoQjgR3zFRf1sd367cgtV1DsmNZmO9lSvDwWloyJVNEHJuPS4znYFY2ir8GVT7GSMERTUFCwLjs4w0pyNVzdCOJvScIXLRz6mAbOH75Gf3zSYhoW9UEXaTbrRFVPafAQKeDdgAzM1qbsCAldYwGMfLgreYFbQ/O+S9QXOm4YV3g5X26xtqa/WvEXMgBHuPR0Bze4dlLx/wXSt80fQQLLR1aE6NB7YjATnrTdrzbYnfOnU4ykyhedIxlNwkC9KWY0/HuEYaoZDsDJ6I8hMLi76hhqUPDSU1czx+aIuEQk3JjZgAKixvXKAmRe8MvnFWdLRIDnCMcThxIlUFZscnUwZDJ9wrxCwJni+YUniyo+kblgkAr7rSSpvMmxqXbZa+mVU4Hh8mdh32kJuW9hr/M0DKBDNc1frRaxNEUbFJrwl8vC/2PRIEJJgbywjp59XsFa1VRiYYpFkKQ7UVMWr3yzyoa0o+/PlrK9fGxsIy2p9rVIEpuMh98bppn4a49zfhCpg/jTbU1FvWaUCR+c15EQdvSBKb6lBISaxe0yf0A0zY5JYcPhgB"}              }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":0    }
+        data: {"type":"content_block_stop","index":0         }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}   }
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}              }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"There"}           }
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"I performed the"}          }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" are 6 recorded outputs, each performing tool calls that calculate 15 + 27 = "}    }
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" calculation 6 times using the math_operation tool. Each time I calculated 15 + 27, and the result was consistently **42**.\n\nAll"}          }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"42."}        }
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" six calculations were identical:\n- Operation: addition (15 + 27)\n- Result: 42"}          }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":1}
+        data: {"type":"content_block_stop","index":1      }
 
         event: message_delta
-        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":2028,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":163}}
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":827,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":275}   }
 
         event: message_stop
-        data: {"type":"message_stop"}
+        data: {"type":"message_stop" }
 
-  recorded_at: Mon, 25 May 2026 14:17:29 GMT
+  recorded_at: Wed, 27 May 2026 01:44:34 GMT
 recorded_with: VCR 6.4.0
 ...

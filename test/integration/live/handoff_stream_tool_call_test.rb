@@ -19,15 +19,20 @@ class HandoffStreamToolCallLiveTest < Test
   def run_handoff_stream_for(provider_name:, model:, adapter:, options: {})
     records = load_recorded_outputs
 
-    prompt = <<~PROMPT
-      You are receiving recorded final outputs from previous streaming tool-call test runs.
-      Read the JSON and answer in one short sentence. Include all of these facts as Arabic numerals
-      where numeric: the number of recorded outputs and the tool-call sum 15 + 27.
+    transcript = [
+      *recorded_messages(records),
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: "How many times did you do a calculation and what was the result"
+          }
+        ]
+      }
+    ]
 
-      #{JSON.pretty_generate(records)}
-    PROMPT
-
-    response = adapter.stream(prompt, reasoning: "high", **options)
+    response = adapter.stream(transcript, reasoning: "high", **options)
     refute_equal "error", response.stop_reason, "#{provider_name}/#{model} failed: #{response.error_message}"
 
     text = response.content.select { |block| block.type == "text" }.map(&:text).join(" ").downcase
@@ -48,6 +53,12 @@ class HandoffStreamToolCallLiveTest < Test
   end
 
   private
+
+  def recorded_messages(records)
+    records.flat_map do |record|
+      deep_symbolize(record[:result])
+    end
+  end
 
   def load_recorded_outputs
     skip "Missing fixture directory at #{FIXTURE_DIR}. Run stream_tool_call_test live tests first." unless Dir.exist?(FIXTURE_DIR)

@@ -1,12 +1,21 @@
-{
-  "live_basic_thinking_openai_apikey_responses_gpt-5.4": {
-    "id": "resp_091fc53b0b8143f0006a0c0795afa081958c8ff17e40a736b3",
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Think long and hard about 42 + 27"
+      }
+    ]
+  },
+  {
+    "id": "resp_0ad52bd24e8c19c1006a164cbc4f24819bbae87c7389bc2336",
     "model": "gpt-5.4-2026-03-05",
     "usage": {
       "input": 16,
       "cache_write": 0,
       "cache_read": 0,
-      "output": 146
+      "output": 95
     },
     "role": "assistant",
     "stop_reason": "stop",
@@ -15,7 +24,7 @@
     "content": [
       {
         "type": "reasoning",
-        "reasoning": "**Calculating the sum**\n\nThe user is asking me to think about 42 + 27. They might be looking for the answer, which is 69. I think it's good to show a brief reasoning behind it—40 + 20 equals 60, and 2 + 7 equals 9, giving a total of 69. The request to \"think long and hard\" suggests they want thoughtful reasoning, but I'll keep my response concise.",
+        "reasoning": "**Calculating the sum**\n\nThe user asked to think about 42 + 27, and they likely just want the sum. However, the wording might reference something deeper or more conceptual. I need to keep it straightforward and avoid any internal insights or complexities. So, I’ll respond with a simple answer: \"42 + 27 = 69.\" I might add a brief note to keep it friendly, but I want to make sure I keep it clear and concise for the user!",
         "signature": ""
       },
       {
@@ -24,4 +33,4 @@
       }
     ]
   }
-}
+]

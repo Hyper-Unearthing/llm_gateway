@@ -21,12 +21,12 @@ class StreamReasoningTest < Test
   end
 
   def basic_thinking_test(adapter, reasoning: "high", options: {})
-    prompt = "Think long and hard about 42 + 27"
+    transcript = [ { role: "user", content: [ { type: "text", text: "Think long and hard about 42 + 27" } ] } ]
     thinking_started = false
     thinking_chunks = ""
     thinking_completed = false
     message_end_event = nil
-    response = adapter.stream(prompt, reasoning:, **options) do |event|
+    response = adapter.stream(transcript, reasoning:, **options) do |event|
       case event.type
       when :reasoning_start
         thinking_started = true
@@ -57,14 +57,15 @@ class StreamReasoningTest < Test
       refute_empty thinking_block.reasoning.to_s
     end
 
-    response
+    transcript << response
+    transcript
   end
 
   def self.define_stream_reasoning_tests_for(provider_name:, provider:, model:, oauth:, options: {})
     test "live_basic_thinking_#{provider_name}_#{model}" do
       with_vcr_adapter(provider:, model:, oauth:,) do |adapter|
-        response = basic_thinking_test(adapter, reasoning: "high", options: options)
-        record_live_handoff_result(test_file: __FILE__, provider: provider_name, model:, result: response)
+        transcript = basic_thinking_test(adapter, reasoning: "high", options: options)
+        record_live_handoff_result(test_file: __FILE__, provider: provider_name, model:, result: transcript)
       end
     end
   end

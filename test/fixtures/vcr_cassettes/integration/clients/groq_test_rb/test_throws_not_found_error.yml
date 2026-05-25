@@ -25,7 +25,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Tue, 19 May 2026 06:50:05 GMT
+      - Wed, 27 May 2026 01:46:48 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -41,19 +41,19 @@ http_interactions:
       X-Groq-Region:
       - bom
       X-Request-Id:
-      - req_01krzfzd58em4t64yzzqgp5gsx
-      Set-Cookie:
-      - __cf_bm=jLhzQ4SSBid.Gw0IEFSOsHaGIndVMll9kM82_ySthqY-1779173405.8289342-1.0.1.1-AWis0s0AcDW7qEdGdK3Yyj2QKcGG83W9e.MyLnOXqzOUCFacNOAacHb9KPLBGRattzQ27r7TvxEUOGg81YP5iR76nPT5O8_1OMPgMyWUicZPbBAxsFXvTZ4m0i0mCCQ9;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=groq.com; Expires=Tue, 19
-        May 2026 07:20:05 GMT
+      - req_01kskhst45er6bcddbfbmehrxv
       Via:
       - 1.1 google
-      Strict-Transport-Security:
-      - max-age=15552000
       Cf-Cache-Status:
       - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=X7nAkQ9WoaIRGQnMwYQS4aIhi4wqavFza_iZLIcRNxc-1779846408.2941253-1.0.1.1-hxDqpU8OegsJ.nABrLRO45Gp.3do0p4cZrJMvQdAszZUSFhdrdD7kl4fGEvNgeP3gHeuoDjuU2jH4XwmgMfa8gNy9NqIP9CY667Qpr9V.Fp.HfWUEfMazYjwJCuyCxqc;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=groq.com; Expires=Wed, 27
+        May 2026 02:16:48 GMT
+      Strict-Transport-Security:
+      - max-age=15552000
       Cf-Ray:
-      - 9fe12a5a6f3dc3c2-SIN
+      - a0215913dead7da7-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -62,5 +62,5 @@ http_interactions:
         not have access to it.","type":"invalid_request_error","code":"model_not_found"}}
 
         '
-  recorded_at: Tue, 19 May 2026 06:50:05 GMT
+  recorded_at: Wed, 27 May 2026 01:46:48 GMT
 recorded_with: VCR 6.4.0

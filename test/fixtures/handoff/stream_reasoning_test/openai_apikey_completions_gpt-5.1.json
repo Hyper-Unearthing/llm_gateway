@@ -1,12 +1,21 @@
-{
-  "live_basic_thinking_openai_apikey_completions_gpt-5.1": {
-    "id": "chatcmpl-Dh8WxAn4oWEmmZPOZ7UduUuF50CPC",
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Think long and hard about 42 + 27"
+      }
+    ]
+  },
+  {
+    "id": "chatcmpl-DjxdJoHPty1kwyGskJe5w4kGNJ4cX",
     "model": "gpt-5.1-2025-11-13",
     "usage": {
       "input": 16,
       "cache_write": 0,
       "cache_read": 0,
-      "output": 95
+      "output": 153
     },
     "role": "assistant",
     "stop_reason": "stop",
@@ -15,8 +24,8 @@
     "content": [
       {
         "type": "text",
-        "text": "42 + 27 = 69"
+        "text": "42 + 27 = 69."
       }
     ]
   }
-}
+]

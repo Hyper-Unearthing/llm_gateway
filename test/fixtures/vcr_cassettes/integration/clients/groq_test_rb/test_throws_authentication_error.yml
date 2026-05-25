@@ -25,7 +25,7 @@ http_interactions:
       message: Unauthorized
     headers:
       Date:
-      - Tue, 19 May 2026 07:18:22 GMT
+      - Wed, 27 May 2026 01:46:47 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -41,11 +41,11 @@ http_interactions:
       X-Groq-Region:
       - bom
       X-Request-Id:
-      - req_01krzhk63pf5bs2b5338520n2n
+      - req_01kskhssrxfsq9ztwvv1nmpdfh
       Set-Cookie:
-      - __cf_bm=1oRRiOSgiopgjHLKBoZf9.Wg_UNp53kmBdqhbbSFOIk-1779175102.547087-1.0.1.1-j7MER6VgWkZlyKQUM5r5rhduRNuK4bTA1eJ7nJbXNQf5ltJ2s_y9cO1NbO5Es3AlU9LPk5XPQmPQc_NaVHFnr0epC1B31WXVcv3TIIH2AQJss5cjGSyNx0_EIe6K4gvH;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=groq.com; Expires=Tue, 19
-        May 2026 07:48:22 GMT
+      - __cf_bm=1Dy7K1LzCUdAYFv9gail9kTwfMzGGo4vxn7Shk7zQAI-1779846407.9341102-1.0.1.1-_HGPH12_F9Am7F.zP_LrWRER3AOZvg6gWcN6shZxdpq3dN.OKpnn.IDFgEEfHbwWGEm6FJ9ff2d0Uxr9Zr2nQ01GH5VR79owndOLm4mak2XxDFUjBwWjNYcCuFMksfWv;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=groq.com; Expires=Wed, 27
+        May 2026 02:16:47 GMT
       Via:
       - 1.1 google
       Strict-Transport-Security:
@@ -53,7 +53,7 @@ http_interactions:
       Cf-Cache-Status:
       - DYNAMIC
       Cf-Ray:
-      - 9fe153c6e937d869-KUL
+      - a021591198e3fdcf-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -61,5 +61,5 @@ http_interactions:
       string: '{"error":{"message":"Invalid API Key","type":"invalid_request_error","code":"invalid_api_key"}}
 
         '
-  recorded_at: Tue, 19 May 2026 07:18:22 GMT
+  recorded_at: Wed, 27 May 2026 01:46:47 GMT
 recorded_with: VCR 6.4.0

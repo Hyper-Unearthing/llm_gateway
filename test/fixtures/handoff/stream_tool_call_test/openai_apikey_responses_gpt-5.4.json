@@ -1,6 +1,15 @@
-{
-  "live_basic_tool_call_openai_apikey_responses_gpt-5.4": {
-    "id": "resp_067b2f2b40613133006a0c07fc2df48196acdf3f99c61c218d",
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Calculate 15 + 27 using the math_operation tool"
+      }
+    ]
+  },
+  {
+    "id": "resp_064412352112a98e006a164c29445c819991cc7d872f283702",
     "model": "gpt-5.4-2026-03-05",
     "usage": {
       "input": 91,
@@ -14,7 +23,7 @@
     "api": "responses",
     "content": [
       {
-        "id": "call_2lpvHGYOsCYgapiiw0S4wJJ0",
+        "id": "call_omLvnCy93Gy7qnob0IV8ukMb",
         "type": "tool_use",
         "name": "math_operation",
         "input": {
@@ -24,5 +33,15 @@
         }
       }
     ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "call_omLvnCy93Gy7qnob0IV8ukMb",
+        "content": "42"
+      }
+    ]
   }
-}
+]

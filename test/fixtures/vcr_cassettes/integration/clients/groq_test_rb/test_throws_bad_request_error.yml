@@ -25,7 +25,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Tue, 19 May 2026 07:18:23 GMT
+      - Wed, 27 May 2026 01:46:48 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -41,11 +41,11 @@ http_interactions:
       X-Groq-Region:
       - bom
       X-Request-Id:
-      - req_01krzhk6skf5evm3bbt4n6wbas
+      - req_01kskhssyee3db403dcdwy9ean
       Set-Cookie:
-      - __cf_bm=cbYp.iuquwhrVXB5ihmdm3WOdLhs7VonMCpL_RQeG08-1779175103.2485285-1.0.1.1-LMi7_itCugf6b.ZlinWE909scWNPa4l9PxH6z7Cs329bCdozvu8BIJkMv1BueBmXCfHR3xaeZrQ272xpwANsiTiSfoxzngDFZ3EvbiUPKcfIgua9L_iNoPAyK7JrXiCn;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=groq.com; Expires=Tue, 19
-        May 2026 07:48:23 GMT
+      - __cf_bm=zMcDWCKBUQmMiJrWzspvgdBb.EMkpldnaaVvm.sRlZY-1779846408.111155-1.0.1.1-jBk0YRk7eAinhkRONtNx6ddftU.lYFArP4ZiJtua17kw43vvv9sDxJWDCp2IJtsiOYIw3VWItgCZZyJiyUS6kefy4wiXW4ow7DO5oMwvjzAvfcm5MK0ge86lsLXyOy2k;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=groq.com; Expires=Wed, 27
+        May 2026 02:16:48 GMT
       Via:
       - 1.1 google
       Strict-Transport-Security:
@@ -53,7 +53,7 @@ http_interactions:
       Cf-Cache-Status:
       - DYNAMIC
       Cf-Ray:
-      - 9fe153cb49303e8d-KUL
+      - a0215912b9a8fd20-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -62,5 +62,5 @@ http_interactions:
         the discriminator property: ''role''","type":"invalid_request_error"}}
 
         '
-  recorded_at: Tue, 19 May 2026 07:18:23 GMT
+  recorded_at: Wed, 27 May 2026 01:46:47 GMT
 recorded_with: VCR 6.4.0

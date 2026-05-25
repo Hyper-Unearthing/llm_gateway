@@ -19,21 +19,24 @@ class HandoffStreamTextLiveTest < Test
   def run_handoff_stream_for(provider_name:, model:, adapter:, options: {})
     records = load_recorded_outputs
 
-    prompt = <<~PROMPT
-      You are receiving recorded final outputs from previous text streaming test runs.
-      Read the JSON and answer in one short sentence. Include the number of recorded outputs
-      as an Arabic numeral, and state that the previous assistants counted from 1 to 3.
+    transcript = [
+      *recorded_messages(records),
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: "how many times did you count from 1 to 3."
+          }
+        ]
+      }
+    ]
 
-      #{JSON.pretty_generate(records)}
-    PROMPT
-
-    response = adapter.stream(prompt, reasoning: "high", **options)
+    response = adapter.stream(transcript, reasoning: "high", **options)
     refute_equal "error", response.stop_reason, "#{provider_name}/#{model} failed: #{response.error_message}"
 
     text = response.content.select { |block| block.type == "text" }.map(&:text).join(" ").downcase
-    assert_includes text, records.length.to_s
-    assert_includes text, "1"
-    assert_includes text, "3"
+    assert_match(/\b(6|six)\b/, text)
   end
 
   def self.define_handoff_stream_test_for(provider_name:, provider:, model:, oauth:, options: {})
@@ -49,6 +52,12 @@ class HandoffStreamTextLiveTest < Test
   end
 
   private
+
+  def recorded_messages(records)
+    records.flat_map do |record|
+      deep_symbolize(record[:result])
+    end
+  end
 
   def load_recorded_outputs
     skip "Missing fixture directory at #{FIXTURE_DIR}. Run stream_text_test live tests first." unless Dir.exist?(FIXTURE_DIR)

@@ -25,11 +25,11 @@ http_interactions:
       - code-execution-2025-05-22,files-api-2025-04-14
   response:
     status:
-      code: 429
-      message: Too Many Requests
+      code: 400
+      message: Bad Request
     headers:
       Date:
-      - Tue, 19 May 2026 06:48:50 GMT
+      - Wed, 27 May 2026 01:43:31 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -38,52 +38,34 @@ http_interactions:
       - keep-alive
       X-Should-Retry:
       - 'false'
-      Anthropic-Ratelimit-Input-Tokens-Limit:
-      - '450000'
-      Anthropic-Ratelimit-Input-Tokens-Remaining:
-      - '450000'
-      Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '1970-01-01T00:00:00Z'
-      Anthropic-Ratelimit-Requests-Limit:
-      - '1000'
-      Anthropic-Ratelimit-Requests-Remaining:
-      - '999'
-      Anthropic-Ratelimit-Requests-Reset:
-      - '2026-05-19T06:48:50Z'
       Request-Id:
-      - req_011CbBUrbA7757HpoWv2JBxR
+      - req_011CbSE3f5d2X2xtABpPqtyU
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
       Traceresponse:
-      - 00-e1da61be7ecbeab0185eeb2518c4f340-3834a3383782df1d-01
+      - 00-0832ade7e47c7282122294ff7982d359-9271d25417854a8b-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '63'
+      - '193'
       Vary:
       - Accept-Encoding
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - _cfuvid=iKMhdFcm9dmXnG0oiyUeVZXN0Ii0Ol1Ii00l0H4xsYc-1779173327.8258724-1.0.1.1-iNr8LZ8kOiwpt9BDzrz77YfVa6_qkMO24Kp6vKpVLzs;
+      - _cfuvid=IWOISX1xhl3X_.q0DiStxEstclaWm86CArunxgM8.A8-1779846210.408501-1.0.1.1-QM.V.xsWO8ReNocbEiBkdeghjji1YJJq_YXTJ2fwXwE;
         HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       X-Robots-Tag:
       - none
       Cf-Ray:
-      - 9fe12872e9ecf884-SIN
+      - a021543f0ae9cdfe-SIN
     body:
       encoding: ASCII-8BIT
-      string: '{"type":"error","error":{"type":"rate_limit_error","message":"This
-        request would exceed your organization''s rate limit of 450,000 input tokens
-        per minute (org: 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8, model: claude-sonnet-4-20250514).
-        For details, refer to: https://docs.claude.com/en/api/rate-limits. You can
-        see the response headers for current usage. Please reduce the prompt length
-        or the maximum tokens requested, or try again later. You may also contact
-        sales at https://claude.com/contact-sales to discuss your options for a rate
-        limit increase."},"request_id":"req_011CbBUrbA7757HpoWv2JBxR"}'
-  recorded_at: Tue, 19 May 2026 06:48:50 GMT
+      string: '{"type":"error","error":{"type":"invalid_request_error","message":"prompt
+        is too long: 203735 tokens > 200000 maximum"},"request_id":"req_011CbSE3f5d2X2xtABpPqtyU"}'
+  recorded_at: Wed, 27 May 2026 01:43:31 GMT
 recorded_with: VCR 6.4.0

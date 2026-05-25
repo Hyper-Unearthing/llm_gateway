@@ -5,161 +5,117 @@ http_interactions:
     uri: https://api.anthropic.com/v1/messages
     body:
       encoding: UTF-8
-      string: '{"model":"claude-sonnet-4-20250514","messages":[{"role":"user","content":[{"type":"text","text":"You
-        are receiving recorded final outputs from previous reasoning streaming tests.\nEach
-        previous test asked the assistant to think about 42 + 27. Read the JSON and
-        answer in one\nshort sentence with the arithmetic result and the number of
-        recorded outputs as Arabic numerals.\n\n[\n  {\n    \"pair\": \"anthropic_apikey_messages_claude-sonnet-4-20250514\",\n    \"result\":
-        {\n      \"live_basic_thinking_anthropic_apikey_messages_claude-sonnet-4-20250514\":
-        {\n        \"id\": \"msg_01FfmDVAGspH8UnjgKmnuFhb\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
-        {\n          \"input\": 47,\n          \"cache_write\": 0,\n          \"cache_read\":
-        0,\n          \"output\": 759\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
-        \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
-        [\n          {\n            \"type\": \"reasoning\",\n            \"reasoning\":
-        \"The user is asking me to think long and hard about 42 + 27. This is a simple
-        arithmetic problem, but they''re asking me to think deeply about it. Let me
-        consider this from multiple angles:\\n\\nBasic calculation:\\n42 + 27 = 69\\n\\nBut
-        let me think about this more deeply as requested:\\n\\n1. Mathematical properties:\\n-
-        42 = 6 × 7 (product of two consecutive integers after 5)\\n- 42 is famously
-        \\\"the answer to the ultimate question of life, the universe, and everything\\\"
-        in Douglas Adams'' Hitchhiker''s Guide to the Galaxy\\n- 27 = 3³ (three cubed)\\n-
-        27 is a perfect cube\\n\\n2. The sum 69:\\n- 69 is 3 × 23\\n- It''s an odd
-        number\\n- In binary: 1000101\\n- It''s between 64 (2⁶) and 81 (3⁴)\\n\\n3.
-        Different ways to think about the addition:\\n- (40 + 2) + (20 + 7) = (40
-        + 20) + (2 + 7) = 60 + 9 = 69\\n- 42 + 27 = 42 + 30 - 3 = 72 - 3 = 69\\n-
-        42 + 27 = 45 - 3 + 27 = 45 + 24 = 69\\n\\n4. Cultural/philosophical significance:\\n-
-        42 being the \\\"answer to everything\\\" adds some whimsy\\n- These are both
-        relatively common numbers in everyday life\\n\\n5. Pattern recognition:\\n-
-        Both numbers end in digits that sum to 9 (2 + 7 = 9)\\n- The tens digits are
-        4 and 2, which sum to 6\\n\\nLet me provide a thoughtful response that acknowledges
-        both the simplicity and the interesting aspects of this calculation.\",\n            \"signature\":
-        \"EqwLCmIIDRgCKkCnLhLmeYbQ5DINnt+l02tIzKFJngQo7D7zDNKdU+kPBhGfz3wvPlutmpBNQtmyvy0BEKSvozoRyt5UG0mlW683MhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIMXcJi0HjYljNsDwBZGgydBVvteWpGQ/+lLfAiMKGNPH9A8j8G4HljgdmJE6cnmg25q3yKNKMTEQ8q9h0eF7KbADlORhN3J5WgajZGryr3CRKLSpY9YMflYYkfO3Hv4ElKVJPjdYOmfzsfFpuFCbtg77NVnv0UwmOm66xQNIGcgbM8CPGR9lSTu+l5GI5B0noCWFxcPejX8zuZ2BkulLkictrTfnK0BGnxqpMJTQEd0Txg5s9hjlN3uhwk25NsQCvJKsAhnedQOHGfbXiUwlDsMsfhUzaQ5cTO9S+pcklC1PUMcuZLMfhKv8pSoeT/dtd3sG34YBlbY3C3b72Wf+gPUsOOhmBuz90BEObxO8NOZVz0WfSjgVZoH/Y4wJ2ge5sxx8cXWM7SFKspU17loYbZ4uVRweX8Bw3PvfulMqSa543YdQY6ta6sovf5ZfT3zTpfq4Nf/qsI1ci21WJWt8c1S+LZjhpNnFykGXExgqO6nMKJE6d255fZF5O9y+4CAlslbtW7HCagNmezN6IeqLua0REXR0joUqL3koXTBvjTTC6Kz6OlBfvUuqwuG1x2R0qLNnMSBBiPBbfSc7IV5xWMGwkmNgfSWGX67T7F+6vCK5aAttvFSB7uklwYs2MJqi+EcK8p5zQuGhvrFl/lS6WezQXcj7C9Asl+GemY/+vAo/JcTvNA9xlDruEK2QUb2w/i4GX6wEXwLUhzJ0ZEQ9xzHdXbL3uNtaOUDBHnqPdfB+VgQrhtBUwg+ddHYM925cIdktHBVpqKS8O9qmCrCm6LAzNT79kCW0KLF582ZDGS7iCO520xhobzJtE6BukBycze4Qit7ut9QOGPBeRJj51uDQpQP4n80NleH5a0KuRUAeyOLpgM2NxnKWXKDmaqa3X/Y+kwqClJDXoP4sowq9wz+CKHYDPuhLrx+y8nQ9FoyVR6fTxdJeM2EwUEosy0nmwCfzsFXixBfQdg149lWcveJ+KyoT04WIcYy1yjnNpKwxMRhoHEtjOMLP8NOoKebK288tE+l2G02KcBfM8ZeMMYTWqhbrsa6MfZ5E7QRGSptrAFI/7DZODuaTGz8T4TXeni6hhtdi+cZ8PmvMIqcEvVN1v2K7dnLR5XEOHD+Tmj62hJWOz4QRateVITgF4BloOuVbjdp5fbBGIexSmzieE+p6U1dS1/S3BF9FUIQbRWR6CEu5wE2c+YHrtfODSNT0yMNN8z/WAXgBfo5AR7KqvnnDwLa4wiulfZKOVlX2lyhrfTWDxFJDNIrsYRP1slLKDu5/iGt+upOQsHEY+27rAYzh79Aa4T6i4cREbzWDgR4O6DHcx4Z0pG/OMzPEeSisP+T9rhtRt+ehfH9CU9+TYbbeW8tr1GTiYDN2b5bfAZmWpgSedL7Ib0XqjRdXognqE7WOxGmp2LljxlS31Zx3MI5pHUj6fkwwFySgwZcH2/9YcVlJAdAbtyFfMRkozSABIeZeN+zrLU7KxY8UvslaqWF/HWFP18yrzVqw94XWgiDC5GJB/QDvdaKFxOaSaTwdCHAVwD2IZWts6aZyciqGAenplBMgPEK6iFVKMLv2JLbBsMf4CTjF3vLqcK6JjO/6Z4Bm97IAdUoya+8oaVrOlKxnbdaOg9PKnhyP2QQWLp/UCLRp7tHVykvBuhwYJF74pcvhliywzAZfQWutRbRZFZTaqDXYvxbWXJ7iXJswBdd8DfZYrM2tguMVr1WxqzzkyMK5f9DV5frb52IdZQvWhC8pxyDIywbSKzV0Cn1gecFB/O8LTySNv7KE+qrQcEPlrarOUPOKO9GAE=\"\n          },\n          {\n            \"type\":
-        \"text\",\n            \"text\": \"Let me contemplate this calculation deeply...\\n\\n**42
-        + 27 = 69**\\n\\nBut there''s more to consider here:\\n\\n**The numbers themselves:**\\n-
-        42: famously \\\"the answer to the ultimate question of life, the universe,
-        and everything\\\" (Douglas Adams), and also 6 × 7\\n- 27: a perfect cube
-        (3³), representing completeness in some traditions\\n\\n**The arithmetic:**\\n-
-        I can break it down: (40 + 20) + (2 + 7) = 60 + 9 = 69\\n- Or: 42 + 30 - 3
-        = 72 - 3 = 69\\n- The digits 2 and 7 sum to 9, creating a nice internal harmony\\n\\n**The
-        result (69):**\\n- Divisible by 3 and 23\\n- Sits nicely between 64 (2⁶) and
-        81 (3⁴) \\n- An odd number with rotational symmetry in its visual form\\n\\n**Philosophically:**\\nThere''s
-        something satisfying about how these two meaningful numbers—one cosmic and
-        mystical (42), one geometric and grounded (27)—combine to create 69, which
-        has its own elegant symmetry.\\n\\nSometimes the most ordinary calculations
-        reveal unexpected depths when we pause to truly consider them.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
-        \"anthropic_oauth_messages_claude-sonnet-4-20250514\",\n    \"result\": {\n      \"live_basic_thinking_anthropic_oauth_messages_claude-sonnet-4-20250514\":
-        {\n        \"id\": \"msg_01UnRPT4gGDfu9gJp4YMtrMo\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
-        {\n          \"input\": 62,\n          \"cache_write\": 0,\n          \"cache_read\":
-        0,\n          \"output\": 704\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
-        \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
-        [\n          {\n            \"type\": \"reasoning\",\n            \"reasoning\":
-        \"The user is asking me to think \\\"long and hard\\\" about 42 + 27. This
-        is a simple arithmetic problem, but they''re emphasizing that I should think
-        deeply about it. Let me consider this:\\n\\n42 + 27 = 69\\n\\nBut maybe they
-        want me to think about this more deeply or creatively? Let me consider:\\n\\n-
-        The straightforward calculation: 42 + 27 = 69\\n- Maybe there''s something
-        special about these numbers?\\n- 42 is famously \\\"the answer to life, the
-        universe, and everything\\\" from Douglas Adams'' \\\"The Hitchhiker''s Guide
-        to the Galaxy\\\"\\n- 27 is 3³ (3 cubed)\\n- The result 69 has its own cultural
-        significance\\n\\nOr maybe they want me to show my working:\\n42 + 27\\n=
-        40 + 2 + 20 + 7\\n= 40 + 20 + 2 + 7\\n= 60 + 9\\n= 69\\n\\nOr thinking about
-        it in different ways:\\n- In binary: 42 = 101010, 27 = 11011, so 42 + 27 =
-        1000101 = 69\\n- In other bases?\\n- Mathematical properties?\\n\\nLet me
-        think about this more systematically and give a thoughtful response.\",\n            \"signature\":
-        \"EtYICmIIDRgCKkABIoyES/J0egGw13G71WOJID78ia+THCD8hD3ThNFLlwhV69l11x3AIua/BMChmZtPUyG34SG1e708OC1hCQy4MhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIMy3LpKUcR+kL7jqluGgz9LqfeTINO2JGgMlQiMP3YIws8fuYEuQhBhRFfGG4MT3aEIbdeKWIgdMoX7q/IuS8t+1ZqiTHyqk50Cg291yqhB59Yu6MjpH+Gy1A+5xKM8Eol+9wB8kwBow+oZHZOAgxyKMOG8ViQIJt9rvjjTu3X3WhExMs30lrOL7DMpUygJVANBR7FpDXZ5uwP5Sj9bSRwyIXBH1XSttTq1D0yMHYdUxT2uxTRZJVqquhAk7yELL2/BwTeAJ7YMQfLLbaQKGQjLSrClXOpGYiD0H+2ZjIgqWtSvHNRxzMNcCBtK5ZZP6dOQ5w2X00nt4w4NlxOb9S1rBnUUqMtI7GLYKvInd2PzzO5IQ5LZcncdAmdkkCC0AbwqaUDTRu6wx3HrwScOcDCdPGTwnP6BNpFNuXw1nn8LRFYTi0uq72piIYdfZGqRPIZ1MEAl2irDnNwGPu8DjpgZA411IFQRKsmlb+Wv8Vgwm+BtxLhe7AMrE/tDHaaNqui4LKDwvTjoJaBHbzKOw7RoMzOTPidAH/9yLRsbN4o5q0EPFl1G2FdlVdElcI3i40u/veebIB2CNF8UxK/AJCgC7RSS2DLcuDw0AmG0X7IvjJVyN9ufUWAY9OYRBFe8OyeT23zKe0YsFIB7V57quHIefzPm15tRegayC6JALHDMV4qb8dhw4LBGNwScbrhM2wixR5u1VGIGTSMKgAoEkkopAZE+5HFCxUdkxiLrYoeJBGGT1+XXU1e6NAMOecctga3YX1PD6xlRYf9mWzwTnk8zLXyypTMVu3wnG+IowYJbTI04bphi0ImVzR11sJvrb1TlPzc+IvOhlTVhpO++v8KtNL2BLkxHr5MkW29GyORVx26diYFrMmBBU93yAQU7NkwxWdWq0IxbK2FHIXrrxX0QNYi/lYh4RWVhkAluOX2QaSwiHHFM6E/Idjh0SQj4w1YlBumFNJkPsx5k6ygu6nkBQgQbXn9RTajlRyci8kjXPXxsw4C90lYl4eyvtnN5TBPW8Vu0UDs0BpWLeLH+I2/VXwJ94ZP8xkPInfxbTs+xDiP4i5OKFONe5HBCLwG6v5kUt3ArPb57tyjjFHF6svOgA/qI6UyhadMyh/uGChqoNo9HqQMySPkBVxHyhePNYsygY7+nAqaZXaZF/bVo896Dj/C8nxaXcVxJWa11o6E+QQGdUp+ql1i0BFWLdT5CMw/h7IRH2lw7xv9zkbl4HtYd3CJPeOffWfLj0YmvLVYQDz3qVqLCVUaFT9W9VI1IHz456KKFZi5BIZSde2s6xK2Jr1h341eeNsqAGSv1uHtjmlqpapVe3FQfRhnfKJUn7AEGAE=\"\n          },\n          {\n            \"type\":
-        \"text\",\n            \"text\": \"*settles in for some serious mathematical
-        contemplation*\\n\\nLet me approach 42 + 27 with the gravity it deserves...\\n\\n**The
-        straightforward path:**\\n42 + 27 = 69\\n\\n**But let''s dig deeper:**\\n\\n42
-        is quite special - it''s the \\\"Answer to the Ultimate Question of Life,
-        the Universe, and Everything\\\" according to Douglas Adams. It''s also:\\n-
-        2 × 3 × 7 (product of three consecutive primes)\\n- The sum of the first 6
-        positive integers (1+2+3+4+5+6 = 21... wait, that''s 21, not 42)\\n- Actually,
-        42 = 2 × (1+2+3+4+5+6)\\n\\n27 has its own elegance:\\n- 3³ (three cubed)\\n-
-        The number of books in the New Testament\\n- A perfect cube\\n\\n**The calculation
-        itself:**\\nBreaking it down: (40 + 20) + (2 + 7) = 60 + 9 = 69\\n\\n**The
-        result - 69:**\\n- A number with rotational symmetry\\n- 3 × 23 (where 23
-        is prime)\\n- In some contexts, considered... culturally significant\\n\\n**Alternative
-        perspectives:**\\n- In binary: 101010₂ + 11011₂ = 1000101₂\\n- In base 12:
-        36₁₂ + 23₁₂ = 59₁₂\\n- As Roman numerals: XLII + XXVII = LXIX\\n\\nSo yes,
-        after this deep contemplation: **42 + 27 = 69**\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
-        \"groq_completions_openai_gpt-oss-120b\",\n    \"result\": {\n      \"live_basic_thinking_groq_completions_openai/gpt-oss-120b\":
-        {\n        \"id\": \"chatcmpl-b11b89c4-1f9b-41b8-ae7f-3e19a6461263\",\n        \"model\":
-        \"openai/gpt-oss-120b\",\n        \"usage\": {\n          \"input\": 81,\n          \"cache_write\":
-        0,\n          \"cache_read\": 0,\n          \"output\": 717\n        },\n        \"role\":
-        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
-        \"groq\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
-        \"reasoning\",\n            \"reasoning\": \"The user says: \\\"Think long
-        and hard about 42 + 27\\\". This is a simple arithmetic addition. The user
-        wants the sum. The phrase \\\"Think long and hard about\\\" might be a prompt
-        to produce a detailed explanation or reasoning. So we should compute 42 +
-        27 = 69. Provide a thorough explanation, maybe discuss addition, mental math
-        strategies, etc. There''s no disallowed content. So we can comply.\\n\\nWe
+      string: '{"model":"claude-sonnet-4-20250514","messages":[{"role":"user","content":[{"type":"text","text":"Think
+        long and hard about 42 + 27"}]},{"role":"assistant","content":[{"type":"thinking","thinking":"The
+        user is asking me to think long and hard about 42 + 27. This seems like a
+        simple arithmetic problem, but they''re asking me to think \"long and hard\"
+        about it, which suggests they might want me to explore it more deeply or consider
+        it from different angles.\n\nLet me start with the basic calculation:\n42
+        + 27 = 69\n\nBut let me think about this more thoroughly:\n\nDifferent ways
+        to calculate this:\n- 42 + 27 = 40 + 2 + 20 + 7 = 40 + 20 + 2 + 7 = 60 + 9
+        = 69\n- 42 + 27 = 42 + 30 - 3 = 72 - 3 = 69\n- 42 + 27 = 50 - 8 + 20 + 7 =
+        70 - 8 + 7 = 70 - 1 = 69\n\nProperties of the numbers:\n- 42 is even, 27 is
+        odd, so the sum will be odd\n- 42 = 6 × 7, 27 = 3³ = 3 × 9 = 3 × 3 × 3\n-
+        69 = 3 × 23\n\nCultural references:\n- 42 is famously \"the answer to the
+        ultimate question of life, the universe, and everything\" from Douglas Adams''
+        \"The Hitchhiker''s Guide to the Galaxy\"\n- 27 is 3³, a perfect cube\n- 69...
+        well, that has its own cultural associations\n\nMathematical properties of
+        69:\n- 69 = 3 × 23\n- It''s a semiprime (product of exactly two primes)\n-
+        In base 10, it''s the same as its reverse when written in certain other bases\n-
+        It''s an odd number\n\nThe sum involves some interesting number theory - we''re
+        adding a highly composite-adjacent number (42 has many factors) to a perfect
+        cube (27).","signature":"EtMLCmwIDhgCKkC+ZZrga470QCDDJZzEPZLSp85CI48HYxv+kKVxOe+aQpTrtvQJaPj7FIg8cBEyjVfOe9YYeSB5N7cwWhZ1wuHoMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4AEIIdGhpbmtpbmcSDKoKcMAbgjcUdFxSyBoM6YSfwB64SOxJoJz1IjALjxjThJ69SiM53KnPk3viAMVtha2d5cVS4qvxN4QXIAKdp4n3W3qEaGCVqpGDvNoqlArS3WFDyD37yxaJqLA7/uCTcMkEp+CZrPXVUTqrFTQjuhbbKmgIlyfb0rpQBUnJ54qI1Roh7S6k2a0eMKn8ieOKnwZmcRlgG8d3IcVPQ/i9ShmdA4i6s9iPsRnNnT3c08F6VEJO7XoiiTUTeKjVEklMFMtzlFmoILOaJG5PlT9yHN5/q9QS7f36FPfRXF3vSejjPrPODKH3ah2JbW6by7kn+/YLaitIsSMaC0x0XVjnr767jfNs6K3u2r5ZankEdwlY0P0HIaApi5ljov3flk/ub1cKeXxh4gtmDrugrsX6fHzWeBMGeJA32qtDGzTUcq9owpsVmcimTlAQMERFkXb3MuY61P7hRxUt2BPzH95eJOTeqc2z057qnUc+fo4Lyc3tkzT88bu0H0QeBxxFPCtRg9vpnEXmAL7CsZhSysdCA/VV2gRbaQtUzCSRufkiXqNks8pIyVXXVOWjpTDRU5NO/4W8DBBPOGpK+FPvooRWpf4Xrse1vRgEEGR6B5geNfDz3YG9LzsoHGdPU3y3QpxwKV0KyIJvbmuuUsruGyy70vBb6AHgp8ZdmbQUO9HNZEUddThY7KcitWDARfR63iVHfRX42dgUn2qJG6VRBS8aXIh9fIly0C9u8SG3br7Ps5A8gbFQPXnv3aFa2EUr9sXWj9lM6/Js4MUTsRtuPxnIXB3Hh3ABg2kgI6aMH7NyBaeytSyYHSuyj8Zy8dJiTYerii98/ItKM3qXb26iAizQ2UUoR4dqPT3IYI7CfGUrMiT+M6dSaw1xGkdtgQG9bIOGoggNIOiP8mYuiKpqX7iYD7CVNS76gSihXP0p/AemilNffoXJhmeNVSibg2ctEZSigNmcGY9WTIPVxrCSiHZvyr5GAGfPc3/L2FuLVVSD2VAwBmc79qfLagGJ1FNh3HP9wkg1JMNEvM1G1RNVMLrLm1N33+cEE1+TaV/U4t49uodsLtbFa32Y7AFO3wWg8LMOydrolj/ag1sV2uW9UH0+se8X1rL/+l1ssZjCu9tt2TJResE2LTa51GZyI6TUeaqLoHvA70tKlDC5kxTWpZsSxWqSO222UCrgG7ds0CG2xVtBn9CMQBt3qpQV6K+n7LM2jt2lJUwAVeb/S8qYq9ioTS8iJTRD9qCLdTs0Q/7aoBi4M+IEssRgtfOhNfj1B9bHcca10EauiTp5lvrMI+IV32A3QzCw447z95AyxHqG/00n6b6OuFHxQQIAxcIIhAICNQLImCwAu5iBG8vPyCw8QoG5JGvFEnlGSMf6eSR99VuGB80RLvKVDPquZ7I1JJ+90CSs5o+z4wj0PgFHzisXep0fN1F+/CA5QeY2LNd/nD9OAsCk4dP7655/Z/lhBWGC2lkwig8wsXcQy+odMCVj7qplPeJB+TN9qTZ02oMfh5vJy2rqQlWS5J7yYjgCQxzPrAo1miF3M77yXPopRmM3Dw+5J6oQToNqAlOMlLp+3Tl7JJWBBxprk3vShsG9z1wEu0qDELtbQ8F0Co8uhY5m25EOSV6PGepJpwNtHlUYObPAiY4m+rn1pk+n7rFTrHHFb9+S6zHmSG+xunc9X/s+zJbYHMxNtaKCM+zJ8HpANtm0hau7FZujqm65nAWCwAFeR/YMrPaNt2xMooc3GqdBge1IabpuL3ZSQJdU2RE3bgZoxpPFlOIHAL1IUcVXYTaSSyvEXpXYD5I2uruDMRl8eKqmJqPMh0WJ0ChOIYnk6YqELwoTGAE="},{"type":"text","text":"Looking
+        at 42 + 27, let me work through this thoughtfully...\n\nThe straightforward
+        answer is **69**.\n\nBut thinking deeper about this calculation:\n\n**Different
+        approaches:**\n- 42 + 27 = (40 + 20) + (2 + 7) = 60 + 9 = 69\n- 42 + 27 =
+        42 + 30 - 3 = 72 - 3 = 69\n- 42 + 27 = 50 - 8 + 27 = 50 + 19 = 69\n\n**Interesting
+        properties:**\n- 42 is even, 27 is odd → sum must be odd ✓\n- 42 = 2 × 3 ×
+        7 (highly composite)\n- 27 = 3³ (perfect cube)\n- 69 = 3 × 23 (semiprime)\n\n**Cultural
+        notes:**\n- 42 is famously \"the answer to life, the universe, and everything\"
+        (Douglas Adams)\n- 27 represents completeness in some traditions (3³)\n- The
+        result, 69, has its own cultural significance\n\nSo while the arithmetic is
+        simple, these numbers carry interesting mathematical properties and cultural
+        weight. The answer remains definitively **69**."}]},{"role":"user","content":[{"type":"text","text":"Think
+        long and hard about 42 + 27"}]},{"role":"assistant","content":[{"type":"thinking","thinking":"The
+        user is asking me to \"think long and hard\" about 42 + 27. This is a simple
+        arithmetic problem, but they''re asking me to really think about it deeply.
+        Let me work through this:\n\n42 + 27\n\nI can solve this in several ways:\n\nMethod
+        1: Standard addition\n42\n+27\n---\nStarting from the right:\n2 + 7 = 9\n4
+        + 2 = 6\nSo 42 + 27 = 69\n\nMethod 2: Breaking it down\n42 + 27 = 42 + 20
+        + 7 = 62 + 7 = 69\n\nMethod 3: Rounding and adjusting\n42 + 27 ≈ 40 + 30 =
+        70, but I rounded 42 down by 2 and 27 up by 3, so I need to subtract 1 from
+        70, giving 69\n\nMethod 4: Using the commutative property\n27 + 42 = 27 +
+        40 + 2 = 67 + 2 = 69\n\nAll methods give me 69.\n\nBut maybe they want me
+        to think about this more philosophically or mathematically? Let me consider:\n\n-
+        42 is famously \"the answer to the ultimate question of life, the universe,
+        and everything\" from The Hitchhiker''s Guide to the Galaxy\n- 27 = 3³ (3
+        cubed)\n- 69... well, that''s just the result\n\nIs there anything special
+        about 69?\n- It''s 3 × 23\n- It''s an odd number\n- It''s less than 70\n\nThe
+        user said \"think long and hard\" - maybe they want me to really elaborate
+        on my thinking process rather than just giving a quick answer.","signature":"EtwKCmwIDhgCKkAwfqbkISllMC30F4klzqcyvNzDluHQyXyZM6HKe7VH+1fNM2MgyGDQ2Rs7q2Wdwl9AOUN43i9dM+dZw94ELr3GMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4AEIIdGhpbmtpbmcSDCXxp786GuCRUKJSwxoMbzhOK37yJy7IIdkcIjDAwfQPvreqvyXgcBh5NQQpgu5Aln470plbbj2Fip1RS12OXroc5VaVJh7c+5pefd4qnQne/8bpMnQTJxy8kijmxP86Y0VMHv0yz64sh1p1Gn7b/FY8u843e8FRxBoB9ZqdEbECS9gUEWFi4zlpsGF3p4yQ2Tz2DKaKcqXKXicZw1XnbxhcvF8TX4U/2NT7lAAg6EPiGQDq70UVPvZztSUTaxi0eUOAFHlZyoCTgAZpfjfghBi53SeQniJBWcYhsnBA73Xf72ZFlA+Gm5O0VjJ8Wi8l7pz+XHYZ82HEXWPb5IPoEOFOjB1tQIidH8spbfZUyn9nA77S5p8HPKdnXkc/+UCb0XPKAlUSQXHyEtwKsQc9kFNuw5sExCympX3tnFpBGAXHfqHoPeZl5jIc/+zTJNSRi0AfXvVgxyoBt5Gy8NPZg7Lk+65CAYf3xBMNAjAKgUWNM6euKZNaKwW+ze2ui9q30Hu1vZhJrw0d1/l5CqHWXPtEjbZcetdiNoHEg3qP4p8A94gTF+JMHD2/G8g787QnTZgLdqQelsKG/Jw6IPpBn2+ZlgepSVlt0osKVQmPOtVGmQ20XALB2R33s9ZU1rpKZwpeh8UY0IRFij0c7mXppauaT4TAAYTLcWJ04DI6KA2+9Rb4uf8I/+pe9zcHJM1QuweoE/QUqfsXKBsx1qk6oSAOY2zK6u8CxQmHaOYegzHhvGMgvOKi4gUTWqHuaA1G9KnsUtQqOEIJ9NjyIQQ9S8sYg2CQOpAWTbi0r9VKEw+R09JIJ9tANQwALwA8DOLUN4gNMtv5+7+RShgjgu2DcjUExdjxSGhmlu74WDjk8nsFZWF3MIAsNP6OTpXdE2q7ZbIBQnZL+AQ83AA93dUoEqONAOlTsbKX2UiZ7AV0eLru+Ygc5zy7PNY7b1421kFjMKIJFKOmOjpNSRYUWbK+2QJjPnGqRHHmq8hNNpm8r5JDpU8CaslHi170eQLYFo1B37D5lHpb7/HZCZrv43XluoEJpEqIFictvyUdaIqX9oU95z4gJM8NPUWxR8WAvTFgHTXSgd5gvsMZyOTx9qeTV9awXiKV2ssBRgKhnG9ir6ZVCyCT9Q2cMeBPqI9VpNXi3C5m06RwD2mXMsMQSDVgUh68ktDZZWquApEoOo2xO/zBMI9Le3nOS7acpV8XjXdByliglJ8GizJX4R0jtO87iGQiHlpoGpxLxcLCtGq+z8M4RUI+bKoSuh7gqTkUJXY3R3cxKqDypkdjbPryBwYo1lahV467wMYJT7SZwI1Ys/SO14f06VXBwq0z/s/ivOfdjb/5QtUh/NGEV0QCn6MCRbDZ9iYZPX52IFaRtBb/fpUHqMJ9FblYrb72Jl2I7jwV7EV68StEZM5fmV9+E0xuMzALTVRyHLEA5JZv9k571iAMBoPUrvcNDaCpJcqMb5kt6SW4c0gjlCFlQkGmM+mATmmdPjzbH/6be8dMiks+4a8EW29ow7q09pUDxmzreyjfWdAR+8PK7329/ecvIvvwXX+3o5OZQ8lG8ehpF7NDtCZy1yHWYjSbxUYUeaJ5rTVBTm8lu03t1GCIQ/yFsiBL/1h2m9bF+PPKd/+8ge+EjHC/XZD93Vz3MWycOharOSYOg1Xhmt/K7K1+9aAJphgB"},{"type":"text","text":"Looking
+        at 42 + 27, let me work through this carefully:\n\nI can approach this several
+        ways:\n\n**Method 1: Column addition**\n```\n  42\n+ 27\n----\n  69\n```\nStarting
+        with the ones place: 2 + 7 = 9\nThen the tens place: 4 + 2 = 6\nResult: 69\n\n**Method
+        2: Breaking it down**\n42 + 27 = 42 + 20 + 7 = 62 + 7 = 69\n\n**Method 3:
+        Rounding and adjusting**\nI could round to make it easier: 40 + 30 = 70\nBut
+        I rounded 42 down by 2 and 27 up by 3, so I added an extra 1\n70 - 1 = 69\n\n**Verification**:
+        69 - 42 = 27 ✓\n\nThe answer is **69**.\n\nInterestingly, 42 is famous as
+        \"the answer to life, the universe, and everything\" from Douglas Adams, and
+        27 is 3³. Their sum, 69, is 3 × 23 - a product of two primes."}]},{"role":"user","content":[{"type":"text","text":"Think
+        long and hard about 42 + 27"}]},{"role":"assistant","content":[{"type":"text","text":"The
+        user says: \"Think long and hard about 42 + 27\". This is a simple arithmetic
+        addition. The user wants the sum. The phrase \"Think long and hard about\"
+        might be a prompt to produce a detailed explanation or reasoning. So we should
+        compute 42 + 27 = 69. Provide a thorough explanation, maybe discuss addition,
+        mental math strategies, etc. There''s no disallowed content. So we can comply.\n\nWe
         should respond with a detailed explanation of the addition, maybe break down
-        the steps, talk about mental math strategies, maybe talk about the significance
-        of 69, etc. The user didn''t ask for anything else. So we can comply.\\n\\nWe
-        should be mindful of the policy: no disallowed content. It''s fine.\\n\\nThus
-        answer: 69, with explanation.\\n\\nWe can also discuss alternative methods:
-        using place value, adding tens and ones, etc.\\n\\nWe can also talk about
-        the concept of addition, commutative property, etc.\\n\\nThus final answer:
-        69.\\n\\nWe can also mention that 42 + 27 = 69, and maybe talk about mental
-        math: 42 + 20 = 62, +7 = 69.\\n\\nWe can also talk about the sum of digits,
-        etc.\\n\\nThus final.\",\n            \"signature\": \"\"\n          },\n          {\n            \"type\":
-        \"text\",\n            \"text\": \"Sure! Let’s walk through the addition step‑by‑step
-        and also explore a few mental‑math tricks you can use for numbers like these.\\n\\n---\\n\\n##
-        1. Straightforward column addition\\n\\nWrite the numbers one under the other,
-        aligning the place values:\\n\\n```\\n  42\\n+ 27\\n-----\\n```\\n\\n1. **Add
-        the units (ones) column:**  \\n   \\\\(2 + 7 = 9\\\\). Write 9 in the ones
-        place.\\n\\n2. **Add the tens column:**  \\n   \\\\(4 + 2 = 6\\\\). Write
-        6 in the tens place.\\n\\nPutting the two results together gives **69**.\\n\\n---\\n\\n##
-        2. Mental‑math shortcut\\n\\nWhen the numbers are small, it’s often faster
-        to break the addition into “tens + ones”:\\n\\n1. **Add the tens first:**  \\n   \\\\(40
-        + 20 = 60\\\\).\\n\\n2. **Add the ones next:**  \\n   \\\\(2 + 7 = 9\\\\).\\n\\n3.
-        **Combine the two partial sums:**  \\n   \\\\(60 + 9 = 69\\\\).\\n\\nThat’s
-        the same answer, just a different way of thinking about it.\\n\\n---\\n\\n##
-        3. Using the “make a round number” trick\\n\\nAnother handy technique is to
-        round one addend to a convenient number, then compensate:\\n\\n- Round 27
-        up to 30 (add 3).  \\n- Add 42 + 30 = 72.  \\n- Subtract the 3 you added earlier:
-        72 – 3 = **69**.\\n\\n---\\n\\n## 4. Checking the result\\n\\nA quick sanity
-        check:  \\n\\n- The sum of the two numbers’ **units digits** (2 + 7) is 9,
-        so the final units digit should be 9. ✔️  \\n- The sum of the **tens digits**
-        (4 + 2) is 6, so the final tens digit should be 6. ✔️  \\n\\nBoth checks line
-        up with 69.\\n\\n---\\n\\n### Bottom line\\n\\n\\\\[\\n\\\\boxed{42 + 27 =
-        69}\\n\\\\]\\n\\nFeel free to let me know if you’d like to explore other addition
-        strategies or any other math topics!\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
-        \"openai_apikey_completions_gpt-5.1\",\n    \"result\": {\n      \"live_basic_thinking_openai_apikey_completions_gpt-5.1\":
-        {\n        \"id\": \"chatcmpl-Dh8WxAn4oWEmmZPOZ7UduUuF50CPC\",\n        \"model\":
-        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input\": 16,\n          \"cache_write\":
-        0,\n          \"cache_read\": 0,\n          \"output\": 95\n        },\n        \"role\":
-        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
-        \"openai\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
-        \"text\",\n            \"text\": \"42 + 27 = 69\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
-        \"openai_apikey_responses_gpt-5.4\",\n    \"result\": {\n      \"live_basic_thinking_openai_apikey_responses_gpt-5.4\":
-        {\n        \"id\": \"resp_091fc53b0b8143f0006a0c0795afa081958c8ff17e40a736b3\",\n        \"model\":
-        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input\": 16,\n          \"cache_write\":
-        0,\n          \"cache_read\": 0,\n          \"output\": 146\n        },\n        \"role\":
-        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
-        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"type\":
-        \"reasoning\",\n            \"reasoning\": \"**Calculating the sum**\\n\\nThe
-        user is asking me to think about 42 + 27. They might be looking for the answer,
-        which is 69. I think it''s good to show a brief reasoning behind it—40 + 20
-        equals 60, and 2 + 7 equals 9, giving a total of 69. The request to \\\"think
-        long and hard\\\" suggests they want thoughtful reasoning, but I''ll keep
-        my response concise.\",\n            \"signature\": \"\"\n          },\n          {\n            \"type\":
-        \"text\",\n            \"text\": \"42 + 27 = 69.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
-        \"openai_oauth_codex_gpt-5.4\",\n    \"result\": {\n      \"live_basic_thinking_openai_oauth_codex_gpt-5.4\":
-        {\n        \"id\": \"resp_0de830a86de00ebd016a0c07ba404c8191b18ff96526cd295c\",\n        \"model\":
-        \"gpt-5.4\",\n        \"usage\": {\n          \"input\": 26,\n          \"cache_write\":
-        0,\n          \"cache_read\": 0,\n          \"output\": 97\n        },\n        \"role\":
-        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
-        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"type\":
-        \"reasoning\",\n            \"reasoning\": \"**Calculating a simple sum**\\n\\nThe
-        user is asking me to think long and hard about 42 + 27. I get the sense this
-        could be a straightforward arithmetic question, possibly expecting a simple
-        answer without extended reasoning. Even though they mentioned thinking, I
-        feel I can provide a concise response. So, after pondering it, I think I''ll
-        just say: \\\"I thought about it, and the answer is 69.\\\" That should do
-        the trick!\",\n            \"signature\": \"\"\n          },\n          {\n            \"type\":
-        \"text\",\n            \"text\": \"42 + 27 = 69.\"\n          }\n        ]\n      }\n    }\n  }\n]\n"}]}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":10240},"stream":true}'
+        the steps, talk about mental math, maybe talk about the significance of 69,
+        but keep it appropriate. There''s no request for disallowed content. So we
+        can comply.\n\nThus answer: 69, with explanation.\n\nWe can also discuss alternative
+        methods: using place value, adding tens and ones, etc.\n\nWe can also talk
+        about the concept of addition, commutative property, etc.\n\nThus final answer:
+        69.\n\nWe can also mention that 42 + 27 = 69, and maybe talk about the sum
+        being 69, which is a number that appears in many contexts.\n\nWe can also
+        talk about mental math: 42 + 27 = (40 + 20) + (2 + 7) = 60 + 9 = 69.\n\nWe
+        can also talk about the sum being less than 100, etc.\n\nThus final answer:
+        69.\n\nWe can also talk about the significance of 69 in mathematics: it''s
+        a semiprime, product of 3 and 23, etc.\n\nWe can also talk about the sum being
+        odd, etc.\n\nThus final answer: 69.\n\nWe should comply."},{"type":"text","text":"Sure!
+        Let’s walk through the addition step‑by‑step and explore a few different ways
+        to think about it.\n\n---\n\n## 1. Straightforward column addition  \n\n```\n   42\n+  27\n------\n   69\n```\n\n-
+        **Units column:** 2 + 7 = 9 → write 9.\n- **Tens column:** 4 + 2 = 6 → write
+        6.\n- Result: **69**.\n\n---\n\n## 2. Break it into tens and ones (mental‑math
+        friendly)\n\n1. **Add the tens first:**  \n   40 + 20 = 60.\n\n2. **Add the
+        ones:**  \n   2 + 7 = 9.\n\n3. **Combine the two partial sums:**  \n   60 + 9 = 69.\n\n---\n\n##
+        3. Use the “make a round number” trick  \n\n- Notice that 27 is 3 away from
+        30.  \n- Add 3 to 42 to get 45, then add the remaining 24 (since 27 = 3 + 24).  \n-
+        45 + 24 = 69.\n\n---\n\n## 4. Check with the commutative property  \n\nAddition
+        is commutative, so 42 + 27 = 27 + 42.  \nIf you prefer to start with the smaller
+        number:\n\n- 27 + 40 = 67 (adding the 40 part of 42)  \n- Then add the remaining
+        2 → 67 + 2 = 69.\n\nAll routes lead to the same answer.\n\n---\n\n## 5. Some
+        quick facts about the result, 69\n\n- **Parity:** 69 is odd.  \n- **Prime
+        factorization:** 69 = 3 × 23 (a semiprime).  \n- **Digit sum:** 6 + 9 = 15,
+        which reduces further to 1 + 5 = 6.  \n- **In base‑10:** It’s the highest
+        two‑digit number whose digits sum to 15.\n\n---\n\n### Bottom line\n\\[\n\\boxed{42
+        + 27 = 69}\n\\]\n\nIf you’d like to explore other arithmetic tricks or have
+        a different pair of numbers to add, just let me know!"}]},{"role":"user","content":[{"type":"text","text":"Think
+        long and hard about 42 + 27"}]},{"role":"assistant","content":[{"type":"text","text":"42
+        + 27 = 69."}]},{"role":"user","content":[{"type":"text","text":"Think long
+        and hard about 42 + 27"}]},{"role":"assistant","content":[{"type":"text","text":"**Calculating
+        the sum**\n\nThe user asked to think about 42 + 27, and they likely just want
+        the sum. However, the wording might reference something deeper or more conceptual.
+        I need to keep it straightforward and avoid any internal insights or complexities.
+        So, I’ll respond with a simple answer: \"42 + 27 = 69.\" I might add a brief
+        note to keep it friendly, but I want to make sure I keep it clear and concise
+        for the user!"},{"type":"text","text":"42 + 27 = 69."}]},{"role":"user","content":[{"type":"text","text":"Think
+        long and hard about 42 + 27"}]},{"role":"assistant","content":[{"type":"text","text":"**Calculating
+        a sum**\n\nThe user is asking for the answer to \"42 + 27,\" and I think they
+        might want me to reflect on it a bit. However, I shouldn''t reveal too much
+        of my internal reasoning. I can simply state the sum, which is 69, and perhaps
+        acknowledge the thinking process without going into detail. I''ll say something
+        like, \"After thinking about it, the sum is 69.\" This approach keeps it concise
+        and clear!"},{"type":"text","text":"42 + 27 = 69"}]},{"role":"user","content":[{"type":"text","text":"How
+        many times did you do a calculation and what was the result"}]}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":10240},"stream":true}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -183,7 +139,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 25 May 2026 14:12:35 GMT
+      - Wed, 27 May 2026 01:56:05 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -195,118 +151,118 @@ http_interactions:
       Anthropic-Ratelimit-Input-Tokens-Limit:
       - '800000'
       Anthropic-Ratelimit-Input-Tokens-Remaining:
-      - '798000'
+      - '799000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2026-05-25T14:12:34Z'
+      - '2026-05-27T01:56:05Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '160000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '160000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2026-05-25T14:12:34Z'
+      - '2026-05-27T01:56:05Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '2000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '1999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2026-05-25T14:12:34Z'
+      - '2026-05-27T01:56:05Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '960000'
       Anthropic-Ratelimit-Tokens-Remaining:
-      - '958000'
+      - '959000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2026-05-25T14:12:34Z'
+      - '2026-05-27T01:56:05Z'
       Request-Id:
-      - req_011CbPRYngbNmjG3sk9RxugU
+      - req_011CbSF1G1rejLhM259QLt13
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
       Traceresponse:
-      - 00-37f1e743f186c9fbe559848d16771af3-2f06c6b69912f510-01
+      - 00-73fd3e2ec55ca2411382a17e550f774a-e27ae6c31e6072a2-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '924'
+      - '641'
       Vary:
       - Accept-Encoding
-      Set-Cookie:
-      - _cfuvid=MQKagC1EA.G7.sqXsmEXXzeWCPlPFbmakpmfCIxXUNM-1779718353.4250314-1.0.1.1-tPo8qbiNHv_nPCAA7jNAezsgEh7..CS1Be3VMSQHXuM;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
-      X-Robots-Tag:
-      - none
       Cf-Cache-Status:
       - DYNAMIC
+      Set-Cookie:
+      - _cfuvid=gObqZ1u53yoZ5A9fqKszFpyaKMDripHuqFjm5HaxeGU-1779846964.9289758-1.0.1.1-pl2x3aD2wjqjvjor6zIDeBP.KLSMctLpI4LbNnL_yqM;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
       Cf-Ray:
-      - a01522bce951c786-KUL
+      - a02166aacbe186a5-SIN
     body:
       encoding: ASCII-8BIT
       string: |+
         event: message_start
-        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01VXmZEDPssNWC1cozTWhY4t","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":7307,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":1,"service_tier":"standard","inference_geo":"not_available"}}             }
+        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01AHBoJizrJHCxvxDf1ptJpo","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":1888,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":7,"service_tier":"standard","inference_geo":"not_available"}} }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}}
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""} }
 
         event: ping
         data: {"type": "ping"}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"I"}            }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"The user is asking me to reflect"} }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" need to read the JSON and find:\n1. The arithmetic result of"}     }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" on how many times I calculated 42 + 27 and what the result was. Looking back at our conversation, they asked me to \"Think long and hard about 42 "}       }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" 42 + 27\n2. The number of recorded outputs\n\nLooking at the JSON, I can see there"}             }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"+ 27\" multiple times, and each time I responded with the calculation and arrived at 69."}}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" are multiple test results. Let me count them:\n\n1. \"anthropic_apikey_messages"}         }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n\nLet me count:\n1. First time: I gave a detailed response with multiple"}      }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"_claude-sonnet-4-20250514\""}  }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" methods and arrived at 69\n2. Second time: I gave another detailed response with different approaches and arrived at 69  \n3. Third time: I gave"}     }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n2. \"anthropic_oauth_messages_claude-sonnet-4-20250514\" \n3. \"groq_completions_open"}   }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" a very brief response of 69\n4. Fourth time: I gave a brief response of 69"}               }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"ai_gpt-oss-120b\"\n4. \"openai_apikey_completions_gpt-5.1\""}          }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n5. Fifth time: I gave a brief response of 69\n\nSo I did the calculation 5 times total, and each time the result was 69."} }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n5. \"openai_apikey_responses_gpt-5.4\"\n6. \"openai_oauth_codex_gpt-5.4\"\n\nSo there are 6 recorded outputs.\n\nFor"}             }
-
-        event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" the arithmetic result, I can see from multiple responses that 42 + 27 = 69."}    }
-
-        event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" This is consistently shown across the outputs."}           }
-
-        event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"ErEGCmwIDhgCKkC+AJUPR/hZ0NEudkaV5fm2a3zrdzYVvj9KtPuVZO3EVUDXRlv9pP5yBxsa6H3O5IiZh2kq/3YXqEWESJhsX6A2MhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4AEIIdGhpbmtpbmcSDLWI13td7fIL/RuSbxoMBRBW64raIYJNi50hIjD3mccX/UjqNRXaztAAS6VkSfwLyywhCqvEloPLH/huXUyZvvswWWZHybE/aVl9/Ncq8gQwb/E8D1KSPeG/MMxWeXv/F09tiPbmW2zUid//DK11ojoODF1NO4UJJEL831W+9ANk0+cRJzgyNL6IZpdm8/Dbo0H+A4PMuC48VIcm1ux5zqSnR2bij7OWxkk1Ijcim/0t06ESOC7l+Awh0boOtvtFILaZ7e5xYlHUw0JZm+G7VD4E0FCCK/8pqhw544QI4+luQtfcZsCfE6nLnOozY7T85fT5UtbtoSb+AIt/O+pQIEu95Z1hgAXxZlKv8gApag31z024UfDcVEne753snqo/dpT7W7Xe6gHZwIh3OkpH+33TBmNGh45RQfcVlXsG9QQGz61boevufM6AAkMAxYWx9ed11g/JI9dj71Xmbx+RPdxC52u+ICzwhRBDDuqw/cdtC8+HO1LuanS71DwU20F/lPTHkjEj5dSUulJVui3OiMemkSf/PwHhW4J+9LJep+XpInX7QhyWVBJ6KQBM8LZbb8mdtP4tqA3cMchleM+XnZ1CuRqEj46GIIUoWJWY1PwTVuXAR75KtnrwFecfTjc/xVVp8BN28PX26aUVNWHauZQOd52JR0gkF+HfyWc+eUWH5qjnjgXA4pF7gz70ue5pmEE7bnhmHaDKWFFyQI2lc3pdDa8yVcrFI3uEYOr0aNlvy5jcdql3AMuIGrQuCEjTZuiE6SqIE8Nx7LnKhwKC9MdY23eIkaz2tDeBuMxuOWSJD8tnjA34skGhG0VZQRSUZ/CEeKk6YegJOZfCHagm5XOvhQllTge5zVNaoaZYFW1pEuUSiqXlDvlfZZyI+jl8kbBH0b22NpuGtlIFYI/4goNXHxxGVebJyy4r/p4TX08M6xgB"}  }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"EuwGCmwIDhgCKkDoRQj9x7P8zwg+GuZMjQDHDAI8hlF77cjLSzy2ciwwHq3B4T5pDqFDqbShHDFHrBh7iRkzh6GvS2SegpCdxgsUMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4AEIIdGhpbmtpbmcSDJ9QO1eGCL1it0KoXBoMbIi615bjwi0Fc1pCIjDx1AghnYMUpcF/NVfy5WGDQE610KGcv4zqDqs7EhvE5djyV+3YCnokhIOfsXhTsDMqrQVGo/QGjXZ/c1VWweEZ4uF0BjOQD0LgB4GbFDo74CDUG6GfaqTN03N0Z2JjCv02uGIl96lfOpQ/Vh3qD4Gq+nNUSyp4ZVuGmp3MRcWIlJQUfkQpefsZE+8EoGjkUfYJ0wgpthV1lRNSXUH55uYiHkg/wCZJ6nZ1ppVUYEzpp9HOV8qsxMCK7kJyqOO+TxdbunXsqRVr7kHisq1UhR3bI0AcIvpaGtRr1AY+JRCAl2HnLvej6Fn+Vq6GtR9eEgIqgFGdnIlXEcV1M2vCJb0dP3Do61iowRhHmqLVeZfV88abjiyMcgo3lc8XGvWV1RxIMC8V/jUQVZe88I92QT+YI++1TXmCmAYU6nQ4XrzcQoVjUxobPyUtfdemVXkR7jmAeIi79iSyPLsQmeRSAaAjdope9NCa3aQKf6Uc2gyYg1asBh1UOI2jN41ZUWTvLQt26T0VUo2uWc/i50fCKP4ojLffOR+UgMZV3oGOTNClMs3MwjIsoFoYfkhwdgxkNFSTi0qX88+7eA11Pxc622tEtM4UMIitYvU2DCsqYL3paf3ToyLzuFuWchCrs3PqBCgXyoLctED5/7kiIaRg8aD/v5iu/Aa7VYMnv6Nkta+sgsyMLAipE59+w3mkypV/5EV0XfJs0yPzgzVrbPt291T3/z3N+jNR5VMhadvbkwonvUrASgqEaVxGc/5FWsv3i+MfTjFPYWStpcqM1NMdW1Zd33nGZ/mdv0X8OH1LVRwdvo4qmrizrr68EXtDgEzwwYZNIeQ5uF4823cvHL8o1dmUMGZXJi+F4zEwe7xC9Luo1v7qVdKr8p2hutU8GH62UF5gHJ3HvDwZ0s34zCOStAD+4doCSSw7xSNGhBExbWV8g0Nki5kK+WNzE8ymvYmjLgZ7vB29VIPBkxhJU6ki0V1kGAE="}     }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":0              }
+        data: {"type":"content_block_stop","index":0      }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}     }
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}              }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"42 + 27 equals 69 and"}            }
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"Looking"}               }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" there are 6 recorded outputs."}        }
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" back at our conversation, I calculated 42 + 27 a total of **5 times**.\n\nEach time, the result was **69**.\n\nThe"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" calculation itself never changed - 42 + 27 always equals 69. What varied was how much"}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" detail I provided in my explanations, from comprehensive breakdowns with multiple methods to simple"}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" statements of the answer."} }
 
         event: content_block_stop
         data: {"type":"content_block_stop","index":1              }
 
         event: message_delta
-        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":7307,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":248}        }
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":1888,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":264}      }
 
         event: message_stop
-        data: {"type":"message_stop"    }
+        data: {"type":"message_stop"              }
 
-  recorded_at: Mon, 25 May 2026 14:12:40 GMT
+  recorded_at: Wed, 27 May 2026 01:56:10 GMT
 recorded_with: VCR 6.4.0
 ...

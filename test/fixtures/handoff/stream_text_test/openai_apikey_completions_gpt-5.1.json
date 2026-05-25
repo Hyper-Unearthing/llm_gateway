@@ -1,6 +1,15 @@
-{
-  "live_text_streaming_openai_apikey_completions_gpt-5.1": {
-    "id": "chatcmpl-DgtMsgPicZ0QfUTphF8dor6Fdpg0T",
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Count from 1 to 3"
+      }
+    ]
+  },
+  {
+    "id": "chatcmpl-Djxe1UPk5uQulxewHfw8Ycv1lWXkJ",
     "model": "gpt-5.1-2025-11-13",
     "usage": {
       "input": 13,
@@ -19,4 +28,4 @@
       }
     ]
   }
-}
+]
