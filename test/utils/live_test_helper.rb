@@ -74,9 +74,15 @@ module LiveTestHelper
     pair_name = "#{provider}_#{model}".gsub(/[^A-Za-z0-9_.-]+/, "_")
     path = File.join(fixture_dir, "#{pair_name}.json")
     payload = File.exist?(path) ? JSON.parse(File.read(path)) : {}
-    payload[name.sub(/^test_/, "")] = jsonable_live_result(result)
+    payload[name.sub(/^test_/, "")] = stable_handoff_result(result)
 
     File.write(path, JSON.pretty_generate(payload) + "\n")
+  end
+
+  def stable_handoff_result(result)
+    jsonable_live_result(result).tap do |payload|
+      payload.delete("timestamp") if payload.is_a?(Hash)
+    end
   end
 
   def jsonable_live_result(value)

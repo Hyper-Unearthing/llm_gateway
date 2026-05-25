@@ -68,6 +68,7 @@ class PartialAssistantMessage < BaseStruct
   attribute? :model, Types::String.optional
   attribute? :usage, Types::Hash.optional
   attribute? :role, Types::String.enum("assistant").optional
+  attribute :timestamp, Types::Integer
   attribute? :stop_reason, Types::String.enum("stop", "length", "tool_use", "toolUse", "error", "aborted").optional
   attribute? :content, Types::Array.of(ContentBlock).optional
 
@@ -174,6 +175,7 @@ class AssistantMessage < PartialAssistantMessage
       api: api,
       content: content.map(&:to_h)
     }
+    result[:timestamp] = timestamp unless timestamp.nil?
     result[:error_message] = error_message unless error_message.nil?
     result
   end

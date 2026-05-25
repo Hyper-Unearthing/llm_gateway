@@ -22,7 +22,7 @@ module LlmGateway
       #
       # Accepted event shapes:
       #
-      #   { type: :message_start, delta: { id: "...", model: "...", role: "assistant" }, usage_increment: { ... } }
+      #   { type: :message_start, delta: { id: "...", model: "...", role: "assistant", timestamp: 1716650000000 }, usage_increment: { ... } }
       #   { type: :message_delta, delta: { stop_reason: "stop" }, usage_increment: { ... } }
       #   { type: :message_end }
       #
@@ -78,10 +78,14 @@ module LlmGateway
         @next_content_index = 0
         @active_block_type = nil
         @active_content_index = nil
+        @timestamp = nil
       end
 
       def result
+        ensure_timestamp!
+
         message_hash.merge(
+          timestamp: @timestamp,
           usage: usage_hash,
           content: serialized_blocks
         )
@@ -101,6 +105,7 @@ module LlmGateway
         event_patch = symbolize_keys(event_patch)
         type = event_patch.fetch(:type).to_sym
         event_patch = prepare_event_patch(event_patch.merge(type:), type)
+        ensure_timestamp!
 
         if type == :message_end
           @final_message = AssistantMessage.new(final_result)
@@ -220,6 +225,8 @@ module LlmGateway
       end
 
       def accumulate(event)
+        @timestamp = event.delta[:timestamp] if event.respond_to?(:delta) && event.delta.is_a?(Hash) && event.delta[:timestamp]
+
         case event.type
         when :text_start
           blocks[event.content_index] = {
@@ -263,7 +270,7 @@ module LlmGateway
       end
 
       def empty_partial
-        PartialAssistantMessage.new
+        PartialAssistantMessage.new(timestamp: @timestamp)
       end
 
       def partial_message
@@ -292,6 +299,10 @@ module LlmGateway
 
       def string_value(value)
         value.nil? ? "" : value.to_s
+      end
+
+      def ensure_timestamp!
+        @timestamp ||= (Time.now.to_f * 1000).to_i
       end
     end
   end

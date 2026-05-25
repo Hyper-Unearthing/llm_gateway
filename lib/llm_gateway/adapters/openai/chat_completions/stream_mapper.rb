@@ -92,7 +92,8 @@ module LlmGateway
                 delta: {
                   id: data[:id],
                   model: data[:model],
-                  role: delta[:role] || "assistant"
+                  role: delta[:role] || "assistant",
+                  timestamp: timestamp_milliseconds(data[:created])
                 }.compact,
                 usage_increment: {}
               }
@@ -237,6 +238,12 @@ module LlmGateway
 
           def token_count(*values)
             values.compact.first.to_i
+          end
+
+          def timestamp_milliseconds(unix_seconds)
+            return nil if unix_seconds.nil?
+
+            (unix_seconds.to_f * 1000).to_i
           end
 
           def normalize_stop_reason(finish_reason)

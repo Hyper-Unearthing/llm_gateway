@@ -19,6 +19,8 @@ class NormalizedStreamAccumulatorPartialTest < Test
     end
 
     assert(events[0...-1].all? { |event| event.partial.is_a?(PartialAssistantMessage) })
+    assert_instance_of Integer, events[0].partial.timestamp
+    assert(events[0...-1].all? { |event| event.partial.timestamp == events[0].partial.timestamp })
     assert_equal "msg_1", events[0].partial.id
     assert_equal "hel", events[1].partial.content[0].text
     assert_equal "hello", events[2].partial.content[0].text
@@ -31,6 +33,8 @@ class NormalizedStreamAccumulatorPartialTest < Test
     assert_equal message_end.message, accumulator.final_message
     assert_equal "test-provider", message_end.message.provider
     assert_equal "test-api", message_end.message.api
+    assert_equal events[0].partial.timestamp, message_end.message.timestamp
+    assert_equal message_end.message.timestamp, message_end.message.to_h[:timestamp]
     assert_equal accumulator.result[:id], message_end.message.id
     assert_equal accumulator.result[:model], message_end.message.model
     assert_equal accumulator.result[:usage], message_end.message.usage
@@ -76,10 +80,30 @@ class NormalizedStreamAccumulatorPartialTest < Test
     assert_equal({ query: "ruby" }, tool_end.tool_call.input)
   end
 
-  test "partial assistant message allows incomplete messages but assistant message does not" do
-    partial = PartialAssistantMessage.new(model: "test-model")
+  test "accumulator preserves provider supplied timestamp" do
+    accumulator = LlmGateway::Adapters::NormalizedStreamAccumulator.new(provider: "test-provider", api: "test-api")
+    events = []
+
+    [
+      { type: :message_start, delta: { id: "msg_1", model: "test-model", role: "assistant", timestamp: 1_716_650_000_000 } },
+      { type: :text_start, delta: "hello" },
+      { type: :text_end },
+      { type: :message_delta, delta: { stop_reason: "stop" } },
+      { type: :message_end }
+    ].each do |patch|
+      accumulator.push(patch) { |event| events << event }
+    end
+
+    assert_equal 1_716_650_000_000, events.first.partial.timestamp
+    assert_equal 1_716_650_000_000, events.last.message.timestamp
+  end
+
+  test "partial assistant message allows incomplete messages except timestamp but assistant message does not" do
+    partial = PartialAssistantMessage.new(model: "test-model", timestamp: 1_716_650_000_000)
 
     assert_equal "test-model", partial.model
-    assert_raises(Dry::Struct::Error) { AssistantMessage.new(model: "test-model") }
+    assert_equal 1_716_650_000_000, partial.timestamp
+    assert_raises(Dry::Struct::Error) { PartialAssistantMessage.new(model: "test-model") }
+    assert_raises(Dry::Struct::Error) { AssistantMessage.new(model: "test-model", timestamp: 1_716_650_000_000) }
   end
 end
