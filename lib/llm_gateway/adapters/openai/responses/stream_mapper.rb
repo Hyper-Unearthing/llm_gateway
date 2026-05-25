@@ -117,7 +117,8 @@ module LlmGateway
                   stop_reason: stop_reason_for(response)
                 }.compact,
                 usage_increment: usage_increment(response)
-              }
+              },
+              { type: :message_end }
             ]
           end
 

@@ -20,7 +20,10 @@ module LlmGateway
           system: normalize_system(system)
         })
 
-        mapper = stream_mapper.new
+        mapper = stream_mapper.new(
+          provider: LlmGateway::Client.provider_id_from_client(client),
+          api: api_name
+        )
 
         perform_stream(
           normalized_input[:messages],
@@ -31,12 +34,7 @@ module LlmGateway
           mapper.map(chunk, &block)
         end
 
-        AssistantMessage.new(
-          mapper.result.merge(
-            provider: LlmGateway::Client.provider_id_from_client(client),
-            api: api_name
-          )
-        )
+        mapper.result
       end
 
       def upload_file(filename:, content:, mime_type: "application/octet-stream", purpose: "assistants")

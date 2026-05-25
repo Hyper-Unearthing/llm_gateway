@@ -58,6 +58,15 @@ module LiveTestHelper
     end
   end
 
+  def assert_stream_message_end_matches_response(message_end_event, response)
+    refute_nil message_end_event, "message_end event occurred"
+    assert_instance_of AssistantMessage, message_end_event.message
+    assert_same response, message_end_event.message
+    assert_equal response.to_h, message_end_event.message.to_h
+    refute_empty message_end_event.message.provider
+    refute_empty message_end_event.message.api
+  end
+
   def record_live_handoff_result(test_file:, provider:, model:, result:)
     fixture_dir = File.expand_path("../fixtures/handoff/#{File.basename(test_file, ".rb")}", __dir__)
     FileUtils.mkdir_p(fixture_dir)

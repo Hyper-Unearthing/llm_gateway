@@ -210,7 +210,8 @@ module LlmGateway
                 type: accumulator.message_hash.empty? ? :message_start : :message_delta,
                 delta: {},
                 usage_increment: usage_increment(data)
-              }
+              },
+              { type: :message_end }
             ]
           end
 

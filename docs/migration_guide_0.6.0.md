@@ -12,7 +12,9 @@ This guide covers user-facing changes between `v0.5.0` and the latest commit on 
 - Legacy provider keys such as `openai_apikey_responses` were removed. Use the shorter provider keys.
 - `LlmGateway::Prompt` now accepts/configures a provider and model separately, and uses `stream` internally.
 - The `client.model_key` reader was removed; track the selected model at the call site or read it from returned messages.
-- Stream event hashes now include `partial`; normal stream consumers are unaffected, but strict `event.to_h` snapshots/comparisons may need updates.
+- Streaming `:message_end` callbacks now receive a dedicated end event with `message`, not a partial-message event with `partial`.
+- Non-final stream event hashes now include `partial`; normal stream consumers are unaffected, but strict `event.to_h` snapshots/comparisons may need updates.
+- Custom stream mappers must initialize with provider/API metadata and emit a final `:message_end` patch.
 
 ## 1. Replace legacy provider keys
 
@@ -235,7 +237,66 @@ adapter.stream("Hello from OAuth auth", model: "gpt-5.4")
 
 For Anthropic OAuth, use `provider: "anthropic_messages"` with an `access_token`.
 
-## 7. Cross-provider handoff note
+## 7. Update stream callback handling
+
+The final `:message_end` stream callback event changed shape.
+
+In 0.5.x, `:message_end` was an `AssistantStreamMessageEvent` and exposed the accumulated message through `event.partial`.
+
+In 0.6.0, `:message_end` is an `AssistantStreamMessageEndEvent` and exposes the final complete `AssistantMessage` through `event.message`. It does not expose `partial`.
+
+```ruby
+response = adapter.stream("Hello", model: "gpt-5.4") do |event|
+  case event.type
+  when :text_delta
+    print event.delta
+  when :message_end
+    final_message = event.message
+    puts final_message.provider
+    puts final_message.api
+  end
+end
+
+# The stream return value is the same final AssistantMessage.
+response # => AssistantMessage
+```
+
+If you previously handled every event as if it had `partial`, branch on `event.type == :message_end` first or check `respond_to?(:partial)`.
+
+```ruby
+adapter.stream("Hello", model: "gpt-5.4") do |event|
+  if event.type == :message_end
+    persist(event.message.to_h)
+  elsif event.respond_to?(:partial)
+    update_ui(event.partial)
+  end
+end
+```
+
+## 8. Update custom stream mappers
+
+If you implemented a custom adapter or stream mapper, update it for the new final-message flow.
+
+`LlmGateway::Adapters::StreamMapper` now requires provider/API metadata:
+
+```ruby
+mapper = MyStreamMapper.new(provider: "openai", api: "responses")
+```
+
+`Adapter#stream` passes these values automatically when it instantiates the configured mapper, but direct mapper construction and custom initializers must accept/pass these keywords.
+
+Custom mappers must also push a final normalized end patch:
+
+```ruby
+push_patches([
+  { type: :message_delta, delta: { stop_reason: "stop" }, usage_increment: usage },
+  { type: :message_end }
+], &block)
+```
+
+`StreamMapper#result` now returns the final `AssistantMessage` created by the `:message_end` patch. If a custom mapper never emits `:message_end`, `adapter.stream` will not have a final message to return.
+
+## 9. Cross-provider handoff note
 
 Message sanitization for cross-provider/model handoffs now receives the target model from the request options. When replaying or handing off transcripts across providers/models, pass `model:` explicitly on the destination call so model-specific sanitizer behavior can run.
 
@@ -246,9 +307,9 @@ next_response = target_adapter.stream(
 )
 ```
 
-## 8. Stream event hash snapshots
+## 10. Stream event hash snapshots
 
-Stream events now expose a `partial` assistant message, so `event.to_h` includes an additional `partial` field.
+Non-final stream events now expose a `partial` assistant message, so `event.to_h` includes an additional `partial` field.
 
 This is additive for normal stream callback consumers:
 
@@ -270,5 +331,7 @@ If your tests or application code compare full `event.to_h` hashes or snapshot s
 - [ ] Update `Prompt` subclasses to configure `provider` and `model` separately.
 - [ ] Replace `Prompt.new("model-key")` model lookup usage with explicit provider/model configuration.
 - [ ] Replace custom `Prompt#post` usage with `Prompt#stream`.
+- [ ] Update stream callbacks to read `event.message` for `:message_end` and `event.partial` only for non-final events.
+- [ ] Update custom stream mappers to accept `provider:` / `api:` and emit `{ type: :message_end }`.
 - [ ] For cross-provider handoffs, pass the target `model:` explicitly.
 - [ ] Update strict `event.to_h` stream event snapshots/comparisons for the new `partial` field.

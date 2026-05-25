@@ -50,7 +50,7 @@ module LlmGateway
       # The accumulator creates the public Assistant* event structs, updates its
       # accumulated message state, then yields the created event to the callback.
       attr_accessor :blocks, :message_hash, :usage_hash
-      attr_reader :active_block_type
+      attr_reader :active_block_type, :final_message
 
       BLOCK_EVENT_TRANSITIONS = {
         text_start: { block_type: :text, phase: :start },
@@ -64,7 +64,9 @@ module LlmGateway
         reasoning_end: { block_type: :reasoning, phase: :end }
       }.freeze
 
-      def initialize
+      def initialize(provider: nil, api: nil)
+        @provider = provider
+        @api = api
         @message_hash = {}
         @usage_hash = {
           input_tokens: 0,
@@ -86,6 +88,10 @@ module LlmGateway
         )
       end
 
+      def final_result
+        result.merge(provider: @provider, api: @api)
+      end
+
       def active_tool?
         active_block_type == :tool
       end
@@ -96,6 +102,12 @@ module LlmGateway
         event_patch = symbolize_keys(event_patch)
         type = event_patch.fetch(:type).to_sym
         event_patch = prepare_event_patch(event_patch.merge(type:), type)
+
+        if type == :message_end
+          @final_message = AssistantMessage.new(final_result)
+          block.call(AssistantStreamMessageEndEvent.new(type:, message: final_message)) if block
+          return nil
+        end
 
         event = build_event(event_patch, partial: empty_partial)
         accumulate(event)
@@ -172,7 +184,7 @@ module LlmGateway
         type = event_patch.fetch(:type).to_sym
 
         case type
-        when :message_start, :message_delta, :message_end
+        when :message_start, :message_delta
           AssistantStreamMessageEvent.new(
             type:,
             delta: symbolize_keys(event_patch[:delta] || {}),
@@ -248,7 +260,6 @@ module LlmGateway
           usage_hash.each_key do |key|
             usage_hash[key] += event.usage_increment.fetch(key, 0)
           end
-        when :message_end
         end
       end
 

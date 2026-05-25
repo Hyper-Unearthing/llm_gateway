@@ -24,6 +24,7 @@ class StreamTextTest < Test
     text_started = false
     text_chunks = ""
     text_completed = false
+    message_end_event = nil
 
     response = adapter.stream("Count from 1 to 3", **options) do |event|
       case event.type
@@ -34,12 +35,15 @@ class StreamTextTest < Test
         text_chunks += event.delta
       when :text_end
         text_completed = true
+      when :message_end
+        message_end_event = event
       end
     end
 
     assert_equal true, text_started, "text start event occurred"
     assert_operator text_chunks.length, :>, 0
     assert_equal true, text_completed, "text end event occurred"
+    assert_stream_message_end_matches_response(message_end_event, response)
     assert_equal "assistant", response.role
     assert response.content.any? { |block| block.type == "text" }
 

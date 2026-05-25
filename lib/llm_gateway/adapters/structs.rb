@@ -121,15 +121,6 @@ class AssistantStreamReasoningEvent < AssistantStreamEvent
   attribute :content_index, Types::Integer
 end
 
-class AssistantStreamMessageEvent < BaseStruct
-  EventType = Types::Coercible::Symbol.enum(:message_start, :message_delta, :message_end)
-
-  attribute :type, EventType
-  attribute :delta, Types::Coercible::Hash.default { {} }
-  attribute :usage_increment, Types::Coercible::Hash.default { {} }
-  attribute :partial, Types.Instance(PartialAssistantMessage)
-end
-
 class AssistantMessage < PartialAssistantMessage
   attribute :id, Types::String
   attribute :model, Types::String
@@ -155,4 +146,18 @@ class AssistantMessage < PartialAssistantMessage
     result[:error_message] = error_message unless error_message.nil?
     result
   end
+end
+
+class AssistantStreamMessageEvent < BaseStruct
+  EventType = Types::Coercible::Symbol.enum(:message_start, :message_delta)
+
+  attribute :type, EventType
+  attribute :delta, Types::Coercible::Hash.default { {} }
+  attribute :usage_increment, Types::Coercible::Hash.default { {} }
+  attribute :partial, Types.Instance(PartialAssistantMessage)
+end
+
+class AssistantStreamMessageEndEvent < BaseStruct
+  attribute :type, Types::Coercible::Symbol.enum(:message_end)
+  attribute :message, Types.Instance(AssistantMessage)
 end
