@@ -145,7 +145,7 @@ response = adapter.stream(transcript, tools: tools, model: "gpt-5.4", reasoning:
   when :message_delta
     puts "\n[message_delta] #{event.delta.inspect} usage+=#{event.usage_increment.inspect}"
   when :message_end
-    puts "\n[message_end]"
+    puts "\n[message_end] final_id=#{event.message.id} stop_reason=#{event.message.stop_reason}"
 
   # Text events
   when :text_start
@@ -188,6 +188,7 @@ puts "id: #{response.id}"
 puts "model: #{response.model}"
 puts "provider/api: #{response.provider}/#{response.api}"
 puts "role: #{response.role}"
+puts "timestamp: #{response.timestamp}" # Unix milliseconds
 puts "stop_reason: #{response.stop_reason}"
 puts "error_message: #{response.error_message.inspect}" if response.error_message
 puts "usage: #{response.usage.inspect}"
@@ -206,11 +207,22 @@ end
 ```
 
 Stream callback event families:
-- `AssistantStreamMessageEvent`: `:message_start`, `:message_delta`, `:message_end`
+- `AssistantStreamMessageEvent`: `:message_start`, `:message_delta`
+- `AssistantStreamMessageEndEvent`: `:message_end` with the final `event.message`
 - `AssistantStreamEvent` (and subclasses):
   - Text: `:text_start`, `:text_delta`, `:text_end`
   - Tool call: `:tool_start`, `:tool_delta`, `:tool_end`
   - Reasoning: `:reasoning_start`, `:reasoning_delta`, `:reasoning_end`
+
+Non-final stream events expose `event.partial`, a `PartialAssistantMessage` snapshot accumulated so far. The final `:message_end` event exposes the complete `AssistantMessage` as `event.message` instead.
+
+End events include helpers for the finalized current content block:
+- `event.content` for `:text_end`, `:reasoning_end`, and `:tool_end`
+- `event.text` for `:text_end`
+- `event.reasoning` for `:reasoning_end`
+- `event.tool_call` / `event.tool` for `:tool_end`
+
+Usage counters are normalized as `:input`, `:cache_write`, `:cache_read`, and `:output`.
 
 ### Stream API without handling events (final result only)
 
@@ -227,6 +239,7 @@ adapter = LlmGateway.build_provider(
 result = adapter.stream("Write one short sentence about Ruby.", model: "gpt-5.4")
 
 puts result.role         # "assistant"
+puts result.timestamp    # Unix milliseconds
 puts result.stop_reason  # "stop" (usually)
 puts result.usage.inspect
 
@@ -240,7 +253,7 @@ puts text
 
 ## Migration guides
 
-- [0.6.0 migration guide](docs/migration_guide_0.6.0.md) — move `model_key` to per-request `model:`, update provider keys, and update `Prompt` usage.
+- [0.6.0 migration guide](docs/migration_guide_0.6.0.md) — move `model_key` to per-request `model:`, update provider keys, update `Prompt` usage, and migrate stream event/usage changes.
 - [Migrating from `chat` to `stream`](docs/migration-guide.md) — use `stream` without a block when you only need the final response.
 
 ## Tools
@@ -400,7 +413,7 @@ result = adapter.stream(
 )
 
 puts "stop_reason: #{result.stop_reason}"
-puts "usage: #{result.usage.inspect}" # may include reasoning_tokens depending on provider
+puts "usage: #{result.usage.inspect}" # normalized keys: :input, :cache_write, :cache_read, :output
 
 result.content.each do |block|
   case block.type
@@ -448,7 +461,7 @@ puts "Final stop_reason: #{result.stop_reason}"
   - fields: `reasoning` and optional `signature`
 - Usage accounting:
   - normalized in `result.usage` when provided by the upstream API
-  - may include `:reasoning_tokens` plus standard token counters
+  - keys are `:input`, `:cache_write`, `:cache_read`, and `:output`
 
 In practice this means you can:
 - listen to `:reasoning_*` stream event variants, and
@@ -482,7 +495,7 @@ What happens under the hood on `stream`/`chat`:
 
 5. **Map response back to canonical output**
    - Stream chunks are mapped into normalized stream events.
-   - Final output is accumulated into a normalized `AssistantMessage` (`id`, `model`, `usage`, `stop_reason`, `content`, etc.).
+   - Final output is accumulated into a normalized `AssistantMessage` (`id`, `model`, `timestamp` as Unix milliseconds, `usage`, `stop_reason`, `content`, etc.).
 
 Why this matters:
 - A transcript produced by one provider can be reused with another provider without manually rewriting message structure.

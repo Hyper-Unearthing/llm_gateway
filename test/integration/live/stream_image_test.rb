@@ -42,11 +42,15 @@ class StreamImageTest < Test
       }
     ]
 
-    response = adapter.stream(prompt, system: "You are a helpful assistant.", **options)
+    message_end_event = nil
+    response = adapter.stream(prompt, system: "You are a helpful assistant.", **options) do |event|
+      message_end_event = event if event.type == :message_end
+    end
 
+    assert_stream_message_end_matches_response(message_end_event, response)
     assert_equal "assistant", response.role
-    assert_operator response.usage[:input_tokens], :>, 0
-    assert_operator response.usage[:output_tokens], :>, 0
+    assert_operator response.usage[:input], :>, 0
+    assert_operator response.usage[:output], :>, 0
     assert_nil response.error_message
 
     text_content = response.content.find { |block| block.type == "text" }

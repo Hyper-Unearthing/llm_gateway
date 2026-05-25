@@ -3,11 +3,10 @@
     "id": "resp_0daeed2a53f29c44016a0b1202232481919e3cbb2703cee257",
     "model": "gpt-5.4",
     "usage": {
-      "input_tokens": 201,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "output_tokens": 16,
-      "reasoning_tokens": 0
+      "input": 201,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 16
     },
     "role": "assistant",
     "stop_reason": "stop",
@@ -24,11 +23,10 @@
     "id": "resp_096f383d2254ad5a016a0b11ee99788191ae07c5125b2b0d1a",
     "model": "gpt-5.4",
     "usage": {
-      "input_tokens": 23,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "output_tokens": 8,
-      "reasoning_tokens": 0
+      "input": 23,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 8
     },
     "role": "assistant",
     "stop_reason": "stop",
@@ -45,11 +43,10 @@
     "id": "resp_0345a8d954a2c46f016a0b11ecea088191a4a7d7fb4c432614",
     "model": "gpt-5.4",
     "usage": {
-      "input_tokens": 101,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "output_tokens": 26,
-      "reasoning_tokens": 0
+      "input": 101,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 26
     },
     "role": "assistant",
     "stop_reason": "tool_use",

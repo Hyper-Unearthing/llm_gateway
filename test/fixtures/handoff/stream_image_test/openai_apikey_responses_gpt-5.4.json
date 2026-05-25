@@ -3,11 +3,10 @@
     "id": "resp_065de5c18ed0755f006a0c07de194481909328a7cc6eb794d8",
     "model": "gpt-5.4-2026-03-05",
     "usage": {
-      "input_tokens": 114,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "output_tokens": 12,
-      "reasoning_tokens": 0
+      "input": 114,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 12
     },
     "role": "assistant",
     "stop_reason": "stop",

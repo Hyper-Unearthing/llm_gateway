@@ -25,6 +25,7 @@ class StreamReasoningTest < Test
     thinking_started = false
     thinking_chunks = ""
     thinking_completed = false
+    message_end_event = nil
     response = adapter.stream(prompt, reasoning:, **options) do |event|
       case event.type
       when :reasoning_start
@@ -34,12 +35,15 @@ class StreamReasoningTest < Test
         thinking_chunks += event.delta
       when :reasoning_end
         thinking_completed = true
+      when :message_end
+        message_end_event = event
       end
     end
 
+    assert_stream_message_end_matches_response(message_end_event, response)
     assert_equal "assistant", response.role
-    assert_operator response.usage[:input_tokens], :>, 0
-    assert_operator response.usage[:output_tokens], :>, 0
+    assert_operator response.usage[:input], :>, 0
+    assert_operator response.usage[:output], :>, 0
     assert_nil response.error_message
     assert_equal "stop", response.stop_reason, "Error: #{response.error_message}"
 
@@ -51,8 +55,6 @@ class StreamReasoningTest < Test
       thinking_block = response.content.find { |block| block.type == "reasoning" }
       refute_nil thinking_block
       refute_empty thinking_block.reasoning.to_s
-    else
-      assert_operator response.usage[:reasoning_tokens], :>, 0
     end
 
     response

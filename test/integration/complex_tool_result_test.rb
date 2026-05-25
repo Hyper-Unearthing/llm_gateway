@@ -86,8 +86,8 @@ class ComplexToolResultTest < Test
     final_response = adapter.stream(transcript, tools: [ read_image_tool ])
 
     assert_equal "assistant", final_response.role
-    assert_operator final_response.usage[:input_tokens], :>, 0
-    assert_operator final_response.usage[:output_tokens], :>, 0
+    assert_operator final_response.usage[:input], :>, 0
+    assert_operator final_response.usage[:output], :>, 0
     assert_nil final_response.error_message
 
     text_content = final_response.content.find { |block| block.type == "text" }

@@ -29,6 +29,7 @@ class StreamToolCallTest < Test
     has_tool_start = false
     has_tool_delta = false
     has_tool_end = false
+    message_end_event = nil
     response = adapter.stream(prompt, tools: [ math_operation_tool ], **options) do |event|
       if event.type == :tool_start
         has_tool_start = true
@@ -45,15 +46,17 @@ class StreamToolCallTest < Test
         assert_equal(27, parsed_args["b"])
         assert_equal("add", parsed_args["operation"])
       end
+      message_end_event = event if event.type == :message_end
     end
 
     assert_equal true, has_tool_start, "tool start event occured"
     assert_equal true, has_tool_delta, "tool delta event occured"
     assert_equal true, has_tool_end, "tool end event occured"
 
+    assert_stream_message_end_matches_response(message_end_event, response)
     assert_equal "assistant", response.role
-    assert_operator response.usage[:input_tokens], :>, 0
-    assert_operator response.usage[:output_tokens], :>, 0
+    assert_operator response.usage[:input], :>, 0
+    assert_operator response.usage[:output], :>, 0
     assert_nil response.error_message
     assert_includes [ "tool_use" ], response.stop_reason
 

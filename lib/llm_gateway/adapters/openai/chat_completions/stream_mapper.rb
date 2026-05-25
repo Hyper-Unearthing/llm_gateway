@@ -92,7 +92,8 @@ module LlmGateway
                 delta: {
                   id: data[:id],
                   model: data[:model],
-                  role: delta[:role] || "assistant"
+                  role: delta[:role] || "assistant",
+                  timestamp: timestamp_milliseconds(data[:created])
                 }.compact,
                 usage_increment: {}
               }
@@ -210,20 +211,39 @@ module LlmGateway
                 type: accumulator.message_hash.empty? ? :message_start : :message_delta,
                 delta: {},
                 usage_increment: usage_increment(data)
-              }
+              },
+              { type: :message_end }
             ]
           end
 
           def usage_increment(data)
             usage = data[:usage] || {}
+            cache_read = token_count(
+              usage.dig(:prompt_tokens_details, :cached_tokens),
+              usage[:prompt_cache_hit_tokens]
+            )
+            cache_write = token_count(
+              usage.dig(:prompt_tokens_details, :cache_write_tokens),
+              usage[:cache_write_tokens]
+            )
+            prompt_tokens = token_count(usage[:prompt_tokens])
 
             {
-              input_tokens: usage[:prompt_tokens] || 0,
-              cache_creation_input_tokens: 0,
-              cache_read_input_tokens: usage.dig(:prompt_tokens_details, :cached_tokens) || 0,
-              output_tokens: usage[:completion_tokens] || 0,
-              reasoning_tokens: usage.dig(:completion_tokens_details, :reasoning_tokens) || 0
+              input: [ prompt_tokens - cache_read - cache_write, 0 ].max,
+              cache_write:,
+              cache_read:,
+              output: token_count(usage[:completion_tokens])
             }
+          end
+
+          def token_count(*values)
+            values.compact.first.to_i
+          end
+
+          def timestamp_milliseconds(unix_seconds)
+            return nil if unix_seconds.nil?
+
+            (unix_seconds.to_f * 1000).to_i
           end
 
           def normalize_stop_reason(finish_reason)

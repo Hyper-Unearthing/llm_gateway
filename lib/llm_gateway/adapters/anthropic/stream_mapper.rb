@@ -14,7 +14,7 @@ module LlmGateway
               model: chunk.dig(:data, :message, :model),
               role: chunk.dig(:data, :message, :role)
             }
-            usage_increment = chunk.dig(:data, :message, :usage) || {}
+            usage_increment = normalized_usage_increment(chunk.dig(:data, :message, :usage) || {})
 
             accumulator.push({ type: :message_start, usage_increment:, delta: }, &block)
           when "content_block_start"
@@ -62,7 +62,7 @@ module LlmGateway
             @current_content_block_type = nil
           when "message_delta"
             delta = normalize_message_delta(chunk.dig(:data, :delta) || {})
-            usage_increment = chunk.dig(:data, :usage) || {}
+            usage_increment = normalized_usage_increment(chunk.dig(:data, :usage) || {})
 
             accumulator.push({ type: :message_delta, usage_increment:, delta: }, &block)
           when "message_stop"
@@ -75,6 +75,31 @@ module LlmGateway
         end
 
         private
+
+        def normalized_usage_increment(usage)
+          normalized_usage(usage).each_with_object({}) do |(key, value), increment|
+            increment[key] = [ value - accumulator.usage_hash.fetch(key, 0), 0 ].max
+          end
+        end
+
+        def normalized_usage(usage)
+          usage = symbolize_keys(usage)
+
+          {
+            input: token_count(usage[:input_tokens]),
+            cache_write: token_count(usage[:cache_creation_input_tokens]),
+            cache_read: token_count(usage[:cache_read_input_tokens]),
+            output: token_count(usage[:output_tokens])
+          }
+        end
+
+        def token_count(value)
+          value.to_i
+        end
+
+        def symbolize_keys(hash)
+          hash.to_h.transform_keys { |key| key.respond_to?(:to_sym) ? key.to_sym : key }
+        end
 
         def normalize_message_delta(delta)
           return delta unless delta[:stop_reason] || delta["stop_reason"]

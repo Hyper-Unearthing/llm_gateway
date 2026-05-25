@@ -68,6 +68,7 @@ class PartialAssistantMessage < BaseStruct
   attribute? :model, Types::String.optional
   attribute? :usage, Types::Hash.optional
   attribute? :role, Types::String.enum("assistant").optional
+  attribute :timestamp, Types::Integer
   attribute? :stop_reason, Types::String.enum("stop", "length", "tool_use", "toolUse", "error", "aborted").optional
   attribute? :content, Types::Array.of(ContentBlock).optional
 
@@ -108,6 +109,37 @@ class AssistantStreamEvent < BaseStruct
   attribute :delta, Types::Coercible::String.default { "" }
   attribute :content_index, Types::Integer
   attribute :partial, Types.Instance(PartialAssistantMessage)
+
+  def content
+    case type
+    when :text_end
+      finalized_content_block&.text
+    when :reasoning_end
+      finalized_content_block&.reasoning
+    when :tool_end
+      finalized_content_block
+    end
+  end
+
+  def text
+    content if type == :text_end
+  end
+
+  def reasoning
+    content if type == :reasoning_end
+  end
+
+  def tool_call
+    finalized_content_block if type == :tool_end
+  end
+
+  alias tool tool_call
+
+  private
+
+  def finalized_content_block
+    partial.content&.[](content_index)
+  end
 end
 
 class AssistantToolStartEvent < AssistantStreamEvent
@@ -119,15 +151,6 @@ end
 class AssistantStreamReasoningEvent < AssistantStreamEvent
   attribute :signature, Types::Coercible::String.default { "" }
   attribute :content_index, Types::Integer
-end
-
-class AssistantStreamMessageEvent < BaseStruct
-  EventType = Types::Coercible::Symbol.enum(:message_start, :message_delta, :message_end)
-
-  attribute :type, EventType
-  attribute :delta, Types::Coercible::Hash.default { {} }
-  attribute :usage_increment, Types::Coercible::Hash.default { {} }
-  attribute :partial, Types.Instance(PartialAssistantMessage)
 end
 
 class AssistantMessage < PartialAssistantMessage
@@ -152,7 +175,22 @@ class AssistantMessage < PartialAssistantMessage
       api: api,
       content: content.map(&:to_h)
     }
+    result[:timestamp] = timestamp unless timestamp.nil?
     result[:error_message] = error_message unless error_message.nil?
     result
   end
+end
+
+class AssistantStreamMessageEvent < BaseStruct
+  EventType = Types::Coercible::Symbol.enum(:message_start, :message_delta)
+
+  attribute :type, EventType
+  attribute :delta, Types::Coercible::Hash.default { {} }
+  attribute :usage_increment, Types::Coercible::Hash.default { {} }
+  attribute :partial, Types.Instance(PartialAssistantMessage)
+end
+
+class AssistantStreamMessageEndEvent < BaseStruct
+  attribute :type, Types::Coercible::Symbol.enum(:message_end)
+  attribute :message, Types.Instance(AssistantMessage)
 end

@@ -12,9 +12,8 @@ http_interactions:
         recorded outputs as Arabic numerals.\n\n[\n  {\n    \"pair\": \"anthropic_apikey_messages_claude-sonnet-4-20250514\",\n    \"result\":
         {\n      \"live_basic_thinking_anthropic_apikey_messages_claude-sonnet-4-20250514\":
         {\n        \"id\": \"msg_01FfmDVAGspH8UnjgKmnuFhb\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
-        {\n          \"input_tokens\": 94,\n          \"cache_creation_input_tokens\":
-        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
-        767,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        {\n          \"input\": 47,\n          \"cache_write\": 0,\n          \"cache_read\":
+        0,\n          \"output\": 759\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
         \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
         [\n          {\n            \"type\": \"reasoning\",\n            \"reasoning\":
         \"The user is asking me to think long and hard about 42 + 27. This is a simple
@@ -50,9 +49,8 @@ http_interactions:
         reveal unexpected depths when we pause to truly consider them.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
         \"anthropic_oauth_messages_claude-sonnet-4-20250514\",\n    \"result\": {\n      \"live_basic_thinking_anthropic_oauth_messages_claude-sonnet-4-20250514\":
         {\n        \"id\": \"msg_01UnRPT4gGDfu9gJp4YMtrMo\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
-        {\n          \"input_tokens\": 124,\n          \"cache_creation_input_tokens\":
-        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
-        705,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        {\n          \"input\": 62,\n          \"cache_write\": 0,\n          \"cache_read\":
+        0,\n          \"output\": 704\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
         \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
         [\n          {\n            \"type\": \"reasoning\",\n            \"reasoning\":
         \"The user is asking me to think \\\"long and hard\\\" about 42 + 27. This
@@ -86,9 +84,8 @@ http_interactions:
         after this deep contemplation: **42 + 27 = 69**\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
         \"groq_completions_openai_gpt-oss-120b\",\n    \"result\": {\n      \"live_basic_thinking_groq_completions_openai/gpt-oss-120b\":
         {\n        \"id\": \"chatcmpl-b11b89c4-1f9b-41b8-ae7f-3e19a6461263\",\n        \"model\":
-        \"openai/gpt-oss-120b\",\n        \"usage\": {\n          \"input_tokens\":
-        81,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
-        0,\n          \"output_tokens\": 717,\n          \"reasoning_tokens\": 255\n        },\n        \"role\":
+        \"openai/gpt-oss-120b\",\n        \"usage\": {\n          \"input\": 81,\n          \"cache_write\":
+        0,\n          \"cache_read\": 0,\n          \"output\": 717\n        },\n        \"role\":
         \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
         \"groq\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
         \"reasoning\",\n            \"reasoning\": \"The user says: \\\"Think long
@@ -131,17 +128,15 @@ http_interactions:
         strategies or any other math topics!\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
         \"openai_apikey_completions_gpt-5.1\",\n    \"result\": {\n      \"live_basic_thinking_openai_apikey_completions_gpt-5.1\":
         {\n        \"id\": \"chatcmpl-Dh8WxAn4oWEmmZPOZ7UduUuF50CPC\",\n        \"model\":
-        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input_tokens\":
-        16,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
-        0,\n          \"output_tokens\": 95,\n          \"reasoning_tokens\": 79\n        },\n        \"role\":
+        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input\": 16,\n          \"cache_write\":
+        0,\n          \"cache_read\": 0,\n          \"output\": 95\n        },\n        \"role\":
         \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
         \"openai\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
         \"text\",\n            \"text\": \"42 + 27 = 69\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
         \"openai_apikey_responses_gpt-5.4\",\n    \"result\": {\n      \"live_basic_thinking_openai_apikey_responses_gpt-5.4\":
         {\n        \"id\": \"resp_091fc53b0b8143f0006a0c0795afa081958c8ff17e40a736b3\",\n        \"model\":
-        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input_tokens\":
-        16,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
-        0,\n          \"output_tokens\": 146,\n          \"reasoning_tokens\": 132\n        },\n        \"role\":
+        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input\": 16,\n          \"cache_write\":
+        0,\n          \"cache_read\": 0,\n          \"output\": 146\n        },\n        \"role\":
         \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
         \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"type\":
         \"reasoning\",\n            \"reasoning\": \"**Calculating the sum**\\n\\nThe
@@ -153,19 +148,18 @@ http_interactions:
         \"text\",\n            \"text\": \"42 + 27 = 69.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
         \"openai_oauth_codex_gpt-5.4\",\n    \"result\": {\n      \"live_basic_thinking_openai_oauth_codex_gpt-5.4\":
         {\n        \"id\": \"resp_0de830a86de00ebd016a0c07ba404c8191b18ff96526cd295c\",\n        \"model\":
-        \"gpt-5.4\",\n        \"usage\": {\n          \"input_tokens\": 26,\n          \"cache_creation_input_tokens\":
-        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
-        97,\n          \"reasoning_tokens\": 83\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
-        \"stop\",\n        \"provider\": \"openai\",\n        \"api\": \"responses\",\n        \"content\":
-        [\n          {\n            \"type\": \"reasoning\",\n            \"reasoning\":
-        \"**Calculating a simple sum**\\n\\nThe user is asking me to think long and
-        hard about 42 + 27. I get the sense this could be a straightforward arithmetic
-        question, possibly expecting a simple answer without extended reasoning. Even
-        though they mentioned thinking, I feel I can provide a concise response. So,
-        after pondering it, I think I''ll just say: \\\"I thought about it, and the
-        answer is 69.\\\" That should do the trick!\",\n            \"signature\":
-        \"\"\n          },\n          {\n            \"type\": \"text\",\n            \"text\":
-        \"42 + 27 = 69.\"\n          }\n        ]\n      }\n    }\n  }\n]\n"}]}],"system":[{"type":"text","text":"You
+        \"gpt-5.4\",\n        \"usage\": {\n          \"input\": 26,\n          \"cache_write\":
+        0,\n          \"cache_read\": 0,\n          \"output\": 97\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"type\":
+        \"reasoning\",\n            \"reasoning\": \"**Calculating a simple sum**\\n\\nThe
+        user is asking me to think long and hard about 42 + 27. I get the sense this
+        could be a straightforward arithmetic question, possibly expecting a simple
+        answer without extended reasoning. Even though they mentioned thinking, I
+        feel I can provide a concise response. So, after pondering it, I think I''ll
+        just say: \\\"I thought about it, and the answer is 69.\\\" That should do
+        the trick!\",\n            \"signature\": \"\"\n          },\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"42 + 27 = 69.\"\n          }\n        ]\n      }\n    }\n  }\n]\n"}]}],"system":[{"type":"text","text":"You
         are Claude Code, Anthropic''s official CLI for Claude."}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":10240},"stream":true}'
     headers:
       Accept-Encoding:
@@ -194,7 +188,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 19 May 2026 07:43:18 GMT
+      - Mon, 25 May 2026 14:24:27 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -208,41 +202,41 @@ http_interactions:
       Anthropic-Ratelimit-Unified-5h-Status:
       - allowed
       Anthropic-Ratelimit-Unified-5h-Reset:
-      - '1779194400'
+      - '1779730200'
       Anthropic-Ratelimit-Unified-5h-Utilization:
-      - '0.01'
+      - '0.12'
       Anthropic-Ratelimit-Unified-7d-Status:
       - allowed
       Anthropic-Ratelimit-Unified-7d-Reset:
-      - '1779274800'
+      - '1779879600'
       Anthropic-Ratelimit-Unified-7d-Utilization:
-      - '0.02'
+      - '0.19'
       Anthropic-Ratelimit-Unified-Representative-Claim:
       - five_hour
       Anthropic-Ratelimit-Unified-Fallback-Percentage:
       - '0.5'
       Anthropic-Ratelimit-Unified-Reset:
-      - '1779194400'
+      - '1779730200'
       Anthropic-Ratelimit-Unified-Overage-Disabled-Reason:
       - org_level_disabled
       Anthropic-Ratelimit-Unified-Overage-Status:
       - rejected
       Request-Id:
-      - req_011CbBZ1aTAHFgQcUugUZYP8
+      - req_011CbPSTJ4dCkhXovQNEWP8b
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 158912a9-5288-4061-b004-8c1100f6ed5b
       Traceresponse:
-      - 00-3d2c3a18d738a7d4bf7dad9336dbf5b0-1e49d98f3288c3d2-01
+      - 00-ac5ffb4735865e5d7671c4bca4020ece-f8018f13b3bd82c4-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '947'
+      - '1099'
       Vary:
       - Accept-Encoding
       Set-Cookie:
-      - _cfuvid=wsYcKsqkvR_HgHSK8_9S_pzMgMM8ytlpSzP1WCFmtYM-1779176597.292617-1.0.1.1-xiT5In8yDeAJpD7rh_FXmGIfjq1NnRqXDiBGw.EbzfM;
+      - _cfuvid=9wxI9i6VivdtXXOYhx2CtLzTf1XJsueM1hRJAGn_1dA-1779719065.64138-1.0.1.1-SzMvdGjWgmeSXCZfv3jcuiP7_DhfRDwkkyNnQ3p7YyE;
         HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       X-Robots-Tag:
       - none
@@ -251,70 +245,85 @@ http_interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 9fe178451ef4fdcc-SIN
+      - a01534204a13c7bd-KUL
     body:
       encoding: ASCII-8BIT
       string: |+
         event: message_start
-        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01X7qzeRrhjGn7p5xc6schvu","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":7454,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":3,"service_tier":"standard","inference_geo":"not_available"}}               }
+        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01QjHM3AEGsdErm8EMsSdJtz","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":7322,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":1,"service_tier":"standard","inference_geo":"not_available"}}    }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}       }
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}              }
 
         event: ping
         data: {"type": "ping"}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"Let me parse"}               }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"Let"}   }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" through this JSON data:\n\n1. First entry: Anthropic API with Claude"}}
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" me analyze this JSON data carefully.\n\nLooking at the data, I need to identify:\n1. The arithmetic result of 42 + 27\n2. The number"}           }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" Sonnet 4, result is 42 + 27 = 69,"}     }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" of recorded outputs\n\nFrom looking at the JSON structure, I can see several test results."}         }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" this is 1 recorded output\n2. Second entry: Anthropic OAuth"}         }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" Each has a \"result\" object containing model responses"}              }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" with Claude Sonnet 4, result is 42 + 27 = 69, this is 1 recorded output \n3. Third entry: Groq with GPT OS"}         }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":". Let me examine each one:\n\n1. \"anthropic_apikey_messages_claude-sonnet-4-"}              }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"S 120B, result is 42 + 27 = 69, this is 1 recorded output\n4. Fourth entry: OpenAI API with GPT-5.1"}             }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"20250514\" - This shows 42 + 27 = 69"}         }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":", result is 42 + 27 = 69, this is 1 recorded output\n5. Fifth entry: OpenAI API responses with GPT-5.4, result is 42 + 27 = 69, this is "}  }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" in the response\n2. \"anthropic_oauth_messages_claude-sonnet-4-20250514\" - This also shows 42 + 27 = 69\n3. \"gro"}    }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"1 recorded output\n6. Sixth entry: OpenAI OAuth with GPT-5.4, result is 42 + 27 = 69, this is 1 recorded output\n\nSo all tests"}}
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"q_completions_openai_gpt-oss-120b\" - This also concludes 42 + 27 = 69\n4. \"openai_apikey_completions_gpt-5.1\" - Shows"}          }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" calculated 42 + 27 = 69, and there are 6 recorded"}             }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" \"42 + 27 = 69\"\n5. \"openai_apikey_responses_gpt-5.4\" - Shows \"42 + 27 = 69\"\n6. \"openai_oauth_codex_gpt"}          }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" outputs total."}      }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"-5.4\" - Shows \"42 + 27 = 69\"\n\nSo the arithmetic result is consistently 69 across all outputs."}              }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"EoEHCmIIDRgCKkCX1TL7q+AiQXacAD5Lsu7vs0lHQii/Y1ihENuH1lCJOuctenyZayQlQvsiC2gxTEQh7k+VJCTAUzKIZ4ja0SkCMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIM9DFO2uyIrmbccUEeGgypNHWta9CheqDGqqAiMM93NkpLb8VYyJwUeds8EKcao6zjjnodHoIjz3zGVZA/fC098aE95lGgYfVusfLcsSrMBZlTIG0XGMUgZ56h8/ljp/pJ3MjM+7R11ksnEMDHoZEkDNnFFt0otAn6zD3muhDHgkPrxzNjzph897TDAjPiOj5bZdV3zM3JjShddg/JQh3DB9xJtiqsbgjUJLkwEsWviv70Ytu/aDbSk2xjTYUsIqUazkxTnfWRivT4ERDxI/iey5nXgUIKudDmexvyWPy+oaGAfDgHGbVr3PQe7S5mX5v8FuI3CBOShy03tjtmxGV+WYZkMeUZBEwF6+YpMovuWSXxjERFMb5/fLLs2olgtYjaQxns6/Yy0gthRv28Lwa3canSfgNB9qlRZ9oRAL6CHoXfWQbgEOboXdW5vez0BKJ4HRVfQHnSOcsPE7wS+zfUKW53+TjzN1opNx0Q1E6CZ4RgrI+yKyw3uzmxJ46dUW72UjON9orF6ToOBRIEocTP0STWwG6JH/0cUeD6/+DjZBlCSzshRK5927Ckll0yLOXiTrrAYIOttMoBGJkB5HBHEsME1QZ1CvO/4nZt33F+cUN2OVY0lVauQ3W+IeiRM4R8zql2ojhap/0I9SJGo1xtnAI2tzOPUdt/mtDN+rwur9V01ysN49MJLBzBD+cih3ZoQfg/8T67kkXy4oo2L8ZXjmNj3VpXfp/19GqvxHyI+Jw/YmcUPz5PKzQXieX6MYqsSv0yVAl7x/YiJa5w4r/tkpcewdAXN3LEwh30M3UnqKVe/7HuL2okGErP0d/Q5PXxZxSZ02Bl0L/KP/w0JHx8/rj7u5OYpgHEui84ITlS6X2dUl6ZDcRj31tvxZ/0vUpS+qu11XYWKA1cY2oOqYvk6BGy+bqR9mJKo/Y62NEV/GmCiq6Da+HF9hDjj7/UDxhk4DRMzRTc4lkNyS5slNb9Ss9Ubrc/wtfDcJrgswhj7RpYeo821ZxXaSZ7OeUH0ZoUcVQwBKMJwh7LBY3QOPqM8Dq+IMC9rC7zc4C8GAE="}              }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n\nNow for the number of recorded outputs - I need to count how many individual test results there are."} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" Looking at the structure, there are 6 different \"pair\" entries in the array"}          }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":", each containing a different test result.\n\nSo the answer should be: 42 + 27 = 69"}           }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":", and there are 6 recorded outputs."}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"EpgKCmwIDhgCKkAoy8SBt7KR0F1SkcBK1CSUymRbSf9/xbQ8GZ42C1vqf7p6q96FjmJj6k5jPP9FvzxxmDGsIDFHXllKrpUXlbnCMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4AEIIdGhpbmtpbmcSDAphKubexO+8kSaZOxoMAU0nw9GL/woy0A0TIjBFFb2ifhe02wb7gvhzDeLj2RJnPYI7mtE9rVY0f61bNpCk4ABxVtuhlUXw5TWJmscq2QgdFuvxaLQ9nD1/HetH3PEGKrJjkUwTIGSTeip64bi/CFifvqKkc0sOjOw6Al0ZI63mpVd/R2GdjF9n4Bb3YPYEIon/lAyQv7RvuRPR26VEOB0JWzvKhBe3M6XEcqUmMcNZQ4CuElLFzv3dwAwEBOmJWiz4TF7LAIleKbELcWotNrDi9pXblmWTFqBLFgXyh6L9YlBUMno6/kqcJ9TlDUGtlKJQli4vS+FVE6nwTjiOcdtzQLwXG7lHFkk9lHoXDicO5ak14QJIiStfpaoXQp0KRpKqvd2R1PfxsD1sKhQEhcEwg2ZA+RCUU692muFvx5Ng+DBe4B18F1rvpdWlmmtx5C+HJGUK1SOjeodYn07JByhBOwo21wr7QExa/PGSQWYpOpI10l48lxSBS9oGIPyLMmg/ULJFpIJr94vH3eVeVySNo+Nu24RVg9+sNy0fSc8e+1dCI4l2HvViKaT9qOMPYKcQlSNJ7SD//p1xOUTRbKWSqCm6kiZfyOAMlzYoy0aYCYap8h2Hz5W9SqNdzjM8OwvnHgb7hywAv1p/FPWZbdLqJAreJ0dWWrnCZm7qsIbWax/eHQNrr5Mhn+npk76vB/ct5gM7oQzIdhBZNZSqUxBvDL8LBTfy4OVEsB6xdAwdatKOEuGUMfofuyRGowYdMNmTVoJ2ygXLJfQxNKImniSMcA+oLFnk7k9vQGlZlhNZippVuj9QQP/1sxAdyY43cZYr7ylcety8JGf8hVXumuAsOR4Gprm9NFDPKesUYRf8GTRZk75prabIfBv3bzreTi+YtUtNlPC+GEDX4QZvuQ6biW7i5CwfGdU/ur8qbdbEIKPEBPYJFPygZYofKa0DcpMs7ZgUjlBvqAgp0GjguuKBOeYbWaYVRWRpKcBkqC1p/Vc+S/yMaBCnQCBeYbYiKrcVuFnveO/yD7pKI0F+9j3Q17dyNKeo72ZPbsLX0gaIrQnGrhmTUH7JmEGXdWi+iACzgDyeVxqSY64dBAIJRgsm70LnWijrFkWfu1YnGKXyrY/gQIIxOXIAIvQE/vFEIemlpn/g32XM1A7FEtQBbXnMDw1xyzXlAcQmENu1x/UII6RggQW/GVEdILld5xTbLWDCNRSRHnsc6iEyboYfRaLIKjJnDtFz5whX6Kz8deauHC+s1RZNhXRprXqFxOQ4v06mvGstRR0uRtP93RB7bs61y4gGmS1UlmVLw9y41kSOhZXNxhPM9LsKpeDFIQYCH33Q/+5JyqH4LzcPrkESeiWqe6Tcp4peQSTTpYKFdioPyBi9Vw0E5HDMSrhP9UQ5V9KlSvYQl90N8fc1z5rtjLxXFOb7obUEw/JiK/+vyCMMUdaIE2zWV5Flha4JpHApbZKO4anry19MJ0iqcys+VTR2EDwxbeZrVTcCVaCkAk+2sr9/Cyr6OOj4VQuuBIhw/qBL9IF8VPS9MhbyEWFg95BXUnnP9HgMZWDSrg/PF5bcLShb/cYXbPEYAQ=="}  }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":0  }
+        data: {"type":"content_block_stop","index":0      }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}               }
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}       }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"42 + 27 = 69 and there are 6 recorded outputs."}         }
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"42 + 27 = 69 and there are "}}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"6 recorded outputs."}       }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":1  }
+        data: {"type":"content_block_stop","index":1               }
 
         event: message_delta
-        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":7454,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":295}              }
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":7322,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":400}        }
 
         event: message_stop
-        data: {"type":"message_stop"}
+        data: {"type":"message_stop"               }
 
-  recorded_at: Tue, 19 May 2026 07:43:22 GMT
+  recorded_at: Mon, 25 May 2026 14:24:33 GMT
 recorded_with: VCR 6.4.0
 ...
