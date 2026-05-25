@@ -11,6 +11,8 @@ This guide covers user-facing changes between `v0.5.0` and the latest commit on 
 - Pass the model per request with `model:` when calling `chat`, `stream`, Responses/Codex methods, or embeddings.
 - Legacy provider keys such as `openai_apikey_responses` were removed. Use the shorter provider keys.
 - `LlmGateway::Prompt` now accepts/configures a provider and model separately, and uses `stream` internally.
+- The `client.model_key` reader was removed; track the selected model at the call site or read it from returned messages.
+- Stream event hashes now include `partial`; normal stream consumers are unaffected, but strict `event.to_h` snapshots/comparisons may need updates.
 
 ## 1. Replace legacy provider keys
 
@@ -143,6 +145,8 @@ If omitted, clients still provide default models.
 
 `Prompt` no longer looks up a configured client by comparing a string to `client.model_key`. It now keeps the provider and model as separate values.
 
+If you previously called `Prompt.new("gpt-5.4")`, update that code. The first initializer argument is now a provider adapter, not a model lookup key. Configure a provider on the class or pass one to the initializer.
+
 ### Class-level configuration
 
 ```ruby
@@ -187,7 +191,28 @@ prompt.stream(
 
 If you subclassed `Prompt` and called or overrode `post`, migrate that code to `stream`. `run` now calls `stream` internally.
 
-## 5. OAuth provider names
+## 5. Stop using `client.model_key`
+
+Direct clients no longer expose a `model_key` reader because model selection is no longer client/provider state.
+
+```ruby
+# Before
+client = LlmGateway::Clients::OpenAI.new(
+  api_key: ENV.fetch("OPENAI_API_KEY"),
+  model_key: "gpt-5.4"
+)
+puts client.model_key
+
+# After
+client = LlmGateway::Clients::OpenAI.new(
+  api_key: ENV.fetch("OPENAI_API_KEY")
+)
+model = "gpt-5.4"
+result = client.stream(messages, model: model)
+# Track `model` at the call site when you need it later.
+```
+
+## 6. OAuth provider names
 
 OAuth is now represented by credentials, not by separate legacy provider keys.
 
@@ -210,7 +235,7 @@ adapter.stream("Hello from OAuth auth", model: "gpt-5.4")
 
 For Anthropic OAuth, use `provider: "anthropic_messages"` with an `access_token`.
 
-## 6. Cross-provider handoff note
+## 7. Cross-provider handoff note
 
 Message sanitization for cross-provider/model handoffs now receives the target model from the request options. When replaying or handing off transcripts across providers/models, pass `model:` explicitly on the destination call so model-specific sanitizer behavior can run.
 
@@ -221,11 +246,29 @@ next_response = target_adapter.stream(
 )
 ```
 
+## 8. Stream event hash snapshots
+
+Stream events now expose a `partial` assistant message, so `event.to_h` includes an additional `partial` field.
+
+This is additive for normal stream callback consumers:
+
+```ruby
+adapter.stream("Hello", model: "gpt-5.4") do |event|
+  puts event.type
+  puts event.delta if event.respond_to?(:delta)
+end
+```
+
+If your tests or application code compare full `event.to_h` hashes or snapshot serialized events, update those expectations to include or ignore `partial`.
+
 ## Checklist
 
 - [ ] Replace all legacy provider keys with the new provider keys.
 - [ ] Remove `model_key:` from `build_provider`, `configure`, and direct client constructors.
+- [ ] Remove any direct reads of `client.model_key` / `adapter.client.model_key`.
 - [ ] Add `model:` to `chat`, `stream`, Responses/Codex, and embeddings calls where you need a specific model.
 - [ ] Update `Prompt` subclasses to configure `provider` and `model` separately.
+- [ ] Replace `Prompt.new("model-key")` model lookup usage with explicit provider/model configuration.
 - [ ] Replace custom `Prompt#post` usage with `Prompt#stream`.
 - [ ] For cross-provider handoffs, pass the target `model:` explicitly.
+- [ ] Update strict `event.to_h` stream event snapshots/comparisons for the new `partial` field.
