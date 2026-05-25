@@ -12,8 +12,10 @@ This guide covers user-facing changes between `v0.5.0` and the latest commit on 
 - Legacy provider keys such as `openai_apikey_responses` were removed. Use the shorter provider keys.
 - `LlmGateway::Prompt` now accepts/configures a provider and model separately, and uses `stream` internally.
 - The `client.model_key` reader was removed; track the selected model at the call site or read it from returned messages.
-- Streaming `:message_end` callbacks now receive a dedicated end event with `message`, not a partial-message event with `partial`.
+- Streaming events now expose accumulated partial messages during the stream, while `:message_end` exposes the final message through `event.message`.
 - Non-final stream event hashes now include `partial`; normal stream consumers are unaffected, but strict `event.to_h` snapshots/comparisons may need updates.
+- Normalized usage counters were renamed to concise keys: `:input`, `:cache_write`, `:cache_read`, and `:output`; `:reasoning_tokens` was removed.
+- Streamed assistant messages now include `timestamp` as Unix milliseconds.
 - Custom stream mappers must initialize with provider/API metadata and emit a final `:message_end` patch.
 
 ## 1. Replace legacy provider keys
@@ -273,7 +275,50 @@ adapter.stream("Hello", model: "gpt-5.4") do |event|
 end
 ```
 
-## 8. Update custom stream mappers
+## 8. Update usage accounting keys
+
+Normalized `AssistantMessage#usage`, `event.partial.usage`, and `event.usage_increment` now use provider-independent concise keys:
+
+| 0.5.x key | 0.6.0 key |
+|---|---|
+| `:input_tokens` | `:input` |
+| `:cache_creation_input_tokens` | `:cache_write` |
+| `:cache_read_input_tokens` | `:cache_read` |
+| `:output_tokens` | `:output` |
+| `:reasoning_tokens` | removed |
+
+`reasoning_tokens` was removed because providers expose and calculate reasoning token counts inconsistently. Use the streamed/final `ReasoningContent` blocks for reasoning text, and treat usage as the normalized token buckets above.
+
+```ruby
+# Before
+result.usage[:input_tokens]
+result.usage[:cache_read_input_tokens]
+result.usage[:output_tokens]
+
+# After
+result.usage[:input]
+result.usage[:cache_read]
+result.usage[:output]
+```
+
+When checking cache behavior, use `usage[:cache_read]` and `usage[:cache_write]`.
+
+## 9. Account for timestamps on streamed messages
+
+`PartialAssistantMessage` and `AssistantMessage` now include a `timestamp` field in Unix milliseconds. Provider-supplied timestamps are preserved when available; otherwise the accumulator assigns one.
+
+```ruby
+response = adapter.stream("Hello", model: "gpt-5.4") do |event|
+  puts event.partial.timestamp if event.respond_to?(:partial)
+end
+
+puts response.timestamp
+puts response.to_h[:timestamp]
+```
+
+If you instantiate `PartialAssistantMessage` or `AssistantMessage` directly in tests or custom integrations, include `timestamp:`.
+
+## 10. Update custom stream mappers
 
 If you implemented a custom adapter or stream mapper, update it for the new final-message flow.
 
@@ -285,18 +330,18 @@ mapper = MyStreamMapper.new(provider: "openai", api: "responses")
 
 `Adapter#stream` passes these values automatically when it instantiates the configured mapper, but direct mapper construction and custom initializers must accept/pass these keywords.
 
-Custom mappers must also push a final normalized end patch:
+Custom mappers must also push a final normalized end patch. Use the normalized usage keys shown above for `usage_increment`.
 
 ```ruby
 push_patches([
-  { type: :message_delta, delta: { stop_reason: "stop" }, usage_increment: usage },
+  { type: :message_delta, delta: { stop_reason: "stop" }, usage_increment: { output: 12 } },
   { type: :message_end }
 ], &block)
 ```
 
 `StreamMapper#result` now returns the final `AssistantMessage` created by the `:message_end` patch. If a custom mapper never emits `:message_end`, `adapter.stream` will not have a final message to return.
 
-## 9. Cross-provider handoff note
+## 11. Cross-provider handoff note
 
 Message sanitization for cross-provider/model handoffs now receives the target model from the request options. When replaying or handing off transcripts across providers/models, pass `model:` explicitly on the destination call so model-specific sanitizer behavior can run.
 
@@ -307,7 +352,7 @@ next_response = target_adapter.stream(
 )
 ```
 
-## 10. Stream event hash snapshots
+## 12. Stream event hash snapshots
 
 Non-final stream events now expose a `partial` assistant message, so `event.to_h` includes an additional `partial` field.
 
@@ -332,6 +377,8 @@ If your tests or application code compare full `event.to_h` hashes or snapshot s
 - [ ] Replace `Prompt.new("model-key")` model lookup usage with explicit provider/model configuration.
 - [ ] Replace custom `Prompt#post` usage with `Prompt#stream`.
 - [ ] Update stream callbacks to read `event.message` for `:message_end` and `event.partial` only for non-final events.
-- [ ] Update custom stream mappers to accept `provider:` / `api:` and emit `{ type: :message_end }`.
+- [ ] Rename normalized usage lookups to `:input`, `:cache_write`, `:cache_read`, and `:output`; remove `:reasoning_tokens` handling.
+- [ ] Include/read `timestamp` on streamed partial and final assistant messages where you construct or persist those objects.
+- [ ] Update custom stream mappers to accept `provider:` / `api:`, emit normalized usage keys, and emit `{ type: :message_end }`.
 - [ ] For cross-provider handoffs, pass the target `model:` explicitly.
 - [ ] Update strict `event.to_h` stream event snapshots/comparisons for the new `partial` field.
