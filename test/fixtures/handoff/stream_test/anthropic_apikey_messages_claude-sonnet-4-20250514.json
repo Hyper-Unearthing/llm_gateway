@@ -3,11 +3,10 @@
     "id": "msg_01HqPzRRCiNqFt44RKZoyqTu",
     "model": "claude-sonnet-4-20250514",
     "usage": {
-      "input_tokens": 1434,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "output_tokens": 35,
-      "reasoning_tokens": 0
+      "input": 1434,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 35
     },
     "role": "assistant",
     "stop_reason": "stop",
@@ -24,11 +23,10 @@
     "id": "msg_01338vvFNjWiP7bKQUCKfDkS",
     "model": "claude-sonnet-4-20250514",
     "usage": {
-      "input_tokens": 30,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "output_tokens": 10,
-      "reasoning_tokens": 0
+      "input": 30,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 10
     },
     "role": "assistant",
     "stop_reason": "stop",
@@ -45,11 +43,10 @@
     "id": "msg_017gFdPN1ZD5xsf54AP5mLoK",
     "model": "claude-sonnet-4-20250514",
     "usage": {
-      "input_tokens": 914,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "output_tokens": 110,
-      "reasoning_tokens": 0
+      "input": 914,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 110
     },
     "role": "assistant",
     "stop_reason": "tool_use",

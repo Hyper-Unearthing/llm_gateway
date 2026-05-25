@@ -12,18 +12,16 @@ http_interactions:
         number of recorded outputs\nas an Arabic numeral.\n\n[\n  {\n    \"pair\":
         \"anthropic_apikey_messages_claude-sonnet-4-20250514\",\n    \"result\": {\n      \"live_image_streaming_anthropic_apikey_messages_claude-sonnet-4-20250514\":
         {\n        \"id\": \"msg_01TvkroeJuCSKgzaMuoxghvD\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
-        {\n          \"input_tokens\": 242,\n          \"cache_creation_input_tokens\":
-        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
-        29,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        {\n          \"input\": 121,\n          \"cache_write\": 0,\n          \"cache_read\":
+        0,\n          \"output\": 25\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
         \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
         [\n          {\n            \"type\": \"text\",\n            \"text\": \"I
         see a red circle in this image. The shape is a perfect circle and the color
         is bright red.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
         \"anthropic_oauth_messages_claude-sonnet-4-20250514\",\n    \"result\": {\n      \"live_image_streaming_anthropic_oauth_messages_claude-sonnet-4-20250514\":
         {\n        \"id\": \"msg_012RMMJbsb5JBoZS8KyjD5kh\",\n        \"model\": \"claude-sonnet-4-20250514\",\n        \"usage\":
-        {\n          \"input_tokens\": 270,\n          \"cache_creation_input_tokens\":
-        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
-        27,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        {\n          \"input\": 135,\n          \"cache_write\": 0,\n          \"cache_read\":
+        0,\n          \"output\": 25\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
         \"stop\",\n        \"provider\": \"anthropic\",\n        \"api\": \"messages\",\n        \"content\":
         [\n          {\n            \"type\": \"text\",\n            \"text\": \"I
         see a red circle in this image. The shape is a perfect circle and the color
@@ -31,37 +29,33 @@ http_interactions:
         \"groq_completions_meta-llama_llama-4-scout-17b-16e-instruct\",\n    \"result\":
         {\n      \"live_image_streaming_groq_completions_meta-llama/llama-4-scout-17b-16e-instruct\":
         {\n        \"id\": \"chatcmpl-e9d292f7-7458-415b-95f1-be6c49e29d33\",\n        \"model\":
-        \"meta-llama/llama-4-scout-17b-16e-instruct\",\n        \"usage\": {\n          \"input_tokens\":
-        209,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
-        0,\n          \"output_tokens\": 18,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
-        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
-        \"groq\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
-        \"text\",\n            \"text\": \"I see a circle. The circle is red and it
-        is on a white background.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
+        \"meta-llama/llama-4-scout-17b-16e-instruct\",\n        \"usage\": {\n          \"input\":
+        209,\n          \"cache_write\": 0,\n          \"cache_read\": 0,\n          \"output\":
+        18\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
+        \"stop\",\n        \"provider\": \"groq\",\n        \"api\": \"completions\",\n        \"content\":
+        [\n          {\n            \"type\": \"text\",\n            \"text\": \"I
+        see a circle. The circle is red and it is on a white background.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
         \"openai_apikey_completions_gpt-5.1\",\n    \"result\": {\n      \"live_image_streaming_openai_apikey_completions_gpt-5.1\":
         {\n        \"id\": \"chatcmpl-Dh8Y81vEYap50oFAlfIivp9ju15KO\",\n        \"model\":
-        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input_tokens\":
-        265,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
-        0,\n          \"output_tokens\": 19,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"gpt-5.1-2025-11-13\",\n        \"usage\": {\n          \"input\": 265,\n          \"cache_write\":
+        0,\n          \"cache_read\": 0,\n          \"output\": 19\n        },\n        \"role\":
         \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
         \"openai\",\n        \"api\": \"completions\",\n        \"content\": [\n          {\n            \"type\":
         \"text\",\n            \"text\": \"I see a red circle on a white background.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
         \"openai_apikey_responses_gpt-5.4\",\n    \"result\": {\n      \"live_image_streaming_openai_apikey_responses_gpt-5.4\":
         {\n        \"id\": \"resp_065de5c18ed0755f006a0c07de194481909328a7cc6eb794d8\",\n        \"model\":
-        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input_tokens\":
-        114,\n          \"cache_creation_input_tokens\": 0,\n          \"cache_read_input_tokens\":
-        0,\n          \"output_tokens\": 12,\n          \"reasoning_tokens\": 0\n        },\n        \"role\":
+        \"gpt-5.4-2026-03-05\",\n        \"usage\": {\n          \"input\": 114,\n          \"cache_write\":
+        0,\n          \"cache_read\": 0,\n          \"output\": 12\n        },\n        \"role\":
         \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
         \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"type\":
         \"text\",\n            \"text\": \"A red circle on a white background.\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"pair\":
         \"openai_oauth_codex_gpt-5.4\",\n    \"result\": {\n      \"live_image_streaming_openai_oauth_codex_gpt-5.4\":
         {\n        \"id\": \"resp_06bd1afb2e5bd478016a0c07e360b88191ab1d5ef520a14032\",\n        \"model\":
-        \"gpt-5.4\",\n        \"usage\": {\n          \"input_tokens\": 114,\n          \"cache_creation_input_tokens\":
-        0,\n          \"cache_read_input_tokens\": 0,\n          \"output_tokens\":
-        8,\n          \"reasoning_tokens\": 0\n        },\n        \"role\": \"assistant\",\n        \"stop_reason\":
-        \"stop\",\n        \"provider\": \"openai\",\n        \"api\": \"responses\",\n        \"content\":
-        [\n          {\n            \"type\": \"text\",\n            \"text\": \"A
-        red circle.\"\n          }\n        ]\n      }\n    }\n  }\n]\n"}]}],"system":[{"type":"text","text":"You
+        \"gpt-5.4\",\n        \"usage\": {\n          \"input\": 114,\n          \"cache_write\":
+        0,\n          \"cache_read\": 0,\n          \"output\": 8\n        },\n        \"role\":
+        \"assistant\",\n        \"stop_reason\": \"stop\",\n        \"provider\":
+        \"openai\",\n        \"api\": \"responses\",\n        \"content\": [\n          {\n            \"type\":
+        \"text\",\n            \"text\": \"A red circle.\"\n          }\n        ]\n      }\n    }\n  }\n]\n"}]}],"system":[{"type":"text","text":"You
         are Claude Code, Anthropic''s official CLI for Claude."}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":10240},"stream":true}'
     headers:
       Accept-Encoding:
@@ -90,7 +84,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 19 May 2026 07:13:35 GMT
+      - Mon, 25 May 2026 14:24:00 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -104,41 +98,41 @@ http_interactions:
       Anthropic-Ratelimit-Unified-5h-Status:
       - allowed
       Anthropic-Ratelimit-Unified-5h-Reset:
-      - '1779175200'
+      - '1779730200'
       Anthropic-Ratelimit-Unified-5h-Utilization:
-      - '0.23'
+      - '0.12'
       Anthropic-Ratelimit-Unified-7d-Status:
       - allowed
       Anthropic-Ratelimit-Unified-7d-Reset:
-      - '1779274800'
+      - '1779879600'
       Anthropic-Ratelimit-Unified-7d-Utilization:
-      - '0.02'
+      - '0.19'
       Anthropic-Ratelimit-Unified-Representative-Claim:
       - five_hour
       Anthropic-Ratelimit-Unified-Fallback-Percentage:
       - '0.5'
       Anthropic-Ratelimit-Unified-Reset:
-      - '1779175200'
+      - '1779730200'
       Anthropic-Ratelimit-Unified-Overage-Disabled-Reason:
       - org_level_disabled
       Anthropic-Ratelimit-Unified-Overage-Status:
       - rejected
       Request-Id:
-      - req_011CbBWk8aWtRsYzc2zPRLXZ
+      - req_011CbPSRHhjxiqSXwBhf7BX6
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 158912a9-5288-4061-b004-8c1100f6ed5b
       Traceresponse:
-      - 00-c8ae8ba73c34bf61e508ef7e548b9907-709c9bd19060dc96-01
+      - 00-f6965fd243649d4099d209b9e0243b39-0147e958fd42a57f-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '889'
+      - '1321'
       Vary:
       - Accept-Encoding
       Set-Cookie:
-      - _cfuvid=.X6p2C8gX3XDQ_Gx_W.LoWS3.q5TGckI2X9SrmgKZ8E-1779174814.0801682-1.0.1.1-XN0kGYb7Nts5cDJajo1qHz1pygfD4nxnmz3fXZmXPw0;
+      - _cfuvid=V3_W1NaE.UWxaxuGo4gv6zlF0260XLeQYHN7UAMpG4o-1779719038.2809496-1.0.1.1-lsw1paiazQiQ9R3gt3ORxYeVwsCjNG4MT2LCYGfJsCc;
         HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       X-Robots-Tag:
       - none
@@ -147,73 +141,67 @@ http_interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - 9fe14cbbff7bfd6d-SIN
+      - a01533754c02f004-KUL
     body:
       encoding: ASCII-8BIT
       string: |+
         event: message_start
-        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_012LBMBN8XGa2uYxrQjdpdrA","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":1719,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":4,"service_tier":"standard","inference_geo":"not_available"}}         }
+        data: {"type":"message_start","message":{"model":"claude-sonnet-4-20250514","id":"msg_01UvVSiWikN8XrrnVuGwHb1W","type":"message","role":"assistant","content":[],"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":1587,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":7,"service_tier":"standard","inference_geo":"not_available"}} }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""} }
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}    }
 
         event: ping
         data: {"type": "ping"}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"Looking at the JSON"}         }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"Let me analyze each recorded output from"}      }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" outputs, I need to analyze what all the previous assistants saw and count the number"}           }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" the JSON:\n\n1. First assistant (claude-sonnet-4-20250514 via"}       }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" of outputs.\n\nFrom the outputs, I can see:\n1. \"I see a red circle in this"}           }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" anthropic apikey): \"I see a red circle in this image. The shape is a perfect circle and the color is bright red.\"\n\n2. Second assistant (claude-sonnet-4-20250514 via anthropic oauth"}          }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" image. The shape is a perfect circle and the color"}          }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"): \"I see a red circle in this image. The shape is a perfect circle and the color is bright red.\"\n\n3. Third assistant (llama-4-scout via groq): \"I see a circle. The circle is red and it is on a white background.\"\n\n4."}            }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" is bright red.\" (Claude Sonnet)\n2. \"I see a red circle in this image. The shape is a perfect"}            }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" Fourth assistant (gpt-5.1 via openai): \"I see a red circle on a white background.\"\n\n5. Fifth assistant (gpt-5.4 via openai responses): \"A red circle on a white background.\"\n\n6. Sixth assistant"}  }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" circle and the color is bright red.\" (Claude Sonnet OAuth)\n3. \"I see a circle. The circle is red and it is on a white background.\" (Ll"}  }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" (gpt-5.4 via openai oauth): \"A red circle.\"\n\nAll of them consistently describe:\n- Shape: circle"}       }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"ama)\n4. \"I see a red circle on a white background.\" (GPT-5.1)\n5. \"A red circle on a white background.\" (GPT-5.4)"}          }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n- Color: red\n- Number of outputs: I count 6 different outputs in the array"}               }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n6. \"A red circle.\" (GPT-5.4 OAuth)\n\nAll assistants consistently saw:\n- Shape"}        }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n\nSo they all saw a red circle, and there are 6 recorded outputs."}  }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":": Circle\n- Color: Red\n- Number of outputs: 6\n\nSo the answer should include: circle, red, and"}}
-
-        event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" 6 as an Arabic numeral."}}
-
-        event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"Er0HCmIIDRgCKkBoh8+5amvyrJiCPa9tiM3ctKh3aTxe7t/cu+fGqlJySRT5O/46CikaQXORVs+QweUzkZqnAJcuaY3lut6Bomt2MhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4ABIM9vm5T7QypAyuUP+iGgxaGCqb75oVIi4lLOUiMLyE3T/guQ3ijvstGb3DiU2HuavxL4QbdTfqLJkE0nWHw1xkuLaR+V3bafwmTT5yPyqIBtlGzUuNn+CEYg/Hi5aof1WJ2ZTaqpXuLur0q1EOSzjSUY/bUhECRNekZSJprNQmAiv3tQN8gt6Qom8MZ4ATQDtImmNo2ubt8UFGMns+GVbLlzEQ4QzEeAY8od52R7pihQ0ISP+jIPHdvmJ85jn7A1a7Bd/i2ew35hKFqoWLvQ2MFHJpSjPHh2cZp6Lc3HWyinkghYrzMoDVpgY9BC+2BDuczCaP8suNLN883AzKm4g4d4xw0i6zOijQw52hFu97Gxg/KfcPcfzhZlMq6C0jmWT47cmdkyhGrL+1TSX3/+xRUifmWIpE+B+Su5m6UABhjjdMcysACk4gyL/TWI4mXYxZ8Fcn+zuiP/na9IyRioZhMXXlGio5kT1ic0xyWN2SbLhb2gqUC9wSwtK7wGschXsXuArP4EO8GUtzPz87AIdbb+51fM95g8MWjO5qsMNhyJfhRGwDA8IQMR1lDHGhuOkhiJkKQwzpQP22ewEt4awm5LslCcbUnyz0FTyY2Qk6KM+XLgpNQ0mQKOSLp49YkYCBzoM+DVMl9IHNWVozqyYVV7c6+hlemL0ChBNAMY4sU/4+eNX2cpBZxpUfny1Ye3NazhORQgAd0tmTkAcbhyKIQAM+d4tf27jZJSaUXJroUmw0KcppIEtZyaZTGW/piB62xZlzSxFaQS/+bNojwgsjLnqIwXUCohMVtdodvULY9YOkAubw+riyxDFemJbDutFv5PPBKglDNEbgTrTnpY/AtkWExx+Yk5RrKEpFWT7R1KKlate1YWLxWkqmN341RIxBbwjwrm8x4DvMs6ZKc51gK8N64QctHlRuG9R0wO1Klgq3UbR+hB8CS/BsttiZ6myiWWvENVCpLJHmIC/O7W2FSKhGhB98M0pybymYB0nuZFW7XZ+RyzPXGUzLBx0wGsD1ptkUcol+0YHE4nT25MHh1sNbLha/sUN6KHRtyKf2xCRBinA2nnLYVrO1EdfomqFfuTiHe2/ME3SZEtp6jAlZ4J0QIcu4q0VACu7I+nLxAJ8HXqK8x0tZGAE="}  }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"EuoICmwIDhgCKkBfJafjVDTUvlP+Ql1szNQ0f4pEv+qScuV7aVQSPhKqHm7jE2Xr58EmgZag1eExtLItitjSKMyRHws3El+/jrzzMhhjbGF1ZGUtc29ubmV0LTQtMjAyNTA1MTQ4AEIIdGhpbmtpbmcSDPqp6rSqI+r9v+UfiRoM2DdP1nqyUqwrjnzAIjBNMvbVBzQwd4wUuCRb7PSHEWmhZOi3zuMnbwO/xHl1sE6dyjw6ZxHfhGelfCKOfhwqqwdTGGaWOjTcFHBauA1NPm9wJJvUs2xR6MRx20Zc5od839NA3tU0ecMlO+LNLihBlxYDPJCAZ2NEMOo24uMsXKrec2haH8sNYmmis77BvOvrNZn305HiESQLJ7BjFeuQh9WubqAvQeeC4E/CzT7Vf57a8h0dbwENm1xeVJ0CoRyS1KzlSa4rgtI6cpswLhKqymAE4m0PC/3T9U3p27pR4aP82jYu0XOWnqt1P6VQJMsfcee9p9ghr26s7l3vHH6MdrMur9IhOTbrTIRJGuiN7agIVFnReoCCkQKH8elKnoB6omWKnd8ESVMZMMNS3Xn8yviBSDalYDuG6M2b8FlTk7WSiWukgv2uMe6AF6iwVQwt27r18JKnGise3SFXCJs40rbcXyvx1f1Hwo5AjOq7PTBDerV18xKxTKaSHDb04/woKa/1cGnjhF3hg0YKy+FF6DHGu1ClEZtXjEo6Q6D2F7yaAwAirTaC7c47SAEeP+/CtDAGupwYD5QZN+mJoZc0U+hYBzXmBRivAwWflkIBEDDQv1VQqqHNYtfHi94Vi1Hd/RQrBNUfmot2N3NsHBwl4hzq55odTzR5QxzWgeS/uoV6vlbF4BmR42Guf25NSWFQbo7IKk3zzdBTvd12zWZ2LEIB2elCLGKu2eOk0T+SE4agCw7+CBB2/P5Hu824lE/R4prYfOWkpP8u1+DKDm1ALTh7YdU/dmafRWc88WRfYWsjdIsWChbinimco9VVDSXBuLAPTayajfI/u1ElV/QxyWaZUBTNePC3B9myYiBqiw5ZMEwkQY1hRxTA/+wQCGEnf65X1zvsC6t7gGg4B3jsXBCqkqcjpjN3qBo2WXKQ4PCwADXuoUGU8RbsedGERgWBfEb3FJc+71IUnmro8rnJklwIS37cvrygVRxTzDkws+CKGJfLehiKuWBGwu1tDIlJYL4m1Fa6FROpH1Ob7ZIjSgMh/5WWOnc5Z0L5fjGFufySRfy8DRL7C2zi4dcaUjPTQM4uTjW2yoEnMTuVUryW0F4x4cxRMuzAuBa1cJZyulA9Tc33TtF3SFq9D25V8gCAMOs8RXMcJH7XGf1rGFjHHzTOwtUOsSr2pc4SWiVSBP+C1vZCDEaw3nJqC2Wwg2O7ay7dE0Kv535D8rWr5AhoJelNc5tCwy0umOlV0L5eqmKiw8XH9geHpnlZM4OhNDY5DvXfoJN/507tB8XcvUnfW398UW8HQP/D8rjzxEoaEzmUO2fKKJr0q2rzEGMYAQ=="}}
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":0     }
+        data: {"type":"content_block_stop","index":0               }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}            }
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}             }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"Based on 6 recorded outputs,"}      }
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"All"}  }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" all previous assistants saw a red circle."}           }
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" 6 previous assistants saw a red circle."}  }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":1          }
+        data: {"type":"content_block_stop","index":1         }
 
         event: message_delta
-        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":1719,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":258}       }
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null},"usage":{"input_tokens":1587,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":288}     }
 
         event: message_stop
-        data: {"type":"message_stop"              }
+        data: {"type":"message_stop"      }
 
-  recorded_at: Tue, 19 May 2026 07:13:39 GMT
+  recorded_at: Mon, 25 May 2026 14:24:04 GMT
 recorded_with: VCR 6.4.0
 ...

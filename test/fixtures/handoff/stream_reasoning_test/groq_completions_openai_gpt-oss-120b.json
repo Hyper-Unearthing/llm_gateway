@@ -3,11 +3,10 @@
     "id": "chatcmpl-b11b89c4-1f9b-41b8-ae7f-3e19a6461263",
     "model": "openai/gpt-oss-120b",
     "usage": {
-      "input_tokens": 81,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "output_tokens": 717,
-      "reasoning_tokens": 255
+      "input": 81,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 717
     },
     "role": "assistant",
     "stop_reason": "stop",

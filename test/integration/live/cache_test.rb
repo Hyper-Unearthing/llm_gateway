@@ -129,15 +129,15 @@ class CacheLiveTest < Test
   def assert_cache_hit_on_second_turn(adapter, options: {})
     second_response = run_two_turn_cache_probe(adapter, options: options)
 
-    assert_operator second_response.usage[:cache_read_input_tokens], :>, 0,
-      "Expected cache_read_input_tokens > 0 with options #{options.inspect}, got #{second_response.usage.inspect}"
+    assert_operator second_response.usage[:cache_read], :>, 0,
+      "Expected cache_read > 0 with options #{options.inspect}, got #{second_response.usage.inspect}"
   end
 
   def assert_no_cache_hit_on_second_turn(adapter, options: {})
     second_response = run_two_turn_cache_probe(adapter, options: options)
 
-    assert_equal 0, second_response.usage[:cache_read_input_tokens].to_i,
-      "Expected cache_read_input_tokens to be 0 with options #{options.inspect}, got #{second_response.usage.inspect}"
+    assert_equal 0, second_response.usage[:cache_read].to_i,
+      "Expected cache_read to be 0 with options #{options.inspect}, got #{second_response.usage.inspect}"
   end
 
   def self.define_cache_tests_for(name:, provider:, cassette_provider:, model:, oauth:, options: {})

@@ -69,11 +69,10 @@ module LlmGateway
         @api = api
         @message_hash = {}
         @usage_hash = {
-          input_tokens: 0,
-          cache_creation_input_tokens: 0,
-          cache_read_input_tokens: 0,
-          output_tokens: 0,
-          reasoning_tokens: 0
+          input: 0,
+          cache_write: 0,
+          cache_read: 0,
+          output: 0
         }
         @blocks = []
         @next_content_index = 0

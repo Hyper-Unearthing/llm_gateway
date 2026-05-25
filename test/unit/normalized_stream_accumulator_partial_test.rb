@@ -8,10 +8,10 @@ class NormalizedStreamAccumulatorPartialTest < Test
     events = []
 
     [
-      { type: :message_start, delta: { id: "msg_1", model: "test-model", role: "assistant" }, usage_increment: { input_tokens: 3 } },
+      { type: :message_start, delta: { id: "msg_1", model: "test-model", role: "assistant" }, usage_increment: { input: 3 } },
       { type: :text_start, delta: "hel" },
       { type: :text_delta, delta: "lo" },
-      { type: :message_delta, delta: { stop_reason: "stop" }, usage_increment: { output_tokens: 2 } },
+      { type: :message_delta, delta: { stop_reason: "stop" }, usage_increment: { output: 2 } },
       { type: :text_end },
       { type: :message_end }
     ].each do |patch|
@@ -23,7 +23,7 @@ class NormalizedStreamAccumulatorPartialTest < Test
     assert_equal "hel", events[1].partial.content[0].text
     assert_equal "hello", events[2].partial.content[0].text
     assert_equal "stop", events[3].partial.stop_reason
-    assert_equal 2, events[3].partial.usage[:output_tokens]
+    assert_equal 2, events[3].partial.usage[:output]
 
     message_end = events.last
     assert(message_end.message.is_a?(AssistantMessage))

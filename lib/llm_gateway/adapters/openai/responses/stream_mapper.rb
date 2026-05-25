@@ -124,14 +124,23 @@ module LlmGateway
 
           def usage_increment(response)
             usage = response[:usage] || {}
+            cache_read = token_count(usage.dig(:input_tokens_details, :cached_tokens))
+            cache_write = token_count(
+              usage.dig(:input_tokens_details, :cache_write_tokens),
+              usage[:cache_write_tokens]
+            )
+            input_tokens = token_count(usage[:input_tokens])
 
             {
-              input_tokens: usage[:input_tokens] || 0,
-              cache_creation_input_tokens: 0,
-              cache_read_input_tokens: usage.dig(:input_tokens_details, :cached_tokens) || 0,
-              output_tokens: usage[:output_tokens] || 0,
-              reasoning_tokens: usage.dig(:output_tokens_details, :reasoning_tokens) || 0
+              input: [ input_tokens - cache_read - cache_write, 0 ].max,
+              cache_write:,
+              cache_read:,
+              output: token_count(usage[:output_tokens])
             }
+          end
+
+          def token_count(*values)
+            values.compact.first.to_i
           end
 
           def stop_reason_for(response)
