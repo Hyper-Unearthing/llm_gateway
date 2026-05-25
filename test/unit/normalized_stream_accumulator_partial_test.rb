@@ -38,6 +38,44 @@ class NormalizedStreamAccumulatorPartialTest < Test
     assert_equal accumulator.result[:content], message_end.message.content.map(&:to_h)
   end
 
+  test "end events expose finalized block content directly" do
+    accumulator = LlmGateway::Adapters::NormalizedStreamAccumulator.new
+    events = []
+
+    [
+      { type: :text_start, delta: "hel" },
+      { type: :text_delta, delta: "lo" },
+      { type: :text_end },
+      { type: :reasoning_start, delta: "think" },
+      { type: :reasoning_delta, delta: "ing", signature: "sig" },
+      { type: :reasoning_end },
+      { type: :tool_start, id: "tool_1", name: "search" },
+      { type: :tool_delta, delta: '{"query":"ruby"}' },
+      { type: :tool_end }
+    ].each do |patch|
+      accumulator.push(patch) { |event| events << event }
+    end
+
+    text_end = events.find { |event| event.type == :text_end }
+    assert_equal "hello", text_end.content
+    assert_equal "hello", text_end.text
+    assert_equal "hello", text_end.partial.content[text_end.content_index].text
+
+    reasoning_end = events.find { |event| event.type == :reasoning_end }
+    assert_equal "thinking", reasoning_end.content
+    assert_equal "thinking", reasoning_end.reasoning
+    assert_equal "thinking", reasoning_end.partial.content[reasoning_end.content_index].reasoning
+    assert_equal "sig", reasoning_end.partial.content[reasoning_end.content_index].signature
+
+    tool_end = events.find { |event| event.type == :tool_end }
+    assert_equal tool_end.partial.content[tool_end.content_index], tool_end.content
+    assert_equal tool_end.partial.content[tool_end.content_index], tool_end.tool_call
+    assert_equal tool_end.tool_call, tool_end.tool
+    assert_equal "tool_1", tool_end.tool_call.id
+    assert_equal "search", tool_end.tool_call.name
+    assert_equal({ query: "ruby" }, tool_end.tool_call.input)
+  end
+
   test "partial assistant message allows incomplete messages but assistant message does not" do
     partial = PartialAssistantMessage.new(model: "test-model")
 

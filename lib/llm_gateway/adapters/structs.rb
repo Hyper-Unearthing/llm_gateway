@@ -108,6 +108,37 @@ class AssistantStreamEvent < BaseStruct
   attribute :delta, Types::Coercible::String.default { "" }
   attribute :content_index, Types::Integer
   attribute :partial, Types.Instance(PartialAssistantMessage)
+
+  def content
+    case type
+    when :text_end
+      finalized_content_block&.text
+    when :reasoning_end
+      finalized_content_block&.reasoning
+    when :tool_end
+      finalized_content_block
+    end
+  end
+
+  def text
+    content if type == :text_end
+  end
+
+  def reasoning
+    content if type == :reasoning_end
+  end
+
+  def tool_call
+    finalized_content_block if type == :tool_end
+  end
+
+  alias tool tool_call
+
+  private
+
+  def finalized_content_block
+    partial.content&.[](content_index)
+  end
 end
 
 class AssistantToolStartEvent < AssistantStreamEvent
