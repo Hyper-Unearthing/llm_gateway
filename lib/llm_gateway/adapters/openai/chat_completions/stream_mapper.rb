@@ -94,8 +94,7 @@ module LlmGateway
                   model: data[:model],
                   role: delta[:role] || "assistant",
                   timestamp: timestamp_milliseconds(data[:created])
-                }.compact,
-                usage_increment: {}
+                }.compact
               }
             ]
           end
@@ -199,24 +198,25 @@ module LlmGateway
               *close_active_block_patches(active_block_type:),
               {
                 type: :message_delta,
-                delta: { stop_reason: normalize_stop_reason(finish_reason) },
-                usage_increment: {}
+                delta: { stop_reason: normalize_stop_reason(finish_reason) }
               }
             ]
           end
 
           def final_usage_patches(data)
+            patch = {
+              type: :message_delta,
+              delta: {}
+            }
+            patch[:usage] = usage(data) if data.key?(:usage)
+
             [
-              {
-                type: accumulator.message_hash.empty? ? :message_start : :message_delta,
-                delta: {},
-                usage_increment: usage_increment(data)
-              },
+              patch,
               { type: :message_end }
             ]
           end
 
-          def usage_increment(data)
+          def usage(data)
             usage = data[:usage] || {}
             cache_read = token_count(
               usage.dig(:prompt_tokens_details, :cached_tokens),
@@ -227,12 +227,16 @@ module LlmGateway
               usage[:cache_write_tokens]
             )
             prompt_tokens = token_count(usage[:prompt_tokens])
+            input = [ prompt_tokens - cache_read - cache_write, 0 ].max
+            output = token_count(usage[:completion_tokens])
 
             {
-              input: [ prompt_tokens - cache_read - cache_write, 0 ].max,
+              input:,
               cache_write:,
               cache_read:,
-              output: token_count(usage[:completion_tokens])
+              output:,
+              total: input + cache_write + cache_read + output,
+              raw: usage
             }
           end
 

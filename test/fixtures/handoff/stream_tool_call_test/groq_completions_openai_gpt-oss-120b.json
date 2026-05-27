@@ -15,7 +15,20 @@
       "input": 167,
       "cache_write": 0,
       "cache_read": 0,
-      "output": 63
+      "output": 63,
+      "total": 230,
+      "raw": {
+        "queue_time": 0.047591792,
+        "prompt_tokens": 167,
+        "prompt_time": 0.006648028,
+        "completion_tokens": 63,
+        "completion_time": 0.131126169,
+        "total_tokens": 230,
+        "total_time": 0.137774197,
+        "completion_tokens_details": {
+          "reasoning_tokens": 22
+        }
+      }
     },
     "role": "assistant",
     "stop_reason": "tool_use",

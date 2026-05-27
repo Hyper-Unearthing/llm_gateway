@@ -57,8 +57,7 @@ module LlmGateway
                   model: response[:model],
                   role: "assistant",
                   timestamp: timestamp_milliseconds(response[:created_at])
-                }.compact,
-                usage_increment: {}
+                }.compact
               }
             ]
           end
@@ -73,8 +72,7 @@ module LlmGateway
               [
                 {
                   type: :message_start,
-                  delta: { role: item[:role] || "assistant" },
-                  usage_increment: {}
+                  delta: { role: item[:role] || "assistant" }
                 }
               ]
             when "function_call"
@@ -107,24 +105,25 @@ module LlmGateway
 
           def response_completed_patches(response)
             response ||= {}
+            patch = {
+              type: :message_delta,
+              delta: {
+                id: response[:id],
+                model: response[:model],
+                role: "assistant",
+                timestamp: timestamp_milliseconds(response[:created_at]),
+                stop_reason: stop_reason_for(response)
+              }.compact
+            }
+            patch[:usage] = usage(response) if response.key?(:usage)
 
             [
-              {
-                type: accumulator.message_hash.empty? ? :message_start : :message_delta,
-                delta: {
-                  id: response[:id],
-                  model: response[:model],
-                  role: "assistant",
-                  timestamp: timestamp_milliseconds(response[:created_at]),
-                  stop_reason: stop_reason_for(response)
-                }.compact,
-                usage_increment: usage_increment(response)
-              },
+              patch,
               { type: :message_end }
             ]
           end
 
-          def usage_increment(response)
+          def usage(response)
             usage = response[:usage] || {}
             cache_read = token_count(usage.dig(:input_tokens_details, :cached_tokens))
             cache_write = token_count(
@@ -132,12 +131,16 @@ module LlmGateway
               usage[:cache_write_tokens]
             )
             input_tokens = token_count(usage[:input_tokens])
+            input = [ input_tokens - cache_read - cache_write, 0 ].max
+            output = token_count(usage[:output_tokens])
 
             {
-              input: [ input_tokens - cache_read - cache_write, 0 ].max,
+              input:,
               cache_write:,
               cache_read:,
-              output: token_count(usage[:output_tokens])
+              output:,
+              total: input + cache_write + cache_read + output,
+              raw: usage
             }
           end
 

@@ -66,7 +66,6 @@ class PartialAssistantMessage < BaseStruct
 
   attribute? :id, Types::String.optional
   attribute? :model, Types::String.optional
-  attribute? :usage, Types::Hash.optional
   attribute? :role, Types::String.enum("assistant").optional
   attribute :timestamp, Types::Integer
   attribute? :stop_reason, Types::String.enum("stop", "length", "tool_use", "toolUse", "error", "aborted").optional
@@ -186,7 +185,7 @@ class AssistantStreamMessageEvent < BaseStruct
 
   attribute :type, EventType
   attribute :delta, Types::Coercible::Hash.default { {} }
-  attribute :usage_increment, Types::Coercible::Hash.default { {} }
+  attribute :usage, Types::Coercible::Hash.default { {} }
   attribute :partial, Types.Instance(PartialAssistantMessage)
 end
 

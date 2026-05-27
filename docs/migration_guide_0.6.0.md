@@ -14,7 +14,7 @@ This guide covers user-facing changes between `v0.5.0` and the latest commit on 
 - The `client.model_key` reader was removed; track the selected model at the call site or read it from returned messages.
 - Streaming events now expose accumulated partial messages during the stream, while `:message_end` exposes the final message through `event.message`.
 - Non-final stream event hashes now include `partial`; normal stream consumers are unaffected, but strict `event.to_h` snapshots/comparisons may need updates.
-- Normalized usage counters were renamed to concise keys: `:input`, `:cache_write`, `:cache_read`, and `:output`; `:reasoning_tokens` was removed.
+- Normalized usage counters were renamed to concise keys: `:input`, `:cache_write`, `:cache_read`, `:output`, and `:total`; `:reasoning_tokens` was removed.
 - Streamed assistant messages now include `timestamp` as Unix milliseconds.
 - Custom stream mappers must initialize with provider/API metadata and emit a final `:message_end` patch.
 
@@ -277,7 +277,7 @@ end
 
 ## 8. Update usage accounting keys
 
-Normalized `AssistantMessage#usage`, `event.partial.usage`, and `event.usage_increment` now use provider-independent concise keys:
+Normalized `AssistantMessage#usage` and final stream `event.usage` patches now use provider-independent concise keys plus `:raw` for the original provider usage/token payload:
 
 | 0.5.x key | 0.6.0 key |
 |---|---|
@@ -285,6 +285,8 @@ Normalized `AssistantMessage#usage`, `event.partial.usage`, and `event.usage_inc
 | `:cache_creation_input_tokens` | `:cache_write` |
 | `:cache_read_input_tokens` | `:cache_read` |
 | `:output_tokens` | `:output` |
+| computed normalized total | `:total` |
+| original provider usage payload | `:raw` |
 | `:reasoning_tokens` | removed |
 
 `reasoning_tokens` was removed because providers expose and calculate reasoning token counts inconsistently. Use the streamed/final `ReasoningContent` blocks for reasoning text, and treat usage as the normalized token buckets above.
@@ -301,7 +303,7 @@ result.usage[:cache_read]
 result.usage[:output]
 ```
 
-When checking cache behavior, use `usage[:cache_read]` and `usage[:cache_write]`.
+When checking cache behavior, use `usage[:cache_read]` and `usage[:cache_write]`. `usage[:total]` is computed as `input + cache_write + cache_read + output`. Use `usage[:raw]` when you need provider-specific token fields that are not part of the normalized counters.
 
 ## 9. Account for timestamps on streamed messages
 
@@ -330,11 +332,11 @@ mapper = MyStreamMapper.new(provider: "openai", api: "responses")
 
 `Adapter#stream` passes these values automatically when it instantiates the configured mapper, but direct mapper construction and custom initializers must accept/pass these keywords.
 
-Custom mappers must also push a final normalized end patch. Use the normalized usage keys shown above for `usage_increment`.
+Custom mappers must also push a final normalized end patch. Use the normalized usage keys shown above for final `usage`.
 
 ```ruby
 push_patches([
-  { type: :message_delta, delta: { stop_reason: "stop" }, usage_increment: { output: 12 } },
+  { type: :message_delta, delta: { stop_reason: "stop" }, usage: { output: 12 } },
   { type: :message_end }
 ], &block)
 ```
@@ -377,7 +379,7 @@ If your tests or application code compare full `event.to_h` hashes or snapshot s
 - [ ] Replace `Prompt.new("model-key")` model lookup usage with explicit provider/model configuration.
 - [ ] Replace custom `Prompt#post` usage with `Prompt#stream`.
 - [ ] Update stream callbacks to read `event.message` for `:message_end` and `event.partial` only for non-final events.
-- [ ] Rename normalized usage lookups to `:input`, `:cache_write`, `:cache_read`, and `:output`; remove `:reasoning_tokens` handling.
+- [ ] Rename normalized usage lookups to `:input`, `:cache_write`, `:cache_read`, `:output`, and `:total`; use `:raw` for provider-specific token fields; remove `:reasoning_tokens` handling.
 - [ ] Include/read `timestamp` on streamed partial and final assistant messages where you construct or persist those objects.
 - [ ] Update custom stream mappers to accept `provider:` / `api:`, emit normalized usage keys, and emit `{ type: :message_end }`.
 - [ ] For cross-provider handoffs, pass the target `model:` explicitly.
