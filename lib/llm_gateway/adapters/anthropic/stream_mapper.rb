@@ -80,11 +80,17 @@ module LlmGateway
         def normalized_usage(usage)
           usage = symbolize_keys(usage)
 
+          input = token_count(usage[:input_tokens])
+          cache_write = token_count(usage[:cache_creation_input_tokens])
+          cache_read = token_count(usage[:cache_read_input_tokens])
+          output = token_count(usage[:output_tokens])
+
           {
-            input: token_count(usage[:input_tokens]),
-            cache_write: token_count(usage[:cache_creation_input_tokens]),
-            cache_read: token_count(usage[:cache_read_input_tokens]),
-            output: token_count(usage[:output_tokens])
+            input:,
+            cache_write:,
+            cache_read:,
+            output:,
+            total: input + cache_write + cache_read + output
           }
         end
 

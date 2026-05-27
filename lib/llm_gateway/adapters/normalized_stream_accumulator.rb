@@ -56,7 +56,8 @@ module LlmGateway
         input: 0,
         cache_write: 0,
         cache_read: 0,
-        output: 0
+        output: 0,
+        total: 0
       }.freeze
 
       BLOCK_EVENT_TRANSITIONS = {
@@ -192,7 +193,8 @@ module LlmGateway
         case type
         when :message_start, :message_delta
           delta = symbolize_keys(event_patch[:delta] || {})
-          usage = symbolize_keys(event_patch[:usage] || delta.delete(:usage) || {})
+          raw_usage = event_patch[:usage] || delta.delete(:usage) || {}
+          usage = raw_usage.empty? ? {} : normalized_usage(raw_usage)
 
           AssistantStreamMessageEvent.new(
             type:,
@@ -287,8 +289,13 @@ module LlmGateway
       end
 
       def assign_usage(usage)
-        normalized_usage = symbolize_keys(usage)
-        @usage_hash = DEFAULT_USAGE.merge(normalized_usage.slice(*DEFAULT_USAGE.keys))
+        @usage_hash = normalized_usage(usage)
+      end
+
+      def normalized_usage(usage)
+        usage = DEFAULT_USAGE.merge(symbolize_keys(usage).slice(*DEFAULT_USAGE.keys))
+        usage[:total] = usage[:input] + usage[:cache_write] + usage[:cache_read] + usage[:output]
+        usage
       end
 
       def serialized_blocks

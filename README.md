@@ -222,7 +222,7 @@ End events include helpers for the finalized current content block:
 - `event.reasoning` for `:reasoning_end`
 - `event.tool_call` / `event.tool` for `:tool_end`
 
-Usage counters are normalized as `:input`, `:cache_write`, `:cache_read`, and `:output`.
+Usage counters are normalized as `:input`, `:cache_write`, `:cache_read`, `:output`, and `:total`. `:total` is the sum of all input-side buckets plus output.
 
 ### Stream API without handling events (final result only)
 
@@ -413,7 +413,7 @@ result = adapter.stream(
 )
 
 puts "stop_reason: #{result.stop_reason}"
-puts "usage: #{result.usage.inspect}" # normalized keys: :input, :cache_write, :cache_read, :output
+puts "usage: #{result.usage.inspect}" # normalized keys: :input, :cache_write, :cache_read, :output, :total
 
 result.content.each do |block|
   case block.type
@@ -461,7 +461,7 @@ puts "Final stop_reason: #{result.stop_reason}"
   - fields: `reasoning` and optional `signature`
 - Usage accounting:
   - normalized in `result.usage` when provided by the upstream API
-  - keys are `:input`, `:cache_write`, `:cache_read`, and `:output`
+  - keys are `:input`, `:cache_write`, `:cache_read`, `:output`, and `:total`
 
 In practice this means you can:
 - listen to `:reasoning_*` stream event variants, and

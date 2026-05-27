@@ -14,7 +14,7 @@ This guide covers user-facing changes between `v0.5.0` and the latest commit on 
 - The `client.model_key` reader was removed; track the selected model at the call site or read it from returned messages.
 - Streaming events now expose accumulated partial messages during the stream, while `:message_end` exposes the final message through `event.message`.
 - Non-final stream event hashes now include `partial`; normal stream consumers are unaffected, but strict `event.to_h` snapshots/comparisons may need updates.
-- Normalized usage counters were renamed to concise keys: `:input`, `:cache_write`, `:cache_read`, and `:output`; `:reasoning_tokens` was removed.
+- Normalized usage counters were renamed to concise keys: `:input`, `:cache_write`, `:cache_read`, `:output`, and `:total`; `:reasoning_tokens` was removed.
 - Streamed assistant messages now include `timestamp` as Unix milliseconds.
 - Custom stream mappers must initialize with provider/API metadata and emit a final `:message_end` patch.
 
@@ -285,6 +285,7 @@ Normalized `AssistantMessage#usage` and final stream `event.usage` patches now u
 | `:cache_creation_input_tokens` | `:cache_write` |
 | `:cache_read_input_tokens` | `:cache_read` |
 | `:output_tokens` | `:output` |
+| computed normalized total | `:total` |
 | `:reasoning_tokens` | removed |
 
 `reasoning_tokens` was removed because providers expose and calculate reasoning token counts inconsistently. Use the streamed/final `ReasoningContent` blocks for reasoning text, and treat usage as the normalized token buckets above.
@@ -301,7 +302,7 @@ result.usage[:cache_read]
 result.usage[:output]
 ```
 
-When checking cache behavior, use `usage[:cache_read]` and `usage[:cache_write]`.
+When checking cache behavior, use `usage[:cache_read]` and `usage[:cache_write]`. `usage[:total]` is computed as `input + cache_write + cache_read + output`.
 
 ## 9. Account for timestamps on streamed messages
 
@@ -377,7 +378,7 @@ If your tests or application code compare full `event.to_h` hashes or snapshot s
 - [ ] Replace `Prompt.new("model-key")` model lookup usage with explicit provider/model configuration.
 - [ ] Replace custom `Prompt#post` usage with `Prompt#stream`.
 - [ ] Update stream callbacks to read `event.message` for `:message_end` and `event.partial` only for non-final events.
-- [ ] Rename normalized usage lookups to `:input`, `:cache_write`, `:cache_read`, and `:output`; remove `:reasoning_tokens` handling.
+- [ ] Rename normalized usage lookups to `:input`, `:cache_write`, `:cache_read`, `:output`, and `:total`; remove `:reasoning_tokens` handling.
 - [ ] Include/read `timestamp` on streamed partial and final assistant messages where you construct or persist those objects.
 - [ ] Update custom stream mappers to accept `provider:` / `api:`, emit normalized usage keys, and emit `{ type: :message_end }`.
 - [ ] For cross-provider handoffs, pass the target `model:` explicitly.

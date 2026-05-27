@@ -227,12 +227,15 @@ module LlmGateway
               usage[:cache_write_tokens]
             )
             prompt_tokens = token_count(usage[:prompt_tokens])
+            input = [ prompt_tokens - cache_read - cache_write, 0 ].max
+            output = token_count(usage[:completion_tokens])
 
             {
-              input: [ prompt_tokens - cache_read - cache_write, 0 ].max,
+              input:,
               cache_write:,
               cache_read:,
-              output: token_count(usage[:completion_tokens])
+              output:,
+              total: input + cache_write + cache_read + output
             }
           end
 

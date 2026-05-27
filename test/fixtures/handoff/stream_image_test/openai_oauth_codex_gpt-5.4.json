@@ -20,7 +20,8 @@
       "input": 114,
       "cache_write": 0,
       "cache_read": 0,
-      "output": 8
+      "output": 8,
+      "total": 122
     },
     "role": "assistant",
     "stop_reason": "stop",

@@ -131,12 +131,15 @@ module LlmGateway
               usage[:cache_write_tokens]
             )
             input_tokens = token_count(usage[:input_tokens])
+            input = [ input_tokens - cache_read - cache_write, 0 ].max
+            output = token_count(usage[:output_tokens])
 
             {
-              input: [ input_tokens - cache_read - cache_write, 0 ].max,
+              input:,
               cache_write:,
               cache_read:,
-              output: token_count(usage[:output_tokens])
+              output:,
+              total: input + cache_write + cache_read + output
             }
           end
 
