@@ -16,7 +16,19 @@
       "cache_write": 0,
       "cache_read": 0,
       "output": 54,
-      "total": 132
+      "total": 132,
+      "raw": {
+        "queue_time": 0.050799132,
+        "prompt_tokens": 78,
+        "prompt_time": 0.002873187,
+        "completion_tokens": 54,
+        "completion_time": 0.111673187,
+        "total_tokens": 132,
+        "total_time": 0.114546374,
+        "completion_tokens_details": {
+          "reasoning_tokens": 37
+        }
+      }
     },
     "role": "assistant",
     "stop_reason": "stop",

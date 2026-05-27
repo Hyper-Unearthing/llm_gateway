@@ -139,7 +139,8 @@ module LlmGateway
               cache_write:,
               cache_read:,
               output:,
-              total: input + cache_write + cache_read + output
+              total: input + cache_write + cache_read + output,
+              raw: usage
             }
           end
 

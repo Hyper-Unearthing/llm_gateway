@@ -16,7 +16,18 @@
       "cache_write": 0,
       "cache_read": 0,
       "output": 92,
-      "total": 118
+      "total": 118,
+      "raw": {
+        "input_tokens": 26,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 92,
+        "output_tokens_details": {
+          "reasoning_tokens": 79
+        },
+        "total_tokens": 118
+      }
     },
     "role": "assistant",
     "stop_reason": "stop",

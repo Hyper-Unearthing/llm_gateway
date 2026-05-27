@@ -21,7 +21,16 @@
       "cache_write": 0,
       "cache_read": 0,
       "output": 32,
-      "total": 241
+      "total": 241,
+      "raw": {
+        "queue_time": 0.073747082,
+        "prompt_tokens": 209,
+        "prompt_time": 0.007524811,
+        "completion_tokens": 32,
+        "completion_time": 0.073274001,
+        "total_tokens": 241,
+        "total_time": 0.080798812
+      }
     },
     "role": "assistant",
     "stop_reason": "stop",

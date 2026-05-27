@@ -277,7 +277,7 @@ end
 
 ## 8. Update usage accounting keys
 
-Normalized `AssistantMessage#usage` and final stream `event.usage` patches now use provider-independent concise keys:
+Normalized `AssistantMessage#usage` and final stream `event.usage` patches now use provider-independent concise keys plus `:raw` for the original provider usage/token payload:
 
 | 0.5.x key | 0.6.0 key |
 |---|---|
@@ -286,6 +286,7 @@ Normalized `AssistantMessage#usage` and final stream `event.usage` patches now u
 | `:cache_read_input_tokens` | `:cache_read` |
 | `:output_tokens` | `:output` |
 | computed normalized total | `:total` |
+| original provider usage payload | `:raw` |
 | `:reasoning_tokens` | removed |
 
 `reasoning_tokens` was removed because providers expose and calculate reasoning token counts inconsistently. Use the streamed/final `ReasoningContent` blocks for reasoning text, and treat usage as the normalized token buckets above.
@@ -302,7 +303,7 @@ result.usage[:cache_read]
 result.usage[:output]
 ```
 
-When checking cache behavior, use `usage[:cache_read]` and `usage[:cache_write]`. `usage[:total]` is computed as `input + cache_write + cache_read + output`.
+When checking cache behavior, use `usage[:cache_read]` and `usage[:cache_write]`. `usage[:total]` is computed as `input + cache_write + cache_read + output`. Use `usage[:raw]` when you need provider-specific token fields that are not part of the normalized counters.
 
 ## 9. Account for timestamps on streamed messages
 
@@ -378,7 +379,7 @@ If your tests or application code compare full `event.to_h` hashes or snapshot s
 - [ ] Replace `Prompt.new("model-key")` model lookup usage with explicit provider/model configuration.
 - [ ] Replace custom `Prompt#post` usage with `Prompt#stream`.
 - [ ] Update stream callbacks to read `event.message` for `:message_end` and `event.partial` only for non-final events.
-- [ ] Rename normalized usage lookups to `:input`, `:cache_write`, `:cache_read`, `:output`, and `:total`; remove `:reasoning_tokens` handling.
+- [ ] Rename normalized usage lookups to `:input`, `:cache_write`, `:cache_read`, `:output`, and `:total`; use `:raw` for provider-specific token fields; remove `:reasoning_tokens` handling.
 - [ ] Include/read `timestamp` on streamed partial and final assistant messages where you construct or persist those objects.
 - [ ] Update custom stream mappers to accept `provider:` / `api:`, emit normalized usage keys, and emit `{ type: :message_end }`.
 - [ ] For cross-provider handoffs, pass the target `model:` explicitly.

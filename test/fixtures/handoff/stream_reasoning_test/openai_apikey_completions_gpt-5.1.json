@@ -16,7 +16,22 @@
       "cache_write": 0,
       "cache_read": 0,
       "output": 153,
-      "total": 169
+      "total": 169,
+      "raw": {
+        "prompt_tokens": 16,
+        "completion_tokens": 153,
+        "total_tokens": 169,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 136,
+          "audio_tokens": 0,
+          "accepted_prediction_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      }
     },
     "role": "assistant",
     "stop_reason": "stop",

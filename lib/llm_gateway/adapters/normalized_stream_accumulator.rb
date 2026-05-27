@@ -57,7 +57,8 @@ module LlmGateway
         cache_write: 0,
         cache_read: 0,
         output: 0,
-        total: 0
+        total: 0,
+        raw: {}
       }.freeze
 
       BLOCK_EVENT_TRANSITIONS = {
@@ -76,7 +77,7 @@ module LlmGateway
         @provider = provider
         @api = api
         @message_hash = {}
-        @usage_hash = DEFAULT_USAGE.dup
+        @usage_hash = default_usage
         @blocks = []
         @next_content_index = 0
         @active_block_type = nil
@@ -293,9 +294,14 @@ module LlmGateway
       end
 
       def normalized_usage(usage)
-        usage = DEFAULT_USAGE.merge(symbolize_keys(usage).slice(*DEFAULT_USAGE.keys))
+        usage = default_usage.merge(symbolize_keys(usage).slice(*DEFAULT_USAGE.keys))
         usage[:total] = usage[:input] + usage[:cache_write] + usage[:cache_read] + usage[:output]
+        usage[:raw] ||= {}
         usage
+      end
+
+      def default_usage
+        DEFAULT_USAGE.merge(raw: {})
       end
 
       def serialized_blocks
