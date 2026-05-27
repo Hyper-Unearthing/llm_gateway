@@ -1,5 +1,31 @@
 # Changelog
 
+## [v0.6.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.6.0) (2026-05-27)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.5.0...v0.6.0)
+
+**Closed issues:**
+
+- issues with token normalization [\#75](https://github.com/Hyper-Unearthing/llm_gateway/issues/75)
+- Add normalized token usage fields for streamed responses [\#72](https://github.com/Hyper-Unearthing/llm_gateway/issues/72)
+- Add timestamp metadata to messages [\#70](https://github.com/Hyper-Unearthing/llm_gateway/issues/70)
+- Build final AssistantMessage in stream pipeline and include it on message\_end [\#69](https://github.com/Hyper-Unearthing/llm_gateway/issues/69)
+- Expose finalized content on stream \_end events [\#68](https://github.com/Hyper-Unearthing/llm_gateway/issues/68)
+- Add accumulated AssistantMessage partials to stream events [\#66](https://github.com/Hyper-Unearthing/llm_gateway/issues/66)
+- 1.0 [\#37](https://github.com/Hyper-Unearthing/llm_gateway/issues/37)
+
+**Merged pull requests:**
+
+- Improve token normalization [\#78](https://github.com/Hyper-Unearthing/llm_gateway/pull/78) ([billybonks](https://github.com/billybonks))
+- fix\(tests\): the hand off tests were totally fake, now they work [\#77](https://github.com/Hyper-Unearthing/llm_gateway/pull/77) ([billybonks](https://github.com/billybonks))
+- Improve message event metadata and helpers [\#74](https://github.com/Hyper-Unearthing/llm_gateway/pull/74) ([billybonks](https://github.com/billybonks))
+- fix: update migration guide [\#73](https://github.com/Hyper-Unearthing/llm_gateway/pull/73) ([billybonks](https://github.com/billybonks))
+- feat: add partial message as part of streaming events [\#67](https://github.com/Hyper-Unearthing/llm_gateway/pull/67) ([billybonks](https://github.com/billybonks))
+- docs: add migration guide for upcomming version [\#65](https://github.com/Hyper-Unearthing/llm_gateway/pull/65) ([billybonks](https://github.com/billybonks))
+- Decouple model selection from provider auth configuration [\#64](https://github.com/Hyper-Unearthing/llm_gateway/pull/64) ([billybonks](https://github.com/billybonks))
+- burn: support for legacy provider keys [\#63](https://github.com/Hyper-Unearthing/llm_gateway/pull/63) ([billybonks](https://github.com/billybonks))
+- docs: add docs about options for stream method [\#62](https://github.com/Hyper-Unearthing/llm_gateway/pull/62) ([billybonks](https://github.com/billybonks))
+
 ## [v0.5.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.5.0) (2026-05-20)
 
 [Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.4.0...v0.5.0)
