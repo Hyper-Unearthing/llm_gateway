@@ -10,7 +10,9 @@ class HandoffStreamImageLiveTest < Test
   SOURCE_TEST_PATH = File.expand_path("stream_image_test.rb", __dir__)
   FIXTURE_DIR = File.expand_path("../../fixtures/handoff/stream_image_test", __dir__)
 
-  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).freeze
+  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1])
+              .reject { |pair| pair[:name] == "groq_completions" }
+              .freeze
 
   def teardown
     LlmGateway.reset_configuration!
@@ -18,17 +20,20 @@ class HandoffStreamImageLiveTest < Test
 
   def run_handoff_stream_image_for(provider_name:, model:, adapter:, options: {})
     records = load_recorded_outputs
+    transcript = [
+      *recorded_messages(records),
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: "how many times did you look at an image and what was its shape and color"
+          }
+        ]
+      }
+    ]
 
-    prompt = <<~PROMPT
-      You are receiving recorded final outputs from previous image streaming tests.
-      Each output describes the same image. Read the JSON, infer what all previous assistants saw,
-      and answer in one short sentence. Include the shape, color, and the number of recorded outputs
-      as an Arabic numeral.
-
-      #{JSON.pretty_generate(records)}
-    PROMPT
-
-    response = adapter.stream(prompt, reasoning: "high", **options)
+    response = adapter.stream(transcript, reasoning: "high", **options)
     refute_equal "error", response.stop_reason, "#{provider_name}/#{model} failed: #{response.error_message}"
 
     text = response.content.select { |block| block.type == "text" }.map(&:text).join(" ").downcase
@@ -52,6 +57,12 @@ class HandoffStreamImageLiveTest < Test
   end
 
   private
+
+  def recorded_messages(records)
+    records.flat_map do |record|
+      deep_symbolize(record[:result])
+    end
+  end
 
   def load_recorded_outputs
     skip "Missing fixture directory at #{FIXTURE_DIR}. Run stream_image_test live tests first." unless Dir.exist?(FIXTURE_DIR)

@@ -25,7 +25,7 @@ http_interactions:
       message: Too Many Requests
     headers:
       Date:
-      - Tue, 19 May 2026 06:48:38 GMT
+      - Wed, 27 May 2026 01:43:42 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -33,13 +33,13 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cf_bm=QbL59HQudtK6j4FH4hFIpvnCJNrAkSIZjnHpSa67xDU-1779173310.933396-1.0.1.1-xjAJIiJSryZMrwdDDOkqWqxoIBiJ1GwLoTyyyEDQCTqEBJByLuSRV8w.vF6KL7ED9.71kGS1Cg9V94x5B.legUdzkaciyjsFAO4KiuxiwW6sCSrq5HseF5w.DaBMGMR9;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Tue,
-        19 May 2026 07:18:38 GMT
-      - _cfuvid=VoMewe_EDl0bhGpzmq3vXIZzGLa9kXbY1kh5KUUping-1779173310.933396-1.0.1.1-nLE6xtmck1ONdOIHf2ELCR2W0xK_S4Jg2VR5YN.mW7s;
+      - __cf_bm=rvuuwrcE4y47HqyuzWAD5z2XHMb9ycpfx6Q08xT.5hM-1779846220.3937712-1.0.1.1-tIg98v4XfLRAfSxVx0onq8BYf3_yiufTcYHXhIxo20f7nLdMKtQGCBmTTGivlASr85SnoBB..yJ.y5HOpsnmXq0J6TFfv1rZ.CniYg6BFmUoIDm0KHfppfY.b85QG5Vr;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Wed,
+        27 May 2026 02:13:42 GMT
+      - _cfuvid=EAH99JS_rl72Gp9yyeA7hCScCvRHD97a6rZ8Yfwpe3U-1779846220.3937712-1.0.1.1-sLrDphutAo0TVRd7qfRBdTZVV3BmjDy5Wz2ohqUQeBg;
         HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com
       Cf-Ray:
-      - 9fe128095db6ce05-SIN
+      - a021547d7c6d633f-SIN
       Cf-Cache-Status:
       - DYNAMIC
       Server:
@@ -68,7 +68,7 @@ http_interactions:
       X-Ratelimit-Reset-Tokens:
       - 0s
       X-Request-Id:
-      - req_7bf651e6ef5c4797af13095b5860bc90
+      - req_eb04413fd442407bb9ae2706c06070d5
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -82,5 +82,5 @@ http_interactions:
                 "code": "rate_limit_exceeded"
             }
         }
-  recorded_at: Tue, 19 May 2026 06:48:38 GMT
+  recorded_at: Wed, 27 May 2026 01:43:42 GMT
 recorded_with: VCR 6.4.0

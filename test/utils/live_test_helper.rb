@@ -73,15 +73,36 @@ module LiveTestHelper
 
     pair_name = "#{provider}_#{model}".gsub(/[^A-Za-z0-9_.-]+/, "_")
     path = File.join(fixture_dir, "#{pair_name}.json")
-    payload = File.exist?(path) ? JSON.parse(File.read(path)) : {}
-    payload[name.sub(/^test_/, "")] = stable_handoff_result(result)
-
-    File.write(path, JSON.pretty_generate(payload) + "\n")
+    File.write(path, JSON.pretty_generate(stable_handoff_result(result)) + "\n")
   end
 
   def stable_handoff_result(result)
-    jsonable_live_result(result).tap do |payload|
-      payload.delete("timestamp") if payload.is_a?(Hash)
+    remove_handoff_timestamps(jsonable_live_result(result))
+  end
+
+  def deep_symbolize(value)
+    case value
+    when Array
+      value.map { |item| deep_symbolize(item) }
+    when Hash
+      value.each_with_object({}) { |(key, item), acc| acc[key.to_sym] = deep_symbolize(item) }
+    else
+      value
+    end
+  end
+
+  def remove_handoff_timestamps(value)
+    case value
+    when Array
+      value.map { |item| remove_handoff_timestamps(item) }
+    when Hash
+      value.each_with_object({}) do |(key, item), acc|
+        next if key == "timestamp"
+
+        acc[key] = remove_handoff_timestamps(item)
+      end
+    else
+      value
     end
   end
 

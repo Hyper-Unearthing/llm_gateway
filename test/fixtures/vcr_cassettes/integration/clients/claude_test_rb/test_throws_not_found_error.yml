@@ -29,7 +29,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Tue, 19 May 2026 06:47:02 GMT
+      - Wed, 27 May 2026 01:43:04 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -39,33 +39,33 @@ http_interactions:
       X-Should-Retry:
       - 'false'
       Request-Id:
-      - req_011CbBUinJc959nvMXUi5Y44
+      - req_011CbSE1g2s65wBXZoBTdyfC
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
       Traceresponse:
-      - 00-e71eb41fd632b63da653428343c5853a-691ef13a9afbc380-01
+      - 00-fd0449a50b126f01f0aca68fabd9f819-b3ade9c3a0a33146-01
       Server:
       - cloudflare
       X-Envoy-Upstream-Service-Time:
-      - '9'
+      - '34'
       Vary:
       - Accept-Encoding
       Cf-Cache-Status:
       - DYNAMIC
       Set-Cookie:
-      - _cfuvid=LGX_BYRVZy6Fvg2JSZFZXWBdgcyxWbBmDNRH7Q4k.x4-1779173222.1092207-1.0.1.1-TQJynErRDeaHZBT1Q9gI1af2oTAkJNnF8dfkn.vxIQw;
+      - _cfuvid=0S_5IWryzGOKvFJbtnszA00sTdzbr2z3ddKz6cZK_uQ-1779846183.7310932-1.0.1.1-sH03TL9kNAIUV_c4HZ3bo65qhDTZFjnijsNx3U0bDUE;
         HttpOnly; SameSite=None; Secure; Path=/; Domain=api.anthropic.com
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       X-Robots-Tag:
       - none
       Cf-Ray:
-      - 9fe125de2c654a50-SIN
+      - a02153985adfb403-SIN
     body:
       encoding: ASCII-8BIT
       string: '{"type":"error","error":{"type":"not_found_error","message":"model:
-        randomodel"},"request_id":"req_011CbBUinJc959nvMXUi5Y44"}'
-  recorded_at: Tue, 19 May 2026 06:47:02 GMT
+        randomodel"},"request_id":"req_011CbSE1g2s65wBXZoBTdyfC"}'
+  recorded_at: Wed, 27 May 2026 01:43:03 GMT
 recorded_with: VCR 6.4.0

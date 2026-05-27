@@ -1,12 +1,21 @@
-{
-  "live_basic_thinking_openai_oauth_codex_gpt-5.4": {
-    "id": "resp_0de830a86de00ebd016a0c07ba404c8191b18ff96526cd295c",
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Think long and hard about 42 + 27"
+      }
+    ]
+  },
+  {
+    "id": "resp_0c0ad6860cd85083016a164ccee7708191a3d151a32930c4d6",
     "model": "gpt-5.4",
     "usage": {
       "input": 26,
       "cache_write": 0,
       "cache_read": 0,
-      "output": 97
+      "output": 92
     },
     "role": "assistant",
     "stop_reason": "stop",
@@ -15,13 +24,13 @@
     "content": [
       {
         "type": "reasoning",
-        "reasoning": "**Calculating a simple sum**\n\nThe user is asking me to think long and hard about 42 + 27. I get the sense this could be a straightforward arithmetic question, possibly expecting a simple answer without extended reasoning. Even though they mentioned thinking, I feel I can provide a concise response. So, after pondering it, I think I'll just say: \"I thought about it, and the answer is 69.\" That should do the trick!",
+        "reasoning": "**Calculating a sum**\n\nThe user is asking for the answer to \"42 + 27,\" and I think they might want me to reflect on it a bit. However, I shouldn't reveal too much of my internal reasoning. I can simply state the sum, which is 69, and perhaps acknowledge the thinking process without going into detail. I'll say something like, \"After thinking about it, the sum is 69.\" This approach keeps it concise and clear!",
         "signature": ""
       },
       {
         "type": "text",
-        "text": "42 + 27 = 69."
+        "text": "42 + 27 = 69"
       }
     ]
   }
-}
+]

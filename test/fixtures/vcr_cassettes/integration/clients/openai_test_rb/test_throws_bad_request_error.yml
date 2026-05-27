@@ -25,7 +25,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Tue, 19 May 2026 06:50:03 GMT
+      - Wed, 27 May 2026 01:43:18 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -33,7 +33,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - 9fe12a4739d3d98b-SIN
+      - a02153f46beba3e3-SIN
       Cf-Cache-Status:
       - DYNAMIC
       Server:
@@ -49,7 +49,7 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '18'
+      - '14'
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
@@ -63,11 +63,11 @@ http_interactions:
       X-Ratelimit-Reset-Requests:
       - 120ms
       X-Request-Id:
-      - req_b8cfcbb679ca4a03b8f5174e07e5cc1c
+      - req_54f0be0cd21f41698558d19ba55cadc7
       Set-Cookie:
-      - __cf_bm=P.MYT4rh04QkkL6dIfdUVBByZSK.D9j5OEWm9r51iBY-1779173402.757705-1.0.1.1-T0YR1f9u6CM26QuCr4aWDguaqs7VOfRjJc0QhWJb3BXBsQx8wxewv7lT.fRsscEeZBKGOJ508EsYuDHKA0SoOLjWteVFlgeiqEQ_bklEe93khNQNFkH5vH7CQXWfyEp8;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Tue,
-        19 May 2026 07:20:03 GMT
+      - __cf_bm=UHpa3IsDVSPWf9OHyWh9so_7Ha4LOYDD9DRfGOfWTzg-1779846198.4633298-1.0.1.1-94j0rnZ9AOrOOBUxZcF.QfekVxtLFbmqrMK_qJ5if2Mjtr3d0Ht0ZpeM3RLI7gwnA_c_MN8oSvp.1mXwYZoYa2IrLT_HAMwhAgmpy5ADHtU2LD_cDjNU8KAhVRMQ8b2f;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Wed,
+        27 May 2026 02:13:18 GMT
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -81,5 +81,5 @@ http_interactions:
             "code": "invalid_type"
           }
         }
-  recorded_at: Tue, 19 May 2026 06:50:03 GMT
+  recorded_at: Wed, 27 May 2026 01:43:18 GMT
 recorded_with: VCR 6.4.0

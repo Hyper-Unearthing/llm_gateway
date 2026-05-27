@@ -25,7 +25,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Tue, 19 May 2026 07:18:23 GMT
+      - Wed, 27 May 2026 01:46:47 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -41,19 +41,19 @@ http_interactions:
       X-Groq-Region:
       - bom
       X-Request-Id:
-      - req_01krzhk6c5ena9mmy49dzcn80j
-      Set-Cookie:
-      - __cf_bm=19ULWGvBowwwMCiHtDlHHcGbFRBrDMTBlX5IinJN3hQ-1779175102.6689422-1.0.1.1-_1CXmb_zvMviYCl95YCSXc28av22oLbbviD3BOAPU93j9yabOSbQ65qqhhVHYeyxqyzVIMbXPCYgGobg5eZkfROoP3WmJrobiL23TRPM6bxdYY2X6izvQxn1XRvhe6j.;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=groq.com; Expires=Tue, 19
-        May 2026 07:48:23 GMT
+      - req_01kskhssfzfsqbta0qxk7rwdcg
       Via:
       - 1.1 google
-      Strict-Transport-Security:
-      - max-age=15552000
       Cf-Cache-Status:
       - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=faLUfQesgZg92MQcRFsEm6I71FWOKjuulKEBY7Ot3ys-1779846407.4188972-1.0.1.1-uMkM1W0HwQevR1nS_LCXho4ugPTVw0WA0hotlXeUN4znhBnwRlFeQ8gshuWY2cUYtBynqeszaR5bnyQ3dPORnUlqZeK9MljaQvKKzoD6O7ZoK5SdJTED1iJgGr_frr6m;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=groq.com; Expires=Wed, 27
+        May 2026 02:16:47 GMT
+      Strict-Transport-Security:
+      - max-age=15552000
       Cf-Ray:
-      - 9fe153c7ac30177c-KUL
+      - a021590e58cac90f-SIN
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -61,5 +61,5 @@ http_interactions:
       string: '{"error":{"message":"Please reduce the length of the messages or completion.","type":"invalid_request_error","param":"messages"}}
 
         '
-  recorded_at: Tue, 19 May 2026 07:18:23 GMT
+  recorded_at: Wed, 27 May 2026 01:46:47 GMT
 recorded_with: VCR 6.4.0

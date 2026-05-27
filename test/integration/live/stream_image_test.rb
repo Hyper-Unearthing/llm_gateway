@@ -25,7 +25,7 @@ class StreamImageTest < Test
     image_path = File.expand_path("../../fixtures/red-circle.png", __dir__)
     image_data = Base64.strict_encode64(File.binread(image_path))
 
-    prompt = [
+    transcript = [
       {
         role: "user",
         content: [
@@ -43,7 +43,8 @@ class StreamImageTest < Test
     ]
 
     message_end_event = nil
-    response = adapter.stream(prompt, system: "You are a helpful assistant.", **options) do |event|
+    system_prompt = "You are a helpful assistant."
+    response = adapter.stream(transcript, system: system_prompt, **options) do |event|
       message_end_event = event if event.type == :message_end
     end
 
@@ -60,14 +61,15 @@ class StreamImageTest < Test
     assert_includes lower_content, "red"
     assert_includes lower_content, "circle"
 
-    response
+    transcript << response
+    transcript
   end
 
   def self.define_stream_image_tests_for(provider_name:, provider:, model:, oauth:, options: {})
     test "live_image_streaming_#{provider_name}_#{model}" do
       with_vcr_adapter(provider:, model:, oauth:,) do |adapter|
-        response = basic_image_streaming_test(adapter, options: options)
-        record_live_handoff_result(test_file: __FILE__, provider: provider_name, model:, result: response)
+        transcript = basic_image_streaming_test(adapter, options: options)
+        record_live_handoff_result(test_file: __FILE__, provider: provider_name, model:, result: transcript)
       end
     end
   end

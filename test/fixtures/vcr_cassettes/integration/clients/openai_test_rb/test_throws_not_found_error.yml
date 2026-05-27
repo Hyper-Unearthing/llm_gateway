@@ -25,7 +25,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Tue, 19 May 2026 06:50:03 GMT
+      - Wed, 27 May 2026 01:43:19 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -33,7 +33,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - 9fe12a4d4ed46141-SIN
+      - a02153f6dca38a13-SIN
       Cf-Cache-Status:
       - DYNAMIC
       Server:
@@ -50,11 +50,11 @@ http_interactions:
       X-Openai-Proxy-Wasm:
       - v0.1
       X-Request-Id:
-      - req_58e3e7fc5711448885fbf61195e6029a
+      - req_9776671457ac4bbc8c52226dc58f4906
       Set-Cookie:
-      - __cf_bm=jiKA.pkk8Fgf.uEhQIoJwDr6wS1mRkoN2Y92BcSVJgY-1779173403.7255845-1.0.1.1-CHiDOafN_AnG.ZGjJaKrRnF._t9xzifpP33KxgDdsdANaXSQ4yo_WL5qqesvyxiPQrVmp0hnDbmW7TCe67sXRBVk9bYQlkQIRj9D6Q6MMpc4V4Mznex99fuq8YyQwDR4;
-        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Tue,
-        19 May 2026 07:20:03 GMT
+      - __cf_bm=Ca1Ku5Aip7rXeMHqFnXBq4_eTCZomg4Xje9OOwbBBAg-1779846198.858983-1.0.1.1-whz8_inzoho2yyCHxzPV.XGN06RypZ_sZ4ToTLzmUAVPD17HHMUDD6UpACtK528Gcf28yPxC4U8bnvpvpwFyTFdKZyB3.FPU3dwTGMgOddqaH8vlFdETlh6Qx4_6Ql91;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openai.com; Expires=Wed,
+        27 May 2026 02:13:19 GMT
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -68,5 +68,5 @@ http_interactions:
                 "code": "model_not_found"
             }
         }
-  recorded_at: Tue, 19 May 2026 06:50:03 GMT
+  recorded_at: Wed, 27 May 2026 01:43:18 GMT
 recorded_with: VCR 6.4.0

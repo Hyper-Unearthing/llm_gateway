@@ -1,6 +1,15 @@
-{
-  "live_basic_tool_call_groq_completions_openai/gpt-oss-120b": {
-    "id": "chatcmpl-e2d65870-ed2a-4261-947c-39b50f28d419",
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Calculate 15 + 27 using the math_operation tool"
+      }
+    ]
+  },
+  {
+    "id": "chatcmpl-d073f35e-d84f-4071-8480-c948cbe8c318",
     "model": "openai/gpt-oss-120b",
     "usage": {
       "input": 167,
@@ -19,7 +28,7 @@
         "signature": ""
       },
       {
-        "id": "fc_bf8e2b9f-8373-468e-a208-d25d411e1b77",
+        "id": "fc_a47fff5e-fe12-42b9-a825-09e525cc98a3",
         "type": "tool_use",
         "name": "math_operation",
         "input": {
@@ -29,5 +38,15 @@
         }
       }
     ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "fc_a47fff5e-fe12-42b9-a825-09e525cc98a3",
+        "content": "42"
+      }
+    ]
   }
-}
+]

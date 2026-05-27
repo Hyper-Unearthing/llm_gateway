@@ -13,7 +13,7 @@ class StreamTextTest < Test
     { name: "openai_apikey_responses", provider: "openai_responses", model: "gpt-5.4" },
     { name: "anthropic_oauth_messages", provider: "anthropic_messages", model: "claude-sonnet-4-20250514", oauth: true },
     { name: "openai_oauth_codex", provider: "openai_codex", model: "gpt-5.4" },
-    { name: "groq_completions", provider: "groq_completions", model: "openai/gpt-oss-120b" }
+    { name: "groq_completions", provider: "groq_completions", model: "openai/gpt-oss-120b", options: { reasoning: "none", include_reasoning: false } }
   ].freeze
 
   def teardown
@@ -26,7 +26,8 @@ class StreamTextTest < Test
     text_completed = false
     message_end_event = nil
 
-    response = adapter.stream("Count from 1 to 3", **options) do |event|
+    transcript = [ { role: "user", content: [ { type: "text", text: "Count from 1 to 3" } ] } ]
+    response = adapter.stream(transcript, **options) do |event|
       case event.type
       when :text_start
         text_started = true
@@ -47,14 +48,15 @@ class StreamTextTest < Test
     assert_equal "assistant", response.role
     assert response.content.any? { |block| block.type == "text" }
 
-    response
+    transcript << response
+    transcript
   end
 
   def self.define_stream_tests_for(provider_name:, provider:, model:, oauth:, options: {})
     test "live_text_streaming_#{provider_name}_#{model}" do
       with_vcr_adapter(provider:, model:, oauth:,) do |adapter|
-        response = basic_streaming_text_test(adapter, options: options)
-        record_live_handoff_result(test_file: __FILE__, provider: provider_name, model:, result: response)
+        transcript = basic_streaming_text_test(adapter, options: options)
+        record_live_handoff_result(test_file: __FILE__, provider: provider_name, model:, result: transcript)
       end
     end
   end
