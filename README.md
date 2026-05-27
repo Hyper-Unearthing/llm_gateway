@@ -143,7 +143,7 @@ response = adapter.stream(transcript, tools: tools, model: "gpt-5.4", reasoning:
   when :message_start
     puts "\n[message_start] #{event.delta.inspect}"
   when :message_delta
-    puts "\n[message_delta] #{event.delta.inspect} usage+=#{event.usage_increment.inspect}"
+    puts "\n[message_delta] #{event.delta.inspect} usage=#{event.usage.inspect}"
   when :message_end
     puts "\n[message_end] final_id=#{event.message.id} stop_reason=#{event.message.stop_reason}"
 

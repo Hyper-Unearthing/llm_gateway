@@ -22,8 +22,8 @@ module LlmGateway
       #
       # Accepted event shapes:
       #
-      #   { type: :message_start, delta: { id: "...", model: "...", role: "assistant", timestamp: 1716650000000 }, usage_increment: { ... } }
-      #   { type: :message_delta, delta: { stop_reason: "stop" }, usage_increment: { ... } }
+      #   { type: :message_start, delta: { id: "...", model: "...", role: "assistant", timestamp: 1716650000000 } }
+      #   { type: :message_delta, delta: { stop_reason: "stop" }, usage: { output: 2 } }
       #   { type: :message_end }
       #
       #   { type: :text_start, delta: "hi" }
@@ -52,6 +52,13 @@ module LlmGateway
       attr_accessor :blocks, :message_hash, :usage_hash
       attr_reader :active_block_type, :final_message
 
+      DEFAULT_USAGE = {
+        input: 0,
+        cache_write: 0,
+        cache_read: 0,
+        output: 0
+      }.freeze
+
       BLOCK_EVENT_TRANSITIONS = {
         text_start: { block_type: :text, phase: :start },
         text_delta: { block_type: :text, phase: :delta },
@@ -68,12 +75,7 @@ module LlmGateway
         @provider = provider
         @api = api
         @message_hash = {}
-        @usage_hash = {
-          input: 0,
-          cache_write: 0,
-          cache_read: 0,
-          output: 0
-        }
+        @usage_hash = DEFAULT_USAGE.dup
         @blocks = []
         @next_content_index = 0
         @active_block_type = nil
@@ -189,10 +191,13 @@ module LlmGateway
 
         case type
         when :message_start, :message_delta
+          delta = symbolize_keys(event_patch[:delta] || {})
+          usage = symbolize_keys(event_patch[:usage] || delta.delete(:usage) || {})
+
           AssistantStreamMessageEvent.new(
             type:,
-            delta: symbolize_keys(event_patch[:delta] || {}),
-            usage_increment: symbolize_keys(event_patch[:usage_increment] || {}),
+            delta:,
+            usage:,
             partial:
           )
         when :tool_start
@@ -247,9 +252,6 @@ module LlmGateway
           blocks[event.content_index][:input] += event.delta
         when :message_start
           message_hash.merge!(event.delta)
-          usage_hash.each_key do |key|
-            usage_hash[key] += event.usage_increment.fetch(key, 0)
-          end
         when :reasoning_start
           blocks[event.content_index] = {
             type: "reasoning",
@@ -263,9 +265,7 @@ module LlmGateway
           blocks[event.content_index][:signature] += event.signature
         when :message_delta
           message_hash.merge!(event.delta)
-          usage_hash.each_key do |key|
-            usage_hash[key] += event.usage_increment.fetch(key, 0)
-          end
+          assign_usage(event.usage) unless event.usage.empty?
         end
       end
 
@@ -274,7 +274,21 @@ module LlmGateway
       end
 
       def partial_message
-        PartialAssistantMessage.new(result)
+        PartialAssistantMessage.new(partial_result)
+      end
+
+      def partial_result
+        ensure_timestamp!
+
+        message_hash.merge(
+          timestamp: @timestamp,
+          content: serialized_blocks
+        )
+      end
+
+      def assign_usage(usage)
+        normalized_usage = symbolize_keys(usage)
+        @usage_hash = DEFAULT_USAGE.merge(normalized_usage.slice(*DEFAULT_USAGE.keys))
       end
 
       def serialized_blocks

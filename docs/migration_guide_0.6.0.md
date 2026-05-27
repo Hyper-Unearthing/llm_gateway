@@ -277,7 +277,7 @@ end
 
 ## 8. Update usage accounting keys
 
-Normalized `AssistantMessage#usage`, `event.partial.usage`, and `event.usage_increment` now use provider-independent concise keys:
+Normalized `AssistantMessage#usage` and final stream `event.usage` patches now use provider-independent concise keys:
 
 | 0.5.x key | 0.6.0 key |
 |---|---|
@@ -330,11 +330,11 @@ mapper = MyStreamMapper.new(provider: "openai", api: "responses")
 
 `Adapter#stream` passes these values automatically when it instantiates the configured mapper, but direct mapper construction and custom initializers must accept/pass these keywords.
 
-Custom mappers must also push a final normalized end patch. Use the normalized usage keys shown above for `usage_increment`.
+Custom mappers must also push a final normalized end patch. Use the normalized usage keys shown above for final `usage`.
 
 ```ruby
 push_patches([
-  { type: :message_delta, delta: { stop_reason: "stop" }, usage_increment: { output: 12 } },
+  { type: :message_delta, delta: { stop_reason: "stop" }, usage: { output: 12 } },
   { type: :message_end }
 ], &block)
 ```

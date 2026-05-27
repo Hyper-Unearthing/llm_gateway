@@ -8,10 +8,10 @@ class NormalizedStreamAccumulatorPartialTest < Test
     events = []
 
     [
-      { type: :message_start, delta: { id: "msg_1", model: "test-model", role: "assistant" }, usage_increment: { input: 3 } },
+      { type: :message_start, delta: { id: "msg_1", model: "test-model", role: "assistant" } },
       { type: :text_start, delta: "hel" },
       { type: :text_delta, delta: "lo" },
-      { type: :message_delta, delta: { stop_reason: "stop" }, usage_increment: { output: 2 } },
+      { type: :message_delta, delta: { stop_reason: "stop" }, usage: { input: 3, output: 2 } },
       { type: :text_end },
       { type: :message_end }
     ].each do |patch|
@@ -25,7 +25,7 @@ class NormalizedStreamAccumulatorPartialTest < Test
     assert_equal "hel", events[1].partial.content[0].text
     assert_equal "hello", events[2].partial.content[0].text
     assert_equal "stop", events[3].partial.stop_reason
-    assert_equal 2, events[3].partial.usage[:output]
+    refute_respond_to events[3].partial, :usage
 
     message_end = events.last
     assert(message_end.message.is_a?(AssistantMessage))
@@ -37,6 +37,7 @@ class NormalizedStreamAccumulatorPartialTest < Test
     assert_equal message_end.message.timestamp, message_end.message.to_h[:timestamp]
     assert_equal accumulator.result[:id], message_end.message.id
     assert_equal accumulator.result[:model], message_end.message.model
+    assert_equal({ input: 3, cache_write: 0, cache_read: 0, output: 2 }, message_end.message.usage)
     assert_equal accumulator.result[:usage], message_end.message.usage
     assert_equal accumulator.result[:stop_reason], message_end.message.stop_reason
     assert_equal accumulator.result[:content], message_end.message.content.map(&:to_h)
@@ -96,6 +97,23 @@ class NormalizedStreamAccumulatorPartialTest < Test
 
     assert_equal 1_716_650_000_000, events.first.partial.timestamp
     assert_equal 1_716_650_000_000, events.last.message.timestamp
+    assert_equal({ input: 0, cache_write: 0, cache_read: 0, output: 0 }, events.last.message.usage)
+  end
+
+  test "usage is assigned from final usage patch rather than accumulated" do
+    accumulator = LlmGateway::Adapters::NormalizedStreamAccumulator.new(provider: "test-provider", api: "test-api")
+    events = []
+
+    [
+      { type: :message_start, delta: { id: "msg_1", model: "test-model", role: "assistant" }, usage: { input: 99 } },
+      { type: :message_delta, delta: { stop_reason: "stop" }, usage: { input: 3, output: 2 } },
+      { type: :message_end }
+    ].each do |patch|
+      accumulator.push(patch) { |event| events << event }
+    end
+
+    refute_respond_to events.first.partial, :usage
+    assert_equal({ input: 3, cache_write: 0, cache_read: 0, output: 2 }, events.last.message.usage)
   end
 
   test "partial assistant message allows incomplete messages except timestamp but assistant message does not" do

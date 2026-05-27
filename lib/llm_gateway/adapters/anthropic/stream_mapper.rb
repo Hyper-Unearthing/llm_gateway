@@ -14,9 +14,7 @@ module LlmGateway
               model: chunk.dig(:data, :message, :model),
               role: chunk.dig(:data, :message, :role)
             }
-            usage_increment = normalized_usage_increment(chunk.dig(:data, :message, :usage) || {})
-
-            accumulator.push({ type: :message_start, usage_increment:, delta: }, &block)
+            accumulator.push({ type: :message_start, delta: }, &block)
           when "content_block_start"
             content_block = chunk.dig(:data, :content_block) || {}
             @current_content_block_type = content_block[:type]
@@ -61,11 +59,14 @@ module LlmGateway
             end
             @current_content_block_type = nil
           when "message_delta"
-            delta = normalize_message_delta(chunk.dig(:data, :delta) || {})
-            usage_increment = normalized_usage_increment(chunk.dig(:data, :usage) || {})
+            data = chunk[:data] || {}
+            delta = normalize_message_delta(data[:delta] || {})
+            patch = { type: :message_delta, delta: }
+            patch[:usage] = normalized_usage(data[:usage]) if data.key?(:usage)
 
-            accumulator.push({ type: :message_delta, usage_increment:, delta: }, &block)
+            accumulator.push(patch, &block)
           when "message_stop"
+
             accumulator.push({ type: :message_end }, &block)
           when "ping"
             nil
@@ -75,12 +76,6 @@ module LlmGateway
         end
 
         private
-
-        def normalized_usage_increment(usage)
-          normalized_usage(usage).each_with_object({}) do |(key, value), increment|
-            increment[key] = [ value - accumulator.usage_hash.fetch(key, 0), 0 ].max
-          end
-        end
 
         def normalized_usage(usage)
           usage = symbolize_keys(usage)
