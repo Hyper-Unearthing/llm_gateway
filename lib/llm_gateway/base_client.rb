@@ -41,7 +41,7 @@ module LlmGateway
       request.set_form(form_data, "multipart/form-data")
 
       # Headers (excluding Content-Type because set_form already sets it)
-      multipart_headers = build_headers.reject { |k, _| k.downcase == "content-type" }
+      multipart_headers = build_headers.except("content-type", "Content-Type")
       multipart_headers.each { |key, value| request[key] = value }
 
       response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
@@ -112,7 +112,7 @@ module LlmGateway
           next if data_str == "[DONE]"
 
           data = begin
-            LlmGateway::Utils.deep_symbolize_keys(JSON.parse(data_str))
+            JSON.parse(data_str).deep_symbolize_keys
           rescue JSON::ParserError
             { raw: data_str }
           end
@@ -141,7 +141,7 @@ module LlmGateway
       when 200
         content_type = response["content-type"]
         if content_type&.include?("application/json")
-          LlmGateway::Utils.deep_symbolize_keys(JSON.parse(response.body))
+          JSON.parse(response.body).deep_symbolize_keys
         else
           response.body
         end

@@ -70,7 +70,7 @@ module LlmGateway
         return block if same_model_replay
 
         text = extract_reasoning_text(block)
-        return nil if text.nil? || text.strip.empty?
+        return nil if text.blank?
 
         { type: "text", text: text }
       end
@@ -146,7 +146,7 @@ module LlmGateway
 
             item[:text] || item[:summary_text] || item[:reasoning]
           end.join("\n")
-          return text unless text.empty?
+          return text if text.present?
         end
 
         nil
@@ -172,7 +172,7 @@ module LlmGateway
         api = message[:api] || message["api"]
         model = message[:model] || message["model"]
 
-        !provider.nil? && !api.nil? && !model.nil?
+        provider.present? && api.present? && model.present?
       end
 
       private_class_method :sanitize_message, :sanitize_content_block, :normalize_server_tool_use_for_replay,

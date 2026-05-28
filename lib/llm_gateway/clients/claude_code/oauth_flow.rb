@@ -105,7 +105,7 @@ module LlmGateway
           code = uri.query && URI.decode_www_form(uri.query).to_h["code"]
           state = uri.query && URI.decode_www_form(uri.query).to_h["state"]
 
-          raise ArgumentError, "Callback URL is missing code parameter" if code.nil? || code.empty?
+          raise ArgumentError, "Callback URL is missing code parameter" if code.blank?
 
           { code: code, state: state }
         rescue URI::InvalidURIError => e
@@ -116,7 +116,7 @@ module LlmGateway
 
         def extract_code_and_state(auth_code_or_callback, state)
           value = auth_code_or_callback.to_s.strip
-          raise ArgumentError, "Authorization code is required" if value.empty?
+          raise ArgumentError, "Authorization code is required" if value.blank?
 
           if looks_like_url?(value)
             callback = parse_callback(value)

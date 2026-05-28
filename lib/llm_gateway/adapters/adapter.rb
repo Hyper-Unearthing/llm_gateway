@@ -103,7 +103,7 @@ module LlmGateway
         target_provider = LlmGateway::Client.provider_id_from_client(client)
         target_api = api_name
 
-        return messages if target_provider.nil? || target_api.nil? || target_model.nil?
+        return messages unless target_provider.present? && target_api.present? && target_model.present?
 
         input_sanitizer.sanitize(
           messages,

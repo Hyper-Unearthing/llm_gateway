@@ -4,16 +4,20 @@ module LlmGateway
   module Utils
     module_function
 
-    def deep_symbolize_keys(hash)
-      case hash
+    def symbolize_keys(hash)
+      hash.to_h.transform_keys { |key| key.respond_to?(:to_sym) ? key.to_sym : key }
+    end
+
+    def deep_symbolize_keys(value)
+      case value
       when Hash
-        hash.each_with_object({}) do |(key, value), result|
-          result[key.to_sym] = deep_symbolize_keys(value)
+        value.each_with_object({}) do |(key, nested_value), result|
+          result[symbolize_key(key)] = deep_symbolize_keys(nested_value)
         end
       when Array
-        hash.map { |item| deep_symbolize_keys(item) }
+        value.map { |item| deep_symbolize_keys(item) }
       else
-        hash
+        value
       end
     end
 
@@ -21,19 +25,112 @@ module LlmGateway
       !blank?(value)
     end
 
+    def presence(value)
+      present?(value) ? value : nil
+    end
+
     def blank?(value)
       case value
-      when nil
+      when nil, false
         true
-      when String
-        value.strip.empty?
-      when Array, Hash
-        value.empty?
-      when Numeric
+      when true, Numeric
         false
+      when String
+        value.match?(/\A[[:space:]]*\z/)
       else
-        value.respond_to?(:empty?) ? value.empty? : false
+        value.respond_to?(:empty?) ? !!value.empty? : false
       end
+    end
+
+    def symbolize_key(key)
+      key.respond_to?(:to_sym) ? key.to_sym : key
+    rescue StandardError
+      key
+    end
+  end
+end
+
+class Class
+  def class_attribute(*names, instance_accessor: true, default: nil)
+    names.each do |name|
+      ivar = :"@#{name}"
+      instance_variable_set(ivar, default)
+
+      unset = Object.new
+
+      define_singleton_method(name) do |value = unset|
+        unless value.equal?(unset)
+          instance_variable_set(ivar, value)
+          next value
+        end
+
+        if instance_variable_defined?(ivar)
+          instance_variable_get(ivar)
+        elsif superclass.respond_to?(name)
+          superclass.public_send(name)
+        end
+      end
+
+      define_singleton_method("#{name}=") do |value|
+        instance_variable_set(ivar, value)
+      end
+
+      if instance_accessor
+        define_method(name) do
+          if instance_variable_defined?(ivar)
+            instance_variable_get(ivar)
+          else
+            self.class.public_send(name)
+          end
+        end
+
+        define_method("#{name}=") { |value| instance_variable_set(ivar, value) }
+      end
+    end
+  end
+end
+
+class Object
+  def blank?
+    LlmGateway::Utils.blank?(self)
+  end
+
+  def present?
+    LlmGateway::Utils.present?(self)
+  end
+
+  def presence
+    LlmGateway::Utils.presence(self)
+  end
+end
+
+class Hash
+  def symbolize_keys
+    transform_keys { |key| LlmGateway::Utils.symbolize_key(key) }
+  end
+
+  def symbolize_keys!
+    replace(symbolize_keys)
+  end
+
+  def deep_symbolize_keys
+    LlmGateway::Utils.deep_symbolize_keys(self)
+  end
+
+  def deep_symbolize_keys!
+    replace(deep_symbolize_keys)
+  end
+
+  unless method_defined?(:except)
+    def except(*keys)
+      reject { |key, _| keys.include?(key) }
+    end
+  end
+
+  unless method_defined?(:except!)
+    def except!(*keys)
+      keys.each { |key| delete(key) }
+      self
     end
   end
 end

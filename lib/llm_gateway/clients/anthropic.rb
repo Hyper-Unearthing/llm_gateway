@@ -54,19 +54,19 @@ module LlmGateway
         }
 
         tools = apply_tools_cache_control(tools, cache_retention)
-        body.merge!(tools: tools) if LlmGateway::Utils.present?(tools)
+        body.merge!(tools: tools) if tools.present?
 
         system = prepend_claude_code_identity(system) if claude_code_oauth_api_key?
         system = apply_system_cache_control(system, cache_retention)
 
-        body.merge!(system: system) if LlmGateway::Utils.present?(system)
+        body.merge!(system: system) if system.present?
         body.merge!(cache_control: cache_control) unless cache_control.nil?
         body.merge!(options)
         body
       end
 
       def apply_system_cache_control(system, cache_retention)
-        return system if system.nil? || system.empty? || !system.is_a?(Array)
+        return system if system.blank? || !system.is_a?(Array)
 
         cache_control = anthropic_cache_control_for(cache_retention)
         return system if cache_control.nil?
@@ -84,7 +84,7 @@ module LlmGateway
       end
 
       def apply_tools_cache_control(tools, cache_retention)
-        return tools if tools.nil? || tools.empty? || !tools.is_a?(Array)
+        return tools if tools.blank? || !tools.is_a?(Array)
 
         cache_control = anthropic_cache_control_for(cache_retention)
         return tools if cache_control.nil?
@@ -149,7 +149,7 @@ module LlmGateway
           text: "You are Claude Code, Anthropic's official CLI for Claude."
         }
 
-        if system.nil? || system.empty?
+        if system.blank?
           [ identity ]
         else
           [ identity ] + system

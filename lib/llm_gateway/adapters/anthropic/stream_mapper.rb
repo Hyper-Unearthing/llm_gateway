@@ -99,7 +99,7 @@ module LlmGateway
         private
 
         def normalized_usage(usage)
-          usage = symbolize_keys(usage)
+          usage = usage.to_h.symbolize_keys
 
           input = token_count(usage[:input_tokens])
           cache_write = token_count(usage[:cache_creation_input_tokens])
@@ -118,10 +118,6 @@ module LlmGateway
 
         def token_count(value)
           value.to_i
-        end
-
-        def symbolize_keys(hash)
-          hash.to_h.transform_keys { |key| key.respond_to?(:to_sym) ? key.to_sym : key }
         end
 
         def normalize_content_block_type(type)

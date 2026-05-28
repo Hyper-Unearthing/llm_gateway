@@ -68,7 +68,7 @@ module LlmGateway
         module_function
 
         def map(options)
-          mapped_options = options.reject { |key, _| MANAGED_OPTIONS.include?(key) }
+          mapped_options = options.except(*MANAGED_OPTIONS)
           mapped_options[:temperature] = options.key?(:temperature) ? options[:temperature] : DEFAULT_TEMPERATURE
           mapped_options[:max_completion_tokens] = options[:max_completion_tokens] || DEFAULT_MAX_COMPLETION_TOKENS
           mapped_options[:response_format] = normalize_response_format(options[:response_format] || "text")

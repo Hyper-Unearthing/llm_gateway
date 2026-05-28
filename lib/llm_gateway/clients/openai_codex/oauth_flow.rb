@@ -96,7 +96,7 @@ module LlmGateway
           uri    = URI.parse(callback_url)
           params = URI.decode_www_form(uri.query.to_s).to_h
           code   = params["code"]
-          raise ArgumentError, "Callback URL is missing code parameter" if code.nil? || code.empty?
+          raise ArgumentError, "Callback URL is missing code parameter" if code.blank?
 
           { code: code, state: params["state"] }
         rescue URI::InvalidURIError => e
@@ -120,7 +120,7 @@ module LlmGateway
           input = tty.gets&.strip
           tty.close
 
-          raise "No authorization code provided" if input.nil? || input.empty?
+          raise "No authorization code provided" if input.blank?
 
           exchange_code(input, flow[:code_verifier], expected_state: flow[:state])
         end
@@ -183,7 +183,7 @@ module LlmGateway
           auth       = payload[JWT_CLAIM_PATH]
           account_id = auth&.dig("chatgpt_account_id")
 
-          account_id.is_a?(String) && !account_id.empty? ? account_id : nil
+          account_id.is_a?(String) ? account_id.presence : nil
         rescue StandardError
           nil
         end
@@ -214,7 +214,7 @@ module LlmGateway
         end
 
         def parse_authorization_input(input, expected_state = nil)
-          return nil if input.nil? || input.empty?
+          return nil if input.blank?
 
           value = input.to_s.strip
 

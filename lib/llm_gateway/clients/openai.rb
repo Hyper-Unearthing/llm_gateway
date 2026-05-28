@@ -114,7 +114,7 @@ module LlmGateway
 
       def build_codex_body(messages, system, tools, model:, **options)
         instructions = Array(system).filter_map { |s| s.is_a?(Hash) ? s[:content] : s }.join("\n")
-        instructions = "You are a helpful assistant." if instructions.empty?
+        instructions = instructions.presence || "You are a helpful assistant."
 
         body = {
           model: model,
@@ -196,7 +196,7 @@ module LlmGateway
         end
         # If we get here, we didn't handle it specifically
         fallback_body = response.body.to_s.strip
-        fallback_message = if fallback_body.empty?
+        fallback_message = if fallback_body.blank?
           "OpenAI request failed with status #{response.code}"
         else
           "OpenAI request failed with status #{response.code}: #{fallback_body}"
