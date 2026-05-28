@@ -37,22 +37,28 @@ module LlmGateway
               return tools unless tools
 
               tools.map do |tool|
-                mapped_tool = {
-                  type: "function",
-                  name: tool[:name],
-                  description: tool[:description],
-                  parameters: tool[:input_schema]
-                }
+                tool = tool.transform_keys(&:to_sym)
 
-                [ :contents, :content ].each do |key|
-                  next unless tool[key].is_a?(Array)
+                if tool[:name].nil?
+                  tool
+                else
+                  mapped_tool = {
+                    type: "function",
+                    name: tool[:name],
+                    description: tool[:description],
+                    parameters: tool[:input_schema]
+                  }
 
-                  mapped_tool[key] = tool[key].map do |entry|
-                    entry.is_a?(Hash) ? map_content(entry.transform_keys(&:to_sym)) : entry
+                  [ :contents, :content ].each do |key|
+                    next unless tool[key].is_a?(Array)
+
+                    mapped_tool[key] = tool[key].map do |entry|
+                      entry.is_a?(Hash) ? map_content(entry.transform_keys(&:to_sym)) : entry
+                    end
                   end
-                end
 
-                mapped_tool
+                  mapped_tool
+                end
               end
             end
 
@@ -85,28 +91,38 @@ module LlmGateway
             def map_assistant_history_message(msg)
               blocks = (msg[:content] || []).map { |b| b.transform_keys(&:to_sym) }
 
-              text_blocks = blocks.select { |b| b[:type] == "text" }
-              tool_use_blocks = blocks.select { |b| b[:type] == "tool_use" }
-
               result = []
 
-              if text_blocks.any?
-                result << {
-                  role: "assistant",
-                  content: text_blocks.map { |b| { type: "output_text", text: b[:text] } }
-                }
-              end
-
-              tool_use_blocks.each do |b|
-                result << {
-                  type: "function_call",
-                  call_id: b[:id],
-                  name: b[:name],
-                  arguments: b[:input].is_a?(Hash) ? b[:input].to_json : (b[:input] || {}).to_json
-                }
+              blocks.each do |block|
+                case block[:type]
+                when "text"
+                  result << {
+                    role: "assistant",
+                    content: [ { type: "output_text", text: block[:text] } ]
+                  }
+                when "tool_use"
+                  result << {
+                    type: "function_call",
+                    call_id: block[:id],
+                    name: block[:name],
+                    arguments: block[:input].is_a?(Hash) ? block[:input].to_json : (block[:input] || {}).to_json
+                  }
+                when "server_tool_use"
+                  result << map_server_tool_use_history_item(block)
+                end
               end
 
               result
+            end
+
+            def map_server_tool_use_history_item(block)
+              input = block[:input].is_a?(Hash) ? block[:input] : {}
+
+              {
+                id: block[:id],
+                type: block[:name],
+                status: "completed"
+              }.merge(input)
             end
 
             def map_messages_content(message)

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+
 require_relative "../../stream_mapper"
 
 module LlmGateway
@@ -23,10 +25,16 @@ module LlmGateway
               response_created_patches(data[:response])
             when "response.output_item.added"
               output_item_added_patches(data)
+            when "response.output_item.done"
+              output_item_done_patches(data)
             when "response.content_part.added"
               content_part_added_patches(data)
-            when "response.content_part.done"
+            when "response.content_part.done", "response.output_text.done"
               content_part_done_patches(data)
+            when "response.code_interpreter_call_code.delta"
+              code_interpreter_code_delta_patches(data)
+            when "response.code_interpreter_call.in_progress", "response.code_interpreter_call.interpreting", "response.code_interpreter_call.completed", "response.code_interpreter_call_code.done"
+              []
             when "response.output_text.delta"
               [ { type: :text_delta, delta: data[:delta] || "" } ]
             when "response.function_call_arguments.delta"
@@ -84,6 +92,38 @@ module LlmGateway
                   name: item[:name]
                 }
               ]
+            when "code_interpreter_call"
+              state = code_interpreter_state[data[:output_index] || 0] = {
+                id: item[:id],
+                container_id: item[:container_id],
+                outputs: item[:outputs],
+                input_opened: false,
+                input_closed: false
+              }
+              container_id_to_tool_id[state[:container_id]] = state[:id] if state[:container_id]
+
+              [
+                {
+                  type: :tool_start,
+                  delta: "",
+                  id: item[:id],
+                  name: "code_interpreter_call",
+                  tool_type: "server_tool_use"
+                }
+              ]
+            else
+              []
+            end
+          end
+
+          def output_item_done_patches(data)
+            item = data[:item] || {}
+
+            case item[:type]
+            when "code_interpreter_call"
+              code_interpreter_done_patches(data[:output_index] || 0, item)
+            when "message"
+              container_file_citation_patches(item)
             else
               []
             end
@@ -100,7 +140,83 @@ module LlmGateway
             part = data[:part] || {}
             return [] unless part.empty? || part[:type] == "output_text"
 
-            [ { type: :text_end, delta: "" } ]
+            citations = container_file_citation_patches(data)
+            return citations unless accumulator.active_block_type == :text
+
+            [ { type: :text_end, delta: "" } ] + citations
+          end
+
+          def code_interpreter_code_delta_patches(data)
+            output_index = data[:output_index] || 0
+            state = code_interpreter_state[output_index] ||= {
+              id: nil,
+              container_id: nil,
+              outputs: nil,
+              input_opened: false,
+              input_closed: false
+            }
+            delta = escape_json_string_fragment(data[:delta] || "")
+            delta = "{\"code\":\"#{delta}" unless state[:input_opened]
+            state[:input_opened] = true
+
+            [ { type: :tool_delta, delta: } ]
+          end
+
+          def code_interpreter_done_patches(output_index, item)
+            state = code_interpreter_state[output_index] ||= {}
+            state[:id] ||= item[:id]
+            state[:container_id] = item[:container_id] if item.key?(:container_id)
+            state[:outputs] = item[:outputs] if item.key?(:outputs)
+            container_id_to_tool_id[state[:container_id]] = state[:id] if state[:container_id] && state[:id]
+            return [] if state[:input_closed]
+
+            opening = state[:input_opened] ? "" : "{\"code\":\""
+            state[:input_opened] = true
+            closing = "\"," + JSON.generate(container_id: state[:container_id], outputs: state[:outputs])[1..]
+            state[:input_closed] = true
+
+            [
+              { type: :tool_delta, delta: opening + closing },
+              { type: :tool_end, delta: "" }
+            ]
+          end
+
+          def container_file_citation_patches(data)
+            extract_annotations(data).filter_map do |annotation|
+              next unless annotation[:type] == "container_file_citation"
+
+              container_id = annotation[:container_id]
+              file_id = annotation[:file_id]
+              filename = annotation[:filename]
+              tool_id = container_id_to_tool_id[container_id]
+              next unless tool_id
+
+              key = [ tool_id, container_id, file_id, filename ]
+              next if emitted_citation_keys[key]
+
+              emitted_citation_keys[key] = true
+              {
+                type: :tool_result_start,
+                delta: JSON.generate(container_id:, file_id:, filename:),
+                tool_use_id: tool_id,
+                name: "container_file_citation_tool_result"
+              }
+            end.flat_map { |start| [ start, { type: :tool_result_end, delta: "" } ] }
+          end
+
+          def extract_annotations(data)
+            annotations = []
+            annotations.concat(Array(data[:annotations]))
+            annotations.concat(Array(data.dig(:part, :annotations)))
+            annotations.concat(Array(data.dig(:item, :annotations)))
+            Array(data.dig(:item, :content)).each do |content_part|
+              annotations.concat(Array(content_part[:annotations])) if content_part.is_a?(Hash)
+            end
+            annotations
+          end
+
+          def escape_json_string_fragment(value)
+            JSON.generate(value)[1...-1]
           end
 
           def response_completed_patches(response)
@@ -162,7 +278,19 @@ module LlmGateway
           end
 
           def tool_seen?
-            accumulator.blocks.any? { |content_block| content_block && content_block[:type] == "tool_use" }
+            accumulator.blocks.any? { |content_block| content_block && [ "tool_use", "server_tool_use" ].include?(content_block[:type]) }
+          end
+
+          def code_interpreter_state
+            @code_interpreter_state ||= {}
+          end
+
+          def container_id_to_tool_id
+            @container_id_to_tool_id ||= {}
+          end
+
+          def emitted_citation_keys
+            @emitted_citation_keys ||= {}
           end
         end
       end

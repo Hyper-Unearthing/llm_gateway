@@ -16,6 +16,7 @@ Provide a unified translation interface for LLM Provider API's, While allowing d
 - [Tools](#tools)
   - [Defining Tools](#defining-tools)
   - [Handling Tool Calls](#handling-tool-calls)
+  - [Server Tool Use](#server-tool-use)
 - [Image Input](#image-input)
 - [Thinking / Reasoning](#thinking--reasoning)
   - [Streaming Thinking Content](#streaming-thinking-content)
@@ -158,7 +159,7 @@ response = adapter.stream(transcript, tools: tools, model: "gpt-5.4", reasoning:
 
   # Tool-call events
   when :tool_start
-    puts "\n[tool_start] id=#{event.id} name=#{event.name} index=#{event.content_index}"
+    puts "\n[tool_start] id=#{event.id} name=#{event.name} type=#{event.tool_type} index=#{event.content_index}"
   when :tool_delta
     streamed_tool_args[event.content_index] << event.delta
     print event.delta
@@ -212,6 +213,7 @@ Stream callback event families:
 - `AssistantStreamEvent` (and subclasses):
   - Text: `:text_start`, `:text_delta`, `:text_end`
   - Tool call: `:tool_start`, `:tool_delta`, `:tool_end`
+  - Tool result: `:tool_result_start`, `:tool_result_delta`, `:tool_result_end` (emitted by some provider-hosted/server tools)
   - Reasoning: `:reasoning_start`, `:reasoning_delta`, `:reasoning_end`
 
 Non-final stream events expose `event.partial`, a `PartialAssistantMessage` snapshot accumulated so far. The final `:message_end` event exposes the complete `AssistantMessage` as `event.message` instead.
@@ -357,6 +359,50 @@ Notes:
 - Tool calls are returned as `ToolCall` blocks with `type: "tool_use"`, `id`, `name`, and `input`.
 - Tool results are sent back in the transcript as `{ type: "tool_result", tool_use_id:, content: }` blocks.
 - For multimodal-capable models, `tool_result` content can include image blocks when supported by the provider/model.
+
+### Server Tool Use
+
+Some providers offer provider-hosted tools, such as OpenAI Responses code interpreter or Anthropic code execution. Pass these tools in the provider's native shape; `llm_gateway` preserves them and normalizes server tool activity in streams and final messages.
+
+```ruby
+openai_code_interpreter = {
+  type: "code_interpreter",
+  container: { type: "auto", memory_limit: "1g" }
+}
+
+anthropic_code_execution = {
+  type: "code_execution_20250825",
+  name: "code_execution"
+}
+
+tools = provider == "openai_responses" ? [openai_code_interpreter] : [anthropic_code_execution]
+response = adapter.stream("Create a chart from this CSV and save it as PNG.", tools: tools) do |event|
+  case event.type
+  when :tool_start
+    puts "server tool: #{event.name}" if event.tool_type == "server_tool_use"
+  when :tool_delta
+    print event.delta # streamed code/input JSON when the provider exposes it
+  when :tool_result_start, :tool_result_delta
+    print event.delta # provider-hosted result metadata/content when available
+  end
+end
+
+response.content.each do |block|
+  case block.type
+  when "server_tool_use"
+    puts "server tool #{block.name} input=#{block.input.inspect} id=#{block.id}"
+  when "server_tool_result"
+    puts "server tool result for #{block.tool_use_id}: #{block.content.inspect}"
+  end
+end
+```
+
+Cross-provider server tool handoffs are best-effort:
+
+- Same provider/API replay keeps `server_tool_use` / `server_tool_result` blocks when possible.
+- Cross-provider replay converts server tool uses into normal `tool_use` blocks and server tool results into `tool_result` blocks.
+- `llm_gateway` does not translate server tool names between providers. Supply the target provider's server tool definition on the follow-up request.
+- Some providers require the same server tool to be selected in `tools:` when replaying prior server tool activity.
 
 ## Image Input
 

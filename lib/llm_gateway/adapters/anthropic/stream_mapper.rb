@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+
 require_relative "../stream_mapper"
 
 module LlmGateway
@@ -17,20 +19,33 @@ module LlmGateway
             accumulator.push({ type: :message_start, delta: }, &block)
           when "content_block_start"
             content_block = chunk.dig(:data, :content_block) || {}
-            @current_content_block_type = content_block[:type]
+            @current_content_block_type = normalize_content_block_type(content_block[:type])
 
             case @current_content_block_type
             when "thinking"
               accumulator.push({ type: :reasoning_start, delta: content_block[:thinking], signature: "" }, &block)
             when "text"
               accumulator.push({ type: :text_start, delta: content_block[:text] }, &block)
-            when "tool_use"
+            when "tool_use", "server_tool_use"
               accumulator.push(
                 {
                   type: :tool_start,
                   delta: "",
                   id: content_block[:id],
-                  name: content_block[:name]
+                  name: content_block[:name],
+                  tool_type: @current_content_block_type
+                },
+                &block
+              )
+            when "server_tool_result"
+              content = content_block[:content]
+              result_delta = content.nil? ? "" : JSON.generate(content)
+              accumulator.push(
+                {
+                  type: :tool_result_start,
+                  delta: result_delta,
+                  tool_use_id: content_block[:tool_use_id],
+                  name: content_block[:type]
                 },
                 &block
               )
@@ -44,9 +59,13 @@ module LlmGateway
             when "text"
               delta = chunk.dig(:data, :delta, :text)
               accumulator.push({ type: :text_delta, delta: }, &block)
-            when "tool_use"
+            when "tool_use", "server_tool_use"
               delta = chunk.dig(:data, :delta, :partial_json)
               accumulator.push({ type: :tool_delta, delta: }, &block)
+            when "server_tool_result"
+              content = chunk.dig(:data, :delta, :content)
+              result_delta = content.nil? ? "" : JSON.generate(content)
+              accumulator.push({ type: :tool_result_delta, delta: result_delta }, &block)
             end
           when "content_block_stop"
             case @current_content_block_type
@@ -54,8 +73,10 @@ module LlmGateway
               accumulator.push({ type: :reasoning_end, delta: "", signature: "" }, &block)
             when "text"
               accumulator.push({ type: :text_end, delta: "" }, &block)
-            when "tool_use"
+            when "tool_use", "server_tool_use"
               accumulator.push({ type: :tool_end, delta: "" }, &block)
+            when "server_tool_result"
+              accumulator.push({ type: :tool_result_end, delta: "" }, &block)
             end
             @current_content_block_type = nil
           when "message_delta"
@@ -101,6 +122,12 @@ module LlmGateway
 
         def symbolize_keys(hash)
           hash.to_h.transform_keys { |key| key.respond_to?(:to_sym) ? key.to_sym : key }
+        end
+
+        def normalize_content_block_type(type)
+          return type unless type&.end_with?("_tool_result")
+
+          "server_tool_result"
         end
 
         def normalize_message_delta(delta)
