@@ -33,19 +33,22 @@ class PromptTest < Test
     ConfigurablePrompt.provider = provider
     ConfigurablePrompt.model = "class-model"
 
-    ConfigurablePrompt.new.stream
+    prompt = ConfigurablePrompt.new
+    prompt.stream
 
+    assert_equal provider, prompt.provider
+    assert_equal "class-model", prompt.model
     assert_equal "hello", provider.calls.last[:message]
     assert_equal "class-model", provider.calls.last[:options][:model]
   end
 
-  test "initializer provider and model override class configuration" do
+  test "initializer provider and model keywords override class configuration" do
     class_provider = RecordingProvider.new
     instance_provider = RecordingProvider.new
     ConfigurablePrompt.provider = class_provider
     ConfigurablePrompt.model = "class-model"
 
-    ConfigurablePrompt.new(instance_provider, "instance-model").stream
+    ConfigurablePrompt.new(provider: instance_provider, model: "instance-model").stream
 
     assert_empty class_provider.calls
     assert_equal "instance-model", instance_provider.calls.last[:options][:model]
@@ -55,7 +58,7 @@ class PromptTest < Test
     instance_provider = RecordingProvider.new
     stream_provider = RecordingProvider.new
 
-    ConfigurablePrompt.new(instance_provider, "instance-model").stream(
+    ConfigurablePrompt.new(provider: instance_provider, model: "instance-model").stream(
       provider: stream_provider,
       model: "stream-model"
     )

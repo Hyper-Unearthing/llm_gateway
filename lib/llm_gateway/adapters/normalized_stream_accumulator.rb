@@ -113,7 +113,7 @@ module LlmGateway
       def push(event_patch, &block)
         raise ArgumentError, "Normalized stream event patch must be a Hash" unless event_patch.is_a?(Hash)
 
-        event_patch = symbolize_keys(event_patch)
+        event_patch = event_patch.symbolize_keys
         type = event_patch.fetch(:type).to_sym
         event_patch = prepare_event_patch(event_patch.merge(type:), type)
         ensure_timestamp!
@@ -195,12 +195,12 @@ module LlmGateway
       end
 
       def build_event(event_patch, partial:)
-        event_patch = symbolize_keys(event_patch)
+        event_patch = event_patch.symbolize_keys
         type = event_patch.fetch(:type).to_sym
 
         case type
         when :message_start, :message_delta
-          delta = symbolize_keys(event_patch[:delta] || {})
+          delta = (event_patch[:delta] || {}).symbolize_keys
           raw_usage = event_patch[:usage] || delta.delete(:usage) || {}
           usage = raw_usage.empty? ? {} : normalized_usage(raw_usage)
 
@@ -319,7 +319,7 @@ module LlmGateway
       end
 
       def normalized_usage(usage)
-        usage = default_usage.merge(symbolize_keys(usage).slice(*DEFAULT_USAGE.keys))
+        usage = default_usage.merge(usage.to_h.symbolize_keys.slice(*DEFAULT_USAGE.keys))
         usage[:total] = usage[:input] + usage[:cache_write] + usage[:cache_read] + usage[:output]
         usage[:raw] ||= {}
         usage
@@ -332,7 +332,7 @@ module LlmGateway
       def serialized_blocks
         blocks.compact.map do |content_block|
           if [ "tool_use", "server_tool_use" ].include?(content_block[:type])
-            next content_block.merge(input: LlmGateway::Utils.deep_symbolize_keys(parse_tool_input(content_block[:input])))
+            next content_block.merge(input: parse_tool_input(content_block[:input]).deep_symbolize_keys)
           end
 
           if content_block[:type]&.end_with?("_tool_result")
@@ -340,7 +340,7 @@ module LlmGateway
               type: "server_tool_result",
               tool_use_id: content_block[:tool_use_id],
               name: content_block[:type],
-              content: LlmGateway::Utils.deep_symbolize_keys(parse_tool_input(content_block[:content]))
+              content: parse_tool_input(content_block[:content]).deep_symbolize_keys
             }
           end
 
@@ -349,15 +349,11 @@ module LlmGateway
       end
 
       def parse_tool_input(input)
-        return {} if input.nil? || input.empty?
+        return {} if input.blank?
 
         JSON.parse(input)
       rescue JSON::ParserError
         {}
-      end
-
-      def symbolize_keys(hash)
-        hash.to_h.transform_keys { |key| key.respond_to?(:to_sym) ? key.to_sym : key }
       end
 
       def string_value(value)
