@@ -4,7 +4,7 @@ module LlmGateway
   class Prompt
     UNSET = Object.new.freeze
 
-    attr_reader :provider, :model
+    attr_accessor :provider, :model, :reasoning
 
     class << self
       def provider(value = UNSET)
@@ -23,6 +23,15 @@ module LlmGateway
 
       def model=(value)
         @model = value
+      end
+
+      def reasoning(value = UNSET)
+        @reasoning = value unless value.equal?(UNSET)
+        @reasoning
+      end
+
+      def reasoning=(value)
+        @reasoning = value
       end
     end
 
@@ -50,11 +59,13 @@ module LlmGateway
       subclass.instance_variable_set(:@after_execute_callbacks, after_execute_callbacks.dup)
       subclass.provider = provider
       subclass.model = model
+      subclass.reasoning = reasoning
     end
 
-    def initialize(provider = nil, model = nil)
-      @provider = provider || self.class.provider
-      @model = model || self.class.model
+    def initialize(provider_arg = UNSET, model_arg = UNSET, provider: UNSET, model: UNSET, reasoning: UNSET)
+      @provider = resolve_legacy_positional_configuration(provider, provider_arg, self.class.provider)
+      @model = resolve_legacy_positional_configuration(model, model_arg, self.class.model)
+      @reasoning = resolve_keyword_configuration(reasoning, self.class.reasoning)
     end
 
     def run
@@ -79,10 +90,12 @@ module LlmGateway
       result
     end
 
-    def stream(provider: nil, model: nil, **options)
-      stream_provider = provider || self.provider
-      stream_model = model || self.model
+    def stream(provider: UNSET, model: UNSET, reasoning: UNSET, **options)
+      stream_provider = provider.equal?(UNSET) ? self.provider : provider
+      stream_model = model.equal?(UNSET) ? self.model : model
+      stream_reasoning = reasoning.equal?(UNSET) ? self.reasoning : reasoning
       options[:model] = stream_model if stream_model
+      options[:reasoning] = stream_reasoning unless stream_reasoning.equal?(UNSET) || stream_reasoning.nil?
 
       stream_provider.stream(prompt, tools: tools, system: system_prompt, **options)
     end
@@ -100,6 +113,19 @@ module LlmGateway
     end
 
     private
+
+    def resolve_legacy_positional_configuration(keyword_value, positional_value, class_value)
+      return keyword_value unless keyword_value.equal?(UNSET)
+      return positional_value unless positional_value.equal?(UNSET) || positional_value.nil?
+
+      class_value
+    end
+
+    def resolve_keyword_configuration(keyword_value, class_value)
+      return keyword_value unless keyword_value.equal?(UNSET)
+
+      class_value
+    end
 
     def run_callbacks(callback_type, *args)
       callbacks = self.class.send("#{callback_type}_callbacks")
