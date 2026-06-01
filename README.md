@@ -288,28 +288,29 @@ class MathPrompt < LlmGateway::Prompt
   end
 end
 
-answer = MathPrompt.new(
+response = MathPrompt.new(
   cache_key: "math-prompt-v1",
   cache_retention: "short"
 ).run
 
-puts answer # concatenated assistant text after any tool calls complete
+puts response.role # "assistant"
+puts response.content.select { |block| block.type == "text" }.map(&:text).join
 ```
 
 How `Prompt` works now:
 
 - `prompt` is evaluated once per `run`.
-- `run(provider:, model:, reasoning:, **options)` calls `stream` and returns concatenated text content from the final `AssistantMessage`.
+- `run(provider:, model:, reasoning:, **options)` calls `stream` and returns the final normalized `AssistantMessage` after any tool calls complete.
 - `stream(input = prompt, provider:, model:, reasoning:, **options, &block)` forwards to the provider and returns the normalized `AssistantMessage`.
 - Tools are declared as tool classes in a `TOOLS` constant. `run` automatically executes returned `tool_use` blocks, appends `tool_result` messages, and loops until no tool calls remain.
 - `system_prompt`, `tools`, `model`, `reasoning`, `cache_key`, and `cache_retention` are forwarded as stream options.
 - `cache_retention` can also enable provider cache control for prompt-owned system/tool blocks where supported, and `Tool.cache true` marks a tool definition with `cache_control`.
-- `before_execute` callbacks receive the resolved input. `after_execute` callbacks receive the final `AssistantMessage` and concatenated text.
-- The old `extract_response` and `parse_response` hooks are no longer called; parse or transform the returned text after `run`.
+- `before_execute` callbacks receive the resolved input. `after_execute` callbacks receive the final `AssistantMessage`.
+- The old `extract_response` and `parse_response` hooks are no longer called; inspect, parse, or transform the returned `AssistantMessage` after `run`.
 
 ## Migration guides
 
-- [0.7.0 migration guide](docs/migration_guide_0.7.0.md) — update `Prompt` subclasses for normalized `AssistantMessage` responses, automatic tool loops, `TOOLS`, and removed response hooks.
+- [0.7.0 migration guide](docs/migration_guide_0.7.0.md) — update `Prompt` subclasses for normalized `AssistantMessage` return values, automatic tool loops, `TOOLS`, and removed response hooks.
 - [0.6.0 migration guide](docs/migration_guide_0.6.0.md) — move `model_key` to per-request `model:`, update provider keys, update `Prompt` usage, and migrate stream event/usage changes.
 - [Migrating from `chat` to `stream`](docs/migration-guide.md) — use `stream` without a block when you only need the final response.
 

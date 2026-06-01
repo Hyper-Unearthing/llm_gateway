@@ -31,7 +31,9 @@ LlmGateway::AssistantMessage.new(
 )
 ```
 
-`run` returns the concatenated text from text content blocks after tool handling is complete.
+`run` returns the final normalized `AssistantMessage` after tool handling is complete. It no longer extracts or concatenates text content for you; inspect `response.content` when you need text or other blocks.
+
+`after_execute` callbacks now receive only the final `AssistantMessage` instead of both the message and extracted text.
 
 ### `extract_response` and `parse_response` hooks were removed
 
@@ -46,7 +48,9 @@ class JsonPrompt < LlmGateway::Prompt
   end
 
   def run_json(**options)
-    JSON.parse(run(**options))
+    response = run(**options)
+    text = response.content.select { |block| block.type == "text" }.map(&:text).join
+    JSON.parse(text)
   end
 end
 ```
@@ -126,7 +130,8 @@ These are passed to providers as managed `cache_key` / `cache_retention` stream 
 ## Migration checklist
 
 - [ ] Update custom provider/test doubles used by `Prompt` to return `AssistantMessage`.
-- [ ] Remove `extract_response` and `parse_response` hooks; parse or transform after `run`.
+- [ ] Remove `extract_response` and `parse_response` hooks; inspect, parse, or transform the returned `AssistantMessage` after `run`.
+- [ ] Update `after_execute` callbacks to accept the final `AssistantMessage` only.
 - [ ] Move prompt tool definitions to a `TOOLS = [ToolClass]` constant.
 - [ ] Account for automatic tool-loop execution in `run`.
 - [ ] Update any `tools.nil?` checks; no-tool prompts now expose `[]`.

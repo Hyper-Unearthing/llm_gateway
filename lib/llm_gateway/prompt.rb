@@ -33,11 +33,9 @@ module LlmGateway
 
       response = run_tool_loop(input, provider: resolved_provider(provider), model: model, reasoning: reasoning, **options, &block)
 
-      response_content = response.content.select { |content| content.respond_to?(:text) }.map(&:text).join
+      run_callbacks(:after_execute, response)
 
-      run_callbacks(:after_execute, response, response_content)
-
-      response_content
+      response
     end
 
     def stream(input = prompt, provider: nil, model: nil, reasoning: nil, **options, &block)
@@ -115,9 +113,6 @@ module LlmGateway
         content: requests.map { |request| find_and_execute_tool(request).to_h }
       }
       messages
-    end
-
-    def extract_response_content(response)
     end
 
     def default_stream_options(model: nil, reasoning: nil)

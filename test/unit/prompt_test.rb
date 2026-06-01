@@ -136,7 +136,7 @@ class PromptTest < Test
 
     result = ToolPrompt.new(provider: provider, model: "test-model").run
 
-    assert_equal "5", result
+    assert_equal [ "5" ], result.content.map(&:text)
     assert_equal 2, provider.calls.length
     assert_equal [ AddTool.definition ], provider.calls.first[:options][:tools]
     assert_equal "hello", provider.calls.first[:message]
