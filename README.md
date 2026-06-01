@@ -12,6 +12,7 @@ Provide a unified translation interface for LLM Provider API's, While allowing d
   - [Provider-specific options](#provider-specific-options)
 - [Quick Start: Streaming (all events)](#quick-start-streaming-all-events)
   - [Stream API without handling events (final result only)](#stream-api-without-handling-events-final-result-only)
+- [Prompt classes](#prompt-classes)
 - [Migration guides](#migration-guides)
 - [Tools](#tools)
   - [Defining Tools](#defining-tools)
@@ -253,8 +254,63 @@ text = result.content
 puts text
 ```
 
+## Prompt classes
+
+`LlmGateway::Prompt` wraps a reusable prompt, provider/model defaults, callbacks, optional tools, and prompt-cache options around the `stream` API.
+
+```ruby
+class AddTool < LlmGateway::Tool
+  name "add"
+  description "Adds two numbers"
+  input_schema(type: "object")
+  cache true # optional: mark the tool definition as cacheable where supported
+
+  def execute(input)
+    input[:left] + input[:right]
+  end
+end
+
+class MathPrompt < LlmGateway::Prompt
+  self.provider = LlmGateway.build_provider(
+    provider: "openai_responses",
+    api_key: ENV.fetch("OPENAI_API_KEY")
+  )
+  self.model = "gpt-5.4"
+
+  TOOLS = [AddTool].freeze
+
+  def prompt
+    "What is 2 + 3? Use the add tool."
+  end
+
+  def system_prompt
+    "You are a careful math assistant."
+  end
+end
+
+response = MathPrompt.new(
+  cache_key: "math-prompt-v1",
+  cache_retention: "short"
+).run
+
+puts response.role # "assistant"
+puts response.content.select { |block| block.type == "text" }.map(&:text).join
+```
+
+How `Prompt` works now:
+
+- `prompt` is evaluated once per `run`.
+- `run(provider:, model:, reasoning:, **options)` calls `stream` and returns the final normalized `AssistantMessage` after any tool calls complete.
+- `stream(input = prompt, provider:, model:, reasoning:, **options, &block)` forwards to the provider and returns the normalized `AssistantMessage`.
+- Tools are declared as tool classes in a `TOOLS` constant. `run` automatically executes returned `tool_use` blocks, appends `tool_result` messages, and loops until no tool calls remain.
+- `system_prompt`, `tools`, `model`, `reasoning`, `cache_key`, and `cache_retention` are forwarded as stream options.
+- `cache_retention` can also enable provider cache control for prompt-owned system/tool blocks where supported, and `Tool.cache true` marks a tool definition with `cache_control`.
+- `before_execute` callbacks receive the resolved input. `after_execute` callbacks receive the final `AssistantMessage`.
+- The old `extract_response` and `parse_response` hooks are no longer called; inspect, parse, or transform the returned `AssistantMessage` after `run`.
+
 ## Migration guides
 
+- [0.7.0 migration guide](docs/migration_guide_0.7.0.md) — update `Prompt` subclasses for normalized `AssistantMessage` return values, automatic tool loops, `TOOLS`, and removed response hooks.
 - [0.6.0 migration guide](docs/migration_guide_0.6.0.md) — move `model_key` to per-request `model:`, update provider keys, update `Prompt` usage, and migrate stream event/usage changes.
 - [Migrating from `chat` to `stream`](docs/migration-guide.md) — use `stream` without a block when you only need the final response.
 

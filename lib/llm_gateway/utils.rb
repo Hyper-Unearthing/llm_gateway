@@ -51,7 +51,7 @@ module LlmGateway
 end
 
 class Class
-  def class_attribute(*names, instance_accessor: true, default: nil)
+  def class_attribute(*names, instance_accessor: true, instance_reader: instance_accessor, instance_writer: instance_accessor, instance_predicate: true, default: nil)
     names.each do |name|
       ivar = :"@#{name}"
       instance_variable_set(ivar, default)
@@ -75,7 +75,7 @@ class Class
         instance_variable_set(ivar, value)
       end
 
-      if instance_accessor
+      if instance_reader
         define_method(name) do
           if instance_variable_defined?(ivar)
             instance_variable_get(ivar)
@@ -83,8 +83,12 @@ class Class
             self.class.public_send(name)
           end
         end
+      end
 
-        define_method("#{name}=") { |value| instance_variable_set(ivar, value) }
+      define_method("#{name}=") { |value| instance_variable_set(ivar, value) } if instance_writer
+
+      if instance_predicate
+        define_method("#{name}?") { !!public_send(name) }
       end
     end
   end
