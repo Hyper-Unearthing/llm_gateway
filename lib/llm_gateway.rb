@@ -7,6 +7,10 @@ require_relative "llm_gateway/base_client"
 require_relative "llm_gateway/client"
 require_relative "llm_gateway/prompt"
 require_relative "llm_gateway/tool"
+require_relative "llm_gateway/agents/event"
+require_relative "llm_gateway/agents/in_memory_session_manager"
+require_relative "llm_gateway/agents/file_session_manager"
+require_relative "llm_gateway/agents/harness"
 
 # Load clients - order matters for inheritance
 require_relative "llm_gateway/clients/anthropic"
