@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.7.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.7.0) (2026-06-03)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.6.0...v0.7.0)
+
+**Merged pull requests:**
+
+- feat: add agent harness [\#88](https://github.com/Hyper-Unearthing/llm_gateway/pull/88) ([billybonks](https://github.com/billybonks))
+- refactor: prompt to use modern patterns [\#87](https://github.com/Hyper-Unearthing/llm_gateway/pull/87) ([billybonks](https://github.com/billybonks))
+- feat: change our utils to follow actie support style [\#85](https://github.com/Hyper-Unearthing/llm_gateway/pull/85) ([billybonks](https://github.com/billybonks))
+- feat: add reasoning level as soemthing configurable in prompt [\#83](https://github.com/Hyper-Unearthing/llm_gateway/pull/83) ([billybonks](https://github.com/billybonks))
+- feat: add support for code execution tool [\#79](https://github.com/Hyper-Unearthing/llm_gateway/pull/79) ([billybonks](https://github.com/billybonks))
+
 ## [v0.6.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.6.0) (2026-05-27)
 
 [Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.5.0...v0.6.0)
