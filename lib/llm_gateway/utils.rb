@@ -50,45 +50,47 @@ module LlmGateway
   end
 end
 
-class Class
-  def class_attribute(*names, instance_accessor: true, instance_reader: instance_accessor, instance_writer: instance_accessor, instance_predicate: true, default: nil)
-    names.each do |name|
-      ivar = :"@#{name}"
-      instance_variable_set(ivar, default)
+unless Class.method_defined?(:class_attribute)
+  class Class
+    def class_attribute(*names, instance_accessor: true, instance_reader: instance_accessor, instance_writer: instance_accessor, instance_predicate: true, default: nil)
+      names.each do |name|
+        ivar = :"@#{name}"
+        instance_variable_set(ivar, default)
 
-      unset = Object.new
+        unset = Object.new
 
-      define_singleton_method(name) do |value = unset|
-        unless value.equal?(unset)
-          instance_variable_set(ivar, value)
-          next value
-        end
+        define_singleton_method(name) do |value = unset|
+          unless value.equal?(unset)
+            instance_variable_set(ivar, value)
+            next value
+          end
 
-        if instance_variable_defined?(ivar)
-          instance_variable_get(ivar)
-        elsif superclass.respond_to?(name)
-          superclass.public_send(name)
-        end
-      end
-
-      define_singleton_method("#{name}=") do |value|
-        instance_variable_set(ivar, value)
-      end
-
-      if instance_reader
-        define_method(name) do
           if instance_variable_defined?(ivar)
             instance_variable_get(ivar)
-          else
-            self.class.public_send(name)
+          elsif superclass.respond_to?(name)
+            superclass.public_send(name)
           end
         end
-      end
 
-      define_method("#{name}=") { |value| instance_variable_set(ivar, value) } if instance_writer
+        define_singleton_method("#{name}=") do |value|
+          instance_variable_set(ivar, value)
+        end
 
-      if instance_predicate
-        define_method("#{name}?") { !!public_send(name) }
+        define_singleton_method("#{name}?") { !!public_send(name) } if instance_predicate
+
+        if instance_reader
+          define_method(name) do
+            if instance_variable_defined?(ivar)
+              instance_variable_get(ivar)
+            else
+              self.class.public_send(name)
+            end
+          end
+        end
+
+        define_method("#{name}=") { |value| instance_variable_set(ivar, value) } if instance_writer
+
+        define_method("#{name}?") { !!public_send(name) } if instance_predicate
       end
     end
   end
