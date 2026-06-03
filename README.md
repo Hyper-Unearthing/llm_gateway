@@ -18,6 +18,12 @@ Provide a unified translation interface for LLM Provider API's, While allowing d
   - [Defining Tools](#defining-tools)
   - [Handling Tool Calls](#handling-tool-calls)
   - [Server Tool Use](#server-tool-use)
+- [Agents](#agents)
+  - [Agent events](#agent-events)
+  - [Session managers and persistence](#session-managers-and-persistence)
+  - [Queues, steering, and follow-ups](#queues-steering-and-follow-ups)
+  - [Compaction](#compaction)
+  - [Built-in agent tools](#built-in-agent-tools)
 - [Image Input](#image-input)
 - [Thinking / Reasoning](#thinking--reasoning)
   - [Streaming Thinking Content](#streaming-thinking-content)
@@ -459,6 +465,152 @@ Cross-provider server tool handoffs are best-effort:
 - Cross-provider replay converts server tool uses into normal `tool_use` blocks and server tool results into `tool_result` blocks.
 - `llm_gateway` does not translate server tool names between providers. Supply the target provider's server tool definition on the follow-up request.
 - Some providers require the same server tool to be selected in `tools:` when replaying prior server tool activity.
+
+## Agents
+
+`LlmGateway::Agents::Harness` wraps the streaming API in a stateful conversation loop. It stores session history, executes `LlmGateway::Tool` classes automatically when the model emits tool calls, appends `tool_result` messages, repeats model turns until there are no more tool calls, supports queued user messages while a turn is running, and compacts older session context when needed.
+
+```ruby
+require "llm_gateway"
+require "json"
+
+class WeatherTool < LlmGateway::Tool
+  name "get_weather"
+  description "Get current weather for a location"
+  input_schema(
+    type: "object",
+    properties: {
+      location: { type: "string" }
+    },
+    required: ["location"]
+  )
+
+  def execute(input)
+    location = input[:location] || input["location"]
+
+    JSON.generate(
+      location: location,
+      temperature: 14,
+      condition: "Cloudy"
+    )
+  end
+end
+
+class WeatherHarness < LlmGateway::Agents::Harness
+  TOOLS = [WeatherTool]
+
+  def system_prompt
+    "You are a concise weather assistant. Use tools when useful."
+  end
+end
+
+adapter = LlmGateway.build_provider(
+  provider: "openai_responses",
+  api_key: ENV.fetch("OPENAI_API_KEY")
+)
+
+session = LlmGateway::Agents::InMemorySessionManager.new("weather-session")
+harness = WeatherHarness.new(
+  session,
+  provider: adapter,
+  model: "gpt-5.4",
+  reasoning: "high"
+)
+
+harness.prompt_message(
+  role: "user",
+  content: [ { type: "text", text: "What is the weather in London?" } ]
+) do |event|
+  case event.type
+  when :agent_start
+    puts "Agent started"
+  when :turn_start
+    puts "Turn started"
+  when :message_update
+    # Streaming provider events are wrapped on message update events.
+    stream_event = event.stream_event
+    print stream_event.delta if stream_event.respond_to?(:delta)
+  when :tool_execution_start
+    puts "\nExecuting #{event.parameters[:name]}"
+  when :tool_execution_end
+    puts "\nTool result: #{event.result.content}"
+  when :agent_end
+    puts "\nAgent finished"
+  end
+end
+
+puts harness.transcript.inspect
+```
+
+Harness behavior:
+
+- `prompt_message(message)` accepts an LLM-shaped message hash, records it in the session, streams the provider response, records the final assistant message, executes any returned tool calls from the harness class's `TOOLS` constant, records a user `tool_result` message, and continues until no tool calls remain.
+- Harnesses pass `tools`, `system_prompt`, `model`, `reasoning`, `cache_key`, and `cache_retention` through the inherited `Prompt#stream` defaults.
+- Pass `model:` and optional `reasoning:` to `new`, or set them later with `harness.model = "..."` / `harness.reasoning = "..."`. Model and reasoning changes are recorded as session events.
+- `harness.transcript` (also aliased as `prompt`) returns the current model input: the latest compaction summary, if any, followed by active messages.
+- `harness.run` / `harness.continue` continues from the current session state without adding a new user message.
+
+### Agent events
+
+When a block is passed to `prompt_message`, `run`, or `continue`, the harness emits typed events:
+
+- `:agent_start`
+- `:turn_start`
+- `:message_start`
+- `:message_update` with `event.stream_event` containing the normalized streaming event from the provider
+- `:message_end` with `event.message`
+- `:tool_execution_start` with `event.parameters` (`id`, `type`, `name`, `input`)
+- `:tool_execution_end` with `event.parameters` and `event.result`
+- `:turn_end` with `event.message` and `event.tool_results`
+- `:agent_end`
+
+### Session managers and persistence
+
+- `LlmGateway::Agents::InMemorySessionManager.new(session_id = nil)` keeps session events in memory for the lifetime of the process.
+- `LlmGateway::Agents::FileSessionManager.new(file_name = nil, session_id: nil, session_start: nil, session_dir: nil)` persists session events as JSONL. If `file_name` is omitted, files are created under `LLM_GATEWAY_SESSION_DIR` or `~/.llm_gateway/sessions`.
+- File sessions load existing JSONL sessions and append new events to the same file.
+- Session event types include `session`, `message`, `model_change`, `reasoning_change`, and `compaction`. Queued messages are kept in memory and are persisted only when drained into the active conversation.
+
+### Queues, steering, and follow-ups
+
+Calls made while a harness is already processing are queued instead of recursively starting another run.
+
+- `prompt_message(message)` queues to the harness's default queue while busy. The default is `:next_turn`.
+- `steer_message(message)`, `follow_up_message(message)`, and `next_turn_message(message)` enqueue to their matching queue while busy. When idle, they behave like `prompt_message`.
+- `:steer` messages are drained before the next model request in the current run.
+- `:follow_up` messages run after the current turn finishes and before `:next_turn` messages.
+- `:next_turn` messages run after the current agent run completes.
+- Queued messages drain as `:all` by default. Set `harness.queue_drain_mode = :one_at_a_time` to drain one FIFO message at a time.
+- Set `harness.default_queue_mode = :steer`, `:follow_up`, or `:next_turn` to change where busy `prompt_message` calls are queued.
+
+### Compaction
+
+Before starting a new user message and before draining queued follow-up/next-turn work, the harness checks whether compaction is needed. It compacts when either:
+
+- the latest recorded message usage exceeds `LlmGateway::Agents::Harness::COMPACTION_TOKEN_THRESHOLD`, or
+- the latest assistant message is older than `LlmGateway::Agents::Harness::COMPACTION_IDLE_THRESHOLD_SECONDS`.
+
+Compaction calls `adapter.stream(active_messages, system: "Summarize the conversation so far for future context.", tools: [])`, stores the returned assistant message as a `compaction` event, and builds future model input as the compaction summary plus messages recorded after that compaction.
+
+### Built-in agent tools
+
+The agent harness can use any `LlmGateway::Tool` subclass in its `TOOLS` constant. The library also provides optional coding-oriented tools. Require the ones you want and include them in your harness:
+
+```ruby
+require "llm_gateway/agents/tools/read_tool"
+require "llm_gateway/agents/tools/bash_tool"
+require "llm_gateway/agents/tools/edit_tool"
+require "llm_gateway/agents/tools/write_tool"
+
+class CodingHarness < LlmGateway::Agents::Harness
+  TOOLS = [ReadTool, BashTool, EditTool, WriteTool]
+end
+```
+
+- `ReadTool` (`read`) reads text files and supported images (`jpg`, `png`, `gif`, `webp`). Text output is truncated to 2,000 lines or 50KB from the start; use `offset`/`limit` to continue through large files.
+- `BashTool` (`bash`) runs a command in the current working directory, combines stdout/stderr, supports an optional timeout, truncates long output to the last 2,000 lines or 50KB, and saves full truncated output to a temp file.
+- `EditTool` (`edit`) edits one file with one or more exact `edits[].oldText` → `edits[].newText` replacements. Each `oldText` must be unique in the original file and edits must not overlap.
+- `WriteTool` (`write`) creates parent directories as needed and writes or overwrites a file.
 
 ## Image Input
 
