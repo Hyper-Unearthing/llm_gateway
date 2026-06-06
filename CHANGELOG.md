@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.8.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.8.0) (2026-06-06)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.7.0...v0.8.0)
+
+**Merged pull requests:**
+
+- feat: create server proxy and corresponding client [\#89](https://github.com/Hyper-Unearthing/llm_gateway/pull/89) ([billybonks](https://github.com/billybonks))
+
 ## [v0.7.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.7.0) (2026-06-03)
 
 [Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.6.0...v0.7.0)
