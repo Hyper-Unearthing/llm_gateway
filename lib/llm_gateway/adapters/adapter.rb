@@ -5,32 +5,38 @@ require_relative "structs"
 module LlmGateway
   module Adapters
     class Adapter
-      attr_reader :client
+      attr_reader :client, :provider_key
 
-      def initialize(client)
+      def initialize(client, provider_key: nil)
         @client = client
+        @provider_key = provider_key
       end
 
-      def stream(message, tools: nil, system: nil, **options, &block)
-        raise LlmGateway::Errors::MissingMapperForProvider, "No stream_mapper configured" unless stream_mapper
-
+      def raw_stream(message, tools: nil, system: nil, **options, &block)
         normalized_input = map_input({
           messages: sanitize_messages(normalize_messages(message), target_model: options[:model]),
           tools: tools,
           system: normalize_system(system)
         })
 
+        perform_stream(
+          normalized_input[:messages],
+          tools: normalized_input[:tools],
+          system: normalized_input[:system],
+          **map_options(options),
+          &block
+        )
+      end
+
+      def stream(message, tools: nil, system: nil, **options, &block)
+        raise LlmGateway::Errors::MissingMapperForProvider, "No stream_mapper configured" unless stream_mapper
+
         mapper = stream_mapper.new(
           provider: LlmGateway::Client.provider_id_from_client(client),
           api: api_name
         )
 
-        perform_stream(
-          normalized_input[:messages],
-          tools: normalized_input[:tools],
-          system: normalized_input[:system],
-          **map_options(options)
-        ) do |chunk|
+        raw_stream(message, tools: tools, system: system, **options) do |chunk|
           mapper.map(chunk, &block)
         end
 
@@ -88,6 +94,18 @@ module LlmGateway
       def perform_stream(messages, tools:, system:, **options, &block)
         client.stream(messages, tools: tools, system: system, **options, &block)
       end
+
+      public
+
+      def stream_api_name
+        api_name
+      end
+
+      def stream_mapper_class
+        stream_mapper
+      end
+
+      private
 
       def api_name
         self.class.name.split("::").last.gsub(/Adapter$/, "").downcase

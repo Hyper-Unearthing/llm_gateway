@@ -48,6 +48,9 @@ require_relative "llm_gateway/adapters/groq/chat_completions_adapter"
 
 # Load provider registry
 require_relative "llm_gateway/provider_registry"
+require_relative "llm_gateway/proxy/client"
+require_relative "llm_gateway/proxy/adapter"
+require_relative "llm_gateway/proxy/server"
 
 module LlmGateway
   class Error < StandardError; end
@@ -110,7 +113,7 @@ module LlmGateway
     entry = ProviderRegistry.resolve(provider_name)
 
     client = entry[:client].new(**config)
-    entry[:adapter].new(client)
+    entry[:adapter].new(client, provider_key: provider_name)
   end
 
   def self.configure(configs)
@@ -160,4 +163,8 @@ module LlmGateway
   ProviderRegistry.register("openai_codex",
     client: Clients::OpenAI,
     adapter: Adapters::OpenAICodex::ResponsesAdapter)
+
+  ProviderRegistry.register("proxy",
+    client: Proxy::Client,
+    adapter: Proxy::Adapter)
 end
