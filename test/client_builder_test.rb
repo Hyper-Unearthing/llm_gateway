@@ -53,6 +53,20 @@ class ClientBuilderTest < Test
     assert_instance_of LlmGateway::Clients::Groq, adapter.client
   end
 
+  test "builds proxy provider" do
+    adapter = LlmGateway.build_provider({
+      provider: "proxy",
+      url: "https://managerbot.example.test",
+      target_provider: "openai_responses",
+      target_config: { model: "gpt-4.1" }
+    })
+
+    assert_instance_of LlmGateway::Proxy::Adapter, adapter
+    assert_instance_of LlmGateway::Proxy::Client, adapter.client
+    assert_equal "proxy", adapter.provider_key
+    assert_equal "openai_responses", adapter.client.target_provider
+  end
+
   test "raises error for unknown provider" do
     assert_raises(LlmGateway::Errors::UnsupportedProvider) do
       LlmGateway.build_provider({
