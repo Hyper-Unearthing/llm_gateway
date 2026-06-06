@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.groq.com/openai/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"openai/gpt-oss-120b","messages":[{"role":"user","content":[{"type":"text","text":"Reply
+        with exactly these two words: proxy ok"}]}],"tools":null,"stream_options":{"include_usage":true},"max_completion_tokens":64,"temperature":0,"include_reasoning":false,"response_format":{"type":"text"},"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.groq.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 06 Jun 2026 05:23:02 GMT
+      Content-Type:
+      - text/event-stream
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Server:
+      - cloudflare
+      Vary:
+      - Origin
+      X-Groq-Region:
+      - bom
+      X-Ratelimit-Limit-Requests:
+      - '500000'
+      X-Ratelimit-Limit-Tokens:
+      - '250000'
+      X-Ratelimit-Remaining-Requests:
+      - '499999'
+      X-Ratelimit-Remaining-Tokens:
+      - '249900'
+      X-Ratelimit-Reset-Requests:
+      - 172ms
+      X-Ratelimit-Reset-Tokens:
+      - 24ms
+      X-Request-Id:
+      - req_01ktdp4ydafakbgg3pzha59zhw
+      Via:
+      - 1.1 google
+      Set-Cookie:
+      - __cf_bm=Z3XLZENB4RXgQ6i.gxCYVII0KhHgCw6kM6..jAhOOC8-1780723382.6639702-1.0.1.1-uf4B4yShgx1T3VPEeWhlkiSWBxOaQxsWfjuihetdZZmxUTXm6k3NeOPibSLfTMK91NiXK8DLTCAOYdK3AewH7V0xb9nKFGq3i3c5MNz6L3onwqax.CD23FCvjwE2nklM;
+        HttpOnly; SameSite=None; Secure; Path=/; Domain=groq.com; Expires=Sat, 06
+        Jun 2026 05:53:02 GMT
+      Strict-Transport-Security:
+      - max-age=15552000
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cf-Ray:
+      - a074fb95ad9a806f-SIN
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |+
+        data: {"id":"chatcmpl-6b887471-6b08-405b-a6f5-409ed3a31202","object":"chat.completion.chunk","created":1780723382,"model":"openai/gpt-oss-120b","system_fingerprint":"fp_8db49de948","choices":[{"index":0,"delta":{"role":"assistant","content":""},"logprobs":null,"finish_reason":null}],"x_groq":{"id":"req_01ktdp4ydafakbgg3pzha59zhw","seed":757115548}}
+
+        data: {"id":"chatcmpl-6b887471-6b08-405b-a6f5-409ed3a31202","object":"chat.completion.chunk","created":1780723382,"model":"openai/gpt-oss-120b","system_fingerprint":"fp_8db49de948","choices":[{"index":0,"delta":{"content":"proxy"},"logprobs":null,"finish_reason":null}],"x_groq":{"id":"req_01ktdp4ydafakbgg3pzha59zhw","seed":757115548}}
+
+        data: {"id":"chatcmpl-6b887471-6b08-405b-a6f5-409ed3a31202","object":"chat.completion.chunk","created":1780723382,"model":"openai/gpt-oss-120b","system_fingerprint":"fp_8db49de948","choices":[{"index":0,"delta":{"content":" ok"},"logprobs":null,"finish_reason":null}],"x_groq":{"id":"req_01ktdp4ydafakbgg3pzha59zhw","seed":757115548}}
+
+        data: {"id":"chatcmpl-6b887471-6b08-405b-a6f5-409ed3a31202","object":"chat.completion.chunk","created":1780723382,"model":"openai/gpt-oss-120b","system_fingerprint":"fp_8db49de948","choices":[{"index":0,"delta":{},"logprobs":null,"finish_reason":"stop"}],"x_groq":{"id":"req_01ktdp4ydafakbgg3pzha59zhw","usage":{"queue_time":0.052784113,"prompt_tokens":80,"prompt_time":0.003126097,"completion_tokens":22,"completion_time":0.041727502,"total_tokens":102,"total_time":0.044853599,"completion_tokens_details":{"reasoning_tokens":18}}},"usage":{"queue_time":0.052784113,"prompt_tokens":80,"prompt_time":0.003126097,"completion_tokens":22,"completion_time":0.041727502,"total_tokens":102,"total_time":0.044853599,"completion_tokens_details":{"reasoning_tokens":18}}}
+
+        data: {"id":"chatcmpl-6b887471-6b08-405b-a6f5-409ed3a31202","object":"chat.completion.chunk","created":1780723382,"model":"openai/gpt-oss-120b","system_fingerprint":"fp_8db49de948","choices":[],"usage":{"queue_time":0.052784113,"prompt_tokens":80,"prompt_time":0.003126097,"completion_tokens":22,"completion_time":0.041727502,"total_tokens":102,"total_time":0.044853599,"completion_tokens_details":{"reasoning_tokens":18}},"service_tier":"on_demand"}
+
+        data: [DONE]
+
+  recorded_at: Sat, 06 Jun 2026 05:23:02 GMT
+recorded_with: VCR 6.4.0
+...
