@@ -6,7 +6,14 @@ module LlmGateway
       module OptionMapper
         DEFAULT_TEMPERATURE = 0
         DEFAULT_MAX_COMPLETION_TOKENS = 20_480
-        VALID_REASONING_LEVELS = %w[default low medium high].freeze
+        MODEL_REASONING_LEVELS = {
+          # Groq docs split reasoning_effort support by model family:
+          # https://console.groq.com/docs/reasoning
+          # Qwen 3 32B supports none/default; GPT-OSS supports low/medium/high.
+          /qwen3/i => %w[default],
+          /gpt-oss/i => %w[low medium high]
+        }.freeze
+        DEFAULT_REASONING_LEVELS = %w[low medium high].freeze
 
         # Source: https://console.groq.com/docs/text-chat.md and
         # https://console.groq.com/docs/api-reference.md#chat-create
@@ -75,7 +82,7 @@ module LlmGateway
 
           reasoning = options[:reasoning]
           unless reasoning.nil? || reasoning.to_s == "none"
-            mapped_options[:reasoning_effort] = normalize_reasoning_effort(reasoning)
+            mapped_options[:reasoning_effort] = normalize_reasoning_effort(reasoning, model: options[:model])
             mapped_options[:reasoning_format] = "parsed"
           end
 
@@ -100,11 +107,20 @@ module LlmGateway
           end
         end
 
-        def normalize_reasoning_effort(reasoning)
-          effort = reasoning.to_s
-          return effort if VALID_REASONING_LEVELS.include?(effort)
+        def normalize_reasoning_effort(reasoning, model: nil)
+          supported_levels = supported_reasoning_levels(model)
+          effort = reasoning.to_s == "default" ? default_reasoning_level(supported_levels) : reasoning
+          ReasoningEffortMapper.closest_supported(effort, supported_levels)
+        end
 
-          raise ArgumentError, "Invalid reasoning '#{reasoning}'. Use 'none', 'default', 'low', 'medium', or 'high'."
+        def supported_reasoning_levels(model)
+          model_name = model.to_s
+          matched_levels = MODEL_REASONING_LEVELS.find { |pattern, _levels| model_name.match?(pattern) }&.last
+          matched_levels || DEFAULT_REASONING_LEVELS
+        end
+
+        def default_reasoning_level(supported_levels)
+          supported_levels.include?("default") ? "default" : "medium"
         end
       end
     end
