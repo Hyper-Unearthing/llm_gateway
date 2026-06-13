@@ -95,7 +95,7 @@ Unknown provider-specific options raise `ArgumentError` with the valid option li
 
 | Option | Accepted values | What it means | Provider mapping notes |
 |--------|-----------------|---------------|------------------------|
-| `reasoning` | `"none"`, `"low"`, `"medium"`, `"high"`, `"xhigh"` | Request provider reasoning/thinking effort. | Anthropic maps to `thinking` token budgets. OpenAI Responses maps to `reasoning`. OpenAI Chat Completions maps to `reasoning_effort`. Groq maps to `reasoning_effort` and `reasoning_format: "parsed"`; Groq accepts `"default"`, `"low"`, `"medium"`, `"high"` and does not accept `"xhigh"`. |
+| `reasoning` | `"none"`, `"default"`, `"minimal"`, `"low"`, `"medium"`, `"high"`, `"xhigh"`, `"max"` | Request provider reasoning/thinking effort using the union of documented provider effort levels. | OpenAI Responses maps to `reasoning.effort` (`minimal` through `xhigh`; `max` falls back to `xhigh`; some models have smaller documented sets). OpenAI Chat Completions maps to `reasoning_effort` with the same fallback. Anthropic maps to `output_config.effort` (`low` through `max`; `minimal` falls back to `low`). Groq maps to `reasoning_effort` and `reasoning_format: "parsed"`; GPT-OSS supports `low`/`medium`/`high`, while Qwen 3 32B supports `default`, so unavailable levels are mapped to the closest supported value. |
 | `cache_key` | String | Stable prompt/session cache key. | OpenAI Chat Completions and OpenAI Responses map this to `prompt_cache_key`. |
 | `cache_retention` | `"short"`, `"long"`, `"none"` | Requested cache retention policy for `cache_key`. | OpenAI maps `"short"` to `"in_memory"`, `"long"` to `"24h"`, and `"none"` removes prompt-cache fields. If `cache_key` is set without retention, OpenAI defaults to `"short"`. |
 | `max_completion_tokens` | Integer | Maximum generated tokens using gateway naming. | Anthropic maps to `max_tokens`; OpenAI Responses maps to `max_output_tokens`; OpenAI/Groq Chat Completions use `max_completion_tokens`. OpenAI Codex currently removes token limit parameters before sending. |
@@ -113,7 +113,7 @@ Provider-specific options are maintained as explicit allowlists in the option ma
 | `openai_codex` | OpenAI Codex Responses-compatible endpoint | [`lib/llm_gateway/adapters/openai_codex/option_mapper.rb`](lib/llm_gateway/adapters/openai_codex/option_mapper.rb) | [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create/index.md) |
 | `groq_completions` | Groq Chat Completions Create | [`lib/llm_gateway/adapters/groq/option_mapper.rb`](lib/llm_gateway/adapters/groq/option_mapper.rb) | [Groq Chat API](https://console.groq.com/docs/api-reference.md#chat-create) |
 
-Common provider-native options you may pass directly when allowed include OpenAI `prompt_cache_key` / `prompt_cache_retention` and Groq `reasoning_effort` / `reasoning_format`. Prefer the managed options above when you want portable behavior across providers.
+Common provider-native options you may pass directly when allowed include OpenAI `prompt_cache_key` / `prompt_cache_retention`, Anthropic `output_config`, and Groq `reasoning_effort` / `reasoning_format`. Prefer the managed options above when you want portable behavior across providers.
 
 ## Quick Start: Streaming (all events)
 
@@ -706,7 +706,9 @@ puts "Final stop_reason: #{result.stop_reason}"
 
 ### How reasoning values are mapped
 
-`llm_gateway` normalizes provider-specific reasoning/thinking output into shared structures:
+The managed `reasoning:` option accepts the public union of documented provider effort levels: `"none"`, `"default"`, `"minimal"`, `"low"`, `"medium"`, `"high"`, `"xhigh"`, and `"max"`. Each adapter translates that value to the closest provider/model-supported control. For example, OpenAI supports `"minimal"` exactly on the broad Responses/Chat schema but not `"max"`, so `"max"` is sent as `"xhigh"`; Anthropic supports `"low"` through `"max"`, so `"minimal"` is sent as `"low"`; Groq GPT-OSS supports `"low"`/`"medium"`/`"high"`, so `"minimal"` is sent as `"low"`.
+
+`llm_gateway` also normalizes provider-specific reasoning/thinking output into shared structures:
 
 - Stream events:
   - `:reasoning_start/:reasoning_delta/:reasoning_end`
