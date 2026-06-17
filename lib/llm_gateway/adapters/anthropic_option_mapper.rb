@@ -4,7 +4,12 @@ module LlmGateway
   module Adapters
     module AnthropicOptionMapper
       DEFAULT_MAX_TOKENS = 20_480
-      SUPPORTED_REASONING_LEVELS = %w[low medium high xhigh max].freeze
+      REASONING_EFFORT_BUDGET_TOKENS = {
+        "low" => 1024,
+        "medium" => 5 * 1024,
+        "high" => 10 * 1024,
+        "xhigh" => 20 * 1024
+      }.freeze
 
       # Source: https://platform.claude.com/docs/en/api/messages/create.md
       # API: Anthropic Messages Create; accessed 2026-05-18.
@@ -12,7 +17,6 @@ module LlmGateway
       # cache_control, container, inference_geo, metadata, output_config,
       # service_tier, stop_sequences, stream, system, temperature, thinking,
       # tool_choice, tools, top_k, top_p.
-      # Anthropic effort docs: https://docs.anthropic.com/en/docs/build-with-claude/effort
       # This mapper intentionally excludes transcript/tool/system structural fields
       # (messages, system, tool_choice, tools) from option handling.
 
@@ -50,10 +54,10 @@ module LlmGateway
         mapped_options[:max_tokens] = options[:max_completion_tokens] || DEFAULT_MAX_TOKENS
 
         response_format = options[:response_format]
-        mapped_options[:output_config] = merge_output_config(mapped_options[:output_config], normalize_output_config(response_format)) unless response_format.nil?
+        mapped_options[:output_config] = normalize_output_config(response_format) unless response_format.nil?
 
         reasoning = options[:reasoning]
-        mapped_options[:output_config] = merge_output_config(mapped_options[:output_config], normalize_reasoning(reasoning)) unless reasoning.nil? || reasoning.to_s == "none"
+        mapped_options[:thinking] = normalize_reasoning(reasoning) unless reasoning.nil? || reasoning.to_s == "none"
 
         validate_options!(mapped_options)
         mapped_options
@@ -80,11 +84,11 @@ module LlmGateway
       end
 
       def normalize_reasoning(reasoning)
-        { effort: ReasoningEffortMapper.closest_supported(reasoning, SUPPORTED_REASONING_LEVELS) }
-      end
+        budget_tokens = REASONING_EFFORT_BUDGET_TOKENS[reasoning.to_s] ||
+          raise(ArgumentError,
+                "Invalid reasoning '#{reasoning}'. Use 'none', 'low', 'medium', 'high', or 'xhigh'.")
 
-      def merge_output_config(existing, update)
-        (existing || {}).merge(update)
+        { type: "enabled", budget_tokens: budget_tokens }
       end
     end
   end

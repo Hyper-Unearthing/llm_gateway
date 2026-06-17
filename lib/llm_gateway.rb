@@ -23,7 +23,6 @@ require_relative "llm_gateway/clients/groq"
 
 # Load adapters
 require_relative "llm_gateway/adapters/option_mapper"
-require_relative "llm_gateway/adapters/reasoning_effort_mapper"
 require_relative "llm_gateway/adapters/anthropic_option_mapper"
 require_relative "llm_gateway/adapters/structs"
 require_relative "llm_gateway/adapters/stream_mapper"

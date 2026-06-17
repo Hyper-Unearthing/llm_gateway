@@ -6,14 +6,7 @@ module LlmGateway
       module ChatCompletions
         module OptionMapper
           DEFAULT_MAX_COMPLETION_TOKENS = 20_480
-          SUPPORTED_REASONING_LEVELS = %w[minimal low medium high xhigh].freeze
-          MODEL_REASONING_LEVELS = {
-            # OpenAI docs note gpt-5.1 supports none/low/medium/high and
-            # gpt-5-pro only supports high. "none" is handled by omitting the
-            # managed reasoning field so existing behavior is preserved.
-            /^gpt-5\.1(?:-|\z)/ => %w[low medium high],
-            /^gpt-5-pro(?:-|\z)/ => %w[high]
-          }.freeze
+          VALID_REASONING_LEVELS = %w[minimal low medium high xhigh].freeze
 
           # Source: https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create/index.md
           # API: OpenAI Chat Completions Create; accessed 2026-05-18.
@@ -93,7 +86,7 @@ module LlmGateway
             end
 
             reasoning = options[:reasoning]
-            mapped_options[:reasoning_effort] = normalize_reasoning_effort(reasoning, model: options[:model]) \
+            mapped_options[:reasoning_effort] = normalize_reasoning_effort(reasoning) \
               unless reasoning.nil? || reasoning.to_s == "none"
 
             validate_options!(mapped_options)
@@ -123,14 +116,11 @@ module LlmGateway
             end
           end
 
-          def normalize_reasoning_effort(reasoning, model: nil)
-            ReasoningEffortMapper.closest_supported(reasoning, supported_reasoning_levels(model))
-          end
+          def normalize_reasoning_effort(reasoning)
+            effort = reasoning.to_s
+            return effort if VALID_REASONING_LEVELS.include?(effort)
 
-          def supported_reasoning_levels(model)
-            model_name = model.to_s
-            matched_levels = MODEL_REASONING_LEVELS.find { |pattern, _levels| model_name.match?(pattern) }&.last
-            matched_levels || SUPPORTED_REASONING_LEVELS
+            raise ArgumentError, "Invalid reasoning '#{reasoning}'. Use 'none', 'minimal', 'low', 'medium', 'high', or 'xhigh'."
           end
         end
       end
