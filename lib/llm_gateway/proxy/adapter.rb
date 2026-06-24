@@ -3,10 +3,11 @@
 module LlmGateway
   module Proxy
     class Adapter
-      attr_reader :client
+      attr_reader :client, :provider_key
 
-      def initialize(client)
+      def initialize(client, provider_key: nil)
         @client = client
+        @provider_key = provider_key
       end
 
       def stream(message, tools: nil, system: nil, **options, &block)

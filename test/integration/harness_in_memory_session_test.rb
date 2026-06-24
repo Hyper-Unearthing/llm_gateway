@@ -347,6 +347,53 @@ class HarnessInMemorySessionIntegrationTest < Test
     ], client.calls[1][:messages]
   end
 
+  test "drains all queued messages in order before starting a new prompt" do
+    harness, session, client = new_harness([
+      assistant_message("combined response", id: "assistant_1")
+    ])
+
+    session.push_message_to_queue(user_message("queued steer"), :steer)
+    session.push_message_to_queue(user_message("queued next turn one"), :next_turn)
+    session.push_message_to_queue(user_message("queued next turn two"), :next_turn)
+    session.push_message_to_queue(user_message("queued follow up"), :follow_up)
+
+    harness.prompt_message(user_message("new prompt"))
+
+    assert_equal 1, client.calls.size
+    assert_equal [
+      user_message("queued steer"),
+      user_message("queued next turn one"),
+      user_message("queued next turn two"),
+      user_message("queued follow up"),
+      user_message("new prompt")
+    ], client.calls[0][:messages]
+  end
+
+  test "does not drain queued messages before enqueueing a prompt while busy" do
+    harness, session, client = new_harness([
+      assistant_message("first response", id: "assistant_1"),
+      assistant_message("second response", id: "assistant_2"),
+      assistant_message("third response", id: "assistant_3")
+    ])
+
+    queued = false
+    harness.prompt_message(user_message("first")) do |event|
+      next if queued || event.type != :agent_start
+
+      queued = true
+      session.push_message_to_queue(user_message("queued steer"), :steer)
+      session.push_message_to_queue(user_message("queued follow up"), :follow_up)
+
+      harness.prompt_message(user_message("busy prompt"))
+
+      assert_equal 0, client.calls.size
+      assert_equal [ user_message("first") ], session.active_messages
+      assert session.queued_messages?(:steer)
+      assert session.queued_messages?(:follow_up)
+      assert session.queued_messages?(:next_turn)
+    end
+  end
+
   test "symbolizes string-keyed messages when draining queued prompts" do
     harness, _session, client = new_harness([
       assistant_message("first response", id: "assistant_1"),

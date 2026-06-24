@@ -128,6 +128,11 @@ module LlmGateway
       end
 
       def enqueue_or_run_message(message, queue, &block)
+        if session_manager.idle?
+          drain_queue(:steer)
+          drain_queue(:next_turn)
+          drain_queue(:follow_up)
+        end
         prepared_input = LlmGateway::Utils.deep_symbolize_keys(message)
         result = session_manager.start_or_enqueue_user_message(prepared_input, queue: queue) do
           compact_if_needed
@@ -135,6 +140,8 @@ module LlmGateway
         return if result == session_manager.class::MESSAGE_QUEUED
 
         begin
+
+
           continue(&block)
 
           loop do

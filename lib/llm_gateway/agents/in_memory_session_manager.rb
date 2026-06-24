@@ -45,6 +45,10 @@ module LlmGateway
         @state == :busy
       end
 
+      def idle?
+        @state == :idle
+      end
+
       def validate_queue!(queue)
         queue = queue.to_sym
         raise ArgumentError, "Invalid queue mode: #{queue}" unless QUEUES.include?(queue)
