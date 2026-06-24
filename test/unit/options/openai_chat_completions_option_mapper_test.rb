@@ -35,6 +35,12 @@ class OpenAIChatCompletionsOptionMapperTest < Test
     )
   end
 
+  test "maps minimal reasoning" do
+    mapped = LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(reasoning: "minimal")
+
+    assert_equal "minimal", mapped[:reasoning_effort]
+  end
+
   test "raises for unknown provider options" do
     error = assert_raises(ArgumentError) do
       LlmGateway::Adapters::OpenAI::ChatCompletions::OptionMapper.map(unknown_option: true)
