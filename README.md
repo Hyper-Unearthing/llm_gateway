@@ -916,6 +916,21 @@ puts result.content.select { |b| b.type == "text" }.map(&:text).join
 
 If your app refreshes tokens in the background, rebuild the adapter (or recreate client state) with the newest `access_token` before subsequent calls.
 
+### Codex rate-limit reset metadata
+
+OpenAI Codex usage-limit responses include reset information on `LlmGateway::Errors::RateLimitError`:
+
+```ruby
+begin
+  adapter.stream("Hello from OAuth auth", model: "gpt-5.4")
+rescue LlmGateway::Errors::RateLimitError => e
+  puts e.message                 # "The usage limit has been reached"
+  puts e.reset_after_seconds     # primary reset window, when available
+  puts e.reset_at                # Time for the primary reset, when available
+  puts e.rate_limit_info.inspect # full parsed Codex headers/body metadata
+end
+```
+
 ### Token refresh responsibility
 
 #### Library’s role (llm_gateway)

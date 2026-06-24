@@ -182,4 +182,59 @@ class OpenaiClientTest < Test
 
     assert events.any? { |e| e[:event] == "response.completed" }
   end
+
+  test "stream_codex exposes rate limit reset details" do
+    stub_request(:post, "https://chatgpt.com/backend-api/codex/responses")
+      .to_return(
+        status: 429,
+        body: {
+          error: {
+            type: "usage_limit_reached",
+            message: "The usage limit has been reached",
+            plan_type: "plus",
+            resets_at: 1_782_234_727,
+            resets_in_seconds: 1_111
+          }
+        }.to_json,
+        headers: {
+          "Content-Type" => "application/json",
+          "x-codex-active-limit" => "premium",
+          "x-codex-plan-type" => "plus",
+          "x-codex-primary-used-percent" => "100",
+          "x-codex-secondary-used-percent" => "85",
+          "x-codex-primary-window-minutes" => "300",
+          "x-codex-secondary-window-minutes" => "10080",
+          "x-codex-primary-reset-after-seconds" => "1112",
+          "x-codex-secondary-reset-after-seconds" => "166201",
+          "x-codex-primary-reset-at" => "1782234728",
+          "x-codex-secondary-reset-at" => "1782399817",
+          "x-codex-credits-has-credits" => "False",
+          "x-codex-credits-balance" => "0",
+          "x-codex-credits-unlimited" => "False"
+        }
+      )
+
+    error = assert_raises(LlmGateway::Errors::RateLimitError) do
+      LlmGateway::Clients::OpenAI.new(api_key: "oauth-token").stream_codex([ { role: "user", content: "hello" } ])
+    end
+
+    assert_equal "The usage limit has been reached", error.message
+    assert_nil error.code
+    assert_equal Time.at(1_782_234_728), error.reset_at
+    assert_equal 1_112, error.reset_after_seconds
+    assert_equal "openai_codex", error.rate_limit_info[:provider]
+    assert_equal "usage_limit_reached", error.rate_limit_info[:error_type]
+    assert_equal "plus", error.rate_limit_info[:plan_type]
+    assert_equal "premium", error.rate_limit_info[:active_limit]
+    assert_equal 100, error.rate_limit_info[:primary_used_percent]
+    assert_equal 85, error.rate_limit_info[:secondary_used_percent]
+    assert_equal 300, error.rate_limit_info[:primary_window_minutes]
+    assert_equal 10_080, error.rate_limit_info[:secondary_window_minutes]
+    assert_equal Time.at(1_782_399_817), error.rate_limit_info[:secondary_reset_at]
+    assert_equal 1_111, error.rate_limit_info[:reset_after_seconds]
+    assert_equal Time.at(1_782_234_727), error.rate_limit_info[:reset_at]
+    assert_equal false, error.rate_limit_info[:credits_has_credits]
+    assert_equal 0, error.rate_limit_info[:credits_balance]
+    assert_equal false, error.rate_limit_info[:credits_unlimited]
+  end
 end

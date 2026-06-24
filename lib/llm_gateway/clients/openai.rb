@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "time"
+
 require_relative "../base_client"
 
 module LlmGateway
@@ -179,6 +181,87 @@ module LlmGateway
         }
       end
 
+      def rate_limit_error_options(response, error)
+        info = rate_limit_info(response, error)
+        return {} if info.empty?
+
+        {
+          reset_at: info[:primary_reset_at] || info[:reset_at],
+          reset_after_seconds: info[:primary_reset_after_seconds] || info[:reset_after_seconds],
+          rate_limit_info: info
+        }
+      end
+
+      def rate_limit_info(response, error)
+        headers = response_headers(response)
+        codex_headers = headers.select { |key, _value| key.start_with?("x-codex-") }
+        info = {}
+
+        info[:provider] = "openai_codex" if codex_headers.any?
+        info[:error_type] = error["type"]
+        info[:plan_type] = headers["x-codex-plan-type"] || error["plan_type"]
+        info[:active_limit] = headers["x-codex-active-limit"]
+        info[:primary_used_percent] = integer_header(headers, "x-codex-primary-used-percent")
+        info[:secondary_used_percent] = integer_header(headers, "x-codex-secondary-used-percent")
+        info[:primary_window_minutes] = integer_header(headers, "x-codex-primary-window-minutes")
+        info[:secondary_window_minutes] = integer_header(headers, "x-codex-secondary-window-minutes")
+        info[:primary_over_secondary_limit_percent] = integer_header(headers, "x-codex-primary-over-secondary-limit-percent")
+        info[:primary_reset_after_seconds] = integer_header(headers, "x-codex-primary-reset-after-seconds")
+        info[:secondary_reset_after_seconds] = integer_header(headers, "x-codex-secondary-reset-after-seconds")
+        info[:primary_reset_at] = epoch_time(headers["x-codex-primary-reset-at"])
+        info[:secondary_reset_at] = epoch_time(headers["x-codex-secondary-reset-at"])
+        info[:credits_has_credits] = boolean_header(headers, "x-codex-credits-has-credits")
+        info[:credits_balance] = integer_header(headers, "x-codex-credits-balance")
+        info[:credits_unlimited] = boolean_header(headers, "x-codex-credits-unlimited")
+        info[:reset_after_seconds] = integer_value(error["resets_in_seconds"]) || retry_after_seconds(headers["retry-after"])
+        info[:reset_at] = epoch_time(error["resets_at"]) || retry_after_time(headers["retry-after"])
+
+        info.compact
+      end
+
+      def response_headers(response)
+        headers = {}
+        response.each_header { |key, value| headers[key.downcase] = value }
+        headers
+      end
+
+      def integer_header(headers, key)
+        integer_value(headers[key])
+      end
+
+      def integer_value(value)
+        return nil if value.nil?
+
+        Integer(value)
+      rescue ArgumentError, TypeError
+        nil
+      end
+
+      def boolean_header(headers, key)
+        case headers[key].to_s.downcase
+        when "true" then true
+        when "false" then false
+        end
+      end
+
+      def epoch_time(value)
+        integer = integer_value(value)
+        Time.at(integer) if integer
+      end
+
+      def retry_after_seconds(value)
+        integer_value(value)
+      end
+
+      def retry_after_time(value)
+        seconds = retry_after_seconds(value)
+        return Time.now + seconds if seconds
+
+        Time.httpdate(value)
+      rescue ArgumentError, TypeError
+        nil
+      end
+
       def handle_client_specific_errors(response, error)
         # OpenAI uses 'code' instead of 'type' for error codes
         error_code = error["code"]
@@ -190,7 +273,7 @@ module LlmGateway
 
         case response.code.to_i
         when 429
-          raise Errors::RateLimitError.new(error_message, error_code)
+          raise Errors::RateLimitError.new(error_message, error_code, **rate_limit_error_options(response, error))
         when 503
           raise Errors::OverloadError.new(error_message, error_code)
         end

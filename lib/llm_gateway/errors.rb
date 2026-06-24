@@ -19,7 +19,16 @@ module LlmGateway
     class NotFoundError < ClientError; end
     class ConflictError < ClientError; end
     class UnprocessableEntityError < ClientError; end
-    class RateLimitError < ClientError; end
+    class RateLimitError < ClientError
+      attr_reader :reset_at, :reset_after_seconds, :rate_limit_info
+
+      def initialize(message = nil, code = nil, reset_at: nil, reset_after_seconds: nil, rate_limit_info: {})
+        @reset_at = reset_at
+        @reset_after_seconds = reset_after_seconds
+        @rate_limit_info = rate_limit_info
+        super(message, code)
+      end
+    end
     class InternalServerError < ClientError; end
     class APIStatusError < ClientError; end
     class APITimeoutError < ClientError; end
