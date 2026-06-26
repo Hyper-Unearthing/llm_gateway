@@ -330,7 +330,9 @@ module LlmGateway
       end
 
       def serialized_blocks
-        blocks.compact.map do |content_block|
+        blocks.compact.filter_map do |content_block|
+          next if blank_text_block?(content_block)
+
           if [ "tool_use", "server_tool_use" ].include?(content_block[:type])
             next content_block.merge(input: parse_tool_input(content_block[:input]).deep_symbolize_keys)
           end
@@ -346,6 +348,10 @@ module LlmGateway
 
           content_block
         end
+      end
+
+      def blank_text_block?(content_block)
+        content_block[:type] == "text" && content_block[:text].to_s.blank?
       end
 
       def parse_tool_input(input)
