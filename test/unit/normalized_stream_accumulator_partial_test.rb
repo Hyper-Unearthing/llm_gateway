@@ -81,6 +81,35 @@ class NormalizedStreamAccumulatorPartialTest < Test
     assert_equal({ query: "ruby" }, tool_end.tool_call.input)
   end
 
+  test "serialized content drops empty text blocks" do
+    accumulator = LlmGateway::Adapters::NormalizedStreamAccumulator.new(provider: "test-provider", api: "test-api")
+    events = []
+
+    [
+      { type: :message_start, delta: { id: "msg_1", model: "test-model", role: "assistant" } },
+      { type: :text_start, delta: "" },
+      { type: :text_end },
+      { type: :tool_start, id: "tool_1", name: "search" },
+      { type: :tool_delta, delta: '{"query":"ruby"}' },
+      { type: :tool_end },
+      { type: :text_start, delta: "kept" },
+      { type: :text_end },
+      { type: :message_delta, delta: { stop_reason: "tool_use" } },
+      { type: :message_end }
+    ].each do |patch|
+      accumulator.push(patch) { |event| events << event }
+    end
+
+    assert_equal(
+      [
+        { type: "tool_use", id: "tool_1", name: "search", input: { query: "ruby" } },
+        { type: "text", text: "kept" }
+      ],
+      events.last.message.content.map(&:to_h)
+    )
+    assert_equal events.last.message.content.map(&:to_h), accumulator.result[:content]
+  end
+
   test "accumulator preserves provider supplied timestamp" do
     accumulator = LlmGateway::Adapters::NormalizedStreamAccumulator.new(provider: "test-provider", api: "test-api")
     events = []
