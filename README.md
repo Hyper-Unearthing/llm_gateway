@@ -548,7 +548,7 @@ Harness behavior:
 - Harnesses pass `tools`, `system_prompt`, `model`, `reasoning`, `cache_key`, and `cache_retention` through the inherited `Prompt#stream` defaults.
 - Pass `model:` and optional `reasoning:` to `new`, or set them later with `harness.model = "..."` / `harness.reasoning = "..."`. Model and reasoning changes are recorded as session events.
 - `harness.transcript` (also aliased as `prompt`) returns the current model input: the latest compaction summary, if any, followed by active messages.
-- `harness.run` / `harness.continue` continues from the current session state without adding a new user message.
+- `harness.run` continues from the current session state without adding a new user message. `harness.continue` requires an idle agent; it marks the agent busy, drains queued `:steer` messages and then queued `:follow_up` messages, runs, and marks the agent idle when finished. `prompt_message`/`steer_message`/`follow_up_message` enqueue the new user message; if the agent is idle, they then call `continue`, so existing queued messages in that queue stay ahead of the new message.
 
 ### Agent events
 
@@ -575,17 +575,16 @@ When a block is passed to `prompt_message`, `run`, or `continue`, the harness em
 
 Calls made while a harness is already processing are queued instead of recursively starting another run.
 
-- `prompt_message(message)` queues to the harness's default queue while busy. The default is `:next_turn`.
-- `steer_message(message)`, `follow_up_message(message)`, and `next_turn_message(message)` enqueue to their matching queue while busy. When idle, they behave like `prompt_message`.
+- `prompt_message(message)` queues to the harness's default queue while busy. The default is `:follow_up`.
+- `steer_message(message)` and `follow_up_message(message)` enqueue to their matching queue. When idle, they also start `continue` after enqueueing.
 - `:steer` messages are drained before the next model request in the current run.
-- `:follow_up` messages run after the current turn finishes and before `:next_turn` messages.
-- `:next_turn` messages run after the current agent run completes.
+- `:follow_up` messages run after the current turn finishes and after any tool-call loop has completed.
 - Queued messages drain as `:all` by default. Set `harness.queue_drain_mode = :one_at_a_time` to drain one FIFO message at a time.
-- Set `harness.default_queue_mode = :steer`, `:follow_up`, or `:next_turn` to change where busy `prompt_message` calls are queued.
+- Set `harness.default_queue_mode = :steer` or `:follow_up` to change where busy `prompt_message` calls are queued.
 
 ### Compaction
 
-Before starting a new user message and before draining queued follow-up/next-turn work, the harness checks whether compaction is needed. It compacts when either:
+Before starting a new user message and before draining queued follow-up work, the harness checks whether compaction is needed. It compacts when either:
 
 - the latest recorded message usage exceeds `LlmGateway::Agents::Harness::COMPACTION_TOKEN_THRESHOLD`, or
 - the latest assistant message is older than `LlmGateway::Agents::Harness::COMPACTION_IDLE_THRESHOLD_SECONDS`.

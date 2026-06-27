@@ -56,7 +56,7 @@ class FileSessionManagerTest < Test
       assert_equal 2, File.readlines(path).size
 
       loaded.idle!
-      loaded.drain_message_queue(:next_turn, mode: :one_at_a_time)
+      loaded.drain_message_queue(:follow_up, mode: :one_at_a_time)
 
       reloaded = LlmGateway::Agents::FileSessionManager.new(path)
       assert_equal [ user_message("one"), user_message("queued") ], reloaded.active_messages

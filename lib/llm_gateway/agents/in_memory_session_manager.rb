@@ -8,7 +8,7 @@ module LlmGateway
     class InMemorySessionManager
       MESSAGE_QUEUED = :queued
       MESSAGE_STARTED = :started
-      QUEUES = [ :steer, :follow_up, :next_turn ].freeze
+      QUEUES = [ :steer, :follow_up ].freeze
       DRAIN_MODES = [ :one_at_a_time, :all ].freeze
 
       attr_reader :session_id, :session_start
@@ -27,17 +27,17 @@ module LlmGateway
         @state = :idle
       end
 
-      def drain_message_queue(queue = :next_turn, mode: :all)
+      def drain_message_queue(queue = :follow_up, mode: :all)
         messages = queued_messages(queue, mode)
         messages.each { |message| push_message(message) }
         messages
       end
 
-      def queued_messages?(queue = :next_turn)
+      def queued_messages?(queue = :follow_up)
         @message_queues[validate_queue!(queue)].any?
       end
 
-      def push_message_to_queue(message, queue = :next_turn)
+      def push_message_to_queue(message, queue = :follow_up)
         @message_queues[validate_queue!(queue)] << message
       end
 
@@ -63,7 +63,7 @@ module LlmGateway
         mode
       end
 
-      def start_or_enqueue_user_message(payload, queue: :next_turn)
+      def start_or_enqueue_user_message(payload, queue: :follow_up)
         if busy?
           push_message_to_queue(payload, queue)
           MESSAGE_QUEUED

@@ -17,7 +17,7 @@ module LlmGateway
         super(provider: provider, model: model, reasoning: reasoning)
         @session_manager = session_manager
         sync_initial_configuration_events
-        self.default_queue_mode = :next_turn
+        self.default_queue_mode = :follow_up
         self.queue_drain_mode = :all
       end
 
@@ -27,19 +27,15 @@ module LlmGateway
       alias :prompt :transcript
 
       def prompt_message(message, &block)
-        enqueue_or_run_message(message, default_queue_mode, &block)
+        enqueue_and_continue_if_idle(message, default_queue_mode, &block)
       end
 
       def steer_message(message, &block)
-        enqueue_or_run_message(message, :steer, &block)
+        enqueue_and_continue_if_idle(message, :steer, &block)
       end
 
       def follow_up_message(message, &block)
-        enqueue_or_run_message(message, :follow_up, &block)
-      end
-
-      def next_turn_message(message, &block)
-        enqueue_or_run_message(message, :next_turn, &block)
+        enqueue_and_continue_if_idle(message, :follow_up, &block)
       end
 
       def default_queue_mode=(mode)
@@ -112,7 +108,19 @@ module LlmGateway
         emit(Event::AgentEnd.new(messages: []), &block)
         assistant_message
       end
-      alias :continue   :run
+
+      def continue(&block)
+        raise RuntimeError, "Cannot continue a busy agent" if session_manager.busy?
+
+        session_manager.busy!
+        begin
+          drain_queue(:steer)
+          drain_queue(:follow_up)
+          run(&block)
+        ensure
+          session_manager.idle!
+        end
+      end
 
       private
 
@@ -127,33 +135,16 @@ module LlmGateway
         end
       end
 
-      def enqueue_or_run_message(message, queue, &block)
-        if session_manager.idle?
-          drain_queue(:steer)
-          drain_queue(:next_turn)
-          drain_queue(:follow_up)
-        end
+      def enqueue_and_continue_if_idle(message, queue, &block)
         prepared_input = LlmGateway::Utils.deep_symbolize_keys(message)
-        result = session_manager.start_or_enqueue_user_message(prepared_input, queue: queue) do
-          compact_if_needed
+        if session_manager.busy?
+          session_manager.push_message_to_queue(prepared_input, queue)
+          return
         end
-        return if result == session_manager.class::MESSAGE_QUEUED
 
-        begin
-
-
-          continue(&block)
-
-          loop do
-            break unless session_manager.queued_messages?(:next_turn)
-
-            compact_if_needed
-            drain_queue(:next_turn)
-            continue(&block)
-          end
-        ensure
-          session_manager.idle!
-        end
+        compact_if_needed
+        session_manager.push_message_to_queue(prepared_input, queue)
+        continue(&block)
       end
 
       def compact_if_needed
