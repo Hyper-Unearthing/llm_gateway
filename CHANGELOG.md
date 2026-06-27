@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.8.1](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.8.1) (2026-06-27)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.8.0...v0.8.1)
+
+**Merged pull requests:**
+
+- fix: do not return empty assistant blocks [\#94](https://github.com/Hyper-Unearthing/llm_gateway/pull/94) ([billybonks](https://github.com/billybonks))
+- feat: when codex hits a rate limit pass all the information [\#93](https://github.com/Hyper-Unearthing/llm_gateway/pull/93) ([billybonks](https://github.com/billybonks))
+- Feat/fix proxy client [\#92](https://github.com/Hyper-Unearthing/llm_gateway/pull/92) ([billybonks](https://github.com/billybonks))
+
 ## [v0.8.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.8.0) (2026-06-06)
 
 [Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.7.0...v0.8.0)
