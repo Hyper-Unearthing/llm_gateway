@@ -30,6 +30,7 @@ Provide a unified translation interface for LLM Provider API's, While allowing d
   - [How reasoning values are mapped](#how-reasoning-values-are-mapped)
 - [Cross-Provider Handoffs](#cross-provider-handoffs)
 - [Context Serialization](#context-serialization)
+  - [Message metadata](#message-metadata)
 - [OAuth](#oauth)
   - [Get initial tokens (Codex / OpenAI OAuth)](#get-initial-tokens-codex--openai-oauth)
   - [Get initial tokens (Anthropic OAuth)](#get-initial-tokens-anthropic-oauth)
@@ -795,6 +796,24 @@ What to persist:
 - optional app metadata (user id, conversation id, timestamps) alongside the transcript
 
 Tip: if you serialize to JSON, keys become strings on parse; `llm_gateway` accepts standard hash input and normalizes internally.
+
+### Message metadata
+
+Input messages may include app-owned metadata, for example a `details` hash used for trace IDs, database IDs, UI state, or other per-message decorations:
+
+```ruby
+transcript = [
+  {
+    role: "user",
+    content: "Hello",
+    details: { trace_id: "msg-123", ui_thread_id: "thread-456" }
+  }
+]
+
+adapter.stream(transcript, model: "gpt-5.4")
+```
+
+`llm_gateway` preserves this as part of your local transcript shape, but strips `details` before sending user or assistant messages to provider APIs. This lets applications keep message metadata next to the message without leaking unsupported fields to OpenAI, Anthropic, Groq, or Codex request payloads.
 
 ## OAuth
 
