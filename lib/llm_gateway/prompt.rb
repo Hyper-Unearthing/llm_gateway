@@ -63,14 +63,14 @@ module LlmGateway
 
     private
 
-    def find_and_execute_tool(tool_request)
+    def find_and_execute_tool(tool_request, **kwargs)
       tool_name = tool_request.name
       tool_input = tool_request.input
       tool_class = self.class.find_tool(tool_name)
 
       result = begin
         if tool_class
-          execute_tool(tool_class, tool_input)
+          execute_tool(tool_class, tool_input, **kwargs)
         else
           "Unknown tool: #{tool_name}"
         end
@@ -84,7 +84,7 @@ module LlmGateway
       )
     end
 
-    def execute_tool(tool_class, tool_input)
+    def execute_tool(tool_class, tool_input, **kwargs)
       tool_class.new.execute(tool_input)
     end
 
