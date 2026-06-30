@@ -34,6 +34,19 @@ class HarnessInMemorySessionIntegrationTest < Test
     TOOLS = [ AddTool, ExplodingTool ]
   end
 
+  class KwargRecordingHarness < ToolHarness
+    TOOLS = ToolHarness::TOOLS
+
+    attr_reader :execute_tool_kwargs
+
+    private
+
+    def execute_tool(tool_class, tool_input, **kwargs)
+      @execute_tool_kwargs = kwargs
+      super
+    end
+  end
+
   FakeInnerClient = Struct.new(:model_key)
 
   class FakeAdapter
@@ -522,6 +535,19 @@ class HarnessInMemorySessionIntegrationTest < Test
       expected_tool_result
     ], client.calls[1][:messages]
     assert_equal expected_tool_result, session.active_messages[2]
+  end
+
+  test "passes persisted assistant message session event when executing tools" do
+    tool_request = assistant_tool_message("add", { left: 2, right: 3 }, id: "assistant_add", tool_use_id: "toolu_add")
+    final_response = assistant_message("handled", id: "assistant_final")
+    harness, session = new_harness([ tool_request, final_response ], harness_class: KwargRecordingHarness)
+
+    harness.prompt_message(user_message("use tools"))
+
+    session_event = harness.execute_tool_kwargs[:session_event]
+    assert_equal session.events.find { |event| event.dig(:data, :id) == "assistant_add" }, session_event
+    assert_equal "message", session_event[:type]
+    assert_equal stored_message(tool_request), session_event[:data]
   end
 
   test "executes tools, records tool results, emits tool events, and continues until a final answer" do

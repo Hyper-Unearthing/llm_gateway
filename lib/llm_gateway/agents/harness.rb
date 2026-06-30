@@ -80,13 +80,13 @@ module LlmGateway
           emit(Event::MessageUpdate.new(stream_event: event), &block)
         end
 
-        session_manager.push_message(assistant_message.to_h)
+        persisted_message = session_manager.push_message(assistant_message.to_h)
         emit(Event::MessageEnd.new(message: assistant_message), &block)
 
-        tool_results = tool_requests(assistant_message).map do |message|
-          parameters = message.to_h
+        tool_results = tool_requests(assistant_message).map do |tool_content_block|
+          parameters = tool_content_block.to_h
           emit(Event::ToolExecutionStart.new(parameters: parameters), &block)
-          tool_result = find_and_execute_tool(message)
+          tool_result = find_and_execute_tool(tool_content_block, session_event: persisted_message)
           emit(Event::ToolExecutionEnd.new(parameters: parameters, result: tool_result), &block)
           tool_result
         end
