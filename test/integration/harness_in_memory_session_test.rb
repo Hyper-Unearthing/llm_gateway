@@ -309,7 +309,7 @@ class HarnessInMemorySessionIntegrationTest < Test
     assert_equal "medium", client.calls.first[:options][:reasoning]
   end
 
-  test "queues prompt messages as next turn by default and drains all queued messages together" do
+  test "queues prompt messages as follow up by default and drains all queued messages together" do
     harness, session, client = new_harness([
       assistant_message("first response", id: "assistant_1"),
       assistant_message("second response", id: "assistant_2")
@@ -360,14 +360,14 @@ class HarnessInMemorySessionIntegrationTest < Test
     ], client.calls[1][:messages]
   end
 
-  test "drains all queued messages in order before starting a new prompt" do
+  test "enqueues a new prompt then continues queued work in queue order" do
     harness, session, client = new_harness([
       assistant_message("combined response", id: "assistant_1")
     ])
 
     session.push_message_to_queue(user_message("queued steer"), :steer)
-    session.push_message_to_queue(user_message("queued next turn one"), :next_turn)
-    session.push_message_to_queue(user_message("queued next turn two"), :next_turn)
+    session.push_message_to_queue(user_message("queued follow up one"), :follow_up)
+    session.push_message_to_queue(user_message("queued follow up two"), :follow_up)
     session.push_message_to_queue(user_message("queued follow up"), :follow_up)
 
     harness.prompt_message(user_message("new prompt"))
@@ -375,8 +375,8 @@ class HarnessInMemorySessionIntegrationTest < Test
     assert_equal 1, client.calls.size
     assert_equal [
       user_message("queued steer"),
-      user_message("queued next turn one"),
-      user_message("queued next turn two"),
+      user_message("queued follow up one"),
+      user_message("queued follow up two"),
       user_message("queued follow up"),
       user_message("new prompt")
     ], client.calls[0][:messages]
@@ -403,7 +403,6 @@ class HarnessInMemorySessionIntegrationTest < Test
       assert_equal [ user_message("first") ], session.active_messages
       assert session.queued_messages?(:steer)
       assert session.queued_messages?(:follow_up)
-      assert session.queued_messages?(:next_turn)
     end
   end
 
@@ -433,7 +432,7 @@ class HarnessInMemorySessionIntegrationTest < Test
     ], client.calls[1][:messages]
   end
 
-  test "can drain next turn queue one at a time" do
+  test "can drain follow up queue one at a time" do
     harness, _session, client = new_harness([
       assistant_message("first response", id: "assistant_1"),
       assistant_message("second response", id: "assistant_2"),
@@ -446,8 +445,8 @@ class HarnessInMemorySessionIntegrationTest < Test
       next if queued || event.type != :agent_start
 
       queued = true
-      harness.next_turn_message(user_message("queued one"))
-      harness.next_turn_message(user_message("queued two"))
+      harness.follow_up_message(user_message("queued one"))
+      harness.follow_up_message(user_message("queued two"))
     end
 
     assert_equal 3, client.calls.size
@@ -486,11 +485,79 @@ class HarnessInMemorySessionIntegrationTest < Test
     ], client.calls[1][:messages]
   end
 
-  test "follow up messages queued while busy run before next turn messages" do
+  test "run drains follow up queues after the tool loop completes" do
+    tool_request = assistant_tool_message("add", { left: 2, right: 3 }, id: "assistant_tool", tool_use_id: "toolu_add")
+    harness, session, client = new_harness([
+      tool_request,
+      assistant_message("final response", id: "assistant_final"),
+      assistant_message("follow up response", id: "assistant_follow_up")
+    ], harness_class: ToolHarness)
+
+    session.push_message(user_message("first"))
+    session.push_message_to_queue(user_message("follow up"), :follow_up)
+
+    harness.run
+
+    assert_equal 3, client.calls.size
+    assert_equal [
+      user_message("first"),
+      stored_message(tool_request),
+      tool_result_message("toolu_add", 5)
+    ], client.calls[1][:messages]
+    assert_equal [
+      user_message("first"),
+      stored_message(tool_request),
+      tool_result_message("toolu_add", 5),
+      stored_assistant_message("final response", id: "assistant_final"),
+      user_message("follow up")
+    ], client.calls[2][:messages]
+    refute session.queued_messages?(:follow_up)
+  end
+
+  test "continue drains queued work and starts the agent" do
+    harness, session, client = new_harness([
+      assistant_message("combined response", id: "assistant_1")
+    ])
+
+    session.push_message(user_message("first"))
+    session.push_message_to_queue(user_message("queued steer"), :steer)
+    session.push_message_to_queue(user_message("queued follow up"), :follow_up)
+
+    harness.continue do |event|
+      assert session.busy? if event.type == :agent_start
+    end
+
+    assert_equal 1, client.calls.size
+    assert_equal [
+      user_message("first"),
+      user_message("queued steer"),
+      user_message("queued follow up")
+    ], client.calls[0][:messages]
+    refute session.queued_messages?(:steer)
+    refute session.queued_messages?(:follow_up)
+    assert session.idle?
+  end
+
+  test "continue raises when the agent is busy" do
+    harness, session, client = new_harness([
+      assistant_message("unused", id: "assistant_1")
+    ])
+    session.busy!
+    session.push_message_to_queue(user_message("queued follow up"), :follow_up)
+
+    error = assert_raises(RuntimeError) { harness.continue }
+
+    assert_equal "Cannot continue a busy agent", error.message
+    assert_empty client.calls
+    assert session.queued_messages?(:follow_up)
+    assert session.busy?
+  end
+
+  test "follow up messages queued while busy drain together" do
     harness, _session, client = new_harness([
       assistant_message("first response", id: "assistant_1"),
       assistant_message("follow up response", id: "assistant_2"),
-      assistant_message("next turn response", id: "assistant_3")
+      assistant_message("follow up response 2", id: "assistant_3")
     ])
 
     queued = false
@@ -499,22 +566,16 @@ class HarnessInMemorySessionIntegrationTest < Test
 
       queued = true
       harness.follow_up_message(user_message("follow up"))
-      harness.next_turn_message(user_message("next turn"))
+      harness.follow_up_message(user_message("follow up"))
     end
 
-    assert_equal 3, client.calls.size
-    assert_equal [
-      user_message("first"),
-      stored_assistant_message("first response", id: "assistant_1"),
-      user_message("follow up")
-    ], client.calls[1][:messages]
+    assert_equal 2, client.calls.size
     assert_equal [
       user_message("first"),
       stored_assistant_message("first response", id: "assistant_1"),
       user_message("follow up"),
-      stored_assistant_message("follow up response", id: "assistant_2"),
-      user_message("next turn")
-    ], client.calls[2][:messages]
+      user_message("follow up")
+    ], client.calls[1][:messages]
   end
 
   def tool_result_message(tool_use_id, content)
