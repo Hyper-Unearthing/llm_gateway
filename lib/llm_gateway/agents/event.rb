@@ -33,12 +33,14 @@ module LlmGateway
         attribute :type, Types::Coercible::Symbol.default(:tool_result).enum(:tool_result)
         attribute :tool_use_id, Types::String
         attribute :content, Types::Any
+        attribute :is_error, Types::Bool.default(false)
 
         def to_h
           {
             type: type.to_s,
             tool_use_id: tool_use_id,
-            content: content
+            content: content,
+            is_error: is_error
           }
         end
 
