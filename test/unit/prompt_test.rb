@@ -37,8 +37,8 @@ class PromptTest < Test
     description "Adds two numbers"
     input_schema({ type: "object" })
 
-    def execute(input)
-      input[:left] + input[:right]
+    def execute(input, tool_use_id:)
+      tool_result(input[:left] + input[:right], tool_use_id: tool_use_id)
     end
   end
 

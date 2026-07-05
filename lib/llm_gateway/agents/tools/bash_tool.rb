@@ -1,5 +1,6 @@
 require "securerandom"
 require "tmpdir"
+require_relative "../../tool"
 require_relative "tool_utils"
 
 class BashTool < LlmGateway::Tool
@@ -17,7 +18,7 @@ class BashTool < LlmGateway::Tool
     required: [ "command" ]
   })
 
-  def execute(input)
+  def execute(input, tool_use_id:)
     command = input[:command]
     timeout = input[:timeout]
 
@@ -25,16 +26,16 @@ class BashTool < LlmGateway::Tool
     out = format_output(result[:output], empty_text: result[:timed_out] ? "" : "(no output)")
 
     if result[:timed_out]
-      return append_status(out, "Command timed out after #{timeout} seconds")
+      return tool_result(append_status(out, "Command timed out after #{timeout} seconds"), tool_use_id: tool_use_id)
     end
 
     if result[:exit_status] && result[:exit_status] != 0
-      return append_status(out, "Command exited with code #{result[:exit_status]}")
+      return tool_result(append_status(out, "Command exited with code #{result[:exit_status]}"), tool_use_id: tool_use_id)
     end
 
-    out
+    tool_result(out, tool_use_id: tool_use_id)
   rescue StandardError => e
-    e.message
+    tool_result(e.message, tool_use_id: tool_use_id)
   end
 
   private

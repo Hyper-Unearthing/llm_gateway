@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative "tool"
+require_relative "agents/event"
+
 module LlmGateway
   class Prompt
     class_attribute :provider, :model, :reasoning
@@ -63,29 +66,35 @@ module LlmGateway
 
     private
 
-    def find_and_execute_tool(tool_content_block, **kwargs)
+    def find_and_execute_tool(tool_content_block, tool_call_id: nil, **kwargs)
+      tool_call_id ||= tool_content_block.id
       tool_name = tool_content_block.name
       tool_input = tool_content_block.input
       tool_class = self.class.find_tool(tool_name)
 
-      result = begin
+      begin
         if tool_class
-          execute_tool(tool_class, tool_input, **kwargs)
-        else
-          "Unknown tool: #{tool_name}"
+          result = execute_tool(tool_class, tool_input, tool_call_id: tool_call_id, **kwargs)
+          return result if result.is_a?(Agents::Event::ToolCallResult)
+
+          raise TypeError, "Tool #{tool_name} returned #{result.class}; expected LlmGateway::Agents::Event::ToolCallResult"
         end
+
+        build_tool_call_result(tool_call_id, "Unknown tool: #{tool_name}")
       rescue StandardError => e
-        "Error executing tool: #{e.message}"
+        build_tool_call_result(tool_call_id, "Error executing tool: #{e.message}")
       end
-      ToolResult.new(
-        type: "tool_result",
-        tool_use_id: tool_content_block.id,
-        content: result,
-      )
     end
 
-    def execute_tool(tool_class, tool_input, **kwargs)
-      tool_class.new.execute(tool_input)
+    def execute_tool(tool_class, tool_input, tool_call_id:, **_kwargs)
+      tool_class.new.execute(tool_input, tool_use_id: tool_call_id)
+    end
+
+    def build_tool_call_result(tool_use_id, content)
+      Agents::Event::ToolCallResult.new(
+        tool_use_id: tool_use_id,
+        content: content
+      )
     end
 
     def run_tool_loop(input, provider: nil, model: nil, reasoning: nil, **options, &block)

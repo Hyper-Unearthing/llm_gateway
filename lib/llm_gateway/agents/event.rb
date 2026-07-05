@@ -30,7 +30,7 @@ module LlmGateway
       )
 
       class ToolCallResult < ::BaseStruct
-        attribute :type, Types::Coercible::Symbol.enum(:tool_result)
+        attribute :type, Types::Coercible::Symbol.default(:tool_result).enum(:tool_result)
         attribute :tool_use_id, Types::String
         attribute :content, Types::Any
 
@@ -93,7 +93,7 @@ module LlmGateway
       class TurnEnd < Base
         attribute :type, Types::Coercible::Symbol.default(:turn_end).enum(:turn_end)
         attribute :message, Types.Instance(AssistantMessage)
-        attribute :tool_results, Types::Array.of(Types.Instance(::ToolResult))
+        attribute :tool_results, Types::Array.of(ToolCallResult)
       end
 
       class AgentEnd < Base

@@ -15,8 +15,8 @@ class HarnessInMemorySessionIntegrationTest < Test
     description "Adds two numbers"
     input_schema({ type: "object" })
 
-    def execute(input)
-      input.fetch(:left) + input.fetch(:right)
+    def execute(input, tool_use_id:)
+      tool_result(input.fetch(:left) + input.fetch(:right), tool_use_id: tool_use_id)
     end
   end
 
@@ -25,7 +25,7 @@ class HarnessInMemorySessionIntegrationTest < Test
     description "Raises an error"
     input_schema({ type: "object" })
 
-    def execute(_input)
+    def execute(_input, tool_use_id:)
       raise "boom"
     end
   end
@@ -37,11 +37,12 @@ class HarnessInMemorySessionIntegrationTest < Test
   class KwargRecordingHarness < ToolHarness
     TOOLS = ToolHarness::TOOLS
 
-    attr_reader :execute_tool_kwargs
+    attr_reader :execute_tool_kwargs, :execute_tool_call_id
 
     private
 
-    def execute_tool(tool_class, tool_input, **kwargs)
+    def execute_tool(tool_class, tool_input, tool_call_id:, **kwargs)
+      @execute_tool_call_id = tool_call_id
       @execute_tool_kwargs = kwargs
       super
     end
@@ -605,6 +606,7 @@ class HarnessInMemorySessionIntegrationTest < Test
 
     harness.prompt_message(user_message("use tools"))
 
+    assert_equal "toolu_add", harness.execute_tool_call_id
     session_event = harness.execute_tool_kwargs[:session_event]
     assert_equal session.events.find { |event| event.dig(:data, :id) == "assistant_add" }, session_event
     assert_equal "message", session_event[:type]
@@ -649,6 +651,9 @@ class HarnessInMemorySessionIntegrationTest < Test
     tool_start_events = events.grep(LlmGateway::Agents::Event::ToolExecutionStart)
     tool_end_events = events.grep(LlmGateway::Agents::Event::ToolExecutionEnd)
     assert_equal [ "add", "missing", "explode" ], tool_start_events.map { |event| event.attributes.dig(:parameters, :name) }
+    assert_equal [ LlmGateway::Agents::Event::ToolCallResult, LlmGateway::Agents::Event::ToolCallResult, LlmGateway::Agents::Event::ToolCallResult ],
+      tool_end_events.map { |event| event.result.class }
+    assert_equal [ "toolu_add", "toolu_missing", "toolu_error" ], tool_end_events.map { |event| event.result.tool_use_id }
     assert_equal [ 5, "Unknown tool: missing", "Error executing tool: boom" ],
       tool_end_events.map { |event| event.attributes.dig(:result, :content) }
     assert_equal [
