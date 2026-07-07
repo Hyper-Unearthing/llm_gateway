@@ -1,0 +1,138 @@
+# Migration guide: v0.8.1 to v0.9.0
+
+This guide covers user-facing changes since the latest released gem, `v0.8.1`.
+
+Relevant PRs/changes:
+
+- #95: pass the persisted session event into tool execution
+- #97: fix harness queue draining semantics
+- current branch: tools return `LlmGateway::Agents::Event::ToolCallResult` objects instead of hashes/strings, with `is_error` support
+
+## 1. Update custom tools to accept `tool_use_id:` and return `ToolCallResult`
+
+Custom `LlmGateway::Tool` subclasses must now return a `LlmGateway::Agents::Event::ToolCallResult` object, or a subclass of it. Use the inherited `tool_result` helper for the common case.
+
+### Before
+
+```ruby
+class AddTool < LlmGateway::Tool
+  name "add"
+  description "Add two numbers"
+  input_schema(type: "object")
+
+  def execute(input)
+    input[:left] + input[:right]
+  end
+end
+```
+
+### After
+
+```ruby
+class AddTool < LlmGateway::Tool
+  name "add"
+  description "Add two numbers"
+  input_schema(type: "object")
+
+  def execute(input, tool_use_id:)
+    tool_result(input[:left] + input[:right], tool_use_id: tool_use_id)
+  end
+end
+```
+
+If a tool returns anything other than `ToolCallResult`, the prompt/harness code raises a `TypeError` and serializes an error result for the model.
+
+## 2. Use `is_error:` for failed tool results when needed
+
+`ToolCallResult` now includes an `is_error` boolean and serializes it through `to_h`.
+
+```ruby
+LlmGateway::Agents::Event::ToolCallResult.new(
+  tool_use_id: tool_use_id,
+  content: "Something went wrong",
+  is_error: true
+)
+```
+
+The default is `false`.
+
+## 3. Update event consumers for tool result objects
+
+Harness events now expose tool results as `ToolCallResult` objects, not raw hashes or provider-specific `ToolResult` structs.
+
+Affected events:
+
+- `:tool_execution_end` via `event.result`
+- `:turn_end` via `event.tool_results`
+
+### Before
+
+```ruby
+case event.type
+when :tool_execution_end
+  puts event.result[:content]
+when :turn_end
+  event.tool_results.each { |result| persist(result) }
+end
+```
+
+### After
+
+```ruby
+case event.type
+when :tool_execution_end
+  puts event.result.content
+when :turn_end
+  event.tool_results.each { |result| persist(result.to_h) }
+end
+```
+
+## 4. Review harness queue behavior
+
+Harness queue semantics changed to avoid stale queues and recursive runs.
+
+- `default_queue_mode` is now `:follow_up` instead of `:next_turn`.
+- `next_turn_message` was removed.
+- Valid `default_queue_mode` values are now `:steer` and `:follow_up`.
+- `prompt_message`, `steer_message`, and `follow_up_message` always enqueue first.
+- If the agent is idle, those methods enqueue and then call `continue`.
+- `continue` now raises `RuntimeError, "Cannot continue a busy agent"` if called while the session is busy.
+- `continue` marks the session busy, drains `:steer`, drains `:follow_up`, runs, and marks the session idle.
+
+### Before
+
+```ruby
+harness.default_queue_mode = :next_turn
+harness.next_turn_message("do this after the current run")
+```
+
+### After
+
+```ruby
+harness.default_queue_mode = :follow_up
+harness.follow_up_message("do this after the current turn")
+```
+
+If you previously relied on `next_turn` work running after the entire agent run, move that behavior into your application-level scheduler or enqueue a `follow_up` after the current operation completes.
+
+## 5. Tool execution can access the persisted session event
+
+The harness now passes the persisted assistant session event into tool execution internally. This is mainly useful for subclasses/custom harnesses that override tool execution and need access to the stored message/event that produced the tool call.
+
+Existing simple tools do not need to use this directly; they only need the `execute(input, tool_use_id:)` signature and `ToolCallResult` return value described above.
+
+## 6. Message metadata is safe to keep in transcripts
+
+Input messages may now carry app-owned metadata, such as a `details` hash. The gateway preserves it locally but strips unsupported metadata before sending user/assistant messages to providers.
+
+```ruby
+adapter.stream([
+  {
+    role: "user",
+    content: "Hello",
+    details: { trace_id: "msg-123" }
+  }
+])
+```
+
+No migration is required unless you previously stripped this metadata yourself; that cleanup can now be simplified.
