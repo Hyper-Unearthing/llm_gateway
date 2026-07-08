@@ -87,7 +87,35 @@ when :turn_end
 end
 ```
 
-## 4. Review harness queue behavior
+## 4. Wrap tool execution if needed
+
+Override `execute_tool_requests` on a `Prompt` or `Harness` subclass when you need setup before tools run, post-processing after results return, or customization of the transcript message that carries tool results. Call `yield requests` to let llm_gateway execute tools normally, then return a `LlmGateway::Agents::Event::ToolResultMessage`.
+
+```ruby
+class MyHarness < LlmGateway::Agents::Harness
+  def execute_tool_requests(requests:, assistant_message:, session_event:)
+    context = build_context(requests, assistant_message)
+    results = yield requests
+    audit_results(context, results)
+
+    LlmGateway::Agents::Event::ToolResultMessage.new(
+      content: results,
+      details: { assistant_message_id: assistant_message.id }
+    )
+  end
+end
+```
+
+The default `ToolResultMessage` serializes as:
+
+```ruby
+{
+  role: "user",
+  content: tool_results.map(&:to_h)
+}
+```
+
+## 5. Review harness queue behavior
 
 Harness queue semantics changed to avoid stale queues and recursive runs.
 
@@ -115,13 +143,13 @@ harness.follow_up_message("do this after the current turn")
 
 If you previously relied on `next_turn` work running after the entire agent run, move that behavior into your application-level scheduler or enqueue a `follow_up` after the current operation completes.
 
-## 5. Tool execution can access the persisted session event
+## 7. Tool execution can access the persisted session event
 
 The harness now passes the persisted assistant session event into tool execution internally. This is mainly useful for subclasses/custom harnesses that override tool execution and need access to the stored message/event that produced the tool call.
 
 Existing simple tools do not need to use this directly; they only need the `execute(input, tool_use_id:)` signature and `ToolCallResult` return value described above.
 
-## 6. Message metadata is safe to keep in transcripts
+## 8. Message metadata is safe to keep in transcripts
 
 Input messages may now carry app-owned metadata, such as a `details` hash. The gateway preserves it locally but strips unsupported metadata before sending user/assistant messages to providers.
 

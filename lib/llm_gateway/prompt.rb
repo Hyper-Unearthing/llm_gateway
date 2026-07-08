@@ -64,6 +64,12 @@ module LlmGateway
       nil
     end
 
+    protected
+
+    def execute_tool_requests(requests:, assistant_message: nil, session_event: nil)
+      Agents::Event::ToolResultMessage.new(content: yield(requests))
+    end
+
     private
 
     def find_and_execute_tool(tool_content_block, tool_call_id: nil, **kwargs)
@@ -97,6 +103,10 @@ module LlmGateway
       )
     end
 
+    def run_tool_requests(requests, **kwargs)
+      requests.map { |request| find_and_execute_tool(request, **kwargs) }
+    end
+
     def run_tool_loop(input, provider: nil, model: nil, reasoning: nil, **options, &block)
       response = stream(input, provider: provider, model: model, reasoning: reasoning, **options, &block)
 
@@ -117,10 +127,15 @@ module LlmGateway
     def prompt_with_tool_results(input, response, requests)
       messages = input.is_a?(Array) ? input.dup : [ { role: "user", content: input } ]
       messages << response.to_h
-      messages << {
-        role: "user",
-        content: requests.map { |request| find_and_execute_tool(request).to_h }
-      }
+
+      tool_result_message = execute_tool_requests(
+        requests: requests,
+        assistant_message: response,
+        session_event: nil
+      ) do |requests_to_execute|
+        run_tool_requests(requests_to_execute)
+      end
+      messages << tool_result_message.to_h if tool_result_message.any?
       messages
     end
 

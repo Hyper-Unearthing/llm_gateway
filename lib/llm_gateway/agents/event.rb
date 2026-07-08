@@ -49,6 +49,32 @@ module LlmGateway
         end
       end
 
+      class ToolResultMessage < ::BaseStruct
+        attribute :role, Types::String.default("user")
+        attribute :content, Types::Array.of(ToolCallResult)
+        attribute? :details, Types::Hash.optional
+
+        def empty?
+          content.empty?
+        end
+
+        def any?
+          content.any?
+        end
+
+        def tool_results
+          content
+        end
+
+        def to_h
+          {
+            role: role,
+            content: content.map(&:to_h),
+            details: details
+          }.compact
+        end
+      end
+
       class Base < ::BaseStruct
         attribute :type, AgentEventType
 

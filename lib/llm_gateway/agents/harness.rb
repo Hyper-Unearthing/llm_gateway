@@ -79,19 +79,17 @@ module LlmGateway
         persisted_message = session_manager.push_message(assistant_message.to_h)
         emit(Event::MessageEnd.new(message: assistant_message), &block)
 
-        tool_results = tool_requests(assistant_message).map do |tool_content_block|
-          parameters = tool_content_block.to_h
-          emit(Event::ToolExecutionStart.new(parameters: parameters), &block)
-          tool_result = find_and_execute_tool(tool_content_block, session_event: persisted_message)
-          emit(Event::ToolExecutionEnd.new(parameters: parameters, result: tool_result), &block)
-          tool_result
+        tool_request_blocks = tool_requests(assistant_message)
+        tool_result_message = execute_tool_requests(
+          requests: tool_request_blocks,
+          assistant_message: assistant_message,
+          session_event: persisted_message
+        ) do |requests_to_execute|
+          run_tool_requests(requests_to_execute, session_event: persisted_message, &block)
         end
+        tool_results = tool_result_message.tool_results
 
-        tool_result_content = tool_results.map(&:to_h)
-        session_manager.push_message(
-          role: "user",
-          content: tool_result_content,
-        ) unless tool_result_content.empty?
+        session_manager.push_message(tool_result_message.to_h) if tool_result_message.any?
 
         turn_end_event = Event::TurnEnd.new(message: assistant_message, tool_results: tool_results)
         emit(turn_end_event, &block)
@@ -162,6 +160,16 @@ module LlmGateway
 
       def drain_queue(queue)
         session_manager.drain_message_queue(queue, mode: queue_drain_mode)
+      end
+
+      def run_tool_requests(requests, session_event:, &block)
+        requests.map do |tool_content_block|
+          parameters = tool_content_block.to_h
+          emit(Event::ToolExecutionStart.new(parameters: parameters), &block)
+          tool_result = find_and_execute_tool(tool_content_block, session_event: session_event)
+          emit(Event::ToolExecutionEnd.new(parameters: parameters, result: tool_result), &block)
+          tool_result
+        end
       end
 
       def emit(event, &block)
