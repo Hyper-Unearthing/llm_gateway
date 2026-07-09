@@ -37,13 +37,47 @@ class PromptTest < Test
     description "Adds two numbers"
     input_schema({ type: "object" })
 
-    def execute(input)
-      input[:left] + input[:right]
+    def execute(input, tool_use_id:)
+      tool_result(input[:left] + input[:right], tool_use_id: tool_use_id)
     end
   end
 
   class ToolPrompt < ConfigurablePrompt
     TOOLS = [ AddTool ].freeze
+  end
+
+  class CustomToolResultMessagePrompt < ToolPrompt
+    TOOLS = ToolPrompt::TOOLS
+
+    def execute_tool_requests(requests:, assistant_message:, session_event:)
+      tool_results = yield requests
+      LlmGateway::Agents::Event::ToolResultMessage.new(
+        role: "developer",
+        content: tool_results,
+        details: {
+          assistant_message_id: assistant_message.id,
+          request_count: requests.length
+        }
+      )
+    end
+  end
+
+  class AroundToolExecutionPrompt < ToolPrompt
+    TOOLS = ToolPrompt::TOOLS
+
+    def execute_tool_requests(requests:, assistant_message:, session_event:)
+      context = { assistant_message_id: assistant_message.id, request_names: requests.map(&:name), session_event: session_event }
+
+      tool_results = yield(requests).map do |result|
+        LlmGateway::Agents::Event::ToolCallResult.new(
+          tool_use_id: result.tool_use_id,
+          content: { context: context, result: result.content },
+          is_error: result.is_error
+        )
+      end
+
+      LlmGateway::Agents::Event::ToolResultMessage.new(content: tool_results)
+    end
   end
 
   class SequentialProvider
@@ -144,8 +178,43 @@ class PromptTest < Test
     assert_equal "user", continued_message[0][:role]
     assert_equal "hello", continued_message[0][:content]
     assert_equal "assistant", continued_message[1][:role]
-    assert_equal [ { type: "tool_result", tool_use_id: "toolu_add", content: 5 } ], continued_message[2][:content]
+    assert_equal [ { type: "tool_result", tool_use_id: "toolu_add", content: 5, is_error: false } ], continued_message[2][:content]
     assert_equal "test-model", provider.calls[1][:options][:model]
+  end
+
+  test "allows prompts to customize the tool result wrapper message" do
+    provider = SequentialProvider.new(
+      assistant_message(content: [ { type: "tool_use", id: "toolu_add", name: "add", input: { left: 2, right: 3 } } ], stop_reason: "tool_use"),
+      assistant_message(content: [ { type: "text", text: "5" } ])
+    )
+
+    CustomToolResultMessagePrompt.new(provider: provider, model: "test-model").run
+
+    continued_message = provider.calls[1][:message]
+    assert_equal "developer", continued_message[2][:role]
+    assert_equal [ { type: "tool_result", tool_use_id: "toolu_add", content: 5, is_error: false } ], continued_message[2][:content]
+    assert_equal({ assistant_message_id: continued_message[1][:id], request_count: 1 }, continued_message[2][:details])
+  end
+
+  test "allows prompts to wrap tool execution" do
+    provider = SequentialProvider.new(
+      assistant_message(content: [ { type: "tool_use", id: "toolu_add", name: "add", input: { left: 2, right: 3 } } ], stop_reason: "tool_use"),
+      assistant_message(content: [ { type: "text", text: "5" } ])
+    )
+
+    AroundToolExecutionPrompt.new(provider: provider, model: "test-model").run
+
+    continued_message = provider.calls[1][:message]
+    expected_content = {
+      context: {
+        assistant_message_id: continued_message[1][:id],
+        request_names: [ "add" ],
+        session_event: nil
+      },
+      result: 5
+    }
+    assert_equal [ { type: "tool_result", tool_use_id: "toolu_add", content: expected_content, is_error: false } ],
+      continued_message[2][:content]
   end
 
   private

@@ -1,4 +1,5 @@
 require "json"
+require_relative "../../tool"
 require_relative "tool_utils"
 
 class EditTool < LlmGateway::Tool
@@ -30,11 +31,11 @@ class EditTool < LlmGateway::Tool
     required: [ "path", "edits" ]
   })
 
-  def execute(input)
+  def execute(input, tool_use_id:)
     path = input[:path]
     edits = prepare_edits(input[:edits])
 
-    return "Edit tool input is invalid. edits must contain at least one replacement." if !edits.is_a?(Array) || edits.empty?
+    return tool_result("Edit tool input is invalid. edits must contain at least one replacement.", tool_use_id: tool_use_id) if !edits.is_a?(Array) || edits.empty?
 
     absolute_path = ToolUtils.resolve_to_cwd(path)
 
@@ -42,7 +43,7 @@ class EditTool < LlmGateway::Tool
       begin
         File.open(absolute_path, File::RDWR) { }
       rescue SystemCallError => e
-        return "Could not edit file: #{path}. Error code: #{e.class.name.split("::").last}."
+        return tool_result("Could not edit file: #{path}. Error code: #{e.class.name.split("::").last}.", tool_use_id: tool_use_id)
       end
 
       raw_content = File.binread(absolute_path)
@@ -59,12 +60,12 @@ class EditTool < LlmGateway::Tool
       final_bytes = bom + restored.encode("UTF-8").b
 
       File.binwrite(absolute_path, final_bytes)
-      "Successfully replaced #{edits.length} block(s) in #{path}."
+      tool_result("Successfully replaced #{edits.length} block(s) in #{path}.", tool_use_id: tool_use_id)
     end
   rescue EditError => e
-    e.message
+    tool_result(e.message, tool_use_id: tool_use_id)
   rescue StandardError => e
-    "Error editing file: #{e.message}"
+    tool_result("Error editing file: #{e.message}", tool_use_id: tool_use_id)
   end
 
   private

@@ -15,8 +15,8 @@ class HarnessInMemorySessionIntegrationTest < Test
     description "Adds two numbers"
     input_schema({ type: "object" })
 
-    def execute(input)
-      input.fetch(:left) + input.fetch(:right)
+    def execute(input, tool_use_id:)
+      tool_result(input.fetch(:left) + input.fetch(:right), tool_use_id: tool_use_id)
     end
   end
 
@@ -25,7 +25,7 @@ class HarnessInMemorySessionIntegrationTest < Test
     description "Raises an error"
     input_schema({ type: "object" })
 
-    def execute(_input)
+    def execute(_input, tool_use_id:)
       raise "boom"
     end
   end
@@ -34,14 +34,52 @@ class HarnessInMemorySessionIntegrationTest < Test
     TOOLS = [ AddTool, ExplodingTool ]
   end
 
+  class CustomToolResultMessageHarness < ToolHarness
+    TOOLS = ToolHarness::TOOLS
+
+    def execute_tool_requests(requests:, assistant_message:, session_event:)
+      tool_results = yield requests
+      LlmGateway::Agents::Event::ToolResultMessage.new(
+        content: tool_results,
+        details: {
+          assistant_message_id: assistant_message.id,
+          request_names: requests.map(&:name)
+        }
+      )
+    end
+  end
+
+  class AroundToolExecutionHarness < ToolHarness
+    TOOLS = ToolHarness::TOOLS
+
+    def execute_tool_requests(requests:, assistant_message:, session_event:)
+      context = {
+        assistant_message_id: assistant_message.id,
+        session_event_id: session_event[:id],
+        request_names: requests.map(&:name)
+      }
+
+      tool_results = yield(requests).map do |result|
+        LlmGateway::Agents::Event::ToolCallResult.new(
+          tool_use_id: result.tool_use_id,
+          content: { context: context, result: result.content },
+          is_error: result.is_error
+        )
+      end
+
+      LlmGateway::Agents::Event::ToolResultMessage.new(content: tool_results)
+    end
+  end
+
   class KwargRecordingHarness < ToolHarness
     TOOLS = ToolHarness::TOOLS
 
-    attr_reader :execute_tool_kwargs
+    attr_reader :execute_tool_kwargs, :execute_tool_call_id
 
     private
 
-    def execute_tool(tool_class, tool_input, **kwargs)
+    def execute_tool(tool_class, tool_input, tool_call_id:, **kwargs)
+      @execute_tool_call_id = tool_call_id
       @execute_tool_kwargs = kwargs
       super
     end
@@ -578,8 +616,8 @@ class HarnessInMemorySessionIntegrationTest < Test
     ], client.calls[1][:messages]
   end
 
-  def tool_result_message(tool_use_id, content)
-    { role: "user", content: [ { type: "tool_result", tool_use_id: tool_use_id, content: content } ] }
+  def tool_result_message(tool_use_id, content, is_error: false)
+    { role: "user", content: [ { type: "tool_result", tool_use_id: tool_use_id, content: content, is_error: is_error } ] }
   end
 
   test "preserves Anthropic tool_result blocks in the follow-up user message" do
@@ -598,6 +636,42 @@ class HarnessInMemorySessionIntegrationTest < Test
     assert_equal expected_tool_result, session.active_messages[2]
   end
 
+  test "allows harnesses to customize the tool result wrapper message" do
+    tool_request = assistant_tool_message("add", { left: 2, right: 3 }, id: "assistant_add", tool_use_id: "toolu_add")
+    final_response = assistant_message("handled", id: "assistant_final")
+    harness, session, client = new_harness([ tool_request, final_response ], harness_class: CustomToolResultMessageHarness)
+
+    harness.prompt_message(user_message("use tools"))
+
+    expected_tool_result = {
+      role: "user",
+      content: [ { type: "tool_result", tool_use_id: "toolu_add", content: 5, is_error: false } ],
+      details: { assistant_message_id: "assistant_add", request_names: [ "add" ] }
+    }
+    assert_equal [ user_message("use tools"), stored_message(tool_request), expected_tool_result ], client.calls[1][:messages]
+    assert_equal expected_tool_result, session.active_messages[2]
+  end
+
+  test "allows subclasses to wrap harness-owned tool execution" do
+    tool_request = assistant_tool_message("add", { left: 2, right: 3 }, id: "assistant_add", tool_use_id: "toolu_add")
+    final_response = assistant_message("handled", id: "assistant_final")
+    _harness, session, client = new_harness([ tool_request, final_response ], harness_class: AroundToolExecutionHarness)
+
+    _harness.prompt_message(user_message("use tools"))
+
+    assistant_session_event = session.events.find { |event| event.dig(:data, :id) == "assistant_add" }
+    expected_content = {
+      context: {
+        assistant_message_id: "assistant_add",
+        session_event_id: assistant_session_event[:id],
+        request_names: [ "add" ]
+      },
+      result: 5
+    }
+    assert_equal [ user_message("use tools"), stored_message(tool_request), tool_result_message("toolu_add", expected_content) ],
+      client.calls[1][:messages]
+  end
+
   test "passes persisted assistant message session event when executing tools" do
     tool_request = assistant_tool_message("add", { left: 2, right: 3 }, id: "assistant_add", tool_use_id: "toolu_add")
     final_response = assistant_message("handled", id: "assistant_final")
@@ -605,6 +679,7 @@ class HarnessInMemorySessionIntegrationTest < Test
 
     harness.prompt_message(user_message("use tools"))
 
+    assert_equal "toolu_add", harness.execute_tool_call_id
     session_event = harness.execute_tool_kwargs[:session_event]
     assert_equal session.events.find { |event| event.dig(:data, :id) == "assistant_add" }, session_event
     assert_equal "message", session_event[:type]
@@ -649,6 +724,9 @@ class HarnessInMemorySessionIntegrationTest < Test
     tool_start_events = events.grep(LlmGateway::Agents::Event::ToolExecutionStart)
     tool_end_events = events.grep(LlmGateway::Agents::Event::ToolExecutionEnd)
     assert_equal [ "add", "missing", "explode" ], tool_start_events.map { |event| event.attributes.dig(:parameters, :name) }
+    assert_equal [ LlmGateway::Agents::Event::ToolCallResult, LlmGateway::Agents::Event::ToolCallResult, LlmGateway::Agents::Event::ToolCallResult ],
+      tool_end_events.map { |event| event.result.class }
+    assert_equal [ "toolu_add", "toolu_missing", "toolu_error" ], tool_end_events.map { |event| event.result.tool_use_id }
     assert_equal [ 5, "Unknown tool: missing", "Error executing tool: boom" ],
       tool_end_events.map { |event| event.attributes.dig(:result, :content) }
     assert_equal [

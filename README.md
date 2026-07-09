@@ -272,8 +272,8 @@ class AddTool < LlmGateway::Tool
   input_schema(type: "object")
   cache true # optional: mark the tool definition as cacheable where supported
 
-  def execute(input)
-    input[:left] + input[:right]
+  def execute(input, tool_use_id:)
+    tool_result(input[:left] + input[:right], tool_use_id: tool_use_id)
   end
 end
 
@@ -310,6 +310,8 @@ How `Prompt` works now:
 - `run(provider:, model:, reasoning:, **options)` calls `stream` and returns the final normalized `AssistantMessage` after any tool calls complete.
 - `stream(input = prompt, provider:, model:, reasoning:, **options, &block)` forwards to the provider and returns the normalized `AssistantMessage`.
 - Tools are declared as tool classes in a `TOOLS` constant. `run` automatically executes returned `tool_use` blocks, appends `tool_result` messages, and loops until no tool calls remain.
+- `LlmGateway::Tool#execute(input, tool_use_id:)` should return a `LlmGateway::Agents::Event::ToolCallResult` or a descendant; use the inherited `tool_result(content, tool_use_id: tool_use_id)` helper for the common case. The original tool call id is passed into `execute` so custom tools can construct their own result object and decide what is serialized into sessions.
+- Override `execute_tool_requests(requests:, assistant_message:, session_event:)` to wrap tool execution with setup/teardown, result post-processing, or wrapper-message customization; call `yield requests` to let the harness/prompt execute tools normally, then return a `LlmGateway::Agents::Event::ToolResultMessage`. The default serializes as `{ role: "user", content: tool_results.map(&:to_h) }`.
 - `system_prompt`, `tools`, `model`, `reasoning`, `cache_key`, and `cache_retention` are forwarded as stream options.
 - `cache_retention` can also enable provider cache control for prompt-owned system/tool blocks where supported, and `Tool.cache true` marks a tool definition with `cache_control`.
 - `before_execute` callbacks receive the resolved input. `after_execute` callbacks receive the final `AssistantMessage`.
@@ -421,6 +423,8 @@ end
 Notes:
 - Tool calls are returned as `ToolCall` blocks with `type: "tool_use"`, `id`, `name`, and `input`.
 - Tool results are sent back in the transcript as `{ type: "tool_result", tool_use_id:, content: }` blocks.
+- When using `LlmGateway::Tool`, the tool call id is passed to `execute` as `tool_use_id:`. Return `ToolCallResult` directly, or return a descendant if you need custom fields/serialization behavior for session persistence.
+- `Prompt`/`Harness` subclasses can override `execute_tool_requests(requests:, assistant_message:, session_event:)` to wrap tool execution, then call `yield requests` for the default execution path and return a `ToolResultMessage` that wraps those tool result blocks.
 - For multimodal-capable models, `tool_result` content can include image blocks when supported by the provider/model.
 
 ### Server Tool Use
@@ -486,13 +490,16 @@ class WeatherTool < LlmGateway::Tool
     required: ["location"]
   )
 
-  def execute(input)
+  def execute(input, tool_use_id:)
     location = input[:location] || input["location"]
 
-    JSON.generate(
-      location: location,
-      temperature: 14,
-      condition: "Cloudy"
+    tool_result(
+      JSON.generate(
+        location: location,
+        temperature: 14,
+        condition: "Cloudy"
+      ),
+      tool_use_id: tool_use_id
     )
   end
 end
@@ -561,8 +568,8 @@ When a block is passed to `prompt_message`, `run`, or `continue`, the harness em
 - `:message_update` with `event.stream_event` containing the normalized streaming event from the provider
 - `:message_end` with `event.message`
 - `:tool_execution_start` with `event.parameters` (`id`, `type`, `name`, `input`)
-- `:tool_execution_end` with `event.parameters` and `event.result`
-- `:turn_end` with `event.message` and `event.tool_results`
+- `:tool_execution_end` with `event.parameters` and `event.result` (`LlmGateway::Agents::Event::ToolCallResult`, or a descendant returned by the tool)
+- `:turn_end` with `event.message` and `event.tool_results` (`LlmGateway::Agents::Event::ToolCallResult` objects, or descendants returned by tools)
 - `:agent_end`
 
 ### Session managers and persistence

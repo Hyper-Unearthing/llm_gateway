@@ -30,20 +30,48 @@ module LlmGateway
       )
 
       class ToolCallResult < ::BaseStruct
-        attribute :type, Types::Coercible::Symbol.enum(:tool_result)
+        attribute :type, Types::Coercible::Symbol.default(:tool_result).enum(:tool_result)
         attribute :tool_use_id, Types::String
         attribute :content, Types::Any
+        attribute :is_error, Types::Bool.default(false)
 
         def to_h
           {
             type: type.to_s,
             tool_use_id: tool_use_id,
-            content: content
+            content: content,
+            is_error: is_error
           }
         end
 
         def dig(*keys)
           to_h.dig(*keys)
+        end
+      end
+
+      class ToolResultMessage < ::BaseStruct
+        attribute :role, Types::String.default("user")
+        attribute :content, Types::Array.of(ToolCallResult)
+        attribute? :details, Types::Hash.optional
+
+        def empty?
+          content.empty?
+        end
+
+        def any?
+          content.any?
+        end
+
+        def tool_results
+          content
+        end
+
+        def to_h
+          {
+            role: role,
+            content: content.map(&:to_h),
+            details: details
+          }.compact
         end
       end
 
@@ -93,7 +121,7 @@ module LlmGateway
       class TurnEnd < Base
         attribute :type, Types::Coercible::Symbol.default(:turn_end).enum(:turn_end)
         attribute :message, Types.Instance(AssistantMessage)
-        attribute :tool_results, Types::Array.of(Types.Instance(::ToolResult))
+        attribute :tool_results, Types::Array.of(ToolCallResult)
       end
 
       class AgentEnd < Base

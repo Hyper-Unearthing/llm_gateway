@@ -1,4 +1,5 @@
 require "fileutils"
+require_relative "../../tool"
 require_relative "tool_utils"
 
 class WriteTool < LlmGateway::Tool
@@ -16,7 +17,7 @@ class WriteTool < LlmGateway::Tool
     required: [ "path", "content" ]
   })
 
-  def execute(input)
+  def execute(input, tool_use_id:)
     path = input[:path] || input["path"]
     content = input[:content] || input["content"]
 
@@ -27,8 +28,8 @@ class WriteTool < LlmGateway::Tool
       File.write(absolute_path, content)
     end
 
-    "Successfully wrote #{content.bytesize} bytes to #{path}"
+    tool_result("Successfully wrote #{content.bytesize} bytes to #{path}", tool_use_id: tool_use_id)
   rescue StandardError => e
-    e.message
+    tool_result(e.message, tool_use_id: tool_use_id)
   end
 end

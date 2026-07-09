@@ -1,4 +1,5 @@
 require "base64"
+require_relative "../../tool"
 require_relative "tool_utils"
 
 class ReadTool < LlmGateway::Tool
@@ -21,24 +22,24 @@ class ReadTool < LlmGateway::Tool
   IMAGE_TYPE_SNIFF_BYTES = 4100
   PNG_SIGNATURE = [ 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a ].freeze
 
-  def execute(input)
+  def execute(input, tool_use_id:)
     path = input[:path] || input["path"]
     offset = input[:offset] || input["offset"]
     limit = input[:limit] || input["limit"]
 
     absolute_path = ToolUtils.resolve_read_path(path)
 
-    return "File not found: #{path}" unless File.exist?(absolute_path)
-    return "Cannot read directory: #{path}" if File.directory?(absolute_path)
-    return "File is not readable: #{path}" unless File.readable?(absolute_path)
+    return tool_result("File not found: #{path}", tool_use_id: tool_use_id) unless File.exist?(absolute_path)
+    return tool_result("Cannot read directory: #{path}", tool_use_id: tool_use_id) if File.directory?(absolute_path)
+    return tool_result("File is not readable: #{path}", tool_use_id: tool_use_id) unless File.readable?(absolute_path)
 
     mime_type = detect_supported_image_mime_type_from_file(absolute_path)
     if mime_type
       data = Base64.strict_encode64(File.binread(absolute_path))
-      return [
+      return tool_result([
         { type: "text", text: "Read image file [#{mime_type}]" },
         { type: "image", data: data, media_type: mime_type }
-      ]
+      ], tool_use_id: tool_use_id)
     end
 
     content = File.read(absolute_path, mode: "r:bom|utf-8")
@@ -46,7 +47,7 @@ class ReadTool < LlmGateway::Tool
     total_file_lines = all_lines.length
 
     start_line = [ 0, (offset || 1).to_i - 1 ].max
-    return "Offset #{offset} is beyond end of file (#{all_lines.length} lines total)" if start_line >= all_lines.length
+    return tool_result("Offset #{offset} is beyond end of file (#{all_lines.length} lines total)", tool_use_id: tool_use_id) if start_line >= all_lines.length
 
     selected_content = if limit
       end_line = [ start_line + limit.to_i, all_lines.length ].min
@@ -60,7 +61,7 @@ class ReadTool < LlmGateway::Tool
 
     if truncation[:first_line_exceeds_limit]
       first_line_size = ToolUtils.format_size(all_lines[start_line].to_s.bytesize)
-      return "[Line #{start_display} is #{first_line_size}, exceeds #{ToolUtils.format_size(ToolUtils::DEFAULT_MAX_BYTES)} limit. Use bash: sed -n '#{start_display}p' #{path} | head -c #{ToolUtils::DEFAULT_MAX_BYTES}]"
+      return tool_result("[Line #{start_display} is #{first_line_size}, exceeds #{ToolUtils.format_size(ToolUtils::DEFAULT_MAX_BYTES)} limit. Use bash: sed -n '#{start_display}p' #{path} | head -c #{ToolUtils::DEFAULT_MAX_BYTES}]", tool_use_id: tool_use_id)
     end
 
     output = truncation[:content]
@@ -80,9 +81,9 @@ class ReadTool < LlmGateway::Tool
       output = "#{output}\n\n[#{remaining} more lines in file. Use offset=#{next_offset} to continue.]"
     end
 
-    output
+    tool_result(output, tool_use_id: tool_use_id)
   rescue StandardError => e
-    "Error reading file: #{e.message}"
+    tool_result("Error reading file: #{e.message}", tool_use_id: tool_use_id)
   end
 
   private
