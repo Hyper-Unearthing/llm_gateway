@@ -40,7 +40,7 @@ class AddTool < LlmGateway::Tool
 end
 ```
 
-If a tool returns anything other than `ToolCallResult`, the prompt/harness code raises a `TypeError` and serializes an error result for the model.
+If a tool returns anything other than `ToolCallResult`, the prompt/harness catches the resulting `TypeError` and sends an error result to the model instead. The exception does not escape from the normal tool loop.
 
 ## 2. Use `is_error:` for failed tool results when needed
 
@@ -89,7 +89,7 @@ end
 
 ## 4. Wrap tool execution if needed
 
-Override `execute_tool_requests` on a `Prompt` or `Harness` subclass when you need setup before tools run, post-processing after results return, or customization of the transcript message that carries tool results. Call `yield requests` to let llm_gateway execute tools normally, then return a `LlmGateway::Agents::Event::ToolResultMessage`.
+`Prompt` and `Harness` now call the protected `execute_tool_requests` hook to execute a batch of tool requests. If you already override tool execution, migrate that customization to this hook. Override it on a `Prompt` or `Harness` subclass when you need setup before tools run, post-processing after results return, or customization of the transcript message that carries tool results. Call `yield requests` to let llm_gateway execute tools normally, then return a `LlmGateway::Agents::Event::ToolResultMessage`.
 
 ```ruby
 class MyHarness < LlmGateway::Agents::Harness
@@ -143,13 +143,13 @@ harness.follow_up_message("do this after the current turn")
 
 If you previously relied on `next_turn` work running after the entire agent run, move that behavior into your application-level scheduler or enqueue a `follow_up` after the current operation completes.
 
-## 7. Tool execution can access the persisted session event
+## 6. Tool execution can access the persisted session event
 
-The harness now passes the persisted assistant session event into tool execution internally. This is mainly useful for subclasses/custom harnesses that override tool execution and need access to the stored message/event that produced the tool call.
+For a `Harness`, `execute_tool_requests` receives the persisted assistant session event as `session_event:`. This is useful for subclasses/custom harnesses that need access to the stored message/event that produced the tool call. `Prompt` invokes the same hook with `session_event: nil`, because it has no session manager.
 
-Existing simple tools do not need to use this directly; they only need the `execute(input, tool_use_id:)` signature and `ToolCallResult` return value described above.
+Existing simple tools do not receive this event directly and do not need to use it; they only need the `execute(input, tool_use_id:)` signature and `ToolCallResult` return value described above.
 
-## 8. Message metadata is safe to keep in transcripts
+## 7. Message metadata is safe to keep in transcripts
 
 Input messages may now carry app-owned metadata, such as a `details` hash. The gateway preserves it locally but strips unsupported metadata before sending user/assistant messages to providers.
 

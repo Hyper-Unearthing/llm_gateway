@@ -311,7 +311,7 @@ How `Prompt` works now:
 - `stream(input = prompt, provider:, model:, reasoning:, **options, &block)` forwards to the provider and returns the normalized `AssistantMessage`.
 - Tools are declared as tool classes in a `TOOLS` constant. `run` automatically executes returned `tool_use` blocks, appends `tool_result` messages, and loops until no tool calls remain.
 - `LlmGateway::Tool#execute(input, tool_use_id:)` should return a `LlmGateway::Agents::Event::ToolCallResult` or a descendant; use the inherited `tool_result(content, tool_use_id: tool_use_id)` helper for the common case. The original tool call id is passed into `execute` so custom tools can construct their own result object and decide what is serialized into sessions.
-- Override `execute_tool_requests(requests:, assistant_message:, session_event:)` to wrap tool execution with setup/teardown, result post-processing, or wrapper-message customization; call `yield requests` to let the harness/prompt execute tools normally, then return a `LlmGateway::Agents::Event::ToolResultMessage`. The default serializes as `{ role: "user", content: tool_results.map(&:to_h) }`.
+- Override the protected `execute_tool_requests(requests:, assistant_message:, session_event:)` hook to wrap tool execution with setup/teardown, result post-processing, or wrapper-message customization; call `yield requests` to let the harness/prompt execute tools normally, then return a `LlmGateway::Agents::Event::ToolResultMessage`. A `Harness` receives the persisted assistant event as `session_event:`; a `Prompt` receives `nil`. The default serializes as `{ role: "user", content: tool_results.map(&:to_h) }`.
 - `system_prompt`, `tools`, `model`, `reasoning`, `cache_key`, and `cache_retention` are forwarded as stream options.
 - `cache_retention` can also enable provider cache control for prompt-owned system/tool blocks where supported, and `Tool.cache true` marks a tool definition with `cache_control`.
 - `before_execute` callbacks receive the resolved input. `after_execute` callbacks receive the final `AssistantMessage`.
@@ -319,6 +319,7 @@ How `Prompt` works now:
 
 ## Migration guides
 
+- [0.9.0 migration guide](docs/migration_guide_0.9.0.md) — update custom tools to return `ToolCallResult`, migrate harness queue behavior, and update tool-result event consumers.
 - [0.7.0 migration guide](docs/migration_guide_0.7.0.md) — update `Prompt` subclasses for normalized `AssistantMessage` return values, automatic tool loops, `TOOLS`, and removed response hooks.
 - [0.6.0 migration guide](docs/migration_guide_0.6.0.md) — move `model_key` to per-request `model:`, update provider keys, update `Prompt` usage, and migrate stream event/usage changes.
 - [Migrating from `chat` to `stream`](docs/migration-guide.md) — use `stream` without a block when you only need the final response.
