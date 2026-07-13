@@ -37,7 +37,7 @@ class NormalizedStreamAccumulatorPartialTest < Test
     assert_equal message_end.message.timestamp, message_end.message.to_h[:timestamp]
     assert_equal accumulator.result[:id], message_end.message.id
     assert_equal accumulator.result[:model], message_end.message.model
-    assert_equal({ input: 3, cache_write: 0, cache_read: 0, output: 2, total: 5, raw: {} }, message_end.message.usage)
+    assert_equal({ input: 3, cache_write: 0, cache_read: 0, output: 2, total: 5, raw: {}, cost: nil }, message_end.message.usage)
     assert_equal accumulator.result[:usage], message_end.message.usage
     assert_equal accumulator.result[:stop_reason], message_end.message.stop_reason
     assert_equal accumulator.result[:content], message_end.message.content.map(&:to_h)
@@ -126,7 +126,7 @@ class NormalizedStreamAccumulatorPartialTest < Test
 
     assert_equal 1_716_650_000_000, events.first.partial.timestamp
     assert_equal 1_716_650_000_000, events.last.message.timestamp
-    assert_equal({ input: 0, cache_write: 0, cache_read: 0, output: 0, total: 0, raw: {} }, events.last.message.usage)
+    assert_equal({ input: 0, cache_write: 0, cache_read: 0, output: 0, total: 0, raw: {}, cost: nil }, events.last.message.usage)
   end
 
   test "usage is assigned from final usage patch rather than accumulated" do
@@ -142,7 +142,7 @@ class NormalizedStreamAccumulatorPartialTest < Test
     end
 
     refute_respond_to events.first.partial, :usage
-    assert_equal({ input: 3, cache_write: 0, cache_read: 0, output: 2, total: 5, raw: {} }, events.last.message.usage)
+    assert_equal({ input: 3, cache_write: 0, cache_read: 0, output: 2, total: 5, raw: {}, cost: nil }, events.last.message.usage)
   end
 
   test "usage total includes input cache and output tokens" do
@@ -157,7 +157,7 @@ class NormalizedStreamAccumulatorPartialTest < Test
       accumulator.push(patch) { |event| events << event }
     end
 
-    expected_usage = { input: 3, cache_write: 4, cache_read: 5, output: 6, total: 18, raw: { prompt_tokens: 12 } }
+    expected_usage = { input: 3, cache_write: 4, cache_read: 5, output: 6, total: 18, raw: { prompt_tokens: 12 }, cost: nil }
     assert_equal expected_usage, events[1].usage
     assert_equal expected_usage, events.last.message.usage
   end

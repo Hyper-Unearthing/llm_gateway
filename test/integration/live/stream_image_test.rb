@@ -52,6 +52,7 @@ class StreamImageTest < Test
     assert_equal "assistant", response.role
     assert_operator response.usage[:input], :>, 0
     assert_operator response.usage[:output], :>, 0
+    assert_usage_costs(response)
     assert_nil response.error_message
 
     text_content = response.content.find { |block| block.type == "text" }

@@ -232,7 +232,20 @@ End events include helpers for the finalized current content block:
 - `event.reasoning` for `:reasoning_end`
 - `event.tool_call` / `event.tool` for `:tool_end`
 
-Usage counters are normalized as `:input`, `:cache_write`, `:cache_read`, `:output`, and `:total`. `:total` is the sum of all input-side buckets plus output. `usage[:raw]` contains the original provider usage/token payload.
+Usage counters are normalized as `:input`, `:cache_write`, `:cache_read`, `:output`, and `:total`. `:total` is the sum of all input-side buckets plus output. `usage[:raw]` contains the original provider usage/token payload. `usage[:cost]` is a USD breakdown (`:input`, `:cache_write`, `:cache_read`, `:output`, `:total`) when the requested model is priced in the built-in catalog; it is `nil` for unknown or unpriced models.
+
+### Model catalog
+
+The request API remains unchanged (`model: "gpt-5.5"`), while the built-in catalog exposes qualified references for model metadata and pricing:
+
+```ruby
+LlmGateway.models.fetch("openai/gpt-5.5")
+LlmGateway.models.fetch("openai-responses/gpt-5.5")
+LlmGateway.models.fetch("openai-completions/gpt-5.5")
+LlmGateway.models.fetch("openai-codex/gpt-5.5")
+```
+
+`openai` currently aliases `openai-responses`. Run `rake models:generate` to refresh models.dev-backed Anthropic, OpenAI, Groq, and Codex definitions. The initial catalog assumes direct OpenAI, Chat Completions, and Codex support the same models at the same token prices.
 
 ### Stream API without handling events (final result only)
 
@@ -675,7 +688,7 @@ result = adapter.stream(
 )
 
 puts "stop_reason: #{result.stop_reason}"
-puts "usage: #{result.usage.inspect}" # normalized keys: :input, :cache_write, :cache_read, :output, :total, :raw
+puts "usage: #{result.usage.inspect}" # normalized keys: :input, :cache_write, :cache_read, :output, :total, :raw, :cost
 
 result.content.each do |block|
   case block.type

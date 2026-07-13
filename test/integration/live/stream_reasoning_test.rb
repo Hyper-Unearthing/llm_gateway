@@ -44,6 +44,7 @@ class StreamReasoningTest < Test
     assert_equal "assistant", response.role
     assert_operator response.usage[:input], :>, 0
     assert_operator response.usage[:output], :>, 0
+    assert_usage_costs(response)
     assert_nil response.error_message
     assert_equal "stop", response.stop_reason, "Error: #{response.error_message}"
 

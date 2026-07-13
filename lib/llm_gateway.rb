@@ -48,6 +48,7 @@ require_relative "llm_gateway/adapters/groq/chat_completions_adapter"
 
 # Load provider registry
 require_relative "llm_gateway/provider_registry"
+require_relative "llm_gateway/models"
 require_relative "llm_gateway/proxy/client"
 require_relative "llm_gateway/proxy/adapter"
 require_relative "llm_gateway/proxy/server"

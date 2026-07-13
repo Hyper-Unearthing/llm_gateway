@@ -129,6 +129,7 @@ class CacheLiveTest < Test
   def assert_cache_hit_on_second_turn(adapter, options: {})
     second_response = run_two_turn_cache_probe(adapter, options: options)
 
+    assert_usage_costs(second_response)
     assert_operator second_response.usage[:cache_read], :>, 0,
       "Expected cache_read > 0 with options #{options.inspect}, got #{second_response.usage.inspect}"
   end
@@ -136,6 +137,7 @@ class CacheLiveTest < Test
   def assert_no_cache_hit_on_second_turn(adapter, options: {})
     second_response = run_two_turn_cache_probe(adapter, options: options)
 
+    assert_usage_costs(second_response)
     assert_equal 0, second_response.usage[:cache_read].to_i,
       "Expected cache_read to be 0 with options #{options.inspect}, got #{second_response.usage.inspect}"
   end

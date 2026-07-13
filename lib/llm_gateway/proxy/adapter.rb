@@ -17,7 +17,8 @@ module LlmGateway
 
         mapper = mapper_class.new(
           provider: LlmGateway::Client.provider_id_from_client(target_adapter.client),
-          api: target_adapter.stream_api_name
+          api: target_adapter.stream_api_name,
+          model_definition: target_adapter.model_definition(options[:model])
         )
 
         client.stream(normalize_messages(message), tools: tools, system: normalize_system(system), **options) do |chunk|

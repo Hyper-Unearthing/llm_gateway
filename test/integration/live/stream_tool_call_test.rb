@@ -57,6 +57,7 @@ class StreamToolCallTest < Test
     assert_equal "assistant", response.role
     assert_operator response.usage[:input], :>, 0
     assert_operator response.usage[:output], :>, 0
+    assert_usage_costs(response)
     assert_nil response.error_message
     assert_includes [ "tool_use" ], response.stop_reason
 

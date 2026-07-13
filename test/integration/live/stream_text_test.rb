@@ -47,6 +47,9 @@ class StreamTextTest < Test
     assert_stream_message_end_matches_response(message_end_event, response)
     assert_equal "assistant", response.role
     assert response.content.any? { |block| block.type == "text" }
+    assert_operator response.usage[:input], :>, 0
+    assert_operator response.usage[:output], :>, 0
+    assert_usage_costs(response)
 
     transcript << response
     transcript

@@ -5,9 +5,10 @@ require_relative "normalized_stream_accumulator"
 module LlmGateway
   module Adapters
     class StreamMapper
-      def initialize(provider:, api:)
+      def initialize(provider:, api:, model_definition: nil)
         @provider = provider
         @api = api
+        @model_definition = model_definition
       end
 
       def result
@@ -16,10 +17,10 @@ module LlmGateway
 
       private
 
-      attr_reader :provider, :api
+      attr_reader :provider, :api, :model_definition
 
       def accumulator
-        @accumulator ||= LlmGateway::Adapters::NormalizedStreamAccumulator.new(provider:, api:)
+        @accumulator ||= LlmGateway::Adapters::NormalizedStreamAccumulator.new(provider:, api:, model_definition:)
       end
 
       def push_patches(patches, &block)

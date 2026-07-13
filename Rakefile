@@ -10,6 +10,11 @@ require "rubocop/rake_task"
 
 RuboCop::RakeTask.new
 
+desc "Regenerate the built-in model catalog from models.dev"
+task "models:generate" do
+  ruby "scripts/generate_model_catalog.rb"
+end
+
 begin
   desc "Release with changelog"
   task :gem_release do

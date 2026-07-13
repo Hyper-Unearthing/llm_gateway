@@ -3,6 +3,7 @@
 require "json"
 
 require_relative "../utils"
+require_relative "../models/cost_calculator"
 require_relative "structs"
 
 module LlmGateway
@@ -54,7 +55,7 @@ module LlmGateway
       # The accumulator creates the public Assistant* event structs, updates its
       # accumulated message state, then yields the created event to the callback.
       attr_accessor :blocks, :message_hash, :usage_hash
-      attr_reader :active_block_type, :final_message
+      attr_reader :active_block_type, :final_message, :model_definition
 
       DEFAULT_USAGE = {
         input: 0,
@@ -62,7 +63,8 @@ module LlmGateway
         cache_read: 0,
         output: 0,
         total: 0,
-        raw: {}
+        raw: {},
+        cost: nil
       }.freeze
 
       BLOCK_EVENT_TRANSITIONS = {
@@ -80,9 +82,10 @@ module LlmGateway
         reasoning_end: { block_type: :reasoning, phase: :end }
       }.freeze
 
-      def initialize(provider: nil, api: nil)
+      def initialize(provider: nil, api: nil, model_definition: nil)
         @provider = provider
         @api = api
+        @model_definition = model_definition
         @message_hash = {}
         @usage_hash = default_usage
         @blocks = []
@@ -322,6 +325,7 @@ module LlmGateway
         usage = default_usage.merge(usage.to_h.symbolize_keys.slice(*DEFAULT_USAGE.keys))
         usage[:total] = usage[:input] + usage[:cache_write] + usage[:cache_read] + usage[:output]
         usage[:raw] ||= {}
+        usage[:cost] = LlmGateway::Models::CostCalculator.calculate(model_definition, usage)
         usage
       end
 

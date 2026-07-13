@@ -13,6 +13,8 @@ module LlmGateway
       end
 
       def raw_stream(message, tools: nil, system: nil, **options, &block)
+        model_definition = model_definition_for(options[:model])
+        options = options.merge(model: model_definition.request_model) if model_definition
         normalized_input = map_input({
           messages: sanitize_messages(normalize_messages(message), target_model: options[:model]),
           tools: tools,
@@ -31,9 +33,11 @@ module LlmGateway
       def stream(message, tools: nil, system: nil, **options, &block)
         raise LlmGateway::Errors::MissingMapperForProvider, "No stream_mapper configured" unless stream_mapper
 
+        model_definition = model_definition_for(options[:model])
         mapper = stream_mapper.new(
           provider: LlmGateway::Client.provider_id_from_client(client),
-          api: api_name
+          api: api_name,
+          model_definition:
         )
 
         raw_stream(message, tools: tools, system: system, **options) do |chunk|
@@ -63,6 +67,10 @@ module LlmGateway
 
         result = client.download_file(file_id)
         file_output_mapper.map(result)
+      end
+
+      def model_definition(model = nil)
+        model_definition_for(model)
       end
 
       private
@@ -113,6 +121,21 @@ module LlmGateway
 
       def stream_mapper
         nil
+      end
+
+      def model_definition_for(model)
+        return nil if provider_key.nil?
+
+        model ||= default_model
+        return nil if model.nil?
+
+        LlmGateway.models.find_for_api(provider_key, model)
+      end
+
+      def default_model
+        return unless client.class.const_defined?(:DEFAULT_MODEL, false)
+
+        client.class.const_get(:DEFAULT_MODEL, false)
       end
 
       def sanitize_messages(messages, target_model: nil)
