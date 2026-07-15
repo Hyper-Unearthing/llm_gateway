@@ -57,6 +57,12 @@ class OpenAIResponsesOptionMapperTest < Test
     refute mapped.key?(:reasoning)
   end
 
+  test "maps minimal reasoning" do
+    mapped = LlmGateway::Adapters::OpenAI::Responses::OptionMapper.map(reasoning: "minimal")
+
+    assert_equal({ effort: "minimal", summary: "detailed" }, mapped[:reasoning])
+  end
+
   test "raises for invalid reasoning" do
     assert_raises(ArgumentError) do
       LlmGateway::Adapters::OpenAI::Responses::OptionMapper.map(reasoning: "extreme")

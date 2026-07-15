@@ -29,6 +29,12 @@ class OpenAICodexOptionMapperTest < Test
     assert_equal({ effort: "low", summary: "detailed" }, mapped[:reasoning])
   end
 
+  test "inherits minimal reasoning mapping from openai responses" do
+    mapped = LlmGateway::Adapters::OpenAICodex::OptionMapper.map(reasoning: "minimal")
+
+    assert_equal({ effort: "minimal", summary: "detailed" }, mapped[:reasoning])
+  end
+
   test "maps all supported options into final output" do
     mapped = LlmGateway::Adapters::OpenAICodex::OptionMapper.map(OptionMapperFixture.superset_options)
 
