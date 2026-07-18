@@ -6,10 +6,13 @@ require_relative "option_mapper_fixture"
 class GroqOptionMapperTest < Test
   test "passes mapped managed options and provider-native options through adapter to client" do
     client = GroqOptionsFakeClient.new
-    adapter = LlmGateway::Adapters::Groq::ChatCompletionsAdapter.new(client)
+    adapter = LlmGateway::Adapters::Groq::ChatCompletionsAdapter.new(
+      client, provider: "groq", adapter_id: "groq-completions"
+    )
 
     adapter.stream(
       "hello",
+      model: LlmGateway.models.fetch(provider: "groq", id: "openai/gpt-oss-120b"),
       max_completion_tokens: 321,
       reasoning: "high",
       cache_key: "cache_123",

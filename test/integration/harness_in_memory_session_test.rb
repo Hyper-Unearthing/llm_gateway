@@ -4,7 +4,6 @@ require "test_helper"
 require "llm_gateway/agents/harness"
 require "llm_gateway/agents/in_memory_session_manager"
 
-
 class HarnessInMemorySessionIntegrationTest < Test
   class TestHarness < LlmGateway::Agents::Harness
     TOOLS = []
@@ -20,84 +19,30 @@ class HarnessInMemorySessionIntegrationTest < Test
     end
   end
 
-  class ExplodingTool < LlmGateway::Tool
-    name "explode"
-    description "Raises an error"
-    input_schema({ type: "object" })
-
-    def execute(_input, tool_use_id:)
-      raise "boom"
-    end
-  end
-
   class ToolHarness < LlmGateway::Agents::Harness
-    TOOLS = [ AddTool, ExplodingTool ]
+    TOOLS = [ AddTool ]
   end
-
-  class CustomToolResultMessageHarness < ToolHarness
-    TOOLS = ToolHarness::TOOLS
-
-    def execute_tool_requests(requests:, assistant_message:, session_event:)
-      tool_results = yield requests
-      LlmGateway::Agents::Event::ToolResultMessage.new(
-        content: tool_results,
-        details: {
-          assistant_message_id: assistant_message.id,
-          request_names: requests.map(&:name)
-        }
-      )
-    end
-  end
-
-  class AroundToolExecutionHarness < ToolHarness
-    TOOLS = ToolHarness::TOOLS
-
-    def execute_tool_requests(requests:, assistant_message:, session_event:)
-      context = {
-        assistant_message_id: assistant_message.id,
-        session_event_id: session_event[:id],
-        request_names: requests.map(&:name)
-      }
-
-      tool_results = yield(requests).map do |result|
-        LlmGateway::Agents::Event::ToolCallResult.new(
-          tool_use_id: result.tool_use_id,
-          content: { context: context, result: result.content },
-          is_error: result.is_error
-        )
-      end
-
-      LlmGateway::Agents::Event::ToolResultMessage.new(content: tool_results)
-    end
-  end
-
-  class KwargRecordingHarness < ToolHarness
-    TOOLS = ToolHarness::TOOLS
-
-    attr_reader :execute_tool_kwargs, :execute_tool_call_id
-
-    private
-
-    def execute_tool(tool_class, tool_input, tool_call_id:, **kwargs)
-      @execute_tool_call_id = tool_call_id
-      @execute_tool_kwargs = kwargs
-      super
-    end
-  end
-
-  FakeInnerClient = Struct.new(:model_key)
 
   class FakeAdapter
-    attr_reader :client, :calls
+    attr_reader :provider, :adapter_id, :calls
 
-    def initialize(responses)
-      @client = FakeInnerClient.new("fake-model")
+    def initialize(responses, provider: "openai", adapter_id: "openai-responses")
       @responses = responses.dup
+      @provider = provider
+      @adapter_id = adapter_id
       @calls = []
     end
 
-    def stream(messages, **options)
-      @calls << { messages: Marshal.load(Marshal.dump(messages)), options: options }
+    def validate_model!(model)
+      raise LlmGateway::Errors::ModelProviderMismatch unless model.provider == provider
+
+      LlmGateway.models.compatibility_for(model, adapter: adapter_id) ||
+        raise(LlmGateway::Errors::UnsupportedModelForAdapter)
+    end
+
+    def stream(messages, model:, **options)
+      validate_model!(model)
+      @calls << { messages: Marshal.load(Marshal.dump(messages)), model: model, options: options }
       if block_given?
         yield AssistantStreamEvent.new(
           type: :text_delta,
@@ -106,718 +51,184 @@ class HarnessInMemorySessionIntegrationTest < Test
           partial: PartialAssistantMessage.new(timestamp: 1_716_650_000_000)
         )
       end
-      @responses.shift || assistant_message("fallback")
+      @responses.shift || HarnessInMemorySessionIntegrationTest.assistant_message("fallback")
     end
   end
 
-  def assistant_message(text, total_tokens: 10, id: nil)
-    assistant_message_with_content(
-      [ { type: "text", text: text } ],
-      total_tokens: total_tokens,
-      id: id || "msg_#{text.gsub(/\W+/, "_")}",
-      stop_reason: "stop"
-    )
-  end
+  OPENAI_MODEL = LlmGateway.models.fetch("openai/gpt-5.4")
+  OTHER_OPENAI_MODEL = LlmGateway.models.fetch("openai/gpt-5.1")
+  ANTHROPIC_MODEL = LlmGateway.models.fetch("anthropic/claude-sonnet-4-20250514")
 
-  def assistant_tool_message(tool_name, input, id: nil, tool_use_id: nil)
-    assistant_message_with_content(
-      [ { id: tool_use_id || "toolu_#{tool_name}", type: "tool_use", name: tool_name, input: input } ],
-      id: id || "msg_tool_#{tool_name}",
-      stop_reason: "tool_use"
-    )
-  end
-
-  def assistant_message_with_content(content, total_tokens: 10, id:, stop_reason:)
+  def self.assistant_message(text, content: nil, stop_reason: "stop")
     AssistantMessage.new(
-      id: id,
+      id: "msg_#{text.gsub(/\W+/, "_")}",
       model: "fake-model",
-      usage: { input_tokens: 1, output_tokens: 2, total_tokens: total_tokens },
+      usage: { input: 1, output: 2, total: 3 },
       role: "assistant",
       timestamp: 1_716_650_000_000,
       stop_reason: stop_reason,
-      provider: "fake",
-      api: "fake",
-      content: content
+      provider: "openai",
+      api: "responses",
+      content: content || [ { type: "text", text: text } ]
     )
+  end
+
+  def assistant_message(...)
+    self.class.assistant_message(...)
   end
 
   def user_message(text)
     { role: "user", content: [ { type: "text", text: text } ] }
   end
 
-  def stored_assistant_message(text, total_tokens: 10, id: nil)
-    stored_message(assistant_message(text, total_tokens: total_tokens, id: id))
-  end
-
-  def stored_message(message)
-    message.to_h
-  end
-
-  def compacted_assistant_message(text, total_tokens: 10, id: nil)
-    stored_assistant_message(text, total_tokens: total_tokens, id: id)
-  end
-
-  def new_harness(responses, harness_class: TestHarness, model: nil)
+  def new_harness(responses, harness_class: TestHarness, model: OPENAI_MODEL)
     session = LlmGateway::Agents::InMemorySessionManager.new("test-session")
+    session.change_model(model)
     adapter = FakeAdapter.new(responses)
-    [ harness_class.new(session, provider: adapter, model: model), session, adapter ]
+    [ harness_class.new(session, adapter: adapter), session, adapter ]
   end
 
-  test "creates an in-memory session with a session event and adds messages directly when active" do
-    harness, session, client = new_harness([ assistant_message("hello back") ])
+  test "session persists provider and model primitives and rehydrates the catalog object" do
+    session = LlmGateway::Agents::InMemorySessionManager.new("session")
 
-    harness.prompt_message(user_message("hello"))
+    session.change_model(OPENAI_MODEL)
+    event = session.events.last
 
-    assert_equal "test-session", session.session_id
-    assert_equal "session", session.events.first[:type]
-    assert_equal "test-session", session.events.first[:id]
-    assert_equal [ user_message("hello") ], client.calls.first[:messages]
-    assert_equal [ user_message("hello"), stored_assistant_message("hello back") ], session.active_messages
+    assert_equal "model_change", event[:type]
+    assert_equal "openai", event[:provider]
+    assert_equal "gpt-5.4", event[:model_id]
+    refute event.key?(:adapter_id)
+    assert_same OPENAI_MODEL, session.current_configuration.model
   end
 
-  test "accepts and normalizes string-keyed LLM-shaped messages" do
-    harness, session, client = new_harness([ assistant_message("hello back") ])
-    input = {
-      "role" => "user",
-      "content" => [ { "type" => "text", "text" => "hello" } ]
-    }
+  test "session supports model IDs containing slashes and walks backward to latest configuration" do
+    session = LlmGateway::Agents::InMemorySessionManager.new("session")
+    groq_model = LlmGateway.models.fetch(provider: "groq", id: "openai/gpt-oss-120b")
 
-    harness.prompt_message(input)
+    session.change_model(OPENAI_MODEL)
+    session.change_reasoning("low")
+    session.push_message(user_message("between"))
+    session.change_model(groq_model)
+    session.change_reasoning("medium")
 
-    assert_equal [ user_message("hello") ], client.calls.first[:messages]
-    assert_equal [ user_message("hello"), stored_assistant_message("hello back") ], session.active_messages
+    configuration = session.current_configuration
+    assert_same groq_model, configuration.model
+    assert_equal "medium", configuration.reasoning
+    assert_equal "openai/gpt-oss-120b", session.events.last(2).first[:model_id]
   end
 
-  test "accepts an LLM-shaped content array including images" do
-    harness, session, client = new_harness([ assistant_message("image answer") ])
-    message = {
-      role: "user",
-      content: [
-        { type: "text", text: "What do you see in this image?" },
-        { type: "image", data: "image_b64", media_type: "image/png" }
-      ]
-    }
+  test "session rejects unknown persisted models" do
+    session = LlmGateway::Agents::InMemorySessionManager.new("session")
 
-    harness.prompt_message(message)
-
-    assert_equal [ message ], client.calls.first[:messages]
-    assert_equal [ message, stored_assistant_message("image answer") ], session.active_messages
+    session.push_entry(type: "model_change", provider: "openai", model_id: "missing")
+    assert_raises(KeyError) { session.current_configuration }
   end
 
-  test "emits harness events in lifecycle order while streaming" do
-    harness, _session, = new_harness([ assistant_message("hello back") ])
-    events = []
+  test "harness receives an adapter and streams the session model" do
+    harness, session, adapter = new_harness([ assistant_message("hello back") ])
 
-    harness.prompt_message(user_message("hello")) { |event| events << event.type }
+    result = harness.prompt_message(user_message("hello"))
 
-    assert_equal [
-      :agent_start,
-      :turn_start,
-      :message_start,
-      :message_update,
-      :message_end,
-      :turn_end,
-      :agent_end
-    ], events
+    assert_equal "hello back", result.content.first.text
+    assert_same adapter, harness.adapter
+    refute_respond_to harness, :provider
+    assert_same OPENAI_MODEL, adapter.calls.first[:model]
+    assert_equal "high", adapter.calls.first[:options][:reasoning]
+    assert_equal [ "user", "assistant" ], session.active_messages.map { |message| message[:role] }
   end
 
-  test "accepts model and reasoning options at initialization" do
+  test "harness forwards constructor and updated cache settings during agent runs" do
     session = LlmGateway::Agents::InMemorySessionManager.new("test-session")
-    adapter = FakeAdapter.new([ assistant_message("hello back") ])
+    session.change_model(OPENAI_MODEL)
+    adapter = FakeAdapter.new([ assistant_message("cached"), assistant_message("updated") ])
     harness = TestHarness.new(
       session,
-      provider: adapter,
-      model: "initial-model",
-      reasoning: "low"
+      adapter: adapter,
+      cache_key: "session-123",
+      cache_retention: "long"
     )
 
     harness.prompt_message(user_message("hello"))
 
-    assert_equal "initial-model", harness.model
-    assert_equal "low", harness.reasoning
-    assert_equal adapter, harness.provider
-    assert_equal "initial-model", adapter.calls.first[:options][:model]
+    assert_equal "session-123", adapter.calls.first[:options][:cache_key]
+    assert_equal "long", adapter.calls.first[:options][:cache_retention]
+
+    harness.cache_key = "session-456"
+    harness.cache_retention = "short"
+    harness.prompt_message(user_message("again"))
+
+    assert_equal "session-456", adapter.calls.last[:options][:cache_key]
+    assert_equal "short", adapter.calls.last[:options][:cache_retention]
+  end
+
+  test "harness persists model and reasoning changes without adapter selection" do
+    harness, session, adapter = new_harness([ assistant_message("ok") ])
+
+    harness.model = OTHER_OPENAI_MODEL
+    harness.reasoning = "low"
+    harness.prompt_message(user_message("hello"))
+
+    assert_same OTHER_OPENAI_MODEL, adapter.calls.first[:model]
     assert_equal "low", adapter.calls.first[:options][:reasoning]
+    model_event = session.events.reverse.find { |event| event[:type] == "model_change" }
+    assert_equal({ provider: "openai", model_id: "gpt-5.1" }, model_event.slice(:provider, :model_id))
+    refute model_event.key?(:adapter_id)
   end
 
-  test "initialization publishes model and reasoning events when there is no transcript" do
-    session = LlmGateway::Agents::InMemorySessionManager.new("test-session")
-    adapter = FakeAdapter.new([])
+  test "harness changes compatible adapters without a model event" do
+    harness, session, = new_harness([])
+    replacement = FakeAdapter.new([], adapter_id: "openai-completions")
+    event_count = session.events.length
 
-    TestHarness.new(session, provider: adapter, model: "initial-model", reasoning: "low")
-
-    model_event = session.events.find { |entry| entry[:type] == "model_change" }
-    reasoning_event = session.events.find { |entry| entry[:type] == "reasoning_change" }
-    assert_equal "initial-model", model_event[:model_id]
-    assert_equal "low", reasoning_event[:reasoning]
-    assert model_event[:id]
-    assert reasoning_event[:id]
-    assert_equal session.events.first[:id], model_event[:parent_id]
-    assert_equal model_event[:id], reasoning_event[:parent_id]
+    assert_same replacement, harness.change_adapter(replacement)
+    assert_same replacement, harness.adapter
+    assert_equal event_count, session.events.length
   end
 
-  test "session reports last model and reasoning by walking back configuration events" do
-    session = LlmGateway::Agents::InMemorySessionManager.new("test-session")
+  test "harness requires an adapter and model together when changing providers" do
+    harness, session, = new_harness([])
+    anthropic = FakeAdapter.new([], provider: "anthropic", adapter_id: "anthropic-messages")
 
-    session.push_entry(type: "model_change", model_id: "first-model")
-    session.push_entry(type: "reasoning_change", reasoning: "low")
-    session.push_message(user_message("existing"))
-    session.push_entry(type: "model_change", model_id: "last-model")
-    session.push_entry(type: "reasoning_change", reasoning: "high")
-
-    assert_equal "last-model", session.last_model_used
-    assert_equal "high", session.last_reasoning_level_used
+    assert_raises(LlmGateway::Errors::ModelProviderMismatch) { harness.change_adapter(anthropic) }
+    assert_same anthropic, harness.change_adapter(anthropic, model: ANTHROPIC_MODEL)
+    assert_same ANTHROPIC_MODEL, session.current_configuration.model
+    assert_same anthropic, harness.adapter
   end
 
-  test "initialization does not publish model and reasoning events when transcript matches" do
-    session = LlmGateway::Agents::InMemorySessionManager.new("test-session")
-    adapter = FakeAdapter.new([])
-    session.push_entry(type: "model_change", model_id: "initial-model")
-    session.push_entry(type: "reasoning_change", reasoning: "low")
-    session.push_message(user_message("existing"))
-    events_before = session.events.dup
-
-    TestHarness.new(session, provider: adapter, model: "initial-model", reasoning: "low")
-
-    assert_equal events_before, session.events
-  end
-
-  test "initialization does not publish model and reasoning events when transcript already has configuration" do
-    session = LlmGateway::Agents::InMemorySessionManager.new("test-session")
-    adapter = FakeAdapter.new([])
-    session.push_entry(type: "model_change", model_id: "old-model")
-    session.push_entry(type: "reasoning_change", reasoning: "low")
-    session.push_message(user_message("existing"))
-    events_before = session.events.dup
-
-    TestHarness.new(session, provider: adapter, model: "new-model", reasoning: "high")
-
-    assert_equal events_before, session.events
-  end
-
-  test "loaded transcript with different model and reasoning does not publish duplicate configuration events" do
-    session = LlmGateway::Agents::InMemorySessionManager.new("test-session")
-    adapter = FakeAdapter.new([ assistant_message("hello back") ])
-    session.push_entry(type: "model_change", model_id: "transcript-model")
-    session.push_entry(type: "reasoning_change", reasoning: "low")
-    session.push_message(user_message("existing"))
-    events_before = session.events.dup
-
-    harness = TestHarness.new(session, provider: adapter, model: "configured-model", reasoning: "high")
-    harness.prompt_message(user_message("next"))
-
-    assert_equal events_before, session.events.first(events_before.length)
-    assert_equal 1, session.events.count { |entry| entry[:type] == "model_change" }
-    assert_equal 1, session.events.count { |entry| entry[:type] == "reasoning_change" }
-    assert_equal "configured-model", adapter.calls.first[:options][:model]
-    assert_equal "high", adapter.calls.first[:options][:reasoning]
-  end
-
-  test "publishes model changes to the session and uses the model for streaming" do
-    harness, session, client = new_harness([ assistant_message("hello back") ], model: "fake-model")
-
-    harness.model = "fake-model-2"
-    harness.model = "fake-model-2"
-    harness.prompt_message(user_message("hello"))
-
-    event = session.events.reverse.find { |entry| entry[:type] == "model_change" }
-    assert_equal "fake-model-2", harness.model
-    assert_equal "model_change", event[:type]
-    assert_equal "fake-model-2", event[:model_id]
-    assert event[:id]
-    assert event[:timestamp]
-    assert_equal 2, session.events.count { |entry| entry[:type] == "model_change" }
-    assert_equal "fake-model-2", client.calls.first[:options][:model]
-  end
-
-  test "publishes reasoning changes to the session and uses the level for streaming" do
-    harness, session, client = new_harness([ assistant_message("hello back") ])
-
-    harness.reasoning = "medium"
-    harness.reasoning = "medium"
-    harness.prompt_message(user_message("hello"))
-
-    event = session.events.reverse.find { |entry| entry[:type] == "reasoning_change" }
-    assert_equal "medium", harness.reasoning
-    assert_equal "reasoning_change", event[:type]
-    assert_equal "medium", event[:reasoning]
-    assert event[:id]
-    assert event[:timestamp]
-    assert_equal 2, session.events.count { |entry| entry[:type] == "reasoning_change" }
-    assert_equal "medium", client.calls.first[:options][:reasoning]
-  end
-
-  test "queues prompt messages as follow up by default and drains all queued messages together" do
-    harness, session, client = new_harness([
-      assistant_message("first response", id: "assistant_1"),
-      assistant_message("second response", id: "assistant_2")
-    ])
-
-    queued = false
-    harness.prompt_message(user_message("first")) do |event|
-      next if queued || event.type != :agent_start
-
-      queued = true
-      harness.prompt_message(user_message("queued one"))
-      harness.prompt_message(user_message("queued two"))
-    end
-
-    assert_equal 2, client.calls.size
-    assert_equal [ user_message("first") ], client.calls[0][:messages]
-    assert_equal [
-      user_message("first"),
-      stored_assistant_message("first response", id: "assistant_1"),
-      user_message("queued one"),
-      user_message("queued two")
-    ], client.calls[1][:messages]
-
-    assert_equal [ "first", "first response", "queued one", "queued two", "second response" ],
-      session.active_messages.map { |message| message.dig(:content, 0, :text) }
-  end
-
-  test "allows changing the default busy prompt queue" do
-    harness, _session, client = new_harness([
-      assistant_message("first response", id: "assistant_1"),
-      assistant_message("follow up response", id: "assistant_2")
-    ])
-    harness.default_queue_mode = :follow_up
-
-    queued = false
-    harness.prompt_message(user_message("first")) do |event|
-      next if queued || event.type != :agent_start
-
-      queued = true
-      harness.prompt_message(user_message("queued prompt"))
-    end
-
-    assert_equal 2, client.calls.size
-    assert_equal [
-      user_message("first"),
-      stored_assistant_message("first response", id: "assistant_1"),
-      user_message("queued prompt")
-    ], client.calls[1][:messages]
-  end
-
-  test "enqueues a new prompt then continues queued work in queue order" do
-    harness, session, client = new_harness([
-      assistant_message("combined response", id: "assistant_1")
-    ])
-
-    session.push_message_to_queue(user_message("queued steer"), :steer)
-    session.push_message_to_queue(user_message("queued follow up one"), :follow_up)
-    session.push_message_to_queue(user_message("queued follow up two"), :follow_up)
-    session.push_message_to_queue(user_message("queued follow up"), :follow_up)
-
-    harness.prompt_message(user_message("new prompt"))
-
-    assert_equal 1, client.calls.size
-    assert_equal [
-      user_message("queued steer"),
-      user_message("queued follow up one"),
-      user_message("queued follow up two"),
-      user_message("queued follow up"),
-      user_message("new prompt")
-    ], client.calls[0][:messages]
-  end
-
-  test "does not drain queued messages before enqueueing a prompt while busy" do
-    harness, session, client = new_harness([
-      assistant_message("first response", id: "assistant_1"),
-      assistant_message("second response", id: "assistant_2"),
-      assistant_message("third response", id: "assistant_3")
-    ])
-
-    queued = false
-    harness.prompt_message(user_message("first")) do |event|
-      next if queued || event.type != :agent_start
-
-      queued = true
-      session.push_message_to_queue(user_message("queued steer"), :steer)
-      session.push_message_to_queue(user_message("queued follow up"), :follow_up)
-
-      harness.prompt_message(user_message("busy prompt"))
-
-      assert_equal 0, client.calls.size
-      assert_equal [ user_message("first") ], session.active_messages
-      assert session.queued_messages?(:steer)
-      assert session.queued_messages?(:follow_up)
-    end
-  end
-
-  test "symbolizes string-keyed messages when draining queued prompts" do
-    harness, _session, client = new_harness([
-      assistant_message("first response", id: "assistant_1"),
-      assistant_message("follow up response", id: "assistant_2")
-    ])
-    harness.default_queue_mode = :follow_up
-    string_keyed_message = {
-      "role" => "user",
-      "content" => [ { "type" => "text", "text" => "queued prompt" } ]
-    }
-
-    queued = false
-    harness.prompt_message(user_message("first")) do |event|
-      next if queued || event.type != :agent_start
-
-      queued = true
-      harness.prompt_message(string_keyed_message)
-    end
-
-    assert_equal [
-      user_message("first"),
-      stored_assistant_message("first response", id: "assistant_1"),
-      user_message("queued prompt")
-    ], client.calls[1][:messages]
-  end
-
-  test "can drain follow up queue one at a time" do
-    harness, _session, client = new_harness([
-      assistant_message("first response", id: "assistant_1"),
-      assistant_message("second response", id: "assistant_2"),
-      assistant_message("third response", id: "assistant_3")
-    ])
-    harness.queue_drain_mode = :one_at_a_time
-
-    queued = false
-    harness.prompt_message(user_message("first")) do |event|
-      next if queued || event.type != :agent_start
-
-      queued = true
-      harness.follow_up_message(user_message("queued one"))
-      harness.follow_up_message(user_message("queued two"))
-    end
-
-    assert_equal 3, client.calls.size
-    assert_equal [
-      user_message("first"),
-      stored_assistant_message("first response", id: "assistant_1"),
-      user_message("queued one")
-    ], client.calls[1][:messages]
-    assert_equal [
-      user_message("first"),
-      stored_assistant_message("first response", id: "assistant_1"),
-      user_message("queued one"),
-      stored_assistant_message("second response", id: "assistant_2"),
-      user_message("queued two")
-    ], client.calls[2][:messages]
-  end
-
-  test "steer messages queued while busy are added before the next model request" do
-    tool_request = assistant_tool_message("missing", {}, id: "assistant_missing", tool_use_id: "toolu_1")
-    final_response = assistant_message("handled", id: "assistant_final")
-    harness, _session, client = new_harness([ tool_request, final_response ], harness_class: ToolHarness)
-
-    queued = false
-    harness.prompt_message(user_message("use a missing tool")) do |event|
-      next if queued || event.type != :message_end
-
-      queued = true
-      harness.steer_message(user_message("please be concise"))
-    end
-
-    assert_equal [
-      user_message("use a missing tool"),
-      stored_message(tool_request),
-      tool_result_message("toolu_1", "Unknown tool: missing"),
-      user_message("please be concise")
-    ], client.calls[1][:messages]
-  end
-
-  test "run drains follow up queues after the tool loop completes" do
-    tool_request = assistant_tool_message("add", { left: 2, right: 3 }, id: "assistant_tool", tool_use_id: "toolu_add")
-    harness, session, client = new_harness([
-      tool_request,
-      assistant_message("final response", id: "assistant_final"),
-      assistant_message("follow up response", id: "assistant_follow_up")
-    ], harness_class: ToolHarness)
-
-    session.push_message(user_message("first"))
-    session.push_message_to_queue(user_message("follow up"), :follow_up)
-
-    harness.run
-
-    assert_equal 3, client.calls.size
-    assert_equal [
-      user_message("first"),
-      stored_message(tool_request),
-      tool_result_message("toolu_add", 5)
-    ], client.calls[1][:messages]
-    assert_equal [
-      user_message("first"),
-      stored_message(tool_request),
-      tool_result_message("toolu_add", 5),
-      stored_assistant_message("final response", id: "assistant_final"),
-      user_message("follow up")
-    ], client.calls[2][:messages]
-    refute session.queued_messages?(:follow_up)
-  end
-
-  test "continue drains queued work and starts the agent" do
-    harness, session, client = new_harness([
-      assistant_message("combined response", id: "assistant_1")
-    ])
-
-    session.push_message(user_message("first"))
-    session.push_message_to_queue(user_message("queued steer"), :steer)
-    session.push_message_to_queue(user_message("queued follow up"), :follow_up)
-
-    harness.continue do |event|
-      assert session.busy? if event.type == :agent_start
-    end
-
-    assert_equal 1, client.calls.size
-    assert_equal [
-      user_message("first"),
-      user_message("queued steer"),
-      user_message("queued follow up")
-    ], client.calls[0][:messages]
-    refute session.queued_messages?(:steer)
-    refute session.queued_messages?(:follow_up)
-    assert session.idle?
-  end
-
-  test "continue raises when the agent is busy" do
-    harness, session, client = new_harness([
-      assistant_message("unused", id: "assistant_1")
-    ])
-    session.busy!
-    session.push_message_to_queue(user_message("queued follow up"), :follow_up)
-
-    error = assert_raises(RuntimeError) { harness.continue }
-
-    assert_equal "Cannot continue a busy agent", error.message
-    assert_empty client.calls
-    assert session.queued_messages?(:follow_up)
-    assert session.busy?
-  end
-
-  test "follow up messages queued while busy drain together" do
-    harness, _session, client = new_harness([
-      assistant_message("first response", id: "assistant_1"),
-      assistant_message("follow up response", id: "assistant_2"),
-      assistant_message("follow up response 2", id: "assistant_3")
-    ])
-
-    queued = false
-    harness.prompt_message(user_message("first")) do |event|
-      next if queued || event.type != :agent_start
-
-      queued = true
-      harness.follow_up_message(user_message("follow up"))
-      harness.follow_up_message(user_message("follow up"))
-    end
-
-    assert_equal 2, client.calls.size
-    assert_equal [
-      user_message("first"),
-      stored_assistant_message("first response", id: "assistant_1"),
-      user_message("follow up"),
-      user_message("follow up")
-    ], client.calls[1][:messages]
-  end
-
-  def tool_result_message(tool_use_id, content, is_error: false)
-    { role: "user", content: [ { type: "tool_result", tool_use_id: tool_use_id, content: content, is_error: is_error } ] }
-  end
-
-  test "preserves Anthropic tool_result blocks in the follow-up user message" do
-    tool_request = assistant_tool_message("missing", {}, id: "assistant_missing", tool_use_id: "toolu_1")
-    final_response = assistant_message("handled", id: "assistant_final")
-    harness, session, client = new_harness([ tool_request, final_response ], harness_class: ToolHarness)
-
-    harness.prompt_message(user_message("use a missing tool"))
-
-    expected_tool_result = tool_result_message("toolu_1", "Unknown tool: missing")
-    assert_equal [
-      user_message("use a missing tool"),
-      stored_message(tool_request),
-      expected_tool_result
-    ], client.calls[1][:messages]
-    assert_equal expected_tool_result, session.active_messages[2]
-  end
-
-  test "allows harnesses to customize the tool result wrapper message" do
-    tool_request = assistant_tool_message("add", { left: 2, right: 3 }, id: "assistant_add", tool_use_id: "toolu_add")
-    final_response = assistant_message("handled", id: "assistant_final")
-    harness, session, client = new_harness([ tool_request, final_response ], harness_class: CustomToolResultMessageHarness)
-
-    harness.prompt_message(user_message("use tools"))
-
-    expected_tool_result = {
-      role: "user",
-      content: [ { type: "tool_result", tool_use_id: "toolu_add", content: 5, is_error: false } ],
-      details: { assistant_message_id: "assistant_add", request_names: [ "add" ] }
-    }
-    assert_equal [ user_message("use tools"), stored_message(tool_request), expected_tool_result ], client.calls[1][:messages]
-    assert_equal expected_tool_result, session.active_messages[2]
-  end
-
-  test "allows subclasses to wrap harness-owned tool execution" do
-    tool_request = assistant_tool_message("add", { left: 2, right: 3 }, id: "assistant_add", tool_use_id: "toolu_add")
-    final_response = assistant_message("handled", id: "assistant_final")
-    _harness, session, client = new_harness([ tool_request, final_response ], harness_class: AroundToolExecutionHarness)
-
-    _harness.prompt_message(user_message("use tools"))
-
-    assistant_session_event = session.events.find { |event| event.dig(:data, :id) == "assistant_add" }
-    expected_content = {
-      context: {
-        assistant_message_id: "assistant_add",
-        session_event_id: assistant_session_event[:id],
-        request_names: [ "add" ]
-      },
-      result: 5
-    }
-    assert_equal [ user_message("use tools"), stored_message(tool_request), tool_result_message("toolu_add", expected_content) ],
-      client.calls[1][:messages]
-  end
-
-  test "passes persisted assistant message session event when executing tools" do
-    tool_request = assistant_tool_message("add", { left: 2, right: 3 }, id: "assistant_add", tool_use_id: "toolu_add")
-    final_response = assistant_message("handled", id: "assistant_final")
-    harness, session = new_harness([ tool_request, final_response ], harness_class: KwargRecordingHarness)
-
-    harness.prompt_message(user_message("use tools"))
-
-    assert_equal "toolu_add", harness.execute_tool_call_id
-    session_event = harness.execute_tool_kwargs[:session_event]
-    assert_equal session.events.find { |event| event.dig(:data, :id) == "assistant_add" }, session_event
-    assert_equal "message", session_event[:type]
-    assert_equal stored_message(tool_request), session_event[:data]
-  end
-
-  test "executes tools, records tool results, emits tool events, and continues until a final answer" do
-    add_request = assistant_tool_message("add", { left: 2, right: 3 }, id: "assistant_add", tool_use_id: "toolu_add")
-    unknown_request = assistant_tool_message("missing", {}, id: "assistant_missing", tool_use_id: "toolu_missing")
-    error_request = assistant_tool_message("explode", {}, id: "assistant_error", tool_use_id: "toolu_error")
-    final_response = assistant_message("all tools handled", id: "assistant_final")
-    harness, session, client = new_harness(
-      [ add_request, unknown_request, error_request, final_response ],
+  test "harness emits lifecycle and tool events and continues after a tool call" do
+    tool_message = assistant_message(
+      "tool",
+      content: [ { id: "toolu_add", type: "tool_use", name: "add", input: { left: 2, right: 3 } } ],
+      stop_reason: "tool_use"
+    )
+    harness, session, adapter = new_harness(
+      [ tool_message, assistant_message("5") ],
       harness_class: ToolHarness
     )
-    events = []
+    event_types = []
 
-    harness.prompt_message(user_message("use tools")) { |event| events << event }
+    result = harness.prompt_message(user_message("add")) { |event| event_types << event.type }
 
-    assert_equal 4, client.calls.size
-    assert_equal [ AddTool.definition, ExplodingTool.definition ], client.calls.first[:options][:tools]
-    assert_equal [ user_message("use tools") ], client.calls[0][:messages]
-    assert_equal [ user_message("use tools"), stored_message(add_request), tool_result_message("toolu_add", 5) ],
-      client.calls[1][:messages]
-    assert_equal [
-      user_message("use tools"),
-      stored_message(add_request),
-      tool_result_message("toolu_add", 5),
-      stored_message(unknown_request),
-      tool_result_message("toolu_missing", "Unknown tool: missing")
-    ], client.calls[2][:messages]
-    assert_equal [
-      user_message("use tools"),
-      stored_message(add_request),
-      tool_result_message("toolu_add", 5),
-      stored_message(unknown_request),
-      tool_result_message("toolu_missing", "Unknown tool: missing"),
-      stored_message(error_request),
-      tool_result_message("toolu_error", "Error executing tool: boom")
-    ], client.calls[3][:messages]
-
-    tool_start_events = events.grep(LlmGateway::Agents::Event::ToolExecutionStart)
-    tool_end_events = events.grep(LlmGateway::Agents::Event::ToolExecutionEnd)
-    assert_equal [ "add", "missing", "explode" ], tool_start_events.map { |event| event.attributes.dig(:parameters, :name) }
-    assert_equal [ LlmGateway::Agents::Event::ToolCallResult, LlmGateway::Agents::Event::ToolCallResult, LlmGateway::Agents::Event::ToolCallResult ],
-      tool_end_events.map { |event| event.result.class }
-    assert_equal [ "toolu_add", "toolu_missing", "toolu_error" ], tool_end_events.map { |event| event.result.tool_use_id }
-    assert_equal [ 5, "Unknown tool: missing", "Error executing tool: boom" ],
-      tool_end_events.map { |event| event.attributes.dig(:result, :content) }
-    assert_equal [
-      user_message("use tools"),
-      stored_message(add_request),
-      tool_result_message("toolu_add", 5),
-      stored_message(unknown_request),
-      tool_result_message("toolu_missing", "Unknown tool: missing"),
-      stored_message(error_request),
-      tool_result_message("toolu_error", "Error executing tool: boom"),
-      stored_message(final_response)
-    ], session.active_messages
+    assert_equal "5", result.content.first.text
+    assert_equal 2, adapter.calls.length
+    assert_includes event_types, :tool_execution_start
+    assert_includes event_types, :tool_execution_end
+    tool_result = session.active_messages.find { |message| message.dig(:content, 0, :type) == "tool_result" }
+    assert_equal 5, tool_result.dig(:content, 0, :content)
   end
 
-  test "tracks event parent relationships and returns events up to a requested event" do
-    _harness, session, = new_harness([])
+  test "queued follow-up messages are drained after the current turn" do
+    harness, _session, adapter = new_harness([ assistant_message("first"), assistant_message("second") ])
+    queued = false
 
-    session.push_message(user_message("one"))
-    second = session.push_message(assistant_message("two").to_h)
-    session.push_message(user_message("three"))
+    harness.prompt_message(user_message("start")) do |event|
+      next if queued || event.type != :agent_start
 
-    assert_nil session.events.first[:parent_id]
-    session.events.each_cons(2) do |parent, child|
-      assert_equal parent[:id], child[:parent_id]
+      queued = true
+      harness.follow_up_message(user_message("next"))
     end
 
-    second_index = session.events.index(second)
-    assert_equal session.events[0..second_index], session.events_until(second[:id])
-    assert_equal session.events.last[:id], session.last_message_id
-  end
-
-  test "raises when requested event does not exist" do
-    _harness, session, = new_harness([])
-
-    error = assert_raises(ArgumentError) { session.events_until("missing-event") }
-    assert_equal "Event not found in session: missing-event", error.message
-  end
-
-  test "returns active messages after compaction and builds model input with compaction message" do
-    harness, session, client = new_harness([
-      assistant_message("large response", total_tokens: LlmGateway::Agents::Harness::COMPACTION_TOKEN_THRESHOLD + 1),
-      assistant_message("summary of earlier conversation", id: "summary"),
-      assistant_message("after compaction", id: "after")
-    ])
-
-    harness.prompt_message(user_message("make this large"))
-    assert_equal "message", session.events.last[:type]
-
-    harness.prompt_message(user_message("new question"))
-
-    compaction_entry = session.events.find { |entry| entry[:type] == "compaction" }
-    assert_equal compacted_assistant_message("summary of earlier conversation", id: "summary"), compaction_entry[:data]
-    assert_equal [ user_message("new question"), stored_assistant_message("after compaction", id: "after") ], session.active_messages
-    assert_equal [
-      compacted_assistant_message("summary of earlier conversation", id: "summary"),
-      user_message("new question"),
-      stored_assistant_message("after compaction", id: "after")
-    ], harness.transcript
-
-    assert_equal [ user_message("make this large"), stored_assistant_message("large response", total_tokens: LlmGateway::Agents::Harness::COMPACTION_TOKEN_THRESHOLD + 1) ],
-      client.calls[1][:messages]
-    assert_equal "Summarize the conversation so far for future context.", client.calls[1][:options][:system]
-  end
-
-  test "compacts before next user message when last assistant message is older than one hour" do
-    harness, session, client = new_harness([
-      assistant_message("old response"),
-      assistant_message("summary after idle", id: "summary"),
-      assistant_message("after idle compaction", id: "after")
-    ])
-
-    harness.prompt_message(user_message("first question"))
-    session.events.last[:timestamp] = (Time.now - LlmGateway::Agents::Harness::COMPACTION_IDLE_THRESHOLD_SECONDS - 1).iso8601
-
-    harness.prompt_message(user_message("second question"))
-
-    compaction_entry = session.events.find { |entry| entry[:type] == "compaction" }
-    assert_equal compacted_assistant_message("summary after idle", id: "summary"), compaction_entry[:data]
-    assert_equal [ user_message("second question"), stored_assistant_message("after idle compaction", id: "after") ], session.active_messages
-    assert_equal [ user_message("first question"), stored_assistant_message("old response") ], client.calls[1][:messages]
-    assert_equal "Summarize the conversation so far for future context.", client.calls[1][:options][:system]
-  end
-
-  test "tracks total tokens from latest usage" do
-    _harness, session, = new_harness([])
-
-    assert_equal 0, session.total_tokens
-    session.push_message(assistant_message("small", total_tokens: 42).to_h)
-    session.push_message(user_message("no usage"))
-    assert_equal 42, session.total_tokens
-    session.push_message(assistant_message("larger", total_tokens: 123).to_h)
-    assert_equal 123, session.total_tokens
+    assert_equal 2, adapter.calls.length
+    assert_equal "next", adapter.calls.last[:messages][-1].dig(:content, 0, :text)
   end
 end

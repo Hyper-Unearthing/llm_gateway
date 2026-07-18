@@ -73,10 +73,9 @@ class ModelCatalogTest < Test
     assert_equal BigDecimal("0.000335"), result.usage.dig(:cost, :total)
   end
 
-  test "adapter rejects strings, provider mismatches, and unsupported combinations" do
+  test "adapter rejects provider mismatches and unsupported combinations" do
     responses = LlmGateway.build_adapter(adapter: "openai-responses", api_key: "test")
 
-    assert_raises(LlmGateway::Errors::InvalidModelDefinition) { responses.stream("Hi", model: "gpt-5.4") }
     assert_raises(LlmGateway::Errors::ModelProviderMismatch) do
       responses.stream("Hi", model: LlmGateway.models.fetch("anthropic/claude-sonnet-4-20250514"))
     end

@@ -95,43 +95,43 @@ class PromptTest < Test
   end
 
   def setup
-    ConfigurablePrompt.provider = nil
+    ConfigurablePrompt.adapter = nil
     ConfigurablePrompt.model = nil
     ConfigurablePrompt.reasoning = nil
   end
 
-  test "uses provider and model configured on the class" do
+  test "uses adapter and model configured on the class" do
     provider = RecordingProvider.new
-    ConfigurablePrompt.provider = provider
+    ConfigurablePrompt.adapter = provider
     ConfigurablePrompt.model = "class-model"
 
     prompt = ConfigurablePrompt.new
     prompt.run
 
-    assert_equal provider, prompt.provider
+    assert_equal provider, prompt.adapter
     assert_equal "class-model", prompt.model
     assert_equal "hello", provider.calls.last[:message]
     assert_equal "class-model", provider.calls.last[:options][:model]
   end
 
-  test "initializer provider and model keywords override class configuration" do
+  test "initializer adapter and model keywords override class configuration" do
     class_provider = RecordingProvider.new
     instance_provider = RecordingProvider.new
-    ConfigurablePrompt.provider = class_provider
+    ConfigurablePrompt.adapter = class_provider
     ConfigurablePrompt.model = "class-model"
 
-    ConfigurablePrompt.new(provider: instance_provider, model: "instance-model").run
+    ConfigurablePrompt.new(adapter: instance_provider, model: "instance-model").run
 
     assert_empty class_provider.calls
     assert_equal "instance-model", instance_provider.calls.last[:options][:model]
   end
 
-  test "run provider and model override instance configuration" do
+  test "run adapter and model override instance configuration" do
     instance_provider = RecordingProvider.new
     stream_provider = RecordingProvider.new
 
-    ConfigurablePrompt.new(provider: instance_provider, model: "instance-model").run(
-      provider: stream_provider,
+    ConfigurablePrompt.new(adapter: instance_provider, model: "instance-model").run(
+      adapter: stream_provider,
       model: "stream-model"
     )
 
@@ -139,11 +139,11 @@ class PromptTest < Test
     assert_equal "stream-model", stream_provider.calls.last[:options][:model]
   end
 
-  test "accepts provider model and reasoning as initializer keywords" do
+  test "accepts adapter model and reasoning as initializer keywords" do
     provider = RecordingProvider.new
 
     ConfigurablePrompt.new(
-      provider: provider,
+      adapter: provider,
       model: "keyword-model",
       reasoning: "low"
     ).run
@@ -154,7 +154,7 @@ class PromptTest < Test
 
   test "uses class reasoning and allows run override" do
     provider = RecordingProvider.new
-    ConfigurablePrompt.provider = provider
+    ConfigurablePrompt.adapter = provider
     ConfigurablePrompt.reasoning = "high"
 
     ConfigurablePrompt.new.run(reasoning: "medium")
@@ -168,7 +168,7 @@ class PromptTest < Test
       assistant_message(content: [ { type: "text", text: "5" } ])
     )
 
-    result = ToolPrompt.new(provider: provider, model: "test-model").run
+    result = ToolPrompt.new(adapter: provider, model: "test-model").run
 
     assert_equal [ "5" ], result.content.map(&:text)
     assert_equal 2, provider.calls.length
@@ -188,7 +188,7 @@ class PromptTest < Test
       assistant_message(content: [ { type: "text", text: "5" } ])
     )
 
-    CustomToolResultMessagePrompt.new(provider: provider, model: "test-model").run
+    CustomToolResultMessagePrompt.new(adapter: provider, model: "test-model").run
 
     continued_message = provider.calls[1][:message]
     assert_equal "developer", continued_message[2][:role]
@@ -202,7 +202,7 @@ class PromptTest < Test
       assistant_message(content: [ { type: "text", text: "5" } ])
     )
 
-    AroundToolExecutionPrompt.new(provider: provider, model: "test-model").run
+    AroundToolExecutionPrompt.new(adapter: provider, model: "test-model").run
 
     continued_message = provider.calls[1][:message]
     expected_content = {

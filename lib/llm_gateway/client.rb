@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 module LlmGateway
   class Client
     def self.provider_id_from_client(client)
@@ -14,22 +13,14 @@ module LlmGateway
       end
     end
 
-    def self.upload_file(provider, **kwargs)
+    def self.upload_file(adapter, **kwargs)
       api_key = kwargs.delete(:api_key)
-      adapter = LlmGateway.build_provider(
-        provider: provider,
-        api_key: api_key
-      )
-      adapter.upload_file(**kwargs)
+      LlmGateway.build_adapter(adapter: adapter, api_key: api_key).upload_file(**kwargs)
     end
 
-    def self.download_file(provider, **kwargs)
+    def self.download_file(adapter, **kwargs)
       api_key = kwargs.delete(:api_key)
-      adapter = LlmGateway.build_provider(
-        provider: provider,
-        api_key: api_key
-      )
-      adapter.download_file(**kwargs)
+      LlmGateway.build_adapter(adapter: adapter, api_key: api_key).download_file(**kwargs)
     end
   end
 end

@@ -13,7 +13,6 @@ class HandoffStreamToolCallLiveTest < Test
   PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).freeze
 
   def teardown
-    LlmGateway.reset_configuration!
   end
 
   def run_handoff_stream_for(provider_name:, model:, adapter:, options: {})

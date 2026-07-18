@@ -29,8 +29,6 @@ module LlmGateway
       end
 
       def compatibility_for(model, adapter:)
-        return nil unless model.is_a?(Definition)
-
         @compatibilities[[ model.provider, model.id, adapter.to_s ]]
       end
 
@@ -39,11 +37,6 @@ module LlmGateway
       end
 
       def validate_compatibility!(model, provider:, adapter:)
-        unless model.is_a?(Definition)
-          raise LlmGateway::Errors::InvalidModelDefinition,
-            "model must be a LlmGateway::Models::Definition, got #{model.class}"
-        end
-
         if model.provider != provider.to_s
           raise LlmGateway::Errors::ModelProviderMismatch,
             "Model provider #{model.provider.inspect} does not match adapter provider #{provider.inspect}"
@@ -73,10 +66,6 @@ module LlmGateway
       private
 
       def register_definition(definition)
-        unless definition.is_a?(Definition)
-          raise TypeError, "Expected Models::Definition, got #{definition.class}"
-        end
-
         key = [ definition.provider, definition.id ]
         raise ArgumentError, "Duplicate model catalog entry: #{key.join("/")}" if @definitions.key?(key)
 

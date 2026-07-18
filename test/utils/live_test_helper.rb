@@ -5,7 +5,7 @@ require "time"
 require "fileutils"
 
 module LiveTestHelper
-  ModelBoundAdapter = Struct.new(:adapter, :model) do
+  LiveAdapter = Struct.new(:adapter, :model) do
     def chat(message, tools: nil, system: nil, **options)
       adapter.chat(message, tools: tools, system: system, model: model, **options)
     end
@@ -28,21 +28,22 @@ module LiveTestHelper
   end
 
   def load_provider(provider:, model:, replaying_vcr: false, oauth:)
-    config = {
-      "provider" => provider
-    }
-    if provider == "openai_codex"
+    config = {}
+    if provider == "openai-codex"
       config["api_key"] = replaying_vcr ? "vcr-replay-token" : oauth_access_token_for("openai")
       config["account_id"] = replaying_vcr ? "vcr-replay-account" : load_auth_credentials("openai")["account_id"]
     elsif oauth == true
-      if provider == "anthropic_messages"
+      if provider == "anthropic-messages"
         config["api_key"] = replaying_vcr ? "sk-ant-oat-vcr-replay-token" : oauth_access_token_for("anthropic")
       end
     elsif replaying_vcr
       config["api_key"] = "vcr-replay-token"
     end
 
-    ModelBoundAdapter.new(LlmGateway.build_provider(config), model)
+    registration = LlmGateway::AdapterRegistry.fetch(provider)
+    definition = LlmGateway.models.fetch(provider: registration[:provider], id: model)
+
+    LiveAdapter.new(LlmGateway.build_adapter(adapter: provider, **config), definition)
   end
 
   def with_vcr_adapter(provider:, model:, redact_request_body: false, oauth: false)

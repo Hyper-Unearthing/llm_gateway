@@ -6,10 +6,13 @@ require_relative "option_mapper_fixture"
 class AnthropicOptionMapperTest < Test
   test "passes mapped managed options and provider-native options through adapter to client" do
     client = AnthropicOptionsFakeClient.new
-    adapter = LlmGateway::Adapters::Anthropic::MessagesAdapter.new(client)
+    adapter = LlmGateway::Adapters::Anthropic::MessagesAdapter.new(
+      client, provider: "anthropic", adapter_id: "anthropic-messages"
+    )
 
     adapter.stream(
       "hello",
+      model: LlmGateway.models.fetch("anthropic/claude-sonnet-4-20250514"),
       max_completion_tokens: 321,
       reasoning: "high",
       response_format: "json_object",

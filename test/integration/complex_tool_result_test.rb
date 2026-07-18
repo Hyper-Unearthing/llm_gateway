@@ -5,8 +5,10 @@ require "json"
 require "base64"
 
 class ComplexToolResultTest < Test
-  def teardown
-    LlmGateway.reset_configuration!
+  BoundAdapter = Struct.new(:adapter, :model) do
+    def stream(message, **options, &block)
+      adapter.stream(message, model: model, **options, &block)
+    end
   end
 
   def load_provider(name)
@@ -21,14 +23,19 @@ class ComplexToolResultTest < Test
     key_env = config.delete("key_env")
     config["key"] = ENV.fetch(key_env) if key_env
 
-    LlmGateway.configure([
-      {
-        "name" => provider.fetch("name"),
-        "config" => config
-      }
-    ])
+    adapter_id = config.delete("adapter")
+    registration = LlmGateway::AdapterRegistry.fetch(adapter_id)
+    model_id = config.delete("model") || config.delete("model_key") || default_model_for(registration[:provider])
+    config["api_key"] ||= config.delete("key")
 
-    LlmGateway.public_send(name)
+    BoundAdapter.new(
+      LlmGateway.build_adapter(adapter: adapter_id, **config),
+      LlmGateway.models.fetch(provider: registration[:provider], id: model_id)
+    )
+  end
+
+  def default_model_for(provider)
+    { "openai" => "gpt-5.4", "anthropic" => "claude-sonnet-4-20250514", "groq" => "openai/gpt-oss-120b" }.fetch(provider)
   end
 
   def skip_on_authentication_error

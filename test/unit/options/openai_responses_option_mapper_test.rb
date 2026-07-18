@@ -6,10 +6,13 @@ require_relative "option_mapper_fixture"
 class OpenAIResponsesOptionMapperTest < Test
   test "passes mapped managed options and provider-native options through adapter to client" do
     client = OpenAIResponsesOptionsFakeClient.new
-    adapter = LlmGateway::Adapters::OpenAI::ResponsesAdapter.new(client)
+    adapter = LlmGateway::Adapters::OpenAI::ResponsesAdapter.new(
+      client, provider: "openai", adapter_id: "openai-responses"
+    )
 
     adapter.stream(
       "hello",
+      model: LlmGateway.models.fetch("openai/gpt-5.4"),
       max_completion_tokens: 321,
       reasoning: "high",
       cache_key: "cache_123",

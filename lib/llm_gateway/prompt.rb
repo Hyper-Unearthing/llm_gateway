@@ -5,7 +5,7 @@ require_relative "agents/event"
 
 module LlmGateway
   class Prompt
-    class_attribute :provider, :model, :reasoning
+    class_attribute :adapter, :model, :reasoning
     class_attribute :before_execute_callbacks, :after_execute_callbacks, instance_accessor: false, default: []
     attr_accessor :cache_key, :cache_retention
 
@@ -19,33 +19,33 @@ module LlmGateway
       self.after_execute_callbacks += [ block ] if block_given?
     end
 
-    def initialize(provider: nil, model: nil, reasoning: nil, cache_key: nil, cache_retention: nil)
-      @provider = provider || self.class.provider
+    def initialize(adapter: nil, model: nil, reasoning: nil, cache_key: nil, cache_retention: nil)
+      @adapter = adapter || self.class.adapter
       @model = model || self.class.model
       @reasoning = reasoning || self.class.reasoning
       @cache_key = cache_key
       @cache_retention = cache_retention
     end
 
-    def run(provider: nil, model: nil, reasoning: nil, **options, &block)
+    def run(adapter: nil, model: nil, reasoning: nil, **options, &block)
       # Resolve the prompt once so dynamic or expensive prompt builders are not
       # evaluated multiple times during a single run.
       input = prompt
 
       run_callbacks(:before_execute, input)
 
-      response = run_tool_loop(input, provider: resolved_provider(provider), model: model, reasoning: reasoning, **options, &block)
+      response = run_tool_loop(input, adapter: resolved_adapter(adapter), model: model, reasoning: reasoning, **options, &block)
 
       run_callbacks(:after_execute, response)
 
       response
     end
 
-    def stream(input = prompt, provider: nil, model: nil, reasoning: nil, **options, &block)
-      stream_provider = resolved_provider(provider)
+    def stream(input = prompt, adapter: nil, model: nil, reasoning: nil, **options, &block)
+      stream_adapter = resolved_adapter(adapter)
       stream_options = default_stream_options(model: model, reasoning: reasoning).merge(options)
 
-      stream_provider.stream(input, **stream_options, &block)
+      stream_adapter.stream(input, **stream_options, &block)
     end
 
     def self.tools
@@ -107,12 +107,12 @@ module LlmGateway
       requests.map { |request| find_and_execute_tool(request, **kwargs) }
     end
 
-    def run_tool_loop(input, provider: nil, model: nil, reasoning: nil, **options, &block)
-      response = stream(input, provider: provider, model: model, reasoning: reasoning, **options, &block)
+    def run_tool_loop(input, adapter: nil, model: nil, reasoning: nil, **options, &block)
+      response = stream(input, adapter: adapter, model: model, reasoning: reasoning, **options, &block)
 
       while tool_requests(response).any?
         input = prompt_with_tool_results(input, response, tool_requests(response))
-        response = stream(input, provider: provider, model: model, reasoning: reasoning, **options, &block)
+        response = stream(input, adapter: adapter, model: model, reasoning: reasoning, **options, &block)
       end
 
       response
@@ -150,8 +150,8 @@ module LlmGateway
       }.compact
     end
 
-    def resolved_provider(provider)
-      provider || self.provider
+    def resolved_adapter(adapter)
+      adapter || self.adapter
     end
 
     def resolved_model(model)

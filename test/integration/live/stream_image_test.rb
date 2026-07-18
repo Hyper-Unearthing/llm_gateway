@@ -9,16 +9,15 @@ class StreamImageTest < Test
   include LiveTestHelper
 
   PAIRS = [
-    { name: "openai_apikey_completions", provider: "openai_completions", model: "gpt-5.1" },
-    { name: "anthropic_apikey_messages", provider: "anthropic_messages", model: "claude-sonnet-4-20250514" },
-    { name: "openai_apikey_responses", provider: "openai_responses", model: "gpt-5.4" },
-    { name: "anthropic_oauth_messages", provider: "anthropic_messages", model: "claude-sonnet-4-20250514", oauth: true },
-    { name: "openai_oauth_codex", provider: "openai_codex", model: "gpt-5.4" },
-    { name: "groq_completions", provider: "groq_completions", model: "meta-llama/llama-4-scout-17b-16e-instruct", options: { max_completion_tokens: 8192, reasoning: "none" } }
+    { name: "openai_apikey_completions", provider: "openai-completions", model: "gpt-5.1" },
+    { name: "anthropic_apikey_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514" },
+    { name: "openai_apikey_responses", provider: "openai-responses", model: "gpt-5.4" },
+    { name: "anthropic_oauth_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514", oauth: true },
+    { name: "openai_oauth_codex", provider: "openai-codex", model: "gpt-5.4" },
+    { name: "groq_completions", provider: "groq-completions", model: "meta-llama/llama-4-scout-17b-16e-instruct", options: { max_completion_tokens: 8192, reasoning: "none" } }
   ].freeze
 
   def teardown
-    LlmGateway.reset_configuration!
   end
 
   def basic_image_streaming_test(adapter, options: {})

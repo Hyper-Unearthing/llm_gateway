@@ -62,11 +62,11 @@ gem "llm_gateway"
 
 | Provider  | Provider Key                 | Auth  | API Surface            |
 |-----------|------------------------------|-------|------------------------|
-| Anthropic | `anthropic_messages`         | API key | Messages             |
-| OpenAI    | `openai_completions`         | API key | Chat Completions     |
-| OpenAI    | `openai_responses`           | API key | Responses            |
-| OpenAI Codex | `openai_codex`            | OAuth   | Responses            |
-| Groq      | `groq_completions`           | API key | Chat Completions     |
+| Anthropic | `anthropic-messages`         | API key | Messages             |
+| OpenAI    | `openai-completions`         | API key | Chat Completions     |
+| OpenAI    | `openai-responses`           | API key | Responses            |
+| OpenAI Codex | `openai-codex`            | OAuth   | Responses            |
+| Groq      | `groq-completions`           | API key | Chat Completions     |
 
 Provider configuration only contains auth/client settings (for example `api_key` or `access_token`). Pass the model per request with `model:` when calling `chat` or `stream`.
 
@@ -106,13 +106,13 @@ Unknown provider-specific options raise `ArgumentError` with the valid option li
 
 Provider-specific options are maintained as explicit allowlists in the option mapper source. Use the mapper link to see the current allowed Ruby option keys and the provider documentation link for upstream meanings and values.
 
-| Provider key | Provider/API pair | Option mapper source | Provider API documentation |
+| Adapter ID | Provider/API pair | Option mapper source | Provider API documentation |
 |--------------|-------------------|----------------------|----------------------------|
-| `anthropic_messages` | Anthropic Messages Create | [`lib/llm_gateway/adapters/anthropic_option_mapper.rb`](lib/llm_gateway/adapters/anthropic_option_mapper.rb) | [Anthropic Messages API](https://platform.claude.com/docs/en/api/messages/create.md) |
-| `openai_completions` | OpenAI Chat Completions Create | [`lib/llm_gateway/adapters/openai/chat_completions/option_mapper.rb`](lib/llm_gateway/adapters/openai/chat_completions/option_mapper.rb) | [OpenAI Chat Completions API](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create/index.md) |
-| `openai_responses` | OpenAI Responses Create | [`lib/llm_gateway/adapters/openai/responses/option_mapper.rb`](lib/llm_gateway/adapters/openai/responses/option_mapper.rb) | [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create/index.md) |
-| `openai_codex` | OpenAI Codex Responses-compatible endpoint | [`lib/llm_gateway/adapters/openai_codex/option_mapper.rb`](lib/llm_gateway/adapters/openai_codex/option_mapper.rb) | [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create/index.md) |
-| `groq_completions` | Groq Chat Completions Create | [`lib/llm_gateway/adapters/groq/option_mapper.rb`](lib/llm_gateway/adapters/groq/option_mapper.rb) | [Groq Chat API](https://console.groq.com/docs/api-reference.md#chat-create) |
+| `anthropic-messages` | Anthropic Messages Create | [`lib/llm_gateway/adapters/anthropic_option_mapper.rb`](lib/llm_gateway/adapters/anthropic_option_mapper.rb) | [Anthropic Messages API](https://platform.claude.com/docs/en/api/messages/create.md) |
+| `openai-completions` | OpenAI Chat Completions Create | [`lib/llm_gateway/adapters/openai/chat_completions/option_mapper.rb`](lib/llm_gateway/adapters/openai/chat_completions/option_mapper.rb) | [OpenAI Chat Completions API](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create/index.md) |
+| `openai-responses` | OpenAI Responses Create | [`lib/llm_gateway/adapters/openai/responses/option_mapper.rb`](lib/llm_gateway/adapters/openai/responses/option_mapper.rb) | [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create/index.md) |
+| `openai-codex` | OpenAI Codex Responses-compatible endpoint | [`lib/llm_gateway/adapters/openai_codex/option_mapper.rb`](lib/llm_gateway/adapters/openai_codex/option_mapper.rb) | [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create/index.md) |
+| `groq-completions` | Groq Chat Completions Create | [`lib/llm_gateway/adapters/groq/option_mapper.rb`](lib/llm_gateway/adapters/groq/option_mapper.rb) | [Groq Chat API](https://console.groq.com/docs/api-reference.md#chat-create) |
 
 Common provider-native options you may pass directly when allowed include OpenAI `prompt_cache_key` / `prompt_cache_retention` and Groq `reasoning_effort` / `reasoning_format`. Prefer the managed options above when you want portable behavior across providers.
 
@@ -122,9 +122,9 @@ Common provider-native options you may pass directly when allowed include OpenAI
 require "llm_gateway"
 require "json"
 
-# Build a provider adapter directly (not via prebuilt config)
-adapter = LlmGateway.build_provider(
-  provider: "openai_responses", # or anthropic_messages, groq_completions, ...
+# Build an API adapter directly. It contains transport configuration, not a model.
+adapter = LlmGateway.build_adapter(
+  adapter: "openai-responses", # or anthropic-messages, groq-completions, ...
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 tools = [
@@ -146,7 +146,7 @@ transcript = [
 
 streamed_tool_args = Hash.new { |h, k| h[k] = +"" }
 
-response = adapter.stream(transcript, tools: tools, model: "gpt-5.4", reasoning: "high") do |event|
+response = adapter.stream(transcript, tools: tools, model: LlmGateway.models.fetch("openai/gpt-5.4"), reasoning: "high") do |event|
   case event.type
   # AssistantStreamMessageEvent
   when :message_start
@@ -236,16 +236,17 @@ Usage counters are normalized as `:input`, `:cache_write`, `:cache_read`, `:outp
 
 ### Model catalog
 
-The request API remains unchanged (`model: "gpt-5.5"`), while the built-in catalog exposes qualified references for model metadata and pricing:
+Adapters require a provider-level model definition. Fetch by qualified reference or with keywords (recommended when an ID contains `/`):
 
 ```ruby
-LlmGateway.models.fetch("openai/gpt-5.5")
-LlmGateway.models.fetch("openai-responses/gpt-5.5")
-LlmGateway.models.fetch("openai-completions/gpt-5.5")
-LlmGateway.models.fetch("openai-codex/gpt-5.5")
+model = LlmGateway.models.fetch("openai/gpt-5.5")
+groq_model = LlmGateway.models.fetch(provider: "groq", id: "openai/gpt-oss-120b")
+
+LlmGateway.models.supported_by?(model, adapter: "openai-responses")
+LlmGateway.models.compatibility_for(model, adapter: "openai-responses")
 ```
 
-`openai` currently aliases `openai-responses`. Run `rake models:generate` to refresh models.dev-backed Anthropic, OpenAI, Groq, and Codex definitions. The initial catalog assumes direct OpenAI, Chat Completions, and Codex support the same models at the same token prices.
+A definition is unique by provider/model ID and can be shared by multiple adapters. Adapter-specific support and wire model IDs are held in compatibility records. Adapter/API aliases such as `openai-responses/gpt-5.5` are not model references. Run `rake models:generate` to refresh the catalog.
 
 ### Stream API without handling events (final result only)
 
@@ -254,12 +255,12 @@ If you only care about the final `AssistantMessage`, call `stream` without a blo
 ```ruby
 require "llm_gateway"
 
-adapter = LlmGateway.build_provider(
-  provider: "openai_responses",
+adapter = LlmGateway.build_adapter(
+  adapter: "openai-responses",
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 
-result = adapter.stream("Write one short sentence about Ruby.", model: "gpt-5.4")
+result = adapter.stream("Write one short sentence about Ruby.", model: LlmGateway.models.fetch("openai/gpt-5.4"))
 
 puts result.role         # "assistant"
 puts result.timestamp    # Unix milliseconds
@@ -276,7 +277,7 @@ puts text
 
 ## Prompt classes
 
-`LlmGateway::Prompt` wraps a reusable prompt, provider/model defaults, callbacks, optional tools, and prompt-cache options around the `stream` API.
+`LlmGateway::Prompt` wraps a reusable prompt, adapter/model defaults, callbacks, optional tools, and prompt-cache options around the `stream` API.
 
 ```ruby
 class AddTool < LlmGateway::Tool
@@ -291,11 +292,11 @@ class AddTool < LlmGateway::Tool
 end
 
 class MathPrompt < LlmGateway::Prompt
-  self.provider = LlmGateway.build_provider(
-    provider: "openai_responses",
+  self.adapter = LlmGateway.build_adapter(
+    adapter: "openai-responses",
     api_key: ENV.fetch("OPENAI_API_KEY")
   )
-  self.model = "gpt-5.4"
+  self.model = LlmGateway.models.fetch("openai/gpt-5.4")
 
   TOOLS = [AddTool].freeze
 
@@ -320,8 +321,8 @@ puts response.content.select { |block| block.type == "text" }.map(&:text).join
 How `Prompt` works now:
 
 - `prompt` is evaluated once per `run`.
-- `run(provider:, model:, reasoning:, **options)` calls `stream` and returns the final normalized `AssistantMessage` after any tool calls complete.
-- `stream(input = prompt, provider:, model:, reasoning:, **options, &block)` forwards to the provider and returns the normalized `AssistantMessage`.
+- `run(adapter:, model:, reasoning:, **options)` calls `stream` and returns the final normalized `AssistantMessage` after any tool calls complete.
+- `stream(input = prompt, adapter:, model:, reasoning:, **options, &block)` forwards to the adapter and returns the normalized `AssistantMessage`.
 - Tools are declared as tool classes in a `TOOLS` constant. `run` automatically executes returned `tool_use` blocks, appends `tool_result` messages, and loops until no tool calls remain.
 - `LlmGateway::Tool#execute(input, tool_use_id:)` should return a `LlmGateway::Agents::Event::ToolCallResult` or a descendant; use the inherited `tool_result(content, tool_use_id: tool_use_id)` helper for the common case. The original tool call id is passed into `execute` so custom tools can construct their own result object and decide what is serialized into sessions.
 - Override the protected `execute_tool_requests(requests:, assistant_message:, session_event:)` hook to wrap tool execution with setup/teardown, result post-processing, or wrapper-message customization; call `yield requests` to let the harness/prompt execute tools normally, then return a `LlmGateway::Agents::Event::ToolResultMessage`. A `Harness` receives the persisted assistant event as `session_event:`; a `Prompt` receives `nil`. The default serializes as `{ role: "user", content: tool_results.map(&:to_h) }`.
@@ -368,8 +369,8 @@ Use `stream` without a block, inspect returned `tool_use` blocks, execute tools,
 require "llm_gateway"
 require "json"
 
-adapter = LlmGateway.build_provider(
-  provider: "openai_responses",
+adapter = LlmGateway.build_adapter(
+  adapter: "openai-responses",
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 weather_tool = {
@@ -400,7 +401,7 @@ transcript = [
 ]
 
 # 1) First model pass (stream API, no event block)
-response = adapter.stream(transcript, tools: [weather_tool], model: "gpt-5.4")
+response = adapter.stream(transcript, tools: [weather_tool], model: LlmGateway.models.fetch("openai/gpt-5.4"))
 transcript << response.to_h
 
 # 2) Execute tool calls returned by the model
@@ -423,7 +424,7 @@ end
 
 # 3) Continue the conversation after tool execution
 if response.content.any? { |b| b.type == "tool_use" }
-  final_response = adapter.stream(transcript, tools: [weather_tool], model: "gpt-5.4")
+  final_response = adapter.stream(transcript, tools: [weather_tool], model: LlmGateway.models.fetch("openai/gpt-5.4"))
 
   final_text = final_response.content
     .select { |b| b.type == "text" }
@@ -456,7 +457,7 @@ anthropic_code_execution = {
   name: "code_execution"
 }
 
-tools = provider == "openai_responses" ? [openai_code_interpreter] : [anthropic_code_execution]
+tools = adapter == "openai-responses" ? [openai_code_interpreter] : [anthropic_code_execution]
 response = adapter.stream("Create a chart from this CSV and save it as PNG.", tools: tools) do |event|
   case event.type
   when :tool_start
@@ -526,18 +527,15 @@ class WeatherHarness < LlmGateway::Agents::Harness
   end
 end
 
-adapter = LlmGateway.build_provider(
-  provider: "openai_responses",
+adapter = LlmGateway.build_adapter(
+  adapter: "openai-responses",
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 
 session = LlmGateway::Agents::InMemorySessionManager.new("weather-session")
-harness = WeatherHarness.new(
-  session,
-  provider: adapter,
-  model: "gpt-5.4",
-  reasoning: "high"
-)
+session.change_model(LlmGateway.models.fetch("openai/gpt-5.4"))
+session.change_reasoning("high")
+harness = WeatherHarness.new(session, adapter: adapter)
 
 harness.prompt_message(
   role: "user",
@@ -567,8 +565,10 @@ puts harness.transcript.inspect
 Harness behavior:
 
 - `prompt_message(message)` accepts an LLM-shaped message hash, records it in the session, streams the provider response, records the final assistant message, executes any returned tool calls from the harness class's `TOOLS` constant, records a user `tool_result` message, and continues until no tool calls remain.
-- Harnesses pass `tools`, `system_prompt`, `model`, `reasoning`, `cache_key`, and `cache_retention` through the inherited `Prompt#stream` defaults.
-- Pass `model:` and optional `reasoning:` to `new`, or set them later with `harness.model = "..."` / `harness.reasoning = "..."`. Model and reasoning changes are recorded as session events.
+- Harnesses receive an already-built adapter and never construct one or read global client configuration.
+- Pass optional `cache_key:` and `cache_retention:` values to the Harness constructor; they are forwarded on every model request and can be changed through the inherited accessors.
+- Initialize the session with `session.change_model(definition)` and optional `session.change_reasoning(level)`. Set them later with `harness.model = definition` / `harness.reasoning = level`; changes are recorded as session events.
+- Use `harness.change_adapter(adapter)` for another compatible adapter. Changing providers requires `harness.change_adapter(adapter, model: definition)`.
 - `harness.transcript` (also aliased as `prompt`) returns the current model input: the latest compaction summary, if any, followed by active messages.
 - `harness.run` continues from the current session state without adding a new user message. `harness.continue` requires an idle agent; it marks the agent busy, drains queued `:steer` messages and then queued `:follow_up` messages, runs, and marks the agent idle when finished. `prompt_message`/`steer_message`/`follow_up_message` enqueue the new user message; if the agent is idle, they then call `continue`, so existing queued messages in that queue stay ahead of the new message.
 
@@ -611,7 +611,7 @@ Before starting a new user message and before draining queued follow-up work, th
 - the latest recorded message usage exceeds `LlmGateway::Agents::Harness::COMPACTION_TOKEN_THRESHOLD`, or
 - the latest assistant message is older than `LlmGateway::Agents::Harness::COMPACTION_IDLE_THRESHOLD_SECONDS`.
 
-Compaction calls `adapter.stream(active_messages, system: "Summarize the conversation so far for future context.", tools: [])`, stores the returned assistant message as a `compaction` event, and builds future model input as the compaction summary plus messages recorded after that compaction.
+Compaction calls the harness adapter with the session's current model definition, stores the returned assistant message as a `compaction` event, and builds future model input as the compaction summary plus messages recorded after that compaction.
 
 ### Built-in agent tools
 
@@ -641,8 +641,8 @@ Send images by including an `image` content block in a user message.
 require "llm_gateway"
 require "base64"
 
-adapter = LlmGateway.build_provider(
-  provider: "openai_responses",
+adapter = LlmGateway.build_adapter(
+  adapter: "openai-responses",
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 image_b64 = Base64.strict_encode64(File.binread("./chart.png"))
@@ -657,7 +657,7 @@ message = [
   }
 ]
 
-result = adapter.stream(message, model: "gpt-5.4") # stream API, no event block
+result = adapter.stream(message, model: LlmGateway.models.fetch("openai/gpt-5.4")) # stream API, no event block
 
 text = result.content
   .select { |b| b.type == "text" }
@@ -676,14 +676,14 @@ You can request higher-effort reasoning by passing `reasoning:` to `stream`.
 ```ruby
 require "llm_gateway"
 
-adapter = LlmGateway.build_provider(
-  provider: "openai_responses",
+adapter = LlmGateway.build_adapter(
+  adapter: "openai-responses",
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 
 result = adapter.stream(
   "Think step by step and then compute 482 * 17.",
-  model: "gpt-5.4",
+  model: LlmGateway.models.fetch("openai/gpt-5.4"),
   reasoning: "high"
 )
 
@@ -708,7 +708,7 @@ If you want incremental thinking/reasoning tokens as they arrive, pass a block t
 ```ruby
 reasoning_text = +""
 
-result = adapter.stream("Solve 99 * 99 with brief reasoning.", model: "gpt-5.4", reasoning: "high") do |event|
+result = adapter.stream("Solve 99 * 99 with brief reasoning.", model: LlmGateway.models.fetch("openai/gpt-5.4"), reasoning: "high") do |event|
   case event.type
   when :reasoning_start
     print "\n[thinking start]\n"
@@ -785,8 +785,8 @@ Why this matters:
 require "llm_gateway"
 require "json"
 
-adapter = LlmGateway.build_provider(
-  provider: "openai_responses",
+adapter = LlmGateway.build_adapter(
+  adapter: "openai-responses",
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 # Build context (transcript)
@@ -795,7 +795,7 @@ transcript = [
 ]
 
 # Run one turn and persist assistant output
-first = adapter.stream(transcript, model: "gpt-5.4")
+first = adapter.stream(transcript, model: LlmGateway.models.fetch("openai/gpt-5.4"))
 transcript << first.to_h
 
 # Serialize (store in DB/file/cache)
@@ -806,7 +806,7 @@ restored_transcript = JSON.parse(json_context)
 
 # Continue conversation from restored context
 restored_transcript << { role: "user", content: "Now make it budget-friendly." }
-second = adapter.stream(restored_transcript, model: "gpt-5.4")
+second = adapter.stream(restored_transcript, model: LlmGateway.models.fetch("openai/gpt-5.4"))
 
 puts second.content.select { |b| b.type == "text" }.map(&:text).join
 ```
@@ -831,14 +831,14 @@ transcript = [
   }
 ]
 
-adapter.stream(transcript, model: "gpt-5.4")
+adapter.stream(transcript, model: LlmGateway.models.fetch("openai/gpt-5.4"))
 ```
 
 `llm_gateway` preserves this as part of your local transcript shape, but strips `details` before sending user or assistant messages to provider APIs. This lets applications keep message metadata next to the message without leaking unsupported fields to OpenAI, Anthropic, Groq, or Codex request payloads.
 
 ## OAuth
 
-Use OAuth-capable providers (for example `openai_codex` and `anthropic_messages`) by supplying an `access_token` when building the adapter.
+Use OAuth-capable providers (for example `openai-codex` and `anthropic-messages`) by supplying an `access_token` when building the adapter.
 
 ### Get initial tokens (Codex / OpenAI OAuth)
 
@@ -944,12 +944,12 @@ current_access_token = manager.access_token
 Build the provider with the current access token:
 
 ```ruby
-adapter = LlmGateway.build_provider(
-  provider: "openai_codex",
-  access_token: current_access_token
+adapter = LlmGateway.build_adapter(
+  adapter: "openai-codex",
+  api_key: current_access_token
 )
 
-result = adapter.stream("Hello from OAuth auth", model: "gpt-5.4")
+result = adapter.stream("Hello from OAuth auth", model: LlmGateway.models.fetch("openai/gpt-5.4"))
 puts result.content.select { |b| b.type == "text" }.map(&:text).join
 ```
 
@@ -961,7 +961,7 @@ OpenAI Codex usage-limit responses include reset information on `LlmGateway::Err
 
 ```ruby
 begin
-  adapter.stream("Hello from OAuth auth", model: "gpt-5.4")
+  adapter.stream("Hello from OAuth auth", model: LlmGateway.models.fetch("openai/gpt-5.4"))
 rescue LlmGateway::Errors::RateLimitError => e
   puts e.message                 # "The usage limit has been reached"
   puts e.reset_after_seconds     # primary reset window, when available
@@ -1002,6 +1002,6 @@ bundle exec ruby -Itest test/integration/live/stream_test.rb
 
 Cassette names are derived from the test file and test name, with VCR sanitizing path segments such as `stream_test.rb` to `stream_test_rb`.
 
-For OAuth-backed providers (`anthropic_messages`, `openai_codex`), the live test helper only loads real OAuth credentials while the cassette is being recorded. Once the cassette exists, replay uses placeholder tokens/account IDs so the test suite can run without local OAuth state. API-key providers still require the relevant API key when recording. Sensitive authorization headers and selected response headers are redacted before cassettes are written.
+For OAuth-backed providers (`anthropic-messages`, `openai-codex`), the live test helper only loads real OAuth credentials while the cassette is being recorded. Once the cassette exists, replay uses placeholder tokens/account IDs so the test suite can run without local OAuth state. API-key providers still require the relevant API key when recording. Sensitive authorization headers and selected response headers are redacted before cassettes are written.
 
 Some tests pass `redact_request_body: true` to `with_vcr_adapter`; those cassettes match on method and URI only and replace large request bodies with `"<huge prompt body redacted>"`.

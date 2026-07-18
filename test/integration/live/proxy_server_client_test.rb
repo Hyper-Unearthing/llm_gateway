@@ -9,14 +9,13 @@ class ProxyServerClientTest < Test
   include LiveTestHelper
 
   PAIRS = [
-    { name: "openai_apikey_completions", provider: "openai_completions", model: "gpt-5.1" },
-    { name: "anthropic_apikey_messages", provider: "anthropic_messages", model: "claude-sonnet-4-20250514" },
-    { name: "openai_apikey_responses", provider: "openai_responses", model: "gpt-5.4" },
-    { name: "groq_completions", provider: "groq_completions", model: "openai/gpt-oss-120b", options: { reasoning: "none", include_reasoning: false, max_completion_tokens: 64 } }
+    { name: "openai_apikey_completions", provider: "openai-completions", model: "gpt-5.1" },
+    { name: "anthropic_apikey_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514" },
+    { name: "openai_apikey_responses", provider: "openai-responses", model: "gpt-5.4" },
+    { name: "groq_completions", provider: "groq-completions", model: "openai/gpt-oss-120b", options: { reasoning: "none", include_reasoning: false, max_completion_tokens: 64 } }
   ].freeze
 
   def teardown
-    LlmGateway.reset_configuration!
   end
 
   def self.define_proxy_test_for(name:, provider:, model:, oauth: false, options: {})
@@ -32,9 +31,11 @@ class ProxyServerClientTest < Test
         events = []
         stream_options = { max_completion_tokens: 20, temperature: 0 }.merge(options)
 
+        registration = LlmGateway::AdapterRegistry.fetch(provider)
+        definition = LlmGateway.models.fetch(provider: registration[:provider], id: model)
         response = adapter.stream(
           "Reply with exactly these two words: proxy ok",
-          model: model,
+          model: definition,
           **stream_options
         ) do |event|
           events << event
@@ -132,7 +133,7 @@ class ProxyServerClientTest < Test
   def server_side_config_for(provider, oauth:)
     cassette_exists = File.exist?(vcr_cassette_path(vcr_cassette_name))
 
-    if provider == "openai_codex"
+    if provider == "openai-codex"
       return { "api_key" => "vcr-replay-token", "account_id" => "vcr-replay-account" } if cassette_exists
 
       return {
@@ -141,7 +142,7 @@ class ProxyServerClientTest < Test
       }
     end
 
-    if oauth == true && provider == "anthropic_messages"
+    if oauth == true && provider == "anthropic-messages"
       return { "api_key" => "sk-ant-oat-vcr-replay-token" } if cassette_exists
 
       return { "api_key" => oauth_access_token_for("anthropic") }
@@ -150,11 +151,11 @@ class ProxyServerClientTest < Test
     return { "api_key" => "vcr-replay-token" } if cassette_exists
 
     case provider
-    when "openai_completions", "openai_responses"
+    when "openai-completions", "openai-responses"
       { "api_key" => ENV.fetch("OPENAI_API_KEY") }
-    when "groq_completions"
+    when "groq-completions"
       { "api_key" => ENV.fetch("GROQ_API_KEY") }
-    when "anthropic_messages"
+    when "anthropic-messages"
       { "api_key" => ENV.fetch("ANTHROPIC_API_KEY") }
     else
       {}

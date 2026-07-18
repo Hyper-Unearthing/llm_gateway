@@ -5,18 +5,18 @@ require_relative "structs"
 module LlmGateway
   module Adapters
     class Adapter
-      attr_reader :client, :provider_key
+      attr_reader :client, :provider, :adapter_id
 
-      def initialize(client, provider_key: nil)
+      def initialize(client, provider:, adapter_id:)
         @client = client
-        @provider_key = provider_key
+        @provider = provider
+        @adapter_id = adapter_id
       end
 
-      def raw_stream(message, tools: nil, system: nil, **options, &block)
-        model_definition = model_definition_for(options[:model])
-        options = options.merge(model: model_definition.request_model) if model_definition
+      def raw_stream(message, model:, tools: nil, system: nil, **options, &block)
+        provider_model_key = LlmGateway.models.provider_model_key_for!(model, provider: provider, adapter: adapter_id)
         normalized_input = map_input({
-          messages: sanitize_messages(normalize_messages(message), target_model: options[:model]),
+          messages: sanitize_messages(normalize_messages(message), target_model: provider_model_key),
           tools: tools,
           system: normalize_system(system)
         })
@@ -25,26 +25,30 @@ module LlmGateway
           normalized_input[:messages],
           tools: normalized_input[:tools],
           system: normalized_input[:system],
-          **map_options(options),
+          **map_options(options.merge(model: provider_model_key)),
           &block
         )
       end
 
-      def stream(message, tools: nil, system: nil, **options, &block)
+      def stream(message, model:, tools: nil, system: nil, **options, &block)
         raise LlmGateway::Errors::MissingMapperForProvider, "No stream_mapper configured" unless stream_mapper
 
-        model_definition = model_definition_for(options[:model])
         mapper = stream_mapper.new(
-          provider: LlmGateway::Client.provider_id_from_client(client),
+          provider: provider,
           api: api_name,
-          model_definition:
+          model_definition: model
         )
 
-        raw_stream(message, tools: tools, system: system, **options) do |chunk|
+        raw_stream(message, model: model, tools: tools, system: system, **options) do |chunk|
           mapper.map(chunk, &block)
         end
 
         mapper.result
+      end
+
+      # Used by agents to validate a candidate before starting a stream.
+      def validate_model!(model)
+        LlmGateway.models.validate_compatibility!(model, provider: provider, adapter: adapter_id)
       end
 
       def upload_file(filename:, content:, mime_type: "application/octet-stream", purpose: "assistants")
@@ -67,10 +71,6 @@ module LlmGateway
 
         result = client.download_file(file_id)
         file_output_mapper.map(result)
-      end
-
-      def model_definition(model = nil)
-        model_definition_for(model)
       end
 
       private
@@ -105,6 +105,7 @@ module LlmGateway
 
       public
 
+      # Proxy adapters use these to normalize the target provider's raw stream.
       def stream_api_name
         api_name
       end
@@ -123,33 +124,15 @@ module LlmGateway
         nil
       end
 
-      def model_definition_for(model)
-        return nil if provider_key.nil?
-
-        model ||= default_model
-        return nil if model.nil?
-
-        LlmGateway.models.find_for_api(provider_key, model)
-      end
-
-      def default_model
-        return unless client.class.const_defined?(:DEFAULT_MODEL, false)
-
-        client.class.const_get(:DEFAULT_MODEL, false)
-      end
-
       def sanitize_messages(messages, target_model: nil)
         return messages unless input_sanitizer
 
-        target_provider = LlmGateway::Client.provider_id_from_client(client)
-        target_api = api_name
-
-        return messages unless target_provider.present? && target_api.present? && target_model.present?
+        return messages unless provider.present? && api_name.present? && target_model.present?
 
         input_sanitizer.sanitize(
           messages,
-          target_provider: target_provider,
-          target_api: target_api,
+          target_provider: provider,
+          target_api: api_name,
           target_model: target_model
         )
       end
@@ -167,11 +150,7 @@ module LlmGateway
       end
 
       def normalize_messages(message)
-        if message.is_a?(String)
-          [ { role: "user", content: message } ]
-        else
-          message
-        end
+        message.is_a?(String) ? [ { role: "user", content: message } ] : message
       end
     end
   end
