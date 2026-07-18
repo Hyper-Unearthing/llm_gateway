@@ -23,14 +23,13 @@ class ComplexToolResultTest < Test
     key_env = config.delete("key_env")
     config["key"] = ENV.fetch(key_env) if key_env
 
-    adapter_id = config.delete("adapter")
-    registration = LlmGateway::AdapterRegistry.fetch(adapter_id)
-    model_id = config.delete("model") || config.delete("model_key") || default_model_for(registration[:provider])
+    adapter_class = LlmGateway::Proxy::Protocol.load_adapter(config.delete("adapter"))
+    model_id = config.delete("model") || config.delete("model_key") || default_model_for(adapter_class.provider)
     config["api_key"] ||= config.delete("key")
 
     BoundAdapter.new(
-      LlmGateway.build_adapter(adapter: adapter_id, **config),
-      LlmGateway.models.fetch(provider: registration[:provider], id: model_id)
+      adapter_class.build(**config),
+      LlmGateway.models.fetch(provider: adapter_class.provider, id: model_id)
     )
   end
 

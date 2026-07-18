@@ -158,15 +158,15 @@ module LlmGateway
       end
 
       def validate_adapter_model!(candidate_adapter, candidate_model)
-        unless candidate_adapter.respond_to?(:validate_model!)
-          raise ArgumentError, "adapter must implement #validate_model!"
+        unless candidate_adapter.respond_to?(:resolve_model!)
+          raise ArgumentError, "adapter must implement #resolve_model!"
         end
         unless candidate_model
           raise LlmGateway::Errors::InvalidModelDefinition,
             "The session must have a model before constructing a harness"
         end
 
-        candidate_adapter.validate_model!(candidate_model)
+        candidate_adapter.resolve_model!(candidate_model)
       end
 
       def enqueue_and_continue_if_idle(message, queue, &block)

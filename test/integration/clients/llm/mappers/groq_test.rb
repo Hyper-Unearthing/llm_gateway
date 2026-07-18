@@ -17,9 +17,7 @@ class GroqMapperTest < Test
       tool_calls: [ { id: "call_tc9dHBkYgba7fDlJk6zk8Pr3", type: "function", function: { name: "Bash", arguments: "{\"command\":\"find . -maxdepth 2 -type f -iname 'readme*'\",\"timeout\":120000}" } } ]
     },
      { role: "tool", tool_call_id: "call_tc9dHBkYgba7fDlJk6zk8Pr3", content: "./README.md\n"  } ]
-    adapter = LlmGateway::Adapters::Groq::ChatCompletionsAdapter.new(
-      Object.new, provider: "groq", adapter_id: "groq-completions"
-    )
+    adapter = LlmGateway::Adapters::Groq::ChatCompletionsAdapter.new(Object.new)
     result = adapter.send(:map_input, input)
 
     assert_equal output, result[:messages]

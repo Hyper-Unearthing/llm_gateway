@@ -3,11 +3,9 @@
 module LlmGateway
   module Models
     class Catalog
-      def initialize(definitions = [], compatibilities = [])
+      def initialize(definitions = [])
         @definitions = {}
-        @compatibilities = {}
         definitions.each { |definition| register_definition(definition) }
-        compatibilities.each { |compatibility| register_compatibility(compatibility) }
       end
 
       def find(reference = nil, provider: nil, id: nil)
@@ -28,41 +26,6 @@ module LlmGateway
         @definitions.select { |(definition_provider, _), _| definition_provider == provider.to_s }.values.freeze
       end
 
-      def compatibility_for(model, adapter:)
-        @compatibilities[[ model.provider, model.id, adapter.to_s ]]
-      end
-
-      def supported_by?(model, adapter:)
-        !compatibility_for(model, adapter: adapter).nil?
-      end
-
-      def validate_compatibility!(model, provider:, adapter:)
-        if model.provider != provider.to_s
-          raise LlmGateway::Errors::ModelProviderMismatch,
-            "Model provider #{model.provider.inspect} does not match adapter provider #{provider.inspect}"
-        end
-
-        return true if compatibility_for(model, adapter: adapter)
-
-        raise LlmGateway::Errors::UnsupportedModelForAdapter,
-          "Model #{model.provider}/#{model.id} is not supported by adapter #{adapter}"
-      end
-
-      def provider_model_key_for!(model, provider:, adapter:)
-        validate_compatibility!(model, provider:, adapter:)
-        compatibility_for(model, adapter: adapter).provider_model_key
-      end
-
-      # Resolves a provider model key received at a serialization boundary.
-      def model_for_provider_model_key(provider:, adapter:, provider_model_key:)
-        compatibility = @compatibilities.values.find do |entry|
-          entry.provider == provider.to_s &&
-            entry.adapter_id == adapter.to_s &&
-            entry.provider_model_key == provider_model_key.to_s
-        end
-        compatibility && find(provider: compatibility.provider, id: compatibility.model_id)
-      end
-
       private
 
       def register_definition(definition)
@@ -70,22 +33,6 @@ module LlmGateway
         raise ArgumentError, "Duplicate model catalog entry: #{key.join("/")}" if @definitions.key?(key)
 
         @definitions[key] = definition
-      end
-
-      def register_compatibility(compatibility)
-        unless compatibility.is_a?(Compatibility)
-          raise TypeError, "Expected Models::Compatibility, got #{compatibility.class}"
-        end
-
-        model_key = [ compatibility.provider, compatibility.model_id ]
-        unless @definitions.key?(model_key)
-          raise ArgumentError, "Compatibility refers to unknown model: #{model_key.join("/")}"
-        end
-
-        key = [ *model_key, compatibility.adapter_id ]
-        raise ArgumentError, "Duplicate model compatibility: #{key.join("/")}" if @compatibilities.key?(key)
-
-        @compatibilities[key] = compatibility
       end
 
       def lookup_key(reference, provider:, id:)

@@ -40,10 +40,10 @@ module LiveTestHelper
       config["api_key"] = "vcr-replay-token"
     end
 
-    registration = LlmGateway::AdapterRegistry.fetch(provider)
-    definition = LlmGateway.models.fetch(provider: registration[:provider], id: model)
+    adapter_class = LlmGateway::Proxy::Protocol.load_adapter(provider)
+    definition = LlmGateway.models.fetch(provider: adapter_class.provider, id: model)
 
-    LiveAdapter.new(LlmGateway.build_adapter(adapter: provider, **config), definition)
+    LiveAdapter.new(adapter_class.build(**config), definition)
   end
 
   def with_vcr_adapter(provider:, model:, redact_request_body: false, oauth: false)

@@ -12,8 +12,14 @@ module LlmGateway
   module Adapters
     module OpenAI
       class ResponsesAdapter < Adapter
+        provider "openai"
+        client_class LlmGateway::Clients::OpenAI
+
         include ActsLikeOpenAIResponses
       end
+
+      Responses.extend(DefinitionFacade)
+      Responses.define_adapter(ResponsesAdapter)
     end
   end
 end

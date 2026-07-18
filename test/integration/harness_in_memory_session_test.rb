@@ -24,24 +24,22 @@ class HarnessInMemorySessionIntegrationTest < Test
   end
 
   class FakeAdapter
-    attr_reader :provider, :adapter_id, :calls
+    attr_reader :provider, :calls
 
-    def initialize(responses, provider: "openai", adapter_id: "openai-responses")
+    def initialize(responses, provider: "openai")
       @responses = responses.dup
       @provider = provider
-      @adapter_id = adapter_id
       @calls = []
     end
 
-    def validate_model!(model)
+    def resolve_model!(model)
       raise LlmGateway::Errors::ModelProviderMismatch unless model.provider == provider
 
-      LlmGateway.models.compatibility_for(model, adapter: adapter_id) ||
-        raise(LlmGateway::Errors::UnsupportedModelForAdapter)
+      LlmGateway.models.fetch(provider: model.provider, id: model.id)
     end
 
     def stream(messages, model:, **options)
-      validate_model!(model)
+      resolve_model!(model)
       @calls << { messages: Marshal.load(Marshal.dump(messages)), model: model, options: options }
       if block_given?
         yield AssistantStreamEvent.new(
@@ -97,7 +95,6 @@ class HarnessInMemorySessionIntegrationTest < Test
     assert_equal "model_change", event[:type]
     assert_equal "openai", event[:provider]
     assert_equal "gpt-5.4", event[:model_id]
-    refute event.key?(:adapter_id)
     assert_same OPENAI_MODEL, session.current_configuration.model
   end
 
@@ -172,12 +169,11 @@ class HarnessInMemorySessionIntegrationTest < Test
     assert_equal "low", adapter.calls.first[:options][:reasoning]
     model_event = session.events.reverse.find { |event| event[:type] == "model_change" }
     assert_equal({ provider: "openai", model_id: "gpt-5.1" }, model_event.slice(:provider, :model_id))
-    refute model_event.key?(:adapter_id)
   end
 
   test "harness changes compatible adapters without a model event" do
     harness, session, = new_harness([])
-    replacement = FakeAdapter.new([], adapter_id: "openai-completions")
+    replacement = FakeAdapter.new([])
     event_count = session.events.length
 
     assert_same replacement, harness.change_adapter(replacement)
@@ -187,7 +183,7 @@ class HarnessInMemorySessionIntegrationTest < Test
 
   test "harness requires an adapter and model together when changing providers" do
     harness, session, = new_harness([])
-    anthropic = FakeAdapter.new([], provider: "anthropic", adapter_id: "anthropic-messages")
+    anthropic = FakeAdapter.new([], provider: "anthropic")
 
     assert_raises(LlmGateway::Errors::ModelProviderMismatch) { harness.change_adapter(anthropic) }
     assert_same anthropic, harness.change_adapter(anthropic, model: ANTHROPIC_MODEL)

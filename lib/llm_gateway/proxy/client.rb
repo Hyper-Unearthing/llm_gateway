@@ -7,11 +7,11 @@ require "uri"
 module LlmGateway
   module Proxy
     class Client
-      attr_reader :url, :target_provider, :target_config, :path
+      attr_reader :url, :adapter_class, :target_config, :path
 
-      def initialize(url:, target_provider:, target_config: {}, api_key: nil, path: "/agent/llm_proxy", **_options)
+      def initialize(url:, adapter:, target_config: {}, api_key: nil, path: "/agent/llm_proxy", **_options)
         @url = url.to_s.sub(%r{/+\z}, "")
-        @target_provider = target_provider.to_s
+        @adapter_class = Protocol.adapter_class(adapter)
         @target_config = (target_config || {}).transform_keys(&:to_sym)
         @api_key = api_key
         @path = path.to_s.start_with?("/") ? path.to_s : "/#{path}"
@@ -30,7 +30,7 @@ module LlmGateway
         request["accept-encoding"] = "identity"
         request["authorization"] = "Bearer #{@api_key}" if @api_key
         request.body = {
-          provider: target_provider,
+          adapter: Protocol.dump_adapter(adapter_class),
           config: target_config,
           messages: messages,
           system: system,

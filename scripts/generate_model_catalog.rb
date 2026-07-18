@@ -18,11 +18,7 @@ OPENAI_LONG_CONTEXT_PRICING_MODEL_IDS = %w[
   gpt-5.6-luna
 ].freeze
 
-PROVIDER_ADAPTERS = {
-  "anthropic" => %w[anthropic-messages],
-  "openai" => %w[openai-responses openai-completions openai-codex],
-  "groq" => %w[groq-completions]
-}.freeze
+PROVIDERS = %w[anthropic openai groq].freeze
 
 source =
   if ARGV.first
@@ -80,27 +76,12 @@ def definitions_for(data, provider:)
   end
 end
 
-def compatibilities_for(definitions)
-  definitions.flat_map do |definition|
-    PROVIDER_ADAPTERS.fetch(definition[:provider]).map do |adapter_id|
-      {
-        provider: definition[:provider],
-        model_id: definition[:id],
-        adapter_id: adapter_id,
-        provider_model_key: definition[:id]
-      }
-    end
-  end
-end
-
-definitions = PROVIDER_ADAPTERS.keys.flat_map { |provider| definitions_for(source, provider:) }
-compatibilities = compatibilities_for(definitions)
+definitions = PROVIDERS.flat_map { |provider| definitions_for(source, provider:) }
 
 payload = {
   source: SOURCE_URL,
-  definitions: definitions.sort_by { |model| [ model[:provider], model[:id] ] },
-  compatibilities: compatibilities.sort_by { |entry| [ entry[:provider], entry[:model_id], entry[:adapter_id] ] }
+  definitions: definitions.sort_by { |model| [ model[:provider], model[:id] ] }
 }
 
 File.write(OUTPUT_PATH, JSON.pretty_generate(payload) + "\n")
-puts "Wrote #{definitions.size} definitions and #{compatibilities.size} compatibilities to #{OUTPUT_PATH}"
+puts "Wrote #{definitions.size} definitions to #{OUTPUT_PATH}"

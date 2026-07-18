@@ -12,7 +12,15 @@ module LlmGateway
   module Adapters
     module Anthropic
       class MessagesAdapter < Adapter
+        provider "anthropic"
+        client_class LlmGateway::Clients::Anthropic
+
         include ActsLikeAnthropicMessages
+      end
+
+      module Messages
+        extend DefinitionFacade
+        define_adapter MessagesAdapter
       end
     end
   end

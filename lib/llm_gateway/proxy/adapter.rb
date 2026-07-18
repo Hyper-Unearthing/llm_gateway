@@ -2,28 +2,18 @@
 
 module LlmGateway
   module Proxy
-    class Adapter
-      attr_reader :client, :provider, :adapter_id
+    class Adapter < LlmGateway::Adapters::Adapter
+      provider "proxy"
+      client_class LlmGateway::Proxy::Client
 
-      def initialize(client, provider: "proxy", adapter_id: "proxy")
-        @client = client
-        @provider = provider.to_s
-        @adapter_id = adapter_id.to_s
-      end
-
-      def stream(message, model: nil, tools: nil, system: nil, **options, &block)
-        target_registration = target_registration()
-        validate_model!(model, target_registration)
-        target_adapter = LlmGateway.build_adapter(
-          adapter: target_registration[:id],
-          **client.target_config
-        )
+      def stream(message, model:, tools: nil, system: nil, **options, &block)
+        target_adapter = client.adapter_class.build(**client.target_config)
+        model = target_adapter.resolve_model!(model)
         mapper_class = target_adapter.stream_mapper_class
         raise LlmGateway::Errors::MissingMapperForProvider, "No stream_mapper configured" unless mapper_class
 
-        compatibility = LlmGateway.models.compatibility_for(model, adapter: target_registration[:id])
         mapper = mapper_class.new(
-          provider: target_registration[:provider],
+          provider: target_adapter.provider,
           api: target_adapter.stream_api_name,
           model_definition: model
         )
@@ -32,7 +22,7 @@ module LlmGateway
           normalize_messages(message),
           tools: tools,
           system: normalize_system(system),
-          **options.merge(model: compatibility.provider_model_key)
+          **options.merge(model: target_adapter.class.provider_model_key(model))
         ) do |chunk|
           mapper.map(chunk, &block)
         end
@@ -40,26 +30,11 @@ module LlmGateway
         mapper.result
       end
 
-      def validate_model!(model, registration = target_registration())
-        if model.provider != registration[:provider]
-          raise LlmGateway::Errors::ModelProviderMismatch,
-            "Model provider #{model.provider.inspect} does not match proxy target provider #{registration[:provider].inspect}"
-        end
-
-        compatibility = LlmGateway.models.compatibility_for(model, adapter: registration[:id])
-        unless compatibility
-          raise LlmGateway::Errors::UnsupportedModelForAdapter,
-            "Model #{model.provider}/#{model.id} is not supported by adapter #{registration[:id]}"
-        end
-
-        compatibility
+      def resolve_model!(model)
+        client.adapter_class.resolve_model!(model)
       end
 
       private
-
-      def target_registration
-        LlmGateway::AdapterRegistry.fetch(client.target_provider)
-      end
 
       def normalize_system(system)
         if system.nil?
@@ -77,5 +52,8 @@ module LlmGateway
         message.is_a?(String) ? [ { role: "user", content: message } ] : message
       end
     end
+
+    extend LlmGateway::Adapters::DefinitionFacade
+    define_adapter Adapter
   end
 end

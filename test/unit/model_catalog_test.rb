@@ -3,6 +3,19 @@
 require "test_helper"
 
 class ModelCatalogTest < Test
+  class RestrictedAliasAdapter < LlmGateway::Adapters::Adapter
+    provider "openai"
+    client_class LlmGateway::Clients::OpenAI
+
+    def self.supports_model?(model)
+      model.provider == provider && model.id == "gpt-5.4"
+    end
+
+    def self.provider_model_key(model)
+      "wire/#{model.id}"
+    end
+  end
+
   class CatalogOpenAIClient < LlmGateway::Clients::OpenAI
     attr_reader :requested_model
 
@@ -16,7 +29,10 @@ class ModelCatalogTest < Test
         event: "response.completed",
         data: {
           response: {
-            id: "resp_1", model: model, status: "completed", output: [],
+            id: "resp_1",
+            model: model,
+            status: "completed",
+            output: [],
             usage: { input_tokens: 13, output_tokens: 9 }
           }
         }
@@ -28,9 +44,9 @@ class ModelCatalogTest < Test
     model = LlmGateway.models.fetch("openai/gpt-5.4")
 
     assert_same model, LlmGateway.models.fetch(provider: "openai", id: "gpt-5.4")
-    assert LlmGateway.models.supported_by?(model, adapter: "openai-responses")
-    assert LlmGateway.models.supported_by?(model, adapter: "openai-completions")
-    assert LlmGateway.models.supported_by?(model, adapter: "openai-codex")
+    assert LlmGateway::Adapters::OpenAI::ResponsesAdapter.supports_model?(model)
+    assert LlmGateway::Adapters::OpenAI::ChatCompletionsAdapter.supports_model?(model)
+    assert LlmGateway::Adapters::OpenAICodex::ResponsesAdapter.supports_model?(model)
     assert_raises(KeyError) { LlmGateway.models.fetch("openai-responses/gpt-5.4") }
   end
 
@@ -39,30 +55,34 @@ class ModelCatalogTest < Test
 
     assert_equal "openai/gpt-oss-120b", model.id
     assert_same model, LlmGateway.models.fetch("groq/openai/gpt-oss-120b")
-    assert LlmGateway.models.supported_by?(model, adapter: "groq-completions")
-    refute LlmGateway.models.supported_by?(model, adapter: "openai-responses")
+    assert LlmGateway::Adapters::Groq::ChatCompletionsAdapter.supports_model?(model)
+    refute LlmGateway::Adapters::OpenAI::ResponsesAdapter.supports_model?(model)
   end
 
-  test "catalog supports explicit compatibility records" do
+  test "catalog contains model definitions without adapter compatibility records" do
     definition = LlmGateway::Models::Definition.new(provider: "test", id: "model")
-    compatibility = LlmGateway::Models::Compatibility.new(
-      provider: "test", model_id: "model", adapter_id: "test-adapter", provider_model_key: "wire-model"
-    )
-    catalog = LlmGateway::Models::Catalog.new([ definition ], [ compatibility ])
+    catalog = LlmGateway::Models::Catalog.new([ definition ])
 
     assert_same definition, catalog.fetch(provider: "test", id: "model")
-    assert_equal "wire-model", catalog.compatibility_for(definition, adapter: "test-adapter").provider_model_key
-    assert catalog.validate_compatibility!(definition, provider: "test", adapter: "test-adapter")
-    assert_equal "wire-model", catalog.provider_model_key_for!(definition, provider: "test", adapter: "test-adapter")
-    assert catalog.supported_by?(definition, adapter: "test-adapter")
-    refute catalog.supported_by?(definition, adapter: "other")
+    assert_equal [ definition ], catalog.all(provider: "test")
   end
 
-  test "adapter sends compatibility request model string and adds numeric cost" do
+  test "adapter classes own model restrictions and provider model keys" do
+    supported = LlmGateway.models.fetch("openai/gpt-5.4")
+    unsupported = LlmGateway.models.fetch("openai/gpt-5.1")
+
+    assert RestrictedAliasAdapter.supports_model?(supported)
+    refute RestrictedAliasAdapter.supports_model?(unsupported)
+    assert_equal "wire/gpt-5.4", RestrictedAliasAdapter.provider_model_key(supported)
+    assert_same supported, RestrictedAliasAdapter.model_for_provider_model_key("wire/gpt-5.4")
+    assert_raises(LlmGateway::Errors::UnsupportedModelForAdapter) do
+      RestrictedAliasAdapter.resolve_model!(unsupported)
+    end
+  end
+
+  test "adapter sends provider model string and adds numeric cost" do
     client = CatalogOpenAIClient.new(api_key: "test-key")
-    adapter = LlmGateway::Adapters::OpenAI::ResponsesAdapter.new(
-      client, provider: "openai", adapter_id: "openai-responses"
-    )
+    adapter = LlmGateway::Adapters::OpenAI::ResponsesAdapter.new(client)
     model = LlmGateway.models.fetch("openai/gpt-5.5")
 
     result = adapter.stream("Hi", model: model)
@@ -73,8 +93,18 @@ class ModelCatalogTest < Test
     assert_equal BigDecimal("0.000335"), result.usage.dig(:cost, :total)
   end
 
+  test "adapter canonicalizes model metadata before calculating cost" do
+    client = CatalogOpenAIClient.new(api_key: "test-key")
+    adapter = LlmGateway::Adapters::OpenAI::ResponsesAdapter.new(client)
+    model = LlmGateway::Models::Definition.new(provider: "openai", id: "gpt-5.5")
+
+    result = adapter.stream("Hi", model: model)
+
+    assert_equal BigDecimal("0.000335"), result.usage.dig(:cost, :total)
+  end
+
   test "adapter rejects provider mismatches and unsupported combinations" do
-    responses = LlmGateway.build_adapter(adapter: "openai-responses", api_key: "test")
+    responses = LlmGateway::Adapters::OpenAI::Responses.build(api_key: "test")
 
     assert_raises(LlmGateway::Errors::ModelProviderMismatch) do
       responses.stream("Hi", model: LlmGateway.models.fetch("anthropic/claude-sonnet-4-20250514"))
@@ -88,7 +118,10 @@ class ModelCatalogTest < Test
     definition = LlmGateway::Models::Definition.new(
       provider: "test", id: "tiered",
       pricing: {
-        input: "1", output: "2", cache_read: "0.5", cache_write: "1.25",
+        input: "1",
+        output: "2",
+        cache_read: "0.5",
+        cache_write: "1.25",
         tiers: [ { input_tokens_above: 10, input: "3", output: "4", cache_read: "1.5", cache_write: "2.5" } ]
       }
     )

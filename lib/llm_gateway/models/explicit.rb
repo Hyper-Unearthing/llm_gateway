@@ -17,15 +17,6 @@ module LlmGateway
           pricing: { input: "3", output: "15", cache_read: "0.3", cache_write: "3.75" }
         }
       ].freeze
-
-      COMPATIBILITIES = [
-        {
-          provider: "anthropic",
-          model_id: "claude-sonnet-4-20250514",
-          adapter_id: "anthropic-messages",
-          provider_model_key: "claude-sonnet-4-20250514"
-        }
-      ].freeze
     end
   end
 end

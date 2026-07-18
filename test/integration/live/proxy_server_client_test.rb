@@ -23,7 +23,7 @@ class ProxyServerClientTest < Test
       with_proxy_server(provider:, oauth:) do |url|
         client = LlmGateway::Proxy::Client.new(
           url: url,
-          target_provider: provider,
+          adapter: LlmGateway::Proxy::Protocol.load_adapter(provider),
           target_config: {}
         )
         adapter = LlmGateway::Proxy::Adapter.new(client)
@@ -31,8 +31,8 @@ class ProxyServerClientTest < Test
         events = []
         stream_options = { max_completion_tokens: 20, temperature: 0 }.merge(options)
 
-        registration = LlmGateway::AdapterRegistry.fetch(provider)
-        definition = LlmGateway.models.fetch(provider: registration[:provider], id: model)
+        adapter_class = LlmGateway::Proxy::Protocol.load_adapter(provider)
+        definition = LlmGateway.models.fetch(provider: adapter_class.provider, id: model)
         response = adapter.stream(
           "Reply with exactly these two words: proxy ok",
           model: definition,

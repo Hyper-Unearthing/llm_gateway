@@ -12,9 +12,10 @@ module LlmGateway
         request = JSON.parse(env["rack.input"].read).deep_symbolize_keys
         options = request[:options] || {}
         provider_model_key = request.key?(:model) ? request[:model] : options.delete(:model)
-        registration = registration_for(request.fetch(:provider))
-        model = resolve_model!(registration, provider_model_key)
-        adapter = build_adapter(request, registration)
+        adapter_name = request.fetch(:adapter)
+        adapter_class = Protocol.load_adapter(adapter_name)
+        model = resolve_model!(adapter_class, adapter_name, provider_model_key)
+        adapter = adapter_class.build(**(request[:config] || {}))
 
         body = Enumerator.new do |yielder|
           adapter.raw_stream(
@@ -39,25 +40,11 @@ module LlmGateway
 
       private
 
-      def registration_for(id)
-        LlmGateway::AdapterRegistry.fetch(id)
-      end
-
-      def resolve_model!(registration, provider_model_key)
+      def resolve_model!(adapter_class, adapter_name, provider_model_key)
         raise ArgumentError, "Proxy request must include a model" if provider_model_key.nil?
 
-        LlmGateway.models.catalog.model_for_provider_model_key(
-          provider: registration[:provider],
-          adapter: registration[:id],
-          provider_model_key: provider_model_key
-        ) || raise(KeyError, "Unknown model for #{registration[:id]}: #{provider_model_key}")
-      end
-
-      def build_adapter(request, registration)
-        LlmGateway.build_adapter(
-          adapter: registration[:id],
-          **(request[:config] || {})
-        )
+        adapter_class.model_for_provider_model_key(provider_model_key) ||
+          raise(KeyError, "Unknown model for #{adapter_name}: #{provider_model_key}")
       end
 
       def encode_sse(chunk)

@@ -75,7 +75,6 @@ class FileSessionManagerTest < Test
 
       assert_equal "groq", persisted["provider"]
       assert_equal "openai/gpt-oss-120b", persisted["model_id"]
-      refute persisted.key?("adapter_id")
       assert_same model, LlmGateway::Agents::FileSessionManager.new(path).current_configuration.model
     end
   end

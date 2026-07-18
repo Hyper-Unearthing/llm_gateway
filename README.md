@@ -116,15 +116,35 @@ Provider-specific options are maintained as explicit allowlists in the option ma
 
 Common provider-native options you may pass directly when allowed include OpenAI `prompt_cache_key` / `prompt_cache_retention` and Groq `reasoning_effort` / `reasoning_format`. Prefer the managed options above when you want portable behavior across providers.
 
+### Building adapters
+
+Prefer public adapter definitions so application code does not depend on string IDs or know which client class an adapter needs:
+
+```ruby
+LlmGateway::Adapters::OpenAI::Responses.build(api_key: ENV.fetch("OPENAI_API_KEY"))
+LlmGateway::Adapters::OpenAI::ChatCompletions.build(api_key: ENV.fetch("OPENAI_API_KEY"))
+LlmGateway::Adapters::Anthropic::Messages.build(api_key: ENV.fetch("ANTHROPIC_API_KEY"))
+LlmGateway::Adapters::Groq::ChatCompletions.build(api_key: ENV.fetch("GROQ_API_KEY"))
+LlmGateway::Adapters::OpenAICodex::Responses.build(api_key: oauth_token)
+```
+
+Adapter implementation classes provide the lower-level typed API when needed:
+
+```ruby
+adapter_class = LlmGateway::Adapters::OpenAI::ResponsesAdapter
+adapter_class.build(api_key: ENV.fetch("OPENAI_API_KEY"))
+```
+
+Runtime adapter identity is the implementation class itself. Stable string names exist only in the proxy wire protocol, where `LlmGateway::Proxy::Protocol` maps them to allowlisted adapter classes.
+
 ## Quick Start: Streaming (all events)
 
 ```ruby
 require "llm_gateway"
 require "json"
 
-# Build an API adapter directly. It contains transport configuration, not a model.
-adapter = LlmGateway.build_adapter(
-  adapter: "openai-responses", # or anthropic-messages, groq-completions, ...
+# Select the API by its public definition and supply only transport/auth config.
+adapter = LlmGateway::Adapters::OpenAI::Responses.build(
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 tools = [
@@ -242,11 +262,11 @@ Adapters require a provider-level model definition. Fetch by qualified reference
 model = LlmGateway.models.fetch("openai/gpt-5.5")
 groq_model = LlmGateway.models.fetch(provider: "groq", id: "openai/gpt-oss-120b")
 
-LlmGateway.models.supported_by?(model, adapter: "openai-responses")
-LlmGateway.models.compatibility_for(model, adapter: "openai-responses")
+LlmGateway::Adapters::OpenAI::ResponsesAdapter.supports_model?(model)
+LlmGateway::Adapters::OpenAI::ResponsesAdapter.provider_model_key(model)
 ```
 
-A definition is unique by provider/model ID and can be shared by multiple adapters. Adapter-specific support and wire model IDs are held in compatibility records. Adapter/API aliases such as `openai-responses/gpt-5.5` are not model references. Run `rake models:generate` to refresh the catalog.
+A definition is unique by provider/model ID and can be shared by multiple adapters. Adapter classes own model support and provider model-key behavior; the default supports catalog models from the adapter's provider and sends the catalog model ID unchanged. Adapter/API aliases such as `openai-responses/gpt-5.5` are not model references. Run `rake models:generate` to refresh the catalog.
 
 ### Stream API without handling events (final result only)
 
@@ -255,8 +275,7 @@ If you only care about the final `AssistantMessage`, call `stream` without a blo
 ```ruby
 require "llm_gateway"
 
-adapter = LlmGateway.build_adapter(
-  adapter: "openai-responses",
+adapter = LlmGateway::Adapters::OpenAI::Responses.build(
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 
@@ -292,8 +311,7 @@ class AddTool < LlmGateway::Tool
 end
 
 class MathPrompt < LlmGateway::Prompt
-  self.adapter = LlmGateway.build_adapter(
-    adapter: "openai-responses",
+  self.adapter = LlmGateway::Adapters::OpenAI::Responses.build(
     api_key: ENV.fetch("OPENAI_API_KEY")
   )
   self.model = LlmGateway.models.fetch("openai/gpt-5.4")
@@ -369,8 +387,7 @@ Use `stream` without a block, inspect returned `tool_use` blocks, execute tools,
 require "llm_gateway"
 require "json"
 
-adapter = LlmGateway.build_adapter(
-  adapter: "openai-responses",
+adapter = LlmGateway::Adapters::OpenAI::Responses.build(
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 weather_tool = {
@@ -457,8 +474,15 @@ anthropic_code_execution = {
   name: "code_execution"
 }
 
-tools = adapter == "openai-responses" ? [openai_code_interpreter] : [anthropic_code_execution]
-response = adapter.stream("Create a chart from this CSV and save it as PNG.", tools: tools) do |event|
+adapter = LlmGateway::Adapters::OpenAI::Responses.build(
+  api_key: ENV.fetch("OPENAI_API_KEY")
+)
+model = LlmGateway.models.fetch("openai/gpt-5.4")
+tools = [openai_code_interpreter]
+
+# For Anthropic, build Adapters::Anthropic::Messages, fetch an Anthropic model,
+# and use [anthropic_code_execution] instead.
+response = adapter.stream("Create a chart from this CSV and save it as PNG.", model: model, tools: tools) do |event|
   case event.type
   when :tool_start
     puts "server tool: #{event.name}" if event.tool_type == "server_tool_use"
@@ -527,8 +551,7 @@ class WeatherHarness < LlmGateway::Agents::Harness
   end
 end
 
-adapter = LlmGateway.build_adapter(
-  adapter: "openai-responses",
+adapter = LlmGateway::Adapters::OpenAI::Responses.build(
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 
@@ -641,8 +664,7 @@ Send images by including an `image` content block in a user message.
 require "llm_gateway"
 require "base64"
 
-adapter = LlmGateway.build_adapter(
-  adapter: "openai-responses",
+adapter = LlmGateway::Adapters::OpenAI::Responses.build(
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 image_b64 = Base64.strict_encode64(File.binread("./chart.png"))
@@ -676,8 +698,7 @@ You can request higher-effort reasoning by passing `reasoning:` to `stream`.
 ```ruby
 require "llm_gateway"
 
-adapter = LlmGateway.build_adapter(
-  adapter: "openai-responses",
+adapter = LlmGateway::Adapters::OpenAI::Responses.build(
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 
@@ -785,8 +806,7 @@ Why this matters:
 require "llm_gateway"
 require "json"
 
-adapter = LlmGateway.build_adapter(
-  adapter: "openai-responses",
+adapter = LlmGateway::Adapters::OpenAI::Responses.build(
   api_key: ENV.fetch("OPENAI_API_KEY")
 )
 # Build context (transcript)
@@ -944,8 +964,7 @@ current_access_token = manager.access_token
 Build the provider with the current access token:
 
 ```ruby
-adapter = LlmGateway.build_adapter(
-  adapter: "openai-codex",
+adapter = LlmGateway::Adapters::OpenAICodex::Responses.build(
   api_key: current_access_token
 )
 

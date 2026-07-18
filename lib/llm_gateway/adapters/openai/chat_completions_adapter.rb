@@ -12,8 +12,14 @@ module LlmGateway
   module Adapters
     module OpenAI
       class ChatCompletionsAdapter < Adapter
+        provider "openai"
+        client_class LlmGateway::Clients::OpenAI
+
         include ActsLikeOpenAIChatCompletions
       end
+
+      ChatCompletions.extend(DefinitionFacade)
+      ChatCompletions.define_adapter(ChatCompletionsAdapter)
     end
   end
 end
