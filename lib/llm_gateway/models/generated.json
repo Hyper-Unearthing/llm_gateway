@@ -10,9 +10,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "10",
         "output": "50",
@@ -29,9 +38,18 @@
       "max_output_tokens": 64000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1",
         "output": "5",
@@ -48,9 +66,18 @@
       "max_output_tokens": 64000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1",
         "output": "5",
@@ -67,9 +94,18 @@
       "max_output_tokens": 32000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "15",
         "output": "75",
@@ -86,9 +122,18 @@
       "max_output_tokens": 32000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "15",
         "output": "75",
@@ -105,9 +150,18 @@
       "max_output_tokens": 64000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "5",
         "output": "25",
@@ -124,9 +178,18 @@
       "max_output_tokens": 64000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "5",
         "output": "25",
@@ -143,9 +206,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "5",
         "output": "25",
@@ -162,9 +234,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "5",
         "output": "25",
@@ -181,9 +262,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "5",
         "output": "25",
@@ -200,9 +290,18 @@
       "max_output_tokens": 64000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "3",
         "output": "15",
@@ -219,9 +318,18 @@
       "max_output_tokens": 64000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "3",
         "output": "15",
@@ -238,9 +346,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "3",
         "output": "15",
@@ -257,14 +374,103 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "2",
         "output": "10",
         "cache_read": "0.2",
         "cache_write": "2.5"
+      }
+    },
+    {
+      "provider": "groq",
+      "id": "canopylabs/orpheus-arabic-saudi",
+      "name": "Canopy Labs Orpheus Arabic Saudi",
+      "source": "models_dev",
+      "context_window": 4000,
+      "max_output_tokens": 50000,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "audio"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      }
+    },
+    {
+      "provider": "groq",
+      "id": "canopylabs/orpheus-v1-english",
+      "name": "Canopy Labs Orpheus V1 English",
+      "source": "models_dev",
+      "context_window": 4000,
+      "max_output_tokens": 50000,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "audio"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      }
+    },
+    {
+      "provider": "groq",
+      "id": "groq/compound",
+      "name": "Compound",
+      "source": "models_dev",
+      "context_window": 131072,
+      "max_output_tokens": 8192,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      }
+    },
+    {
+      "provider": "groq",
+      "id": "groq/compound-mini",
+      "name": "Compound Mini",
+      "source": "models_dev",
+      "context_window": 131072,
+      "max_output_tokens": 8192,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
       }
     },
     {
@@ -277,7 +483,15 @@
       "input_modalities": [
         "text"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": null,
+        "reasoning": false
+      },
       "pricing": {
         "input": "0.05",
         "output": "0.08",
@@ -295,7 +509,15 @@
       "input_modalities": [
         "text"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": null,
+        "reasoning": false
+      },
       "pricing": {
         "input": "0.59",
         "output": "0.79",
@@ -314,10 +536,70 @@
         "text",
         "image"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": false
+      },
       "pricing": {
         "input": "0.11",
         "output": "0.34",
+        "cache_read": "0",
+        "cache_write": "0"
+      }
+    },
+    {
+      "provider": "groq",
+      "id": "meta-llama/llama-prompt-guard-2-22m",
+      "name": "Llama Prompt Guard 2 22M",
+      "source": "models_dev",
+      "context_window": 512,
+      "max_output_tokens": 512,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      },
+      "pricing": {
+        "input": "0.03",
+        "output": "0.03",
+        "cache_read": "0",
+        "cache_write": "0"
+      }
+    },
+    {
+      "provider": "groq",
+      "id": "meta-llama/llama-prompt-guard-2-86m",
+      "name": "Prompt Guard 2 86M",
+      "source": "models_dev",
+      "context_window": 512,
+      "max_output_tokens": 512,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      },
+      "pricing": {
+        "input": "0.04",
+        "output": "0.04",
         "cache_read": "0",
         "cache_write": "0"
       }
@@ -332,7 +614,15 @@
       "input_modalities": [
         "text"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "0.15",
         "output": "0.6",
@@ -350,7 +640,15 @@
       "input_modalities": [
         "text"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "0.075",
         "output": "0.3",
@@ -368,7 +666,15 @@
       "input_modalities": [
         "text"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "0.075",
         "output": "0.3",
@@ -386,10 +692,106 @@
       "input_modalities": [
         "text"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": null,
+        "reasoning": true
+      },
       "pricing": {
         "input": "0.29",
         "output": "0.59",
+        "cache_read": "0",
+        "cache_write": "0"
+      }
+    },
+    {
+      "provider": "groq",
+      "id": "whisper-large-v3",
+      "name": "Whisper",
+      "source": "models_dev",
+      "context_window": 0,
+      "max_output_tokens": 0,
+      "input_modalities": [
+        "audio"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      }
+    },
+    {
+      "provider": "groq",
+      "id": "whisper-large-v3-turbo",
+      "name": "Whisper Large V3 Turbo",
+      "source": "models_dev",
+      "context_window": 0,
+      "max_output_tokens": 0,
+      "input_modalities": [
+        "audio"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      }
+    },
+    {
+      "provider": "openai",
+      "id": "chatgpt-image-latest",
+      "name": "chatgpt-image-latest",
+      "source": "models_dev",
+      "context_window": 0,
+      "max_output_tokens": 0,
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "text",
+        "image"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      }
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-3.5-turbo",
+      "name": "GPT-3.5-turbo",
+      "source": "models_dev",
+      "context_window": 16385,
+      "max_output_tokens": 4096,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": false,
+        "structured_output": false,
+        "reasoning": false
+      },
+      "pricing": {
+        "input": "0.5",
+        "output": "1.5",
         "cache_read": "0",
         "cache_write": "0"
       }
@@ -404,7 +806,15 @@
       "input_modalities": [
         "text"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": false,
+        "reasoning": false
+      },
       "pricing": {
         "input": "30",
         "output": "60",
@@ -423,7 +833,15 @@
         "text",
         "image"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": false,
+        "reasoning": false
+      },
       "pricing": {
         "input": "10",
         "output": "30",
@@ -440,9 +858,18 @@
       "max_output_tokens": 32768,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": false
+      },
       "pricing": {
         "input": "2",
         "output": "8",
@@ -459,9 +886,18 @@
       "max_output_tokens": 32768,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": false
+      },
       "pricing": {
         "input": "0.4",
         "output": "1.6",
@@ -480,7 +916,15 @@
         "text",
         "image"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": false
+      },
       "pricing": {
         "input": "0.1",
         "output": "0.4",
@@ -497,9 +941,18 @@
       "max_output_tokens": 16384,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": false
+      },
       "pricing": {
         "input": "2.5",
         "output": "10",
@@ -518,7 +971,15 @@
         "text",
         "image"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": false
+      },
       "pricing": {
         "input": "5",
         "output": "15",
@@ -537,7 +998,15 @@
         "text",
         "image"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": false
+      },
       "pricing": {
         "input": "2.5",
         "output": "10",
@@ -556,7 +1025,15 @@
         "text",
         "image"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": false
+      },
       "pricing": {
         "input": "2.5",
         "output": "10",
@@ -573,9 +1050,18 @@
       "max_output_tokens": 16384,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": false
+      },
       "pricing": {
         "input": "0.15",
         "output": "0.6",
@@ -594,7 +1080,42 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
+      "pricing": {
+        "input": "1.25",
+        "output": "10",
+        "cache_read": "0.125",
+        "cache_write": "0"
+      }
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5-chat-latest",
+      "name": "GPT-5 Chat (latest)",
+      "source": "models_dev",
+      "context_window": 400000,
+      "max_output_tokens": 128000,
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": false,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.25",
         "output": "10",
@@ -613,7 +1134,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.25",
         "output": "10",
@@ -632,7 +1161,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "0.25",
         "output": "2",
@@ -651,7 +1188,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "0.05",
         "output": "0.4",
@@ -670,7 +1215,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "15",
         "output": "120",
@@ -689,7 +1242,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.25",
         "output": "10",
@@ -708,7 +1269,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.25",
         "output": "10",
@@ -727,7 +1296,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.25",
         "output": "10",
@@ -746,7 +1323,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.25",
         "output": "10",
@@ -765,7 +1350,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "0.25",
         "output": "2",
@@ -784,7 +1377,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.75",
         "output": "14",
@@ -803,7 +1404,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.75",
         "output": "14",
@@ -820,9 +1429,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.75",
         "output": "14",
@@ -841,7 +1459,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": false,
+        "reasoning": true
+      },
       "pricing": {
         "input": "21",
         "output": "168",
@@ -860,7 +1486,15 @@
         "text",
         "image"
       ],
-      "reasoning": false,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": false
+      },
       "pricing": {
         "input": "1.75",
         "output": "14",
@@ -877,9 +1511,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.75",
         "output": "14",
@@ -896,9 +1539,18 @@
       "max_output_tokens": 32000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.75",
         "output": "14",
@@ -915,9 +1567,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "2.5",
         "output": "15",
@@ -945,7 +1606,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "0.75",
         "output": "4.5",
@@ -964,7 +1633,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "0.2",
         "output": "1.25",
@@ -983,7 +1660,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": false,
+        "reasoning": true
+      },
       "pricing": {
         "input": "30",
         "output": "180",
@@ -1009,9 +1694,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "5",
         "output": "30",
@@ -1037,9 +1731,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "30",
         "output": "180",
@@ -1065,9 +1768,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "5",
         "output": "30",
@@ -1084,9 +1796,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1",
         "output": "6",
@@ -1112,9 +1833,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "5",
         "output": "30",
@@ -1140,9 +1870,18 @@
       "max_output_tokens": 128000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "2.5",
         "output": "15",
@@ -1161,6 +1900,98 @@
     },
     {
       "provider": "openai",
+      "id": "gpt-image-1",
+      "name": "gpt-image-1",
+      "source": "models_dev",
+      "context_window": 0,
+      "max_output_tokens": 0,
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "image"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      }
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-image-1-mini",
+      "name": "gpt-image-1-mini",
+      "source": "models_dev",
+      "context_window": 0,
+      "max_output_tokens": 0,
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "text",
+        "image"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      }
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-image-1.5",
+      "name": "gpt-image-1.5",
+      "source": "models_dev",
+      "context_window": 0,
+      "max_output_tokens": 0,
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "text",
+        "image"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      }
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-image-2",
+      "name": "gpt-image-2",
+      "source": "models_dev",
+      "context_window": 0,
+      "max_output_tokens": 0,
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "image"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      },
+      "pricing": {
+        "input": "5",
+        "output": "30",
+        "cache_read": "1.25",
+        "cache_write": "0"
+      }
+    },
+    {
+      "provider": "openai",
       "id": "gpt-realtime-2.1",
       "name": "GPT-Realtime-2.1",
       "source": "models_dev",
@@ -1168,9 +1999,19 @@
       "max_output_tokens": 32000,
       "input_modalities": [
         "text",
+        "audio",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text",
+        "audio"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": false,
+        "reasoning": true
+      },
       "pricing": {
         "input": "4",
         "output": "24",
@@ -1187,9 +2028,18 @@
       "max_output_tokens": 100000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "15",
         "output": "60",
@@ -1208,7 +2058,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "150",
         "output": "600",
@@ -1225,9 +2083,18 @@
       "max_output_tokens": 100000,
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "2",
         "output": "8",
@@ -1246,7 +2113,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": null,
+        "reasoning": true
+      },
       "pricing": {
         "input": "10",
         "output": "40",
@@ -1264,7 +2139,15 @@
       "input_modalities": [
         "text"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.1",
         "output": "4.4",
@@ -1283,7 +2166,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "20",
         "output": "80",
@@ -1302,7 +2193,15 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
       "pricing": {
         "input": "1.1",
         "output": "4.4",
@@ -1321,11 +2220,97 @@
         "text",
         "image"
       ],
-      "reasoning": true,
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": null,
+        "reasoning": true
+      },
       "pricing": {
         "input": "2",
         "output": "8",
         "cache_read": "0.5",
+        "cache_write": "0"
+      }
+    },
+    {
+      "provider": "openai",
+      "id": "text-embedding-3-large",
+      "name": "text-embedding-3-large",
+      "source": "models_dev",
+      "context_window": 8191,
+      "max_output_tokens": 3072,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      },
+      "pricing": {
+        "input": "0.13",
+        "output": "0",
+        "cache_read": "0",
+        "cache_write": "0"
+      }
+    },
+    {
+      "provider": "openai",
+      "id": "text-embedding-3-small",
+      "name": "text-embedding-3-small",
+      "source": "models_dev",
+      "context_window": 8191,
+      "max_output_tokens": 1536,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      },
+      "pricing": {
+        "input": "0.02",
+        "output": "0",
+        "cache_read": "0",
+        "cache_write": "0"
+      }
+    },
+    {
+      "provider": "openai",
+      "id": "text-embedding-ada-002",
+      "name": "text-embedding-ada-002",
+      "source": "models_dev",
+      "context_window": 8192,
+      "max_output_tokens": 1536,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": false,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      },
+      "pricing": {
+        "input": "0.1",
+        "output": "0",
+        "cache_read": "0",
         "cache_write": "0"
       }
     }

@@ -114,6 +114,82 @@ class ModelCatalogTest < Test
     end
   end
 
+  test "catalog includes text generation models without tool calling" do
+    model = LlmGateway.models.fetch("openai/gpt-3.5-turbo")
+
+    assert model.supports?(:text_generation)
+    refute model.supports?(:tool_calling)
+    assert model.supports_input?(:text)
+    assert model.supports_output?(:text)
+  end
+
+  test "model capabilities are tri-state and modalities are queryable" do
+    definition = LlmGateway::Models::Definition.new(
+      provider: "test",
+      id: "capabilities",
+      input_modalities: %i[text image],
+      output_modalities: %i[text],
+      capabilities: {
+        text_generation: true,
+        tool_calling: false,
+        structured_output: nil
+      }
+    )
+
+    assert_equal true, definition.supports?(:text_generation)
+    assert_equal false, definition.supports?(:tool_calling)
+    assert_nil definition.supports?(:structured_output)
+    assert_nil definition.supports?(:reasoning)
+    assert definition.supports_input?("image")
+    refute definition.supports_output?(:image)
+    assert_raises(ArgumentError) do
+      LlmGateway::Models::Definition.new(
+        provider: "test", id: "invalid-capability", capabilities: { tool_calling: "maybe" }
+      )
+    end
+  end
+
+  test "model definitions reject invalid structural values" do
+    assert_raises(ArgumentError) { LlmGateway::Models::Definition.new(provider: "", id: "model") }
+    assert_raises(ArgumentError) { LlmGateway::Models::Definition.new(provider: "test", id: "  ") }
+    assert_raises(ArgumentError) do
+      LlmGateway::Models::Definition.new(provider: "test", id: "model", context_window: -1)
+    end
+    assert_raises(ArgumentError) do
+      LlmGateway::Models::Definition.new(provider: "test", id: "model", max_output_tokens: -1)
+    end
+    assert_raises(ArgumentError) do
+      LlmGateway::Models::Definition.new(provider: "test", id: "model", context_window: 1.5)
+    end
+    assert_raises(ArgumentError) do
+      LlmGateway::Models::Definition.new(
+        provider: "test", id: "model", pricing: { input: "-1", output: "2" }
+      )
+    end
+    assert_raises(ArgumentError) do
+      LlmGateway::Models::Definition.new(
+        provider: "test",
+        id: "model",
+        pricing: {
+          input: "1",
+          output: "2",
+          tiers: [ { input_tokens_above: -1, input: "1", output: "2" } ]
+        }
+      )
+    end
+    assert_raises(ArgumentError) do
+      LlmGateway::Models::Definition.new(
+        provider: "test",
+        id: "model",
+        pricing: {
+          input: "1",
+          output: "2",
+          tiers: [ { input_tokens_above: 10.5, input: "1", output: "2" } ]
+        }
+      )
+    end
+  end
+
   test "cost calculator uses normalized buckets and pricing tiers" do
     definition = LlmGateway::Models::Definition.new(
       provider: "test", id: "tiered",

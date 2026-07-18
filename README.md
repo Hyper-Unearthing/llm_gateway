@@ -262,11 +262,18 @@ Adapters require a provider-level model definition. Fetch by qualified reference
 model = LlmGateway.models.fetch("openai/gpt-5.5")
 groq_model = LlmGateway.models.fetch(provider: "groq", id: "openai/gpt-oss-120b")
 
+model.supports?(:text_generation) # true, false, or nil when unknown
+model.supports?(:tool_calling)
+model.supports_input?(:image)
+model.supports_output?(:text)
+
 LlmGateway::Adapters::OpenAI::ResponsesAdapter.supports_model?(model)
 LlmGateway::Adapters::OpenAI::ResponsesAdapter.provider_model_key(model)
 ```
 
-A definition is unique by provider/model ID and can be shared by multiple adapters. Adapter classes own model support and provider model-key behavior; the default supports catalog models from the adapter's provider and sends the catalog model ID unchanged. Adapter/API aliases such as `openai-responses/gpt-5.5` are not model references. Run `rake models:generate` to refresh the catalog.
+The built-in catalog includes all models returned by models.dev. Capabilities are metadata rather than local request validation; unsupported model/API, tool, modality, and reasoning combinations are currently left for the provider API to reject.
+
+A definition is unique by provider/model ID and can be shared by multiple adapters. Adapter classes own model support and provider model-key behavior; the default supports catalog models from the adapter's provider and sends the catalog model ID unchanged. Adapter/API aliases such as `openai-responses/gpt-5.5` are not model references. Run `rake models:generate` to refresh the bundled catalog.
 
 ### Stream API without handling events (final result only)
 

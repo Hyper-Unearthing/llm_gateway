@@ -19,6 +19,7 @@ OPENAI_LONG_CONTEXT_PRICING_MODEL_IDS = %w[
 ].freeze
 
 PROVIDERS = %w[anthropic openai groq].freeze
+NON_TEXT_GENERATION_FAMILIES = %w[gpt-image text-embedding whisper].freeze
 
 source =
   if ARGV.first
@@ -54,10 +55,21 @@ def pricing_for(cost, provider:, id:)
   )
 end
 
-def definitions_for(data, provider:)
-  data.fetch(provider).fetch("models").filter_map do |id, model|
-    next unless model["tool_call"] == true
+def source_capability(model, key)
+  value = model[key]
+  value if value == true || value == false
+end
 
+def text_generation_capability(model)
+  return false if NON_TEXT_GENERATION_FAMILIES.include?(model["family"])
+
+  input_modalities = Array(model.dig("modalities", "input"))
+  output_modalities = Array(model.dig("modalities", "output"))
+  input_modalities.include?("text") && output_modalities.include?("text")
+end
+
+def definitions_for(data, provider:)
+  data.fetch(provider).fetch("models").map do |id, model|
     cost = model["cost"] || {}
     limit = model["limit"] || {}
     {
@@ -67,10 +79,14 @@ def definitions_for(data, provider:)
       source: :models_dev,
       context_window: limit["context"],
       max_output_tokens: limit["output"],
-      input_modalities: Array(model.dig("modalities", "input")).filter_map do |modality|
-        modality.to_sym if %w[text image].include?(modality)
-      end,
-      reasoning: model["reasoning"] == true,
+      input_modalities: Array(model.dig("modalities", "input")),
+      output_modalities: Array(model.dig("modalities", "output")),
+      capabilities: {
+        text_generation: text_generation_capability(model),
+        tool_calling: source_capability(model, "tool_call"),
+        structured_output: source_capability(model, "structured_output"),
+        reasoning: source_capability(model, "reasoning")
+      },
       pricing: pricing_for(cost, provider:, id:)
     }.compact
   end
