@@ -11,6 +11,7 @@ Provide a unified translation interface for LLM Provider API's, While allowing d
   - [Managed cross-provider options](#managed-cross-provider-options)
   - [Provider-specific options](#provider-specific-options)
 - [Quick Start: Streaming (all events)](#quick-start-streaming-all-events)
+  - [Model catalog](#model-catalog)
   - [Stream API without handling events (final result only)](#stream-api-without-handling-events-final-result-only)
 - [Prompt classes](#prompt-classes)
 - [Migration guides](#migration-guides)
@@ -29,6 +30,7 @@ Provide a unified translation interface for LLM Provider API's, While allowing d
   - [Streaming Thinking Content](#streaming-thinking-content)
   - [How reasoning values are mapped](#how-reasoning-values-are-mapped)
 - [Cross-Provider Handoffs](#cross-provider-handoffs)
+- [Proxy](#proxy)
 - [Context Serialization](#context-serialization)
   - [Message metadata](#message-metadata)
 - [OAuth](#oauth)
@@ -68,7 +70,7 @@ gem "llm_gateway"
 | OpenAI Codex | `openai-codex`            | OAuth   | Responses            |
 | Groq      | `groq-completions`           | API key | Chat Completions     |
 
-Provider configuration only contains auth/client settings (for example `api_key` or `access_token`). Pass the model per request with `model:` when calling `chat` or `stream`.
+Adapter configuration only contains auth/client settings (for example `api_key` or `access_token`). Pass a catalog model definition per `stream` request with `model:`.
 
 ## Stream Options
 
@@ -378,6 +380,7 @@ How `Prompt` works now:
 
 ## Migration guides
 
+- [0.10.0 migration guide](docs/migration_guide_0.10.0.md) — build adapters directly, pass catalog model definitions, and update `Prompt`, `Harness`, and proxy setup.
 - [0.9.0 migration guide](docs/migration_guide_0.9.0.md) — update custom tools to return `ToolCallResult`, migrate harness queue behavior, and update tool-result event consumers.
 - [0.7.0 migration guide](docs/migration_guide_0.7.0.md) — update `Prompt` subclasses for normalized `AssistantMessage` return values, automatic tool loops, `TOOLS`, and removed response hooks.
 - [0.6.0 migration guide](docs/migration_guide_0.6.0.md) — move `model_key` to per-request `model:`, update provider keys, update `Prompt` usage, and migrate stream event/usage changes.
@@ -799,7 +802,7 @@ Notes:
 
 Internally, `llm_gateway` handles handoffs by normalizing message history into a provider-agnostic shape, then remapping that shape to the target provider API on each request.
 
-What happens under the hood on `stream`/`chat`:
+What happens under the hood on `stream`:
 
 1. **Normalize input**
    - String input is converted to a user message.
@@ -824,6 +827,26 @@ Why this matters:
 - A transcript produced by one provider can be reused with another provider without manually rewriting message structure.
 - Tool calls/reasoning/text are exposed through a consistent API even when upstream event formats differ.
 - Your app can keep one conversation state format while switching providers for cost, latency, capability, or reliability reasons.
+
+## Proxy
+
+Use `LlmGateway::Proxy` to stream through a remote `LlmGateway::Proxy::Server`. Select the target with an adapter definition (not a provider string), and pass the target adapter's credentials in `target_config`:
+
+```ruby
+proxy = LlmGateway::Proxy.build(
+  url: "https://gateway.example.com",
+  api_key: ENV["PROXY_API_KEY"], # optional proxy authorization
+  adapter: LlmGateway::Adapters::OpenAI::Responses,
+  target_config: { api_key: ENV.fetch("OPENAI_API_KEY") }
+)
+
+response = proxy.stream(
+  "Hello",
+  model: LlmGateway.models.fetch("openai/gpt-5.4")
+)
+```
+
+The proxy wire protocol allowlists the built-in adapter definitions. A proxy request must include a catalog model; its provider must be supported by the selected target adapter.
 
 ## Context Serialization
 
