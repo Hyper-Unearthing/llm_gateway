@@ -11,7 +11,11 @@ module LlmGateway
   module Models
     class << self
       def catalog
-        @catalog ||= Catalog.new(definitions)
+        @catalog ||= begin
+          result = Catalog.new(definitions)
+          registered_definitions.each_value { |definition| result.register(definition, replace: true) }
+          result
+        end
       end
 
       def find(reference = nil, provider: nil, id: nil)
@@ -26,11 +30,32 @@ module LlmGateway
         catalog.all(provider:)
       end
 
+      def register(definition = nil, replace: false, **attributes)
+        if definition && attributes.any?
+          raise ArgumentError, "Pass either a model definition or definition attributes, not both"
+        end
+
+        definition ||= Definition.new(**{ source: :user }.merge(attributes))
+        unless definition.is_a?(Definition)
+          raise ArgumentError, "Expected a model definition, got #{definition.inspect}"
+        end
+
+        key = [ definition.provider, definition.id ]
+        catalog.register(definition, replace:)
+        registered_definitions[key] = definition
+        definition
+      end
+
+      # Rebuilds generated and explicit entries while retaining user registrations.
       def reset_catalog!
         @catalog = nil
       end
 
       private
+
+      def registered_definitions
+        @registered_definitions ||= {}
+      end
 
       def definitions
         generated_catalog.fetch(:definitions).map { |attributes| Definition.new(**attributes) } +

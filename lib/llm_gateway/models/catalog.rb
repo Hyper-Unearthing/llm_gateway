@@ -5,7 +5,20 @@ module LlmGateway
     class Catalog
       def initialize(definitions = [])
         @definitions = {}
-        definitions.each { |definition| register_definition(definition) }
+        definitions.each { |definition| register(definition) }
+      end
+
+      def register(definition, replace: false)
+        unless definition.is_a?(Definition)
+          raise ArgumentError, "Expected a model definition, got #{definition.inspect}"
+        end
+
+        key = [ definition.provider, definition.id ]
+        if @definitions.key?(key) && !replace
+          raise ArgumentError, "Duplicate model catalog entry: #{key.join("/")}"
+        end
+
+        @definitions[key] = definition
       end
 
       def find(reference = nil, provider: nil, id: nil)
@@ -27,13 +40,6 @@ module LlmGateway
       end
 
       private
-
-      def register_definition(definition)
-        key = [ definition.provider, definition.id ]
-        raise ArgumentError, "Duplicate model catalog entry: #{key.join("/")}" if @definitions.key?(key)
-
-        @definitions[key] = definition
-      end
 
       def lookup_key(reference, provider:, id:)
         if reference

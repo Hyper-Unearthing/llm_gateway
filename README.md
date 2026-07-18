@@ -273,6 +273,26 @@ LlmGateway::Adapters::OpenAI::ResponsesAdapter.provider_model_key(model)
 
 The built-in catalog includes all models returned by models.dev. Capabilities are metadata rather than local request validation; unsupported model/API, tool, modality, and reasoning combinations are currently left for the provider API to reject.
 
+Applications can register models released between catalog regenerations or models from custom providers. Duplicate provider/model IDs are rejected unless replacement is explicit:
+
+```ruby
+LlmGateway.models.register(
+  provider: "custom-provider",
+  id: "new-model",
+  input_modalities: [:text],
+  output_modalities: [:text],
+  capabilities: {
+    text_generation: true,
+    tool_calling: nil,
+    structured_output: false,
+    reasoning: false
+  },
+  pricing: { input: "1.25", output: "5.00" }
+)
+
+LlmGateway.models.register(updated_definition, replace: true)
+```
+
 A definition is unique by provider/model ID and can be shared by multiple adapters. Adapter classes own model support and provider model-key behavior; the default supports catalog models from the adapter's provider and sends the catalog model ID unchanged. Adapter/API aliases such as `openai-responses/gpt-5.5` are not model references. Run `rake models:generate` to refresh the bundled catalog.
 
 ### Stream API without handling events (final result only)

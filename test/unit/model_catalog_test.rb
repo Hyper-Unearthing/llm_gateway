@@ -149,6 +149,34 @@ class ModelCatalogTest < Test
     end
   end
 
+  test "users can register definitions and explicitly replace catalog metadata" do
+    original = LlmGateway.models.register(
+      provider: "custom-provider",
+      id: "runtime-model",
+      capabilities: { text_generation: true, tool_calling: nil },
+      pricing: { input: "1", output: "2" }
+    )
+
+    assert_same original, LlmGateway.models.fetch("custom-provider/runtime-model")
+    assert_equal :user, original.source
+    assert_raises(ArgumentError) { LlmGateway.models.register(original) }
+
+    replacement = LlmGateway::Models::Definition.new(
+      provider: "custom-provider",
+      id: "runtime-model",
+      source: :user,
+      capabilities: { text_generation: true, tool_calling: true },
+      pricing: { input: "3", output: "4" }
+    )
+    LlmGateway.models.register(replacement, replace: true)
+
+    assert_same replacement, LlmGateway.models.fetch("custom-provider/runtime-model")
+
+    LlmGateway.models.reset_catalog!
+
+    assert_same replacement, LlmGateway.models.fetch("custom-provider/runtime-model")
+  end
+
   test "model definitions reject invalid structural values" do
     assert_raises(ArgumentError) { LlmGateway::Models::Definition.new(provider: "", id: "model") }
     assert_raises(ArgumentError) { LlmGateway::Models::Definition.new(provider: "test", id: "  ") }
