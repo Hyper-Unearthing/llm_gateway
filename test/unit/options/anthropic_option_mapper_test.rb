@@ -10,7 +10,7 @@ class AnthropicOptionMapperTest < Test
 
     adapter.stream(
       "hello",
-      model: LlmGateway.models.fetch("anthropic/claude-sonnet-4-20250514"),
+      model: LlmGateway.models.fetch("anthropic/claude-sonnet-4-6"),
       max_completion_tokens: 321,
       reasoning: "high",
       response_format: "json_object",
@@ -24,8 +24,8 @@ class AnthropicOptionMapperTest < Test
     assert_equal(
       {
         max_tokens: 321,
-        thinking: { type: "enabled", budget_tokens: 10_240 },
-        output_config: { format: "json_schema" },
+        thinking: { type: "adaptive" },
+        output_config: { format: "json_schema", effort: "high" },
         container: "container_123",
         service_tier: "standard_only",
         stop_sequences: [ "END" ],
@@ -65,9 +65,9 @@ class AnthropicOptionMapperTest < Test
       {
         max_tokens: 1234,
         cache_retention: "long",
-        thinking: { type: "enabled", budget_tokens: 10 * 1024 },
+        thinking: { type: "adaptive" },
         temperature: 0.2,
-        output_config: { format: "json_schema" }
+        output_config: { format: "json_schema", effort: "high" }
       },
       mapped
     )

@@ -175,10 +175,12 @@ class ModelCatalogTest < Test
   end
 
   test "reasoning options respect support and available controls" do
-    assert_equal [], LlmGateway::Models::Definition.new(
+    unsupported = LlmGateway::Models::Definition.new(
       provider: "test", id: "unsupported", capabilities: { reasoning: false },
       reasoning_controls: [ { type: "toggle" } ]
-    ).reasoning_options
+    )
+    assert_equal [], unsupported.reasoning_options
+    assert_equal({ type: :none }, unsupported.reasoning_control_for(:none))
 
     assert_equal [ :default ], LlmGateway::Models::Definition.new(
       provider: "test", id: "no-controls", capabilities: { reasoning: true }

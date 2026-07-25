@@ -77,10 +77,11 @@ module LlmGateway
       # use the catalog model's output limit, or a conservative ceiling when absent.
       def reasoning_control_for(option)
         canonical = normalize_reasoning_option_name(option)
+        return { type: :none }.freeze if canonical == :none
+
         raise ArgumentError, "Unsupported reasoning option #{option.inspect} for #{provider}/#{id}" unless reasoning_options.include?(canonical)
 
         return nil if canonical == :default
-        return { type: :none }.freeze if canonical == :none
 
         control = preferred_reasoning_control
         case control[:type]

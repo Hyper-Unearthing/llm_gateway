@@ -96,11 +96,17 @@ module LlmGateway
           system: normalize_system(system)
         })
 
+        mapped_options = options.merge(model: provider_model_key)
+        if mapped_options.key?(:reasoning)
+          reasoning = mapped_options.delete(:reasoning)
+          mapped_options[:reasoning_control] = model.reasoning_control_for(reasoning) unless reasoning.nil?
+        end
+
         perform_stream(
           normalized_input[:messages],
           tools: normalized_input[:tools],
           system: normalized_input[:system],
-          **map_options(options.merge(model: provider_model_key)),
+          **map_options(mapped_options),
           &block
         )
       end

@@ -4,13 +4,6 @@ module LlmGateway
   module Adapters
     module AnthropicOptionMapper
       DEFAULT_MAX_TOKENS = 20_480
-      REASONING_EFFORT_BUDGET_TOKENS = {
-        "low" => 1024,
-        "medium" => 5 * 1024,
-        "high" => 10 * 1024,
-        "xhigh" => 20 * 1024
-      }.freeze
-
       # Source: https://platform.claude.com/docs/en/api/messages/create.md
       # API: Anthropic Messages Create; accessed 2026-05-18.
       # Body parameters listed by the API reference: max_tokens, messages, model,
@@ -39,7 +32,7 @@ module LlmGateway
       ].freeze
 
       MANAGED_OPTIONS = %i[
-        reasoning
+        reasoning_control
         max_completion_tokens
         response_format
         cache_key
@@ -56,8 +49,7 @@ module LlmGateway
         response_format = options[:response_format]
         mapped_options[:output_config] = normalize_output_config(response_format) unless response_format.nil?
 
-        reasoning = options[:reasoning]
-        mapped_options[:thinking] = normalize_reasoning(reasoning) unless reasoning.nil? || reasoning.to_s == "none"
+        apply_reasoning_control!(mapped_options, options[:reasoning_control])
 
         validate_options!(mapped_options)
         mapped_options
@@ -83,12 +75,20 @@ module LlmGateway
         end
       end
 
-      def normalize_reasoning(reasoning)
-        budget_tokens = REASONING_EFFORT_BUDGET_TOKENS[reasoning.to_s] ||
-          raise(ArgumentError,
-                "Invalid reasoning '#{reasoning}'. Use 'none', 'low', 'medium', 'high', or 'xhigh'.")
+      def apply_reasoning_control!(mapped_options, control)
+        return if control.nil? || control[:type] == :none
 
-        { type: "enabled", budget_tokens: budget_tokens }
+        case control[:type]
+        when :budget_tokens
+          mapped_options[:thinking] = { type: "enabled", budget_tokens: control.fetch(:value) }
+        when :effort
+          mapped_options[:thinking] = { type: "adaptive" }
+          mapped_options[:output_config] = (mapped_options[:output_config] || {}).merge(effort: control.fetch(:value))
+        when :toggle
+          mapped_options[:thinking] = { type: "adaptive" } if control[:value]
+        else
+          raise ArgumentError, "Unsupported Anthropic reasoning control: #{control.inspect}"
+        end
       end
     end
   end

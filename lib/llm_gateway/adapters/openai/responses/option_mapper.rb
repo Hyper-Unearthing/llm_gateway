@@ -6,7 +6,6 @@ module LlmGateway
       module Responses
         module OptionMapper
           DEFAULT_MAX_OUTPUT_TOKENS = 20_480
-          VALID_REASONING_LEVELS = %w[low medium high xhigh].freeze
 
           # Source: https://developers.openai.com/api/reference/resources/responses/methods/create/index.md
           # API: OpenAI Responses Create; accessed 2026-05-18.
@@ -49,6 +48,7 @@ module LlmGateway
           ].freeze
 
           MANAGED_OPTIONS = %i[
+            reasoning_control
             max_completion_tokens
             response_format
             cache_key
@@ -80,9 +80,9 @@ module LlmGateway
             response_format = options[:response_format]
             mapped_options[:text] = text_with_response_format(mapped_options[:text], response_format) unless response_format.nil?
 
-            reasoning = mapped_options.delete(:reasoning)
-            mapped_options[:reasoning] = normalize_reasoning(reasoning) \
-              unless reasoning.nil? || reasoning.to_s == "none"
+            reasoning_control = options[:reasoning_control]
+            mapped_options[:reasoning] = normalize_reasoning(reasoning_control) \
+              unless reasoning_control.nil? || reasoning_control[:type] == :none
 
             validate_options!(mapped_options)
             mapped_options
@@ -111,11 +111,10 @@ module LlmGateway
             end
           end
 
-          def normalize_reasoning(reasoning)
-            effort = reasoning.to_s
-            return { effort: effort, summary: "detailed" } if VALID_REASONING_LEVELS.include?(effort)
+          def normalize_reasoning(control)
+            return { effort: control.fetch(:value), summary: "detailed" } if control[:type] == :effort
 
-            raise ArgumentError, "Invalid reasoning '#{reasoning}'. Use 'none', 'low', 'medium', 'high', or 'xhigh'."
+            raise ArgumentError, "Unsupported OpenAI Responses reasoning control: #{control.inspect}"
           end
 
           def text_with_response_format(text, response_format)

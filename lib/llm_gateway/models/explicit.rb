@@ -20,6 +20,7 @@ module LlmGateway
             structured_output: true,
             reasoning: true
           },
+          reasoning_controls: [ { type: "budget_tokens", min: 1_024, max: 13_312 } ],
           pricing: { input: "3", output: "15", cache_read: "0.3", cache_write: "3.75" }
         }
       ].freeze

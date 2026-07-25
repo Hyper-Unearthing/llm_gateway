@@ -12,7 +12,7 @@ class OpenAIResponsesOptionMapperTest < Test
       "hello",
       model: LlmGateway.models.fetch("openai/gpt-5.4"),
       max_completion_tokens: 321,
-      reasoning: "high",
+      reasoning: :max,
       cache_key: "cache_123",
       cache_retention: "long",
       response_format: "json_object",
@@ -26,7 +26,7 @@ class OpenAIResponsesOptionMapperTest < Test
         max_output_tokens: 321,
         prompt_cache_key: "cache_123",
         prompt_cache_retention: "24h",
-        reasoning: { effort: "high", summary: "detailed" },
+        reasoning: { effort: "xhigh", summary: "detailed" },
         text: { format: { type: "json_object" } },
         metadata: { request_id: "req_123" },
         service_tier: "auto",
@@ -53,14 +53,14 @@ class OpenAIResponsesOptionMapperTest < Test
   end
 
   test "none reasoning is removed" do
-    mapped = LlmGateway::Adapters::OpenAI::Responses::OptionMapper.map(reasoning: "none")
+    mapped = LlmGateway::Adapters::OpenAI::Responses::OptionMapper.map(reasoning_control: { type: :none })
 
     refute mapped.key?(:reasoning)
   end
 
   test "raises for invalid reasoning" do
     assert_raises(ArgumentError) do
-      LlmGateway::Adapters::OpenAI::Responses::OptionMapper.map(reasoning: "extreme")
+      LlmGateway::Adapters::OpenAI::Responses::OptionMapper.map(reasoning_control: { type: :future, value: "extreme" })
     end
   end
 

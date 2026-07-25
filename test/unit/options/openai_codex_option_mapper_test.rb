@@ -24,7 +24,7 @@ class OpenAICodexOptionMapperTest < Test
   end
 
   test "inherits reasoning mapping from openai responses" do
-    mapped = LlmGateway::Adapters::OpenAICodex::OptionMapper.map(reasoning: "low")
+    mapped = LlmGateway::Adapters::OpenAICodex::OptionMapper.map(reasoning_control: { type: :effort, value: "low" })
 
     assert_equal({ effort: "low", summary: "detailed" }, mapped[:reasoning])
   end
