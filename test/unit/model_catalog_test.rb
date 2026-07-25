@@ -149,6 +149,73 @@ class ModelCatalogTest < Test
     end
   end
 
+  test "model definitions expose canonical reasoning options and preserve controls" do
+    definition = LlmGateway::Models::Definition.new(
+      provider: "test",
+      id: "reasoning",
+      release_date: "2025-01-02",
+      last_updated: "2025-03-04",
+      capabilities: { reasoning: true },
+      reasoning_controls: [
+        { type: "effort", values: [ "none", "low", "low", "xhigh" ] },
+        { type: "budget_tokens", min: 1024, max: 63_999 },
+        { type: "future_control", vendor_value: { enabled: true } }
+      ]
+    )
+
+    assert_equal Date.new(2025, 1, 2), definition.release_date
+    assert_equal Date.new(2025, 3, 4), definition.last_updated
+    assert_equal %i[default none low max], definition.reasoning_options
+    assert_equal({ type: :effort, value: "xhigh" }, definition.reasoning_control_for(:max))
+    assert_equal [ "none", "low", "xhigh" ], definition.reasoning_controls[0][:values]
+    assert_equal 63_999, definition.reasoning_controls[1][:max]
+    assert_equal true, definition.reasoning_controls[2][:vendor_value][:enabled]
+    assert definition.reasoning_controls.frozen?
+    assert definition.reasoning_controls[2].frozen?
+  end
+
+  test "reasoning options respect support and available controls" do
+    assert_equal [], LlmGateway::Models::Definition.new(
+      provider: "test", id: "unsupported", capabilities: { reasoning: false },
+      reasoning_controls: [ { type: "toggle" } ]
+    ).reasoning_options
+
+    assert_equal [ :default ], LlmGateway::Models::Definition.new(
+      provider: "test", id: "no-controls", capabilities: { reasoning: true }
+    ).reasoning_options
+
+    toggle = LlmGateway::Models::Definition.new(
+      provider: "test", id: "toggle", capabilities: { reasoning: true },
+      reasoning_controls: [ { type: "toggle" } ]
+    )
+    assert_equal %i[default none high], toggle.reasoning_options
+    assert_equal({ type: :toggle, value: true }, toggle.reasoning_control_for(:high))
+
+    budget = LlmGateway::Models::Definition.new(
+      provider: "test", id: "budget", max_output_tokens: 10_240, capabilities: { reasoning: true },
+      reasoning_controls: [ { type: "budget_tokens", min: 2_048, max: 20_480 } ]
+    )
+    assert_equal({ type: :budget_tokens, value: 2_048 }, budget.reasoning_control_for(:minimal))
+    assert_equal({ type: :budget_tokens, value: 10_240 }, budget.reasoning_control_for(:max))
+    assert_equal({ type: :none }, budget.reasoning_control_for(:none))
+  end
+
+  test "model definitions reject invalid reasoning metadata and dates" do
+    assert_raises(ArgumentError) do
+      LlmGateway::Models::Definition.new(provider: "test", id: "model", release_date: "not-a-date")
+    end
+    assert_raises(ArgumentError) do
+      LlmGateway::Models::Definition.new(
+        provider: "test", id: "model", reasoning_controls: [ { type: "budget_tokens", min: 2, max: 1 } ]
+      )
+    end
+    assert_raises(ArgumentError) do
+      LlmGateway::Models::Definition.new(
+        provider: "test", id: "model", reasoning_controls: [ { type: "effort", values: [ "low", nil ] } ]
+      )
+    end
+  end
+
   test "users can register definitions and explicitly replace catalog metadata" do
     original = LlmGateway.models.register(
       provider: "custom-provider",

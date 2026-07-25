@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "bigdecimal"
+require "date"
 require "json"
 require "net/http"
 
@@ -68,6 +69,94 @@ def text_generation_capability(model)
   input_modalities.include?("text") && output_modalities.include?("text")
 end
 
+def invalid_metadata!(provider, id, message)
+  raise ArgumentError, "Invalid models.dev metadata for #{provider}/#{id}: #{message}"
+end
+
+def non_negative_integer!(value, name, provider:, id:)
+  normalized = Integer(value)
+  if normalized.negative? || (value.is_a?(Numeric) && value != normalized)
+    raise ArgumentError
+  end
+
+  normalized
+rescue TypeError, ArgumentError, RangeError
+  invalid_metadata!(provider, id, "#{name} must be a non-negative integer")
+end
+
+def date_for(value, name, provider:, id:)
+  return nil if value.nil?
+  invalid_metadata!(provider, id, "#{name} must be an ISO-8601 date") unless value.is_a?(String)
+
+  Date.iso8601(value).iso8601
+rescue Date::Error
+  invalid_metadata!(provider, id, "#{name} must be an ISO-8601 date")
+end
+
+def normalize_source_value(value, provider:, id:)
+  case value
+  when String, Numeric, TrueClass, FalseClass, NilClass then value
+  when Array then value.map { |item| normalize_source_value(item, provider:, id:) }
+  when Hash
+    value.each_with_object({}) do |(key, item), normalized|
+      unless key.is_a?(String) || key.is_a?(Symbol)
+        invalid_metadata!(provider, id, "reasoning option keys must be strings")
+      end
+
+      normalized[key.to_sym] = normalize_source_value(item, provider:, id:)
+    end
+  else
+    invalid_metadata!(provider, id, "reasoning option attributes must contain JSON values")
+  end
+end
+
+def reasoning_controls_for(model, provider:, id:)
+  return nil unless model.key?("reasoning_options")
+
+  options = model["reasoning_options"]
+  unless options.is_a?(Array)
+    invalid_metadata!(provider, id, "reasoning_options must be an array")
+  end
+
+  options.map.with_index do |option, index|
+    unless option.is_a?(Hash)
+      invalid_metadata!(provider, id, "reasoning_options[#{index}] must be an object")
+    end
+
+    option = normalize_source_value(option, provider:, id:)
+    type = option[:type]
+    unless type.is_a?(String) && !type.empty?
+      invalid_metadata!(provider, id, "reasoning_options[#{index}].type must be a non-empty string")
+    end
+
+    case type
+    when "effort"
+      values = option[:values]
+      unless values.is_a?(Array)
+        invalid_metadata!(provider, id, "reasoning_options[#{index}].values must be an array")
+      end
+      unless values.compact.all? { |value| value.is_a?(String) }
+        invalid_metadata!(provider, id, "reasoning_options[#{index}].values must contain strings or null")
+      end
+
+      option[:values] = values.compact.uniq
+    when "budget_tokens"
+      %i[min max].each do |boundary|
+        next unless option.key?(boundary) && !option[boundary].nil?
+
+        option[boundary] = non_negative_integer!(
+          option[boundary], "reasoning_options[#{index}].#{boundary}", provider:, id:
+        )
+      end
+      if option[:min] && option[:max] && option[:max] < option[:min]
+        invalid_metadata!(provider, id, "reasoning_options[#{index}].max must not be below min")
+      end
+    end
+
+    option
+  end
+end
+
 def definitions_for(data, provider:)
   data.fetch(provider).fetch("models").map do |id, model|
     cost = model["cost"] || {}
@@ -77,6 +166,8 @@ def definitions_for(data, provider:)
       id: id,
       name: model["name"] || id,
       source: :models_dev,
+      release_date: date_for(model["release_date"], "release_date", provider:, id:),
+      last_updated: date_for(model["last_updated"], "last_updated", provider:, id:),
       context_window: limit["context"],
       max_output_tokens: limit["output"],
       input_modalities: Array(model.dig("modalities", "input")),
@@ -87,6 +178,7 @@ def definitions_for(data, provider:)
         structured_output: source_capability(model, "structured_output"),
         reasoning: source_capability(model, "reasoning")
       },
+      reasoning_controls: reasoning_controls_for(model, provider:, id:),
       pricing: pricing_for(cost, provider:, id:)
     }.compact
   end

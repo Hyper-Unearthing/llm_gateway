@@ -266,6 +266,9 @@ groq_model = LlmGateway.models.fetch(provider: "groq", id: "openai/gpt-oss-120b"
 
 model.supports?(:text_generation) # true, false, or nil when unknown
 model.supports?(:tool_calling)
+model.supports_reasoning?           # true, false, or nil when unknown
+model.reasoning_options             # canonical UI symbols, e.g. [:default, :low, :medium, :high, :max]
+model.reasoning_control_for(:high)  # internal effort, budget, or toggle control
 model.supports_input?(:image)
 model.supports_output?(:text)
 
@@ -273,7 +276,7 @@ LlmGateway::Adapters::OpenAI::ResponsesAdapter.supports_model?(model)
 LlmGateway::Adapters::OpenAI::ResponsesAdapter.provider_model_key(model)
 ```
 
-The built-in catalog includes all models returned by models.dev. Capabilities are metadata rather than local request validation; unsupported model/API, tool, modality, and reasoning combinations are currently left for the provider API to reject.
+The built-in catalog includes all models returned by models.dev. `reasoning_options` is a canonical, UI-safe projection of the model's controls; `reasoning_controls` retains raw catalog/provider control metadata for adapter mapping. Capabilities are metadata rather than local request validation; unsupported model/API, tool, modality, and reasoning combinations are currently left for the provider API to reject.
 
 Applications can register models released between catalog regenerations or models from custom providers. Duplicate provider/model IDs are rejected unless replacement is explicit:
 
