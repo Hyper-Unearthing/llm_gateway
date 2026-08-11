@@ -6,7 +6,7 @@ module LlmGateway
       module ChatCompletions
         module OptionMapper
           DEFAULT_MAX_COMPLETION_TOKENS = 20_480
-          VALID_REASONING_LEVELS = %w[low medium high xhigh].freeze
+          VALID_REASONING_LEVELS = %w[minimal low medium high xhigh].freeze
 
           # Source: https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create/index.md
           # API: OpenAI Chat Completions Create; accessed 2026-05-18.
@@ -120,7 +120,7 @@ module LlmGateway
             effort = reasoning.to_s
             return effort if VALID_REASONING_LEVELS.include?(effort)
 
-            raise ArgumentError, "Invalid reasoning '#{reasoning}'. Use 'none', 'low', 'medium', 'high', or 'xhigh'."
+            raise ArgumentError, "Invalid reasoning '#{reasoning}'. Use 'none', 'minimal', 'low', 'medium', 'high', or 'xhigh'."
           end
         end
       end
