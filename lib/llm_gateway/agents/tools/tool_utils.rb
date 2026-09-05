@@ -155,9 +155,9 @@ module ToolUtils
     bytes = str.dup.force_encoding("UTF-8").bytes
     return str if bytes.length <= max_bytes
 
-    tail = bytes.last(max_bytes).pack("C*")
+    tail = bytes.last(max_bytes).pack("C*").force_encoding(Encoding::UTF_8)
     until tail.valid_encoding?
-      tail = tail.bytes.drop(1).pack("C*")
+      tail = tail.bytes.drop(1).pack("C*").force_encoding(Encoding::UTF_8)
     end
     tail
   end
