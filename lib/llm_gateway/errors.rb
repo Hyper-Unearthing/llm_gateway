@@ -39,6 +39,9 @@ module LlmGateway
     class UnsupportedModel < ClientError; end
     class UnsupportedProvider < ClientError; end
     class MissingMapperForProvider < ClientError; end
+    class InvalidModelDefinition < BaseError; end
+    class ModelProviderMismatch < BaseError; end
+    class UnsupportedModelForAdapter < BaseError; end
 
     OVERFLOW_PATTERNS = [
       /prompt is too long/i, # Anthropic

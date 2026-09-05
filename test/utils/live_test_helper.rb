@@ -5,7 +5,7 @@ require "time"
 require "fileutils"
 
 module LiveTestHelper
-  ModelBoundAdapter = Struct.new(:adapter, :model) do
+  LiveAdapter = Struct.new(:adapter, :model) do
     def chat(message, tools: nil, system: nil, **options)
       adapter.chat(message, tools: tools, system: system, model: model, **options)
     end
@@ -28,21 +28,22 @@ module LiveTestHelper
   end
 
   def load_provider(provider:, model:, replaying_vcr: false, oauth:)
-    config = {
-      "provider" => provider
-    }
-    if provider == "openai_codex"
+    config = {}
+    if provider == "openai-codex"
       config["api_key"] = replaying_vcr ? "vcr-replay-token" : oauth_access_token_for("openai")
       config["account_id"] = replaying_vcr ? "vcr-replay-account" : load_auth_credentials("openai")["account_id"]
     elsif oauth == true
-      if provider == "anthropic_messages"
+      if provider == "anthropic-messages"
         config["api_key"] = replaying_vcr ? "sk-ant-oat-vcr-replay-token" : oauth_access_token_for("anthropic")
       end
     elsif replaying_vcr
       config["api_key"] = "vcr-replay-token"
     end
 
-    ModelBoundAdapter.new(LlmGateway.build_provider(config), model)
+    adapter_class = LlmGateway::Proxy::Protocol.load_adapter(provider)
+    definition = LlmGateway.models.fetch(provider: adapter_class.provider, id: model)
+
+    LiveAdapter.new(adapter_class.build(**config), definition)
   end
 
   def with_vcr_adapter(provider:, model:, redact_request_body: false, oauth: false)
@@ -67,6 +68,31 @@ module LiveTestHelper
     refute_empty message_end_event.message.api
   end
 
+  def assert_usage_costs(response)
+    usage = response.usage
+    cost = usage[:cost]
+
+    refute_nil cost, "Expected a catalog cost breakdown, got usage #{usage.inspect}"
+
+    %i[input output].each do |bucket|
+      next unless usage[bucket].to_i.positive?
+
+      assert_operator cost[bucket], :>, 0, "Expected a positive #{bucket} cost for usage #{usage.inspect}"
+    end
+
+    if usage[:cache_read].to_i.positive?
+      assert_operator cost[:cache_read], :>, 0, "Expected a positive cache-read cost for usage #{usage.inspect}"
+
+      if usage[:input].to_i.positive?
+        cache_read_rate = cost[:cache_read] / usage[:cache_read]
+        input_rate = cost[:input] / usage[:input]
+        refute_equal input_rate, cache_read_rate, "Cache reads must not use the normal input-token rate"
+      end
+    end
+
+    assert_equal cost.values_at(:input, :output, :cache_read, :cache_write).sum, cost[:total]
+  end
+
   def record_live_handoff_result(test_file:, provider:, model:, result:)
     fixture_dir = File.expand_path("../fixtures/handoff/#{File.basename(test_file, ".rb")}", __dir__)
     FileUtils.mkdir_p(fixture_dir)
@@ -77,7 +103,7 @@ module LiveTestHelper
   end
 
   def stable_handoff_result(result)
-    remove_handoff_timestamps(jsonable_live_result(result))
+    remove_handoff_metadata(jsonable_live_result(result))
   end
 
   def deep_symbolize(value)
@@ -91,15 +117,16 @@ module LiveTestHelper
     end
   end
 
-  def remove_handoff_timestamps(value)
+  def remove_handoff_metadata(value, parent_key: nil)
     case value
     when Array
-      value.map { |item| remove_handoff_timestamps(item) }
+      value.map { |item| remove_handoff_metadata(item, parent_key:) }
     when Hash
       value.each_with_object({}) do |(key, item), acc|
         next if key == "timestamp"
+        next if parent_key == "usage" && key == "cost"
 
-        acc[key] = remove_handoff_timestamps(item)
+        acc[key] = remove_handoff_metadata(item, parent_key: key)
       end
     else
       value

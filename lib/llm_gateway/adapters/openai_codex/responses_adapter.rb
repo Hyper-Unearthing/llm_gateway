@@ -12,6 +12,9 @@ module LlmGateway
   module Adapters
     module OpenAICodex
       class ResponsesAdapter < Adapter
+        provider "openai"
+        client_class LlmGateway::Clients::OpenAI
+
         include ActsLikeOpenAIResponses
 
         private
@@ -27,6 +30,11 @@ module LlmGateway
         def perform_stream(messages, tools:, system:, **options, &block)
           client.stream_codex(messages, tools: tools, system: system, **options, &block)
         end
+      end
+
+      module Responses
+        extend DefinitionFacade
+        define_adapter ResponsesAdapter
       end
     end
   end

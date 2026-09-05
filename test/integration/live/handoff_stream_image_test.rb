@@ -15,7 +15,6 @@ class HandoffStreamImageLiveTest < Test
               .freeze
 
   def teardown
-    LlmGateway.reset_configuration!
   end
 
   def run_handoff_stream_image_for(provider_name:, model:, adapter:, options: {})

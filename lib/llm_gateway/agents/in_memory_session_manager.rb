@@ -11,6 +11,13 @@ module LlmGateway
       QUEUES = [ :steer, :follow_up ].freeze
       DRAIN_MODES = [ :one_at_a_time, :all ].freeze
 
+      RuntimeConfiguration = Struct.new(:model, :reasoning, keyword_init: true) do
+        def initialize(model: nil, reasoning: nil)
+          super
+          freeze
+        end
+      end
+
       attr_reader :session_id, :session_start
 
       def initialize(session_id = nil)
@@ -106,12 +113,35 @@ module LlmGateway
         message_events.last&.dig(:id)
       end
 
-      def last_model_used
-        events.reverse.find { |event| event[:type] == "model_change" }&.dig(:model_id)
+      def change_model(model)
+        canonical = LlmGateway.models.fetch(provider: model.provider, id: model.id)
+        push_entry(type: "model_change", provider: canonical.provider, model_id: canonical.id)
+        canonical
       end
 
-      def last_reasoning_level_used
-        events.reverse.find { |event| event[:type] == "reasoning_change" }&.dig(:reasoning)
+      def change_reasoning(reasoning)
+        push_entry(type: "reasoning_change", reasoning: reasoning)
+        reasoning
+      end
+
+      def current_configuration
+        model_event = nil
+        reasoning = nil
+
+        events.reverse_each do |event|
+          model_event ||= event if event[:type] == "model_change"
+          reasoning ||= event[:reasoning] if event[:type] == "reasoning_change"
+          break if model_event && reasoning
+        end
+
+        model = if model_event
+          LlmGateway.models.fetch(
+            provider: model_event.fetch(:provider),
+            id: model_event.fetch(:model_id)
+          )
+        end
+
+        RuntimeConfiguration.new(model: model, reasoning: reasoning || "high")
       end
 
       def events_until(event_id)
@@ -144,6 +174,7 @@ module LlmGateway
       def compaction(adapter)
         response = adapter.stream(
           active_messages,
+          model: current_configuration.model,
           system: "Summarize the conversation so far for future context.",
           tools: []
         )

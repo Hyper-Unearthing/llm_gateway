@@ -64,6 +64,35 @@ class FileSessionManagerTest < Test
     end
   end
 
+  test "persists provider/model primitives and rehydrates the catalog definition" do
+    with_tmpdir do |dir|
+      path = File.join(dir, "model-session.jsonl")
+      model = LlmGateway.models.fetch(provider: "groq", id: "openai/gpt-oss-120b")
+      session = LlmGateway::Agents::FileSessionManager.new(path, session_id: "session-1")
+
+      session.change_model(model)
+      persisted = File.readlines(path).map { |line| JSON.parse(line) }.last
+
+      assert_equal "groq", persisted["provider"]
+      assert_equal "openai/gpt-oss-120b", persisted["model_id"]
+      assert_same model, LlmGateway::Agents::FileSessionManager.new(path).current_configuration.model
+    end
+  end
+
+  test "raises for an unknown model while loading runtime configuration" do
+    with_tmpdir do |dir|
+      path = File.join(dir, "unknown-model.jsonl")
+      File.write(path, [
+        { type: "session", id: "session-1", timestamp: "20260521_120000" },
+        { type: "model_change", provider: "openai", model_id: "missing" }
+      ].map { |event| JSON.generate(event) }.join("\n") + "\n")
+
+      assert_raises(KeyError) do
+        LlmGateway::Agents::FileSessionManager.new(path).current_configuration
+      end
+    end
+  end
+
   test "raises a helpful error for invalid JSONL" do
     with_tmpdir do |dir|
       path = File.join(dir, "bad.jsonl")

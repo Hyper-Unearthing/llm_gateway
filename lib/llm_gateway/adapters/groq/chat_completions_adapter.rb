@@ -11,6 +11,9 @@ module LlmGateway
   module Adapters
     module Groq
       class ChatCompletionsAdapter < Adapter
+        provider "groq"
+        client_class LlmGateway::Clients::Groq
+
         include ActsLikeOpenAIChatCompletions
 
         private
@@ -42,6 +45,11 @@ module LlmGateway
           end
           mapped
         end
+      end
+
+      module ChatCompletions
+        extend DefinitionFacade
+        define_adapter ChatCompletionsAdapter
       end
     end
   end

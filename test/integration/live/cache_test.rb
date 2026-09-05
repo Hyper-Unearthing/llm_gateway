@@ -11,7 +11,7 @@ class CacheLiveTest < Test
   PAIRS = [
     {
       name: "openai_apikey_completions",
-      provider: "openai_completions",
+      provider: "openai-completions",
       model: "gpt-5.1",
       options: {
         cache_key: "openai_apikey_completions",
@@ -20,7 +20,7 @@ class CacheLiveTest < Test
     },
     {
       name: "openai_apikey_completions_none",
-      provider: "openai_completions",
+      provider: "openai-completions",
       model: "gpt-5.1",
       options: {
         cache_key: "openai_apikey_completions_none",
@@ -29,7 +29,7 @@ class CacheLiveTest < Test
     },
     {
       name: "openai_apikey_responses",
-      provider: "openai_responses",
+      provider: "openai-responses",
       model: "gpt-5.4",
       options: {
         cache_key: "openai_apikey_responses",
@@ -38,7 +38,7 @@ class CacheLiveTest < Test
     },
     {
       name: "openai_apikey_responses_none",
-      provider: "openai_responses",
+      provider: "openai-responses",
       model: "gpt-5.4",
       options: {
         cache_key: "openai_apikey_responses_none",
@@ -47,7 +47,7 @@ class CacheLiveTest < Test
     },
     {
       name: "openai_oauth_codex",
-      provider: "openai_codex",
+      provider: "openai-codex",
       model: "gpt-5.4",
       options: {
         cache_key: "openai_oauth_codex"
@@ -55,7 +55,7 @@ class CacheLiveTest < Test
     },
     {
       name: "anthropic_apikey_messages",
-      provider: "anthropic_messages",
+      provider: "anthropic-messages",
       model: "claude-sonnet-4-20250514",
       options: {
         cache_retention: "short"
@@ -63,7 +63,7 @@ class CacheLiveTest < Test
     },
     {
       name: "anthropic_apikey_messages_none",
-      provider: "anthropic_messages",
+      provider: "anthropic-messages",
       model: "claude-sonnet-4-20250514",
       options: {
         cache_retention: "none"
@@ -71,7 +71,7 @@ class CacheLiveTest < Test
     },
     {
       name: "groq_completions_none",
-      provider: "groq_completions",
+      provider: "groq-completions",
       model: "openai/gpt-oss-120b",
       options: {
         cache_retention: "none"
@@ -82,7 +82,6 @@ class CacheLiveTest < Test
   DOCUMENT_URL = "https://gist.githubusercontent.com/billybonks/f343b02cc67535475b8819d281763c21/raw/c55972e604ecc9b5b998ed44d9e9575cebaf2fc8/responses.md"
 
   def teardown
-    LlmGateway.reset_configuration!
   end
 
   def fetch_document
@@ -129,6 +128,7 @@ class CacheLiveTest < Test
   def assert_cache_hit_on_second_turn(adapter, options: {})
     second_response = run_two_turn_cache_probe(adapter, options: options)
 
+    assert_usage_costs(second_response)
     assert_operator second_response.usage[:cache_read], :>, 0,
       "Expected cache_read > 0 with options #{options.inspect}, got #{second_response.usage.inspect}"
   end
@@ -136,6 +136,7 @@ class CacheLiveTest < Test
   def assert_no_cache_hit_on_second_turn(adapter, options: {})
     second_response = run_two_turn_cache_probe(adapter, options: options)
 
+    assert_usage_costs(second_response)
     assert_equal 0, second_response.usage[:cache_read].to_i,
       "Expected cache_read to be 0 with options #{options.inspect}, got #{second_response.usage.inspect}"
   end

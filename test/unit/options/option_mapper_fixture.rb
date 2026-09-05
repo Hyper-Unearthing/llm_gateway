@@ -8,7 +8,7 @@ module OptionMapperFixture
       max_completion_tokens: 1234,
       cache_key: "abc",
       cache_retention: "long",
-      reasoning: "high",
+      reasoning_control: { type: :effort, value: "high" },
       temperature: 0.2,
       response_format: "json_object"
     }

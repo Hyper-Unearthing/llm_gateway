@@ -5,42 +5,132 @@ require_relative "structs"
 module LlmGateway
   module Adapters
     class Adapter
-      attr_reader :client, :provider_key
+      class << self
+        def provider(value = nil)
+          if value
+            if instance_variable_defined?(:@provider)
+              raise ArgumentError, "#{name} already declares a provider"
+            end
 
-      def initialize(client, provider_key: nil)
-        @client = client
-        @provider_key = provider_key
+            return @provider = value.to_s.freeze
+          end
+
+          return @provider if instance_variable_defined?(:@provider)
+          return superclass.provider if superclass.respond_to?(:provider)
+
+          raise ArgumentError, "#{name} does not declare a provider"
+        end
+
+        def client_class(value = nil)
+          if value
+            if instance_variable_defined?(:@client_class)
+              raise ArgumentError, "#{name} already declares a client_class"
+            end
+
+            return @client_class = value
+          end
+
+          return @client_class if instance_variable_defined?(:@client_class)
+          return superclass.client_class if superclass.respond_to?(:client_class)
+
+          raise ArgumentError, "#{name} does not declare a client_class"
+        end
+
+        def definition
+          @definition ||= AdapterDefinition.new(self)
+        end
+
+        def supports_model?(model)
+          model.provider == provider && !LlmGateway.models.find(provider: model.provider, id: model.id).nil?
+        end
+
+        def provider_model_key(model)
+          model.id
+        end
+
+        def model_for_provider_model_key(provider_model_key)
+          LlmGateway.models.all(provider: provider).find do |model|
+            supports_model?(model) && self.provider_model_key(model).to_s == provider_model_key.to_s
+          end
+        end
+
+        def resolve_model!(model)
+          if model.provider != provider
+            raise LlmGateway::Errors::ModelProviderMismatch,
+              "Model provider #{model.provider.inspect} does not match adapter provider #{provider.inspect}"
+          end
+
+          canonical = LlmGateway.models.find(provider: model.provider, id: model.id)
+          return canonical if canonical && supports_model?(canonical)
+
+          raise LlmGateway::Errors::UnsupportedModelForAdapter,
+            "Model #{model.provider}/#{model.id} is not supported by #{name}"
+        end
+
+        def build(**config)
+          config = config.transform_keys(&:to_sym)
+          if config.key?(:model) || config.key?(:model_key)
+            raise ArgumentError, "Models are supplied to Adapter#stream, not Adapter.build"
+          end
+
+          new(client_class.new(**config))
+        end
       end
 
-      def raw_stream(message, tools: nil, system: nil, **options, &block)
+      attr_reader :client
+
+      def initialize(client)
+        @client = client
+      end
+
+      def provider
+        self.class.provider
+      end
+
+      def raw_stream(message, model:, tools: nil, system: nil, **options, &block)
+        model = resolve_model!(model)
+        provider_model_key = self.class.provider_model_key(model)
         normalized_input = map_input({
-          messages: sanitize_messages(normalize_messages(message), target_model: options[:model]),
+          messages: sanitize_messages(normalize_messages(message), target_model: provider_model_key),
           tools: tools,
           system: normalize_system(system)
         })
+
+        mapped_options = options.merge(model: provider_model_key)
+        if mapped_options.key?(:reasoning)
+          reasoning = mapped_options.delete(:reasoning)
+          mapped_options[:reasoning_control] = model.reasoning_control_for(reasoning) unless reasoning.nil?
+        end
 
         perform_stream(
           normalized_input[:messages],
           tools: normalized_input[:tools],
           system: normalized_input[:system],
-          **map_options(options),
+          **map_options(mapped_options),
           &block
         )
       end
 
-      def stream(message, tools: nil, system: nil, **options, &block)
+      def stream(message, model:, tools: nil, system: nil, **options, &block)
         raise LlmGateway::Errors::MissingMapperForProvider, "No stream_mapper configured" unless stream_mapper
 
+        model = resolve_model!(model)
         mapper = stream_mapper.new(
-          provider: LlmGateway::Client.provider_id_from_client(client),
-          api: api_name
+          provider: provider,
+          api: api_name,
+          model_definition: model
         )
 
-        raw_stream(message, tools: tools, system: system, **options) do |chunk|
+        raw_stream(message, model: model, tools: tools, system: system, **options) do |chunk|
           mapper.map(chunk, &block)
         end
 
         mapper.result
+      end
+
+      # Resolves a candidate to its canonical catalog definition before streaming.
+      def resolve_model!(model)
+        self.class.resolve_model!(model)
       end
 
       def upload_file(filename:, content:, mime_type: "application/octet-stream", purpose: "assistants")
@@ -97,6 +187,7 @@ module LlmGateway
 
       public
 
+      # Proxy adapters use these to normalize the target provider's raw stream.
       def stream_api_name
         api_name
       end
@@ -118,15 +209,12 @@ module LlmGateway
       def sanitize_messages(messages, target_model: nil)
         return messages unless input_sanitizer
 
-        target_provider = LlmGateway::Client.provider_id_from_client(client)
-        target_api = api_name
-
-        return messages unless target_provider.present? && target_api.present? && target_model.present?
+        return messages unless provider.present? && api_name.present? && target_model.present?
 
         input_sanitizer.sanitize(
           messages,
-          target_provider: target_provider,
-          target_api: target_api,
+          target_provider: provider,
+          target_api: api_name,
           target_model: target_model
         )
       end
@@ -144,11 +232,7 @@ module LlmGateway
       end
 
       def normalize_messages(message)
-        if message.is_a?(String)
-          [ { role: "user", content: message } ]
-        else
-          message
-        end
+        message.is_a?(String) ? [ { role: "user", content: message } ] : message
       end
     end
   end

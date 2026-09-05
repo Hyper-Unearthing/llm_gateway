@@ -10,6 +10,7 @@ class GroqOptionMapperTest < Test
 
     adapter.stream(
       "hello",
+      model: LlmGateway.models.fetch(provider: "groq", id: "openai/gpt-oss-120b"),
       max_completion_tokens: 321,
       reasoning: "high",
       cache_key: "cache_123",

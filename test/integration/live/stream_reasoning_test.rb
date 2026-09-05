@@ -8,16 +8,15 @@ class StreamReasoningTest < Test
   include LiveTestHelper
 
   PAIRS = [
-    { name: "openai_apikey_completions", provider: "openai_completions", model: "gpt-5.1" },
-    { name: "anthropic_apikey_messages", provider: "anthropic_messages", model: "claude-sonnet-4-20250514" },
-    { name: "openai_apikey_responses", provider: "openai_responses", model: "gpt-5.4" },
-    { name: "anthropic_oauth_messages", provider: "anthropic_messages", model: "claude-sonnet-4-20250514", oauth: true },
-    { name: "openai_oauth_codex", provider: "openai_codex", model: "gpt-5.4" },
-    { name: "groq_completions", provider: "groq_completions", model: "openai/gpt-oss-120b" }
+    { name: "openai_apikey_completions", provider: "openai-completions", model: "gpt-5.1" },
+    { name: "anthropic_apikey_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514" },
+    { name: "openai_apikey_responses", provider: "openai-responses", model: "gpt-5.4" },
+    { name: "anthropic_oauth_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514", oauth: true },
+    { name: "openai_oauth_codex", provider: "openai-codex", model: "gpt-5.4" },
+    { name: "groq_completions", provider: "groq-completions", model: "openai/gpt-oss-120b" }
   ].freeze
 
   def teardown
-    LlmGateway.reset_configuration!
   end
 
   def basic_thinking_test(adapter, reasoning: "high", options: {})
@@ -44,6 +43,7 @@ class StreamReasoningTest < Test
     assert_equal "assistant", response.role
     assert_operator response.usage[:input], :>, 0
     assert_operator response.usage[:output], :>, 0
+    assert_usage_costs(response)
     assert_nil response.error_message
     assert_equal "stop", response.stop_reason, "Error: #{response.error_message}"
 

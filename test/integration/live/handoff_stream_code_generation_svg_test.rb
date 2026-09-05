@@ -13,7 +13,6 @@ class HandoffStreamCodeGenerationSvgLiveTest < Test
   PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/(?:PAIRS|PROVIDER_MODEL_PAIRS) = (\[.*?\])\s*\.freeze/m)[1]).freeze
 
   def teardown
-    LlmGateway.reset_configuration!
   end
 
   def run_handoff_stream_for(provider:, model:, adapter:)
@@ -42,8 +41,8 @@ class HandoffStreamCodeGenerationSvgLiveTest < Test
     assert_match(/\b(13|14)\b/, text)
   end
 
-  def self.define_handoff_stream_test_for(provider:, model:)
-    test "handoff_stream_code_generation_svg__#{provider}_#{model}" do
+  def self.define_handoff_stream_test_for(provider_name:, provider:, model:)
+    test "handoff_stream_code_generation_svg__#{provider_name}_#{model}" do
       with_vcr_adapter(provider:, model:, redact_request_body: true) do |adapter|
         run_handoff_stream_for(provider:, model:, adapter:)
       end
@@ -51,7 +50,7 @@ class HandoffStreamCodeGenerationSvgLiveTest < Test
   end
 
   PAIRS.each do |pair|
-    define_handoff_stream_test_for(provider: pair[:provider], model: pair[:model])
+    define_handoff_stream_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model])
   end
 
   private
@@ -76,7 +75,7 @@ class HandoffStreamCodeGenerationSvgLiveTest < Test
   end
 
   def handoff_tools_for(provider)
-    if provider == "openai_responses"
+    if provider == "openai-responses"
       [ openai_code_interpreter_tool ]
     else
       [ anthropic_code_execution_tool ]

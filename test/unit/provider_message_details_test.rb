@@ -9,11 +9,11 @@ class ProviderMessageDetailsTest < Test
   ].freeze
 
   PROVIDER_API_PAIRS = [
-    [ "openai completions", LlmGateway::Adapters::OpenAI::ChatCompletionsAdapter, "openai", :stream ],
-    [ "openai responses", LlmGateway::Adapters::OpenAI::ResponsesAdapter, "openai", :stream_responses ],
-    [ "openai codex responses", LlmGateway::Adapters::OpenAICodex::ResponsesAdapter, "openai", :stream_codex ],
-    [ "anthropic messages", LlmGateway::Adapters::Anthropic::MessagesAdapter, "anthropic", :stream ],
-    [ "groq completions", LlmGateway::Adapters::Groq::ChatCompletionsAdapter, "groq", :stream ]
+    [ "openai completions", LlmGateway::Adapters::OpenAI::ChatCompletionsAdapter, "openai/gpt-5.1", :stream ],
+    [ "openai responses", LlmGateway::Adapters::OpenAI::ResponsesAdapter, "openai/gpt-5.4", :stream_responses ],
+    [ "openai codex responses", LlmGateway::Adapters::OpenAICodex::ResponsesAdapter, "openai/gpt-5.4", :stream_codex ],
+    [ "anthropic messages", LlmGateway::Adapters::Anthropic::MessagesAdapter, "anthropic/claude-sonnet-4-20250514", :stream ],
+    [ "groq completions", LlmGateway::Adapters::Groq::ChatCompletionsAdapter, [ "groq", "openai/gpt-oss-120b" ], :stream ]
   ].freeze
 
   class CapturingClient
@@ -43,14 +43,13 @@ class ProviderMessageDetailsTest < Test
     end
   end
 
-  PROVIDER_API_PAIRS.each do |name, adapter_class, provider, expected_method|
+  PROVIDER_API_PAIRS.each do |name, adapter_class, model_reference, expected_method|
     test "#{name} excludes details from user and assistant messages" do
       client = CapturingClient.new
       adapter = adapter_class.new(client)
 
-      LlmGateway::Client.stub(:provider_id_from_client, provider) do
-        adapter.raw_stream(DETAIL_MESSAGES, model: "test-model")
-      end
+      model = model_reference.is_a?(Array) ? LlmGateway.models.fetch(provider: model_reference[0], id: model_reference[1]) : LlmGateway.models.fetch(model_reference)
+      adapter.raw_stream(DETAIL_MESSAGES, model: model)
 
       assert_equal expected_method, client.captured_method
       assert_no_message_details client.captured_messages

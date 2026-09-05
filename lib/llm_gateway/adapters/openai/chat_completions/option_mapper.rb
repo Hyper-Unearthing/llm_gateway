@@ -6,7 +6,6 @@ module LlmGateway
       module ChatCompletions
         module OptionMapper
           DEFAULT_MAX_COMPLETION_TOKENS = 20_480
-          VALID_REASONING_LEVELS = %w[low medium high xhigh].freeze
 
           # Source: https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create/index.md
           # API: OpenAI Chat Completions Create; accessed 2026-05-18.
@@ -58,7 +57,7 @@ module LlmGateway
           ].freeze
 
           MANAGED_OPTIONS = %i[
-            reasoning
+            reasoning_control
             cache_key
             cache_retention
           ].freeze
@@ -85,9 +84,9 @@ module LlmGateway
               mapped_options.delete(:prompt_cache_retention)
             end
 
-            reasoning = options[:reasoning]
-            mapped_options[:reasoning_effort] = normalize_reasoning_effort(reasoning) \
-              unless reasoning.nil? || reasoning.to_s == "none"
+            reasoning_control = options[:reasoning_control]
+            mapped_options[:reasoning_effort] = reasoning_effort(reasoning_control) \
+              unless reasoning_control.nil? || reasoning_control[:type] == :none
 
             validate_options!(mapped_options)
             mapped_options
@@ -116,11 +115,10 @@ module LlmGateway
             end
           end
 
-          def normalize_reasoning_effort(reasoning)
-            effort = reasoning.to_s
-            return effort if VALID_REASONING_LEVELS.include?(effort)
+          def reasoning_effort(control)
+            return control.fetch(:value) if control[:type] == :effort
 
-            raise ArgumentError, "Invalid reasoning '#{reasoning}'. Use 'none', 'low', 'medium', 'high', or 'xhigh'."
+            raise ArgumentError, "Unsupported OpenAI Chat Completions reasoning control: #{control.inspect}"
           end
         end
       end

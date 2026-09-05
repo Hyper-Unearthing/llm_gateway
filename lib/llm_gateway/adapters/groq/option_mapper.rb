@@ -6,7 +6,6 @@ module LlmGateway
       module OptionMapper
         DEFAULT_TEMPERATURE = 0
         DEFAULT_MAX_COMPLETION_TOKENS = 20_480
-        VALID_REASONING_LEVELS = %w[default low medium high].freeze
 
         # Source: https://console.groq.com/docs/text-chat.md and
         # https://console.groq.com/docs/api-reference.md#chat-create
@@ -60,7 +59,7 @@ module LlmGateway
         ].freeze
 
         MANAGED_OPTIONS = %i[
-          reasoning
+          reasoning_control
           cache_key
           cache_retention
         ].freeze
@@ -73,9 +72,9 @@ module LlmGateway
           mapped_options[:max_completion_tokens] = options[:max_completion_tokens] || DEFAULT_MAX_COMPLETION_TOKENS
           mapped_options[:response_format] = normalize_response_format(options[:response_format] || "text")
 
-          reasoning = options[:reasoning]
-          unless reasoning.nil? || reasoning.to_s == "none"
-            mapped_options[:reasoning_effort] = normalize_reasoning_effort(reasoning)
+          reasoning_control = options[:reasoning_control]
+          unless reasoning_control.nil? || reasoning_control[:type] == :none
+            mapped_options[:reasoning_effort] = reasoning_effort(reasoning_control)
             mapped_options[:reasoning_format] = "parsed"
           end
 
@@ -100,11 +99,10 @@ module LlmGateway
           end
         end
 
-        def normalize_reasoning_effort(reasoning)
-          effort = reasoning.to_s
-          return effort if VALID_REASONING_LEVELS.include?(effort)
+        def reasoning_effort(control)
+          return control.fetch(:value) if control[:type] == :effort
 
-          raise ArgumentError, "Invalid reasoning '#{reasoning}'. Use 'none', 'default', 'low', 'medium', or 'high'."
+          raise ArgumentError, "Unsupported Groq reasoning control: #{control.inspect}"
         end
       end
     end

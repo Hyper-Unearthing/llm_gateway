@@ -26,12 +26,11 @@ class CodeGenerationPngLiveTest < Test
   CSV
 
   PROVIDER_MODEL_PAIRS = [
-    { provider: "anthropic_messages", model: "claude-sonnet-4-20250514" },
-    { provider: "openai_responses", model: "gpt-5.4" }
+    { name: "anthropic_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514" },
+    { name: "openai_responses", provider: "openai-responses", model: "gpt-5.4" }
   ].freeze
 
   def teardown
-    LlmGateway.reset_configuration!
   end
 
   def openai_code_interpreter_tool
@@ -60,7 +59,7 @@ class CodeGenerationPngLiveTest < Test
       #{CSV_DATA}
     PROMPT
 
-    tools = provider == "openai_responses" ? [ openai_code_interpreter_tool ] : [ anthropic_code_execution_tool ]
+    tools = provider == "openai-responses" ? [ openai_code_interpreter_tool ] : [ anthropic_code_execution_tool ]
 
     streamed_args = +""
     response = adapter.stream(prompt, tools: tools) do |event|
@@ -71,7 +70,7 @@ class CodeGenerationPngLiveTest < Test
 
     content_types = response.content.map(&:type)
 
-    if provider == "openai_responses"
+    if provider == "openai-responses"
       assert content_types.include?("code_interpreter_call") || content_types.include?("text"),
         "#{provider}/#{model} expected code_interpreter_call or text, got: #{content_types}"
     else
@@ -107,16 +106,16 @@ class CodeGenerationPngLiveTest < Test
     [ *transcript, follow_up_response ]
   end
 
-  def self.define_live_png_test(provider:, model:)
-    test "live_code_generation_png_#{provider}_#{model}" do
+  def self.define_live_png_test(provider_name:, provider:, model:)
+    test "live_code_generation_png_#{provider_name}_#{model}" do
       with_vcr_adapter(provider:, model:) do |adapter|
         transcript = run_png_generation_for(adapter, provider:, model:)
-        record_live_handoff_result(test_file: __FILE__, provider:, model:, result: transcript)
+        record_live_handoff_result(test_file: __FILE__, provider: provider_name, model:, result: transcript)
       end
     end
   end
 
   PROVIDER_MODEL_PAIRS.each do |pair|
-    define_live_png_test(provider: pair[:provider], model: pair[:model])
+    define_live_png_test(provider_name: pair[:name], provider: pair[:provider], model: pair[:model])
   end
 end

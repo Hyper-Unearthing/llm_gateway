@@ -8,15 +8,13 @@ module LlmGateway
     class Harness < LlmGateway::Prompt
       COMPACTION_TOKEN_THRESHOLD = 180_000
       COMPACTION_IDLE_THRESHOLD_SECONDS = 60 * 60
-      attr_accessor :provider
-      attr_reader :session_manager, :default_queue_mode, :queue_drain_mode,
-                  :model, :reasoning
 
-      def initialize(session_manager, provider:, model: nil, reasoning: "high")
-        @provider = provider
-        super(provider: provider, model: model, reasoning: reasoning)
+      attr_reader :session_manager, :adapter, :default_queue_mode, :queue_drain_mode
+
+      def initialize(session_manager, adapter:, cache_key: nil, cache_retention: nil)
+        super(adapter:, cache_key:, cache_retention:)
         @session_manager = session_manager
-        sync_initial_configuration_events
+        validate_adapter_model!(adapter, model)
         self.default_queue_mode = :follow_up
         self.queue_drain_mode = :all
       end
@@ -25,6 +23,14 @@ module LlmGateway
         session_manager.build_model_input_messages
       end
       alias :prompt :transcript
+
+      def model
+        runtime_configuration.model
+      end
+
+      def reasoning
+        runtime_configuration.reasoning
+      end
 
       def prompt_message(message, &block)
         enqueue_and_continue_if_idle(message, default_queue_mode, &block)
@@ -46,24 +52,51 @@ module LlmGateway
         @queue_drain_mode = session_manager.validate_drain_mode!(mode)
       end
 
-      def model=(model_id)
-        return @model if @model == model_id
+      def model=(definition)
+        return model if model.equal?(definition)
 
-        @model = model_id
-        publish_session_event(type: "model_change", model_id: model_id)
-        @model
+        validate_adapter_model!(adapter, definition)
+        session_manager.change_model(definition)
       end
 
       def reasoning=(level)
-        return @reasoning if @reasoning == level
+        return reasoning if reasoning == level
 
-        @reasoning = level
-        publish_session_event(type: "reasoning_change", reasoning: level)
-        @reasoning
+        session_manager.change_reasoning(level)
+      end
+
+      def change_adapter(new_adapter, model: nil)
+        current_model = self.model
+        if model.nil? && new_adapter.provider != "proxy" && new_adapter.provider != current_model.provider
+          raise LlmGateway::Errors::ModelProviderMismatch,
+            "Changing providers requires a model definition for the new provider"
+        end
+
+        candidate_model = model || current_model
+        validate_adapter_model!(new_adapter, candidate_model)
+        session_manager.change_model(candidate_model) unless candidate_model.equal?(current_model)
+        @adapter = new_adapter
+      end
+
+      def adapter=(new_adapter)
+        change_adapter(new_adapter)
       end
 
       def compact
-        session_manager.compaction(provider)
+        session_manager.compaction(adapter)
+      end
+
+      def stream(input = transcript, **options, &block)
+        stream_options = {
+          cache_key: cache_key,
+          cache_retention: cache_retention
+        }.compact.merge(options).merge(
+          model: model,
+          tools: tools,
+          system: system_prompt,
+          reasoning: reasoning
+        )
+        adapter.stream(input, **stream_options, &block)
       end
 
       def run(&block)
@@ -94,9 +127,7 @@ module LlmGateway
         turn_end_event = Event::TurnEnd.new(message: assistant_message, tool_results: tool_results)
         emit(turn_end_event, &block)
 
-        if tool_results.length.positive?
-          return run(&block)
-        end
+        return run(&block) if tool_results.length.positive?
 
         if session_manager.queued_messages?(:follow_up)
           compact_if_needed
@@ -122,15 +153,20 @@ module LlmGateway
 
       private
 
-      def publish_session_event(type:, **attributes)
-        session_manager.push_entry(type: type, **attributes)
+      def runtime_configuration
+        session_manager.current_configuration
       end
 
-      def sync_initial_configuration_events
-        publish_session_event(type: "model_change", model_id: model) if model && !session_manager.last_model_used
-        if reasoning && !session_manager.last_reasoning_level_used
-          publish_session_event(type: "reasoning_change", reasoning: reasoning)
+      def validate_adapter_model!(candidate_adapter, candidate_model)
+        unless candidate_adapter.respond_to?(:resolve_model!)
+          raise ArgumentError, "adapter must implement #resolve_model!"
         end
+        unless candidate_model
+          raise LlmGateway::Errors::InvalidModelDefinition,
+            "The session must have a model before constructing a harness"
+        end
+
+        candidate_adapter.resolve_model!(candidate_model)
       end
 
       def enqueue_and_continue_if_idle(message, queue, &block)
@@ -173,9 +209,7 @@ module LlmGateway
       end
 
       def emit(event, &block)
-        return unless block
-
-        block.call(event)
+        block&.call(event)
       end
     end
   end

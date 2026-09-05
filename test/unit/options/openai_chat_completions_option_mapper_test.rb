@@ -10,6 +10,7 @@ class OpenAIChatCompletionsOptionMapperTest < Test
 
     adapter.stream(
       "hello",
+      model: LlmGateway.models.fetch("openai/gpt-5.1"),
       max_completion_tokens: 321,
       reasoning: "high",
       cache_key: "cache_123",

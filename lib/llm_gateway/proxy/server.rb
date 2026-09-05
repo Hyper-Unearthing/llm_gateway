@@ -6,18 +6,21 @@ module LlmGateway
   module Proxy
     class Server
       PATH = "/agent/llm_proxy"
-
       def call(env)
         return not_found unless env["REQUEST_METHOD"] == "POST" && env["PATH_INFO"] == PATH
 
         request = JSON.parse(env["rack.input"].read).deep_symbolize_keys
         options = request[:options] || {}
-        options = options.merge(model: request[:model]) if request.key?(:model)
-        adapter = build_adapter(request)
+        provider_model_key = request.key?(:model) ? request[:model] : options.delete(:model)
+        adapter_name = request.fetch(:adapter)
+        adapter_class = Protocol.load_adapter(adapter_name)
+        model = resolve_model!(adapter_class, adapter_name, provider_model_key)
+        adapter = adapter_class.build(**(request[:config] || {}))
 
         body = Enumerator.new do |yielder|
           adapter.raw_stream(
             request[:messages],
+            model: model,
             system: request[:system],
             tools: request[:tools],
             **options
@@ -27,9 +30,9 @@ module LlmGateway
         end
 
         [ 200, { "content-type" => "text/event-stream", "cache-control" => "no-cache" }, body ]
-      rescue KeyError, JSON::ParserError, ArgumentError => e
+      rescue KeyError, JSON::ParserError, ArgumentError, Errors::InvalidModelDefinition => e
         json_error(400, e.message)
-      rescue Errors::UnsupportedProvider => e
+      rescue Errors::UnsupportedProvider, Errors::UnsupportedModelForAdapter => e
         json_error(404, e.message)
       rescue StandardError => e
         json_error(500, e.message)
@@ -37,11 +40,11 @@ module LlmGateway
 
       private
 
-      def build_adapter(request)
-        provider = request.fetch(:provider)
-        config = (request[:config] || {}).merge(provider: provider)
+      def resolve_model!(adapter_class, adapter_name, provider_model_key)
+        raise ArgumentError, "Proxy request must include a model" if provider_model_key.nil?
 
-        LlmGateway.build_provider(config)
+        adapter_class.model_for_provider_model_key(provider_model_key) ||
+          raise(KeyError, "Unknown model for #{adapter_name}: #{provider_model_key}")
       end
 
       def encode_sse(chunk)
