@@ -45,6 +45,48 @@
     },
     {
       "provider": "anthropic",
+      "id": "claude-fable-5-1",
+      "name": "Claude Fable 5.1",
+      "source": "models_dev",
+      "release_date": "2026-09-01",
+      "last_updated": "2026-09-01",
+      "context_window": 1000000,
+      "max_output_tokens": 128000,
+      "input_modalities": [
+        "text",
+        "image",
+        "pdf"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
+      "reasoning_controls": [
+        {
+          "type": "effort",
+          "values": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        }
+      ],
+      "pricing": {
+        "input": "10",
+        "output": "50",
+        "cache_read": "0.25",
+        "cache_write": "12.5"
+      }
+    },
+    {
+      "provider": "anthropic",
       "id": "claude-haiku-4-5",
       "name": "Claude Haiku 4.5 (latest)",
       "source": "models_dev",
@@ -113,78 +155,6 @@
         "output": "5",
         "cache_read": "0.1",
         "cache_write": "1.25"
-      }
-    },
-    {
-      "provider": "anthropic",
-      "id": "claude-opus-4-1",
-      "name": "Claude Opus 4.1 (latest)",
-      "source": "models_dev",
-      "release_date": "2025-08-05",
-      "last_updated": "2025-08-05",
-      "context_window": 200000,
-      "max_output_tokens": 32000,
-      "input_modalities": [
-        "text",
-        "image",
-        "pdf"
-      ],
-      "output_modalities": [
-        "text"
-      ],
-      "capabilities": {
-        "text_generation": true,
-        "tool_calling": true,
-        "structured_output": true,
-        "reasoning": true
-      },
-      "reasoning_controls": [
-        {
-          "type": "budget_tokens",
-          "min": 1024
-        }
-      ],
-      "pricing": {
-        "input": "15",
-        "output": "75",
-        "cache_read": "1.5",
-        "cache_write": "18.75"
-      }
-    },
-    {
-      "provider": "anthropic",
-      "id": "claude-opus-4-1-20250805",
-      "name": "Claude Opus 4.1",
-      "source": "models_dev",
-      "release_date": "2025-08-05",
-      "last_updated": "2025-08-05",
-      "context_window": 200000,
-      "max_output_tokens": 32000,
-      "input_modalities": [
-        "text",
-        "image",
-        "pdf"
-      ],
-      "output_modalities": [
-        "text"
-      ],
-      "capabilities": {
-        "text_generation": true,
-        "tool_calling": true,
-        "structured_output": true,
-        "reasoning": true
-      },
-      "reasoning_controls": [
-        {
-          "type": "budget_tokens",
-          "min": 1024
-        }
-      ],
-      "pricing": {
-        "input": "15",
-        "output": "75",
-        "cache_read": "1.5",
-        "cache_write": "18.75"
       }
     },
     {
@@ -610,6 +580,34 @@
     },
     {
       "provider": "groq",
+      "id": "allam-2-7b",
+      "name": "ALLaM-2-7b",
+      "source": "models_dev",
+      "release_date": "2025-01-23",
+      "last_updated": "2025-01-23",
+      "context_window": 4096,
+      "max_output_tokens": 4096,
+      "input_modalities": [
+        "text"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": false,
+        "structured_output": null,
+        "reasoning": false
+      },
+      "pricing": {
+        "input": "0",
+        "output": "0",
+        "cache_read": "0",
+        "cache_write": "0"
+      }
+    },
+    {
+      "provider": "groq",
       "id": "canopylabs/orpheus-arabic-saudi",
       "name": "Canopy Labs Orpheus Arabic Saudi",
       "source": "models_dev",
@@ -748,35 +746,6 @@
       "pricing": {
         "input": "0.59",
         "output": "0.79",
-        "cache_read": "0",
-        "cache_write": "0"
-      }
-    },
-    {
-      "provider": "groq",
-      "id": "meta-llama/llama-4-scout-17b-16e-instruct",
-      "name": "Llama 4 Scout 17B 16E",
-      "source": "models_dev",
-      "release_date": "2025-04-05",
-      "last_updated": "2025-04-05",
-      "context_window": 131072,
-      "max_output_tokens": 8192,
-      "input_modalities": [
-        "text",
-        "image"
-      ],
-      "output_modalities": [
-        "text"
-      ],
-      "capabilities": {
-        "text_generation": true,
-        "tool_calling": true,
-        "structured_output": true,
-        "reasoning": false
-      },
-      "pricing": {
-        "input": "0.11",
-        "output": "0.34",
         "cache_read": "0",
         "cache_write": "0"
       }
@@ -953,15 +922,16 @@
     },
     {
       "provider": "groq",
-      "id": "qwen/qwen3-32b",
-      "name": "Qwen3-32B",
+      "id": "qwen/qwen3.6-27b",
+      "name": "Qwen3.6 27B",
       "source": "models_dev",
-      "release_date": "2025-06-11",
-      "last_updated": "2025-06-12",
+      "release_date": "2026-04-22",
+      "last_updated": "2026-04-22",
       "context_window": 131072,
-      "max_output_tokens": 40960,
+      "max_output_tokens": 16384,
       "input_modalities": [
-        "text"
+        "text",
+        "image"
       ],
       "output_modalities": [
         "text"
@@ -969,7 +939,7 @@
       "capabilities": {
         "text_generation": true,
         "tool_calling": true,
-        "structured_output": null,
+        "structured_output": true,
         "reasoning": true
       },
       "reasoning_controls": [
@@ -982,8 +952,49 @@
         }
       ],
       "pricing": {
-        "input": "0.29",
-        "output": "0.59",
+        "input": "0.6",
+        "output": "3",
+        "cache_read": "0.3",
+        "cache_write": "0"
+      }
+    },
+    {
+      "provider": "groq",
+      "id": "qwen/qwen3.8-27b",
+      "name": "Qwen3.8 27B",
+      "source": "models_dev",
+      "release_date": "2026-08-14",
+      "last_updated": "2026-08-14",
+      "context_window": 131042,
+      "max_output_tokens": 16384,
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
+      "reasoning_controls": [
+        {
+          "type": "effort",
+          "values": [
+            "none",
+            "default",
+            "low",
+            "medium",
+            "high"
+          ]
+        }
+      ],
+      "pricing": {
+        "input": "0.8",
+        "output": "4",
         "cache_read": "0",
         "cache_write": "0"
       }
@@ -2122,10 +2133,10 @@
         }
       ],
       "pricing": {
-        "input": "5",
-        "output": "30",
-        "cache_read": "0.5",
-        "cache_write": "6.25"
+        "input": "4",
+        "output": "20",
+        "cache_read": "0.4",
+        "cache_write": "5"
       }
     },
     {
@@ -2165,17 +2176,17 @@
         }
       ],
       "pricing": {
-        "input": "1",
-        "output": "6",
-        "cache_read": "0.1",
-        "cache_write": "1.25",
+        "input": "0.2",
+        "output": "1.2",
+        "cache_read": "0.02",
+        "cache_write": "0.25",
         "tiers": [
           {
             "input_tokens_above": 272000,
-            "input": "2.0",
-            "output": "9.0",
-            "cache_read": "0.2",
-            "cache_write": "2.5"
+            "input": "0.4",
+            "output": "1.8",
+            "cache_read": "0.04",
+            "cache_write": "0.5"
           }
         ]
       }
@@ -2217,17 +2228,17 @@
         }
       ],
       "pricing": {
-        "input": "5",
-        "output": "30",
-        "cache_read": "0.5",
-        "cache_write": "6.25",
+        "input": "4",
+        "output": "20",
+        "cache_read": "0.4",
+        "cache_write": "5",
         "tiers": [
           {
             "input_tokens_above": 272000,
-            "input": "10.0",
-            "output": "45.0",
-            "cache_read": "1.0",
-            "cache_write": "12.5"
+            "input": "8.0",
+            "output": "30.0",
+            "cache_read": "0.8",
+            "cache_write": "10.0"
           }
         ]
       }
@@ -2269,19 +2280,61 @@
         }
       ],
       "pricing": {
-        "input": "2.5",
-        "output": "15",
-        "cache_read": "0.25",
-        "cache_write": "3.125",
+        "input": "2",
+        "output": "12",
+        "cache_read": "0.2",
+        "cache_write": "2.5",
         "tiers": [
           {
             "input_tokens_above": 272000,
-            "input": "5.0",
-            "output": "22.5",
-            "cache_read": "0.5",
-            "cache_write": "6.25"
+            "input": "4.0",
+            "output": "18.0",
+            "cache_read": "0.4",
+            "cache_write": "5.0"
           }
         ]
+      }
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-6-astra",
+      "name": "GPT-6 Astra",
+      "source": "models_dev",
+      "release_date": "2026-09-04",
+      "last_updated": "2026-09-04",
+      "context_window": 1050000,
+      "max_output_tokens": 128000,
+      "input_modalities": [
+        "text",
+        "image",
+        "pdf"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "capabilities": {
+        "text_generation": true,
+        "tool_calling": true,
+        "structured_output": true,
+        "reasoning": true
+      },
+      "reasoning_controls": [
+        {
+          "type": "effort",
+          "values": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        }
+      ],
+      "pricing": {
+        "input": "10",
+        "output": "50",
+        "cache_read": "1",
+        "cache_write": "12.5"
       }
     },
     {
