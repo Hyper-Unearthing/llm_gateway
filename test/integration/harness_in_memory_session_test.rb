@@ -53,9 +53,17 @@ class HarnessInMemorySessionIntegrationTest < Test
     end
   end
 
-  OPENAI_MODEL = LlmGateway.models.fetch("openai/gpt-5.4")
-  OTHER_OPENAI_MODEL = LlmGateway.models.fetch("openai/gpt-5.1")
-  ANTHROPIC_MODEL = LlmGateway.models.fetch("anthropic/claude-sonnet-4-20250514")
+  def openai_model
+    LlmGateway.models.fetch("openai/gpt-5.4")
+  end
+
+  def other_openai_model
+    LlmGateway.models.fetch("openai/gpt-5.1")
+  end
+
+  def anthropic_model
+    LlmGateway.models.fetch("anthropic/claude-sonnet-4-20250514")
+  end
 
   def self.assistant_message(text, content: nil, stop_reason: "stop")
     AssistantMessage.new(
@@ -79,7 +87,7 @@ class HarnessInMemorySessionIntegrationTest < Test
     { role: "user", content: [ { type: "text", text: text } ] }
   end
 
-  def new_harness(responses, harness_class: TestHarness, model: OPENAI_MODEL)
+  def new_harness(responses, harness_class: TestHarness, model: openai_model)
     session = LlmGateway::Agents::InMemorySessionManager.new("test-session")
     session.change_model(model)
     adapter = FakeAdapter.new(responses)
@@ -89,20 +97,20 @@ class HarnessInMemorySessionIntegrationTest < Test
   test "session persists provider and model primitives and rehydrates the catalog object" do
     session = LlmGateway::Agents::InMemorySessionManager.new("session")
 
-    session.change_model(OPENAI_MODEL)
+    session.change_model(openai_model)
     event = session.events.last
 
     assert_equal "model_change", event[:type]
     assert_equal "openai", event[:provider]
     assert_equal "gpt-5.4", event[:model_id]
-    assert_same OPENAI_MODEL, session.current_configuration.model
+    assert_same openai_model, session.current_configuration.model
   end
 
   test "session supports model IDs containing slashes and walks backward to latest configuration" do
     session = LlmGateway::Agents::InMemorySessionManager.new("session")
     groq_model = LlmGateway.models.fetch(provider: "groq", id: "openai/gpt-oss-120b")
 
-    session.change_model(OPENAI_MODEL)
+    session.change_model(openai_model)
     session.change_reasoning("low")
     session.push_message(user_message("between"))
     session.change_model(groq_model)
@@ -129,14 +137,14 @@ class HarnessInMemorySessionIntegrationTest < Test
     assert_equal "hello back", result.content.first.text
     assert_same adapter, harness.adapter
     refute_respond_to harness, :provider
-    assert_same OPENAI_MODEL, adapter.calls.first[:model]
+    assert_same openai_model, adapter.calls.first[:model]
     assert_equal "high", adapter.calls.first[:options][:reasoning]
     assert_equal [ "user", "assistant" ], session.active_messages.map { |message| message[:role] }
   end
 
   test "harness forwards constructor and updated cache settings during agent runs" do
     session = LlmGateway::Agents::InMemorySessionManager.new("test-session")
-    session.change_model(OPENAI_MODEL)
+    session.change_model(openai_model)
     adapter = FakeAdapter.new([ assistant_message("cached"), assistant_message("updated") ])
     harness = TestHarness.new(
       session,
@@ -161,11 +169,11 @@ class HarnessInMemorySessionIntegrationTest < Test
   test "harness persists model and reasoning changes without adapter selection" do
     harness, session, adapter = new_harness([ assistant_message("ok") ])
 
-    harness.model = OTHER_OPENAI_MODEL
+    harness.model = other_openai_model
     harness.reasoning = "low"
     harness.prompt_message(user_message("hello"))
 
-    assert_same OTHER_OPENAI_MODEL, adapter.calls.first[:model]
+    assert_same other_openai_model, adapter.calls.first[:model]
     assert_equal "low", adapter.calls.first[:options][:reasoning]
     model_event = session.events.reverse.find { |event| event[:type] == "model_change" }
     assert_equal({ provider: "openai", model_id: "gpt-5.1" }, model_event.slice(:provider, :model_id))
@@ -186,8 +194,8 @@ class HarnessInMemorySessionIntegrationTest < Test
     anthropic = FakeAdapter.new([], provider: "anthropic")
 
     assert_raises(LlmGateway::Errors::ModelProviderMismatch) { harness.change_adapter(anthropic) }
-    assert_same anthropic, harness.change_adapter(anthropic, model: ANTHROPIC_MODEL)
-    assert_same ANTHROPIC_MODEL, session.current_configuration.model
+    assert_same anthropic, harness.change_adapter(anthropic, model: anthropic_model)
+    assert_same anthropic_model, session.current_configuration.model
     assert_same anthropic, harness.adapter
   end
 
