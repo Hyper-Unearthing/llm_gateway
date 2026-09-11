@@ -4,6 +4,8 @@ require "test_helper"
 require_relative "option_mapper_fixture"
 
 class AnthropicOptionMapperTest < Test
+  SCHEMA = { type: "object", properties: { outcome: { type: "string" } }, required: [ "outcome" ], additionalProperties: false }.freeze
+  FORMAT = { type: "json_schema", json_schema: { name: "result", strict: true, schema: SCHEMA } }.freeze
   test "passes mapped managed options and provider-native options through adapter to client" do
     client = AnthropicOptionsFakeClient.new
     adapter = LlmGateway::Adapters::Anthropic::MessagesAdapter.new(client)
@@ -13,7 +15,7 @@ class AnthropicOptionMapperTest < Test
       model: LlmGateway.models.fetch("anthropic/claude-sonnet-4-6"),
       max_completion_tokens: 321,
       reasoning: "high",
-      response_format: "json_object",
+      response_format: FORMAT,
       container: "container_123",
       service_tier: "standard_only",
       stop_sequences: [ "END" ],
@@ -25,7 +27,7 @@ class AnthropicOptionMapperTest < Test
       {
         max_tokens: 321,
         thinking: { type: "adaptive" },
-        output_config: { format: "json_schema", effort: "high" },
+        output_config: { format: { type: "json_schema", schema: SCHEMA }, effort: "high" },
         container: "container_123",
         service_tier: "standard_only",
         stop_sequences: [ "END" ],
@@ -59,7 +61,7 @@ class AnthropicOptionMapperTest < Test
   end
 
   test "maps all supported options into final output" do
-    mapped = LlmGateway::Adapters::AnthropicOptionMapper.map(OptionMapperFixture.superset_options)
+    mapped = LlmGateway::Adapters::AnthropicOptionMapper.map(OptionMapperFixture.superset_options.merge(response_format: FORMAT))
 
     assert_equal(
       {
@@ -67,10 +69,23 @@ class AnthropicOptionMapperTest < Test
         cache_retention: "long",
         thinking: { type: "adaptive" },
         temperature: 0.2,
-        output_config: { format: "json_schema", effort: "high" }
+        output_config: { format: { type: "json_schema", schema: SCHEMA }, effort: "high" }
       },
       mapped
     )
+  end
+
+  test "preserves string-keyed schemas and native output settings" do
+    mapped = LlmGateway::Adapters::AnthropicOptionMapper.map(
+      response_format: JSON.parse(JSON.generate(FORMAT)), output_config: { effort: "low" })
+    assert_equal JSON.parse(JSON.generate(SCHEMA)), mapped.dig(:output_config, :format, :schema)
+    assert_equal "low", mapped.dig(:output_config, :effort)
+  end
+
+  test "rejects schema-less JSON rather than silently discarding the contract" do
+    [ "json_object", "json_schema", { type: "json_schema" } ].each do |format|
+      assert_raises(ArgumentError) { LlmGateway::Adapters::AnthropicOptionMapper.map(response_format: format) }
+    end
   end
 
   class AnthropicOptionsFakeClient < LlmGateway::Clients::Anthropic

@@ -47,7 +47,9 @@ module LlmGateway
         mapped_options[:max_tokens] = options[:max_completion_tokens] || DEFAULT_MAX_TOKENS
 
         response_format = options[:response_format]
-        mapped_options[:output_config] = normalize_output_config(response_format) unless response_format.nil?
+        unless response_format.nil?
+          mapped_options[:output_config] = (mapped_options[:output_config] || {}).merge(normalize_output_config(response_format))
+        end
 
         apply_reasoning_control!(mapped_options, options[:reasoning_control])
 
@@ -68,10 +70,18 @@ module LlmGateway
         format_type = response_format.is_a?(Hash) ? response_format[:type] || response_format["type"] : response_format
 
         case format_type.to_s
-        when "json_object", "json_schema"
-          { format: "json_schema" }
+        when "json_schema"
+          raise ArgumentError, "response_format json_schema requires a schema object" unless response_format.is_a?(Hash)
+
+          definition = response_format[:json_schema] || response_format["json_schema"] || response_format
+          schema = definition[:schema] || definition["schema"]
+          raise ArgumentError, "response_format json_schema requires a schema object" unless schema.is_a?(Hash)
+
+          { format: { type: "json_schema", schema: schema } }
+        when "text"
+          {}
         else
-          { format: "text" }
+          raise ArgumentError, "Unsupported Anthropic response_format: #{format_type}"
         end
       end
 

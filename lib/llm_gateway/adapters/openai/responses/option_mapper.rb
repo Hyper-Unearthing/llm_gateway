@@ -119,7 +119,10 @@ module LlmGateway
 
           def text_with_response_format(text, response_format)
             text_options = text ? text.dup : {}
-            text_options[:format] = response_format.is_a?(String) ? { type: response_format } : response_format
+            format = response_format.is_a?(String) ? { type: response_format } : response_format
+            definition = format[:json_schema] || format["json_schema"]
+            format = definition.merge(type: "json_schema") if definition
+            text_options[:format] = format
             text_options
           end
         end
