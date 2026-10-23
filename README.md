@@ -989,8 +989,23 @@ manager.on_token_refresh = lambda do |new_access_token, new_refresh_token, new_e
   # Persist updated credentials in your DB/secrets store
 end
 
+manager.ensure_valid_token
 current_access_token = manager.access_token
 ```
+
+OpenAI refresh failures raise `LlmGateway::Errors::OAuthRefreshError` with a safe
+message and structured `status`, `code`, and `reason` fields. `reason` is
+`:rejected`, `:invalid_response`, or `:transport`; `status` is nil for transport
+failures, and `code` is the provider's short OAuth error identifier when available.
+For example, `code == "invalid_grant"` indicates that reauthorization is required.
+Response bodies and error descriptions are not included in the exception.
+
+Refresh requests are not automatically retried: a lost response may mean the
+provider already rotated the refresh token. Serialize refresh and persistence
+for each stored grant (for example, with a database lock), and persist tokens in
+`on_token_refresh` before using the returned credential. Failed refreshes leave
+manager state unchanged and do not invoke the callback. Callback exceptions
+propagate unchanged.
 
 Anthropic OAuth:
 
