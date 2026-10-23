@@ -108,6 +108,21 @@ class OpenAIResponsesOptionMapperTest < Test
     )
   end
 
+  test "maps the common JSON schema envelope without dropping schema or native text options" do
+    definition = { name: "repair", strict: true, schema: { type: "object", additionalProperties: false } }
+    mapped = LlmGateway::Adapters::OpenAI::Responses::OptionMapper.map(
+      response_format: { type: "json_schema", json_schema: definition }, text: { verbosity: "low" })
+    assert_equal definition.merge(type: "json_schema"), mapped.dig(:text, :format)
+    assert_equal "low", mapped.dig(:text, :verbosity)
+  end
+
+  test "accepts string keyed JSON schema envelopes" do
+    definition = { "name" => "repair", "strict" => true, "schema" => { "type" => "object" } }
+    mapped = LlmGateway::Adapters::OpenAI::Responses::OptionMapper.map(
+      response_format: { "type" => "json_schema", "json_schema" => definition })
+    assert_equal definition.merge(type: "json_schema"), mapped.dig(:text, :format)
+  end
+
   class OpenAIResponsesOptionsFakeClient < LlmGateway::Clients::OpenAI
     attr_reader :options
 
