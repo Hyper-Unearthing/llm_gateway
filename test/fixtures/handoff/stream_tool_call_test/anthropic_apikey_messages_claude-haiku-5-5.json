@@ -1,0 +1,57 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Calculate 15 + 27 using the math_operation tool"
+      }
+    ]
+  },
+  {
+    "id": "msg_011Cga9zAdggDpiG8Wua9NWF",
+    "model": "claude-haiku-5-5",
+    "usage": {
+      "input": 471,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 91,
+      "total": 562,
+      "raw": {
+        "input_tokens": 471,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 91,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        }
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "tool_use",
+    "provider": "anthropic",
+    "api": "messages",
+    "content": [
+      {
+        "id": "toolu_014dUKWvG3aNFs2kKD3MpaiL",
+        "type": "tool_use",
+        "name": "math_operation",
+        "input": {
+          "a": 15,
+          "b": 27,
+          "operation": "add"
+        }
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "toolu_014dUKWvG3aNFs2kKD3MpaiL",
+        "content": "42"
+      }
+    ]
+  }
+]

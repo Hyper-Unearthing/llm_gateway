@@ -1,0 +1,44 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Count from 1 to 3"
+      }
+    ]
+  },
+  {
+    "id": "resp_053cc29ae28234c9006ae5c249b70087d0b9d471e152533288",
+    "model": "gpt-6-luna",
+    "usage": {
+      "input": 13,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 26,
+      "total": 39,
+      "raw": {
+        "input_tokens": 13,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 26,
+        "output_tokens_details": {
+          "reasoning_tokens": 13
+        },
+        "total_tokens": 39
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "text",
+        "text": "1, 2, 3"
+      }
+    ]
+  }
+]

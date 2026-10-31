@@ -26,8 +26,8 @@ class CodeGenerationPngLiveTest < Test
   CSV
 
   PROVIDER_MODEL_PAIRS = [
-    { name: "anthropic_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514" },
-    { name: "openai_responses", provider: "openai-responses", model: "gpt-5.4" }
+    { name: "anthropic_messages", provider: "anthropic-messages", model: "claude-haiku-5-5" },
+    { name: "openai_responses", provider: "openai-responses", model: "gpt-5.4-nano" }
   ].freeze
 
   def teardown
@@ -53,7 +53,10 @@ class CodeGenerationPngLiveTest < Test
       Requirements:
       - Plot monthly average temperature (Jan-Dec only; ignore Annual Mean)
       - Include x/y axes and month labels
-      - Save the chart as a PNG file
+      - Read the CSV, create the chart, and save it in a single Python execution; do not make preliminary inspection calls
+      - Save exactly one PNG file and close the figure with plt.close()
+      - Do not display the figure inline
+      - Include exactly one download link to the saved PNG in your final response
 
       CSV:
       #{CSV_DATA}

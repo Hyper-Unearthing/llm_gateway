@@ -1,0 +1,48 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Think long and hard about 42 + 27"
+      }
+    ]
+  },
+  {
+    "id": "chatcmpl-Ef0ZvmNwhySGsTwM22E5qTPBloOJF",
+    "model": "gpt-6-luna",
+    "usage": {
+      "input": 16,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 40,
+      "total": 56,
+      "raw": {
+        "prompt_tokens": 16,
+        "completion_tokens": 40,
+        "total_tokens": 56,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 23,
+          "audio_tokens": 0,
+          "accepted_prediction_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "completions",
+    "content": [
+      {
+        "type": "text",
+        "text": "42 + 27 = 69."
+      }
+    ]
+  }
+]

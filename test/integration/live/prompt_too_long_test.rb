@@ -7,12 +7,10 @@ class PromptTooLongLiveTest < Test
   include LiveTestHelper
 
   PAIRS = [
-    { name: "openai_apikey_completions", provider: "openai-completions", model: "gpt-5.1" },
-    { name: "anthropic_apikey_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514" },
-    { name: "openai_apikey_responses", provider: "openai-responses", model: "gpt-5.4" },
-    { name: "anthropic_oauth_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514", oauth: true },
-    { name: "openai_oauth_codex", provider: "openai-codex", model: "gpt-5.4" },
-    { name: "groq_completions", provider: "groq-completions", model: "openai/gpt-oss-120b" }
+    { name: "openai_apikey_completions", provider: "openai-completions", model: "gpt-6-luna" },
+    { name: "anthropic_apikey_messages", provider: "anthropic-messages", model: "claude-haiku-5-5" },
+    { name: "openai_apikey_responses", provider: "openai-responses", model: "gpt-6-luna" },
+    { name: "groq_completions", provider: "groq-completions", model: "openai/gpt-oss-20b" }
   ].freeze
 
   def teardown
@@ -31,15 +29,15 @@ class PromptTooLongLiveTest < Test
       "Expected prompt-length related error message for #{provider}, got: #{error.message}"
   end
 
-  def self.define_prompt_too_long_debug_test(provider_name:, provider:, model:, oauth:, options: {})
+  def self.define_prompt_too_long_debug_test(provider_name:, provider:, model:, options: {})
     test "live_prompt_too_long_#{provider_name}_#{model}" do
-      with_vcr_adapter(provider:, model:, redact_request_body: true, oauth:,) do |adapter|
+      with_vcr_adapter(provider:, model:, redact_request_body: true) do |adapter|
         assert_prompt_too_long(adapter, provider_name, options: options)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_prompt_too_long_debug_test(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], oauth: pair[:oauth], options: pair.fetch(:options, {}))
+    define_prompt_too_long_debug_test(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 end

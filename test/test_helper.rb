@@ -90,7 +90,7 @@ VCR.configure do |config|
     end
   end
 
-  config.before_record(:redact_set_cookie_headers) do |interaction|
+  config.before_record do |interaction|
     interaction.response.headers["Set-Cookie"] = [ "<SET_COOKIE>" ] if interaction.response.headers.key?("Set-Cookie")
   end
 

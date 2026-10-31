@@ -1,0 +1,60 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Calculate 15 + 27 using the math_operation tool"
+      }
+    ]
+  },
+  {
+    "id": "resp_02f7e00791a2d030006ae5c28972e887d086e3a9ccac88f025",
+    "model": "gpt-6-luna",
+    "usage": {
+      "input": 91,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 26,
+      "total": 117,
+      "raw": {
+        "input_tokens": 91,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 26,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 117
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "tool_use",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "id": "call_d3ETJDrFV5sDPuLBl9l9Ufp8",
+        "type": "tool_use",
+        "name": "math_operation",
+        "input": {
+          "a": 15,
+          "b": 27,
+          "operation": "add"
+        }
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "call_d3ETJDrFV5sDPuLBl9l9Ufp8",
+        "content": "42"
+      }
+    ]
+  }
+]

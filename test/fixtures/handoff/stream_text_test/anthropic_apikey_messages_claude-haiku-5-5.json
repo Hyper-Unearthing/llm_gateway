@@ -1,0 +1,41 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Count from 1 to 3"
+      }
+    ]
+  },
+  {
+    "id": "msg_011Cga9uWaqwjtB4WN2mhoFh",
+    "model": "claude-haiku-5-5",
+    "usage": {
+      "input": 17,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 9,
+      "total": 26,
+      "raw": {
+        "input_tokens": 17,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 9,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        }
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "anthropic",
+    "api": "messages",
+    "content": [
+      {
+        "type": "text",
+        "text": "1, 2, 3"
+      }
+    ]
+  }
+]

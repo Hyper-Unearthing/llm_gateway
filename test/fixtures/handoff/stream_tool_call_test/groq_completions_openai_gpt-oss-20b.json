@@ -1,0 +1,65 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Calculate 15 + 27 using the math_operation tool"
+      }
+    ]
+  },
+  {
+    "id": "chatcmpl-433e143d-785a-4fd0-bb11-f00974b4dded",
+    "model": "openai/gpt-oss-20b",
+    "usage": {
+      "input": 167,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 53,
+      "total": 220,
+      "raw": {
+        "queue_time": 0.318056253,
+        "prompt_tokens": 167,
+        "prompt_time": 0.008174488,
+        "completion_tokens": 53,
+        "completion_time": 0.062287114,
+        "total_tokens": 220,
+        "total_time": 0.070461602,
+        "completion_tokens_details": {
+          "reasoning_tokens": 22
+        }
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "tool_use",
+    "provider": "groq",
+    "api": "completions",
+    "content": [
+      {
+        "type": "reasoning",
+        "reasoning": "We need to call the math_operation function with a=15, b=27, operation=\"add\".",
+        "signature": ""
+      },
+      {
+        "id": "fc_3fb04736-ff24-4c20-b934-a86111edbe33",
+        "type": "tool_use",
+        "name": "math_operation",
+        "input": {
+          "a": 15,
+          "b": 27,
+          "operation": "add"
+        }
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "fc_3fb04736-ff24-4c20-b934-a86111edbe33",
+        "content": "42"
+      }
+    ]
+  }
+]

@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.groq.com/openai/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: "<huge prompt body redacted>"
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.groq.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 10:22:26 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '130'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Server:
+      - cloudflare
+      Vary:
+      - Origin
+      X-Groq-Region:
+      - dls
+      X-Request-Id:
+      - req_01m68qpsdme4ztd4kxz3c3jztf
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Via:
+      - 1.1 google
+      Strict-Transport-Security:
+      - max-age=15552000
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cf-Ray:
+      - a531f0406abe02b6-HKG
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"Please reduce the length of the messages or completion.","type":"invalid_request_error","param":"messages"}}
+
+        '
+  recorded_at: Sat, 31 Oct 2026 10:22:26 GMT
+recorded_with: VCR 6.4.0
