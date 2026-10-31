@@ -8,7 +8,10 @@ class HandoffStreamToolCallLiveTest < Test
   include LiveTestHelper
 
   SOURCE_TEST_PATH = File.expand_path("stream_tool_call_test.rb", __dir__)
-  FIXTURE_DIR = File.expand_path("../../fixtures/handoff/stream_tool_call_test", __dir__)
+  FIXTURE_DIR = File.join(
+    ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || File.expand_path("../../fixtures", __dir__),
+    "handoff/stream_tool_call_test"
+  )
 
   PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).freeze
 
@@ -31,7 +34,8 @@ class HandoffStreamToolCallLiveTest < Test
       }
     ]
 
-    response = adapter.stream(transcript, reasoning: "high", **options)
+    reasoning_options = adapter.model.supports_reasoning? ? { reasoning: "high" } : {}
+    response = adapter.stream(transcript, **reasoning_options, **options)
     refute_equal "error", response.stop_reason, "#{provider_name}/#{model} failed: #{response.error_message}"
 
     text = response.content.select { |block| block.type == "text" }.map(&:text).join(" ").downcase

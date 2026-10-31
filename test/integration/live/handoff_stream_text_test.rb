@@ -8,7 +8,10 @@ class HandoffStreamTextLiveTest < Test
   include LiveTestHelper
 
   SOURCE_TEST_PATH = File.expand_path("stream_text_test.rb", __dir__)
-  FIXTURE_DIR = File.expand_path("../../fixtures/handoff/stream_text_test", __dir__)
+  FIXTURE_DIR = File.join(
+    ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || File.expand_path("../../fixtures", __dir__),
+    "handoff/stream_text_test"
+  )
 
   PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).freeze
 
@@ -31,11 +34,14 @@ class HandoffStreamTextLiveTest < Test
       }
     ]
 
-    response = adapter.stream(transcript, reasoning: "high", **options)
+    reasoning_options = adapter.model.supports_reasoning? ? { reasoning: "high" } : {}
+    response = adapter.stream(transcript, **reasoning_options, **options)
     refute_equal "error", response.stop_reason, "#{provider_name}/#{model} failed: #{response.error_message}"
 
     text = response.content.select { |block| block.type == "text" }.map(&:text).join(" ").downcase
-    assert_match(/\b(6|six)\b/, text)
+    expected_count = records.length
+    expected_word = %w[zero one two three four five six seven eight nine ten][expected_count]
+    assert_match(/\b(#{expected_count}|#{expected_word || expected_count})\b/, text)
   end
 
   def self.define_handoff_stream_test_for(provider_name:, provider:, model:, oauth:, options: {})

@@ -4,6 +4,12 @@ require "json"
 require "time"
 require "fileutils"
 
+if ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"]
+  VCR.configure do |config|
+    config.cassette_library_dir = File.join(ENV.fetch("LLM_GATEWAY_LIVE_ARTIFACT_DIR"), "vcr_cassettes")
+  end
+end
+
 module LiveTestHelper
   LiveAdapter = Struct.new(:adapter, :model) do
     def chat(message, tools: nil, system: nil, **options)
@@ -49,9 +55,10 @@ module LiveTestHelper
   def with_vcr_adapter(provider:, model:, redact_request_body: false, oauth: false)
     cassette_name = vcr_cassette_name
     match_requests_on = redact_request_body ? %i[method uri] : %i[method uri json_body]
-    replaying_vcr = File.exist?(vcr_cassette_path(cassette_name))
+    replaying_vcr = ENV["LLM_GATEWAY_LIVE_RECORD"] != "1" && File.exist?(vcr_cassette_path(cassette_name))
 
     cassette_options = { match_requests_on: match_requests_on }
+    cassette_options[:record] = :all if ENV["LLM_GATEWAY_LIVE_RECORD"] == "1"
     cassette_options[:tag] = :redact_large_request_body if redact_request_body
 
     VCR.use_cassette(cassette_name, cassette_options) do
@@ -94,7 +101,8 @@ module LiveTestHelper
   end
 
   def record_live_handoff_result(test_file:, provider:, model:, result:)
-    fixture_dir = File.expand_path("../fixtures/handoff/#{File.basename(test_file, ".rb")}", __dir__)
+    root = ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || File.expand_path("../fixtures", __dir__)
+    fixture_dir = File.join(root, "handoff", File.basename(test_file, ".rb"))
     FileUtils.mkdir_p(fixture_dir)
 
     pair_name = "#{provider}_#{model}".gsub(/[^A-Za-z0-9_.-]+/, "_")
