@@ -82,12 +82,18 @@ VCR.configure do |config|
 
   config.default_cassette_options = { match_requests_on: %i[json_body method] }
   config.filter_sensitive_data("<BEARER_TOKEN>") do |interaction|
-    auths = interaction.request.headers["Authorization"]&.first || interaction.request.headers["X-Api-Key"]&.first
+    auths = interaction.request.headers["Authorization"]&.first ||
+      interaction.request.headers["X-Api-Key"]&.first ||
+      interaction.request.headers["Cf-Aig-Authorization"]&.first
     if auths && (match = auths.match(/^Bearer\s+([^,\s]+)/))
       match.captures.first
     elsif auths&.start_with?("sk")
       auths
     end
+  end
+
+  config.filter_sensitive_data("<CLOUDFLARE_ACCOUNT_ID>") do
+    ENV.fetch("CLOUDFLARE_ACCOUNT_ID", "0" * 32)
   end
 
   config.before_record do |interaction|

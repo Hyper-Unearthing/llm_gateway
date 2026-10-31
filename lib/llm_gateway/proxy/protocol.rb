@@ -11,7 +11,8 @@ module LlmGateway
         "openai-completions" => LlmGateway::Adapters::OpenAI::ChatCompletionsAdapter,
         "openai-responses" => LlmGateway::Adapters::OpenAI::ResponsesAdapter,
         "openai-codex" => LlmGateway::Adapters::OpenAICodex::ResponsesAdapter,
-        "groq-completions" => LlmGateway::Adapters::Groq::ChatCompletionsAdapter
+        "groq-completions" => LlmGateway::Adapters::Groq::ChatCompletionsAdapter,
+        "cloudflare-ai-gateway" => LlmGateway::Adapters::CloudflareAIGateway::ChatCompletionsAdapter
       }.freeze
       ADAPTER_NAMES = ADAPTERS.invert.freeze
 

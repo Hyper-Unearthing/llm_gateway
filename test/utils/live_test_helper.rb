@@ -41,6 +41,10 @@ module LiveTestHelper
     return load_local_provider if local_provider_override?(provider)
 
     config = replaying_vcr ? { "api_key" => "vcr-replay-token" } : {}
+    if replaying_vcr && provider == "cloudflare-ai-gateway"
+      config["account_id"] = ENV.fetch("CLOUDFLARE_ACCOUNT_ID", "0" * 32)
+      config["gateway_id"] = "default"
+    end
 
     adapter_class = LlmGateway::Proxy::Protocol.load_adapter(provider)
     definition = LlmGateway.models.fetch(provider: adapter_class.provider, id: model)

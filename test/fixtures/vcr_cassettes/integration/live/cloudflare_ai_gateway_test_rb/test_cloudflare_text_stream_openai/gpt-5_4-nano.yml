@@ -1,0 +1,103 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://gateway.ai.cloudflare.com/v1/<CLOUDFLARE_ACCOUNT_ID>/default/compat/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"reasoning_effort":"none","stream_options":{"include_usage":true},"max_completion_tokens":256,"model":"openai/gpt-5.4-nano","messages":[{"role":"user","content":[{"type":"text","text":"Reply
+        with exactly the word blue."}]}],"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - gateway.ai.cloudflare.com
+      Content-Type:
+      - application/json
+      Cf-Aig-Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 16:30:56 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a5340c08296d826d-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      X-Request-Id:
+      - req_7113b3cbf227490ba63e00d31ee38c0c
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
+      - X-Request-ID
+      Cf-Aig-Cache-Status:
+      - MISS
+      Cf-Aig-Event-Id:
+      - 01a192cc-c129-7511-bcad-5bb21c6c2c3b
+      Cf-Aig-Log-Id:
+      - 01a192cc-c129-7511-bcad-5bb21c6c2c3b
+      Cf-Aig-Request-Id:
+      - 01a192cc-c129-7511-bcad-5bb21c6c2c3b
+      Cf-Aig-Step:
+      - '0'
+      Cf-Aig-Trace-Id:
+      - 0e257d953e9b4e6c9d17a23dc590df5e
+      Openai-Organization:
+      - cloudflare-29
+      Openai-Processing-Ms:
+      - '321'
+      Openai-Project:
+      - proj_zIL1olMDsUmq7bHYZWZsKUF9
+      Openai-Version:
+      - '2020-10-01'
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      X-Ratelimit-Limit-Requests:
+      - '30000'
+      X-Ratelimit-Limit-Tokens:
+      - '180000000'
+      X-Ratelimit-Remaining-Requests:
+      - '29999'
+      X-Ratelimit-Remaining-Tokens:
+      - '179999988'
+      X-Ratelimit-Reset-Requests:
+      - 2ms
+      X-Ratelimit-Reset-Tokens:
+      - 0s
+      Set-Cookie:
+      - "<SET_COOKIE>"
+    body:
+      encoding: UTF-8
+      string: |+
+        data: {"p": "7258005cf3c1e2d2", "id":"chatcmpl-Ef6GldXN2mEiYVZZUMw1Gsu7K6WEp","object":"chat.completion.chunk","created":1793464255,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"finish_reason":null}],"usage":null,"obfuscation":"X3A"}
+
+        data: {"p": "665c7e823", "id":"chatcmpl-Ef6GldXN2mEiYVZZUMw1Gsu7K6WEp","object":"chat.completion.chunk","created":1793464255,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"blue"},"finish_reason":null}],"usage":null,"obfuscation":"t"}
+
+        data: {"p": "bc14ec70518", "id":"chatcmpl-Ef6GldXN2mEiYVZZUMw1Gsu7K6WEp","object":"chat.completion.chunk","created":1793464255,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"usage":null,"obfuscation":"hlMZHSGjY8WIyp0"}
+
+        data: {"p": "02b", "id":"chatcmpl-Ef6GldXN2mEiYVZZUMw1Gsu7K6WEp","object":"chat.completion.chunk","created":1793464255,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[],"usage":{"prompt_tokens":13,"completion_tokens":4,"total_tokens":17,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0,"audio_tokens":0,"accepted_prediction_tokens":0,"rejected_prediction_tokens":0}},"obfuscation":"sIJCk"}
+
+        data: [DONE]
+
+  recorded_at: Sat, 31 Oct 2026 16:30:56 GMT
+recorded_with: VCR 6.4.0
+...

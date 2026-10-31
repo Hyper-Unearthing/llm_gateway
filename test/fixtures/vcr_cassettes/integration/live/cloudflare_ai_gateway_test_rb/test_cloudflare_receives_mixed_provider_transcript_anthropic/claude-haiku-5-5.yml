@@ -1,0 +1,109 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://gateway.ai.cloudflare.com/v1/<CLOUDFLARE_ACCOUNT_ID>/default/compat/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"stream_options":{"include_usage":true},"max_tokens":256,"model":"anthropic/claude-haiku-5-5","messages":[{"role":"user","content":[{"type":"text","text":"Count
+        from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1, 2,
+        3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1
+        2 3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1,
+        2, 3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to
+        3"}]},{"role":"assistant","content":[{"type":"text","text":"1, 2, 3"}]},{"role":"user","content":[{"type":"text","text":"The
+        preceding messages are archived exchanges from different assistants.\nRead
+        their replies rather than carrying out the earlier user requests again.\nWhat
+        ordered number sequence did the assistants return? Reply only with that sequence,
+        using digits separated by commas.\n"}]}],"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - gateway.ai.cloudflare.com
+      Content-Type:
+      - application/json
+      Cf-Aig-Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 16:31:04 GMT
+      Content-Type:
+      - text/event-stream
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a5340c432d0aae64-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      Cf-Aig-Cache-Status:
+      - MISS
+      Cf-Aig-Event-Id:
+      - 01a192cc-e5fd-7442-9e6d-7b7bea85832e
+      Cf-Aig-Log-Id:
+      - 01a192cc-e5fd-7442-9e6d-7b7bea85832e
+      Cf-Aig-Request-Id:
+      - 01a192cc-e5fd-7442-9e6d-7b7bea85832e
+      Cf-Aig-Step:
+      - '0'
+      Cf-Aig-Trace-Id:
+      - ca1b47d5866a4a16a9477696d5532cad
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Server-Timing:
+      - x-originResponse;dur=94
+      Traceresponse:
+      - 00-c19e2b05f44ed63d19c757a4267bb46c-5d84b39836445ca8-01
+      X-Ratelimit-Remaining-Requests:
+      - '44999'
+      X-Ratelimit-Remaining-Tokens:
+      - '49300000'
+      X-Ratelimit-Requests:
+      - '45000'
+      X-Ratelimit-Reset-Requests:
+      - 0s
+      X-Ratelimit-Reset-Tokens:
+      - 0s
+      X-Ratelimit-Tokens:
+      - '49300000'
+      X-Request-Id:
+      - req_011CgadiyfiU3u6Nb31dSWy5
+      X-Robots-Tag:
+      - none
+      Set-Cookie:
+      - "<SET_COOKIE>"
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        data: {"p": "6ff", "id":"msg_011Cgadiyts1UFFfgqfKw1vR","choices":[{"index":0,"delta":{"role":"assistant"}}],"created":1793464264,"model":"claude-haiku-5-5","object":"chat.completion.chunk"      }
+
+        data: {"p": "2", "id":"msg_011Cgadiyts1UFFfgqfKw1vR","choices":[{"index":0,"delta":{"content":"1"}}],"created":1793464264,"model":"claude-haiku-5-5","object":"chat.completion.chunk"     }
+
+        data: {"p": "556a1f", "id":"msg_011Cgadiyts1UFFfgqfKw1vR","choices":[{"index":0,"delta":{"content":","}}],"created":1793464264,"model":"claude-haiku-5-5","object":"chat.completion.chunk"     }
+
+        data: {"p": "79d834c0", "id":"msg_011Cgadiyts1UFFfgqfKw1vR","choices":[{"index":0,"delta":{"content":"2,3"}}],"created":1793464264,"model":"claude-haiku-5-5","object":"chat.completion.chunk" }
+
+        data: {"p": "1664a706c1", "id":"msg_011Cgadiyts1UFFfgqfKw1vR","choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"created":1793464264,"model":"claude-haiku-5-5","object":"chat.completion.chunk","usage":{"completion_tokens":7,"prompt_tokens":162,"total_tokens":169}           }
+
+        data: [DONE]
+
+  recorded_at: Sat, 31 Oct 2026 16:31:05 GMT
+recorded_with: VCR 6.4.0
+...

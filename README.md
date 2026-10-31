@@ -69,8 +69,39 @@ gem "llm_gateway"
 | OpenAI    | `openai-responses`           | API key | Responses            |
 | OpenAI Codex | `openai-codex`            | OAuth   | Responses            |
 | Groq      | `groq-completions`           | API key | Chat Completions     |
+| Cloudflare AI Gateway | `cloudflare-ai-gateway` | Cloudflare API token | Unified Chat Completions |
 
 Adapter configuration only contains auth/client settings (for example `api_key` or `access_token`). Pass a catalog model definition per `stream` request with `model:`.
+
+### Cloudflare AI Gateway (Unified Billing)
+
+Use prepaid AI Gateway credits without supplying an upstream provider key:
+
+```bash
+export CLOUDFLARE_ACCOUNT_ID="your-32-character-account-id"
+export CLOUDFLARE_AI_API_KEY="your-cloudflare-api-token"
+export CLOUDFLARE_GATEWAY_ID="default" # optional; defaults to "default"
+```
+
+`CLOUDFLARE_API_TOKEN` is also accepted when `CLOUDFLARE_AI_API_KEY` is unset.
+
+```ruby
+adapter = LlmGateway::Adapters::CloudflareAIGateway::ChatCompletions.build
+model = LlmGateway.models.fetch(
+  provider: "cloudflare-ai-gateway",
+  id: "openai/gpt-5.4-nano"
+)
+response = adapter.stream("Explain Ruby's Enumerable module briefly.",
+  model: model, max_completion_tokens: 512,
+  reasoning_effort: "none", stream_options: { include_usage: true })
+```
+
+**No custom model registration is needed.** The bundled catalog imports AI Gateway models from models.dev, including capabilities, limits, reasoning metadata, and pricing. Generation uses canonical upstream IDs and Cloudflare routing prefixes, such as `anthropic/claude-haiku-5-5`, `google-ai-studio/gemini-2.5-flash`, and `grok/grok-4.7`. Availability, valid generation parameters, and Unified Billing eligibility still depend on the selected upstream model and account settings. Catalog prices are estimates, not a Cloudflare billing receipt.
+
+- `build` accepts explicit `account_id:`, `gateway_id:`, and `api_key:` overrides. Only the Cloudflare token is sent in `cf-aig-authorization`; no `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, or body-level `apiKey` is inherited. Cloudflare can still use provider keys stored in your gateway ahead of prepaid credits; see [credential precedence](https://developers.cloudflare.com/ai-gateway/features/unified-billing/#credential-precedence).
+- This adapter uses `/compat/chat/completions` to normalize upstream responses into Chat Completions. Cloudflare has deprecated this endpoint for new single-model integrations but currently retains it for existing integrations. The recommended newer REST endpoint can emit provider-native streams (observed with Anthropic), so it is not a drop-in replacement for this protocol adapter.
+- The provider owns a conservative option allowlist and does not inherit OpenAI defaults. Managed `max_completion_tokens` becomes `max_completion_tokens` for OpenAI routes and `max_tokens` for other routes. Effort-based managed reasoning maps to `reasoning_effort`; toggle/budget controls and managed cache options are not implemented. Native options must also be supported by the selected upstream.
+- Streamed usage is upstream-dependent. In live tests, OpenAI returned usage with `include_usage: true`, while Anthropic's compatibility stream omitted usage even when requested. Missing counts remain zero/unknown and the cost remains `nil`; neither indicates free inference.
 
 ### Configured Chat Completions providers
 
@@ -166,6 +197,7 @@ Provider-specific options are maintained as explicit allowlists in the option ma
 | `openai-responses` | OpenAI Responses Create | [`lib/llm_gateway/adapters/openai/responses/option_mapper.rb`](lib/llm_gateway/adapters/openai/responses/option_mapper.rb) | [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create/index.md) |
 | `openai-codex` | OpenAI Codex Responses-compatible endpoint | [`lib/llm_gateway/adapters/openai_codex/option_mapper.rb`](lib/llm_gateway/adapters/openai_codex/option_mapper.rb) | [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create/index.md) |
 | `groq-completions` | Groq Chat Completions Create | [`lib/llm_gateway/adapters/groq/option_mapper.rb`](lib/llm_gateway/adapters/groq/option_mapper.rb) | [Groq Chat API](https://console.groq.com/docs/api-reference.md#chat-create) |
+| `cloudflare-ai-gateway` | AI Gateway unified Chat Completions | [`lib/llm_gateway/adapters/cloudflare_ai_gateway/option_mapper.rb`](lib/llm_gateway/adapters/cloudflare_ai_gateway/option_mapper.rb) | [Cloudflare unified API](https://developers.cloudflare.com/ai-gateway/usage/chat-completion/) |
 
 Common provider-native options you may pass directly when allowed include OpenAI `prompt_cache_key` / `prompt_cache_retention` and Groq `reasoning_effort` / `reasoning_format`. Prefer the managed options above when you want portable behavior across providers.
 
