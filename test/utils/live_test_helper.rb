@@ -79,7 +79,7 @@ module LiveTestHelper
     definition = LlmGateway.models.find(provider: "qwen-local", id: model_id) || LlmGateway.models.register(
       provider: "qwen-local", id: model_id,
       context_window: 49_152, max_output_tokens: 8192,
-      input_modalities: [:text], output_modalities: [:text],
+      input_modalities: [ :text ], output_modalities: [ :text ],
       capabilities: { text_generation: true, tool_calling: true, reasoning: false }
     )
     provider = LlmGateway::Providers.chat_completions(

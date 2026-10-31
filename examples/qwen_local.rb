@@ -25,8 +25,8 @@ model = LlmGateway.models.register(
   id: ENV.fetch("LOCAL_LLM_MODEL", "qwen3.8-27b"),
   context_window: 49_152,
   max_output_tokens: 8192,
-  input_modalities: [:text],
-  output_modalities: [:text],
+  input_modalities: [ :text ],
+  output_modalities: [ :text ],
   capabilities: { text_generation: true, tool_calling: true, reasoning: false }
 )
 
