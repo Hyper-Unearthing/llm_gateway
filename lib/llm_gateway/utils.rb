@@ -97,16 +97,22 @@ unless Class.method_defined?(:class_attribute)
 end
 
 class Object
-  def blank?
-    LlmGateway::Utils.blank?(self)
+  unless method_defined?(:blank?)
+    def blank?
+      LlmGateway::Utils.blank?(self)
+    end
   end
 
-  def present?
-    LlmGateway::Utils.present?(self)
+  unless method_defined?(:present?)
+    def present?
+      !blank?
+    end
   end
 
-  def presence
-    LlmGateway::Utils.presence(self)
+  unless method_defined?(:presence)
+    def presence
+      self if present?
+    end
   end
 end
 
