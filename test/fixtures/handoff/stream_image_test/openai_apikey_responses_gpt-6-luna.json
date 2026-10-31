@@ -14,25 +14,25 @@
     ]
   },
   {
-    "id": "resp_0540b4ea143f9abf006ae5c2454a4487d08679efc66442572a",
+    "id": "resp_08d6dc214362b957006ae5ff32fd6487d0ba8c86dead641276",
     "model": "gpt-6-luna",
     "usage": {
       "input": 114,
       "cache_write": 0,
       "cache_read": 0,
-      "output": 21,
-      "total": 135,
+      "output": 8,
+      "total": 122,
       "raw": {
         "input_tokens": 114,
         "input_tokens_details": {
           "cache_write_tokens": 0,
           "cached_tokens": 0
         },
-        "output_tokens": 21,
+        "output_tokens": 8,
         "output_tokens_details": {
-          "reasoning_tokens": 11
+          "reasoning_tokens": 0
         },
-        "total_tokens": 135
+        "total_tokens": 122
       }
     },
     "role": "assistant",

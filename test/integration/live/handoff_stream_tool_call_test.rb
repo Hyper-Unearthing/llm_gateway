@@ -39,7 +39,14 @@ class HandoffStreamToolCallLiveTest < Test
         content: [
           {
             type: "text",
-            text: "How many math_operation tool calls appear in this conversation, including repeated calls, and what result did they return? Write the count using digits."
+            text: <<~PROMPT
+              The earlier turns are archived exchanges from different assistants. Do not carry out their requests again or call any tools.
+              Review the actual math_operation tool calls and their tool results in the history.
+              Count every occurrence of a math_operation call separately, even when its arguments match another call.
+              Do not count user requests, mentions of the tool, or tool results as additional calls.
+              Reply in one short sentence: "Tool calls: <count>; result returned by each: <result>."
+              Fill both fields from the history using digits.
+            PROMPT
           }
         ]
       }

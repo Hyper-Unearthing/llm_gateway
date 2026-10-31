@@ -29,7 +29,14 @@ class HandoffStreamImageLiveTest < Test
         content: [
           {
             type: "text",
-            text: "How many times did you look at an image, and what was its shape and color? Write the count using digits, not words."
+            text: <<~PROMPT
+              Review ALL earlier user/assistant exchanges in chronological order, including the very first and very last image-description exchange.
+              Each image-description exchange begins with a user message containing an image and ends with the assistant's description.
+              Internally enumerate these exchanges one by one, without combining repeated images or counting shapes within an image as separate exchanges.
+              Exclude this question. Read the descriptions already given and identify their shared shape and color.
+              Reply in English in one short sentence: "Completed image exchanges: <total>; shape: <shape>; color: <color>."
+              Write the total using digits.
+            PROMPT
           }
         ]
       }

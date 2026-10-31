@@ -14,7 +14,7 @@
     ]
   },
   {
-    "id": "chatcmpl-d0d2f384-e941-46d1-9e3c-256af4391eaa",
+    "id": "chatcmpl-2795dbca-16b5-41bf-a6c6-d37a0072eada",
     "model": "qwen/qwen3.8-27b",
     "usage": {
       "input": 1344,
@@ -23,13 +23,13 @@
       "output": 126,
       "total": 1470,
       "raw": {
-        "queue_time": 0.183561712,
+        "queue_time": 0.121431252,
         "prompt_tokens": 1344,
-        "prompt_time": 0.099167506,
+        "prompt_time": 0.108360748,
         "completion_tokens": 126,
-        "completion_time": 0.275047897,
+        "completion_time": 0.249210167,
         "total_tokens": 1470,
-        "total_time": 0.374215403
+        "total_time": 0.357570915
       }
     },
     "role": "assistant",

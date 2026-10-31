@@ -14,24 +14,24 @@
     ]
   },
   {
-    "id": "chatcmpl-Ef0ZlYjN3ZpnHqPLHZqDfQwgwKxdY",
+    "id": "chatcmpl-Ef4dKZoGQUOU5ZGBhl72tTW8V8FSq",
     "model": "gpt-6-luna",
     "usage": {
       "input": 113,
       "cache_write": 0,
       "cache_read": 0,
-      "output": 22,
-      "total": 135,
+      "output": 20,
+      "total": 133,
       "raw": {
         "prompt_tokens": 113,
-        "completion_tokens": 22,
-        "total_tokens": 135,
+        "completion_tokens": 20,
+        "total_tokens": 133,
         "prompt_tokens_details": {
           "cached_tokens": 0,
           "audio_tokens": 0
         },
         "completion_tokens_details": {
-          "reasoning_tokens": 9,
+          "reasoning_tokens": 7,
           "audio_tokens": 0,
           "accepted_prediction_tokens": 0,
           "rejected_prediction_tokens": 0

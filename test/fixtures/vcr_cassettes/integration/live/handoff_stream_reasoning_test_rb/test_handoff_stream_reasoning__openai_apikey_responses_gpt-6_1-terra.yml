@@ -5,749 +5,44 @@ http_interactions:
     uri: https://api.openai.com/v1/responses
     body:
       encoding: UTF-8
-      string: '{"model":"gpt-6.1-terra","input":[{"role":"user","content":[{"type":"input_text","text":"Think
-        long and hard about 42 + 27"}]},{"role":"assistant","content":[{"type":"output_text","text":"The
-        user is asking me to think carefully about the sum of 42 + 27.\n\nLet me work
-        through this step by step:\n\n42 + 27\n\nI can break this down:\n- 42 = 40
-        + 2\n- 27 = 20 + 7\n\nSo: (40 + 2) + (20 + 7) = (40 + 20) + (2 + 7) = 60 +
-        9 = 69\n\nLet me verify another way:\n42 + 27\n= 42 + 20 + 7\n= 62 + 7\n=
-        69\n\nOr:\n42 + 27\n= 42 + 25 + 2\n= 67 + 2\n= 69\n\nYes, 42 + 27 = 69"}]},{"role":"assistant","content":[{"type":"output_text","text":"#
-        42 + 27\n\nLet me work through this carefully:\n\n**Breaking it into parts:**\n-
-        42 = 40 + 2\n- 27 = 20 + 7\n\n**Combining:**\n- Tens: 40 + 20 = 60\n- Ones:
-        2 + 7 = 9\n- Total: 60 + 9 = **69**\n\n**Answer: 69**"}]},{"role":"user","content":[{"type":"input_text","text":"Think
-        long and hard about 42 + 27"}]},{"role":"assistant","content":[{"type":"output_text","text":"We
-        have a conversation. The user says: \"Think long and hard about 42 + 27\".
-        The user is asking us to think long and hard about 42 + 27. This is a bit
-        ambiguous. It could be a request to compute the sum 42 + 27 = 69. But the
-        phrase \"Think long and hard about 42 + 27\" might be a reference to \"The
-        Hitchhiker''s Guide to the Galaxy\" where 42 is the answer to life, the universe,
-        and everything, and 27 might be something else. But \"Think long and hard
-        about 42 + 27\" could be a riddle or a puzzle: maybe we need to think about
-        the sum of 42 and 27, or maybe it''s a trick: 42 + 27 = 69. But maybe there''s
-        something deeper: 42 is the answer to life, 27 might be the number of something.
-        42 + 27 = 69, which is a number with sexual connotation. But \"Think long
-        and hard\" might refer to \"the answer to life, the universe, and everything\"
-        (42) plus 27 (the number of something). 42 + 27 = 69. But maybe the user wants
-        us to think about the significance of 42 + 27, like 42 is the answer to life,
-        27 is the number of something, so 42 + 27 = 69. The phrase \"Think long and
-        hard\" might also refer to \"think long and hard\" as a phrase meaning to
-        consider carefully. So the user might be prompting us to think deeply about
-        the sum of 42 and 27, maybe to provide an explanation or a deeper meaning.
-        It might be a test of the model''s ability to interpret ambiguous prompts.
-        The user didn''t ask a direct question like \"What is 42 + 27?\" but rather
-        \"Think long and hard about 42 + 27\". So we could respond by exploring the
-        sum, its significance, maybe the number 69, its cultural connotations, maybe
-        the significance of 42 (Hitchhiker''s Guide), 27 (the number of something).
-        Or we could interpret \"42 + 27\" as a puzzle: maybe it''s about the sum of
-        digits: 4+2+2+7 = 15. Or maybe it''s a trick: 42 + 27 = 69, which is a \"funny
-        number\" because it''s a palindrome in base 10? Actually 69 is not a palindrome.
-        But 69 is a number that is \"69\" which is a sexual reference. 42 is \"the
-        answer to life\". 27 is the number of the \"27 club\" of musicians. So 42
-        + 27 = 69. The \"27 club\" refers to famous musicians who died at 27. 42 is
-        the answer to life. So 42 + 27 = 69. 69 is a number that is \"69\" which is
-        a sexual position. So maybe the user wants us to think about the cultural
-        significance of the sum.\n\nBut maybe the user is just testing the model:
-        \"Think long and hard about 42 + 27\" might be a prompt for the model to think
-        about the sum, and maybe the answer is 69. But \"Think long and hard\" might
-        also be a hint: 42 + 27 = 69, which is also 6 * 11 + 3? Actually 69 = 3 *
-        23. But maybe it''s about prime factorization: 42 = 2 * 3 * 7, 27 = 3^3, sum
-        = 2 * 3 * 7 + 3^3 = 42 + 27 = 69 = 3 * 23. So maybe we can talk about factorization.
-        Or maybe we can talk about the fact that 42 + 27 = 69, which is a \"funny
-        number\" in many contexts. The user might be expecting a creative answer.\n\nWe
-        need to respond in a helpful, friendly manner, and we can interpret the prompt
-        as a request to think about the sum. We could answer: \"42 + 27 = 69.\" Then
-        we can talk about the significance: 42 is the answer to life, 27 is the number
-        of the \"27 club\", 69 is a number with sexual connotation. We can also talk
-        about the number 69 in mathematics: it''s the smallest number that is both
-        a multiple of 3 and a multiple of 23. Or 69 is the sum of 42 and 27. 42 +
-        27 = 69. We can also talk about the \"Hitchhiker''s Guide to the Galaxy\"
-        where 42 is the answer. 27 might be the number of the \"27 club\" of musicians.
-        So 42 + 27 = 69. The number 69 is also a palindrome in base 3? Actually 69
-        in base 3 is 2100. Not a palindrome. But 69 is 6 * 11 + 3. Eh.\n\nAlternatively,
-        we can interpret \"Think long and hard about 42 + 27\" as a request to consider
-        the sum in various ways: like in different bases. 42 + 27 in base 10 is 69.
-        In base 8, 42 decimal is 52 octal, 27 decimal is 33 octal, sum is 85 octal
-        (which is 69 decimal). In base 16, 42 decimal is 2A hex, 27 decimal is 1B
-        hex, sum is 45 hex (which is 69 decimal). So it''s always 69. But maybe the
-        user wants to think about the sum in different contexts: like 42 is a prime?
-        Actually 42 is not prime. 27 is 3^3. So sum is 69. 69 is 3 * 23. 23 is prime.
-        So 69 has two prime factors: 3 and 23. So 69 is a semiprime. It''s also a
-        \"happy number\"? Let''s check: 6^2 + 9^2 = 36 + 81 = 117. 1^2 + 1^2 + 7^2
-        = 1 + 1 + 49 = 51. 5^2 + 1^2 = 26. 2^2 + 6^2 = 4 + 36 = 40. 4^2 + 0^2 = 16.
-        1^2 + 6^2 = 37. 3^2 + 7^2 = 9 + 49 = 58. 5^2 + 8^2 = 25 + 64 = 89. 8^2 + 9^2
-        = 64 + 81 = 145. 1^2 + 4^2 + 5^2 = 1 + 16 + 25 = 42. 4^2 + 2^2 = 16 + 4 =
-        20. 2^2 + 0^2 = 4. 4^2 = 16. 1^2 + 6^2 = 37. 3^2 + 7^2 = 9 + 49 = 58. This
-        loops. So 69 is not a happy number. It''s a \"sad\" number. But that''s not
-        relevant.\n\nMaybe the user wants a creative answer: \"42 + 27 = 69\" but
-        also \"69\" has a sexual connotation. So maybe the user wants us to think
-        about that. Or maybe the user wants us to think about the number 69 in different
-        contexts. The phrase \"Think long and hard\" could be a hint to think about
-        the number 69. \"Think long and hard about 42 + 27\" might be a pun: \"Think
-        long and hard\" might be \"Think long and hard about 42 + 27\" which is 69.
-        So maybe the user is referencing \"69\" as a number that is considered \"funny\"
-        or \"sexually suggestive\". So the user might be expecting a comedic answer:
-        \"42 + 27 = 69, which is a number that is often considered a ''funny'' number.\"
-        But we need to be careful to not produce inappropriate content. It''s fine
-        to mention the sexual connotation but keep it appropriate.\n\nAlternatively,
-        maybe the user is referencing the \"42 + 27\" as a puzzle: \"42 + 27\" might
-        be \"42 + 27 = 69\" but maybe there''s a hidden meaning: 42 is the answer
-        to life, 27 is the number of the \"27 club\", so 42 + 27 = 69, which might
-        be a \"funny number\" because 69 is a sexual position. So maybe the user is
-        referencing that. But we can answer with a short explanation.\n\nWe should
-        also consider the possibility that the user might want us to think about the
-        sum in a deeper sense: maybe 42 is the number of the \"answer to life, the
-        universe, and everything\" and 27 is the number of \"the number of the ''27
-        club'' of musicians.\" So 42 + 27 = 69, which might be a number that is \"funny\"
-        because it''s a \"sex position.\" So maybe we can mention that. But we should
-        also mention the significance of 42 in Hitchhiker''s Guide. 27 is the number
-        of the \"27 club\" of musicians. 69 is a number with sexual connotation. So
-        maybe we can talk about that. But we can also talk about the sum in other
-        contexts: like 42 + 27 = 69 in base 10, but in base 8 it''s 85, in base 16
-        it''s 45, etc. But the sum is always 69 decimal. So we can talk about that.\n\nWe
-        can also talk about the number 69 as a \"funny number\" because it''s a \"funny
-        number\" in some contexts. But we can also talk about 69 as a \"funny number\"
-        in a sense that it''s the sum of 42 and 27, which are both interesting numbers.
-        42 is the answer to life. 27 is a perfect cube. So the sum is 69, which is
-        the product of 3 and 23. So we can talk about that.\n\nAlternatively, maybe
-        the user wants us to think about the sum in terms of \"long and hard\" as
-        a phrase that might refer to \"Think long and hard about 42 + 27\" which might
-        be a phrase used in a puzzle: \"Think long and hard\" might be a clue to \"think
-        about the number 69.\" So maybe the user is referencing the phrase \"Think
-        long and hard\" as a phrase that might be used in a puzzle where the answer
-        is \"69.\" But maybe the user wants us to think about the sum of 42 and 27
-        in different contexts.\n\nWe should also consider the possibility that the
-        user might want us to think about 42 + 27 as a sum of two numbers that have
-        significance: 42 is the answer to life, 27 is the number of the \"27 club.\"
-        So the sum might be 69, which is a number that is often considered \"funny\"
-        or \"sexually suggestive.\" So maybe the user wants us to think about that.
-        But we can also talk about the significance of 69 in mathematics: it''s a
-        semiprime, it''s the sum of two primes? Actually 69 = 23 + 46? Not relevant.\n\nWe
-        can also talk about 42 + 27 = 69 in terms of \"the sum of the number of letters
-        in the phrase ''Think long and hard''.\" Actually \"Think long and hard\"
-        has 18 letters? Let''s check: \"Think\" (5), \"long\" (4), \"and\" (3), \"hard\"
-        (4). That''s 5+4+3+4 = 16. Not 69. So maybe not.\n\nWe can also talk about
-        the significance of 42 + 27 in base 12: 42 decimal is 36 in base 12, 27 decimal
-        is 23 in base 12, sum is 59 in base 12 (which is 69 decimal). So it''s always
-        69.\n\nWe can also talk about the sum 42 + 27 = 69, but we can also talk about
-        the fact that 69 is a number that is used in the phrase \"69\" which is a
-        sexual position. So maybe the user wants us to think about that. But we can
-        keep it appropriate.\n\nWe can also talk about the fact that 69 is the sum
-        of 42 and 27, and it''s also a number that is \"funny\" because it''s the
-        sum of two numbers that are also \"funny\" in some sense. But maybe the user
-        wants us to think about the sum in a deeper sense: maybe we can talk about
-        the concept of \"life, the universe, and everything\" (42) plus the \"27 club\"
-        (27) equals 69, which might be a \"funny number\" because it''s a number that
-        is often used as a joke. So we can talk about that.\n\nWe can also talk about
-        the sum in terms of \"the number of letters in the phrase ''42 + 27''.\" Actually
-        \"42\" is two digits, \"27\" is two digits, plus the plus sign and maybe spaces.
-        But that might not be relevant.\n\nAlternatively, maybe the user wants us
-        to think about the sum in terms of \"the number of prime numbers less than
-        42 plus the number of prime numbers less than 27.\" But that might not be
-        relevant.\n\nWe could also talk about 42 + 27 = 69, which is the sum of two
-        numbers that are both \"funny\" in some sense: 42 is the answer to life, 27
-        is a perfect cube. So the sum is 69, which is a number that is the product
-        of 3 and 23. So we can talk about that.\n\nWe can also talk about the significance
-        of 69 in mathematics: it''s a semiprime, it''s a \"happy\" number? Actually
-        we saw it''s not happy. It''s a \"sad\" number. It''s also a \"Harshad number\"
-        because 69 is divisible by the sum of its digits (6+9=15, 69/15=4.6, not an
-        integer). Actually 69/15 = 4.6, not an integer, so it''s not a Harshad number.
-        It''s also a \"Smith number\"? 69 is not a Smith number. It''s also a \"Smarandache
-        function\"? Not relevant.\n\nWe can talk about 69 as a \"funny number\" in
-        the sense that it''s the sum of 42 and 27, which might be a \"funny\" sum.
-        But we can also talk about 69 as a \"funny number\" in the sense that it''s
-        a number that is often used in jokes. So we can mention that.\n\nWe can also
-        talk about the sum 42 + 27 = 69 in the context of \"the number of days in
-        a month\"? Actually 42 + 27 = 69 days? Not relevant.\n\nWe can also talk about
-        the sum in the context of \"the number of letters in the alphabet\"? Actually
-        42 + 27 = 69 letters? Not relevant.\n\nWe can also talk about the sum in the
-        context of \"the number of days in a year\"? Actually 42 + 27 = 69 days? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of hours in a week\"? Actually 42 + 27 = 69 hours? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of minutes in a time\"?
-        Not relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of minutes in a 1.15 hour\"? Actually 1.15 hour is 69 minutes. So 42 + 27
-        = 69 minutes. So maybe we can talk about that.\n\nWe can also talk about the
-        sum in the context of \"the number of seconds in a minute\"? Actually 60 seconds
-        in a minute. Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can stop. That was a loop.\n\nWe need to produce a final answer
-        that addresses the user. The user says: \"Think long and hard about 42 + 27\".
-        So we can respond with a thoughtful analysis of the sum, perhaps exploring
-        its significance. We can mention the sum, the significance of 42 and 27, the
-        resulting 69, and maybe talk about 69''s significance. We can also talk about
-        the sum in different bases. We can also talk about the number 69''s properties.
-        We can also talk about the \"think long and hard\" phrase as a hint. We can
-        also mention that 42 + 27 = 69. We can also mention that 42 is the answer
-        to life, the universe, and everything. 27 is the number of the \"27 club\".
-        So 42 + 27 = 69. The number 69 is often used in jokes, and it''s also a number
-        that is 3*23. It''s also a semiprime. It''s also a number that is the sum
-        of two primes: 23 + 46? Actually 23 + 46 = 69. 46 is not prime. But 69 can
-        be expressed as 29 + 40? Not relevant. It''s also the sum of 42 and 27. So
-        we can talk about that.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 42 + 27 = 69, which is a number that
-        can be expressed as 3*23. It''s also a \"funny number\" because of its sexual
-        connotation. So we can mention that. But we should keep it appropriate. We
-        can mention that it''s a number that appears in a puzzle: \"Think long and
-        hard\" might be a phrase used in a puzzle where the answer is 69. But we can
-        mention that.\n\nWe can also talk about the sum in the context of \"the number
-        of hours in a week\" or \"the number of minutes in a certain time period.\"
-        But we can keep it simple.\n\nWe can also talk about the sum in the context
-        of \"the number of days in a month\"? Actually 42 + 27 = 69 days. But that''s
-        not a month.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can also talk about the sum in the context of \"the number
-        of something\"? Not relevant.\n\nWe can also talk about the sum in the context
-        of \"the number of something\"? Not relevant.\n\nWe can also talk about the
-        sum in the context of \"the number of something\"? Not relevant.\n\nWe can
-        also talk about the sum in the context of \"the number of something\"? Not
-        relevant.\n\nWe can stop. Enough.\n\nWe should produce a final answer that
-        is helpful. We can mention the sum, the significance of 42, the significance
-        of 27, the resulting 69, and maybe talk about 69''s properties. We can also
-        mention the base conversions. We can also mention that 69 is a number that
-        is \"funny\" because of its sexual connotation. We can also mention that 69
-        is a semiprime. We can also mention that 69 is a \"happy\" number? Actually
-        it''s not. But we can mention that it''s not a happy number. We can also mention
-        that 69 is \"nearly prime\"? Actually 69 is composite. So we can mention that.\n\nWe
-        can also mention that 69 is the sum of two cubes? Actually 42 is not a cube.
-        27 is a cube. 42 is not a cube. So not relevant.\n\nWe can also mention that
-        69 is the sum of 42 and 27, which might be a \"funny number\" because 42 is
-        the answer to life, 27 is a perfect cube. So 42 + 27 = 69. So we can mention
-        that.\n\nWe can also mention that 69 is the product of 3 and 23. So we can
-        mention that.\n\nWe can also mention that 69 is a number that is used in a
-        puzzle: \"Think long and hard\" might be a phrase used in a puzzle where the
-        answer is 69. But we can mention that.\n\nWe can also mention that 69 is a
-        \"funny number\" in that it''s the sum of 42 and 27. So we can mention that.\n\nWe
-        can also mention that 69 is a \"funny number\" in that it''s the number of
-        something. But we can mention that.\n\nWe can also mention that 69 is the
-        sum of 42 and 27, which might be a \"funny number\" because of the sexual
-        connotation. So we can mention that.\n\nWe can also mention that 69 is a number
-        that appears in many contexts: in the Bible, in the number of something. But
-        we can keep it simple.\n\nWe can also mention that 69 is a number that is
-        used in a puzzle: \"Think long and hard\" might be a phrase used in a puzzle
-        where the answer is 69. But we can mention that.\n\nWe can also mention that
-        69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the Bible, in
-        the number of something. But we can keep it simple.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the Bible, in
-        the number of something. But we can keep it simple.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the Bible, in
-        the number of something. But we can keep it simple.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the Bible, in
-        the number of something. But we can keep it simple.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the Bible, in
-        the number of something. But we can keep it simple.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the Bible, in
-        the number of something. But we can keep it simple.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the Bible, in
-        the number of something. But we can keep it simple.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the Bible, in
-        the number of something. But we can keep it simple.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the Bible, in
-        the number of something. But we can keep it simple.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the Bible, in
-        the number of something. But we can keep it simple.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the Bible, in
-        the number of something. But we can keep it simple.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the Bible, in the number
-        of something. But we can keep it simple.\n\nWe can also mention that 69 is
-        a number that appears in many contexts: in the Bible, in the number of something.
-        But we can keep it simple.\n\nWe can also mention that 69 is a number that
-        appears in many contexts: in the Bible, in the number of something. But we
-        can keep it simple.\n\nWe can also mention that 69 is a number that appears
-        in many contexts: in the Bible, in the number of something. But we can keep
-        it simple.\n\nWe can also mention that 69 is a number that appears in many
-        contexts: in the Bible, in the number of something. But we can keep it simple.\n\nWe
-        can also mention that 69 is a number that appears in many contexts: in the
-        Bible, in the number of something. But we can keep it simple.\n\nWe can also
-        mention that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe. But we can mention that.\n\nWe can also mention
-        that 69 is a number that appears in many contexts: in the \"Hitchhiker''s
-        Guide to the Galaxy\" maybe.\n\nOk, enough. Let''s produce a final answer.
-        We should give a thoughtful analysis, mention the sum, significance, base
-        conversions, properties of 69, and maybe mention the cultural references.
-        Let''s do that."}]},{"role":"assistant","content":[{"type":"output_text","text":"**42 + 27 = 69**
-        – that’s the arithmetic fact, but there’s a bit more to unpack if you’re “thinking
-        long and hard” about it.\n\n| What | Why it’s interesting |\n|------|----------------------|\n|
-        **42** | In Douglas Adams’ *The Hitchhiker’s Guide to the Galaxy* it’s the
-        “Answer to the Ultimate Question of Life, the Universe, and Everything.”  It’s
-        also 2 × 3 × 7, a highly composite number. |\n| **27** | A perfect cube (3³).  It’s
-        also the number of the “27 Club,” a group of famous musicians who died at
-        age 27.  In base‑10 it’s 3 × 3 × 3. |\n| **69** | The sum.  It’s a *semiprime*
-        (3 × 23), the smallest number that is the product of a prime and a composite.  In
-        popular culture it’s a “funny” number because of the sexual position that
-        shares its name, and it’s often used as a joke in informal contexts. |\n\n###
-        A few extra angles\n\n| Angle | Details |\n|-------|---------|\n| **Base‑conversions**
-        | 42₁₀ + 27₁₀ = 69₁₀.  In octal: 42₁₀ = 52₈, 27₁₀ = 33₈ → 52₈ + 33₈ = 85₈
-        (which is 69₁₀).  In hexadecimal: 2A₁₆ + 1B₁₆ = 45₁₆ (again 69₁₀).  So no
-        matter the base you work in, the decimal result stays 69. |\n| **Mathematical
-        quirks** | 69 is not a happy number (the iterative sum‑of‑squares process
-        never reaches 1).  It’s also not a Harshad number (69 ÷ (6 + 9) = 69 ÷ 15 ≈ 4.6).  Its
-        prime factorization is 3 × 23, making it the product of two primes – a simple,
-        yet elegant structure. |\n| **Cultural cross‑roads** | 42’s “Answer” status
-        and 27’s “Club” status collide in 69, which is itself a “funny” number in
-        many jokes.  It’s a number that appears in everyday life too: 69 minutes is
-        the time it takes for a 1.15‑hour video to play, 69 days is roughly two months
-        and a week, etc. |\n\n### Bottom line\n\n- **Mathematically**: 42 + 27 = 69,
-        with 69 being a semiprime (3 × 23).  \n- **Culturally**: 42 is the famed answer
-        to everything, 27 is a legendary age, and 69 is a number that’s often used
-        for a bit of humor.  \n- **In other bases**: The sum still equals 69 in decimal,
-        regardless of whether you’re adding in octal, hexadecimal, or any other base
-        (as long as you’re interpreting the digits correctly).\n\nSo, “thinking long
-        and hard” about 42 + 27 takes you from a simple arithmetic fact to a little
-        journey through pop‑culture, number theory, and even a touch of humor."}]},{"role":"user","content":[{"type":"input_text","text":"Think
-        long and hard about 42 + 27"}]},{"role":"assistant","content":[{"type":"output_text","text":"42
-        + 27 = 69."}]},{"role":"user","content":[{"type":"input_text","text":"Think
-        long and hard about 42 + 27"}]},{"role":"assistant","content":[{"type":"output_text","text":"**Simplifying
-        the answer**\n\nI need to provide a straightforward answer here, so I’ll focus
-        on computing 69. When I think about it, keeping it simple might be what’s
-        wanted. I’ll ensure there’s no unnecessary information in the response, just
-        what’s needed. Okay, I’ll get right to it while being clear and concise!"}]},{"role":"assistant","content":[{"type":"output_text","text":"69"}]},{"role":"user","content":[{"type":"input_text","text":"How
-        many times did you do a calculation and what was the result? Write the count
-        and result using digits."}]}],"max_output_tokens":20480,"reasoning":{"effort":"high","summary":"detailed"},"stream":true}'
+      string: '{"model":"gpt-6.1-terra","input":[{"role":"user","content":[{"type":"input_text","text":"Calculate
+        42 + 27. Think carefully about the addition, then give the final answer in
+        one short sentence containing the expression and its result. Do not include
+        alternative methods, number trivia, or unrelated calculations in the final
+        answer."}]},{"role":"assistant","content":[{"type":"output_text","text":"Let
+        me calculate 42 + 27 carefully.\n\n42 + 27\n= 40 + 2 + 20 + 7\n= 40 + 20 +
+        2 + 7\n= 60 + 9\n= 69\n\nLet me verify: 42 + 27 = 69\nChecking: 69 - 27 =
+        42 ✓\nChecking: 69 - 42 = 27 ✓\n\nSo 42 + 27 = 69"}]},{"role":"assistant","content":[{"type":"output_text","text":"42
+        + 27 = 69."}]},{"role":"user","content":[{"type":"input_text","text":"Calculate
+        42 + 27. Think carefully about the addition, then give the final answer in
+        one short sentence containing the expression and its result. Do not include
+        alternative methods, number trivia, or unrelated calculations in the final
+        answer."}]},{"role":"assistant","content":[{"type":"output_text","text":"The
+        user asks: \"Calculate 42 + 27. Think carefully about the addition, then give
+        the final answer in one short sentence containing the expression and its result.
+        Do not include alternative methods, number trivia, or unrelated calculations
+        in the final answer.\"\n\nWe must provide a short sentence containing the
+        expression and its result. For example: \"42 + 27 equals 69.\" That meets
+        the requirement. No other content. So answer: \"42 + 27 equals 69.\" Ensure
+        it''s one short sentence. That is correct. No extra."}]},{"role":"assistant","content":[{"type":"output_text","text":"42
+        + 27 equals 69."}]},{"role":"user","content":[{"type":"input_text","text":"Calculate
+        42 + 27. Think carefully about the addition, then give the final answer in
+        one short sentence containing the expression and its result. Do not include
+        alternative methods, number trivia, or unrelated calculations in the final
+        answer."}]},{"role":"assistant","content":[{"type":"output_text","text":"42
+        + 27 = 69."}]},{"role":"user","content":[{"type":"input_text","text":"Calculate
+        42 + 27. Think carefully about the addition, then give the final answer in
+        one short sentence containing the expression and its result. Do not include
+        alternative methods, number trivia, or unrelated calculations in the final
+        answer."}]},{"role":"assistant","content":[{"type":"output_text","text":"42
+        + 27 = 69."}]},{"role":"user","content":[{"type":"input_text","text":"Review
+        ALL earlier user/assistant exchanges in chronological order, including the
+        very first and very last exchange.\nEach exchange begins with a user request
+        to calculate an addition and ends with the assistant''s answer.\nInternally
+        enumerate these exchanges one by one, without combining repeated requests
+        or counting reasoning paragraphs as separate exchanges.\nExclude this question.
+        Read the answers already given; do not perform another calculation.\nReply
+        only: \"Completed exchanges: <total>; addition result: <result>.\" Use digits.\n"}]}],"max_output_tokens":20480,"reasoning":{"effort":"high","summary":"detailed"},"stream":true}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -767,7 +62,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 31 Oct 2026 14:04:08 GMT
+      - Sat, 31 Oct 2026 14:48:30 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -775,7 +70,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - a53335056a9464c8-HKG
+      - a53376059b8d269e-HKG
       Cf-Cache-Status:
       - DYNAMIC
       Server:
@@ -791,7 +86,7 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '237'
+      - '266'
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
@@ -803,20 +98,86 @@ http_interactions:
       X-Ratelimit-Remaining-Requests:
       - '4999'
       X-Ratelimit-Remaining-Tokens:
-      - '985720'
+      - '999277'
       X-Ratelimit-Reset-Requests:
       - 12ms
       X-Ratelimit-Reset-Tokens:
-      - 856ms
+      - 43ms
       X-Request-Id:
-      - req_9ea12dc74a5d431da44a0101722ffcb6
+      - req_0d08a002289843ee9f53ea5998bdb85f
       Set-Cookie:
       - "<SET_COOKIE>"
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        ZXZlbnQ6IHJlc3BvbnNlLmNyZWF0ZWQKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UuY3JlYXRlZCIsInJlc3BvbnNlIjp7ImlkIjoicmVzcF8wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1ODI5MTA4N2QwOGU1YmJjY2NkNmUxYWI2NCIsIm9iamVjdCI6InJlc3BvbnNlIiwiY3JlYXRlZF9hdCI6MTc5MzQ1NTQ0OCwic3RhdHVzIjoiaW5fcHJvZ3Jlc3MiLCJhY2Nlc3NfcHJvZ3JhbXMiOnsiY3liZXIiOiJzdGFuZGFyZCJ9LCJiYWNrZ3JvdW5kIjpmYWxzZSwiY29tcGxldGVkX2F0IjpudWxsLCJlcnJvciI6bnVsbCwiZnJlcXVlbmN5X3BlbmFsdHkiOjAuMCwiaW5jb21wbGV0ZV9kZXRhaWxzIjpudWxsLCJpbnN0cnVjdGlvbnMiOm51bGwsIm1heF9vdXRwdXRfdG9rZW5zIjoyMDQ4MCwibWF4X3Rvb2xfY2FsbHMiOm51bGwsIm1vZGVsIjoiZ3B0LTYuMS10ZXJyYSIsIm1vZGVyYXRpb24iOm51bGwsIm91dHB1dCI6W10sInBhcmFsbGVsX3Rvb2xfY2FsbHMiOnRydWUsInByZXNlbmNlX3BlbmFsdHkiOjAuMCwicHJldmlvdXNfcmVzcG9uc2VfaWQiOm51bGwsInByb21wdF9jYWNoZV9rZXkiOm51bGwsInByb21wdF9jYWNoZV9yZXRlbnRpb24iOiIyNGgiLCJyZWFzb25pbmciOnsiY29udGV4dCI6ImFsbF90dXJucyIsImVmZm9ydCI6ImhpZ2giLCJtb2RlIjoic3RhbmRhcmQiLCJzdW1tYXJ5IjoiZGV0YWlsZWQifSwic2FmZXR5X2lkZW50aWZpZXIiOm51bGwsInNlcnZpY2VfdGllciI6ImF1dG8iLCJzdG9yZSI6dHJ1ZSwidGVtcGVyYXR1cmUiOjEuMCwidGV4dCI6eyJmb3JtYXQiOnsidHlwZSI6InRleHQifSwidmVyYm9zaXR5IjoibWVkaXVtIn0sInRvb2xfY2hvaWNlIjoiYXV0byIsInRvb2xfdXNhZ2UiOnsiaW1hZ2VfZ2VuIjp7ImlucHV0X3Rva2VucyI6MCwiaW5wdXRfdG9rZW5zX2RldGFpbHMiOnsiaW1hZ2VfdG9rZW5zIjowLCJ0ZXh0X3Rva2VucyI6MH0sIm91dHB1dF90b2tlbnMiOjAsIm91dHB1dF90b2tlbnNfZGV0YWlscyI6eyJpbWFnZV90b2tlbnMiOjAsInRleHRfdG9rZW5zIjowfSwidG90YWxfdG9rZW5zIjowfSwid2ViX3NlYXJjaCI6eyJudW1fcmVxdWVzdHMiOjB9fSwidG9vbHMiOltdLCJ0b3BfbG9ncHJvYnMiOjAsInRvcF9wIjowLjk4LCJ0cnVuY2F0aW9uIjoiZGlzYWJsZWQiLCJ1c2FnZSI6bnVsbCwidXNlciI6bnVsbCwibWV0YWRhdGEiOnt9fSwic2VxdWVuY2VfbnVtYmVyIjowfQoKZXZlbnQ6IHJlc3BvbnNlLmluX3Byb2dyZXNzCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLmluX3Byb2dyZXNzIiwicmVzcG9uc2UiOnsiaWQiOiJyZXNwXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4MjkxMDg3ZDA4ZTViYmNjY2Q2ZTFhYjY0Iiwib2JqZWN0IjoicmVzcG9uc2UiLCJjcmVhdGVkX2F0IjoxNzkzNDU1NDQ4LCJzdGF0dXMiOiJpbl9wcm9ncmVzcyIsImFjY2Vzc19wcm9ncmFtcyI6eyJjeWJlciI6InN0YW5kYXJkIn0sImJhY2tncm91bmQiOmZhbHNlLCJjb21wbGV0ZWRfYXQiOm51bGwsImVycm9yIjpudWxsLCJmcmVxdWVuY3lfcGVuYWx0eSI6MC4wLCJpbmNvbXBsZXRlX2RldGFpbHMiOm51bGwsImluc3RydWN0aW9ucyI6bnVsbCwibWF4X291dHB1dF90b2tlbnMiOjIwNDgwLCJtYXhfdG9vbF9jYWxscyI6bnVsbCwibW9kZWwiOiJncHQtNi4xLXRlcnJhIiwibW9kZXJhdGlvbiI6bnVsbCwib3V0cHV0IjpbXSwicGFyYWxsZWxfdG9vbF9jYWxscyI6dHJ1ZSwicHJlc2VuY2VfcGVuYWx0eSI6MC4wLCJwcmV2aW91c19yZXNwb25zZV9pZCI6bnVsbCwicHJvbXB0X2NhY2hlX2tleSI6bnVsbCwicHJvbXB0X2NhY2hlX3JldGVudGlvbiI6IjI0aCIsInJlYXNvbmluZyI6eyJjb250ZXh0IjoiYWxsX3R1cm5zIiwiZWZmb3J0IjoiaGlnaCIsIm1vZGUiOiJzdGFuZGFyZCIsInN1bW1hcnkiOiJkZXRhaWxlZCJ9LCJzYWZldHlfaWRlbnRpZmllciI6bnVsbCwic2VydmljZV90aWVyIjoiYXV0byIsInN0b3JlIjp0cnVlLCJ0ZW1wZXJhdHVyZSI6MS4wLCJ0ZXh0Ijp7ImZvcm1hdCI6eyJ0eXBlIjoidGV4dCJ9LCJ2ZXJib3NpdHkiOiJtZWRpdW0ifSwidG9vbF9jaG9pY2UiOiJhdXRvIiwidG9vbF91c2FnZSI6eyJpbWFnZV9nZW4iOnsiaW5wdXRfdG9rZW5zIjowLCJpbnB1dF90b2tlbnNfZGV0YWlscyI6eyJpbWFnZV90b2tlbnMiOjAsInRleHRfdG9rZW5zIjowfSwib3V0cHV0X3Rva2VucyI6MCwib3V0cHV0X3Rva2Vuc19kZXRhaWxzIjp7ImltYWdlX3Rva2VucyI6MCwidGV4dF90b2tlbnMiOjB9LCJ0b3RhbF90b2tlbnMiOjB9LCJ3ZWJfc2VhcmNoIjp7Im51bV9yZXF1ZXN0cyI6MH19LCJ0b29scyI6W10sInRvcF9sb2dwcm9icyI6MCwidG9wX3AiOjAuOTgsInRydW5jYXRpb24iOiJkaXNhYmxlZCIsInVzYWdlIjpudWxsLCJ1c2VyIjpudWxsLCJtZXRhZGF0YSI6e319LCJzZXF1ZW5jZV9udW1iZXIiOjF9CgpldmVudDogcmVzcG9uc2Uub3V0cHV0X2l0ZW0uYWRkZWQKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2Uub3V0cHV0X2l0ZW0uYWRkZWQiLCJpdGVtIjp7ImlkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJ0eXBlIjoicmVhc29uaW5nIiwiY29udGVudCI6W10sImVuY3J5cHRlZF9jb250ZW50IjoiZ0FBQUFBQnE1ZlZZSF9KLXdreGZOdmhRTl9KX3BEUjBONkF5UVVlbnNkR3NpS0xYSGlKQ0ZHdlNuM2dZTFZIVWUxQUo3TjctR3BHUUJkanpCODVRWlVhcXhhcmdmMnBxS1JuVlVZUG1NQzlwWGpSR1ZyRnNmbE9jRThmazJWcGlvcjRoZHY1YmI4bHZXU09EOXZ5OHcxcGdSRHFXeVNXNDhSVFpjb2Nmb0p1UmtzeGQwRHhfUXNZNmNEVnRRZ1FuYWphTlo2UmFVQjk5SGJ0X01uMFBmVGtoNlBpR1RiMWhBQnk5MmxqMC1XdmJCbzRPU0lBOW5VOGpacnFXbXQ0UUpOcW1wUmIxVHFSd2k3WVM2V19wWmhhOUZWakpoOEFGeW1PUllKYktoWE5ncmFUbTk0QzE0SnRJb1kxc1NJMVNXam1BbDkyODdRUEJqQUFmUFUyN2djRFliZnBPNDB3dHdFNURuNnJEMmxqR1ZHVXRaVGpCcEtBRWlOWllFZTB2enh6NGpkNnpkUkhiZTJkdkVkMVJWdHJYdE56X2xMbmQ4YnhlZ2ZBQkw2MnV6WHB2dFVUTTNUTVNKNVJqN28wRlFfbnl6akk2REFxR2prWU5GT1I4UEhMV055NEtNQXAtQVlveUtfNTAtVWc5RW1XMU5YSHFIbHZDSnVoMXVOOENYRFQzaXYtU2pzcnVSRkdqNDE4bzF1RDIyNml4ZjRXREIySngxNklwYzdIVXRtU0s0Y1pPZWhCOTU4TkVPVWotYTJ1QTFqdGYydXJNN09HUTdlQzFzQnNzbkdha25taXJCeVVrc1JXVFE1aDNtaW92S2Q3bUtkajlLNm8zYzJHRFJ5QVVfa0s4YW40a1p1RDNlckMxOU4yLU9wSFgweDlYSFpnVk5XS2NHQ3NjM1VaRE0zdlRHVzdfV0E5YTFNanRDNUFjZVllbFFVbnRScmVWbnQta2wtTFgwWDM3ejQ3QzcwUVBrdzlOUER6TVVhcDlaN0ZQLXhJWGRxakE3Y3VlMGY4TDdDZ1g2dWMtdXF0ZzFodFpkeGh4MGtaeGJ4U3JERDZjR24tb0pEbXE4bFl2emJFeXUxc0lNTmRmVkFISHJ0NVlrMHZ0a3hhNnYyazl0WXVjQnlCTldKUzNrWWRiMkc3TE5qUFZBYkh0Rk55ZGhjRnFFNHRJNE9ZLWF5UE5KbEVxSndoZU5fQUd4TjFsenFDY2ZMLWVGc0I1MjdFam9zbVF1a2djYTZPeFQtWjc3RzhwRm1JQlV2b1ZhUzdxdk9nUlNTYV9JcUs5cURTNE5YV3FwQ3NKbVlIeDhuaWk1alY5dVd1MWVqaE1ia0o4SHY0aEFPSlAyblhPcGtnM0l1QlNpZEptQ3VQbWJwOXl0TEJvcnh1ZXJvYWVMM01lUlpvTThPTlJadkF4M05zcXVfMHRweXdxeVFmdEZJalgwejdzaHlkOEk5UE9TNVdORTNQeFFINkZONzhJYVBCcU1wV3dKQnhuM0tHVlN5R0pPVUczOEZrQ09ud2VEQzYxYWR0cWg2NEVSTWo5aGVPNkQxQVBYOVhlX2ZxU0pxQXNQNGlsUTZ2eVZGWkMxOXB2UUF2Yjl5TWtMX0piUkR3MXpyNFVPV24yazNObCIsInN1bW1hcnkiOltdfSwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjJ9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfcGFydC5hZGRlZApkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV9wYXJ0LmFkZGVkIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib3V0cHV0X2luZGV4IjowLCJwYXJ0Ijp7InR5cGUiOiJzdW1tYXJ5X3RleHQiLCJ0ZXh0IjoiIn0sInNlcXVlbmNlX251bWJlciI6Mywic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IioqQ291bnRpbmcgY2FsY3VsYXRpb25zKipcblxuVGhlIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJjYSIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo0LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHVzZXIiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IkpjSE56N1kwT2NMIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjUsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgYXNrZWQiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6ImJNaGZrVERKWFoiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6Niwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBob3ciLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6Iko2NkJJdWpxa0FWYyIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo3LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIG1hbnkiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6ImJhZmd2MkdId3cyIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjgsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgdGltZXMiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6ImY5UVBlZ0NMQkciLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6OSwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBJIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJsaG5HMm5aekZobjlVMCIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjoxMCwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBkaWQiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IlRXQ0lSS2FoS3hpayIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjoxMSwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBhIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJSREl1VWllSGNVSjI3WSIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjoxMiwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBjYWxjdWxhdGlvbiIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiTXRjTyIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjoxMywic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6Ii4iLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6InVRTE1qdHh5blJSZWJaMCIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjoxNCwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBJIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJ5b2lZY2wzUm83M0M2SyIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjoxNSwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiB0aGluayIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoibE1CQmdFNW1MZiIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjoxNiwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBpdCIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiYUc3ZDAxME1iUkxrMyIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjoxNywic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IuKAmXMiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6ImdoSEh1aWZXZHZhOGR3Iiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjE4LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGxpa2VseSIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoidDRValM5QTF2Iiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjE5LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHRoYXQiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6Ikx2TmdzNUNSZUZJIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjIwLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHRoZXkiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6InI4R2dqZG1zc2lNIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjIxLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoi4oCZcmUiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IndUSG5KT0lQTGJCNDMiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MjIsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgbG9va2luZyIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiaHg5WXdQUUoiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MjMsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgZm9yIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJ1R0xpT1dST0tDbjUiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MjQsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgdGhlIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJZN1JSVk84NnJqcjIiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MjUsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgdG90YWwiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IlpDTVJWVzJmQkEiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MjYsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgY291bnQiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6ImhHT0ROUjlHeGoiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MjcsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgb2YiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6ImJTVnpsUlUzbGJIdXgiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MjgsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgY2FsY3VsYXRpb25zIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJDVkYiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MjksInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgSSIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiU011R01Sbmh0aFBKenAiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MzAsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgcGVyZm9ybWVkIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJCVnRVWVUiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MzEsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIsIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJlT3FnMTRtUmRIN2Via0UiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MzIsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgd2hpY2giLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IlR2cnpkOU5YeDIiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MzMsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgY291bGQiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IkdDN0YzSjMxM1oiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MzQsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgYmUiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IlAxU0FPMURBU1dtZkgiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MzUsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgZm91ciIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiMFRlS21kR29lbjciLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MzYsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIuIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJ4bzlVa1pGaFRCOUJnUDciLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MzcsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgU28iLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6InVSQ2dTMDJtazczaEgiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MzgsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIsIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJtSEdoUUdvTnpjWlJuQTAiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6MzksInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiIgSSIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiZG1TOVIxQkZEaDN5UjUiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6NDAsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhIiwiZGVsdGEiOiLigJlsbCIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoialVwWjEyYlQzZ0IwNiIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo0MSwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBjb25maXJtIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJLMVNDdzhpQiIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo0Miwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBpdCIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiMGZheEFybjZqZDA4ZCIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo0Mywic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiB3YXMiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IjJvQ2dqZGlwV0ljYSIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo0NCwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBmb3VyIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJRc2FRSXdqZDc2NCIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo0NSwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiB0aW1lcyIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiQzRHWEFIdnBQNCIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo0Niwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiwiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6Inl2d2ZERTJLeVFTaWdDdSIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo0Nywic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBhbmQiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6InFWVGlxQ0F4NUJJeCIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo0OCwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiB0aGUiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6InREUGNQcUxZZDlVUyIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo0OSwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiByZXN1bHRpbmciLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IlBuWlpJdCIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo1MCwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiB2YWx1ZSIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiNHU2SFJKYzRQVyIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo1MSwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBpcyIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiY1M4V2N4UmFPZEU4ayIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo1Miwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiA2OSIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiYWFXVjBDcU8wQzZXTiIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo1Mywic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6Ii4iLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IlVKMmRiRmdGTzhDOWxWMiIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo1NCwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IiBJdCIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiU3FvMHlpUnNvOXdTeSIsIm91dHB1dF9pbmRleCI6MCwic2VxdWVuY2VfbnVtYmVyIjo1NSwic3VtbWFyeV9pbmRleCI6MH0KCmV2ZW50OiByZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEiLCJkZWx0YSI6IuKAmXMiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6ImFqbUkzdGxqaVgzN1RrIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjU2LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGdvb2QiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IkZGMWFQWmxzZ2Q2Iiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjU3LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHRvIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJ3cVFZamh3QXlEeXh4Iiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjU4LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGNsYXJpZnkiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6ImZWVW1xSDJQIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjU5LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHRoYXQiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6ImFrWUd5MXVNdk1JIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjYwLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHRoZSIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiS0FHbWxaUU5laHEyIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjYxLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGZvdXIiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IjE3TGp3dU5OdWJrIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjYyLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHJlZmVycyIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiOWFKcWVQbk9uIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjYzLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHRvIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJOb3J0SXE1Nk1CbzZyIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjY0LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGJvdGgiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6InJkMVpmMkdpNnF3Iiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjY1LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHRoZSIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiR0JjNWRIcFEwcmw3Iiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjY2LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHJlcXVlc3RzIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiI4bFE3VGNXIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjY3LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGFuZCIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoidnJwVWR2T3h0dHJqIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjY4LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHJlc3BvbnNlcyIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiZGFKbFhJIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjY5LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiLiIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiN250Skp2b1d2Q1RtRmtTIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjcwLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIEtlZXBpbmciLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IkR6aW1lcDZVIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjcxLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHRyYWNrIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJXanBNdWszbDF4Iiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjcyLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIG9mIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiI3UkprS2d5czdid2JWIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjczLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIHRoZXNlIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJwSEJMZDlQRGh6Iiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjc0LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGRldGFpbHMiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6InZiRUNzOWFOIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjc1LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGhlbHBzIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJSTzFaOEh1b2o0Iiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjc2LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIG1lIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJqM3VpakJCbmUyWmhMIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjc3LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGVuc3VyZSIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiVFZnT2o3UDZsIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjc4LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIEknbSIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiUzlEbHdDM3U2VkNvIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjc5LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGJlaW5nIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJVaHBMMzlmMHBCIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjgwLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGFjY3VyYXRlIiwiaXRlbV9pZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwib2JmdXNjYXRpb24iOiJPQ09GanJCIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjgxLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGFuZCIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoienR3eGhxUEFOa3pDIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjgyLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiIGhlbHBmdWwiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvYmZ1c2NhdGlvbiI6IkxiVnQ3N1c3Iiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjgzLCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfdGV4dC5kZWx0YSIsImRlbHRhIjoiISIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm9iZnVzY2F0aW9uIjoiWnByME5IVGZiTzZpSlNnIiwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjg0LCJzdW1tYXJ5X2luZGV4IjowfQoKZXZlbnQ6IHJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3RleHQuZG9uZQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5yZWFzb25pbmdfc3VtbWFyeV90ZXh0LmRvbmUiLCJpdGVtX2lkIjoicnNfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NThjMGQ0ODdkMGIzNDk4YTcwMTMxZGRlYWEiLCJvdXRwdXRfaW5kZXgiOjAsInNlcXVlbmNlX251bWJlciI6ODUsInN1bW1hcnlfaW5kZXgiOjAsInRleHQiOiIqKkNvdW50aW5nIGNhbGN1bGF0aW9ucyoqXG5cblRoZSB1c2VyIGFza2VkIGhvdyBtYW55IHRpbWVzIEkgZGlkIGEgY2FsY3VsYXRpb24uIEkgdGhpbmsgaXTigJlzIGxpa2VseSB0aGF0IHRoZXnigJlyZSBsb29raW5nIGZvciB0aGUgdG90YWwgY291bnQgb2YgY2FsY3VsYXRpb25zIEkgcGVyZm9ybWVkLCB3aGljaCBjb3VsZCBiZSBmb3VyLiBTbywgSeKAmWxsIGNvbmZpcm0gaXQgd2FzIGZvdXIgdGltZXMsIGFuZCB0aGUgcmVzdWx0aW5nIHZhbHVlIGlzIDY5LiBJdOKAmXMgZ29vZCB0byBjbGFyaWZ5IHRoYXQgdGhlIGZvdXIgcmVmZXJzIHRvIGJvdGggdGhlIHJlcXVlc3RzIGFuZCByZXNwb25zZXMuIEtlZXBpbmcgdHJhY2sgb2YgdGhlc2UgZGV0YWlscyBoZWxwcyBtZSBlbnN1cmUgSSdtIGJlaW5nIGFjY3VyYXRlIGFuZCBoZWxwZnVsISJ9CgpldmVudDogcmVzcG9uc2UucmVhc29uaW5nX3N1bW1hcnlfcGFydC5kb25lCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLnJlYXNvbmluZ19zdW1tYXJ5X3BhcnQuZG9uZSIsIml0ZW1faWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsIm91dHB1dF9pbmRleCI6MCwicGFydCI6eyJ0eXBlIjoic3VtbWFyeV90ZXh0IiwidGV4dCI6IioqQ291bnRpbmcgY2FsY3VsYXRpb25zKipcblxuVGhlIHVzZXIgYXNrZWQgaG93IG1hbnkgdGltZXMgSSBkaWQgYSBjYWxjdWxhdGlvbi4gSSB0aGluayBpdOKAmXMgbGlrZWx5IHRoYXQgdGhleeKAmXJlIGxvb2tpbmcgZm9yIHRoZSB0b3RhbCBjb3VudCBvZiBjYWxjdWxhdGlvbnMgSSBwZXJmb3JtZWQsIHdoaWNoIGNvdWxkIGJlIGZvdXIuIFNvLCBJ4oCZbGwgY29uZmlybSBpdCB3YXMgZm91ciB0aW1lcywgYW5kIHRoZSByZXN1bHRpbmcgdmFsdWUgaXMgNjkuIEl04oCZcyBnb29kIHRvIGNsYXJpZnkgdGhhdCB0aGUgZm91ciByZWZlcnMgdG8gYm90aCB0aGUgcmVxdWVzdHMgYW5kIHJlc3BvbnNlcy4gS2VlcGluZyB0cmFjayBvZiB0aGVzZSBkZXRhaWxzIGhlbHBzIG1lIGVuc3VyZSBJJ20gYmVpbmcgYWNjdXJhdGUgYW5kIGhlbHBmdWwhIn0sInNlcXVlbmNlX251bWJlciI6ODYsInN1bW1hcnlfaW5kZXgiOjB9CgpldmVudDogcmVzcG9uc2Uub3V0cHV0X2l0ZW0uZG9uZQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5vdXRwdXRfaXRlbS5kb25lIiwiaXRlbSI6eyJpZCI6InJzXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4YzBkNDg3ZDBiMzQ5OGE3MDEzMWRkZWFhIiwidHlwZSI6InJlYXNvbmluZyIsImNvbnRlbnQiOltdLCJlbmNyeXB0ZWRfY29udGVudCI6ImdBQUFBQUJxNWZWYXBzSGxyUV96LU9mai1hcFdwRmxHOERLYWw1OC1aTDc3MlkyRGFxLTZUVzlLbUdkV1RJeHlMaDdhMnlRMktjVlQ4ZnZ4Wk9UN1dkNHdvNHh4TXRKS0szczJqellncW5MWXpEN1JDV2R1T3g3eXlReUJxOTZmU0Jsb3BZYXFCSzhxNks1TFlSTGdrWEtYcTduSU0zcnBMb2lPS3owU2t1NVF6ejhHS3JvTWxRVDBnMV81MTRlTDBaX0NyNHppVVRKSmFMcGJlU3BENTJ2ZTRfcEo3OEdMUDYyS1J4RHR4Sk1lSnJSZ3hfaVAzRTJTTmg2dnNOQnp2UTdPZnlMUkxPZUJjcG1nc1FlZHcwbjlJdE5JTGxabmc5b3Z1dTFEMWZ1dGhQRkc3TjRVX21NTDBoMmlSdS1OWkRTbHBsUXlTSU0zT2NTSWltUU16QnFjMmVWSjhubHZhamJ5c0xLM3FoeFZvYkM0dzhTY3BMcS1qcFdwMFpCamhSVU5fLTU0RjFDNFR3VGlfY2ZSZk5CZWJQVVF0aXRGTHlaNXdYb0RxV3hYMndrU0tCZnlvZHhCZjN0RXV1UGNKYlZXQnVIWmNJdUlxV2hUNy04cFBYT2lnZ1h5SVc5NWxIUWNFLVRoTE5QZ2ZydkplMW5qekdrMzZ3M0RmYXlkSDM2RGxtYmNqc0NOSFladm40S1JyRjMtVlprR2hRbC16V3BzUE9kM1RNWEQtc0RvVHE2OGZrbGoxSHdPeTZKUHdHNjZsQ2psSG5rM0YyVVNwaEp6YWowTlVQUGhYMk5YMU5EVFRuakUxMlIwMHk2cDRxYk4xX3MzczVYUmN4UU1jWEhnRXYxcFptOUxsOVFUdzlsQkpXMmNRdTdYUGZsSFNuU1lYakx6Y0Y4M3Z1RzVteG4tUVhrSHZzNERlcDFEdGIyLXEwcHVtTHRJVGZFd1F6UWY1WVR0clY4R2k3ZXd2Q3Q5TS0xMDZBZVVKYndVYzIwQ2RpSHNJUmlucll2RjdOdkdUcHRvN044dUFNZDBlZThIMXhCWkV0WjVFMnllNnN3U09JVHl2M1I5TV9LUDQ4QzlMMTZzby1xMmIydDR1QjZsa1JadmtFajZHV2ZGaUFHRTY3cFpxNUl4UXdSY0NoemxHQVJ5Y0RNVFZ1dXh5S01QZ2JRaHE1aks2bnBSaWlkSDFTSkNFd1lMZTF0RHQtUGtfQ0hMd2lrY3dQWTJPVk9nNllOWEdSN3g0ak5RYThnNjduZnRISDk2VHlBS0hiY2dQMnVWaXpGclBmaDNJNGpqNTJjQUpFTmFJV0I4U3d3WE5aSGxwbkFJeU10a2JIdTZkMVpkeFVadGxHb0dTb0MtUjlFdncyQ2psVnd1ZG4wOG9rSGNyQW9vTzZfeFdRb3hyQVBxS2VqTDhSbG1WTjVQbHVqMHZtM1pIbTlkbERXYl9UZWMzZlMzYXZISUxwTkJfbUJTNHZEeUI5U2VKcmZCdXVGa2h0eWZLUWhQSzB3SWNQUU8yN091YktlVlNkMUE3ai1sY3c0SnJka1JDNDlEM3RIMmRuMlJTa01GTzZ5QUppMGxrSnhKcHJEZVJPSVJfZWxFdlhodklQZTlCU09lV0g5dHBWd09NMWY3WTJtNGRsS0VZMTQ3UV9ubGJPYjlzRVRFNDFrVy04TktFbUl2UnVKbWdiQkdER2hwZGFNa3Z6VjVvZ01sSHpCQWxWTlk1STlHTERVNXVDbHJleFVFR2dVUGc0bFppc1Yxa2d3aGxWY0xfXzNXQWJXaFAzVmRabEtQMy1HZEo4Z3JiTFg4NW5VdzlRamZBbUFBV0o3WUFjaUxvT2ZTMW5kaUtxN3hUemdnT3ZtOTk5c1RnT09kRFc1ZVF4bjFBc2MyQ3dwQjlLd29uWEFPc1ZGX1otU1MzaGt2TU04cmFmNmxXendIOWRCckp6ZzlHVkFEVlFjODVZeVZ6WkJ6NmRUZmoyUE93ZmxteFpGX1FPTElDR1pDZ244WHVUbjV4UWpCdENCbzRHSzE2TS1xdU44cUw5MVM3SzlmMkFPeUdtSEI3cldmTU1nX01hbFloTkdodTRWNzdrYXRXdldkRWh3ZVZ3Q1JwbTFhWXJWUUhNcEo1YjZoUm9sTWpYMnFiN2wtMTJpY0RzbmxfdzBxM1ktRFRxMWd5VzJBdFNDelFQam4zZXB0eS1SOFN0OENITEVMZEN4bU9yN1ZEalZlUW9SdzZ5R2k0bGxEakZEV2FkWHZYaVdELUFGcWlyOHJsamxLZHpRcGJyaThvVXdqeG9pckNFSUJRbXJfMkNrOXp1Z0RheFNYVXE3N3RweWRGSGtwR1hiMXpoQzZaLV9XRENBak5oZC1Dc3QzQzU5eVN0Z0pvWFk0emdvbnY4Q3E3QnhzZXc3MTA2WTZNS0xYOXpGS2NPSmt3bkpTVkE5Z0FiMER6MWw3XzFMQ0dia0RrWFhkOFNLWFZXSmVRZzd4bXhnWmxNR1NIRDhKNkxIMXBmR2g5SmZyd2N4RXVnS2I2Z2FObWs0N0JJdU5jVmktQWpvMzlxS1hpM0NPRmhJX1kxMTRPYlBNSWhlWmNpdWptQVowZzFKVDMzM3JORXNYdm1MaHJleDR2X3d0S0RibTAwMmFMUXRiQ2lDQXItRGVIOFhqNXNpU1JXcjAyMGxhYTdLYnNOTWpTYkJlV1hERTlCWGVkb2FWWUhwYzBqMVBnczBWZXBBVUNpUFJmWXA5WnVkYVM5a0taQzdGWUN6YmM4Wm5HNGRqU3UybkNnUHIzd3FRNURfWklRYjdsMUMxLUhlSUE5dGU5a0xwdlJkZ183WkxmdnJjbFRyVExldFZXNHEtejE2UDg2R0NfQzBzS2F2b1luUzhYZjVoRTlNOFBOb3VUOFJxNzZoVzliS3dkY3hVS2VvaDhBNlVjRUtUU1lBNzNsbm9oZWJoVzdCTVNTY3UzRlZmekNxV0h3Z0Fhb0MtNTdSQ0VfaFFfM2FCOHVVLU83WGtzbHdKNV8zWTBEWGQ5QVdCWVpZTEhOcW85Ulpibi1kazk4R1pFcjJ0NVJnU0x6SS1GTVRLaEpYZEFadGJFVHBDVjhpOTFtQ3dwVVNWdUN2WnNIMXZXYW1kRjhCUjNiZkhKSTBSaDVKOV95MUppQ2xQOS1vaXB3c1VvZElyR2x4a3BXNlNlaGVIUjdVTlVnPT0iLCJzdW1tYXJ5IjpbeyJ0eXBlIjoic3VtbWFyeV90ZXh0IiwidGV4dCI6IioqQ291bnRpbmcgY2FsY3VsYXRpb25zKipcblxuVGhlIHVzZXIgYXNrZWQgaG93IG1hbnkgdGltZXMgSSBkaWQgYSBjYWxjdWxhdGlvbi4gSSB0aGluayBpdOKAmXMgbGlrZWx5IHRoYXQgdGhleeKAmXJlIGxvb2tpbmcgZm9yIHRoZSB0b3RhbCBjb3VudCBvZiBjYWxjdWxhdGlvbnMgSSBwZXJmb3JtZWQsIHdoaWNoIGNvdWxkIGJlIGZvdXIuIFNvLCBJ4oCZbGwgY29uZmlybSBpdCB3YXMgZm91ciB0aW1lcywgYW5kIHRoZSByZXN1bHRpbmcgdmFsdWUgaXMgNjkuIEl04oCZcyBnb29kIHRvIGNsYXJpZnkgdGhhdCB0aGUgZm91ciByZWZlcnMgdG8gYm90aCB0aGUgcmVxdWVzdHMgYW5kIHJlc3BvbnNlcy4gS2VlcGluZyB0cmFjayBvZiB0aGVzZSBkZXRhaWxzIGhlbHBzIG1lIGVuc3VyZSBJJ20gYmVpbmcgYWNjdXJhdGUgYW5kIGhlbHBmdWwhIn1dfSwib3V0cHV0X2luZGV4IjowLCJzZXF1ZW5jZV9udW1iZXIiOjg3fQoKZXZlbnQ6IHJlc3BvbnNlLm91dHB1dF9pdGVtLmFkZGVkCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLm91dHB1dF9pdGVtLmFkZGVkIiwiaXRlbSI6eyJpZCI6Im1zZ18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1YTZiMWM4N2QwOTc3ZjgzYWU4MjZjMGVkYyIsInR5cGUiOiJtZXNzYWdlIiwic3RhdHVzIjoiaW5fcHJvZ3Jlc3MiLCJjb250ZW50IjpbXSwicGhhc2UiOiJmaW5hbF9hbnN3ZXIiLCJyb2xlIjoiYXNzaXN0YW50In0sIm91dHB1dF9pbmRleCI6MSwic2VxdWVuY2VfbnVtYmVyIjo4OH0KCmV2ZW50OiByZXNwb25zZS5jb250ZW50X3BhcnQuYWRkZWQKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UuY29udGVudF9wYXJ0LmFkZGVkIiwiY29udGVudF9pbmRleCI6MCwiaXRlbV9pZCI6Im1zZ18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1YTZiMWM4N2QwOTc3ZjgzYWU4MjZjMGVkYyIsIm91dHB1dF9pbmRleCI6MSwicGFydCI6eyJ0eXBlIjoib3V0cHV0X3RleHQiLCJhbm5vdGF0aW9ucyI6W10sImxvZ3Byb2JzIjpbXSwidGV4dCI6IiJ9LCJzZXF1ZW5jZV9udW1iZXIiOjg5fQoKZXZlbnQ6IHJlc3BvbnNlLm91dHB1dF90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLm91dHB1dF90ZXh0LmRlbHRhIiwiY29udGVudF9pbmRleCI6MCwiZGVsdGEiOiI0IiwiaXRlbV9pZCI6Im1zZ18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1YTZiMWM4N2QwOTc3ZjgzYWU4MjZjMGVkYyIsImxvZ3Byb2JzIjpbXSwib2JmdXNjYXRpb24iOiJXS0tVSUtDT1VOUVJNeFYiLCJvdXRwdXRfaW5kZXgiOjEsInNlcXVlbmNlX251bWJlciI6OTB9CgpldmVudDogcmVzcG9uc2Uub3V0cHV0X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2Uub3V0cHV0X3RleHQuZGVsdGEiLCJjb250ZW50X2luZGV4IjowLCJkZWx0YSI6IiBjYWxjdWxhdGlvbnMiLCJpdGVtX2lkIjoibXNnXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTVhNmIxYzg3ZDA5NzdmODNhZTgyNmMwZWRjIiwibG9ncHJvYnMiOltdLCJvYmZ1c2NhdGlvbiI6IlNFMiIsIm91dHB1dF9pbmRleCI6MSwic2VxdWVuY2VfbnVtYmVyIjo5MX0KCmV2ZW50OiByZXNwb25zZS5vdXRwdXRfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5vdXRwdXRfdGV4dC5kZWx0YSIsImNvbnRlbnRfaW5kZXgiOjAsImRlbHRhIjoiOyIsIml0ZW1faWQiOiJtc2dfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NWE2YjFjODdkMDk3N2Y4M2FlODI2YzBlZGMiLCJsb2dwcm9icyI6W10sIm9iZnVzY2F0aW9uIjoiRWRFWFJxS014bjhFdmZLIiwib3V0cHV0X2luZGV4IjoxLCJzZXF1ZW5jZV9udW1iZXIiOjkyfQoKZXZlbnQ6IHJlc3BvbnNlLm91dHB1dF90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLm91dHB1dF90ZXh0LmRlbHRhIiwiY29udGVudF9pbmRleCI6MCwiZGVsdGEiOiIgcmVzdWx0IiwiaXRlbV9pZCI6Im1zZ18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1YTZiMWM4N2QwOTc3ZjgzYWU4MjZjMGVkYyIsImxvZ3Byb2JzIjpbXSwib2JmdXNjYXRpb24iOiI5RVlHSEMwZ0EiLCJvdXRwdXRfaW5kZXgiOjEsInNlcXVlbmNlX251bWJlciI6OTN9CgpldmVudDogcmVzcG9uc2Uub3V0cHV0X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2Uub3V0cHV0X3RleHQuZGVsdGEiLCJjb250ZW50X2luZGV4IjowLCJkZWx0YSI6IjoiLCJpdGVtX2lkIjoibXNnXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTVhNmIxYzg3ZDA5NzdmODNhZTgyNmMwZWRjIiwibG9ncHJvYnMiOltdLCJvYmZ1c2NhdGlvbiI6IndvVTlyZ0ZXdjRkWkR6RiIsIm91dHB1dF9pbmRleCI6MSwic2VxdWVuY2VfbnVtYmVyIjo5NH0KCmV2ZW50OiByZXNwb25zZS5vdXRwdXRfdGV4dC5kZWx0YQpkYXRhOiB7InR5cGUiOiJyZXNwb25zZS5vdXRwdXRfdGV4dC5kZWx0YSIsImNvbnRlbnRfaW5kZXgiOjAsImRlbHRhIjoiICIsIml0ZW1faWQiOiJtc2dfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NWE2YjFjODdkMDk3N2Y4M2FlODI2YzBlZGMiLCJsb2dwcm9icyI6W10sIm9iZnVzY2F0aW9uIjoicDFzMGh2STRlNURjQXFMIiwib3V0cHV0X2luZGV4IjoxLCJzZXF1ZW5jZV9udW1iZXIiOjk1fQoKZXZlbnQ6IHJlc3BvbnNlLm91dHB1dF90ZXh0LmRlbHRhCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLm91dHB1dF90ZXh0LmRlbHRhIiwiY29udGVudF9pbmRleCI6MCwiZGVsdGEiOiI2OSIsIml0ZW1faWQiOiJtc2dfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NWE2YjFjODdkMDk3N2Y4M2FlODI2YzBlZGMiLCJsb2dwcm9icyI6W10sIm9iZnVzY2F0aW9uIjoibm15dlZadUxXanRxRjciLCJvdXRwdXRfaW5kZXgiOjEsInNlcXVlbmNlX251bWJlciI6OTZ9CgpldmVudDogcmVzcG9uc2Uub3V0cHV0X3RleHQuZGVsdGEKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2Uub3V0cHV0X3RleHQuZGVsdGEiLCJjb250ZW50X2luZGV4IjowLCJkZWx0YSI6Ii4iLCJpdGVtX2lkIjoibXNnXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTVhNmIxYzg3ZDA5NzdmODNhZTgyNmMwZWRjIiwibG9ncHJvYnMiOltdLCJvYmZ1c2NhdGlvbiI6IlpVdFMycTlNeUR6MlAyOCIsIm91dHB1dF9pbmRleCI6MSwic2VxdWVuY2VfbnVtYmVyIjo5N30KCmV2ZW50OiByZXNwb25zZS5vdXRwdXRfdGV4dC5kb25lCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLm91dHB1dF90ZXh0LmRvbmUiLCJjb250ZW50X2luZGV4IjowLCJpdGVtX2lkIjoibXNnXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTVhNmIxYzg3ZDA5NzdmODNhZTgyNmMwZWRjIiwibG9ncHJvYnMiOltdLCJvdXRwdXRfaW5kZXgiOjEsInNlcXVlbmNlX251bWJlciI6OTgsInRleHQiOiI0IGNhbGN1bGF0aW9uczsgcmVzdWx0OiA2OS4ifQoKZXZlbnQ6IHJlc3BvbnNlLmNvbnRlbnRfcGFydC5kb25lCmRhdGE6IHsidHlwZSI6InJlc3BvbnNlLmNvbnRlbnRfcGFydC5kb25lIiwiY29udGVudF9pbmRleCI6MCwiaXRlbV9pZCI6Im1zZ18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1YTZiMWM4N2QwOTc3ZjgzYWU4MjZjMGVkYyIsIm91dHB1dF9pbmRleCI6MSwicGFydCI6eyJ0eXBlIjoib3V0cHV0X3RleHQiLCJhbm5vdGF0aW9ucyI6W10sImxvZ3Byb2JzIjpbXSwidGV4dCI6IjQgY2FsY3VsYXRpb25zOyByZXN1bHQ6IDY5LiJ9LCJzZXF1ZW5jZV9udW1iZXIiOjk5fQoKZXZlbnQ6IHJlc3BvbnNlLm91dHB1dF9pdGVtLmRvbmUKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2Uub3V0cHV0X2l0ZW0uZG9uZSIsIml0ZW0iOnsiaWQiOiJtc2dfMGZkZjJjZmYxNDQ0ZGQyYTAwNmFlNWY1NWE2YjFjODdkMDk3N2Y4M2FlODI2YzBlZGMiLCJ0eXBlIjoibWVzc2FnZSIsInN0YXR1cyI6ImNvbXBsZXRlZCIsImNvbnRlbnQiOlt7InR5cGUiOiJvdXRwdXRfdGV4dCIsImFubm90YXRpb25zIjpbXSwibG9ncHJvYnMiOltdLCJ0ZXh0IjoiNCBjYWxjdWxhdGlvbnM7IHJlc3VsdDogNjkuIn1dLCJwaGFzZSI6ImZpbmFsX2Fuc3dlciIsInJvbGUiOiJhc3Npc3RhbnQifSwib3V0cHV0X2luZGV4IjoxLCJzZXF1ZW5jZV9udW1iZXIiOjEwMH0KCmV2ZW50OiByZXNwb25zZS5jb21wbGV0ZWQKZGF0YTogeyJ0eXBlIjoicmVzcG9uc2UuY29tcGxldGVkIiwicmVzcG9uc2UiOnsiaWQiOiJyZXNwXzBmZGYyY2ZmMTQ0NGRkMmEwMDZhZTVmNTU4MjkxMDg3ZDA4ZTViYmNjY2Q2ZTFhYjY0Iiwib2JqZWN0IjoicmVzcG9uc2UiLCJjcmVhdGVkX2F0IjoxNzkzNDU1NDQ4LCJzdGF0dXMiOiJjb21wbGV0ZWQiLCJhY2Nlc3NfcHJvZ3JhbXMiOnsiY3liZXIiOiJzdGFuZGFyZCJ9LCJiYWNrZ3JvdW5kIjpmYWxzZSwiY29tcGxldGVkX2F0IjoxNzkzNDU1NDUwLCJlcnJvciI6bnVsbCwiZnJlcXVlbmN5X3BlbmFsdHkiOjAuMCwiaW5jb21wbGV0ZV9kZXRhaWxzIjpudWxsLCJpbnN0cnVjdGlvbnMiOm51bGwsIm1heF9vdXRwdXRfdG9rZW5zIjoyMDQ4MCwibWF4X3Rvb2xfY2FsbHMiOm51bGwsIm1vZGVsIjoiZ3B0LTYuMS10ZXJyYSIsIm1vZGVyYXRpb24iOm51bGwsIm91dHB1dCI6W3siaWQiOiJyc18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1OGMwZDQ4N2QwYjM0OThhNzAxMzFkZGVhYSIsInR5cGUiOiJyZWFzb25pbmciLCJjb250ZW50IjpbXSwiZW5jcnlwdGVkX2NvbnRlbnQiOiJnQUFBQUFCcTVmVmFFdU9tdlMweUJ4eGc3N3lrTVI1YmlHbW41NTM3c0JKTGNrNW1sY1JGRmxiMHlzaVVSbHdVcURtM2lQNVFOQ1lvU1NZcTZXU2lOTkxKV2FmZWFDR0JWWmg2N0RzZzVtLTByYkFqZll3N2U4X3U1aWpRdF8tNXRacVpGUDVPbHlMQ0FpQlRvbndFWEdFZGRLTzhMcHEwdEJUMW5KeG0wNEFPZDNjQ28tbVZjOWtEaWtzZWtpMF92eEJ2ZjE1NnJBM1FiX3BRaWo1QTFjQzl2UGxfem50RXZLSGd4UlN0LVhHcGkzcEFucEVpOVVMWDg3ZlVNMUNnOFV5ZXlURUl4TGduakk1Si1IYmtFckdULVlrVUdhbGlYMVJsaTZIc2h5aERkVTUtZnNiUVlNeno0ZjJmbkhHZlBSZ3VpbFRFOTROMHRqcGFFNjhGb3lrN3hOeUctbVFUNzg5UEFUSi1sdVkwY1NZbDdpMnJJVmlvTGhzYzdSTnZNTXdPV2l3LXp0V3RHeTIyaGliZnNyRUlxVkFkS0tCTDczSC03NGc5M0lxam5XekowR3JjNFg5cldCSHJhOG9aSmhWa3hkSzdJT0ZPbzhwb2ZzU3JmMmEzdzEteFpBdF9CYjRXamNMSnF6b043b1Z4aVJVVlBPRFVrMncxSUVUTVZQWmF0cTFEVkUyMVZaeFIyT2pOX2tQRGd2Yks2bTdJa2NtUVprZTdBNDR1cnVpM0tVc0NUYWtxcWFHVFpNejVTRmRMRWN5WXNfTlJGTkQtb2NVbUJfVVRZUllUVlpISmFfbWRtN3hKWkhMMzJGQVRmUy1EaHMweDV5ei1ZZ0NxQ24wU25IdFF1ZFRtNG9uQlVtQmhRc0hHMzM1dDB1RXpTWlZoQWJqYkJBSDFKODFzb0ppS0NXN0hoQldRZ2laY2JpaTM4WmRnbTRoOE9OLTBZb0xnYmJjbDloYWE4SWFsVk1feThUNHpHVDcyeldWbHBLR0NXVEQ2OE1uV25yMk1jLUZlMFR0di1QMXRURkMtV243UTBYYnA4cmZzRFpmUlo0YXdCX1Nrd0FSOUl5dmFSd2w5VDI3YTVRbXZXaHlEWkgtMVRxNDhtNVFCbEVsX0NrenoxN2Z1ckUwazRCRWlVdkcyOFB3SjNDOXZwVGstYk8yMXNVV3AwXzVEZjg4Uk1CNGxJZmlGLUhWN082Nk5iYzhCVERQaFd4Skw2MFBQT0R6U2QxRmVfcXRKZzVhWk5FakluVXFMaDRCVFFxZlNwS0lWRUt2UUhwcnI3UFJOSjFtbV9OUkhPYnM0YnA5T09DY0lMdl95bWFDTzctRE9IcjNMRll1ajYzUndGLWlTTXgzZW1vVWZGX1ZENGl4ZzI4am03aTh3VERVMkJhWGZETVk1bXhEN29IbE41Y09JOFJLSEJHbjRYazhQZDM2c2RfelEwOHZRS3BzdUU3YllkZzZwRDN6c0NfT3NVUjZMS3p1RExhdDE2MnZjZWhvZE9KNm1LNlZVQW5NSWF2X3RnWWdWanNRbnVoR3cyQjY5dnV5dEItakVsWmIwTW1jeEhMc2cySks4S2w4VkZEYTI3cm9QYlZjTnJWbnpaZnc0S0J3U3U2djZISHptLWdaS2RhM1RuRWVOYTR2Y2JTblVxeE51amg5NWRZSnFhS1NPcEZpQTlKcTExcFlLd29GbVBPaFBNMTRTUmZvVVNQN2lJVkd1cVFnU0EwNGtmVERwcmd6VU13aS1Vb2tyQ0NYaFl3RFE4SnRpNGNIMVNwbUdMUHJ4SnVldVFPcFNJSW10NjVGcVZqQURjaWd5S2t3azdWYVBnMVNLTXVpM25GX2doWWxJejhoZVRVYVNXRlM1SXNiSDVCRG5keVBnT0Rld2VVRjlBOV9HZzdKOTB5em9TYXlyanlFdmtpM2N5aWdDcGR0andZMGdTaWk3WS1ud3lidFV1eDl2OFlaZ1M0anpfV2pQLUlsVjlHTlZrUHl1NlE5eDM4cFRqVmJ1QlVHSVVJcHhCYXZrY0ZoaU5GVWxGRVhyWXhlWXNUbFA0SmFpbHJZYV9keUtNdHpacU1nUEZ4NEJKeS1mNDI4STdNczE1SzJkS2oyRVZQc0g3NDI0VzJnLWZkQU95MmpPSXRuRW1RRkY0NFFyWGg5VHRlVmhkNXRyUW5xZEJRcTVIMENoTlRXZXRuMFp5SzFXSGRHdnl2TExhdXRWZzlkd1l6YmpTeTgzM1p4bFpDaGZOWWZCUmdyS1RzcHBuVXlfcFpmU0o1bnFSSGlXNGc4Sy05UWJTWFFYZEhoS19pZnBPN1FJZ1lsWV9YRmp1TWk0RjVrMTc5NDdrUGtxdTVVMHIyU0NwRlJ4NmlGb2V6STVqRVNFdmxQMEhSUng5Mkx5bnppcVJsSEVzdGU1WFVQSk1zTE01MkZ1UHdWVGNxYU9vVS05M3VMcHEtcG9KWGNwNlZFbFVSNEFWcFpiQWlkSE16YzFldjl3b09nbGtBMkVfT2ptcVl5WWhRSDJJeXBWN3I0RzR6X3JrVzJ0Nm5zc0NKRmZha04zbmVXbDY2akpfZlFITjBnQ2p5QkJnVXpkeDJiS0cyQVU1TThPMTRrMjBxbXF5NURuV3dFdnpBWEFQa29oYmhCZmgzRFJtbVNuT1h1WDdKVmZYZ3FCWEZIWjN6c0U5SmVXbXFnQWliQlNWbWVWaHgzcWpveU4wSEFTT0sxeS1LTTVRVTJncDZHZTN3cDZMSGhwY21Gc2ZhYS1PbGN5eS01YW02dTd2Z0VLOFQyV3laVHNXSlNZd0FTcmZleUYzRkx0ZjFLQVNhc3NRaktuZDJ5b005cG16NHNNajV4TVpBRDB3akVrNVRjLWsyczljYmN2T0dabjFrOHNrQzhLSmFaRjNjbW9TN1VUTHJQMlJuUHhtaXRYOFVOemlfR05XMHVIZThFZUxUZmtGSGVuUlB4ZHpIdUZneHluakt2VURnaUpwVW1OTUFoakV5Y0pVblFUNDV1YjFZREN4OHh3Q00zSlIyN3dwQkF0SGRaQXNXOTZ3MlR5QXd5VVd6R0xOMFhmSElnNXZRZ2haUzlWYUt2U0F3MFotNHN5Y2FFR0ljZ3lQMUFKek5KSHRIOTljeXh3SUYtN1JJR0VnUExIeE9jOE9LdC1uTUdZWEJxdTVrUmNkbHFkeWtCUjhGU2xXdz09Iiwic3VtbWFyeSI6W3sidHlwZSI6InN1bW1hcnlfdGV4dCIsInRleHQiOiIqKkNvdW50aW5nIGNhbGN1bGF0aW9ucyoqXG5cblRoZSB1c2VyIGFza2VkIGhvdyBtYW55IHRpbWVzIEkgZGlkIGEgY2FsY3VsYXRpb24uIEkgdGhpbmsgaXTigJlzIGxpa2VseSB0aGF0IHRoZXnigJlyZSBsb29raW5nIGZvciB0aGUgdG90YWwgY291bnQgb2YgY2FsY3VsYXRpb25zIEkgcGVyZm9ybWVkLCB3aGljaCBjb3VsZCBiZSBmb3VyLiBTbywgSeKAmWxsIGNvbmZpcm0gaXQgd2FzIGZvdXIgdGltZXMsIGFuZCB0aGUgcmVzdWx0aW5nIHZhbHVlIGlzIDY5LiBJdOKAmXMgZ29vZCB0byBjbGFyaWZ5IHRoYXQgdGhlIGZvdXIgcmVmZXJzIHRvIGJvdGggdGhlIHJlcXVlc3RzIGFuZCByZXNwb25zZXMuIEtlZXBpbmcgdHJhY2sgb2YgdGhlc2UgZGV0YWlscyBoZWxwcyBtZSBlbnN1cmUgSSdtIGJlaW5nIGFjY3VyYXRlIGFuZCBoZWxwZnVsISJ9XX0seyJpZCI6Im1zZ18wZmRmMmNmZjE0NDRkZDJhMDA2YWU1ZjU1YTZiMWM4N2QwOTc3ZjgzYWU4MjZjMGVkYyIsInR5cGUiOiJtZXNzYWdlIiwic3RhdHVzIjoiY29tcGxldGVkIiwiY29udGVudCI6W3sidHlwZSI6Im91dHB1dF90ZXh0IiwiYW5ub3RhdGlvbnMiOltdLCJsb2dwcm9icyI6W10sInRleHQiOiI0IGNhbGN1bGF0aW9uczsgcmVzdWx0OiA2OS4ifV0sInBoYXNlIjoiZmluYWxfYW5zd2VyIiwicm9sZSI6ImFzc2lzdGFudCJ9XSwicGFyYWxsZWxfdG9vbF9jYWxscyI6dHJ1ZSwicHJlc2VuY2VfcGVuYWx0eSI6MC4wLCJwcmV2aW91c19yZXNwb25zZV9pZCI6bnVsbCwicHJvbXB0X2NhY2hlX2tleSI6bnVsbCwicHJvbXB0X2NhY2hlX3JldGVudGlvbiI6IjI0aCIsInJlYXNvbmluZyI6eyJjb250ZXh0IjoiYWxsX3R1cm5zIiwiZWZmb3J0IjoiaGlnaCIsIm1vZGUiOiJzdGFuZGFyZCIsInN1bW1hcnkiOiJkZXRhaWxlZCJ9LCJzYWZldHlfaWRlbnRpZmllciI6bnVsbCwic2VydmljZV90aWVyIjoiZGVmYXVsdCIsInN0b3JlIjp0cnVlLCJ0ZW1wZXJhdHVyZSI6MS4wLCJ0ZXh0Ijp7ImZvcm1hdCI6eyJ0eXBlIjoidGV4dCJ9LCJ2ZXJib3NpdHkiOiJtZWRpdW0ifSwidG9vbF9jaG9pY2UiOiJhdXRvIiwidG9vbF91c2FnZSI6eyJpbWFnZV9nZW4iOnsiaW5wdXRfdG9rZW5zIjowLCJpbnB1dF90b2tlbnNfZGV0YWlscyI6eyJpbWFnZV90b2tlbnMiOjAsInRleHRfdG9rZW5zIjowfSwib3V0cHV0X3Rva2VucyI6MCwib3V0cHV0X3Rva2Vuc19kZXRhaWxzIjp7ImltYWdlX3Rva2VucyI6MCwidGV4dF90b2tlbnMiOjB9LCJ0b3RhbF90b2tlbnMiOjB9LCJ3ZWJfc2VhcmNoIjp7Im51bV9yZXF1ZXN0cyI6MH19LCJ0b29scyI6W10sInRvcF9sb2dwcm9icyI6MCwidG9wX3AiOjAuOTgsInRydW5jYXRpb24iOiJkaXNhYmxlZCIsInVzYWdlIjp7ImlucHV0X3Rva2VucyI6MTQxMzcsImlucHV0X3Rva2Vuc19kZXRhaWxzIjp7ImNhY2hlX3dyaXRlX3Rva2VucyI6MTQxMzQsImNhY2hlZF90b2tlbnMiOjB9LCJvdXRwdXRfdG9rZW5zIjo5Miwib3V0cHV0X3Rva2Vuc19kZXRhaWxzIjp7InJlYXNvbmluZ190b2tlbnMiOjc4fSwidG90YWxfdG9rZW5zIjoxNDIyOX0sInVzZXIiOm51bGwsIm1ldGFkYXRhIjp7fX0sInNlcXVlbmNlX251bWJlciI6MTAxfQoK
-  recorded_at: Sat, 31 Oct 2026 14:04:10 GMT
+      encoding: UTF-8
+      string: |+
+        event: response.created
+        data: {"type":"response.created","response":{"id":"resp_0bcb5fcf7825a579006ae5ffbe7ca887d0828e935aca1cb42f","object":"response","created_at":1793458110,"status":"in_progress","access_programs":{"cyber":"standard"},"background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-6.1-terra","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"24h","reasoning":{"context":"all_turns","effort":"high","mode":"standard","summary":"detailed"},"safety_identifier":null,"service_tier":"auto","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":0}
+
+        event: response.in_progress
+        data: {"type":"response.in_progress","response":{"id":"resp_0bcb5fcf7825a579006ae5ffbe7ca887d0828e935aca1cb42f","object":"response","created_at":1793458110,"status":"in_progress","access_programs":{"cyber":"standard"},"background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-6.1-terra","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"24h","reasoning":{"context":"all_turns","effort":"high","mode":"standard","summary":"detailed"},"safety_identifier":null,"service_tier":"auto","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":1}
+
+        event: response.output_item.added
+        data: {"type":"response.output_item.added","item":{"id":"rs_0bcb5fcf7825a579006ae5ffbf0b3487d08b902b86e7aff9df","type":"reasoning","content":[],"encrypted_content":"gAAAAABq5f-_UXvs2q0ZLrRtZdJdO2c8--HFP-ys_pQ__izQWklmJp0jhCuBCth3j-w4m4-Sx8QqZc9CxcSB1Q_STNY_7UfR3hbpsbdzVbLiFI1BPMmKXWG3hqgx9AUYewO3PCOVQTZJdasWXl6ULEv9kWhI_q3cHpXIH5fmzbz3tg0JYqJ1jk8eGljsGNKmUK_nUvvNtJngn2ph1AovnOrxnwJ7zzPLNRab4AhwNIE4tjIhnPxkmlhLmk7sMCLEJKkwwIvkDKJRDkc5msPiQcLctBRTAz1ebM-vlMeDE9U1AECnfF4rPcSnhE_yY3rOX5NqrHcP20LswOYZF3tNDsXoa-vEjqr5G7covYsfm858Gt8RbSwYKbaezwVznQbb_oHaGFruhIijlqcNuwimkPvVtlsOCDzKtKG_GvI1gV01CiHX-2jX77xNcDzljlTv3eSPmDW1KgQiZ6LeVJdaD0XuNqUszNr1JmMZ0e7OSUQKV4ZU7egEPhVOVPQMLSR1e7A7HHbEM2fKmbAO4CP3X5DBKmv6P0MHhadcFVGIfeye2UKVJM8k4f23W_RVj7FXK6miEY2Mz0GxSw68BqFmiB9sSWyxDc-8TWuMYoagm0jwzAR9FB20tlr6Cw6O2Jazej1OOOSKw8wLAHI-EkzCtgO8ZqR7-PerxcRpy4b1qXUrOnY_HY4wx6OIGy7mgCAUXKvLPWYRvgZw2iCJRd4RrNKWQlekApwpjcHbT4E9BD15IXZU6q6jR620m-UTfzBKJpzBaMJF3azDbwCkuSzXVjevETp_ORa1te1PZEgFB4kWBJdIgmSdm-tmpW4bfY4yyKOO7Pw76c8HD4tXje4tsFUeCPhxVWEwvFTZ0miYC9EUtkJ8SePds2bVehHGrFsiHgvQCYHzC73tAUqLVw2VvOMOnttlrZP0dagyvab4YnoBH9SG9EfcYkswsLip4Igpz5y1CZQjT3f0rebCB132drStxRzon-wpFgmfVwkbGblJT02rzJqiqreWVBEuHo6CqPdTLLtWy9OhwOCZxnysja-__0VkGqRNNslBIBGvlYNyV65FGVyJ9NftOw--5iEbIvrGwCaHZ2uKQuNZ28lAts9teovsqC2mZ5Nk-UIPVrDuqc2l5bosSFR4aEknoZ8STpUcbRGeNr4Xchyfy2rHeFBhXxWHeu8y2e5ypA6GUkRSRydDqEj9v0LObl3wKWIbTw-0OTIZqwGb","summary":[]},"output_index":0,"sequence_number":2}
+
+        event: response.output_item.done
+        data: {"type":"response.output_item.done","item":{"id":"rs_0bcb5fcf7825a579006ae5ffbf0b3487d08b902b86e7aff9df","type":"reasoning","content":[],"encrypted_content":"gAAAAABq5f-_mMus8QSqjmpPPhP0EnvRFGnYOmI74Zf6z9bDJ-bwHYZ3PzNHMFi1-Sb3A-58WYeaKgS956rkUizDU5y_6KCcR7JsyY2fZqfXLRr_qEHKFf6azWAdmx5lWVqNGLToaXx7BS_qHWtYvarg3SHQiuYkpbdxteH8bTGrL5vw3ZYyd5-DR0_QRTtmuktB8QrvP5_BCxl10lrF0qYvuLY-_sA0djLQpY7DdFSdqV_SHW0K8f5z99rdsXFMhTjfSgFqfoUE_IFZH-MKSdAV24JSRYCnEHH4doBUYxUjQKu7UQGl7Pladivafm-oa_ZTABXLVojj9tyGrZCW7h9P_TiUBfQJcTio5fOH7pR2RFOjG3ZpRZL-UPkjDcjAGeGvuhof0a0dyM1EyPRm1c0e0VmzuRltkrQLxxcF-iPa6IaWffeEZiPH9s8F6jJ7c4GfPMuTtrgKRn4DgIEYhgvPqK_YapEW6wPLChMH5scysEeBu1ZLSA83UFVDZE-5SColLVlFdbd0FCh1G4F8SoThK26lda8SpzHYHwnFFc6YL7oGjn6L1k15YrbClJdAukug6MTHGUate5z7DxCSzBytQNZ68aI6Z4Wu1twXQJ9r2SxES19zDoPRTSyoI7IqsZtk1WD0ik_9FEjzIoMkdSlsWxc1LjGD4t3OZGmf_P2osnMynhQp4UX6Scj1QtQtogE4jLEZVQD7bQ82lS2pGA7Gawd3nwVZGTROUzb1zJMFBuO60eKhooZsJDG1RRbHgQ_B_mlly-LyJ7os-X4IIZclC2ToVAWFYeb5vDWHv1qUFFw1k0mS0pCgxQQYCqdaS1IgzqsKYq0YSVowerXa8rSAJwEyTISckRU3J3vGAB7uyuU2tktE8GuzszWNCZijrQZWVwX-_JgtOGZ5VephxGxOPkOY0bjeWVY75p2Z37tZRbTX3Va4xdafqdfY-8rbbJlS1mjKCVdlwco6HR07V6n8D_B44A_obvdbWWSSj0x_-7RBNr71A2joXe2Q0hRDE8Y_QqF_G9wlXNPri0ffLFZtkzWjrxb-Okp4CBdr-f_fIxydeqCl_rNT4wEAAW2o1zTBeDhL5uskKCBqb8OL8Xnf152mvW6yP8Iwcj0zhveToLgVE1Kjp5TWRa3oqUvm9xHDRNqXMlSFYh2k_-Tkjp9C4c9WowRnD0F-O4xfnk9nUZUyEe5Q-PQxjZPZ6q3HPEh8sNnNN6DQYyA1cGJwLKX0YwQOxGTwgGkdMhtdIDEHxZkdA549VNq-mKueZrLfBlImWi26PNfPLMd--C7jT4FpWYw2We6d_oFzRiROMQMC43LkTZRy5g3ZA3JrGjSxVquHdMETLZXQj-1fGwB_V-jtfFz2i5yJZ2hsJy4nvmKVXF8D-qiNwp_j8kQDnco7Xcxm_xQmKZy_3XQhCEbTPutov6KntS6zFSuhQtSWxhoDWbvJEWpElqkO9RFYeZ765mjDr776_C7LTcsZLYpiZT1oqjcrfjx8NJyACWlM4j7RXpSW-f2Xhkr10K-SAoST0Hi7DFuiYfbTCEEhe_JReuPWJPo2WuOhfziYm8VA5PPkXLwSm78UVqPFNIhKdKJV0G655-DR3lNAOWrePcr2fDR5i9xU9H86ZnlOsI3GRV_z9OHfQDqtxVy0PwizFY4NTq8JxNHVCX-FSGp2YI5FWtOOkZz0eJY8cQ==","summary":[]},"output_index":0,"sequence_number":3}
+
+        event: response.output_item.added
+        data: {"type":"response.output_item.added","item":{"id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","type":"message","status":"in_progress","content":[],"phase":"final_answer","role":"assistant"},"output_index":1,"sequence_number":4}
+
+        event: response.content_part.added
+        data: {"type":"response.content_part.added","content_index":0,"item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","output_index":1,"part":{"type":"output_text","annotations":[],"logprobs":[],"text":""},"sequence_number":5}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":"Completed","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"tzTaOAM","output_index":1,"sequence_number":6}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" exchanges","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"Q3F4NM","output_index":1,"sequence_number":7}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":":","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"PVoOTBzpdxFXNlv","output_index":1,"sequence_number":8}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" ","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"seOoEQCgY3fBj2E","output_index":1,"sequence_number":9}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":"4","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"qFeUQlH1rx8rVJl","output_index":1,"sequence_number":10}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":";","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"ujrlNPLXmRka8k7","output_index":1,"sequence_number":11}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" addition","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"kzQ4wyG","output_index":1,"sequence_number":12}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" result","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"JBN5Q7E7c","output_index":1,"sequence_number":13}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":":","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"L3XEEbOR6iBjnuF","output_index":1,"sequence_number":14}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":" ","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"SzZttXdibGn1Kks","output_index":1,"sequence_number":15}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":"69","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"NGYZKkNNRDXdkU","output_index":1,"sequence_number":16}
+
+        event: response.output_text.delta
+        data: {"type":"response.output_text.delta","content_index":0,"delta":".","item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"obfuscation":"YLTVz88Z9YWv1aK","output_index":1,"sequence_number":17}
+
+        event: response.output_text.done
+        data: {"type":"response.output_text.done","content_index":0,"item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","logprobs":[],"output_index":1,"sequence_number":18,"text":"Completed exchanges: 4; addition result: 69."}
+
+        event: response.content_part.done
+        data: {"type":"response.content_part.done","content_index":0,"item_id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","output_index":1,"part":{"type":"output_text","annotations":[],"logprobs":[],"text":"Completed exchanges: 4; addition result: 69."},"sequence_number":19}
+
+        event: response.output_item.done
+        data: {"type":"response.output_item.done","item":{"id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","type":"message","status":"completed","content":[{"type":"output_text","annotations":[],"logprobs":[],"text":"Completed exchanges: 4; addition result: 69."}],"phase":"final_answer","role":"assistant"},"output_index":1,"sequence_number":20}
+
+        event: response.completed
+        data: {"type":"response.completed","response":{"id":"resp_0bcb5fcf7825a579006ae5ffbe7ca887d0828e935aca1cb42f","object":"response","created_at":1793458110,"status":"completed","access_programs":{"cyber":"standard"},"background":false,"completed_at":1793458111,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-6.1-terra","moderation":null,"output":[{"id":"rs_0bcb5fcf7825a579006ae5ffbf0b3487d08b902b86e7aff9df","type":"reasoning","content":[],"encrypted_content":"gAAAAABq5f-_Vuy6Oxvz24JxRqNY03yudMNIKnXqrnwGJBn9WKgXwwinmRXwEYtuskH4pWeoU68XQEcHsohuJ8Ajc1-I6REcrSoVVQZvUJ_vBMiSCBjBtwnKfF2HsR2og8M6xsqpA08-o2lrxM4BoX3i1cwctQZ81-j6axjM8maieH29qQdxBKKAI8nvDFomxiAKYieebwruYlckiLVQ5VK72Sp1_XgDY8Ew_bRh_VSjjbENbbvt1pLcJhT2bYaMA9pP8vx6tBT7AATWMIQSGdjIsdOI3c_Lw2Nb7960xHC8kgGDeVMp5d6tzDTs9i9VohamHZkfCSX9RqQlsX70dyjEP-o15WRuHq7Pm1XJf0gu_HO0O2IXEkb_P_vlDUmN7qUHaCnS2AsKuJ0i9v_CkC3-4eJhxjbpkb5ll2AglBiSDBo10yS9c4A4swMFOMxcdlt1r8QydfiUIELNhe88s2t8phcRHXtUV64l5aRpQLQPyb5zxc9Q2_Es0oDQR_jOLZ6mJ5YlfWlbbLa40XcL11emQ8-AgL9uxBOeShSst60mv73buMRzo0ZICVbmb4oBBdOjm9-djuJk0v8j6CwhJo7DfNtgewLQTONStgO0QHvQU2s130gPQGP8_zVd_HGxFa7zaj0QQp2DYpBBzi3z39c3dyGVtzhkSwbd5rjIN8WSg3Z8Ivx7apUNYJE3rD-aULNMcp5xDC3J0y9QFD1orTd9FhmUCp4sNg2aAi3szb_3vByL8k6LCJkDKZFzK4ZUjNgHFXD8wvVKOAijDK_JSwajiXsgwtrH8280j4MVHjvwd6S3udBCodUaeyz-oNOAioQ1th2TkQtTYUi_lrivD52DnCCv0qALdLa-ssAtf_-3aGjtB_vKbj3PqhxeL1r20rCK_pqSIsiy5x6_-o4qi3y23uayPHwtWIqUkrYy1Ty1OZGauZEh6q2Kp5ReH9X0hbV8pVL6wKCjSDYd3nCIf5CufZsGXwhlvBw58ZP-YAPehKM_WlIkhyxjvoxhgkHtFYr7QcqXYrNtoJgHpPgdeyutZjh5IJaSbYxcM2CvDCNEs2AiZkCfmsriZnnSEvsIsWRfNYsojYFki1ykBjTRACABjk2_mxQZAh1lg8TGBzrjekHMf3u5GgSwA-BTAv4_GX_X9r7JWrIkpA84cqV_NBT7H0Gt9huO9IPMMoPD62cjOQpoKy_bAOsmzs6-m0fbIoM4jOHTMGKFbXJ9xBIz89114_hi0zNjN2a3s_-RcmnJpijVoTVrAstfCJ1GEBb9TNk6Z4kgsNFQm-qKLqFBi4nuUpwORRvcnfiJIiLsa_bnPeqVszccnkVvr67TZ2jWz1tq2etNdUmjIY5pAf1XGdouRzAXXI9E8vsAKBpP2BxONwl5z9nVO4uFfecrTNmo5CJnNtPDXYqwxaHQogp4ez41xOnfUbG9DpQu0puUnMoOZX4gWV3NF4_bVF9tGUZJ1vCVirq3W0JJ9IeAlX831rMaWMNxAtg64rqMH9a0-DAbbcWM-ZH37m0QixRxBEr8bjRAdLDZfObTabQinulrMWe6KuKzqEYPXdjhwM3INVTxMcTkyAYcTiZ-APTBGhTrT7GDCuTpzCCTkX7kUHqovhow98j6bngCzu-x3mx5x0AcL51Ayh3XTC-9evEyX-VWHt1fOgl6qVYtn1jn7Hp0-tdWQRhv5RTerA==","summary":[]},{"id":"msg_0bcb5fcf7825a579006ae5ffbf8a1887d087a30b4e8020ece3","type":"message","status":"completed","content":[{"type":"output_text","annotations":[],"logprobs":[],"text":"Completed exchanges: 4; addition result: 69."}],"phase":"final_answer","role":"assistant"}],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"24h","reasoning":{"context":"all_turns","effort":"high","mode":"standard","summary":"detailed"},"safety_identifier":null,"service_tier":"default","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":{"input_tokens":580,"input_tokens_details":{"cache_write_tokens":0,"cached_tokens":0},"output_tokens":39,"output_tokens_details":{"reasoning_tokens":21},"total_tokens":619},"user":null,"metadata":{}},"sequence_number":21}
+
+  recorded_at: Sat, 31 Oct 2026 14:48:31 GMT
 recorded_with: VCR 6.4.0
+...

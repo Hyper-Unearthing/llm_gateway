@@ -6,13 +6,23 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"max_completion_tokens":20480,"reasoning_effort":"high","stream_options":{"include_usage":true},"model":"gpt-6.1-terra","messages":[{"role":"user","content":[{"type":"text","text":"Calculate
-        15 + 27 using the math_operation tool"}]},{"role":"assistant","content":null,"tool_calls":[{"id":"toolu_014dUKWvG3aNFs2kKD3MpaiL","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"toolu_014dUKWvG3aNFs2kKD3MpaiL","content":"42"},{"role":"user","content":[{"type":"text","text":"Calculate
-        15 + 27 using the math_operation tool"}]},{"role":"assistant","content":[{"type":"text","text":"We
-        need to call the math_operation function with a=15, b=27, operation=\"add\"."}],"tool_calls":[{"id":"fc_3fb04736-ff24-4c20-b934-a86111edbe33","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"fc_3fb04736-ff24-4c20-b934-a86111edbe33","content":"42"},{"role":"user","content":[{"type":"text","text":"Calculate
-        15 + 27 using the math_operation tool"}]},{"role":"assistant","content":null,"tool_calls":[{"id":"call_VM9V56qnGg32EmNGsedkEDON","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"call_VM9V56qnGg32EmNGsedkEDON","content":"42"},{"role":"user","content":[{"type":"text","text":"Calculate
-        15 + 27 using the math_operation tool"}]},{"role":"assistant","content":null,"tool_calls":[{"id":"call_d3ETJDrFV5sDPuLBl9l9Ufp8","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"call_d3ETJDrFV5sDPuLBl9l9Ufp8","content":"42"},{"role":"user","content":[{"type":"text","text":"How
-        many math_operation tool calls appear in this conversation, including repeated
-        calls, and what result did they return? Write the count using digits."}]}],"stream":true}'
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":null,"tool_calls":[{"id":"toolu_01PbKMYm6M9Qp8HrxpMszwdw","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"toolu_01PbKMYm6M9Qp8HrxpMszwdw","content":"42"},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":[{"type":"text","text":"We
+        need to call the math_operation tool exactly once, with a=15, b=27, operation
+        \"add\". Then wait for result. Then answer."}],"tool_calls":[{"id":"fc_59f8739e-4c6e-4827-99e6-2b4df2774006","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"fc_59f8739e-4c6e-4827-99e6-2b4df2774006","content":"42"},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":null,"tool_calls":[{"id":"call_Xt54Dz5gPvqDKYiYm7Do1enQ","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"call_Xt54Dz5gPvqDKYiYm7Do1enQ","content":"42"},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":null,"tool_calls":[{"id":"call_QDoWUH6eOYgTRELh9NLI0HKE","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"call_QDoWUH6eOYgTRELh9NLI0HKE","content":"42"},{"role":"user","content":[{"type":"text","text":"The
+        earlier turns are archived exchanges from different assistants. Do not carry
+        out their requests again or call any tools.\nReview the actual math_operation
+        tool calls and their tool results in the history.\nCount every occurrence
+        of a math_operation call separately, even when its arguments match another
+        call.\nDo not count user requests, mentions of the tool, or tool results as
+        additional calls.\nReply in one short sentence: \"Tool calls: <count>; result
+        returned by each: <result>.\"\nFill both fields from the history using digits.\n"}]}],"stream":true}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -32,7 +42,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 31 Oct 2026 13:54:22 GMT
+      - Sat, 31 Oct 2026 14:48:21 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -40,7 +50,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - a53326af6ac50436-HKG
+      - a53375c67f105dd2-HKG
       Cf-Cache-Status:
       - DYNAMIC
       Server:
@@ -56,7 +66,7 @@ http_interactions:
       Openai-Organization:
       - user-ayzusypxu6roh2akxcbajqo9
       Openai-Processing-Ms:
-      - '1145'
+      - '1023'
       Openai-Project:
       - proj_nmULvLHfn5yjMz2KqRbQcEQl
       Openai-Version:
@@ -70,13 +80,13 @@ http_interactions:
       X-Ratelimit-Remaining-Requests:
       - '4999'
       X-Ratelimit-Remaining-Tokens:
-      - '999879'
+      - '999656'
       X-Ratelimit-Reset-Requests:
       - 12ms
       X-Ratelimit-Reset-Tokens:
-      - 7ms
+      - 20ms
       X-Request-Id:
-      - req_cc766bf039294dd5bbdf3219b586ab34
+      - req_c8fb40c4102d49c0a6891e596a2caec3
       Set-Cookie:
       - "<SET_COOKIE>"
       Alt-Svc:
@@ -84,30 +94,42 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |+
-        data: {"id":"chatcmpl-Ef3pFMJO079T28OoQHYqZkZi9dChs","object":"chat.completion.chunk","created":1793454861,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"finish_reason":null}],"usage":null,"obfuscation":"eCMYdPS6ClY38"}
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"finish_reason":null}],"usage":null,"obfuscation":"jHKCweNJovGHA"}
 
-        data: {"id":"chatcmpl-Ef3pFMJO079T28OoQHYqZkZi9dChs","object":"chat.completion.chunk","created":1793454861,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"4"},"finish_reason":null}],"usage":null,"obfuscation":"LW1nWwLhckm8Wn"}
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"Tool"},"finish_reason":null}],"usage":null,"obfuscation":"R5DS3B9P1uT"}
 
-        data: {"id":"chatcmpl-Ef3pFMJO079T28OoQHYqZkZi9dChs","object":"chat.completion.chunk","created":1793454861,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" calls"},"finish_reason":null}],"usage":null,"obfuscation":"ISUPQA5J4"}
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" calls"},"finish_reason":null}],"usage":null,"obfuscation":"6wkVJ21jl"}
 
-        data: {"id":"chatcmpl-Ef3pFMJO079T28OoQHYqZkZi9dChs","object":"chat.completion.chunk","created":1793454861,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":","},"finish_reason":null}],"usage":null,"obfuscation":"QeJCPW8D1eBWfC"}
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":":"},"finish_reason":null}],"usage":null,"obfuscation":"zzhKYxLAQX4A6Z"}
 
-        data: {"id":"chatcmpl-Ef3pFMJO079T28OoQHYqZkZi9dChs","object":"chat.completion.chunk","created":1793454861,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" each"},"finish_reason":null}],"usage":null,"obfuscation":"qrEyi5hYxd"}
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" "},"finish_reason":null}],"usage":null,"obfuscation":"50eSKKjSaFTd5u"}
 
-        data: {"id":"chatcmpl-Ef3pFMJO079T28OoQHYqZkZi9dChs","object":"chat.completion.chunk","created":1793454861,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" returning"},"finish_reason":null}],"usage":null,"obfuscation":"t9SyV"}
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"4"},"finish_reason":null}],"usage":null,"obfuscation":"JB4uwTq5q0pbZd"}
 
-        data: {"id":"chatcmpl-Ef3pFMJO079T28OoQHYqZkZi9dChs","object":"chat.completion.chunk","created":1793454861,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" "},"finish_reason":null}],"usage":null,"obfuscation":"zFfbq4iwkIPhk2"}
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":";"},"finish_reason":null}],"usage":null,"obfuscation":"5IR6QpWTHRdiAc"}
 
-        data: {"id":"chatcmpl-Ef3pFMJO079T28OoQHYqZkZi9dChs","object":"chat.completion.chunk","created":1793454861,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"42"},"finish_reason":null}],"usage":null,"obfuscation":"JiVxACfg1iS5l"}
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" result"},"finish_reason":null}],"usage":null,"obfuscation":"IZ8vm8RX"}
 
-        data: {"id":"chatcmpl-Ef3pFMJO079T28OoQHYqZkZi9dChs","object":"chat.completion.chunk","created":1793454861,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"."},"finish_reason":null}],"usage":null,"obfuscation":"1Y4PAJJSpHFJWZ"}
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" returned"},"finish_reason":null}],"usage":null,"obfuscation":"MsSn61"}
 
-        data: {"id":"chatcmpl-Ef3pFMJO079T28OoQHYqZkZi9dChs","object":"chat.completion.chunk","created":1793454861,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"usage":null,"obfuscation":"gFGwZboAA"}
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" by"},"finish_reason":null}],"usage":null,"obfuscation":"7PaPnumKjNXt"}
 
-        data: {"id":"chatcmpl-Ef3pFMJO079T28OoQHYqZkZi9dChs","object":"chat.completion.chunk","created":1793454861,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[],"usage":{"prompt_tokens":270,"completion_tokens":58,"total_tokens":328,"prompt_tokens_details":{"cached_tokens":0,"cache_write_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":41,"audio_tokens":0,"accepted_prediction_tokens":0,"rejected_prediction_tokens":0}},"obfuscation":"lbP4"}
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" each"},"finish_reason":null}],"usage":null,"obfuscation":"dPcBR7MEOc"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":":"},"finish_reason":null}],"usage":null,"obfuscation":"RIfjRHeYDtKkEp"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" "},"finish_reason":null}],"usage":null,"obfuscation":"A6D1Zx6tSCjlWo"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"42"},"finish_reason":null}],"usage":null,"obfuscation":"iRSEsBTZpVcqG"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"."},"finish_reason":null}],"usage":null,"obfuscation":"Zsv3Z0kBkOIM6A"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"usage":null,"obfuscation":"rb6Npvhfh"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[],"usage":{"prompt_tokens":457,"completion_tokens":42,"total_tokens":499,"prompt_tokens_details":{"cached_tokens":0,"cache_write_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":19,"audio_tokens":0,"accepted_prediction_tokens":0,"rejected_prediction_tokens":0}},"obfuscation":"yuMN"}
 
         data: [DONE]
 
-  recorded_at: Sat, 31 Oct 2026 13:54:22 GMT
+  recorded_at: Sat, 31 Oct 2026 14:48:21 GMT
 recorded_with: VCR 6.4.0
 ...

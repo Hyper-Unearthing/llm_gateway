@@ -4,21 +4,21 @@
     "content": [
       {
         "type": "text",
-        "text": "Calculate 15 + 27 using the math_operation tool"
+        "text": "Calculate 15 + 27 using exactly one call to the math_operation tool. Do not repeat the call or make any other tool calls. Wait for the tool result before answering."
       }
     ]
   },
   {
-    "id": "msg_011Cga9zAdggDpiG8Wua9NWF",
+    "id": "msg_011CgaVjjrrSY4yvZJfhrick",
     "model": "claude-haiku-5-5",
     "usage": {
-      "input": 471,
+      "input": 507,
       "cache_write": 0,
       "cache_read": 0,
       "output": 91,
-      "total": 562,
+      "total": 598,
       "raw": {
-        "input_tokens": 471,
+        "input_tokens": 507,
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "output_tokens": 91,
@@ -33,7 +33,7 @@
     "api": "messages",
     "content": [
       {
-        "id": "toolu_014dUKWvG3aNFs2kKD3MpaiL",
+        "id": "toolu_01PbKMYm6M9Qp8HrxpMszwdw",
         "type": "tool_use",
         "name": "math_operation",
         "input": {
@@ -49,7 +49,7 @@
     "content": [
       {
         "type": "tool_result",
-        "tool_use_id": "toolu_014dUKWvG3aNFs2kKD3MpaiL",
+        "tool_use_id": "toolu_01PbKMYm6M9Qp8HrxpMszwdw",
         "content": "42"
       }
     ]

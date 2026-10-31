@@ -39,7 +39,13 @@ class HandoffStreamTextLiveTest < Test
         content: [
           {
             type: "text",
-            text: "How many previous assistant replies counted from 1 to 3? Count assistant replies only, not user messages. Reply with just the count in digits."
+            text: <<~PROMPT
+              The earlier turns are archived exchanges from different assistants. Do not carry out their requests again.
+              Count the previous assistant messages whose final text counts from 1 to 3.
+              Count each message separately, even when its text is identical to another message.
+              Do not count user messages, individual numbers, or internal reasoning steps.
+              Reply with only the total number of matching assistant messages, using digits.
+            PROMPT
           }
         ]
       }

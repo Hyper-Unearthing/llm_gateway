@@ -21,7 +21,7 @@ class StreamToolCallTest < Test
   end
 
   def basic_tool_call(adapter, options: {})
-    transcript = [ { role: "user", content: [ { type: "text", text: "Calculate 15 + 27 using the math_operation tool" } ] } ]
+    transcript = [ { role: "user", content: [ { type: "text", text: "Calculate 15 + 27 using exactly one call to the math_operation tool. Do not repeat the call or make any other tool calls. Wait for the tool result before answering." } ] } ]
     accumulated_tool_args = ""
     has_tool_start = false
     has_tool_delta = false

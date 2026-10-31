@@ -19,7 +19,7 @@ class StreamReasoningTest < Test
   end
 
   def basic_thinking_test(adapter, reasoning: "high", options: {})
-    transcript = [ { role: "user", content: [ { type: "text", text: "Think long and hard about 42 + 27" } ] } ]
+    transcript = [ { role: "user", content: [ { type: "text", text: "Calculate 42 + 27. Think carefully about the addition, then give the final answer in one short sentence containing the expression and its result. Do not include alternative methods, number trivia, or unrelated calculations in the final answer." } ] } ]
     thinking_started = false
     thinking_chunks = ""
     thinking_completed = false

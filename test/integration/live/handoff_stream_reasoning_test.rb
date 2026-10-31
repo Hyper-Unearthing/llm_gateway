@@ -39,7 +39,13 @@ class HandoffStreamReasoningLiveTest < Test
         content: [
           {
             type: "text",
-            text: "How many times did you do a calculation and what was the result? Write the count and result using digits."
+            text: <<~PROMPT
+              Review ALL earlier user/assistant exchanges in chronological order, including the very first and very last exchange.
+              Each exchange begins with a user request to calculate an addition and ends with the assistant's answer.
+              Internally enumerate these exchanges one by one, without combining repeated requests or counting reasoning paragraphs as separate exchanges.
+              Exclude this question. Read the answers already given; do not perform another calculation.
+              Reply only: "Completed exchanges: <total>; addition result: <result>." Use digits.
+            PROMPT
           }
         ]
       }

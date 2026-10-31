@@ -6,7 +6,8 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"model":"claude-haiku-5-5","messages":[{"role":"user","content":[{"type":"text","text":"Calculate
-        15 + 27 using the math_operation tool"}]}],"tools":[{"name":"math_operation","description":"Perform
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]}],"tools":[{"name":"math_operation","description":"Perform
         a basic math operation on two numbers","input_schema":{"type":"object","properties":{"a":{"type":"number","description":"The
         first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The
         operation to perform"}},"required":["a","b","operation"]}}],"max_tokens":20480,"stream":true}'
@@ -33,7 +34,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 31 Oct 2026 10:27:19 GMT
+      - Sat, 31 Oct 2026 14:46:20 GMT
       Content-Type:
       - text/event-stream; charset=utf-8
       Transfer-Encoding:
@@ -47,31 +48,31 @@ http_interactions:
       Anthropic-Ratelimit-Input-Tokens-Remaining:
       - '10000000'
       Anthropic-Ratelimit-Input-Tokens-Reset:
-      - '2026-10-31T10:27:19Z'
+      - '2026-10-31T14:46:20Z'
       Anthropic-Ratelimit-Output-Tokens-Limit:
       - '2000000'
       Anthropic-Ratelimit-Output-Tokens-Remaining:
       - '2000000'
       Anthropic-Ratelimit-Output-Tokens-Reset:
-      - '2026-10-31T10:27:19Z'
+      - '2026-10-31T14:46:20Z'
       Anthropic-Ratelimit-Requests-Limit:
       - '13000'
       Anthropic-Ratelimit-Requests-Remaining:
       - '12999'
       Anthropic-Ratelimit-Requests-Reset:
-      - '2026-10-31T10:27:19Z'
+      - '2026-10-31T14:46:20Z'
       Anthropic-Ratelimit-Tokens-Limit:
       - '12000000'
       Anthropic-Ratelimit-Tokens-Remaining:
       - '12000000'
       Anthropic-Ratelimit-Tokens-Reset:
-      - '2026-10-31T10:27:19Z'
+      - '2026-10-31T14:46:20Z'
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Request-Id:
-      - req_011Cga9zAQnnrmwWVfLVCSut
+      - req_011CgaVjjdxFsikP2WWyrXgY
       Traceresponse:
-      - 00-f0ccbadfcbe05ccd9ee76bda56e58081-dec3f77c1c674600-01
+      - 00-6a5111e1607b96d52f54c0e47a61ad47-b45492078bde9104-01
       Anthropic-Organization-Id:
       - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
       Anthropic-Workspace-Id:
@@ -81,7 +82,7 @@ http_interactions:
       Server:
       - cloudflare
       Server-Timing:
-      - x-originResponse;dur=94
+      - x-originResponse;dur=113
       Cf-Cache-Status:
       - DYNAMIC
       X-Robots-Tag:
@@ -89,52 +90,52 @@ http_interactions:
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Cf-Ray:
-      - a531f76dfb710962-HKG
+      - a53372d74fa6e69a-HKG
     body:
       encoding: ASCII-8BIT
       string: |+
         event: message_start
-        data: {"type":"message_start","message":{"model":"claude-haiku-5-5","id":"msg_011Cga9zAdggDpiG8Wua9NWF","type":"message","role":"assistant","content":[],"container":null,"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":471,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":16,"service_tier":"standard","inference_geo":"global","speed":"standard"},"diagnostics":null}         }
+        data: {"type":"message_start","message":{"model":"claude-haiku-5-5","id":"msg_011CgaVjjrrSY4yvZJfhrick","type":"message","role":"assistant","content":[],"container":null,"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":507,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":16,"service_tier":"standard","inference_geo":"global","speed":"standard"},"diagnostics":null}               }
 
         event: content_block_start
-        data: {"type":"content_block_start","index":0,"content_block":{"type":"tool_use","id":"toolu_014dUKWvG3aNFs2kKD3MpaiL","name":"math_operation","input":{},"caller":{"type":"direct"}}}
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"tool_use","id":"toolu_01PbKMYm6M9Qp8HrxpMszwdw","name":"math_operation","input":{},"caller":{"type":"direct"}}    }
 
         event: ping
         data: {"type": "ping"}
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":""}     }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":""}           }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"a\": 1"}               }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"{\"a\": 1"}           }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"5"}         }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"5"}            }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":", \"b\": "}         }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":", \"b\": "}      }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"27"} }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"27"}    }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":", \"oper"}               }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":", \"oper"}         }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"ation\":"}    }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"ation\":"}               }
 
         event: content_block_delta
         data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":" \"add\"}"}          }
 
         event: content_block_stop
-        data: {"type":"content_block_stop","index":0}
+        data: {"type":"content_block_stop","index":0        }
 
         event: message_delta
-        data: {"type":"message_delta","delta":{"stop_reason":"tool_use","stop_sequence":null,"stop_details":null,"container":null},"usage":{"input_tokens":471,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":91,"output_tokens_details":{"thinking_tokens":0}}}
+        data: {"type":"message_delta","delta":{"stop_reason":"tool_use","stop_sequence":null,"stop_details":null,"container":null},"usage":{"input_tokens":507,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":91,"output_tokens_details":{"thinking_tokens":0}}               }
 
         event: message_stop
-        data: {"type":"message_stop"      }
+        data: {"type":"message_stop"  }
 
-  recorded_at: Sat, 31 Oct 2026 10:27:20 GMT
+  recorded_at: Sat, 31 Oct 2026 14:46:21 GMT
 recorded_with: VCR 6.4.0
 ...

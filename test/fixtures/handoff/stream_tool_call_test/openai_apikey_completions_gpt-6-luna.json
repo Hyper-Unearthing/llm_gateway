@@ -4,23 +4,23 @@
     "content": [
       {
         "type": "text",
-        "text": "Calculate 15 + 27 using the math_operation tool"
+        "text": "Calculate 15 + 27 using exactly one call to the math_operation tool. Do not repeat the call or make any other tool calls. Wait for the tool result before answering."
       }
     ]
   },
   {
-    "id": "chatcmpl-Ef0asHrCPpY63FyF3ZL4z0oe1RAjj",
+    "id": "chatcmpl-Ef4dXW5JMrYpZlGpvlM6ly9vi7xPA",
     "model": "gpt-6-luna",
     "usage": {
-      "input": 173,
+      "input": 198,
       "cache_write": 0,
       "cache_read": 0,
       "output": 25,
-      "total": 198,
+      "total": 223,
       "raw": {
-        "prompt_tokens": 173,
+        "prompt_tokens": 198,
         "completion_tokens": 25,
-        "total_tokens": 198,
+        "total_tokens": 223,
         "prompt_tokens_details": {
           "cached_tokens": 0,
           "cache_write_tokens": 0,
@@ -40,7 +40,7 @@
     "api": "completions",
     "content": [
       {
-        "id": "call_VM9V56qnGg32EmNGsedkEDON",
+        "id": "call_Xt54Dz5gPvqDKYiYm7Do1enQ",
         "type": "tool_use",
         "name": "math_operation",
         "input": {
@@ -56,7 +56,7 @@
     "content": [
       {
         "type": "tool_result",
-        "tool_use_id": "call_VM9V56qnGg32EmNGsedkEDON",
+        "tool_use_id": "call_Xt54Dz5gPvqDKYiYm7Do1enQ",
         "content": "42"
       }
     ]
