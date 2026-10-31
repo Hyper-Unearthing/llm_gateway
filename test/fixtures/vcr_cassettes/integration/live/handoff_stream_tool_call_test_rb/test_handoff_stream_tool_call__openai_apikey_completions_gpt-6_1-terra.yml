@@ -1,0 +1,135 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"max_completion_tokens":20480,"reasoning_effort":"high","stream_options":{"include_usage":true},"model":"gpt-6.1-terra","messages":[{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":null,"tool_calls":[{"id":"toolu_01PbKMYm6M9Qp8HrxpMszwdw","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"toolu_01PbKMYm6M9Qp8HrxpMszwdw","content":"42"},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":[{"type":"text","text":"We
+        need to call the math_operation tool exactly once, with a=15, b=27, operation
+        \"add\". Then wait for result. Then answer."}],"tool_calls":[{"id":"fc_59f8739e-4c6e-4827-99e6-2b4df2774006","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"fc_59f8739e-4c6e-4827-99e6-2b4df2774006","content":"42"},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":null,"tool_calls":[{"id":"call_Xt54Dz5gPvqDKYiYm7Do1enQ","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"call_Xt54Dz5gPvqDKYiYm7Do1enQ","content":"42"},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":null,"tool_calls":[{"id":"call_QDoWUH6eOYgTRELh9NLI0HKE","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"call_QDoWUH6eOYgTRELh9NLI0HKE","content":"42"},{"role":"user","content":[{"type":"text","text":"The
+        earlier turns are archived exchanges from different assistants. Do not carry
+        out their requests again or call any tools.\nReview the actual math_operation
+        tool calls and their tool results in the history.\nCount every occurrence
+        of a math_operation call separately, even when its arguments match another
+        call.\nDo not count user requests, mentions of the tool, or tool results as
+        additional calls.\nReply in one short sentence: \"Tool calls: <count>; result
+        returned by each: <result>.\"\nFill both fields from the history using digits.\n"}]}],"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 14:48:21 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a53375c67f105dd2-HKG
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
+      - X-Request-ID
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Processing-Ms:
+      - '1023'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      Openai-Version:
+      - '2020-10-01'
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      X-Ratelimit-Limit-Requests:
+      - '5000'
+      X-Ratelimit-Limit-Tokens:
+      - '1000000'
+      X-Ratelimit-Remaining-Requests:
+      - '4999'
+      X-Ratelimit-Remaining-Tokens:
+      - '999656'
+      X-Ratelimit-Reset-Requests:
+      - 12ms
+      X-Ratelimit-Reset-Tokens:
+      - 20ms
+      X-Request-Id:
+      - req_c8fb40c4102d49c0a6891e596a2caec3
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"finish_reason":null}],"usage":null,"obfuscation":"jHKCweNJovGHA"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"Tool"},"finish_reason":null}],"usage":null,"obfuscation":"R5DS3B9P1uT"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" calls"},"finish_reason":null}],"usage":null,"obfuscation":"6wkVJ21jl"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":":"},"finish_reason":null}],"usage":null,"obfuscation":"zzhKYxLAQX4A6Z"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" "},"finish_reason":null}],"usage":null,"obfuscation":"50eSKKjSaFTd5u"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"4"},"finish_reason":null}],"usage":null,"obfuscation":"JB4uwTq5q0pbZd"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":";"},"finish_reason":null}],"usage":null,"obfuscation":"5IR6QpWTHRdiAc"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" result"},"finish_reason":null}],"usage":null,"obfuscation":"IZ8vm8RX"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" returned"},"finish_reason":null}],"usage":null,"obfuscation":"MsSn61"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" by"},"finish_reason":null}],"usage":null,"obfuscation":"7PaPnumKjNXt"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" each"},"finish_reason":null}],"usage":null,"obfuscation":"dPcBR7MEOc"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":":"},"finish_reason":null}],"usage":null,"obfuscation":"RIfjRHeYDtKkEp"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" "},"finish_reason":null}],"usage":null,"obfuscation":"A6D1Zx6tSCjlWo"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"42"},"finish_reason":null}],"usage":null,"obfuscation":"iRSEsBTZpVcqG"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"."},"finish_reason":null}],"usage":null,"obfuscation":"Zsv3Z0kBkOIM6A"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"usage":null,"obfuscation":"rb6Npvhfh"}
+
+        data: {"id":"chatcmpl-Ef4fUjldBKsatEs1lfEcWTN89BcIU","object":"chat.completion.chunk","created":1793458100,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[],"usage":{"prompt_tokens":457,"completion_tokens":42,"total_tokens":499,"prompt_tokens_details":{"cached_tokens":0,"cache_write_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":19,"audio_tokens":0,"accepted_prediction_tokens":0,"rejected_prediction_tokens":0}},"obfuscation":"yuMN"}
+
+        data: [DONE]
+
+  recorded_at: Sat, 31 Oct 2026 14:48:21 GMT
+recorded_with: VCR 6.4.0
+...

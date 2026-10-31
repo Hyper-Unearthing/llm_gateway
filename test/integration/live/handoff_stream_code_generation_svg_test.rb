@@ -8,7 +8,10 @@ class HandoffStreamCodeGenerationSvgLiveTest < Test
   include LiveTestHelper
 
   SOURCE_TEST_PATH = File.expand_path("stream_code_generation_svg_test.rb", __dir__)
-  FIXTURE_DIR = File.expand_path("../../fixtures/handoff/stream_code_generation_svg_test", __dir__)
+  FIXTURE_DIR = File.join(
+    ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || File.expand_path("../../fixtures", __dir__),
+    "handoff/stream_code_generation_svg_test"
+  )
 
   PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/(?:PAIRS|PROVIDER_MODEL_PAIRS) = (\[.*?\])\s*\.freeze/m)[1]).freeze
 
@@ -26,7 +29,13 @@ class HandoffStreamCodeGenerationSvgLiveTest < Test
           {
             type: "text",
             text: <<~PROMPT
-              answer in one short sentence: what PNG filename did the assistants create, how many CSV rows were discussed
+              The earlier turns are archived chart-generation exchanges from different assistants.
+              Use the recorded history only; do not run code, call tools, or create another file.
+              Read the previous assistants' final replies about the saved filename and CSV row count.
+              Report the PNG filename(s) and the original CSV data-row count they reported, not the number of plotted months.
+              The original CSV includes the Annual Mean row and excludes the header from its data-row count.
+              The same CSV repeats across exchanges; report its row count once, not the sum across exchanges.
+              Reply in one short sentence, using digits for the row count.
             PROMPT
           }
         ]

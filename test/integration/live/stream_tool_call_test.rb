@@ -11,19 +11,17 @@ class StreamToolCallTest < Test
   include LiveTestHelper
 
   PAIRS = [
-    { name: "openai_apikey_completions", provider: "openai-completions", model: "gpt-5.1" },
-    { name: "anthropic_apikey_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514" },
-    { name: "openai_apikey_responses", provider: "openai-responses", model: "gpt-5.4" },
-    { name: "anthropic_oauth_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514", oauth: true },
-    { name: "openai_oauth_codex", provider: "openai-codex", model: "gpt-5.4" },
-    { name: "groq_completions", provider: "groq-completions", model: "openai/gpt-oss-120b" }
+    { name: "openai_apikey_completions", provider: "openai-completions", model: "gpt-6-luna", options: { reasoning_effort: "none" } },
+    { name: "anthropic_apikey_messages", provider: "anthropic-messages", model: "claude-haiku-5-5" },
+    { name: "openai_apikey_responses", provider: "openai-responses", model: "gpt-6-luna" },
+    { name: "groq_completions", provider: "groq-completions", model: "openai/gpt-oss-20b" }
   ].freeze
 
   def teardown
   end
 
   def basic_tool_call(adapter, options: {})
-    transcript = [ { role: "user", content: [ { type: "text", text: "Calculate 15 + 27 using the math_operation tool" } ] } ]
+    transcript = [ { role: "user", content: [ { type: "text", text: "Calculate 15 + 27 using exactly one call to the math_operation tool. Do not repeat the call or make any other tool calls. Wait for the tool result before answering." } ] } ]
     accumulated_tool_args = ""
     has_tool_start = false
     has_tool_delta = false
@@ -73,9 +71,9 @@ class StreamToolCallTest < Test
     transcript
   end
 
-  def self.define_stream_tests_for(provider_name:, provider:, model:, oauth:, options: {})
+  def self.define_stream_tests_for(provider_name:, provider:, model:, options: {})
     test "live_basic_tool_call_#{provider_name}_#{model}" do
-      with_vcr_adapter(provider:, model:, oauth:,) do |adapter|
+      with_vcr_adapter(provider:, model:) do |adapter|
         transcript = basic_tool_call(adapter, options: options)
         response = transcript.last
         tool_call = response.content.find { |block| block.type == "tool_use" }
@@ -95,6 +93,6 @@ class StreamToolCallTest < Test
   end
 
   PAIRS.each do |pair|
-    define_stream_tests_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], oauth: pair[:oauth], options: pair.fetch(:options, {}))
+    define_stream_tests_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 end

@@ -1,0 +1,138 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-haiku-5-5","messages":[{"role":"user","content":[{"type":"text","text":"Count
+        from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1, 2,
+        3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1
+        2 3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1,
+        2, 3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to
+        3"}]},{"role":"assistant","content":[{"type":"text","text":"1, 2, 3"}]},{"role":"user","content":[{"type":"text","text":"The
+        earlier turns are archived exchanges from different assistants. Do not carry
+        out their requests again.\nCount the previous assistant messages whose final
+        text counts from 1 to 3.\nCount each message separately, even when its text
+        is identical to another message.\nDo not count user messages, individual numbers,
+        or internal reasoning steps.\nReply with only the total number of matching
+        assistant messages, using digits.\n"}]}],"max_tokens":20480,"thinking":{"type":"adaptive"},"output_config":{"effort":"high"},"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 14:48:14 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '10000000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '10000000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2026-10-31T14:48:13Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '2000000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '2000000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2026-10-31T14:48:13Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '13000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '12999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2026-10-31T14:48:13Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '12000000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '12000000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2026-10-31T14:48:13Z'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Request-Id:
+      - req_011CgaVt6xL5eSJnWmEBLsAY
+      Traceresponse:
+      - 00-b5f627bcb93adde659837ae01ad8212a-c7fd307a8d402b64-01
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Anthropic-Workspace-Id:
+      - wrkspc_016C3Y7Gbx9wv4meyDEf6N1w
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare
+      Server-Timing:
+      - x-originResponse;dur=102
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Cf-Ray:
+      - a533759ceee0d604-HKG
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        event: message_start
+        data: {"type":"message_start","message":{"model":"claude-haiku-5-5","id":"msg_011CgaVt7BE1QwNnSQvovckr","type":"message","role":"assistant","content":[],"container":null,"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":207,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":3,"service_tier":"standard","inference_geo":"global","speed":"standard"},"diagnostics":null}      }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}             }
+
+        event: ping
+        data: {"type": "ping"}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":""}}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"CAQShgYKEAgTGAI4AUIIdGhpbmtpbmcSDCbTle1KvdsuabbJbxoMI0B/t92cR/FP37SpIjDkxKcU7knHyKSGGn36hFT+UbCSUJeZRhy3izk52GcNjL3GE9RKYraKAfhrMkXp9SIqowV+SMv4qPaiJVOScMZo99+KzEWFHIPJR+dAGgOXpigDX+c2Rjal+ncVY9YVQlVK6lElMNpm98sCzS/AGMDwxD+0qr+/MYv1QRqEwAXe+txRBtag2Qv31x9YdMgtg2lbRtMJsoO62jhDKq/NLJSDfXNOrjTAHFM4IcjzbWIgL1LftplRFg/+VoDyRnYDINsZ/1hhZmyoYper1h9YhgA1qcq/byUTqJiXsHGmpacQdqR7VqwEwQHJSauUeXf2YYIzSLeLUL6mV7ytcO6f8JQ+ugH8kwo34/BuUdoaaBKovrppTZ+t3tbxr4L03aQWdRkymWXsely7zMO5wagHnIuqkZPoUmp6wfc0gGLGN778U2WgJgSVuDyi35cnYlFAZohnFiyE+2UJcmCKTmsuXrOtnCE4HW5p99Xet7xAAcawcAfLN+cvjVWT9UD32ARpiRHKyvcNuC+8zfQNd2LtjJnap5abQqxRBUcKPtZi/Bp+Zxf0/ArhEKqoETGEKBvl6tKl3owwGhVd9TOcOzXEMmIZAw2s5a/vnMlhqIVbqbAJzNH6O+ohLWWgPKEvjXsSsJtU31l6yCdRXpF/YSMdHEKvaDDdZYtIh/NTbSDU38L4aAgWrLzZHTBxPuEdHqbHuY46lJD7mO8UVvyoGJaB9a/XkvZJhtI1w1E9Irl3hTmV5zpTJtlJYZq4mNO4I1zFxIpnJbSuplkjVkfmzZr/UApbe6nTFKA3Ksq0judfhu9d0Zuq5nNc1EY4ClhHyeASRO5+RFq5BRT8GCWT6HZlyKOqsx684//Un8hVxXQUj1iLCZ0nle7RowNj54fUOFI6kzpJj/VFBGs+/SZaTLmmxF3QO8Emlch5pxPhG2/0issach4OqKQH6oBQTt1CWywTqEAupgkK2WEYAQ=="}  }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":0}
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}          }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"4"}         }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":1   }
+
+        event: message_delta
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null,"container":null},"usage":{"input_tokens":207,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":86,"output_tokens_details":{"thinking_tokens":83}}     }
+
+        event: message_stop
+        data: {"type":"message_stop"  }
+
+  recorded_at: Sat, 31 Oct 2026 14:48:14 GMT
+recorded_with: VCR 6.4.0
+...

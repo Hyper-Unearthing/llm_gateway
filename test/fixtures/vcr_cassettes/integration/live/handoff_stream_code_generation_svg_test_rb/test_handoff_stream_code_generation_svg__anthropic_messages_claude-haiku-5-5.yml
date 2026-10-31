@@ -1,0 +1,145 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: "<huge prompt body redacted>"
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 14:48:03 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '10000000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '9997000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2026-10-31T14:48:03Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '2000000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '2000000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2026-10-31T14:48:03Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '13000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '12999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2026-10-31T14:48:03Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '12000000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '11997000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2026-10-31T14:48:03Z'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Request-Id:
+      - req_011CgaVsKPfAEgL23GTeDE9U
+      Traceresponse:
+      - 00-ee3e19d6dd82669eb88d482f1969168d-ec99ecb0f0639c9e-01
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Anthropic-Workspace-Id:
+      - wrkspc_016C3Y7Gbx9wv4meyDEf6N1w
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare
+      Server-Timing:
+      - x-originResponse;dur=110
+      X-Robots-Tag:
+      - none
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cf-Ray:
+      - a533755a2e1c17b1-HKG
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        event: message_start
+        data: {"type":"message_start","message":{"model":"claude-haiku-5-5","id":"msg_011CgaVsKcK6pBmoCafRPVNC","type":"message","role":"assistant","content":[],"container":null,"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":6374,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":3,"service_tier":"standard","inference_geo":"global","speed":"standard"},"diagnostics":null}}
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}             }
+
+        event: ping
+        data: {"type": "ping"}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":""}     }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"CAQS9gcKEAgTGAI4AUIIdGhpbmtpbmcSDA9MLzwdXwBoCdDm4hoM/0mv3D7CqOhvBTNyIjD/i0NLMMU1sInJECGq86X7xtBxfDpCK1bHDp9fuFkoHKfCnmeEuq5eSCV/o1kqUzEqkwfOqWijycaaMPuHYgTR+PO5Ctvr7kyolq2m+deAR5Q6HB9hhmn9IlAUliPPiWt1oJFuTY/worYPidSYOGsh0d/LdFE6Sje8pENbO/08WzwH0RmNRJKM/gkADeVqzqMLQPx4HUykCbgoaDFrXB+uAhRday9t5Rc4nEyPCaWrs+1aeLZoevRORgbqlMSpBtQPgu1piB0l5y9imZNvnihxRbm51E+VA7+zHNh+joIikEuIdv+sKZnLoHgTXTZQ+7cmSRBcNsjCS/32BZS60uVK1yhscxYgc/PXvdsVa8txYqoB8nP54/rx4xesdW5c7ZG50yHnJChZZ0MwJ3NJnXBxA7zBJkaRvJSpBPCdTNCnQnZOmfM1MHGzTB0185kUTB5UzlZ+YnDG7XGOQ51jMwBZbJv9vRs5T7TsbA0jwOzR5rwHHIC5Q7F165JdelDjExbCqvTUxeSSkA3xZu5kMJ3T4Xdq/JaVE3ydb4AXJVrAYUjjMp/xzCBBzH7PqRE2PZuG5HcaHAdqrsxlOJQAWmN0AkIo7tWp9YWQxUGN7x15mA0UnmqCkWJ45woDMNjJDq1TCfJtxQoEjlUudI2wQJjveYRgHhJ8bw+1RWNsLfJ4j/0NYfaJPjehOWNXZ9B1z6qcf/rGYDCpDUdMU/c+kdQbimZO5xi79N/VGL7QNDIou5pZyqqKE6Lk1egRifyptzLHdydXzKr+7EL/TvWMjArqZHreJ3W1ydeGhk2FPj2166X73n1rafBEhIwB6QAUttkGbFE+OsXuZIhgg6mAm4BjxoI+8vEaLqeJ46bAsHo8lyDPL+cn706zwow7evYm1IkeT+Aba3yEGCZbXJaFKrJTRDS/AfPgMzBGMz6AiozhjOytYAt31ryIuddBIATU/xxiXTvta0dLR6k6idzgCViJNeSXD4vtnInZJFAFfb14gMce3l6uKBQjDtL9p24PkHG4B/2laz8i0Pq8pDdJ1mOcyqQQyDBejf6EHEbPqEQYWaddje53KYSict0+5Scymm8TUcY8rw1TdT8JTki3ns+mJ4P1Ccc/36bmKzrssIRyxLd4GVgasyOA62YAovyZU3GX1tS8H2U51wcm95AFAn1DodwUsEVK3a1fIfcz1+tH8Vyi69SVkJNa+TCDQDSuKN1lI99jxQb4dusaXdFUwpffTLY1WQgAseYbF+42q2ytW7ar47NVZL8AeLdo7YFhXsMUS9AnSgAYAQ=="}       }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":0          }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}     }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"The previ"}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"ous assistants reported the P"}     }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"NG filename mon"}             }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"thly_temperatures."}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"png and an"}        }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" original CSV data-row count"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" of 13."}       }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":1}
+
+        event: message_delta
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null,"container":null},"usage":{"input_tokens":6374,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":160,"output_tokens_details":{"thinking_tokens":120}}     }
+
+        event: message_stop
+        data: {"type":"message_stop"}
+
+  recorded_at: Sat, 31 Oct 2026 14:48:04 GMT
+recorded_with: VCR 6.4.0
+...

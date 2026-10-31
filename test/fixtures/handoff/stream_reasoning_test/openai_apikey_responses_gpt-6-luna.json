@@ -1,0 +1,44 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Calculate 42 + 27. Think carefully about the addition, then give the final answer in one short sentence containing the expression and its result. Do not include alternative methods, number trivia, or unrelated calculations in the final answer."
+      }
+    ]
+  },
+  {
+    "id": "resp_022982f5353e0537006ae5ff3876c887d0aaedce43ec4c9ffd",
+    "model": "gpt-6-luna",
+    "usage": {
+      "input": 52,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 47,
+      "total": 99,
+      "raw": {
+        "input_tokens": 52,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 47,
+        "output_tokens_details": {
+          "reasoning_tokens": 33
+        },
+        "total_tokens": 99
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "text",
+        "text": "42 + 27 = 69."
+      }
+    ]
+  }
+]

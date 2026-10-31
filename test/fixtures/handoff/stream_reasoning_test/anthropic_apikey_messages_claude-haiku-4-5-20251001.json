@@ -1,0 +1,46 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Calculate 42 + 27. Think carefully about the addition, then give the final answer in one short sentence containing the expression and its result. Do not include alternative methods, number trivia, or unrelated calculations in the final answer."
+      }
+    ]
+  },
+  {
+    "id": "msg_011CgaVjFiBbmti9WhBvRH2w",
+    "model": "claude-haiku-4-5-20251001",
+    "usage": {
+      "input": 85,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 146,
+      "total": 231,
+      "raw": {
+        "input_tokens": 85,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 146,
+        "output_tokens_details": {
+          "thinking_tokens": 131
+        }
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "anthropic",
+    "api": "messages",
+    "content": [
+      {
+        "type": "reasoning",
+        "reasoning": "Let me calculate 42 + 27 carefully.\n\n42 + 27\n= 40 + 2 + 20 + 7\n= 40 + 20 + 2 + 7\n= 60 + 9\n= 69\n\nLet me verify: 42 + 27 = 69\nChecking: 69 - 27 = 42 ✓\nChecking: 69 - 42 = 27 ✓\n\nSo 42 + 27 = 69",
+        "signature": "Et4DCrgBCBMYAipA0cFZfCXlolUX7YRjBi6h+5Kh6aJTvLASF024WxQ2W47QsgaO0gZpX4qZ3sVJnIwupMhMFh2QzCNhQNkXfwZV+jIZY2xhdWRlLWhhaWt1LTQtNS0yMDI1MTAwMTgAQgh0aGlua2luZ1okMGZjYzliZGMtNzBlZS00NzAxLWE2NGYtY2RjOWUzNTZkZmE4mgEbChljbGF1ZGUtaGFpa3UtNC01LTIwMjUxMDAxqAG2/pfXBhIMU5SW9p7uqrK1lOuoGgzhY+3rUIu7vlDJRCIiMJ9nzpeAYjvX4Fp6QNHqs5Z3PsUvoGZRln7yneGwiV5fSTrs/dFFu3w1ZqPbXdC4sirSAbY8Rnb+iMXxBFdayIW4zm/lwsNSlxRmQCxwJ8fKkOxKl6MYeO2g7GiUTIACtrXMXWu7sZgY/oN1FLdYuKveKJjzgLR2INIrAmDmiokHOzVj/U46eHVnUqErq2PBJy4vBTv5oZIBPGOy/lFgLrIgHfXCKAVp9xHd1uhUlksGxD+LcnUT20yeIzlVvWYJ+S7gtv5VRbis1i/woXkLKYe4RTnM6/hDIvzEruIufkEy0tn1IdhqnQIaoCYA+xsNybHItAkCuQJQThWlbNa1GESVchU+bxgB"
+      },
+      {
+        "type": "text",
+        "text": "42 + 27 = 69."
+      }
+    ]
+  }
+]

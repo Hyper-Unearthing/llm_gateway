@@ -8,9 +8,23 @@ class HandoffStreamReasoningLiveTest < Test
   include LiveTestHelper
 
   SOURCE_TEST_PATH = File.expand_path("stream_reasoning_test.rb", __dir__)
-  FIXTURE_DIR = File.expand_path("../../fixtures/handoff/stream_reasoning_test", __dir__)
+  FIXTURE_DIR = File.join(
+    ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || File.expand_path("../../fixtures", __dir__),
+    "handoff/stream_reasoning_test"
+  )
 
-  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).freeze
+  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).map do |pair|
+    case pair[:name]
+    when "anthropic_apikey_messages"
+      pair.merge(model: "claude-haiku-5-5")
+    when "openai_apikey_responses"
+      pair.merge(model: "gpt-6.1-terra")
+    when "groq_completions"
+      pair.merge(model: "qwen/qwen3.6-27b", options: { temperature: 0, max_completion_tokens: 8192, reasoning: "default" })
+    else
+      pair
+    end
+  end.freeze
 
   def teardown
   end
@@ -25,7 +39,13 @@ class HandoffStreamReasoningLiveTest < Test
         content: [
           {
             type: "text",
-            text: "How many times did you do a calculation and what was the result"
+            text: <<~PROMPT
+              Review ALL earlier user/assistant exchanges in chronological order, including the very first and very last exchange.
+              Each exchange begins with a user request to calculate an addition and ends with the assistant's answer.
+              Internally enumerate these exchanges one by one, without combining repeated requests or counting reasoning paragraphs as separate exchanges.
+              Exclude this question. Read the answers already given; do not perform another calculation.
+              Reply only: "Completed exchanges: <total>; addition result: <result>." Use digits.
+            PROMPT
           }
         ]
       }
@@ -39,16 +59,16 @@ class HandoffStreamReasoningLiveTest < Test
     assert_includes text, records.length.to_s
   end
 
-  def self.define_handoff_stream_reasoning_test_for(provider_name:, provider:, model:, oauth:, options: {})
+  def self.define_handoff_stream_reasoning_test_for(provider_name:, provider:, model:, options: {})
     test "handoff_stream_reasoning__#{provider_name}_#{model}" do
-      with_vcr_adapter(provider:, model:, oauth:) do |adapter|
+      with_vcr_adapter(provider:, model:) do |adapter|
         run_handoff_stream_reasoning_for(provider_name:, model:, adapter:, options:)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_handoff_stream_reasoning_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], oauth: pair[:oauth], options: pair.fetch(:options, {}))
+    define_handoff_stream_reasoning_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 
   private

@@ -1,0 +1,103 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"max_completion_tokens":20480,"reasoning_effort":"high","stream_options":{"include_usage":true},"model":"gpt-6.1-terra","messages":[{"role":"user","content":[{"type":"text","text":"Count
+        from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1, 2,
+        3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1
+        2 3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1,
+        2, 3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to
+        3"}]},{"role":"assistant","content":[{"type":"text","text":"1, 2, 3"}]},{"role":"user","content":[{"type":"text","text":"The
+        earlier turns are archived exchanges from different assistants. Do not carry
+        out their requests again.\nCount the previous assistant messages whose final
+        text counts from 1 to 3.\nCount each message separately, even when its text
+        is identical to another message.\nDo not count user messages, individual numbers,
+        or internal reasoning steps.\nReply with only the total number of matching
+        assistant messages, using digits.\n"}]}],"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 14:48:15 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a53375a45f2c20ed-HKG
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
+      - X-Request-ID
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Processing-Ms:
+      - '876'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      Openai-Version:
+      - '2020-10-01'
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      X-Ratelimit-Limit-Requests:
+      - '5000'
+      X-Ratelimit-Limit-Tokens:
+      - '1000000'
+      X-Ratelimit-Remaining-Requests:
+      - '4999'
+      X-Ratelimit-Remaining-Tokens:
+      - '999861'
+      X-Ratelimit-Reset-Requests:
+      - 12ms
+      X-Ratelimit-Reset-Tokens:
+      - 8ms
+      X-Request-Id:
+      - req_0d250445629447aeb413876e92cc460e
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |+
+        data: {"id":"chatcmpl-Ef4fPNkCfj6hSmogWGxbDdy6LTdqM","object":"chat.completion.chunk","created":1793458095,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"finish_reason":null}],"usage":null,"obfuscation":"u05IpORRjYCQk"}
+
+        data: {"id":"chatcmpl-Ef4fPNkCfj6hSmogWGxbDdy6LTdqM","object":"chat.completion.chunk","created":1793458095,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"4"},"finish_reason":null}],"usage":null,"obfuscation":"czbzoBZmkTCO2H"}
+
+        data: {"id":"chatcmpl-Ef4fPNkCfj6hSmogWGxbDdy6LTdqM","object":"chat.completion.chunk","created":1793458095,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"usage":null,"obfuscation":"yXhsnQsKH"}
+
+        data: {"id":"chatcmpl-Ef4fPNkCfj6hSmogWGxbDdy6LTdqM","object":"chat.completion.chunk","created":1793458095,"model":"gpt-6.1-terra","service_tier":"default","system_fingerprint":null,"choices":[],"usage":{"prompt_tokens":177,"completion_tokens":30,"total_tokens":207,"prompt_tokens_details":{"cached_tokens":0,"cache_write_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":20,"audio_tokens":0,"accepted_prediction_tokens":0,"rejected_prediction_tokens":0}},"obfuscation":"Sqo9"}
+
+        data: [DONE]
+
+  recorded_at: Sat, 31 Oct 2026 14:48:16 GMT
+recorded_with: VCR 6.4.0
+...

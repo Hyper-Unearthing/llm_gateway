@@ -1,0 +1,95 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"max_completion_tokens":1024,"stream_options":{"include_usage":true},"model":"gpt-6-luna","messages":[{"role":"user","content":[{"type":"text","text":"Reply
+        with exactly these two words: proxy ok"}]}],"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 10:30:45 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a531fc73beeae2fb-HKG
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
+      - X-Request-ID
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Processing-Ms:
+      - '436'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      Openai-Version:
+      - '2020-10-01'
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      X-Ratelimit-Limit-Requests:
+      - '5000'
+      X-Ratelimit-Limit-Tokens:
+      - '2000000'
+      X-Ratelimit-Remaining-Requests:
+      - '4999'
+      X-Ratelimit-Remaining-Tokens:
+      - '1999987'
+      X-Ratelimit-Reset-Requests:
+      - 12ms
+      X-Ratelimit-Reset-Tokens:
+      - 0s
+      X-Request-Id:
+      - req_e6197df2f97349b0b99e5c194b9ac537
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |+
+        data: {"id":"chatcmpl-Ef0eDWXp7N7UhxPLmLC2bFCRFkCoh","object":"chat.completion.chunk","created":1793442645,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"finish_reason":null}],"usage":null,"obfuscation":""}
+
+        data: {"id":"chatcmpl-Ef0eDWXp7N7UhxPLmLC2bFCRFkCoh","object":"chat.completion.chunk","created":1793442645,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"proxy"},"finish_reason":null}],"usage":null,"obfuscation":"riJFC26ac301T"}
+
+        data: {"id":"chatcmpl-Ef0eDWXp7N7UhxPLmLC2bFCRFkCoh","object":"chat.completion.chunk","created":1793442645,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" ok"},"finish_reason":null}],"usage":null,"obfuscation":"mnuVuwbqjZQXFk4"}
+
+        data: {"id":"chatcmpl-Ef0eDWXp7N7UhxPLmLC2bFCRFkCoh","object":"chat.completion.chunk","created":1793442645,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"usage":null,"obfuscation":"Mu8viHY4twkj"}
+
+        data: {"id":"chatcmpl-Ef0eDWXp7N7UhxPLmLC2bFCRFkCoh","object":"chat.completion.chunk","created":1793442645,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[],"usage":{"prompt_tokens":15,"completion_tokens":17,"total_tokens":32,"prompt_tokens_details":{"cached_tokens":0,"cache_write_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":6,"audio_tokens":0,"accepted_prediction_tokens":0,"rejected_prediction_tokens":0}},"obfuscation":"9rhoY7Rk61"}
+
+        data: [DONE]
+
+  recorded_at: Sat, 31 Oct 2026 10:30:46 GMT
+recorded_with: VCR 6.4.0
+...

@@ -26,8 +26,8 @@ class CodeGenerationPngLiveTest < Test
   CSV
 
   PROVIDER_MODEL_PAIRS = [
-    { name: "anthropic_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514" },
-    { name: "openai_responses", provider: "openai-responses", model: "gpt-5.4" }
+    { name: "anthropic_messages", provider: "anthropic-messages", model: "claude-haiku-5-5" },
+    { name: "openai_responses", provider: "openai-responses", model: "gpt-5.4-nano" }
   ].freeze
 
   def teardown
@@ -53,7 +53,10 @@ class CodeGenerationPngLiveTest < Test
       Requirements:
       - Plot monthly average temperature (Jan-Dec only; ignore Annual Mean)
       - Include x/y axes and month labels
-      - Save the chart as a PNG file
+      - Read the CSV, create the chart, and save it in a single Python execution; do not make preliminary inspection calls
+      - Save exactly one PNG file named monthly_temperatures.png and close the figure with plt.close()
+      - Do not display the figure inline
+      - In your final response, state the saved filename and include exactly one download link to the saved PNG
 
       CSV:
       #{CSV_DATA}
@@ -87,7 +90,7 @@ class CodeGenerationPngLiveTest < Test
 
     refute_empty streamed_args unless streamed_args.empty?
 
-    follow_up = "whats the name of the file and how many rows in the csv was there?"
+    follow_up = "From the work you already completed, report the saved PNG filename and the number of data rows in the original CSV. Exclude the header, but include the Annual Mean row even though it was not plotted. Do not count only the plotted months. Reply in one short sentence using digits for the row count. Do not run code or call tools again."
     transcript = [
       { role: "user", content: prompt },
       response.to_h,

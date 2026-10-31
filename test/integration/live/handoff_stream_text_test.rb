@@ -8,9 +8,23 @@ class HandoffStreamTextLiveTest < Test
   include LiveTestHelper
 
   SOURCE_TEST_PATH = File.expand_path("stream_text_test.rb", __dir__)
-  FIXTURE_DIR = File.expand_path("../../fixtures/handoff/stream_text_test", __dir__)
+  FIXTURE_DIR = File.join(
+    ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || File.expand_path("../../fixtures", __dir__),
+    "handoff/stream_text_test"
+  )
 
-  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).freeze
+  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).map do |pair|
+    # Use models that can follow the mixed-provider transcript.
+    case pair[:name]
+    when "groq_completions"
+      # GPT-OSS and Qwen 3.8 miscounted repeated turns; Qwen 3.6 passed.
+      pair.merge(model: "qwen/qwen3.6-27b", options: { temperature: 0, max_completion_tokens: 8192, reasoning: "default" })
+    when "openai_apikey_completions"
+      pair.merge(model: "gpt-6.1-terra", options: {})
+    else
+      pair
+    end
+  end.freeze
 
   def teardown
   end
@@ -25,29 +39,38 @@ class HandoffStreamTextLiveTest < Test
         content: [
           {
             type: "text",
-            text: "how many times did you count from 1 to 3."
+            text: <<~PROMPT
+              The earlier turns are archived exchanges from different assistants. Do not carry out their requests again.
+              Count the previous assistant messages whose final text counts from 1 to 3.
+              Count each message separately, even when its text is identical to another message.
+              Do not count user messages, individual numbers, or internal reasoning steps.
+              Reply with only the total number of matching assistant messages, using digits.
+            PROMPT
           }
         ]
       }
     ]
 
-    response = adapter.stream(transcript, reasoning: "high", **options)
+    reasoning_options = adapter.model.supports_reasoning? ? { reasoning: "high" } : {}
+    response = adapter.stream(transcript, **reasoning_options, **options)
     refute_equal "error", response.stop_reason, "#{provider_name}/#{model} failed: #{response.error_message}"
 
     text = response.content.select { |block| block.type == "text" }.map(&:text).join(" ").downcase
-    assert_match(/\b(6|six)\b/, text)
+    expected_count = records.length
+    expected_word = %w[zero one two three four five six seven eight nine ten][expected_count]
+    assert_match(/\b(#{expected_count}|#{expected_word || expected_count})\b/, text)
   end
 
-  def self.define_handoff_stream_test_for(provider_name:, provider:, model:, oauth:, options: {})
+  def self.define_handoff_stream_test_for(provider_name:, provider:, model:, options: {})
     test "handoff_stream_text__#{provider_name}_#{model}" do
-      with_vcr_adapter(provider:, model:, oauth:) do |adapter|
+      with_vcr_adapter(provider:, model:) do |adapter|
         run_handoff_stream_for(provider_name:, model:, adapter:, options:)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_handoff_stream_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], oauth: pair[:oauth], options: pair.fetch(:options, {}))
+    define_handoff_stream_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 
   private

@@ -1,0 +1,150 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-haiku-5-5","messages":[{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":[{"type":"tool_use","id":"toolu_01PbKMYm6M9Qp8HrxpMszwdw","name":"math_operation","input":{"a":15,"b":27,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_01PbKMYm6M9Qp8HrxpMszwdw","content":"42"}]},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":[{"type":"text","text":"We
+        need to call the math_operation tool exactly once, with a=15, b=27, operation
+        \"add\". Then wait for result. Then answer."},{"type":"tool_use","id":"fc_59f8739e-4c6e-4827-99e6-2b4df2774006","name":"math_operation","input":{"a":15,"b":27,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"fc_59f8739e-4c6e-4827-99e6-2b4df2774006","content":"42"}]},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":[{"type":"tool_use","id":"call_Xt54Dz5gPvqDKYiYm7Do1enQ","name":"math_operation","input":{"a":15,"b":27,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"call_Xt54Dz5gPvqDKYiYm7Do1enQ","content":"42"}]},{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one call to the math_operation tool. Do not repeat the
+        call or make any other tool calls. Wait for the tool result before answering."}]},{"role":"assistant","content":[{"type":"tool_use","id":"call_QDoWUH6eOYgTRELh9NLI0HKE","name":"math_operation","input":{"a":15,"b":27,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"call_QDoWUH6eOYgTRELh9NLI0HKE","content":"42"}]},{"role":"user","content":[{"type":"text","text":"The
+        earlier turns are archived exchanges from different assistants. Do not carry
+        out their requests again or call any tools.\nReview the actual math_operation
+        tool calls and their tool results in the history.\nCount every occurrence
+        of a math_operation call separately, even when its arguments match another
+        call.\nDo not count user requests, mentions of the tool, or tool results as
+        additional calls.\nReply in one short sentence: \"Tool calls: <count>; result
+        returned by each: <result>.\"\nFill both fields from the history using digits.\n"}]}],"max_tokens":20480,"thinking":{"type":"adaptive"},"output_config":{"effort":"high"},"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 14:48:19 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '10000000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '10000000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2026-10-31T14:48:19Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '2000000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '2000000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2026-10-31T14:48:19Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '13000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '12999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2026-10-31T14:48:19Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '12000000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '12000000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2026-10-31T14:48:19Z'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Request-Id:
+      - req_011CgaVtVd6299cexTh4NyX7
+      Traceresponse:
+      - 00-fd69fe43d17ec8a34a4c38fb235675a1-d1087eea9d82c7bb-01
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Anthropic-Workspace-Id:
+      - wrkspc_016C3Y7Gbx9wv4meyDEf6N1w
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare
+      Server-Timing:
+      - x-originResponse;dur=113
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Robots-Tag:
+      - none
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Cf-Ray:
+      - a53375bdfeccdd5d-HKG
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        event: message_start
+        data: {"type":"message_start","message":{"model":"claude-haiku-5-5","id":"msg_011CgaVtVrUqEYqpuRUQSEQ1","type":"message","role":"assistant","content":[],"container":null,"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":834,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":4,"service_tier":"standard","inference_geo":"global","speed":"standard"},"diagnostics":null}          }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}             }
+
+        event: ping
+        data: {"type": "ping"}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":""} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"CAQSogcKEAgTGAI4AUIIdGhpbmtpbmcSDHqAla9qTcVoLoQt5hoMveyQuomdOLgYIw04IjB6/W/VkSO1ieJqzjuouSYKfiyJ+tFzDMyzrS1COxKu2z+b7zMJZ89FhhRC87xbMjgqvwYqejvW7v5t1G11TniykBoRdFA90/JnDIrHg1d/ofHVGMvpDmPDRl74KHcOmzo8BmjHvprheINXM5GyaRFWjnQzjzHiI6ygHtRu99f3mEeSlAn8AcB1mFL9I15stxJ2NAb16g6DgwWYT0s1RehyuBKg3PYOytfk98vuJ6f9qHs1HmkN35y5t2b32LLsGD0KnWMY9zGb4Ptfg2LX+llNTe4uZwXUO81vv5mIp2ETmT6BqQDWWbwBcjuSXetWCP2atrIo5xk9rS+L0ppThnukFZwAXWvmdC97HPqll+z+ZzsyPt3RzFlmvKQgS130NEIM7rsDFGcoaFQKPp8Fmi0uQE0M6VT3f+8T9W0HlubHR0mXyXm2u94gdaz+Q9+p6V5whxdRY+L4YS2itqOFqNTl5xBU5GSC4V78E2geQkdDSIm/dEkGNr0D7TZ9NSeqG2l2Pbaai8ZQzWCztFFz0fpqOdHwWCb7oPl91AruPEZmJSO35IJn5BP/P1Xakh9aQ1uUNgoIGEOng/z5ldOorAx5GjfS2dF0+j/qp8qJpLsngQLnIa/gy3u6BGSoUUYnJjhY51Gz0n22XCKL2q5PacYjHdDdRCsJKXRlPrZyOJi6dPjGV4I7jsD2ZDoixzG6bWz6gjk4nO22K9gT4sfj2NfWbicNfvA+Yvkz72T859PtOIqCnrJJDuiEfnK2a/RCcruAVfLmMPQDUeVQHrN1qVINhA5Ws3mJK4K3FtKb1dkyc6mgagWJkTAMZKERb6OL27GvTvaCUeGqvwIRfSQTPzMpZA68U98A+ib+Wm9AkGxMkFFEpwgx+ffkRNkqe8S+vmQMXFsYoeLhK1NQTN+HCdNFLreSj2ymMCHA98LWisiP2jC+YZWnhrVEx6mNKIAgCRxPaWGjElrcl25/TQrY/o2KSKSQJdQk30vy0Sm+M/Wl80TANW59VdxRw9wronbHM9V8ZFmA30gUpSDTfSIBGbyTNJDQ/x2aiNNSYrGtj/aTkBzL7mTyVXjendDBsEB11HYa8NHk0M5DMq2rwv0tnwD8tpNYjwXOJCu7kfoRR8RMODRTo5C2Frqv8V9cuAcr0cv1YeNBZzzUJM3wD9YupPpOlRIYAQ=="}   }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":0              }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}               }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"Tool calls: 3"}               }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"; result returned by each: "}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"42."}             }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":1         }
+
+        event: message_delta
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null,"container":null},"usage":{"input_tokens":834,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":141,"output_tokens_details":{"thinking_tokens":121}}             }
+
+        event: message_stop
+        data: {"type":"message_stop"}
+
+  recorded_at: Sat, 31 Oct 2026 14:48:20 GMT
+recorded_with: VCR 6.4.0
+...

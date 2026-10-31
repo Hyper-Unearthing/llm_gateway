@@ -1,8 +1,18 @@
 # frozen_string_literal: true
 
 require "json"
-require "time"
 require "fileutils"
+
+if ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || ENV["LLM_GATEWAY_LIVE_RECORD"] == "1"
+  VCR.configure do |config|
+    if ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"]
+      config.cassette_library_dir = File.join(ENV.fetch("LLM_GATEWAY_LIVE_ARTIFACT_DIR"), "vcr_cassettes")
+    end
+    if ENV["LLM_GATEWAY_LIVE_RECORD"] == "1"
+      config.default_cassette_options = config.default_cassette_options.merge(record: :all)
+    end
+  end
+end
 
 module LiveTestHelper
   LiveAdapter = Struct.new(:adapter, :model) do
@@ -27,18 +37,8 @@ module LiveTestHelper
     end
   end
 
-  def load_provider(provider:, model:, replaying_vcr: false, oauth:)
-    config = {}
-    if provider == "openai-codex"
-      config["api_key"] = replaying_vcr ? "vcr-replay-token" : oauth_access_token_for("openai")
-      config["account_id"] = replaying_vcr ? "vcr-replay-account" : load_auth_credentials("openai")["account_id"]
-    elsif oauth == true
-      if provider == "anthropic-messages"
-        config["api_key"] = replaying_vcr ? "sk-ant-oat-vcr-replay-token" : oauth_access_token_for("anthropic")
-      end
-    elsif replaying_vcr
-      config["api_key"] = "vcr-replay-token"
-    end
+  def load_provider(provider:, model:, replaying_vcr: false)
+    config = replaying_vcr ? { "api_key" => "vcr-replay-token" } : {}
 
     adapter_class = LlmGateway::Proxy::Protocol.load_adapter(provider)
     definition = LlmGateway.models.fetch(provider: adapter_class.provider, id: model)
@@ -46,16 +46,17 @@ module LiveTestHelper
     LiveAdapter.new(adapter_class.build(**config), definition)
   end
 
-  def with_vcr_adapter(provider:, model:, redact_request_body: false, oauth: false)
+  def with_vcr_adapter(provider:, model:, redact_request_body: false)
     cassette_name = vcr_cassette_name
     match_requests_on = redact_request_body ? %i[method uri] : %i[method uri json_body]
-    replaying_vcr = File.exist?(vcr_cassette_path(cassette_name))
+    replaying_vcr = ENV["LLM_GATEWAY_LIVE_RECORD"] != "1" && File.exist?(vcr_cassette_path(cassette_name))
 
     cassette_options = { match_requests_on: match_requests_on }
+    cassette_options[:record] = :all if ENV["LLM_GATEWAY_LIVE_RECORD"] == "1"
     cassette_options[:tag] = :redact_large_request_body if redact_request_body
 
     VCR.use_cassette(cassette_name, cassette_options) do
-      yield load_provider(provider: provider, model: model, replaying_vcr: replaying_vcr, oauth:,)
+      yield load_provider(provider: provider, model: model, replaying_vcr: replaying_vcr)
     end
   end
 
@@ -94,7 +95,8 @@ module LiveTestHelper
   end
 
   def record_live_handoff_result(test_file:, provider:, model:, result:)
-    fixture_dir = File.expand_path("../fixtures/handoff/#{File.basename(test_file, ".rb")}", __dir__)
+    root = ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || File.expand_path("../fixtures", __dir__)
+    fixture_dir = File.join(root, "handoff", File.basename(test_file, ".rb"))
     FileUtils.mkdir_p(fixture_dir)
 
     pair_name = "#{provider}_#{model}".gsub(/[^A-Za-z0-9_.-]+/, "_")
@@ -150,67 +152,5 @@ module LiveTestHelper
 
     # VCR sanitizes path segments like `stream_test.rb` to `stream_test_rb`.
     File.join(VCR.configuration.cassette_library_dir, "#{cassette_name.tr('.', '_')}.yml")
-  end
-
-  def auth_file_path
-    File.expand_path(ENV.fetch("LLM_GATEWAY_AUTH_FILE", "~/.config/llm_gateway/auth.json"))
-  end
-
-  def load_auth_credentials(provider)
-    path = auth_file_path
-    auth = JSON.parse(File.read(path))
-    auth[provider]
-  end
-
-  def persist_auth_credentials(provider, attributes)
-    path = auth_file_path
-    FileUtils.mkdir_p(File.dirname(path))
-
-    auth = File.exist?(path) ? JSON.parse(File.read(path)) : {}
-    auth[provider] ||= {}
-    auth[provider].merge!(attributes)
-
-    File.write(path, JSON.pretty_generate(auth) + "\n")
-  end
-
-  def oauth_access_token_for(provider)
-    creds = load_auth_credentials(provider)
-    return creds["access_token"] if defined?(VCR) && VCR.current_cassette && !creds["access_token"].to_s.empty?
-
-    case provider
-    when "anthropic"
-      token = LlmGateway::Clients::Anthropic.new.get_oauth_access_token(
-        access_token: creds["access_token"],
-        refresh_token: creds["refresh_token"],
-        expires_at: creds["expires_at"]
-      ) do |access_token, refresh_token, expires_at|
-        persist_auth_credentials("anthropic", {
-          "access_token" => access_token,
-          "refresh_token" => refresh_token,
-          "expires_at" => expires_at&.iso8601
-        })
-      end
-
-      persist_auth_credentials("anthropic", { "access_token" => token }) if token != creds["access_token"]
-      token
-    when "openai"
-      token = LlmGateway::Clients::OpenAI.new.get_oauth_access_token(
-        access_token: creds["access_token"],
-        refresh_token: creds["refresh_token"],
-        expires_at: creds["expires_at"],
-        account_id: creds["account_id"]
-      ) do |access_token, refresh_token, expires_at|
-        persist_auth_credentials("openai", {
-          "access_token" => access_token,
-          "refresh_token" => refresh_token,
-          "expires_at" => expires_at&.iso8601
-        })
-      end
-
-      persist_auth_credentials("openai", { "access_token" => token }) if token != creds["access_token"]
-      token
-    else
-      raise ArgumentError, "Unsupported OAuth provider: #{provider}"
-    end
   end
 end

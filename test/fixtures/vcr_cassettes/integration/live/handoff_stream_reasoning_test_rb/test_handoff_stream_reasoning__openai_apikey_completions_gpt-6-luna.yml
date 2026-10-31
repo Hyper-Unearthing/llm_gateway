@@ -1,0 +1,149 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"max_completion_tokens":20480,"reasoning_effort":"high","stream_options":{"include_usage":true},"model":"gpt-6-luna","messages":[{"role":"user","content":[{"type":"text","text":"Calculate
+        42 + 27. Think carefully about the addition, then give the final answer in
+        one short sentence containing the expression and its result. Do not include
+        alternative methods, number trivia, or unrelated calculations in the final
+        answer."}]},{"role":"assistant","content":[{"type":"text","text":"Let me calculate
+        42 + 27 carefully.\n\n42 + 27\n= 40 + 2 + 20 + 7\n= 40 + 20 + 2 + 7\n= 60
+        + 9\n= 69\n\nLet me verify: 42 + 27 = 69\nChecking: 69 - 27 = 42 ✓\nChecking:
+        69 - 42 = 27 ✓\n\nSo 42 + 27 = 69"},{"type":"text","text":"42 + 27 = 69."}]},{"role":"user","content":[{"type":"text","text":"Calculate
+        42 + 27. Think carefully about the addition, then give the final answer in
+        one short sentence containing the expression and its result. Do not include
+        alternative methods, number trivia, or unrelated calculations in the final
+        answer."}]},{"role":"assistant","content":[{"type":"text","text":"The user
+        asks: \"Calculate 42 + 27. Think carefully about the addition, then give the
+        final answer in one short sentence containing the expression and its result.
+        Do not include alternative methods, number trivia, or unrelated calculations
+        in the final answer.\"\n\nWe must provide a short sentence containing the
+        expression and its result. For example: \"42 + 27 equals 69.\" That meets
+        the requirement. No other content. So answer: \"42 + 27 equals 69.\" Ensure
+        it''s one short sentence. That is correct. No extra."},{"type":"text","text":"42
+        + 27 equals 69."}]},{"role":"user","content":[{"type":"text","text":"Calculate
+        42 + 27. Think carefully about the addition, then give the final answer in
+        one short sentence containing the expression and its result. Do not include
+        alternative methods, number trivia, or unrelated calculations in the final
+        answer."}]},{"role":"assistant","content":[{"type":"text","text":"42 + 27
+        = 69."}]},{"role":"user","content":[{"type":"text","text":"Calculate 42 +
+        27. Think carefully about the addition, then give the final answer in one
+        short sentence containing the expression and its result. Do not include alternative
+        methods, number trivia, or unrelated calculations in the final answer."}]},{"role":"assistant","content":[{"type":"text","text":"42
+        + 27 = 69."}]},{"role":"user","content":[{"type":"text","text":"Review ALL
+        earlier user/assistant exchanges in chronological order, including the very
+        first and very last exchange.\nEach exchange begins with a user request to
+        calculate an addition and ends with the assistant''s answer.\nInternally enumerate
+        these exchanges one by one, without combining repeated requests or counting
+        reasoning paragraphs as separate exchanges.\nExclude this question. Read the
+        answers already given; do not perform another calculation.\nReply only: \"Completed
+        exchanges: <total>; addition result: <result>.\" Use digits.\n"}]}],"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 14:48:29 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a53375f5eb929c94-HKG
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
+      - X-Request-ID
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Processing-Ms:
+      - '1757'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      Openai-Version:
+      - '2020-10-01'
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      X-Ratelimit-Limit-Requests:
+      - '5000'
+      X-Ratelimit-Limit-Tokens:
+      - '2000000'
+      X-Ratelimit-Remaining-Requests:
+      - '4999'
+      X-Ratelimit-Remaining-Tokens:
+      - '1999423'
+      X-Ratelimit-Reset-Requests:
+      - 12ms
+      X-Ratelimit-Reset-Tokens:
+      - 17ms
+      X-Request-Id:
+      - req_cfde8d0b6e6e4301bdff2da7a0e80b48
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"finish_reason":null}],"usage":null,"obfuscation":""}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"Completed"},"finish_reason":null}],"usage":null,"obfuscation":"vjarVqdA4"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" exchanges"},"finish_reason":null}],"usage":null,"obfuscation":"hzQWfi7C"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":":"},"finish_reason":null}],"usage":null,"obfuscation":"U"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" "},"finish_reason":null}],"usage":null,"obfuscation":"6"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"4"},"finish_reason":null}],"usage":null,"obfuscation":"F"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":";"},"finish_reason":null}],"usage":null,"obfuscation":"F"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" addition"},"finish_reason":null}],"usage":null,"obfuscation":"qy1dKs4tA"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" result"},"finish_reason":null}],"usage":null,"obfuscation":"URThsOkjrXg"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":":"},"finish_reason":null}],"usage":null,"obfuscation":"i"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":" "},"finish_reason":null}],"usage":null,"obfuscation":"e"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"69"},"finish_reason":null}],"usage":null,"obfuscation":""}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"."},"finish_reason":null}],"usage":null,"obfuscation":"X"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"usage":null,"obfuscation":"8tu2X75xlZmn"}
+
+        data: {"id":"chatcmpl-Ef4fcaoXOwh1wqzDQ5NlemBcY0bIT","object":"chat.completion.chunk","created":1793458108,"model":"gpt-6-luna","service_tier":"default","system_fingerprint":null,"choices":[],"usage":{"prompt_tokens":566,"completion_tokens":127,"total_tokens":693,"prompt_tokens_details":{"cached_tokens":0,"cache_write_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":106,"audio_tokens":0,"accepted_prediction_tokens":0,"rejected_prediction_tokens":0}},"obfuscation":"oZFPp"}
+
+        data: [DONE]
+
+  recorded_at: Sat, 31 Oct 2026 14:48:30 GMT
+recorded_with: VCR 6.4.0
+...

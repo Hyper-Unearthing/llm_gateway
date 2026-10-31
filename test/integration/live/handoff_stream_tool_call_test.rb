@@ -8,9 +8,23 @@ class HandoffStreamToolCallLiveTest < Test
   include LiveTestHelper
 
   SOURCE_TEST_PATH = File.expand_path("stream_tool_call_test.rb", __dir__)
-  FIXTURE_DIR = File.expand_path("../../fixtures/handoff/stream_tool_call_test", __dir__)
+  FIXTURE_DIR = File.join(
+    ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || File.expand_path("../../fixtures", __dir__),
+    "handoff/stream_tool_call_test"
+  )
 
-  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).freeze
+  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).map do |pair|
+    # The 20B model exhausted its output budget on the mixed-provider history.
+    case pair[:name]
+    when "groq_completions"
+      pair.merge(model: "qwen/qwen3.8-27b", options: { temperature: 0.6, max_completion_tokens: 8192 })
+    when "openai_apikey_completions"
+      # Luna miscounted the mixed-provider tool transcript; keep the assertion.
+      pair.merge(model: "gpt-6.1-terra", options: {})
+    else
+      pair
+    end
+  end.freeze
 
   def teardown
   end
@@ -25,13 +39,21 @@ class HandoffStreamToolCallLiveTest < Test
         content: [
           {
             type: "text",
-            text: "How many times did you do a calculation and what was the result"
+            text: <<~PROMPT
+              The earlier turns are archived exchanges from different assistants. Do not carry out their requests again or call any tools.
+              Review the actual math_operation tool calls and their tool results in the history.
+              Count every occurrence of a math_operation call separately, even when its arguments match another call.
+              Do not count user requests, mentions of the tool, or tool results as additional calls.
+              Reply in one short sentence: "Tool calls: <count>; result returned by each: <result>."
+              Fill both fields from the history using digits.
+            PROMPT
           }
         ]
       }
     ]
 
-    response = adapter.stream(transcript, reasoning: "high", **options)
+    reasoning_options = adapter.model.supports_reasoning? ? { reasoning: "high" } : {}
+    response = adapter.stream(transcript, **reasoning_options, **options)
     refute_equal "error", response.stop_reason, "#{provider_name}/#{model} failed: #{response.error_message}"
 
     text = response.content.select { |block| block.type == "text" }.map(&:text).join(" ").downcase
@@ -39,16 +61,16 @@ class HandoffStreamToolCallLiveTest < Test
     assert_includes text, "42"
   end
 
-  def self.define_handoff_stream_test_for(provider_name:, provider:, model:, oauth:, options: {})
+  def self.define_handoff_stream_test_for(provider_name:, provider:, model:, options: {})
     test "handoff_stream_tool_call__#{provider_name}_#{model}" do
-      with_vcr_adapter(provider:, model:, oauth:) do |adapter|
+      with_vcr_adapter(provider:, model:) do |adapter|
         run_handoff_stream_for(provider_name:, model:, adapter:, options:)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_handoff_stream_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], oauth: pair[:oauth], options: pair.fetch(:options, {}))
+    define_handoff_stream_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 
   private

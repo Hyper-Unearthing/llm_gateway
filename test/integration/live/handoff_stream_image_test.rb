@@ -8,7 +8,10 @@ class HandoffStreamImageLiveTest < Test
   include LiveTestHelper
 
   SOURCE_TEST_PATH = File.expand_path("stream_image_test.rb", __dir__)
-  FIXTURE_DIR = File.expand_path("../../fixtures/handoff/stream_image_test", __dir__)
+  FIXTURE_DIR = File.join(
+    ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || File.expand_path("../../fixtures", __dir__),
+    "handoff/stream_image_test"
+  )
 
   PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1])
               .reject { |pair| pair[:name] == "groq_completions" }
@@ -26,7 +29,14 @@ class HandoffStreamImageLiveTest < Test
         content: [
           {
             type: "text",
-            text: "how many times did you look at an image and what was its shape and color"
+            text: <<~PROMPT
+              Review ALL earlier user/assistant exchanges in chronological order, including the very first and very last image-description exchange.
+              Each image-description exchange begins with a user message containing an image and ends with the assistant's description.
+              Internally enumerate these exchanges one by one, without combining repeated images or counting shapes within an image as separate exchanges.
+              Exclude this question. Read the descriptions already given and identify their shared shape and color.
+              Reply in English in one short sentence: "Completed image exchanges: <total>; shape: <shape>; color: <color>."
+              Write the total using digits.
+            PROMPT
           }
         ]
       }
@@ -43,16 +53,16 @@ class HandoffStreamImageLiveTest < Test
     assert text.include?(expected_count) || text.include?(arabic_indic_count), "Expected #{text.inspect} to include #{expected_count.inspect} or #{arabic_indic_count.inspect}"
   end
 
-  def self.define_handoff_stream_image_test_for(provider_name:, provider:, model:, oauth:, options: {})
+  def self.define_handoff_stream_image_test_for(provider_name:, provider:, model:, options: {})
     test "handoff_stream_image__#{provider_name}_#{model}" do
-      with_vcr_adapter(provider:, model:, oauth:) do |adapter|
+      with_vcr_adapter(provider:, model:) do |adapter|
         run_handoff_stream_image_for(provider_name:, model:, adapter:, options:)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_handoff_stream_image_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], oauth: pair[:oauth], options: pair.fetch(:options, {}))
+    define_handoff_stream_image_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 
   private

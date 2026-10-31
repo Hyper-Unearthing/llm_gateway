@@ -1,0 +1,49 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Calculate 42 + 27. Think carefully about the addition, then give the final answer in one short sentence containing the expression and its result. Do not include alternative methods, number trivia, or unrelated calculations in the final answer."
+      }
+    ]
+  },
+  {
+    "id": "chatcmpl-b3f7b54e-7d62-400c-94b9-0233fd021732",
+    "model": "openai/gpt-oss-20b",
+    "usage": {
+      "input": 117,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 128,
+      "total": 245,
+      "raw": {
+        "queue_time": 0.279521349,
+        "prompt_tokens": 117,
+        "prompt_time": 0.00939894,
+        "completion_tokens": 128,
+        "completion_time": 0.148374429,
+        "total_tokens": 245,
+        "total_time": 0.157773369,
+        "completion_tokens_details": {
+          "reasoning_tokens": 111
+        }
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "groq",
+    "api": "completions",
+    "content": [
+      {
+        "type": "reasoning",
+        "reasoning": "The user asks: \"Calculate 42 + 27. Think carefully about the addition, then give the final answer in one short sentence containing the expression and its result. Do not include alternative methods, number trivia, or unrelated calculations in the final answer.\"\n\nWe must provide a short sentence containing the expression and its result. For example: \"42 + 27 equals 69.\" That meets the requirement. No other content. So answer: \"42 + 27 equals 69.\" Ensure it's one short sentence. That is correct. No extra.",
+        "signature": ""
+      },
+      {
+        "type": "text",
+        "text": "42 + 27 equals 69."
+      }
+    ]
+  }
+]

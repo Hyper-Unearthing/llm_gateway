@@ -1,0 +1,60 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Calculate 15 + 27 using exactly one call to the math_operation tool. Do not repeat the call or make any other tool calls. Wait for the tool result before answering."
+      }
+    ]
+  },
+  {
+    "id": "resp_031e6b71e7e23b3c006ae5ff3ded7087d09a8c0240766dc3e0",
+    "model": "gpt-6-luna",
+    "usage": {
+      "input": 116,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 26,
+      "total": 142,
+      "raw": {
+        "input_tokens": 116,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 26,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 142
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "tool_use",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "id": "call_QDoWUH6eOYgTRELh9NLI0HKE",
+        "type": "tool_use",
+        "name": "math_operation",
+        "input": {
+          "a": 15,
+          "b": 27,
+          "operation": "add"
+        }
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "tool_result",
+        "tool_use_id": "call_QDoWUH6eOYgTRELh9NLI0HKE",
+        "content": "42"
+      }
+    ]
+  }
+]

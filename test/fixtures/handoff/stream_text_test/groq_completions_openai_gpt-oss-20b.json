@@ -1,0 +1,44 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Count from 1 to 3"
+      }
+    ]
+  },
+  {
+    "id": "chatcmpl-6800b69f-c7f4-4ae2-bc46-90286c034736",
+    "model": "openai/gpt-oss-20b",
+    "usage": {
+      "input": 78,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 123,
+      "total": 201,
+      "raw": {
+        "queue_time": 0.046979262,
+        "prompt_tokens": 78,
+        "prompt_time": 0.003658116,
+        "completion_tokens": 123,
+        "completion_time": 0.128318926,
+        "total_tokens": 201,
+        "total_time": 0.131977042,
+        "completion_tokens_details": {
+          "reasoning_tokens": 109
+        }
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "groq",
+    "api": "completions",
+    "content": [
+      {
+        "type": "text",
+        "text": "1 2 3"
+      }
+    ]
+  }
+]
