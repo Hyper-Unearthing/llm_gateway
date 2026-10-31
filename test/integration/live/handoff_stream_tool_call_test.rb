@@ -13,7 +13,18 @@ class HandoffStreamToolCallLiveTest < Test
     "handoff/stream_tool_call_test"
   )
 
-  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).freeze
+  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).map do |pair|
+    # The 20B model exhausted its output budget on the mixed-provider history.
+    case pair[:name]
+    when "groq_completions"
+      pair.merge(model: "qwen/qwen3.8-27b", options: { temperature: 0.6, max_completion_tokens: 8192 })
+    when "openai_apikey_completions"
+      # Luna miscounted the mixed-provider tool transcript; keep the assertion.
+      pair.merge(model: "gpt-6.1-terra", options: {})
+    else
+      pair
+    end
+  end.freeze
 
   def teardown
   end
@@ -28,7 +39,7 @@ class HandoffStreamToolCallLiveTest < Test
         content: [
           {
             type: "text",
-            text: "How many times did you do a calculation and what was the result"
+            text: "How many math_operation tool calls appear in this conversation, including repeated calls, and what result did they return? Write the count using digits."
           }
         ]
       }
@@ -43,16 +54,16 @@ class HandoffStreamToolCallLiveTest < Test
     assert_includes text, "42"
   end
 
-  def self.define_handoff_stream_test_for(provider_name:, provider:, model:, oauth:, options: {})
+  def self.define_handoff_stream_test_for(provider_name:, provider:, model:, options: {})
     test "handoff_stream_tool_call__#{provider_name}_#{model}" do
-      with_vcr_adapter(provider:, model:, oauth:) do |adapter|
+      with_vcr_adapter(provider:, model:) do |adapter|
         run_handoff_stream_for(provider_name:, model:, adapter:, options:)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_handoff_stream_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], oauth: pair[:oauth], options: pair.fetch(:options, {}))
+    define_handoff_stream_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 
   private

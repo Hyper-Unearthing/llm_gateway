@@ -1,0 +1,141 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/responses
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-6-luna","input":[{"role":"user","content":[{"type":"input_text","text":"Calculate
+        15 + 27 using the math_operation tool"}]}],"tools":[{"type":"function","name":"math_operation","description":"Perform
+        a basic math operation on two numbers","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The
+        first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The
+        operation to perform"}},"required":["a","b","operation"]}}],"max_output_tokens":20480,"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 10:27:21 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a531f778ab2404f3-HKG
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
+      - X-Request-ID, Server-Timing-Total
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Processing-Ms:
+      - '247'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      Openai-Version:
+      - '2020-10-01'
+      X-Ratelimit-Limit-Requests:
+      - '5000'
+      X-Ratelimit-Limit-Tokens:
+      - '2000000'
+      X-Ratelimit-Remaining-Requests:
+      - '4999'
+      X-Ratelimit-Remaining-Tokens:
+      - '1999474'
+      X-Ratelimit-Reset-Requests:
+      - 12ms
+      X-Ratelimit-Reset-Tokens:
+      - 15ms
+      X-Request-Id:
+      - req_27a1f72ad92c4f4382761afa8123e2d0
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |+
+        event: response.created
+        data: {"type":"response.created","response":{"id":"resp_02f7e00791a2d030006ae5c28972e887d086e3a9ccac88f025","object":"response","created_at":1793442441,"status":"in_progress","access_programs":null,"background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-6-luna","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"24h","reasoning":{"context":"all_turns","effort":"medium","mode":"standard","summary":null},"safety_identifier":null,"service_tier":"auto","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","output_schema":null,"parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":0}
+
+        event: response.in_progress
+        data: {"type":"response.in_progress","response":{"id":"resp_02f7e00791a2d030006ae5c28972e887d086e3a9ccac88f025","object":"response","created_at":1793442441,"status":"in_progress","access_programs":null,"background":false,"completed_at":null,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-6-luna","moderation":null,"output":[],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"24h","reasoning":{"context":"all_turns","effort":"medium","mode":"standard","summary":null},"safety_identifier":null,"service_tier":"auto","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","output_schema":null,"parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":null,"user":null,"metadata":{}},"sequence_number":1}
+
+        event: response.output_item.added
+        data: {"type":"response.output_item.added","item":{"id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","type":"function_call","status":"in_progress","arguments":"","call_id":"call_d3ETJDrFV5sDPuLBl9l9Ufp8","name":"math_operation"},"output_index":0,"sequence_number":2}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"{\"","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"0obDYQ1F01NNZ9","output_index":0,"sequence_number":3}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"a","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"Jyo3laV08EnJEIz","output_index":0,"sequence_number":4}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"\":","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"UMK1uOKkdtR1kD","output_index":0,"sequence_number":5}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"15","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"yJORWmHsPDuc6k","output_index":0,"sequence_number":6}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":",\"","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"R7upjuT8f7r3xf","output_index":0,"sequence_number":7}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"b","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"YJY1eyvqXTQuYbf","output_index":0,"sequence_number":8}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"\":","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"eot2L4jW9jdo1I","output_index":0,"sequence_number":9}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"27","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"CG2XSr92nJRt1Z","output_index":0,"sequence_number":10}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":",\"","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"uvSmc1KvNEzzt2","output_index":0,"sequence_number":11}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"operation","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"dAVJXIT","output_index":0,"sequence_number":12}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"\":\"","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"tgwz2rW0omTGu","output_index":0,"sequence_number":13}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"add","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"CyTqS0wGKxPqN","output_index":0,"sequence_number":14}
+
+        event: response.function_call_arguments.delta
+        data: {"type":"response.function_call_arguments.delta","delta":"\"}","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","obfuscation":"iyiaj1ggBmfU3l","output_index":0,"sequence_number":15}
+
+        event: response.function_call_arguments.done
+        data: {"type":"response.function_call_arguments.done","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}","item_id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","output_index":0,"sequence_number":16}
+
+        event: response.output_item.done
+        data: {"type":"response.output_item.done","item":{"id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","type":"function_call","status":"completed","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}","call_id":"call_d3ETJDrFV5sDPuLBl9l9Ufp8","name":"math_operation"},"output_index":0,"sequence_number":17}
+
+        event: response.completed
+        data: {"type":"response.completed","response":{"id":"resp_02f7e00791a2d030006ae5c28972e887d086e3a9ccac88f025","object":"response","created_at":1793442441,"status":"completed","access_programs":null,"background":false,"completed_at":1793442442,"error":null,"frequency_penalty":0.0,"incomplete_details":null,"instructions":null,"max_output_tokens":20480,"max_tool_calls":null,"model":"gpt-6-luna","moderation":null,"output":[{"id":"fc_02f7e00791a2d030006ae5c28a1f8c87d0b25fb2f7baa51924","type":"function_call","status":"completed","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}","call_id":"call_d3ETJDrFV5sDPuLBl9l9Ufp8","name":"math_operation"}],"parallel_tool_calls":true,"presence_penalty":0.0,"previous_response_id":null,"prompt_cache_key":null,"prompt_cache_retention":"24h","reasoning":{"context":"all_turns","effort":"medium","mode":"standard","summary":null},"safety_identifier":null,"service_tier":"default","store":true,"temperature":1.0,"text":{"format":{"type":"text"},"verbosity":"medium"},"tool_choice":"auto","tool_usage":{"image_gen":{"input_tokens":0,"input_tokens_details":{"image_tokens":0,"text_tokens":0},"output_tokens":0,"output_tokens_details":{"image_tokens":0,"text_tokens":0},"total_tokens":0},"web_search":{"num_requests":0}},"tools":[{"type":"function","description":"Perform a basic math operation on two numbers","name":"math_operation","output_schema":null,"parameters":{"type":"object","properties":{"a":{"type":"number","description":"The first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The operation to perform"}},"required":["a","b","operation"],"additionalProperties":false},"strict":true}],"top_logprobs":0,"top_p":0.98,"truncation":"disabled","usage":{"input_tokens":91,"input_tokens_details":{"cache_write_tokens":0,"cached_tokens":0},"output_tokens":26,"output_tokens_details":{"reasoning_tokens":0},"total_tokens":117},"user":null,"metadata":{}},"sequence_number":18}
+
+  recorded_at: Sat, 31 Oct 2026 10:27:22 GMT
+recorded_with: VCR 6.4.0
+...

@@ -1,0 +1,395 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.anthropic.com/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-haiku-4-5-20251001","messages":[{"role":"user","content":[{"type":"text","text":"Think
+        long and hard about 42 + 27"}]}],"max_tokens":20480,"thinking":{"type":"enabled","budget_tokens":15360},"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.anthropic.com
+      Anthropic-Version:
+      - '2023-06-01'
+      Content-Type:
+      - application/json
+      X-Api-Key:
+      - "<BEARER_TOKEN>"
+      Anthropic-Beta:
+      - code-execution-2025-05-22,files-api-2025-04-14
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 10:26:21 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '10000000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '10000000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2026-10-31T10:26:20Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '2000000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '2000000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2026-10-31T10:26:20Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '10000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '9999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2026-10-31T10:26:20Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '12000000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '12000000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2026-10-31T10:26:20Z'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Request-Id:
+      - req_011Cga9upni1JAXeRVwjbNGS
+      Traceresponse:
+      - 00-21fc06673fe9620f89ae9aa0bfdb7b29-d80270e6c81fb240-01
+      Anthropic-Organization-Id:
+      - 0fcc9bdc-70ee-4701-a64f-cdc9e356dfa8
+      Anthropic-Workspace-Id:
+      - wrkspc_016C3Y7Gbx9wv4meyDEf6N1w
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare
+      Server-Timing:
+      - x-originResponse;dur=89
+      X-Robots-Tag:
+      - none
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cf-Ray:
+      - a531f5fe2cfc04cc-HKG
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        event: message_start
+        data: {"type":"message_start","message":{"model":"claude-haiku-4-5-20251001","id":"msg_011Cga9upyNYs27zv6xuK9pU","type":"message","role":"assistant","content":[],"container":null,"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":47,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":4,"service_tier":"standard","inference_geo":"not_available","speed":"standard"},"diagnostics":null}             }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}              }
+
+        event: ping
+        data: {"type": "ping"}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"The user is asking"}              }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" me to think carefully"}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" about the sum"}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" of"}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" 42 +"} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" 27."}               }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n\nLet"}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" me work"}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" through this step by"}          }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" step:"}   }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n\n42 + "}           }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"27\n\nI"}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" can"}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" break this down:"}               }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n- 42"}               }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" ="}     }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" 40 +"}           }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" 2\n-"}       }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" 27 ="}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" 20 +"}   }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" 7\n\nSo"}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":": ("}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"40 + "}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"2) + ("}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"20 + "}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"7) = ("}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"40 + "} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"20"}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":") + (2"}             }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" + 7"}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":") = 60"}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" + 9"}        }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" = 69"}   }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n\nLet"}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" me verify"} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" another"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" way:\n42"}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" + 27"}     }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n= 42"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" + 20"}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" + 7"}       }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n= 62"}}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":" + 7"}     }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n= 69"}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n\nOr"}   }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":":\n42 "}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"+ 27"}              }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n= 42 "}           }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"+ 25 "}           }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"+ 2"}               }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n= 67 "}           }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"+ 2"} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n= 69"}}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"\n\nYes, "}              }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"42 + "}     }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"27 = "}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"69"}          }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"EvwECrgBCBMYAipAYqWZbEcO1R6D8uopMJybbPQBvNm7/98hZLI1GuCJh0EkGRY/4fd3gfGK9HVIA05Xq+9b1rwmyc28ZTe9DiHOoDIZY2xhdWRlLWhhaWt1LTQtNS0yMDI1MTAwMTgAQgh0aGlua2luZ1okMGZjYzliZGMtNzBlZS00NzAxLWE2NGYtY2RjOWUzNTZkZmE4mgEbChljbGF1ZGUtaGFpa3UtNC01LTIwMjUxMDAxqAHOhJfXBhIMCmEdJz8Zqb+SMZ2GGgxfqj2yWUVvROhVR18iMBsijeTqp05u7SWU9dtU+6M2m8ZC3e5ml2qtz58je3Q3cTFTX8C7nkIZrAKCZCEYjirwAq6TCr87uHHrsrmFl6hpZpWXuurJr4+DEaNXizpf1Zt7IOxFP6p1xCa4P2DA6On+ppmUsQ/Dnu5oIZqQVOSgPsMkZQ2RzBzK048CKg0guEasCgnb1ha1RqlM+eaI72xnQrsxBSJcEtlFysx4jjgYVbdzgwK8wlOu2ogTgetqq4JbefqFhZ9fcBLKYwj0eGRSo7Y1w90fZUZs2G5akUhVCRGW6N1Z4y1k1hnoOIIhUzlR/m5GaTadygwOGXaakDhL+9iMzlJ8k0PaRrfq08nGt5pRumn3UwRgXDRnWsPAXd/X2FlCZVJ/+w2oczz1cZOkGCHs4OvHEvBix/VTICVCVthKKUtwOi6ABGXxcrdywRDuYK00fpjNX2zUJQIBlbMh1Nv9gObMTGiwIYVw5imeB+cAsqYig9Jo0VTf9pgtNbZuHN+GYQ9TwmNvIhRRjT6edTCxZPdOrl73oCQeiyy1/WfwB3N+zG6An2xud0zDBeaMGAE="} }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":0              }
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}     }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"#"}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" 42 +"}              }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" 27"}             }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"\n\nLet"}             }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" me work"} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" through this carefully"}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":":\n\n**"}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"Breaking"}               }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" it into"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" parts:**\n-"}     }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" 42 "}            }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"= 40 "}               }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"+ 2"}       }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"\n- 27 "}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"= 20 "}               }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"+ 7"}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"\n\n**"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"Combining:**"}    }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"\n-"}             }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" Tens"} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":":"}               }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" 40 +"}  }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" 20 ="}              }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" 60\n-"}}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" Ones: 2"} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" + 7"}        }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":" = 9"} }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"\n- Total: "}        }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"60 + "}      }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"9 = **"}         }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"69**\n\n**"}        }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"Answer"}        }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":": 69"}          }
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"**"}             }
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":1    }
+
+        event: message_delta
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null,"container":null},"usage":{"input_tokens":47,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":308,"output_tokens_details":{"thinking_tokens":200}}      }
+
+        event: message_stop
+        data: {"type":"message_stop"   }
+
+  recorded_at: Sat, 31 Oct 2026 10:26:23 GMT
+recorded_with: VCR 6.4.0
+...

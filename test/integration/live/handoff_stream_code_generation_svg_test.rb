@@ -8,7 +8,10 @@ class HandoffStreamCodeGenerationSvgLiveTest < Test
   include LiveTestHelper
 
   SOURCE_TEST_PATH = File.expand_path("stream_code_generation_svg_test.rb", __dir__)
-  FIXTURE_DIR = File.expand_path("../../fixtures/handoff/stream_code_generation_svg_test", __dir__)
+  FIXTURE_DIR = File.join(
+    ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || File.expand_path("../../fixtures", __dir__),
+    "handoff/stream_code_generation_svg_test"
+  )
 
   PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/(?:PAIRS|PROVIDER_MODEL_PAIRS) = (\[.*?\])\s*\.freeze/m)[1]).freeze
 

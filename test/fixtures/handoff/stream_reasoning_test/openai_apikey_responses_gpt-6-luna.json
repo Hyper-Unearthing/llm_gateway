@@ -1,0 +1,49 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Think long and hard about 42 + 27"
+      }
+    ]
+  },
+  {
+    "id": "resp_08fed06237bf14f9006ae5c26b2e2c87d099633808b270aed7",
+    "model": "gpt-6-luna",
+    "usage": {
+      "input": 16,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 36,
+      "total": 52,
+      "raw": {
+        "input_tokens": 16,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 29
+        },
+        "total_tokens": 52
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "openai",
+    "api": "responses",
+    "content": [
+      {
+        "type": "reasoning",
+        "reasoning": "**Simplifying the answer**\n\nI need to provide a straightforward answer here, so I’ll focus on computing 69. When I think about it, keeping it simple might be what’s wanted. I’ll ensure there’s no unnecessary information in the response, just what’s needed. Okay, I’ll get right to it while being clear and concise!",
+        "signature": ""
+      },
+      {
+        "type": "text",
+        "text": "69"
+      }
+    ]
+  }
+]

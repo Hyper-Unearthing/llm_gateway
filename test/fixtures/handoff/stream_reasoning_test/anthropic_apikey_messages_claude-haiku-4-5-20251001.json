@@ -1,0 +1,46 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "type": "text",
+        "text": "Think long and hard about 42 + 27"
+      }
+    ]
+  },
+  {
+    "id": "msg_011Cga9upyNYs27zv6xuK9pU",
+    "model": "claude-haiku-4-5-20251001",
+    "usage": {
+      "input": 47,
+      "cache_write": 0,
+      "cache_read": 0,
+      "output": 308,
+      "total": 355,
+      "raw": {
+        "input_tokens": 47,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 308,
+        "output_tokens_details": {
+          "thinking_tokens": 200
+        }
+      }
+    },
+    "role": "assistant",
+    "stop_reason": "stop",
+    "provider": "anthropic",
+    "api": "messages",
+    "content": [
+      {
+        "type": "reasoning",
+        "reasoning": "The user is asking me to think carefully about the sum of 42 + 27.\n\nLet me work through this step by step:\n\n42 + 27\n\nI can break this down:\n- 42 = 40 + 2\n- 27 = 20 + 7\n\nSo: (40 + 2) + (20 + 7) = (40 + 20) + (2 + 7) = 60 + 9 = 69\n\nLet me verify another way:\n42 + 27\n= 42 + 20 + 7\n= 62 + 7\n= 69\n\nOr:\n42 + 27\n= 42 + 25 + 2\n= 67 + 2\n= 69\n\nYes, 42 + 27 = 69",
+        "signature": "EvwECrgBCBMYAipAYqWZbEcO1R6D8uopMJybbPQBvNm7/98hZLI1GuCJh0EkGRY/4fd3gfGK9HVIA05Xq+9b1rwmyc28ZTe9DiHOoDIZY2xhdWRlLWhhaWt1LTQtNS0yMDI1MTAwMTgAQgh0aGlua2luZ1okMGZjYzliZGMtNzBlZS00NzAxLWE2NGYtY2RjOWUzNTZkZmE4mgEbChljbGF1ZGUtaGFpa3UtNC01LTIwMjUxMDAxqAHOhJfXBhIMCmEdJz8Zqb+SMZ2GGgxfqj2yWUVvROhVR18iMBsijeTqp05u7SWU9dtU+6M2m8ZC3e5ml2qtz58je3Q3cTFTX8C7nkIZrAKCZCEYjirwAq6TCr87uHHrsrmFl6hpZpWXuurJr4+DEaNXizpf1Zt7IOxFP6p1xCa4P2DA6On+ppmUsQ/Dnu5oIZqQVOSgPsMkZQ2RzBzK048CKg0guEasCgnb1ha1RqlM+eaI72xnQrsxBSJcEtlFysx4jjgYVbdzgwK8wlOu2ogTgetqq4JbefqFhZ9fcBLKYwj0eGRSo7Y1w90fZUZs2G5akUhVCRGW6N1Z4y1k1hnoOIIhUzlR/m5GaTadygwOGXaakDhL+9iMzlJ8k0PaRrfq08nGt5pRumn3UwRgXDRnWsPAXd/X2FlCZVJ/+w2oczz1cZOkGCHs4OvHEvBix/VTICVCVthKKUtwOi6ABGXxcrdywRDuYK00fpjNX2zUJQIBlbMh1Nv9gObMTGiwIYVw5imeB+cAsqYig9Jo0VTf9pgtNbZuHN+GYQ9TwmNvIhRRjT6edTCxZPdOrl73oCQeiyy1/WfwB3N+zG6An2xud0zDBeaMGAE="
+      },
+      {
+        "type": "text",
+        "text": "# 42 + 27\n\nLet me work through this carefully:\n\n**Breaking it into parts:**\n- 42 = 40 + 2\n- 27 = 20 + 7\n\n**Combining:**\n- Tens: 40 + 20 = 60\n- Ones: 2 + 7 = 9\n- Total: 60 + 9 = **69**\n\n**Answer: 69**"
+      }
+    ]
+  }
+]

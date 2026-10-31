@@ -13,7 +13,18 @@ class HandoffStreamTextLiveTest < Test
     "handoff/stream_text_test"
   )
 
-  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).freeze
+  PAIRS = eval(File.read(SOURCE_TEST_PATH).match(/PAIRS = (\[.*?\])\s*\.freeze/m)[1]).map do |pair|
+    # Use models that can follow the mixed-provider transcript.
+    case pair[:name]
+    when "groq_completions"
+      # GPT-OSS and Qwen 3.8 miscounted repeated turns; Qwen 3.6 passed.
+      pair.merge(model: "qwen/qwen3.6-27b", options: { temperature: 0, max_completion_tokens: 8192, reasoning: "default" })
+    when "openai_apikey_completions"
+      pair.merge(model: "gpt-6.1-terra", options: {})
+    else
+      pair
+    end
+  end.freeze
 
   def teardown
   end
@@ -28,7 +39,7 @@ class HandoffStreamTextLiveTest < Test
         content: [
           {
             type: "text",
-            text: "how many times did you count from 1 to 3."
+            text: "How many previous assistant replies counted from 1 to 3? Count assistant replies only, not user messages. Reply with just the count in digits."
           }
         ]
       }
@@ -44,16 +55,16 @@ class HandoffStreamTextLiveTest < Test
     assert_match(/\b(#{expected_count}|#{expected_word || expected_count})\b/, text)
   end
 
-  def self.define_handoff_stream_test_for(provider_name:, provider:, model:, oauth:, options: {})
+  def self.define_handoff_stream_test_for(provider_name:, provider:, model:, options: {})
     test "handoff_stream_text__#{provider_name}_#{model}" do
-      with_vcr_adapter(provider:, model:, oauth:) do |adapter|
+      with_vcr_adapter(provider:, model:) do |adapter|
         run_handoff_stream_for(provider_name:, model:, adapter:, options:)
       end
     end
   end
 
   PAIRS.each do |pair|
-    define_handoff_stream_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], oauth: pair[:oauth], options: pair.fetch(:options, {}))
+    define_handoff_stream_test_for(provider_name: pair[:name], provider: pair[:provider], model: pair[:model], options: pair.fetch(:options, {}))
   end
 
   private

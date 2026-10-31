@@ -10,9 +10,10 @@ class CacheLiveTest < Test
 
   PAIRS = [
     {
+      # Luna only supports 24h retention; keep short-retention coverage on Nano.
       name: "openai_apikey_completions",
       provider: "openai-completions",
-      model: "gpt-5.1",
+      model: "gpt-5.4-nano",
       options: {
         cache_key: "openai_apikey_completions",
         cache_retention: "short"
@@ -21,7 +22,7 @@ class CacheLiveTest < Test
     {
       name: "openai_apikey_completions_none",
       provider: "openai-completions",
-      model: "gpt-5.1",
+      model: "gpt-6-luna",
       options: {
         cache_key: "openai_apikey_completions_none",
         cache_retention: "none"
@@ -30,7 +31,7 @@ class CacheLiveTest < Test
     {
       name: "openai_apikey_responses",
       provider: "openai-responses",
-      model: "gpt-5.4",
+      model: "gpt-5.4-nano",
       options: {
         cache_key: "openai_apikey_responses",
         cache_retention: "short"
@@ -39,24 +40,16 @@ class CacheLiveTest < Test
     {
       name: "openai_apikey_responses_none",
       provider: "openai-responses",
-      model: "gpt-5.4",
+      model: "gpt-6-luna",
       options: {
         cache_key: "openai_apikey_responses_none",
         cache_retention: "none"
       }
     },
     {
-      name: "openai_oauth_codex",
-      provider: "openai-codex",
-      model: "gpt-5.4",
-      options: {
-        cache_key: "openai_oauth_codex"
-      }
-    },
-    {
       name: "anthropic_apikey_messages",
       provider: "anthropic-messages",
-      model: "claude-sonnet-4-20250514",
+      model: "claude-haiku-5-5",
       options: {
         cache_retention: "short"
       }
@@ -64,12 +57,13 @@ class CacheLiveTest < Test
     {
       name: "anthropic_apikey_messages_none",
       provider: "anthropic-messages",
-      model: "claude-sonnet-4-20250514",
+      model: "claude-haiku-5-5",
       options: {
         cache_retention: "none"
       }
     },
     {
+      # The 20B endpoint returned no cache hits; preserve the cache-hit assertion.
       name: "groq_completions_none",
       provider: "groq-completions",
       model: "openai/gpt-oss-120b",
@@ -141,9 +135,9 @@ class CacheLiveTest < Test
       "Expected cache_read to be 0 with options #{options.inspect}, got #{second_response.usage.inspect}"
   end
 
-  def self.define_cache_tests_for(name:, provider:, cassette_provider:, model:, oauth:, options: {})
+  def self.define_cache_tests_for(name:, provider:, cassette_provider:, model:, options: {})
     test "live_cache_read_tokens_on_second_turn_#{name}_#{cassette_provider}_#{model}" do
-      with_vcr_adapter(provider:, model:, redact_request_body: true, oauth:,) do |adapter|
+      with_vcr_adapter(provider:, model:, redact_request_body: true) do |adapter|
         if provider.start_with?("anthropic") && options[:cache_retention].to_s == "none"
           assert_no_cache_hit_on_second_turn(adapter, options: options)
         else
@@ -159,7 +153,6 @@ class CacheLiveTest < Test
       provider: pair[:provider],
       cassette_provider: pair[:name].sub(/_none\z/, ""),
       model: pair[:model],
-      oauth: pair[:oauth],
       options: pair[:options]
     )
   end

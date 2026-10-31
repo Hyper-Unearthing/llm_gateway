@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: "<huge prompt body redacted>"
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 10:22:35 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '281'
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a531f06a7da99a34-HKG
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
+      - X-Request-ID
+      Openai-Organization:
+      - user-ayzusypxu6roh2akxcbajqo9
+      Openai-Processing-Ms:
+      - '575'
+      Openai-Project:
+      - proj_nmULvLHfn5yjMz2KqRbQcEQl
+      Openai-Version:
+      - '2020-10-01'
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      X-Ratelimit-Limit-Requests:
+      - '5000'
+      X-Ratelimit-Limit-Tokens:
+      - '2000000'
+      X-Ratelimit-Remaining-Requests:
+      - '4999'
+      X-Ratelimit-Remaining-Tokens:
+      - '379988'
+      X-Ratelimit-Reset-Requests:
+      - 12ms
+      X-Ratelimit-Reset-Tokens:
+      - 48.6s
+      X-Request-Id:
+      - req_aaa0829c72ff415a8a6eeed0e5627e01
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "error": {
+            "message": "Input tokens exceed the configured limit of 922000 tokens. Your messages resulted in 1200015 tokens. Please reduce the length of the messages.",
+            "type": "invalid_request_error",
+            "param": "messages",
+            "code": "context_length_exceeded"
+          }
+        }
+  recorded_at: Sat, 31 Oct 2026 10:22:35 GMT
+recorded_with: VCR 6.4.0
