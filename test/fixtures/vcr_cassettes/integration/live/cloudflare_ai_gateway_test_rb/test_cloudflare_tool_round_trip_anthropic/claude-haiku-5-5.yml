@@ -1,0 +1,216 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://gateway.ai.cloudflare.com/v1/<CLOUDFLARE_ACCOUNT_ID>/default/compat/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"stream_options":{"include_usage":true},"max_tokens":256,"model":"anthropic/claude-haiku-5-5","messages":[{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one math_operation tool call. Wait for the tool result."}]}],"tools":[{"type":"function","function":{"name":"math_operation","description":"Perform
+        a basic math operation on two numbers","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The
+        first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The
+        operation to perform"}},"required":["a","b","operation"]}}}],"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - gateway.ai.cloudflare.com
+      Content-Type:
+      - application/json
+      Cf-Aig-Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 16:31:01 GMT
+      Content-Type:
+      - text/event-stream
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a5340c2f6e438410-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      Cf-Aig-Cache-Status:
+      - MISS
+      Cf-Aig-Event-Id:
+      - 01a192cc-d9a4-71a6-b287-dcc6abe7891d
+      Cf-Aig-Log-Id:
+      - 01a192cc-d9a4-71a6-b287-dcc6abe7891d
+      Cf-Aig-Request-Id:
+      - 01a192cc-d9a4-71a6-b287-dcc6abe7891d
+      Cf-Aig-Step:
+      - '0'
+      Cf-Aig-Trace-Id:
+      - 334f15dc0f504cabb41b0c60e38226f5
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Server-Timing:
+      - x-originResponse;dur=115
+      Traceresponse:
+      - 00-1dbb67b96ecc4c8eea9b601efee6d6f2-dd0c74eb46529ffd-01
+      X-Ratelimit-Remaining-Requests:
+      - '44999'
+      X-Ratelimit-Remaining-Tokens:
+      - '49300000'
+      X-Ratelimit-Requests:
+      - '45000'
+      X-Ratelimit-Reset-Requests:
+      - 0s
+      X-Ratelimit-Reset-Tokens:
+      - 0s
+      X-Ratelimit-Tokens:
+      - '49300000'
+      X-Request-Id:
+      - req_011Cgadik6tecegCvwNMW2Pq
+      X-Robots-Tag:
+      - none
+      Set-Cookie:
+      - "<SET_COOKIE>"
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        data: {"p": "5c6bb91f89c3cdbc", "id":"msg_011CgadikQVoXQnP4ywK3vtw","choices":[{"index":0,"delta":{"role":"assistant"}}],"created":1793464261,"model":"claude-haiku-5-5","object":"chat.completion.chunk"  }
+
+        data: {"p": "f75dc538b5c50ee7", "id":"msg_011CgadikQVoXQnP4ywK3vtw","choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"id":"toolu_01DdfHVdCf7i3MLiXJeq8TCC","type":"function","function":{"name":"math_operation","arguments":""}}]}}],"created":1793464261,"model":"claude-haiku-5-5","object":"chat.completion.chunk"           }
+
+        data: {"p": "e", "id":"msg_011CgadikQVoXQnP4ywK3vtw","choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"type":"function","function":{"arguments":""}}]}}],"created":1793464261,"model":"claude-haiku-5-5","object":"chat.completion.chunk" }
+
+        data: {"p": "0", "id":"msg_011CgadikQVoXQnP4ywK3vtw","choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"type":"function","function":{"arguments":"{\"a\": 1"}}]}}],"created":1793464261,"model":"claude-haiku-5-5","object":"chat.completion.chunk"   }
+
+        data: {"p": "2ced695256d7", "id":"msg_011CgadikQVoXQnP4ywK3vtw","choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"type":"function","function":{"arguments":"5"}}]}}],"created":1793464261,"model":"claude-haiku-5-5","object":"chat.completion.chunk"               }
+
+        data: {"p": "83b3f36b08b1", "id":"msg_011CgadikQVoXQnP4ywK3vtw","choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"type":"function","function":{"arguments":", \"b\": "}}]}}],"created":1793464261,"model":"claude-haiku-5-5","object":"chat.completion.chunk"              }
+
+        data: {"p": "fec88a3ca", "id":"msg_011CgadikQVoXQnP4ywK3vtw","choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"type":"function","function":{"arguments":"27"}}]}}],"created":1793464261,"model":"claude-haiku-5-5","object":"chat.completion.chunk"         }
+
+        data: {"p": "d", "id":"msg_011CgadikQVoXQnP4ywK3vtw","choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"type":"function","function":{"arguments":", \"oper"}}]}}],"created":1793464261,"model":"claude-haiku-5-5","object":"chat.completion.chunk"             }
+
+        data: {"p": "beff", "id":"msg_011CgadikQVoXQnP4ywK3vtw","choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"type":"function","function":{"arguments":"ation\":"}}]}}],"created":1793464261,"model":"claude-haiku-5-5","object":"chat.completion.chunk"        }
+
+        data: {"p": "d74f87d91", "id":"msg_011CgadikQVoXQnP4ywK3vtw","choices":[{"index":0,"delta":{"tool_calls":[{"index":0,"type":"function","function":{"arguments":" \"add\"}"}}]}}],"created":1793464261,"model":"claude-haiku-5-5","object":"chat.completion.chunk"         }
+
+        data: {"p": "feb9b980691f", "id":"msg_011CgadikQVoXQnP4ywK3vtw","choices":[{"index":0,"delta":{},"finish_reason":"tool_calls"}],"created":1793464261,"model":"claude-haiku-5-5","object":"chat.completion.chunk","usage":{"completion_tokens":91,"prompt_tokens":485,"total_tokens":576}         }
+
+        data: [DONE]
+
+  recorded_at: Sat, 31 Oct 2026 16:31:02 GMT
+- request:
+    method: post
+    uri: https://gateway.ai.cloudflare.com/v1/<CLOUDFLARE_ACCOUNT_ID>/default/compat/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"stream_options":{"include_usage":true},"max_tokens":256,"model":"anthropic/claude-haiku-5-5","messages":[{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one math_operation tool call. Wait for the tool result."}]},{"role":"assistant","content":null,"tool_calls":[{"id":"toolu_01DdfHVdCf7i3MLiXJeq8TCC","type":"function","function":{"name":"math_operation","arguments":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}]},{"role":"tool","tool_call_id":"toolu_01DdfHVdCf7i3MLiXJeq8TCC","content":"42"}],"tools":[{"type":"function","function":{"name":"math_operation","description":"Perform
+        a basic math operation on two numbers","parameters":{"type":"object","properties":{"a":{"type":"number","description":"The
+        first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The
+        operation to perform"}},"required":["a","b","operation"]}}}],"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - gateway.ai.cloudflare.com
+      Content-Type:
+      - application/json
+      Cf-Aig-Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 16:31:03 GMT
+      Content-Type:
+      - text/event-stream
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a5340c39b8aaa9b3-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      Cf-Aig-Cache-Status:
+      - MISS
+      Cf-Aig-Event-Id:
+      - 01a192cc-e014-7174-bbff-3e9ae1fef2d4
+      Cf-Aig-Log-Id:
+      - 01a192cc-e014-7174-bbff-3e9ae1fef2d4
+      Cf-Aig-Request-Id:
+      - 01a192cc-e014-7174-bbff-3e9ae1fef2d4
+      Cf-Aig-Step:
+      - '0'
+      Cf-Aig-Trace-Id:
+      - 155d6588b0c949429e3672f12b7c8f32
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Server-Timing:
+      - x-originResponse;dur=163
+      Traceresponse:
+      - 00-95e373e8c1329defb6aec6a67e94982e-acf81d4342cc902e-01
+      X-Ratelimit-Remaining-Requests:
+      - '44999'
+      X-Ratelimit-Remaining-Tokens:
+      - '49300000'
+      X-Ratelimit-Requests:
+      - '45000'
+      X-Ratelimit-Reset-Requests:
+      - 0s
+      X-Ratelimit-Reset-Tokens:
+      - 0s
+      X-Ratelimit-Tokens:
+      - '49300000'
+      X-Request-Id:
+      - req_011Cgadis65Yk4EiXepEF89X
+      X-Robots-Tag:
+      - none
+      Set-Cookie:
+      - "<SET_COOKIE>"
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        data: {"p": "8", "id":"msg_011CgadisTQDdxZ8y2eK7U6N","choices":[{"index":0,"delta":{"role":"assistant"}}],"created":1793464263,"model":"claude-haiku-5-5","object":"chat.completion.chunk"    }
+
+        data: {"p": "fa4ce286c", "id":"msg_011CgadisTQDdxZ8y2eK7U6N","choices":[{"index":0,"delta":{"content":"15"}}],"created":1793464263,"model":"claude-haiku-5-5","object":"chat.completion.chunk"         }
+
+        data: {"p": "8fc1e", "id":"msg_011CgadisTQDdxZ8y2eK7U6N","choices":[{"index":0,"delta":{"content":" + 27 = 42"}}],"created":1793464263,"model":"claude-haiku-5-5","object":"chat.completion.chunk"           }
+
+        data: {"p": "8c585318e461c3c", "id":"msg_011CgadisTQDdxZ8y2eK7U6N","choices":[{"index":0,"delta":{"content":"."}}],"created":1793464263,"model":"claude-haiku-5-5","object":"chat.completion.chunk"        }
+
+        data: {"p": "a1", "id":"msg_011CgadisTQDdxZ8y2eK7U6N","choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"created":1793464263,"model":"claude-haiku-5-5","object":"chat.completion.chunk","usage":{"completion_tokens":12,"prompt_tokens":582,"total_tokens":594}          }
+
+        data: [DONE]
+
+  recorded_at: Sat, 31 Oct 2026 16:31:03 GMT
+recorded_with: VCR 6.4.0
+...

@@ -1,0 +1,119 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://gateway.ai.cloudflare.com/v1/<CLOUDFLARE_ACCOUNT_ID>/default/compat/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"reasoning_effort":"none","stream_options":{"include_usage":true},"max_completion_tokens":256,"model":"openai/gpt-5.4-nano","messages":[{"role":"user","content":[{"type":"text","text":"Count
+        from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1, 2,
+        3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1
+        2 3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1,
+        2, 3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to
+        3"}]},{"role":"assistant","content":[{"type":"text","text":"1, 2, 3"}]},{"role":"user","content":[{"type":"text","text":"The
+        preceding messages are archived exchanges from different assistants.\nRead
+        their replies rather than carrying out the earlier user requests again.\nWhat
+        ordered number sequence did the assistants return? Reply only with that sequence,
+        using digits separated by commas.\n"}]}],"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - gateway.ai.cloudflare.com
+      Content-Type:
+      - application/json
+      Cf-Aig-Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 16:31:00 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a5340c289e04809a-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      X-Request-Id:
+      - req_7f4eeac32c1841f5914b33b9cb974052
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - CF-Ray
+      - X-Request-ID
+      Cf-Aig-Cache-Status:
+      - MISS
+      Cf-Aig-Event-Id:
+      - 01a192cc-d56d-73d8-bcbf-794f24b780f5
+      Cf-Aig-Log-Id:
+      - 01a192cc-d56d-73d8-bcbf-794f24b780f5
+      Cf-Aig-Request-Id:
+      - 01a192cc-d56d-73d8-bcbf-794f24b780f5
+      Cf-Aig-Step:
+      - '0'
+      Cf-Aig-Trace-Id:
+      - 864cfbb3d5e249e8812cbb63279f0ea8
+      Openai-Organization:
+      - cloudflare-29
+      Openai-Processing-Ms:
+      - '296'
+      Openai-Project:
+      - proj_zIL1olMDsUmq7bHYZWZsKUF9
+      Openai-Version:
+      - '2020-10-01'
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      X-Ratelimit-Limit-Requests:
+      - '30000'
+      X-Ratelimit-Limit-Tokens:
+      - '180000000'
+      X-Ratelimit-Remaining-Requests:
+      - '29999'
+      X-Ratelimit-Remaining-Tokens:
+      - '179999898'
+      X-Ratelimit-Reset-Requests:
+      - 2ms
+      X-Ratelimit-Reset-Tokens:
+      - 0s
+      Set-Cookie:
+      - "<SET_COOKIE>"
+    body:
+      encoding: UTF-8
+      string: |+
+        data: {"p": "73586328f", "id":"chatcmpl-Ef6Gqz2YIdtSHyk3SzwT5YQgR5KJn","object":"chat.completion.chunk","created":1793464260,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"finish_reason":null}],"usage":null,"obfuscation":"cW8"}
+
+        data: {"p": "5a3b51cd7f", "id":"chatcmpl-Ef6Gqz2YIdtSHyk3SzwT5YQgR5KJn","object":"chat.completion.chunk","created":1793464260,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"1"},"finish_reason":null}],"usage":null,"obfuscation":"txRh"}
+
+        data: {"p": "5486bd5b", "id":"chatcmpl-Ef6Gqz2YIdtSHyk3SzwT5YQgR5KJn","object":"chat.completion.chunk","created":1793464260,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":","},"finish_reason":null}],"usage":null,"obfuscation":"JXg0"}
+
+        data: {"p": "d1", "id":"chatcmpl-Ef6Gqz2YIdtSHyk3SzwT5YQgR5KJn","object":"chat.completion.chunk","created":1793464260,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"2"},"finish_reason":null}],"usage":null,"obfuscation":"N915"}
+
+        data: {"p": "b012f88e98047cc", "id":"chatcmpl-Ef6Gqz2YIdtSHyk3SzwT5YQgR5KJn","object":"chat.completion.chunk","created":1793464260,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":","},"finish_reason":null}],"usage":null,"obfuscation":"9cPD"}
+
+        data: {"p": "be97678", "id":"chatcmpl-Ef6Gqz2YIdtSHyk3SzwT5YQgR5KJn","object":"chat.completion.chunk","created":1793464260,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{"content":"3"},"finish_reason":null}],"usage":null,"obfuscation":"ZpXb"}
+
+        data: {"p": "030ddd6b", "id":"chatcmpl-Ef6Gqz2YIdtSHyk3SzwT5YQgR5KJn","object":"chat.completion.chunk","created":1793464260,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"usage":null,"obfuscation":"tn1iWxnKamBXeKV"}
+
+        data: {"p": "be", "id":"chatcmpl-Ef6Gqz2YIdtSHyk3SzwT5YQgR5KJn","object":"chat.completion.chunk","created":1793464260,"model":"gpt-5.4-nano-2026-03-17","service_tier":"default","system_fingerprint":null,"choices":[],"usage":{"prompt_tokens":144,"completion_tokens":8,"total_tokens":152,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0,"audio_tokens":0,"accepted_prediction_tokens":0,"rejected_prediction_tokens":0}},"obfuscation":"s4A"}
+
+        data: [DONE]
+
+  recorded_at: Sat, 31 Oct 2026 16:31:00 GMT
+recorded_with: VCR 6.4.0
+...

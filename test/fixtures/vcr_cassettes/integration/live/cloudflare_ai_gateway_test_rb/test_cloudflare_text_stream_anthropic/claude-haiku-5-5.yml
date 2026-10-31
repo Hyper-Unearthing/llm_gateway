@@ -1,0 +1,97 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://gateway.ai.cloudflare.com/v1/<CLOUDFLARE_ACCOUNT_ID>/default/compat/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"stream_options":{"include_usage":true},"max_tokens":256,"model":"anthropic/claude-haiku-5-5","messages":[{"role":"user","content":[{"type":"text","text":"Reply
+        with exactly the word blue."}]}],"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - gateway.ai.cloudflare.com
+      Content-Type:
+      - application/json
+      Cf-Aig-Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 31 Oct 2026 16:30:54 GMT
+      Content-Type:
+      - text/event-stream
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a5340bfadf00846a-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      Cf-Aig-Cache-Status:
+      - MISS
+      Cf-Aig-Event-Id:
+      - 01a192cc-b8c9-718f-b5d0-8496fa8c380a
+      Cf-Aig-Log-Id:
+      - 01a192cc-b8c9-718f-b5d0-8496fa8c380a
+      Cf-Aig-Request-Id:
+      - 01a192cc-b8c9-718f-b5d0-8496fa8c380a
+      Cf-Aig-Step:
+      - '0'
+      Cf-Aig-Trace-Id:
+      - c4de8cb8620048beb9f6a48a03cf3e3c
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Server-Timing:
+      - x-originResponse;dur=113
+      Traceresponse:
+      - 00-5c813fcf34eecba75fe00573a3f940c5-82bad9ee735a5fca-01
+      X-Ratelimit-Remaining-Requests:
+      - '44999'
+      X-Ratelimit-Remaining-Tokens:
+      - '49300000'
+      X-Ratelimit-Requests:
+      - '45000'
+      X-Ratelimit-Reset-Requests:
+      - 0s
+      X-Ratelimit-Reset-Tokens:
+      - 0s
+      X-Ratelimit-Tokens:
+      - '49300000'
+      X-Request-Id:
+      - req_011CgadiCQAEJ9eBb7Aps5TC
+      X-Robots-Tag:
+      - none
+      Set-Cookie:
+      - "<SET_COOKIE>"
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        data: {"p": "94b5b23dea", "id":"msg_011CgadiCh2LA6hAqWpMPC51","choices":[{"index":0,"delta":{"role":"assistant"}}],"created":1793464253,"model":"claude-haiku-5-5","object":"chat.completion.chunk"    }
+
+        data: {"p": "4e4ef", "id":"msg_011CgadiCh2LA6hAqWpMPC51","choices":[{"index":0,"delta":{"content":"blue"}}],"created":1793464253,"model":"claude-haiku-5-5","object":"chat.completion.chunk"        }
+
+        data: {"p": "bb23222ed1", "id":"msg_011CgadiCh2LA6hAqWpMPC51","choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"created":1793464253,"model":"claude-haiku-5-5","object":"chat.completion.chunk","usage":{"completion_tokens":4,"prompt_tokens":20,"total_tokens":24}   }
+
+        data: [DONE]
+
+  recorded_at: Sat, 31 Oct 2026 16:30:54 GMT
+recorded_with: VCR 6.4.0
+...
