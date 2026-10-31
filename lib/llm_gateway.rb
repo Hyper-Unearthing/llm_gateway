@@ -45,6 +45,9 @@ require_relative "llm_gateway/adapters/openai/chat_completions_adapter"
 require_relative "llm_gateway/adapters/openai/responses_adapter"
 require_relative "llm_gateway/adapters/openai_codex/responses_adapter"
 require_relative "llm_gateway/adapters/groq/chat_completions_adapter"
+require_relative "llm_gateway/adapters/chat_completions_adapter"
+require_relative "llm_gateway/provider_options"
+require_relative "llm_gateway/providers"
 
 # Load the provider-level model catalog and proxy transport
 require_relative "llm_gateway/models"

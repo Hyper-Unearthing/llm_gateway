@@ -62,7 +62,7 @@ module LlmGateway
       endpoint = "#{base_endpoint}/#{url_part.sub(%r{^/}, "")}"
       uri = URI(endpoint)
       http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
+      http.use_ssl = uri.scheme == "https"
       http.read_timeout = 480
       http.open_timeout = 10
       body.merge!(stream: true)
@@ -125,7 +125,7 @@ module LlmGateway
     def make_request(endpoint, method, params = nil, extra_headers = {})
       uri = URI(endpoint)
       http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
+      http.use_ssl = uri.scheme == "https"
       http.read_timeout = 480
       http.open_timeout = 10
 
@@ -156,7 +156,11 @@ module LlmGateway
       rescue StandardError
         {}
       end
-      error = error_body["error"] || {}
+      error = if error_body.is_a?(Hash)
+        error_body["error"].is_a?(Hash) ? error_body["error"] : error_body
+      else
+        {}
+      end
 
       # Try client-specific error handling first
       begin

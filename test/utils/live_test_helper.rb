@@ -38,6 +38,8 @@ module LiveTestHelper
   end
 
   def load_provider(provider:, model:, replaying_vcr: false)
+    return load_local_provider if local_provider_override?(provider)
+
     config = replaying_vcr ? { "api_key" => "vcr-replay-token" } : {}
 
     adapter_class = LlmGateway::Proxy::Protocol.load_adapter(provider)
@@ -48,6 +50,7 @@ module LiveTestHelper
 
   def with_vcr_adapter(provider:, model:, redact_request_body: false)
     cassette_name = vcr_cassette_name
+    cassette_name = "qwen-local/#{cassette_name}" if local_provider_override?(provider)
     match_requests_on = redact_request_body ? %i[method uri] : %i[method uri json_body]
     replaying_vcr = ENV["LLM_GATEWAY_LIVE_RECORD"] != "1" && File.exist?(vcr_cassette_path(cassette_name))
 
@@ -58,6 +61,35 @@ module LiveTestHelper
     VCR.use_cassette(cassette_name, cassette_options) do
       yield load_provider(provider: provider, model: model, replaying_vcr: replaying_vcr)
     end
+  end
+
+  # Reuse existing Chat Completions scenarios against a configured local provider.
+  def local_provider_override?(provider)
+    ENV["LLM_GATEWAY_LIVE_LOCAL"] == "1" && provider == "openai-completions"
+  end
+
+  def load_local_provider
+    model_id = ENV.fetch("LOCAL_LLM_MODEL", "qwen3.8-27b")
+    definition = LlmGateway.models.find(provider: "qwen-local", id: model_id) || LlmGateway.models.register(
+      provider: "qwen-local", id: model_id,
+      context_window: 49_152, max_output_tokens: 8192,
+      input_modalities: [ :text ], output_modalities: [ :text ],
+      capabilities: { text_generation: true, tool_calling: true, reasoning: false }
+    )
+    provider = LlmGateway::Providers.chat_completions(
+      id: "qwen-local",
+      base_endpoint: ENV.fetch("LOCAL_LLM_BASE_URL", "http://127.0.0.1:8080/v1"),
+      api_key: ENV["LOCAL_LLM_API_KEY"],
+      option_mapper: LlmGateway::ProviderOptions.new(
+        allowed: %i[max_completion_tokens temperature top_p top_k min_p stream_options chat_template_kwargs],
+        defaults: {
+          max_completion_tokens: 8192,
+          stream_options: { include_usage: true },
+          chat_template_kwargs: { enable_thinking: false }
+        }
+      )
+    )
+    LiveAdapter.new(provider.build, definition)
   end
 
   def assert_stream_message_end_matches_response(message_end_event, response)
@@ -72,6 +104,11 @@ module LiveTestHelper
   def assert_usage_costs(response)
     usage = response.usage
     cost = usage[:cost]
+
+    if response.provider == "qwen-local"
+      assert_nil cost, "Local models have no catalog API pricing"
+      return
+    end
 
     refute_nil cost, "Expected a catalog cost breakdown, got usage #{usage.inspect}"
 
@@ -95,6 +132,10 @@ module LiveTestHelper
   end
 
   def record_live_handoff_result(test_file:, provider:, model:, result:)
+    if local_provider_override?("openai-completions") && provider == "openai_apikey_completions"
+      provider = "qwen-local"
+      model = ENV.fetch("LOCAL_LLM_MODEL", "qwen3.8-27b")
+    end
     root = ENV["LLM_GATEWAY_LIVE_ARTIFACT_DIR"] || File.expand_path("../fixtures", __dir__)
     fixture_dir = File.join(root, "handoff", File.basename(test_file, ".rb"))
     FileUtils.mkdir_p(fixture_dir)

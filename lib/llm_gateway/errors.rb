@@ -46,6 +46,7 @@ module LlmGateway
     OVERFLOW_PATTERNS = [
       /prompt is too long/i, # Anthropic
       /exceeds the context window/i, # OpenAI
+      /exceeds the available context size/i, # llama.cpp
       /reduce the length of the messages/i, # Groq
       /maximum context length is \d+ tokens/i,
       /context[_ ]length[_ ]exceeded/i,

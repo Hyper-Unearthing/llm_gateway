@@ -72,6 +72,57 @@ gem "llm_gateway"
 
 Adapter configuration only contains auth/client settings (for example `api_key` or `access_token`). Pass a catalog model definition per `stream` request with `model:`.
 
+### Configured Chat Completions providers
+
+Provider identity and supported options are independent of the wire protocol. Local servers such as llama.cpp, vLLM, or LM Studio can reuse Chat Completions without inheriting OpenAI's option policy or API credentials:
+
+```ruby
+local = LlmGateway::Providers.chat_completions(
+  id: "qwen-local",
+  base_endpoint: "http://127.0.0.1:8080/v1",
+  # api_key: ENV["LOCAL_LLM_API_KEY"], # optional; no Authorization header when absent
+  option_mapper: LlmGateway::ProviderOptions.new(
+    allowed: %i[max_completion_tokens temperature top_p top_k min_p stream_options chat_template_kwargs],
+    defaults: {
+      max_completion_tokens: 8192,
+      stream_options: { include_usage: true },
+      chat_template_kwargs: { enable_thinking: false }
+    }
+  )
+)
+
+model = LlmGateway.models.register(
+  provider: "qwen-local",
+  id: "qwen3.8-27b", # the alias served by this endpoint
+  context_window: 49_152,
+  max_output_tokens: 8192,
+  input_modalities: [:text],
+  output_modalities: [:text],
+  capabilities: { text_generation: true, tool_calling: true, reasoning: false }
+)
+
+adapter = local.build
+response = adapter.stream("Count from 1 to 3.", model: model)
+```
+
+A runnable version is available in [`examples/qwen_local.rb`](examples/qwen_local.rb):
+
+```bash
+bundle exec ruby examples/qwen_local.rb "Explain Ruby's Enumerable module."
+```
+
+`local` is an `AdapterDefinition`, like the built-in definitions. Each call creates an independent provider binding; retain and reuse it. Models still must be registered under the matching provider ID. `build` accepts endpoint/key overrides for deployments or credential rotation.
+
+- The endpoint must include the API prefix (typically `/v1`); HTTP and HTTPS are supported. No environment variables or API keys are inherited automatically.
+- The provider owns its explicit option allowlist and defaults. No token limit, storage, caching, sampling, or reasoning options are automatically borrowed from OpenAI.
+- `ProviderOptions` performs a **shallow** defaults merge and rejects unknown options. Structural fields (`model`, `messages`, `tools`, `system`, `stream`) cannot be placed in the allowlist/defaults.
+- For managed-option translation (`reasoning`, cache options, token-field renaming), pass a custom object/module implementing `map(options)` instead. It receives the selected `model` ID and any normalized `reasoning_control`, and returns the provider's request options. The basic allowlist policy does not translate managed controls.
+- System instructions use the `system` role by default; pass `system_role: "developer"` only for endpoints that support it.
+- `stream_options: { include_usage: true }` requests streamed token accounting where supported. Servers without a usage frame still produce a final response, but token counts remain unknown/zero.
+- Files API uploads/downloads and the Responses API are not implied by Chat Completions compatibility. Reasoning deltas support both `reasoning` and `reasoning_content`; model metadata and provider options must enable reasoning explicitly if needed.
+- Context/output values are metadata, not server configuration or automatic compaction. Configure the running server separately.
+- Configured definitions are for direct adapter use. The proxy's fixed string-to-adapter allowlist is unchanged; arbitrary configured providers are not automatically exposed through it.
+
 ## Stream Options
 
 Pass options to `stream` as keyword arguments alongside `tools:` and `system:`:
@@ -89,8 +140,8 @@ result = adapter.stream(
 
 Options are split into two groups:
 
-1. **Managed cross-provider options**: normalized by `llm_gateway` and mapped to each provider API when supported.
-2. **Provider-specific options**: passed through only when that provider/API pair explicitly allows them.
+1. **Managed cross-provider options**: normalized by `llm_gateway` and translated by the provider's option policy when supported.
+2. **Provider-specific options**: passed through only when that provider's option policy explicitly allows them.
 
 Unknown provider-specific options raise `ArgumentError` with the valid option list for that provider/API pair.
 
@@ -1069,7 +1120,7 @@ In short: library executes refresh mechanics; your app owns token lifecycle pers
 Live integration tests use VCR cassettes stored under `test/fixtures/vcr_cassettes`. To record a new cassette, run the target test with real provider credentials available in your environment or `.env`:
 
 ```bash
-bundle exec ruby -Itest test/integration/live/stream_test.rb
+bundle exec ruby -Itest test/integration/live/stream_text_test.rb
 ```
 
 Cassette names are derived from the test file and test name, with VCR sanitizing path segments such as `stream_test.rb` to `stream_test_rb`.
@@ -1077,3 +1128,26 @@ Cassette names are derived from the test file and test name, with VCR sanitizing
 For OAuth-backed providers (`anthropic-messages`, `openai-codex`), the live test helper only loads real OAuth credentials while the cassette is being recorded. Once the cassette exists, replay uses placeholder tokens/account IDs so the test suite can run without local OAuth state. API-key providers still require the relevant API key when recording. Sensitive authorization headers and selected response headers are redacted before cassettes are written.
 
 Some tests pass `redact_request_body: true` to `with_vcr_adapter`; those cassettes match on method and URI only and replace large request bodies with `"<huge prompt body redacted>"`.
+
+To force actual API calls even when a cassette exists, set `LLM_GATEWAY_LIVE_RECORD=1`. Use `LLM_GATEWAY_LIVE_ARTIFACT_DIR` to keep cassettes and handoff outputs outside the repository:
+
+```bash
+LLM_GATEWAY_LIVE_RECORD=1 \
+LLM_GATEWAY_LIVE_ARTIFACT_DIR=/tmp/llm-gateway-live \
+bundle exec ruby -Itest test/integration/live/stream_text_test.rb \
+  --name '/openai_apikey_completions|openai_apikey_responses|anthropic_apikey_messages|groq_completions/'
+```
+
+Reuse the existing OpenAI Chat Completions scenario against a configured local provider (the historical test name still contains the OpenAI model, but the actual response provider is `qwen-local`):
+
+```bash
+LLM_GATEWAY_LIVE_RECORD=1 \
+LLM_GATEWAY_LIVE_LOCAL=1 \
+LLM_GATEWAY_LIVE_ARTIFACT_DIR=/tmp/llm-gateway-live \
+LOCAL_LLM_BASE_URL=http://127.0.0.1:8080/v1 \
+LOCAL_LLM_MODEL=qwen3.8-27b \
+bundle exec ruby -Itest test/integration/live/stream_text_test.rb \
+  --name '/openai_apikey_completions/'
+```
+
+Run the same commands with `stream_tool_call_test.rb` for tool calling. The corresponding `handoff_stream_text_test.rb` and `handoff_stream_tool_call_test.rb` replay the recorded conversation outputs into the target provider; run the source scenarios first and use the same artifact directory. `LOCAL_LLM_API_KEY` is optional. Local models are unpriced rather than assigned artificial API costs.
