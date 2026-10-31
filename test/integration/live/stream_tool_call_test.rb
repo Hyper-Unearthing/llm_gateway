@@ -12,7 +12,7 @@ class StreamToolCallTest < Test
 
   PAIRS = [
     { name: "openai_apikey_completions", provider: "openai-completions", model: "gpt-5.1" },
-    { name: "anthropic_apikey_messages", provider: "anthropic-messages", model: "claude-sonnet-4-6" },
+    { name: "anthropic_apikey_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514" },
     { name: "openai_apikey_responses", provider: "openai-responses", model: "gpt-5.4" },
     { name: "anthropic_oauth_messages", provider: "anthropic-messages", model: "claude-sonnet-4-20250514", oauth: true },
     { name: "openai_oauth_codex", provider: "openai-codex", model: "gpt-5.4" },
