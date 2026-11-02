@@ -144,30 +144,38 @@ module LlmGateway
 
           response = http.request(request)
 
-          if response.code.to_i == 200
-            data = JSON.parse(response.body)
-
-            unless data["access_token"] && data["refresh_token"] && data["expires_in"]
-              raise "Token refresh response missing required fields"
-            end
-
-            expires_at = Time.now + data["expires_in"].to_i
-            account_id = extract_account_id_from_token(data["access_token"])
-
-            {
-              access_token: data["access_token"],
-              refresh_token: data["refresh_token"],
-              expires_at: expires_at,
-              account_id: account_id
-            }
-          else
-            error_body = begin
-              JSON.parse(response.body)
-            rescue StandardError
-              {}
-            end
-            raise "Token refresh failed (#{response.code}): #{error_body["error_description"] || error_body["error"] || response.body}"
+          status = response.code.to_i
+          data = begin
+            JSON.parse(response.body)
+          rescue JSON::ParserError
+            nil
           end
+
+          unless status == 200
+            code = data["error"] if data.is_a?(Hash)
+            # OAuth error codes are short identifiers, not descriptions or bodies.
+            code = nil unless code.is_a?(String) && code.match?(/\A[a-zA-Z0-9_.-]{1,128}\z/) && code != refresh_token
+            raise Errors::OAuthRefreshError.new(status: status, code: code)
+          end
+
+          expires_in = Integer(data["expires_in"], exception: false) if data.is_a?(Hash)
+          unless data.is_a?(Hash) &&
+              data["access_token"].is_a?(String) && !data["access_token"].strip.empty? &&
+              data["refresh_token"].is_a?(String) && !data["refresh_token"].strip.empty? &&
+              expires_in&.positive?
+            raise Errors::OAuthRefreshError.new(status: status, reason: :invalid_response)
+          end
+
+          {
+            access_token: data["access_token"],
+            refresh_token: data["refresh_token"],
+            expires_at: Time.now + expires_in,
+            account_id: extract_account_id_from_token(data["access_token"])
+          }
+        rescue Net::OpenTimeout, Net::ReadTimeout, SocketError, EOFError,
+          Errno::ECONNRESET, Errno::ECONNREFUSED, Errno::EPIPE,
+          OpenSSL::SSL::SSLError, Net::HTTPBadResponse
+          raise Errors::OAuthRefreshError.new(reason: :transport), cause: nil
         end
 
         # Extract the ChatGPT account_id from a JWT access token.

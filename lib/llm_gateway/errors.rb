@@ -13,6 +13,18 @@ module LlmGateway
       end
     end
 
+    # Refresh failures must not expose token response bodies or transport messages.
+    # A transport failure is ambiguous: the provider may have rotated the token.
+    class OAuthRefreshError < ClientError
+      attr_reader :status, :reason
+
+      def initialize(status: nil, code: nil, reason: :rejected)
+        @status = status
+        @reason = reason
+        super("OAuth token refresh failed.", code)
+      end
+    end
+
     class BadRequestError < ClientError; end
     class AuthenticationError < ClientError; end
     class PermissionDeniedError < ClientError; end

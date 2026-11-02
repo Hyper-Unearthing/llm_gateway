@@ -37,7 +37,9 @@ module LlmGateway
         end
 
         def refresh_access_token!
-          raise ArgumentError, "Cannot refresh token: refresh_token not provided" unless @refresh_token
+          unless @refresh_token.is_a?(String) && !@refresh_token.strip.empty?
+            raise ArgumentError, "Cannot refresh token: refresh_token not provided"
+          end
 
           result = OAuthFlow.refresh_access_token(@refresh_token, client_id: @client_id)
 
