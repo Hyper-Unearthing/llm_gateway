@@ -14,6 +14,15 @@ module LlmGateway
             push_patches(patches_for(data), &block)
           end
 
+          def finish(&block)
+            return if accumulator.final_message
+            unless accumulator.message_hash[:stop_reason]
+              raise LlmGateway::Errors::APIConnectionError, "Chat Completions stream ended without a finish reason"
+            end
+
+            push_patches([ { type: :message_end } ], &block)
+          end
+
           private
 
           def patches_for(data)
@@ -30,7 +39,7 @@ module LlmGateway
 
             active_block_type, active_tool = append_patches(
               patches,
-              reasoning_patches(delta[:reasoning], active_block_type:),
+              reasoning_patches(delta[:reasoning] || delta[:reasoning_content], active_block_type:),
               active_block_type,
               active_tool
             )
@@ -83,7 +92,7 @@ module LlmGateway
                              data[:id] ||
                              data[:model] ||
                              delta[:content] ||
-                             delta[:reasoning] ||
+                             delta[:reasoning] || delta[:reasoning_content] ||
                              delta[:tool_calls]&.any?
 
             [

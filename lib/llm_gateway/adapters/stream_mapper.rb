@@ -11,6 +11,11 @@ module LlmGateway
         @model_definition = model_definition
       end
 
+      # Called after the transport finishes, for protocols whose final usage
+      # frame is optional. Most providers finalize from their own end event.
+      def finish
+      end
+
       def result
         accumulator.final_message
       end
