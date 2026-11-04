@@ -6,7 +6,7 @@ require "open3"
 require "rbconfig"
 
 class GenerateModelCatalogTest < Test
-  test "generates Cloudflare catalog entries with canonical upstream IDs and routing prefixes" do
+  test "preserves Cloudflare REST catalog IDs instead of upstream canonical IDs" do
     source = {
       "anthropic" => { "models" => {} },
       "openai" => { "models" => { "unchanged-alias" => { "canonical_model_id" => "openai/not-the-alias" } } },
@@ -15,6 +15,7 @@ class GenerateModelCatalogTest < Test
         "models" => {
           "anthropic/claude-haiku-5.5" => {
             "canonical_model_id" => "anthropic/claude-haiku-5-5",
+            "provider" => { "npm" => "@ai-sdk/anthropic", "api" => "https://gateway.ai.cloudflare.com/v1/${CLOUDFLARE_ACCOUNT_ID}/${CLOUDFLARE_GATEWAY_ID}/anthropic/v1" },
             "name" => "Claude Haiku 5.5",
             "limit" => { "context" => 1_000_000, "output" => 128_000 },
             "cost" => { "input" => 0.1, "output" => 0.5 },
@@ -39,9 +40,12 @@ class GenerateModelCatalogTest < Test
       assert status.success?, "#{stdout}\n#{stderr}"
       definitions = JSON.parse(File.read(File.join(root, "lib/llm_gateway/models/generated.json"))).fetch("definitions")
       cloudflare = definitions.select { |entry| entry["provider"] == "cloudflare-ai-gateway" }
-      assert_equal %w[anthropic/claude-haiku-5-5 google-ai-studio/gemini-2.5-flash grok/grok-4.7 minimax/MiniMax-M3.1-Flash], cloudflare.map { |entry| entry["id"] }
+      assert_equal %w[anthropic/claude-haiku-5.5 google/gemini-2.5-flash minimax/m3.1-flash xai/grok-4.7], cloudflare.map { |entry| entry["id"] }
       haiku = cloudflare.first
       assert_equal "Claude Haiku 5.5", haiku["name"]
+      assert_equal "anthropic/claude-haiku-5-5", haiku.dig("routing", "canonical_model_id")
+      assert_equal "@ai-sdk/anthropic", haiku.dig("routing", "provider_npm")
+      assert_includes haiku.dig("routing", "provider_api"), "/anthropic/v1"
       assert_equal "models_dev", haiku["source"]
       assert_equal 1_000_000, haiku["context_window"]
       assert_equal true, haiku.dig("capabilities", "tool_calling")

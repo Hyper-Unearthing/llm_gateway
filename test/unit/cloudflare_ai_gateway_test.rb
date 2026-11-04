@@ -4,14 +4,16 @@ require "test_helper"
 
 class CloudflareAIGatewayTest < Test
   ACCOUNT_ID = "a" * 32
-  ENDPOINT = "https://gateway.ai.cloudflare.com/v1/#{ACCOUNT_ID}/default/compat/chat/completions"
+  ENDPOINT = "https://api.cloudflare.com/client/v4/accounts/#{ACCOUNT_ID}/ai/v1/chat/completions"
 
   test "authenticates using only Cloudflare credentials for unified billing" do
     client = LlmGateway::Clients::CloudflareAIGateway.new(account_id: ACCOUNT_ID, gateway_id: "default", api_key: "test-cf-token")
     request = stub_request(:post, ENDPOINT).with do |req|
       body = JSON.parse(req.body)
-      req.headers["Cf-Aig-Authorization"] == "Bearer test-cf-token" &&
-        !req.headers.key?("Authorization") && !body.key?("apiKey") &&
+      req.headers["Authorization"] == "Bearer test-cf-token" &&
+        req.headers["Cf-Aig-Gateway-Id"] == "default" &&
+        !req.headers.key?("Cf-Aig-Authorization") && !req.headers.key?("X-Api-Key") &&
+        !req.headers.key?("Anthropic-Beta") && !body.key?("apiKey") &&
         body == { "model" => "openai/gpt-5.4-nano", "messages" => [ { "role" => "user", "content" => "hi" } ], "max_tokens" => 8 }
     end.to_return(status: 200, body: '{"choices":[]}', headers: { "Content-Type" => "application/json" })
 
@@ -31,10 +33,10 @@ class CloudflareAIGatewayTest < Test
   end
 
   test "accepts explicit account gateway and token configuration through the public definition" do
-    adapter = LlmGateway::Adapters::CloudflareAIGateway::ChatCompletions.build(
+    adapter = LlmGateway::Adapters::CloudflareAIGateway::Gateway.build(
       account_id: ACCOUNT_ID, gateway_id: "my-gateway", api_key: "test-token")
     assert_instance_of LlmGateway::Clients::CloudflareAIGateway, adapter.client
-    definition = LlmGateway::Adapters::CloudflareAIGateway::ChatCompletions.definition
+    definition = LlmGateway::Adapters::CloudflareAIGateway::Gateway.definition
     assert_equal "cloudflare-ai-gateway", definition.provider
     assert_equal definition.adapter_class, LlmGateway::Proxy::Protocol.load_adapter("cloudflare-ai-gateway")
     assert_equal "cloudflare-ai-gateway", LlmGateway::Proxy::Protocol.dump_adapter(definition)
@@ -46,9 +48,9 @@ class CloudflareAIGatewayTest < Test
     assert_operator model.context_window, :>, 0
     assert_operator model.max_output_tokens, :>, 0
     refute_nil model.pricing
-    assert LlmGateway::Adapters::CloudflareAIGateway::ChatCompletions.supports_model?(model)
+    assert LlmGateway::Adapters::CloudflareAIGateway::Gateway.supports_model?(model)
     upstream = LlmGateway.models.fetch(provider: "openai", id: "gpt-5.4-nano")
-    refute LlmGateway::Adapters::CloudflareAIGateway::ChatCompletions.supports_model?(upstream)
+    refute LlmGateway::Adapters::CloudflareAIGateway::Gateway.supports_model?(upstream)
   end
 
   test "preserves structured Cloudflare errors and standard HTTP error types" do

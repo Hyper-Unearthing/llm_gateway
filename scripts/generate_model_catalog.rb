@@ -157,23 +157,16 @@ def reasoning_controls_for(model, provider:, id:)
   end
 end
 
-def model_id_for(model, provider:, id:)
-  return id unless provider == "cloudflare-ai-gateway"
-
-  # models.dev uses display aliases (e.g. claude-haiku-5.5) for gateway
-  # models. Send the canonical upstream ID and Cloudflare's routing prefix.
-  # Source: https://developers.cloudflare.com/ai-gateway/usage/chat-completion/
-  canonical = model["canonical_model_id"] || id
-  canonical.sub(%r{\Agoogle/}, "google-ai-studio/").sub(%r{\Axai/}, "grok/")
-end
-
 def definitions_for(data, provider:)
   data.fetch(provider).fetch("models").map do |id, model|
     cost = model["cost"] || {}
     limit = model["limit"] || {}
     {
       provider: provider,
-      id: model_id_for(model, provider:, id:),
+      # Keep catalog IDs: Cloudflare REST uses dotted Claude IDs and google/xai
+      # author prefixes, not canonical upstream or deprecated compat aliases.
+      # Source: https://developers.cloudflare.com/ai/models/
+      id: id,
       name: model["name"] || id,
       source: :models_dev,
       release_date: date_for(model["release_date"], "release_date", provider:, id:),
@@ -189,7 +182,14 @@ def definitions_for(data, provider:)
         reasoning: source_capability(model, "reasoning")
       },
       reasoning_controls: reasoning_controls_for(model, provider:, id:),
-      pricing: pricing_for(cost, provider:, id:)
+      pricing: pricing_for(cost, provider:, id:),
+      routing: (if provider == "cloudflare-ai-gateway"
+        {
+          canonical_model_id: model["canonical_model_id"],
+          provider_api: model.dig("provider", "api"),
+          provider_npm: model.dig("provider", "npm")
+        }.compact
+      end)
     }.compact
   end
 end

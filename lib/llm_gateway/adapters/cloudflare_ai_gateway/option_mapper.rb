@@ -1,57 +1,46 @@
 # frozen_string_literal: true
 
+require_relative "../anthropic_option_mapper"
+
 module LlmGateway
   module Adapters
     module CloudflareAIGateway
       module OptionMapper
-        # Source: https://developers.cloudflare.com/ai-gateway/usage/chat-completion/
-        # API: AI Gateway unified OpenAI-compatible Chat Completions; accessed 2026-10-31.
-        # The endpoint documents model ({provider}/{model}) and upstream apiKey;
-        # apiKey is deliberately excluded here to avoid overriding Unified Billing.
-        # Generation fields follow the upstream Chat Completions contract:
-        # https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create/index.md
-        # That reference lists model, messages, audio, frequency_penalty,
-        # function_call, functions, logit_bias, logprobs, max_completion_tokens,
-        # max_tokens, metadata, modalities, n, parallel_tool_calls, prediction,
-        # presence_penalty, prompt_cache_key, prompt_cache_retention,
-        # reasoning_effort, response_format, safety_identifier, seed,
-        # service_tier, stop, store, stream, stream_options, temperature,
-        # tool_choice, tools, top_logprobs, top_p, user, verbosity,
-        # web_search_options. This policy intentionally exposes only a common
-        # generation subset. Actual support still depends on the upstream model.
-        # Transcript/tools/stream and OpenAI-specific caching/storage are excluded.
+        # Source: https://developers.cloudflare.com/ai-gateway/usage/rest-api/
+        # Schema: https://platform.claude.com/docs/en/api/messages/create.md
+        # API: Cloudflare REST/provider-native Messages; accessed 2026-11-01.
+        # Body fields: max_tokens, messages, model, cache_control, container,
+        # inference_geo, metadata, output_config, service_tier, stop_sequences,
+        # stream, system, temperature, thinking, tool_choice, tools, top_k, top_p.
+        # Exclude transcript/tools/system/stream (owned by the adapter), and
+        # Anthropic-only container/service-tier/geography features. Support
+        # depends on the selected third-party model; never accept upstream apiKey.
         VALID_OPTIONS = %i[
-          model max_tokens max_completion_tokens temperature top_p stop seed
-          frequency_penalty presence_penalty response_format reasoning_effort
-          tool_choice parallel_tool_calls stream_options
+          model max_tokens cache_control metadata output_config stop_sequences
+          temperature thinking tool_choice top_k top_p
         ].freeze
-        MANAGED_OPTIONS = %i[max_completion_tokens reasoning_control].freeze
+        MANAGED_OPTIONS = %i[max_completion_tokens reasoning_control response_format].freeze
 
         module_function
 
         def map(options)
-          mapped = options.reject { |key, _| MANAGED_OPTIONS.include?(key) }
+          mapped = options.except(*MANAGED_OPTIONS)
           if options.key?(:max_completion_tokens)
             raise ArgumentError, "Specify max_completion_tokens or max_tokens, not both" if options.key?(:max_tokens)
 
-            key = options[:model].to_s.start_with?("openai/") ? :max_completion_tokens : :max_tokens
-            mapped[key] = options[:max_completion_tokens]
+            mapped[:max_tokens] = options[:max_completion_tokens]
           end
 
-          control = options[:reasoning_control]
-          if control && control[:type] != :none
-            unless control[:type] == :effort
-              raise ArgumentError, "AI Gateway Chat Completions supports effort reasoning controls, got #{control.inspect}"
-            end
-
-            mapped[:reasoning_effort] = control.fetch(:value)
+          if options.key?(:response_format)
+            mapped[:output_config] = (mapped[:output_config] || {}).merge(
+              AnthropicOptionMapper.normalize_output_config(options[:response_format]))
           end
+          AnthropicOptionMapper.apply_reasoning_control!(mapped, options[:reasoning_control])
+          choice = mapped[:tool_choice]
+          mapped[:tool_choice] = { type: choice } if %w[none auto].include?(choice)
 
-          format = mapped[:response_format]
-          mapped[:response_format] = { type: format } if format.is_a?(String)
-
-          # Let the upstream choose its own defaults rather than inheriting
-          # OpenAI token limits, cache settings, or temperature defaults.
+          # Preserve upstream defaults. Messages requires a token limit, but
+          # the caller chooses it rather than inheriting Anthropic's default.
           validate_options!(mapped)
           mapped
         end
@@ -61,7 +50,7 @@ module LlmGateway
           return if unknown.empty?
 
           raise ArgumentError,
-            "Unknown Cloudflare AI Gateway options: #{unknown.join(', ')}. Valid options: #{VALID_OPTIONS.join(', ')}"
+            "Unknown Cloudflare AI Gateway Messages options: #{unknown.join(', ')}. Valid options: #{VALID_OPTIONS.join(', ')}"
         end
       end
     end

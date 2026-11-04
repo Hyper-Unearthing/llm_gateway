@@ -1,0 +1,128 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://gateway.ai.cloudflare.com/v1/<CLOUDFLARE_ACCOUNT_ID>/default/anthropic/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-haiku-5-5","messages":[{"role":"user","content":[{"type":"text","text":"Reply
+        with exactly the word blue."}]}],"system":[{"type":"text","text":"Answer concisely."}],"max_tokens":1024,"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - gateway.ai.cloudflare.com
+      Content-Type:
+      - application/json
+      Cf-Aig-Authorization:
+      - Bearer <BEARER_TOKEN>
+      Anthropic-Version:
+      - '2023-06-01'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 01 Nov 2026 02:47:25 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a537931a5c566a96-TPE
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      Anthropic-Organization-Id:
+      - 8aa1cca3-c387-4ac8-a210-6964599c9aa1
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '41000000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '40995000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2026-11-01T02:47:24Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '8300000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '8300000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2026-11-01T02:47:24Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '45000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '44999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2026-11-01T02:47:24Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '49300000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '49295000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2026-11-01T02:47:24Z'
+      Anthropic-Workspace-Id:
+      - wrkspc_011Zfy6oE9haCfXASrUzHLDo
+      Cf-Aig-Cache-Status:
+      - MISS
+      Cf-Aig-Event-Id:
+      - 01a19501-2c7b-7017-ad36-f7d190780b30
+      Cf-Aig-Log-Id:
+      - 01a19501-2c7b-7017-ad36-f7d190780b30
+      Cf-Aig-Request-Id:
+      - 01a19501-2c7b-7017-ad36-f7d190780b30
+      Cf-Aig-Step:
+      - '0'
+      Cf-Aig-Trace-Id:
+      - b80ec63215e647628cd21626a5214803
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Request-Id:
+      - req_011CgbSixefwfchyWev4KEic
+      Server-Timing:
+      - x-originResponse;dur=127
+      Traceresponse:
+      - 00-47eea9a24b419cb4818a4e5a954e7919-a5214c81f21d19ac-01
+      X-Robots-Tag:
+      - none
+      Set-Cookie:
+      - "<SET_COOKIE>"
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        event: message_start
+        data: {"p": "c1e87028e94", "type":"message_start","message":{"model":"claude-haiku-5-5","id":"msg_011CgbSixxX6nKZR5i2jAp6H","type":"message","role":"assistant","content":[],"container":null,"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":28,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":3,"service_tier":"standard","inference_geo":"global","speed":"standard"},"diagnostics":null}              }
+
+        event: content_block_start
+        data: {"p": "e18676f50a9736ec", "type":"content_block_start","index":0,"content_block":{"type":"text","text":""}            }
+
+        event: ping
+        data: {"p": "82152", "type": "ping"}
+
+        event: content_block_delta
+        data: {"p": "4b7e694f25989e76", "type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"blue"}               }
+
+        event: content_block_stop
+        data: {"p": "f8ee4fcbf54993", "type":"content_block_stop","index":0            }
+
+        event: message_delta
+        data: {"p": "90", "type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null,"container":null},"usage":{"input_tokens":28,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":4,"output_tokens_details":{"thinking_tokens":0}}   }
+
+        event: message_stop
+        data: {"p": "e31", "type":"message_stop"               }
+
+  recorded_at: Sun, 01 Nov 2026 02:47:25 GMT
+recorded_with: VCR 6.4.0
+...

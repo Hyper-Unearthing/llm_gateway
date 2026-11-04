@@ -1,0 +1,151 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://gateway.ai.cloudflare.com/v1/<CLOUDFLARE_ACCOUNT_ID>/default/anthropic/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"claude-haiku-5-5","messages":[{"role":"user","content":[{"type":"text","text":"Count
+        from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1, 2,
+        3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1
+        2 3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to 3"}]},{"role":"assistant","content":[{"type":"text","text":"1,
+        2, 3"}]},{"role":"user","content":[{"type":"text","text":"Count from 1 to
+        3"}]},{"role":"assistant","content":[{"type":"text","text":"1, 2, 3"}]},{"role":"user","content":[{"type":"text","text":"The
+        preceding messages are archived exchanges from different assistants.\nRead
+        their replies rather than carrying out the earlier user requests again.\nWhat
+        ordered number sequence did the assistants return? Reply only with that sequence,
+        using digits separated by commas.\n"}]}],"max_tokens":1024,"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - gateway.ai.cloudflare.com
+      Content-Type:
+      - application/json
+      Cf-Aig-Authorization:
+      - Bearer <BEARER_TOKEN>
+      Anthropic-Version:
+      - '2023-06-01'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 01 Nov 2026 02:47:33 GMT
+      Content-Type:
+      - text/event-stream; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - a53793468e0965fb-MNL
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cache-Control:
+      - no-cache
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      X-Robots-Tag:
+      - none
+      Anthropic-Organization-Id:
+      - 8aa1cca3-c387-4ac8-a210-6964599c9aa1
+      Anthropic-Ratelimit-Input-Tokens-Limit:
+      - '41000000'
+      Anthropic-Ratelimit-Input-Tokens-Remaining:
+      - '41000000'
+      Anthropic-Ratelimit-Input-Tokens-Reset:
+      - '2026-11-01T02:47:32Z'
+      Anthropic-Ratelimit-Output-Tokens-Limit:
+      - '8300000'
+      Anthropic-Ratelimit-Output-Tokens-Remaining:
+      - '8300000'
+      Anthropic-Ratelimit-Output-Tokens-Reset:
+      - '2026-11-01T02:47:32Z'
+      Anthropic-Ratelimit-Requests-Limit:
+      - '45000'
+      Anthropic-Ratelimit-Requests-Remaining:
+      - '44999'
+      Anthropic-Ratelimit-Requests-Reset:
+      - '2026-11-01T02:47:32Z'
+      Anthropic-Ratelimit-Tokens-Limit:
+      - '49300000'
+      Anthropic-Ratelimit-Tokens-Remaining:
+      - '49300000'
+      Anthropic-Ratelimit-Tokens-Reset:
+      - '2026-11-01T02:47:32Z'
+      Anthropic-Workspace-Id:
+      - wrkspc_011Zfy6oE9haCfXASrUzHLDo
+      Cf-Aig-Cache-Status:
+      - MISS
+      Cf-Aig-Event-Id:
+      - 01a19501-4818-769d-99b7-0d13c613f9d9
+      Cf-Aig-Log-Id:
+      - 01a19501-4818-769d-99b7-0d13c613f9d9
+      Cf-Aig-Request-Id:
+      - 01a19501-4818-769d-99b7-0d13c613f9d9
+      Cf-Aig-Step:
+      - '0'
+      Cf-Aig-Trace-Id:
+      - f87f732489d14fcc9de3a71264da2ce2
+      Request-Id:
+      - req_011CgbSjXvQf9CKHeQWm3bVz
+      Server-Timing:
+      - x-originResponse;dur=141
+      Traceresponse:
+      - 00-65a9f54fe7f954d52965d010816d4795-eb5ea96d21eb8c0c-01
+      Set-Cookie:
+      - "<SET_COOKIE>"
+    body:
+      encoding: ASCII-8BIT
+      string: |+
+        event: message_start
+        data: {"p": "1240c6e4b8", "type":"message_start","message":{"model":"claude-haiku-5-5","id":"msg_011CgbSjYF1YzCQ6zdhy3dxA","type":"message","role":"assistant","content":[],"container":null,"stop_reason":null,"stop_sequence":null,"stop_details":null,"usage":{"input_tokens":162,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":7,"service_tier":"standard","inference_geo":"global","speed":"standard"},"diagnostics":null}     }
+
+        event: content_block_start
+        data: {"p": "c6999427f1", "type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}          }
+
+        event: ping
+        data: {"p": "6", "type": "ping"}
+
+        event: content_block_delta
+        data: {"p": "c7b81bf9655f8", "type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":""}               }
+
+        event: content_block_delta
+        data: {"p": "a2f", "type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"CAQSrQgKEAgTGAI4AUIIdGhpbmtpbmcSDHZj6gIubuRdTMHwJhoMV0saQM+glN42lD3SIjB3eJ5f3L4lyc5nl28W5KWdn8xb6RhWKPstBjGUe/D9lFxjIXB6YZVvQNEYnUr+ALwqygeQS/sHbZ+vjfvxExuBTTt3IMNeY4o4RtETdU6Vos341XJep/EyDokjr32tIZHwRRh+5M6qIrqW4+EAEwY8CEgdl2PQoPrl9os+fvA8iA65h4Bu//aJ+nFmCXU2gYQEMjZ4CKAXIFa6p5tMCliAAYSfYcmHKWJBgr+OCWe1wUTf1St2+9FQApzuEE8nhmqC8QP7mpsyo/Fo42nyFwFTMYzrC6+3jtiSNj6UF30laxxTNkTyjq2fGcEZs6BoEZIovZuN0g3+G3Adn126R5MtJ10VEvHIXB1ZjWdB1yd4p2tp17vLRV3ma7vZMBwJ8raAZfxnjuPloDwcLpGNYzWvLk/ggjU9UWL55ve30co0i0u1A2twkAMkbrflZXnv+QwdsbFBYihm1tYp1Or1kdl+Fl6Y0OJZwotA5WijzhMExv3Vn9IsKSodEKllR2fdsTMZjfpqVHckzf2D96TKsBUZGi3Sc5quP3SavvHnaOKFGc60Iw6yxD6skserNbgndve6z7dPwRDsMdfDRy4RuT8w+wlGmrLaRTaEp41BlDeaX/rsCR5dbL62DjZAmbO7J1fxE1etzwp2ApLA48EmTY1JESFAusXzlSwUDPmkDxOGLd/9m5EmxC9PRzedV5aukD8JpveAFUPCDjXp+ol48pevviO5SeUk3z8aQbejUVW8cpRSD7eFjmNLiaNFVWTn1GEVK/zvCP/DtMt9spEPAHX+ifDizCGlT3LqopkXhRA8ARZkfXPl6eX5G/gRBM5pXlTe3AO+nQsBihMKOVNWUa5zBeL9QUB93Gg1Jg/EJhjKFhp7tJQe/UOG8tyums4X49LmdRfKkpWThQ7Q+ofgmqWloIERD0R0SUVPLmHnPWT6qWAX7yynE60sdi7zrTygtA33YomIVtVhHQe4qY6qq885SMWwgYecaXR5iQaAZ2G2u/KkFu8ihyvQprxpncn9WYqICrORUnCUwNFwXsiM8GAKxFBwTpvLYYJds8pqxYF9MImWjUlNMblFJ0YkM7hhW7rnMXwiGKv8zEnm5F8KDt8DIHLEUF4tJ07lj8st7bGqlAsz7xESypQoRMTs+b/bjU3JsvRYOi2XV0JHgplb/3zZqsMnaaClOPNE/WRN9ovVicycuIOGpupPZqgU3TVzjYNnv2QyG4QUZMTxTcM12lxtlDUnImoSqiEelVqNwVJGUAacZt7nmvhTVmx41RcVs8Gm/V0psU8fHREGBU+V0N4WovNZ2aXffRqK03jd7UksNVrfbWICHM2syKwvBIEELace6vum3NAySIvSPsE+GAE="}     }
+
+        event: content_block_stop
+        data: {"p": "d64e43b2a8d1", "type":"content_block_stop","index":0             }
+
+        event: content_block_start
+        data: {"p": "2bed746b09ffc", "type":"content_block_start","index":1,"content_block":{"type":"text","text":""}             }
+
+        event: content_block_delta
+        data: {"p": "d4a", "type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"1,"}     }
+
+        event: content_block_delta
+        data: {"p": "234e9d69d9", "type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"2,3"}       }
+
+        event: content_block_stop
+        data: {"p": "36b70b3e7bfb", "type":"content_block_stop","index":1        }
+
+        event: message_delta
+        data: {"p": "c4", "type":"message_delta","delta":{"stop_reason":"end_turn","stop_sequence":null,"stop_details":null,"container":null},"usage":{"input_tokens":162,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":153,"output_tokens_details":{"thinking_tokens":146}}            }
+
+        event: message_stop
+        data: {"p": "b10f431", "type":"message_stop"              }
+
+  recorded_at: Sun, 01 Nov 2026 02:47:33 GMT
+recorded_with: VCR 6.4.0
+...

@@ -12,11 +12,11 @@ module LlmGateway
 
       attr_reader :provider, :id, :name, :source, :release_date, :last_updated,
                   :context_window, :max_output_tokens, :input_modalities, :output_modalities,
-                  :capabilities, :reasoning_controls, :pricing
+                  :capabilities, :reasoning_controls, :pricing, :routing
 
       def initialize(provider:, id:, name: nil, source: nil, release_date: nil, last_updated: nil,
                      context_window: nil, max_output_tokens: nil, input_modalities: [], output_modalities: [],
-                     capabilities: {}, reasoning_controls: nil, pricing: nil)
+                     capabilities: {}, reasoning_controls: nil, pricing: nil, routing: {})
         @provider = non_empty_string(provider, :provider)
         @id = non_empty_string(id, :id)
         @name = (name || id).to_s.freeze
@@ -30,6 +30,13 @@ module LlmGateway
         @capabilities = normalize_capabilities(capabilities)
         @reasoning_controls = normalize_reasoning_controls(reasoning_controls)
         @pricing = Pricing.new(pricing) if pricing
+        @routing = routing.to_h.transform_keys(&:to_sym).each_with_object({}) do |(key, value), result|
+          unless %i[canonical_model_id provider_api provider_npm].include?(key)
+            raise ArgumentError, "Unknown model routing field: #{key}"
+          end
+
+          result[key] = non_empty_string(value, key)
+        end.freeze
         freeze
       end
 

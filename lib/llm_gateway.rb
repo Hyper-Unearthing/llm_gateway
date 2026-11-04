@@ -47,7 +47,7 @@ require_relative "llm_gateway/adapters/openai/responses_adapter"
 require_relative "llm_gateway/adapters/openai_codex/responses_adapter"
 require_relative "llm_gateway/adapters/groq/chat_completions_adapter"
 require_relative "llm_gateway/adapters/chat_completions_adapter"
-require_relative "llm_gateway/adapters/cloudflare_ai_gateway/chat_completions_adapter"
+require_relative "llm_gateway/adapters/cloudflare_ai_gateway/gateway_adapter"
 require_relative "llm_gateway/provider_options"
 require_relative "llm_gateway/providers"
 
