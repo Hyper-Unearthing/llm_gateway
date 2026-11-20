@@ -9,7 +9,7 @@ module LlmGateway
         class StreamMapper < LlmGateway::Adapters::StreamMapper
           def map(chunk, &block)
             data = chunk[:data] || {}
-            raise_stream_error!(data) if chunk[:event] == "error" || data[:error] || data[:type] == "error"
+            raise_stream_error!(data, overload_codes: [ "server_is_overloaded" ]) if chunk[:event] == "error" || data[:error] || data[:type] == "error"
 
             push_patches(patches_for(data), &block)
           end

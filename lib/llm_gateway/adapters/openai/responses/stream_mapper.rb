@@ -12,7 +12,7 @@ module LlmGateway
           def map(chunk, &block)
             event_type = chunk[:event]
             data = chunk[:data] || {}
-            raise_stream_error!(data) if event_type == "error" || data[:error] || data[:type] == "error"
+            raise_stream_error!(data, overload_codes: [ "server_is_overloaded" ]) if event_type == "error" || data[:error] || data[:type] == "error"
 
             push_patches(patches_for(event_type, data), &block)
           end
