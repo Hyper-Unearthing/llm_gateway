@@ -69,8 +69,99 @@ gem "llm_gateway"
 | OpenAI    | `openai-responses`           | API key | Responses            |
 | OpenAI Codex | `openai-codex`            | OAuth   | Responses            |
 | Groq      | `groq-completions`           | API key | Chat Completions     |
+| Cloudflare AI Gateway | `cloudflare-ai-gateway` | Cloudflare API token | Automatic Messages / Chat Completions |
 
 Adapter configuration only contains auth/client settings (for example `api_key` or `access_token`). Pass a catalog model definition per `stream` request with `model:`.
+
+### Cloudflare AI Gateway (Unified Billing)
+
+Use prepaid AI Gateway credits through non-deprecated Cloudflare endpoints without supplying an upstream provider key. The adapter chooses the request protocol, route, wire model ID, and option mapping for each catalog model. For account REST routes the Cloudflare token must have **Account → Workers AI → Read** permission (AI Gateway permissions alone are insufficient); Claude's provider-native route also needs [gateway authentication](https://developers.cloudflare.com/ai-gateway/configuration/authentication/):
+
+```bash
+export CLOUDFLARE_ACCOUNT_ID="your-32-character-account-id"
+export CLOUDFLARE_AI_API_KEY="your-cloudflare-api-token"
+export CLOUDFLARE_GATEWAY_ID="default" # optional; defaults to "default"
+```
+
+`CLOUDFLARE_API_TOKEN` is also accepted when `CLOUDFLARE_AI_API_KEY` is unset.
+
+```ruby
+adapter = LlmGateway::Adapters::CloudflareAIGateway::Gateway.build
+
+# Same adapter, transcript/tools format, and managed options for every model.
+%w[openai/gpt-5.4-nano anthropic/claude-haiku-5.5 minimax/m3.1-flash].each do |id|
+  model = LlmGateway.models.fetch(provider: "cloudflare-ai-gateway", id: id)
+  response = adapter.stream("Explain Ruby's Enumerable module briefly.",
+    model: model, max_completion_tokens: 512)
+end
+```
+
+**No custom model registration or protocol selection is needed.** The generated catalog preserves models.dev IDs, capabilities, limits, reasoning metadata, pricing, and optional routing hints (`model.routing`: canonical model ID, SDK, and endpoint template). These are advertised capabilities, not per-route availability guarantees. Catalog prices are estimates, not a Cloudflare billing receipt. Existing `CloudflareAIGateway::ChatCompletions.build` and `::Messages.build` entry points are aliases of `::Gateway.build` and select routes automatically too.
+
+| Catalog model | Automatically selected route | Live verification (2026-11-01) |
+|---|---|---|
+| `anthropic/claude-haiku-5.5` | Gateway `/anthropic/v1/messages`, canonical bare wire ID | Text, system, tools/result round trip, usage/cost, transcript handoff passed |
+| `minimax/m3.1-flash` | Account REST `/ai/v1/messages` | Text, system, tools/result round trip, usage/cost, transcript handoff passed |
+| `openai/gpt-5.4-nano` | Account REST `/ai/v1/chat/completions` | Text, system, tools/result round trip, usage/cost, transcript handoff passed |
+| `deepseek/deepseek-v4-pro` | Documented account REST `/ai/v1/chat/completions` | **Unavailable:** HTTP 500/code `2002`; successful inference/tools not verified |
+
+Other Claude and MiniMax models follow their family's route; other authors use REST Chat Completions. Catalog inclusion alone does not establish live support for those other models. No request uses the deprecated `/compat/chat/completions` endpoint.
+
+- `build` accepts explicit `account_id:`, `gateway_id:`, and `api_key:` overrides. Account REST uses Cloudflare bearer auth plus `cf-aig-gateway-id`; Claude's native gateway route uses only `cf-aig-authorization` plus `anthropic-version`. No upstream environment keys, Anthropic OAuth identity/beta flags, or body `apiKey` are inherited. Cloudflare can still use stored BYOK keys ahead of prepaid credits; see [credential precedence](https://developers.cloudflare.com/ai-gateway/features/unified-billing/#credential-precedence).
+- Managed `max_completion_tokens`, `reasoning`, and schema `response_format` are mapped per protocol. Supply a token limit explicitly; provider defaults are not inherited. Native options remain route/model-specific and unknown options are rejected. Common `tool_choice: "auto"` and `"none"` work on both protocols. Managed cache options are not implemented; native `cache_control` is accepted on Messages routes.
+- All normalized responses use `provider: "cloudflare-ai-gateway"`, `api: "gateway"`. The existing response mappers decode Anthropic Messages, Chat Completions, and OpenAI Responses SSE independently from request routing. Unknown formats fail explicitly. The proxy uses the same automatic routing/decoding.
+- Backend failures remain real errors with Cloudflare's message and code. The adapter never silently changes models, credentials, or billing plans, and never retries a possibly executed tool request on another route. DeepSeek is dispatched correctly but is not currently usable with the tested Cloudflare credentials; Workers-hosted alternatives are different models and additionally returned plan errors. Tests without successful recordings skip offline; explicitly retry with `LLM_GATEWAY_LIVE_RECORD=1`.
+
+### Configured Chat Completions providers
+
+Provider identity and supported options are independent of the wire protocol. Local servers such as llama.cpp, vLLM, or LM Studio can reuse Chat Completions without inheriting OpenAI's option policy or API credentials:
+
+```ruby
+local = LlmGateway::Providers.chat_completions(
+  id: "qwen-local",
+  base_endpoint: "http://127.0.0.1:8080/v1",
+  # api_key: ENV["LOCAL_LLM_API_KEY"], # optional; no Authorization header when absent
+  option_mapper: LlmGateway::ProviderOptions.new(
+    allowed: %i[max_completion_tokens temperature top_p top_k min_p stream_options chat_template_kwargs],
+    defaults: {
+      max_completion_tokens: 8192,
+      stream_options: { include_usage: true },
+      chat_template_kwargs: { enable_thinking: false }
+    }
+  )
+)
+
+model = LlmGateway.models.register(
+  provider: "qwen-local",
+  id: "qwen3.8-27b", # the alias served by this endpoint
+  context_window: 49_152,
+  max_output_tokens: 8192,
+  input_modalities: [:text],
+  output_modalities: [:text],
+  capabilities: { text_generation: true, tool_calling: true, reasoning: false }
+)
+
+adapter = local.build
+response = adapter.stream("Count from 1 to 3.", model: model)
+```
+
+A runnable version is available in [`examples/qwen_local.rb`](examples/qwen_local.rb):
+
+```bash
+bundle exec ruby examples/qwen_local.rb "Explain Ruby's Enumerable module."
+```
+
+`local` is an `AdapterDefinition`, like the built-in definitions. Each call creates an independent provider binding; retain and reuse it. Models still must be registered under the matching provider ID. `build` accepts endpoint/key overrides for deployments or credential rotation.
+
+- The endpoint must include the API prefix (typically `/v1`); HTTP and HTTPS are supported. No environment variables or API keys are inherited automatically.
+- The provider owns its explicit option allowlist and defaults. No token limit, storage, caching, sampling, or reasoning options are automatically borrowed from OpenAI.
+- `ProviderOptions` performs a **shallow** defaults merge and rejects unknown options. Structural fields (`model`, `messages`, `tools`, `system`, `stream`) cannot be placed in the allowlist/defaults.
+- For managed-option translation (`reasoning`, cache options, token-field renaming), pass a custom object/module implementing `map(options)` instead. It receives the selected `model` ID and any normalized `reasoning_control`, and returns the provider's request options. The basic allowlist policy does not translate managed controls.
+- System instructions use the `system` role by default; pass `system_role: "developer"` only for endpoints that support it.
+- `stream_options: { include_usage: true }` requests streamed token accounting where supported. Servers without a usage frame still produce a final response, but token counts remain unknown/zero.
+- Files API uploads/downloads and the Responses API are not implied by Chat Completions compatibility. Reasoning deltas support both `reasoning` and `reasoning_content`; model metadata and provider options must enable reasoning explicitly if needed.
+- Context/output values are metadata, not server configuration or automatic compaction. Configure the running server separately.
+- Configured definitions are for direct adapter use. The proxy's fixed string-to-adapter allowlist is unchanged; arbitrary configured providers are not automatically exposed through it.
 
 ## Stream Options
 
@@ -89,8 +180,8 @@ result = adapter.stream(
 
 Options are split into two groups:
 
-1. **Managed cross-provider options**: normalized by `llm_gateway` and mapped to each provider API when supported.
-2. **Provider-specific options**: passed through only when that provider/API pair explicitly allows them.
+1. **Managed cross-provider options**: normalized by `llm_gateway` and translated by the provider's option policy when supported.
+2. **Provider-specific options**: passed through only when that provider's option policy explicitly allows them.
 
 Unknown provider-specific options raise `ArgumentError` with the valid option list for that provider/API pair.
 
@@ -115,6 +206,7 @@ Provider-specific options are maintained as explicit allowlists in the option ma
 | `openai-responses` | OpenAI Responses Create | [`lib/llm_gateway/adapters/openai/responses/option_mapper.rb`](lib/llm_gateway/adapters/openai/responses/option_mapper.rb) | [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create/index.md) |
 | `openai-codex` | OpenAI Codex Responses-compatible endpoint | [`lib/llm_gateway/adapters/openai_codex/option_mapper.rb`](lib/llm_gateway/adapters/openai_codex/option_mapper.rb) | [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create/index.md) |
 | `groq-completions` | Groq Chat Completions Create | [`lib/llm_gateway/adapters/groq/option_mapper.rb`](lib/llm_gateway/adapters/groq/option_mapper.rb) | [Groq Chat API](https://console.groq.com/docs/api-reference.md#chat-create) |
+| `cloudflare-ai-gateway` | Automatic Messages / Chat Completions | [Messages options](lib/llm_gateway/adapters/cloudflare_ai_gateway/option_mapper.rb), [Chat options](lib/llm_gateway/adapters/cloudflare_ai_gateway/chat_option_mapper.rb) | [Cloudflare REST API](https://developers.cloudflare.com/ai-gateway/usage/rest-api/) |
 
 Common provider-native options you may pass directly when allowed include OpenAI `prompt_cache_key` / `prompt_cache_retention` and Groq `reasoning_effort` / `reasoning_format`. Prefer the managed options above when you want portable behavior across providers.
 
@@ -1069,7 +1161,7 @@ In short: library executes refresh mechanics; your app owns token lifecycle pers
 Live integration tests use VCR cassettes stored under `test/fixtures/vcr_cassettes`. To record a new cassette, run the target test with real provider credentials available in your environment or `.env`:
 
 ```bash
-bundle exec ruby -Itest test/integration/live/stream_test.rb
+bundle exec ruby -Itest test/integration/live/stream_text_test.rb
 ```
 
 Cassette names are derived from the test file and test name, with VCR sanitizing path segments such as `stream_test.rb` to `stream_test_rb`.
@@ -1077,3 +1169,26 @@ Cassette names are derived from the test file and test name, with VCR sanitizing
 For OAuth-backed providers (`anthropic-messages`, `openai-codex`), the live test helper only loads real OAuth credentials while the cassette is being recorded. Once the cassette exists, replay uses placeholder tokens/account IDs so the test suite can run without local OAuth state. API-key providers still require the relevant API key when recording. Sensitive authorization headers and selected response headers are redacted before cassettes are written.
 
 Some tests pass `redact_request_body: true` to `with_vcr_adapter`; those cassettes match on method and URI only and replace large request bodies with `"<huge prompt body redacted>"`.
+
+To force actual API calls even when a cassette exists, set `LLM_GATEWAY_LIVE_RECORD=1`. Use `LLM_GATEWAY_LIVE_ARTIFACT_DIR` to keep cassettes and handoff outputs outside the repository:
+
+```bash
+LLM_GATEWAY_LIVE_RECORD=1 \
+LLM_GATEWAY_LIVE_ARTIFACT_DIR=/tmp/llm-gateway-live \
+bundle exec ruby -Itest test/integration/live/stream_text_test.rb \
+  --name '/openai_apikey_completions|openai_apikey_responses|anthropic_apikey_messages|groq_completions/'
+```
+
+Reuse the existing OpenAI Chat Completions scenario against a configured local provider (the historical test name still contains the OpenAI model, but the actual response provider is `qwen-local`):
+
+```bash
+LLM_GATEWAY_LIVE_RECORD=1 \
+LLM_GATEWAY_LIVE_LOCAL=1 \
+LLM_GATEWAY_LIVE_ARTIFACT_DIR=/tmp/llm-gateway-live \
+LOCAL_LLM_BASE_URL=http://127.0.0.1:8080/v1 \
+LOCAL_LLM_MODEL=qwen3.8-27b \
+bundle exec ruby -Itest test/integration/live/stream_text_test.rb \
+  --name '/openai_apikey_completions/'
+```
+
+Run the same commands with `stream_tool_call_test.rb` for tool calling. The corresponding `handoff_stream_text_test.rb` and `handoff_stream_tool_call_test.rb` replay the recorded conversation outputs into the target provider; run the source scenarios first and use the same artifact directory. `LOCAL_LLM_API_KEY` is optional. Local models are unpriced rather than assigned artificial API costs.

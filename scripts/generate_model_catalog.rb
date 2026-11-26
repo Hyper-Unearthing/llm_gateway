@@ -19,7 +19,7 @@ OPENAI_LONG_CONTEXT_PRICING_MODEL_IDS = %w[
   gpt-5.6-luna
 ].freeze
 
-PROVIDERS = %w[anthropic openai groq].freeze
+PROVIDERS = %w[anthropic openai groq cloudflare-ai-gateway].freeze
 NON_TEXT_GENERATION_FAMILIES = %w[gpt-image text-embedding whisper].freeze
 
 source =
@@ -163,6 +163,9 @@ def definitions_for(data, provider:)
     limit = model["limit"] || {}
     {
       provider: provider,
+      # Keep catalog IDs: Cloudflare REST uses dotted Claude IDs and google/xai
+      # author prefixes, not canonical upstream or deprecated compat aliases.
+      # Source: https://developers.cloudflare.com/ai/models/
       id: id,
       name: model["name"] || id,
       source: :models_dev,
@@ -179,7 +182,14 @@ def definitions_for(data, provider:)
         reasoning: source_capability(model, "reasoning")
       },
       reasoning_controls: reasoning_controls_for(model, provider:, id:),
-      pricing: pricing_for(cost, provider:, id:)
+      pricing: pricing_for(cost, provider:, id:),
+      routing: (if provider == "cloudflare-ai-gateway"
+        {
+          canonical_model_id: model["canonical_model_id"],
+          provider_api: model.dig("provider", "api"),
+          provider_npm: model.dig("provider", "npm")
+        }.compact
+      end)
     }.compact
   end
 end

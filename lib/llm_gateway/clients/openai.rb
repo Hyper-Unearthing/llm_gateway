@@ -2,11 +2,11 @@
 
 require "time"
 
-require_relative "../base_client"
+require_relative "chat_completions"
 
 module LlmGateway
   module Clients
-    class OpenAI < BaseClient
+    class OpenAI < ChatCompletions
       CODEX_BASE_ENDPOINT = "https://chatgpt.com/backend-api/codex"
       DEFAULT_MODEL = "gpt-4o"
       DEFAULT_EMBEDDINGS_MODEL = "text-embedding-3-small"
@@ -16,30 +16,16 @@ module LlmGateway
       def initialize(api_key: ENV["OPENAI_API_KEY"], account_id: nil)
         @base_endpoint = "https://api.openai.com/v1"
         @account_id = account_id
-        super(api_key: api_key)
+        super(base_endpoint: @base_endpoint, api_key: api_key)
       end
 
       def chat(messages, tools: nil, system: [], model: DEFAULT_MODEL, **options)
-        body = {
-          model: model,
-          messages: system + messages
-        }
-        body[:tools] = tools if tools
-        body.merge!(options)
-
-        post("chat/completions", body)
+        super(messages, tools:, system:, model:, **options)
       end
 
       def stream(messages, tools: nil, system: [], model: DEFAULT_MODEL, **options, &block)
-        body = {
-          model: model,
-          messages: system + messages
-        }
-        body[:tools] = tools if tools
-        body.merge!(options)
-        body[:stream_options] = (body[:stream_options] || {}).merge(include_usage: true)
-
-        post_stream("chat/completions", body, &block)
+        options[:stream_options] = (options[:stream_options] || {}).merge(include_usage: true)
+        super(messages, tools:, system:, model:, **options, &block)
       end
 
       def responses(messages, tools: nil, system: [], model: DEFAULT_MODEL, **options)

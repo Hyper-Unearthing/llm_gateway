@@ -1,0 +1,187 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.cloudflare.com/client/v4/accounts/<CLOUDFLARE_ACCOUNT_ID>/ai/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"minimax/m3.1-flash","messages":[{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one math_operation tool call. Wait for the tool result."}]}],"tools":[{"name":"math_operation","description":"Perform
+        a basic math operation on two numbers","input_schema":{"type":"object","properties":{"a":{"type":"number","description":"The
+        first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The
+        operation to perform"}},"required":["a","b","operation"]}}],"max_tokens":1024,"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.cloudflare.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Cf-Aig-Gateway-Id:
+      - default
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 01 Nov 2026 02:47:29 GMT
+      Content-Type:
+      - text/event-stream
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Cache-Control:
+      - no-store
+      Api-Version:
+      - 2026-10-01.epoch
+      Cf-Aig-Event-Id:
+      - 01a19501-399e-7766-8719-38cace8d1f09
+      Cf-Aig-Log-Id:
+      - 01a19501-399e-7766-8719-38cace8d1f09
+      Cf-Aig-Request-Id:
+      - 01a19501-399e-7766-8719-38cace8d1f09
+      Cf-Aig-Run-Id:
+      - 7b9b80575c2e2802902b68e35437d2a331f1354094b58c53d71fe0c3c354d576
+      Cf-Aig-Trace-Id:
+      - '0184fa5e20c74b558fe12fbd6320018c'
+      Cf-Auditlog-Id:
+      - 01a19501-398d-71cb-860f-d33137bedbe1
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - a537932f3902039f-HKG
+    body:
+      encoding: UTF-8
+      string: |+
+        event: message_start
+        data: {"type":"message_start","message":{"id":"0735db409d5fc1b2e6761d5fecdd7d58","type":"message","role":"assistant","content":[],"model":"MiniMax-M3.1-Flash","stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":0,"output_tokens":0}}}
+
+        event: ping
+        data: {"type":"ping"}
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"I'll calculate that now."}}
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":0}
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":1,"content_block":{"type":"tool_use","id":"call_3934a3958b474da98659d8a0","name":"math_operation","input":{}}}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"input_json_delta","partial_json":""}}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":1,"delta":{"type":"input_json_delta","partial_json":"{\"a\":15,\"b\":27,\"operation\":\"add\"}"}}
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":1}
+
+        event: message_delta
+        data: {"type":"message_delta","delta":{"stop_reason":"tool_use"},"usage":{"input_tokens":516,"output_tokens":49}}
+
+        event: message_stop
+        data: {"type":"message_stop"}
+
+  recorded_at: Sun, 01 Nov 2026 02:47:29 GMT
+- request:
+    method: post
+    uri: https://api.cloudflare.com/client/v4/accounts/<CLOUDFLARE_ACCOUNT_ID>/ai/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"minimax/m3.1-flash","messages":[{"role":"user","content":[{"type":"text","text":"Calculate
+        15 + 27 using exactly one math_operation tool call. Wait for the tool result."}]},{"role":"assistant","content":[{"type":"text","text":"I''ll
+        calculate that now."},{"type":"tool_use","id":"call_3934a3958b474da98659d8a0","name":"math_operation","input":{"a":15,"b":27,"operation":"add"}}]},{"role":"user","content":[{"type":"tool_result","tool_use_id":"call_3934a3958b474da98659d8a0","content":"42"}]}],"tools":[{"name":"math_operation","description":"Perform
+        a basic math operation on two numbers","input_schema":{"type":"object","properties":{"a":{"type":"number","description":"The
+        first number"},"b":{"type":"number","description":"The second number"},"operation":{"type":"string","enum":["add","subtract","multiply","divide"],"description":"The
+        operation to perform"}},"required":["a","b","operation"]}}],"tool_choice":{"type":"none"},"max_tokens":1024,"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.cloudflare.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Cf-Aig-Gateway-Id:
+      - default
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 01 Nov 2026 02:47:31 GMT
+      Content-Type:
+      - text/event-stream
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Cache-Control:
+      - no-store
+      Api-Version:
+      - 2026-10-01.epoch
+      Cf-Aig-Event-Id:
+      - 01a19501-4230-7419-974b-e58ef520ff81
+      Cf-Aig-Log-Id:
+      - 01a19501-4230-7419-974b-e58ef520ff81
+      Cf-Aig-Request-Id:
+      - 01a19501-4230-7419-974b-e58ef520ff81
+      Cf-Aig-Run-Id:
+      - c389702ca08110641b16bcab77b16e1fced9789f81d69e7b19511f7998c2a140
+      Cf-Aig-Trace-Id:
+      - 94f61cef1f224571a030924c2950cb8c
+      Cf-Auditlog-Id:
+      - 01a19501-4213-7ea1-b02f-a4bc30f0da05
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - a537933cdfa520f5-HKG
+    body:
+      encoding: UTF-8
+      string: |+
+        event: message_start
+        data: {"type":"message_start","message":{"id":"0735db42c4324f0aba449cbc1290a26e","type":"message","role":"assistant","content":[],"model":"MiniMax-M3.1-Flash","stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":0,"output_tokens":0}}}
+
+        event: ping
+        data: {"type":"ping"}
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"15 + 27 = **42**"}}
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":0}
+
+        event: message_delta
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn"},"usage":{"input_tokens":287,"output_tokens":10}}
+
+        event: message_stop
+        data: {"type":"message_stop"}
+
+  recorded_at: Sun, 01 Nov 2026 02:47:31 GMT
+recorded_with: VCR 6.4.0
+...

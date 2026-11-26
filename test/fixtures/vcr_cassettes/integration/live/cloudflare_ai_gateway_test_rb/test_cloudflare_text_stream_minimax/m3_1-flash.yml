@@ -1,0 +1,86 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.cloudflare.com/client/v4/accounts/<CLOUDFLARE_ACCOUNT_ID>/ai/v1/messages
+    body:
+      encoding: UTF-8
+      string: '{"model":"minimax/m3.1-flash","messages":[{"role":"user","content":[{"type":"text","text":"Reply
+        with exactly the word blue."}]}],"system":[{"type":"text","text":"Answer concisely."}],"max_tokens":1024,"stream":true}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.cloudflare.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+      Cf-Aig-Gateway-Id:
+      - default
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 01 Nov 2026 02:47:15 GMT
+      Content-Type:
+      - text/event-stream
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Cache-Control:
+      - no-store
+      Api-Version:
+      - 2026-10-01.epoch
+      Cf-Aig-Event-Id:
+      - 01a19500-ee2f-7632-9d5d-ebff4cf287db
+      Cf-Aig-Log-Id:
+      - 01a19500-ee2f-7632-9d5d-ebff4cf287db
+      Cf-Aig-Request-Id:
+      - 01a19500-ee2f-7632-9d5d-ebff4cf287db
+      Cf-Aig-Run-Id:
+      - a7ea23e8344b283e37b8e647cec751974c7fd35eff872d0ffc955b9b90fc013b
+      Cf-Aig-Trace-Id:
+      - 7b0ab8b59d184b4d84a7bee837a6e079
+      Cf-Auditlog-Id:
+      - 01a19500-ee0f-7841-9ea6-2d951943c6f0
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - a53792b678b55e01-HKG
+    body:
+      encoding: UTF-8
+      string: |+
+        event: message_start
+        data: {"type":"message_start","message":{"id":"0735db2e766a72a4f93a8e19d6fd103d","type":"message","role":"assistant","content":[],"model":"MiniMax-M3.1-Flash","stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":0,"output_tokens":0}}}
+
+        event: ping
+        data: {"type":"ping"}
+
+        event: content_block_start
+        data: {"type":"content_block_start","index":0,"content_block":{"type":"text","text":""}}
+
+        event: content_block_delta
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"text_delta","text":"blue"}}
+
+        event: content_block_stop
+        data: {"type":"content_block_stop","index":0}
+
+        event: message_delta
+        data: {"type":"message_delta","delta":{"stop_reason":"end_turn"},"usage":{"input_tokens":207,"output_tokens":3}}
+
+        event: message_stop
+        data: {"type":"message_stop"}
+
+  recorded_at: Sun, 01 Nov 2026 02:47:19 GMT
+recorded_with: VCR 6.4.0
+...
