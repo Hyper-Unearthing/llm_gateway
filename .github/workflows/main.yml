@@ -24,5 +24,13 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler: '4.0.8'
           bundler-cache: true
+      - name: Check packaged files are readable by non-owner users
+        shell: bash
+        run: |
+          umask 077
+          chmod 600 lib/llm_gateway.rb
+          bin/build-gem
+          tar -xOf pkg/llm_gateway-*.gem data.tar.gz | tar -tzvf - |
+            awk 'substr($1, 1, 1) == "-" { files++; if (substr($1, 8, 1) != "r") bad++ } END { exit (!files || bad) }'
       - name: Run the default task
         run: bundle exec rake

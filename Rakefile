@@ -68,7 +68,8 @@ begin
     sh "git commit -m \"Bump llm_gateway to #{new_version}\""
 
     # Build the gem first
-    gem_file = `gem build llm_gateway.gemspec | grep 'File:' | awk '{print $2}'`.strip
+    sh "bin/build-gem"
+    gem_file = "pkg/llm_gateway-#{new_version}.gem"
 
     # Tag and push
     sh "git tag v#{new_version}"

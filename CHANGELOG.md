@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.1
+
+- Package Ruby files with permissions that allow a different user from the installer to load the gem.
+
 ## [v0.10.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.10.0) (2026-11-26)
 
 [Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.9.0...v0.10.0)

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Package committed files with Git's canonical modes, not the release
+# workstation's checkout permissions. Never change the source tree's modes.
+root=$(git rev-parse --show-toplevel)
+output=${1:-"$root/pkg"}
+mkdir -p "$output"
+output=$(cd "$output" && pwd)
+stage=$(mktemp -d)
+trap 'rm -rf "$stage"' EXIT
+umask 022
+git clone --quiet --no-checkout --local "$root" "$stage/source"
+cd "$stage/source"
+git checkout --quiet --detach "$(git -C "$root" rev-parse HEAD)"
+filename=$(ruby -rrubygems -e 'puts Gem::Specification.load("llm_gateway.gemspec").file_name')
+gem build llm_gateway.gemspec --output "$output/$filename"
