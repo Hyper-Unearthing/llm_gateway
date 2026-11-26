@@ -16,6 +16,11 @@ module LlmGateway
         client_class LlmGateway::Clients::OpenAI
 
         include ActsLikeOpenAIChatCompletions
+
+        private
+
+        def file_output_mapper = OpenAI::FileOutputMapper
+        def option_mapper = OpenAI::ChatCompletions::OptionMapper
       end
 
       ChatCompletions.extend(DefinitionFacade)

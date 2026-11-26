@@ -125,6 +125,7 @@ module LlmGateway
           mapper.map(chunk, &block)
         end
 
+        mapper.finish(&block)
         mapper.result
       end
 

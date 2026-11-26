@@ -19,7 +19,7 @@ OPENAI_LONG_CONTEXT_PRICING_MODEL_IDS = %w[
   gpt-5.6-luna
 ].freeze
 
-PROVIDERS = %w[anthropic openai groq].freeze
+PROVIDERS = %w[anthropic openai groq cloudflare-ai-gateway].freeze
 NON_TEXT_GENERATION_FAMILIES = %w[gpt-image text-embedding whisper].freeze
 
 source =
@@ -157,13 +157,23 @@ def reasoning_controls_for(model, provider:, id:)
   end
 end
 
+def model_id_for(model, provider:, id:)
+  return id unless provider == "cloudflare-ai-gateway"
+
+  # models.dev uses display aliases (e.g. claude-haiku-5.5) for gateway
+  # models. Send the canonical upstream ID and Cloudflare's routing prefix.
+  # Source: https://developers.cloudflare.com/ai-gateway/usage/chat-completion/
+  canonical = model["canonical_model_id"] || id
+  canonical.sub(%r{\Agoogle/}, "google-ai-studio/").sub(%r{\Axai/}, "grok/")
+end
+
 def definitions_for(data, provider:)
   data.fetch(provider).fetch("models").map do |id, model|
     cost = model["cost"] || {}
     limit = model["limit"] || {}
     {
       provider: provider,
-      id: id,
+      id: model_id_for(model, provider:, id:),
       name: model["name"] || id,
       source: :models_dev,
       release_date: date_for(model["release_date"], "release_date", provider:, id:),
