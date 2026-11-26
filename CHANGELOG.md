@@ -1,5 +1,31 @@
 # Changelog
 
+## [v0.10.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.10.0) (2026-11-26)
+
+[Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.9.0...v0.10.0)
+
+**Breaking changes:**
+
+- Build adapters directly instead of using the removed provider registry and configuration APIs.
+- Pass catalog model definitions to streaming calls; configure prompts, harnesses and proxies with adapters.
+- See the [0.10.0 migration guide](docs/migration_guide_0.10.0.md) before upgrading from the published 0.9.0 release.
+
+**Features:**
+
+- Expose model capabilities, modalities and cost estimates, with runtime model registration and an updated models.dev catalog ([#100](https://github.com/Hyper-Unearthing/llm_gateway/pull/100), [#104](https://github.com/Hyper-Unearthing/llm_gateway/pull/104)).
+
+**Fixes:**
+
+- Classify streamed OpenAI `server_is_overloaded` responses as typed overload errors while preserving provider diagnostics ([#112](https://github.com/Hyper-Unearthing/llm_gateway/pull/112)).
+- Preserve structured-output schemas for Anthropic and OpenAI Responses ([#106](https://github.com/Hyper-Unearthing/llm_gateway/pull/106)).
+- Preserve Rails presence semantics ([#107](https://github.com/Hyper-Unearthing/llm_gateway/pull/107)).
+- Truncate output tails without breaking UTF-8 ([#102](https://github.com/Hyper-Unearthing/llm_gateway/pull/102)).
+
+**Verification and maintenance:**
+
+- Remove model-catalog test ordering dependence and refresh recorded provider fixtures ([#103](https://github.com/Hyper-Unearthing/llm_gateway/pull/103), [#110](https://github.com/Hyper-Unearthing/llm_gateway/pull/110)).
+- Follow supported Ruby 4.0 patch builds in CI and run CI on pushes to `main`.
+
 ## [v0.9.0](https://github.com/Hyper-Unearthing/llm_gateway/tree/v0.9.0) (2026-07-13)
 
 [Full Changelog](https://github.com/Hyper-Unearthing/llm_gateway/compare/v0.8.1...v0.9.0)
