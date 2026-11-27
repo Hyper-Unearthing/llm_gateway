@@ -3,8 +3,93 @@
 module LlmGateway
   module Models
     module Explicit
-      # Legacy model IDs remain here because recorded streams still use them.
+      # Models missing from the upstream catalog, plus legacy IDs used by recordings.
+      # https://docs.typesafe.ai/models
+      # https://developers.openai.com/api/docs/guides/decisions
+      # https://developers.cloudflare.com/workers-ai/models/clef/
+      # https://developers.cloudflare.com/workers-ai/models/clef-flash/
       DEFINITIONS = [
+        {
+          provider: "typesafe",
+          id: "jev-latest",
+          name: "Jev (latest)",
+          source: :explicit,
+          context_window: 65_536,
+          input_modalities: %i[text image],
+          output_modalities: [],
+          capabilities: { decisions: true, text_generation: false },
+          pricing: { input: "0.042", output: "0" }
+        },
+        {
+          provider: "typesafe",
+          id: "jev-1.14.0",
+          name: "Jev 1.14",
+          source: :explicit,
+          release_date: "2026-10-14",
+          context_window: 65_536,
+          input_modalities: %i[text image],
+          output_modalities: [],
+          capabilities: { decisions: true, text_generation: false },
+          pricing: { input: "0.042", output: "0" }
+        },
+        {
+          provider: "typesafe",
+          id: "jev-1.13.0",
+          name: "Jev 1.13",
+          source: :explicit,
+          context_window: 65_536,
+          input_modalities: %i[text image],
+          output_modalities: [],
+          capabilities: { decisions: true, text_generation: false },
+          pricing: { input: "0.042", output: "0" }
+        },
+        {
+          provider: "openai",
+          id: "gpt-6-luna",
+          name: "GPT-6 Luna",
+          source: :explicit,
+          release_date: "2026-09-22",
+          last_updated: "2026-09-22",
+          context_window: 1_050_000,
+          max_output_tokens: 128_000,
+          input_modalities: %i[text image pdf],
+          output_modalities: %i[text],
+          capabilities: {
+            text_generation: true,
+            tool_calling: true,
+            structured_output: true,
+            reasoning: true,
+            decisions: true
+          },
+          reasoning_controls: [ { type: "effort", values: %w[none low medium high xhigh max] } ],
+          pricing: { input: "0.1", output: "0.5", cache_read: "0.01", cache_write: "0.125" },
+          # Decisions shares the model ID but does not charge for output tokens.
+          api_pricing: {
+            decisions: { input: "0.1", output: "0", cache_read: "0.01", cache_write: "0.125" }
+          }
+        },
+        {
+          provider: "cloudflare",
+          id: "@cf/cloudflare/clef",
+          name: "Clef",
+          source: :explicit,
+          context_window: 65_536,
+          input_modalities: %i[text image video],
+          output_modalities: [],
+          capabilities: { decisions: true, text_generation: false },
+          pricing: { input: "0.24", output: "0" }
+        },
+        {
+          provider: "cloudflare",
+          id: "@cf/cloudflare/clef-flash",
+          name: "Clef Flash",
+          source: :explicit,
+          context_window: 24_576,
+          input_modalities: %i[text image video],
+          output_modalities: [],
+          capabilities: { decisions: true, text_generation: false },
+          pricing: { input: "0.038", output: "0" }
+        },
         {
           provider: "anthropic",
           id: "claude-sonnet-4-20250514",

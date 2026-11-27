@@ -54,6 +54,11 @@ module LlmGateway
         post("responses", body)
       end
 
+      # https://developers.openai.com/api/docs/guides/decisions
+      def decisions(input:, questions:, model:)
+        post("decisions", { model: model, input: input, questions: questions })
+      end
+
       def stream_responses(messages, tools: nil, system: [], model: DEFAULT_MODEL, **options, &block)
         body = {
           model: model,

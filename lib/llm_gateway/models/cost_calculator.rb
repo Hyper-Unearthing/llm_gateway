@@ -7,19 +7,19 @@ module LlmGateway
     class CostCalculator
       TOKENS_PER_MILLION = BigDecimal("1000000")
 
-      def self.calculate(definition, usage)
-        new(definition, usage).calculate
+      def self.calculate(definition, usage = nil, api: nil, **usage_buckets)
+        new(definition, usage, api: api, **usage_buckets).calculate
       end
 
-      def initialize(definition, usage)
-        @definition = definition
-        @usage = usage.to_h.symbolize_keys
+      def initialize(definition, usage = nil, api: nil, **usage_buckets)
+        @pricing = definition&.pricing_for(api)
+        @usage = usage.to_h.symbolize_keys.merge(usage_buckets)
       end
 
       def calculate
-        return nil unless definition&.pricing
+        return nil unless pricing
 
-        rates = definition.pricing.rates_for(input + cache_read + cache_write)
+        rates = pricing.rates_for(input + cache_read + cache_write)
         components = {
           input: (rates.input * input) / TOKENS_PER_MILLION,
           output: (rates.output * output) / TOKENS_PER_MILLION,
@@ -32,7 +32,7 @@ module LlmGateway
 
       private
 
-      attr_reader :definition
+      attr_reader :pricing
 
       def input = count(:input)
       def output = count(:output)

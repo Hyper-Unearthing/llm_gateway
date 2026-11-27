@@ -41,7 +41,8 @@ module LlmGateway
         end
 
         def supports_model?(model)
-          model.provider == provider && !LlmGateway.models.find(provider: model.provider, id: model.id).nil?
+          model.provider == provider && model.supports?(:text_generation) != false &&
+            !LlmGateway.models.find(provider: model.provider, id: model.id).nil?
         end
 
         def provider_model_key(model)
@@ -70,7 +71,7 @@ module LlmGateway
         def build(**config)
           config = config.transform_keys(&:to_sym)
           if config.key?(:model) || config.key?(:model_key)
-            raise ArgumentError, "Models are supplied to Adapter#stream, not Adapter.build"
+            raise ArgumentError, "Models are supplied to Adapter#stream or #decide, not Adapter.build"
           end
 
           new(client_class.new(**config))

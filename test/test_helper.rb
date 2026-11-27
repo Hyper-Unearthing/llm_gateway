@@ -90,6 +90,10 @@ VCR.configure do |config|
     end
   end
 
+  config.filter_sensitive_data("<CLOUDFLARE_ACCOUNT_ID>") do
+    ENV["CLOUDFLARE_ACCOUNT_ID"] || "vcr-replay-account"
+  end
+
   config.before_record do |interaction|
     interaction.response.headers["Set-Cookie"] = [ "<SET_COOKIE>" ] if interaction.response.headers.key?("Set-Cookie")
   end

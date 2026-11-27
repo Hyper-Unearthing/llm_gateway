@@ -40,6 +40,56 @@ class ModelCatalogTest < Test
     end
   end
 
+  test "decision models have explicit catalog entries with published pricing" do
+    expected = {
+      "typesafe/jev-latest" => [ "0.042", 65_536 ],
+      "typesafe/jev-1.14.0" => [ "0.042", 65_536 ],
+      "typesafe/jev-1.13.0" => [ "0.042", 65_536 ],
+      "cloudflare/@cf/cloudflare/clef" => [ "0.24", 65_536 ],
+      "cloudflare/@cf/cloudflare/clef-flash" => [ "0.038", 24_576 ]
+    }
+    expected.each do |reference, (input_rate, context_window)|
+      model = LlmGateway.models.fetch(reference)
+      assert_equal :explicit, model.source
+      assert model.supports?(:decisions)
+      refute model.supports?(:text_generation)
+      assert_equal context_window, model.context_window
+      assert_equal BigDecimal(input_rate), model.pricing.input
+      assert_equal BigDecimal("0"), model.pricing.output
+    end
+  end
+
+  test "explicit OpenAI definition replaces the generated entry without changing generation pricing" do
+    model = LlmGateway.models.fetch("openai/gpt-6-luna")
+    assert_equal :explicit, model.source
+    assert_equal 1, LlmGateway.models.all(provider: "openai").count { |entry| entry.id == model.id }
+    assert model.supports?(:decisions)
+    assert model.supports?(:text_generation)
+    assert_equal BigDecimal("0.5"), model.pricing.output
+    assert_equal BigDecimal("0"), model.pricing_for(:decisions).output
+    assert_equal BigDecimal("0.1"), model.pricing_for("decisions").input
+    assert_equal BigDecimal("0.01"), model.pricing_for(:decisions).cache_read
+    assert_equal BigDecimal("0.125"), model.pricing_for(:decisions).cache_write
+    assert_same model.pricing, model.pricing_for(:responses)
+    assert_same model.pricing, model.pricing_for
+    usage = { input: 1_000_000, output: 1_000_000 }
+    assert_equal BigDecimal("0.6"), LlmGateway::Models::CostCalculator.calculate(model, usage)[:total]
+    assert_equal BigDecimal("0.1"), LlmGateway::Models::CostCalculator.calculate(model, usage, api: :decisions)[:total]
+  end
+
+  test "user model definitions can supply API specific pricing" do
+    model = LlmGateway::Models::Definition.new(
+      provider: "test", id: "decision-pricing",
+      pricing: { input: "1", output: "2" },
+      api_pricing: { decisions: { input: "0.1", output: "0" } }
+    )
+    assert_equal BigDecimal("0.1"), model.pricing_for(:decisions).input
+    assert_same model.pricing, model.pricing_for(:unknown)
+    assert_raises(ArgumentError) do
+      LlmGateway::Models::Definition.new(provider: "test", id: "bad-pricing", api_pricing: { decisions: { input: "-1", output: "0" } })
+    end
+  end
+
   test "one provider model definition is shared by multiple adapters" do
     model = LlmGateway.models.fetch("openai/gpt-5.4")
 

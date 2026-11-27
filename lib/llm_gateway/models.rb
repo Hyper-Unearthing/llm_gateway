@@ -58,8 +58,12 @@ module LlmGateway
       end
 
       def definitions
-        generated_catalog.fetch(:definitions).map { |attributes| Definition.new(**attributes) } +
-          Explicit::DEFINITIONS.map { |attributes| Definition.new(**attributes) }
+        # Explicit definitions replace upstream entries for the same provider/model.
+        explicit_keys = Explicit::DEFINITIONS.map { |attributes| [ attributes[:provider], attributes[:id] ] }
+        generated = generated_catalog.fetch(:definitions).reject do |attributes|
+          explicit_keys.include?([ attributes[:provider], attributes[:id] ])
+        end
+        (generated + Explicit::DEFINITIONS).map { |attributes| Definition.new(**attributes) }
       end
 
       def generated_catalog
