@@ -1,0 +1,91 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/decisions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-6-luna","input":"Checkout is completely down. Every customer
+        gets an error when trying to pay, and nobody can place an order. There is
+        no workaround.","questions":[{"name":"team","type":"choice","instructions":"Which
+        team should handle this incident?","choices":[{"value":"billing","description":"Invoice
+        questions and refund requests"},{"value":"technical","description":"Broken
+        software, errors and outages"},{"value":"sales","description":"New plans and
+        upgrades"}]},{"name":"urgent","type":"predicate","instructions":"Is this an
+        urgent service outage that needs immediate attention?"},{"name":"severity","type":"score","instructions":"How
+        severe is the impact on customers?","levels":[{"label":"0","description":"Cosmetic
+        only; no lost functionality"},{"label":"1","description":"Some degradation;
+        a workaround exists"},{"label":"2","description":"All customers blocked; no
+        workaround exists"}]}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.openai.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 26 Nov 2026 14:20:17 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Requests:
+      - '5000'
+      X-Ratelimit-Limit-Tokens:
+      - '2000000'
+      X-Ratelimit-Remaining-Requests:
+      - '4999'
+      X-Ratelimit-Remaining-Tokens:
+      - '1999553'
+      X-Ratelimit-Reset-Requests:
+      - 12ms
+      X-Ratelimit-Reset-Tokens:
+      - 13ms
+      Vary:
+      - origin, access-control-request-method, access-control-request-headers
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - CF-Ray
+      - x-request-id,retry-after,server-timing-total
+      Server-Timing-Total:
+      - '696.311'
+      Openai-Processing-Ms:
+      - '696'
+      X-Request-Id:
+      - req_c5e9584065c544599f1b88f9a5e97865
+      X-Openai-Proxy-Wasm:
+      - v0.1
+      Server:
+      - cloudflare
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Cf-Ray:
+      - a60988657c4e3df6-SIN
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: '{"model":"gpt-6-luna","answers":[{"type":"choice","name":"team","choice":"technical","probabilities":[{"value":"billing","probability":0.0},{"value":"technical","probability":1.0},{"value":"sales","probability":0.0}],"confidence":1.0},{"type":"predicate","name":"urgent","probability":1.0},{"type":"score","name":"severity","score":2.0,"probabilities":[{"value":0,"label":"0","probability":0.0},{"value":1,"label":"1","probability":0.0},{"value":2,"label":"2","probability":1.0}],"confidence":1.0}],"usage":{"input_tokens":446,"input_tokens_details":{"cached_tokens":0,"cache_write_tokens":0},"output_tokens":0,"output_tokens_details":{"reasoning_tokens":0},"total_tokens":446}}'
+  recorded_at: Thu, 26 Nov 2026 14:20:17 GMT
+recorded_with: VCR 6.4.0

@@ -19,12 +19,15 @@ require_relative "llm_gateway/clients/openai"
 require_relative "llm_gateway/clients/openai_codex/oauth_flow"
 require_relative "llm_gateway/clients/openai_codex/token_manager"
 require_relative "llm_gateway/clients/groq"
+require_relative "llm_gateway/clients/typesafe"
+require_relative "llm_gateway/clients/cloudflare"
 
 # Load adapters
 require_relative "llm_gateway/adapter_definition"
 require_relative "llm_gateway/adapters/option_mapper"
 require_relative "llm_gateway/adapters/anthropic_option_mapper"
 require_relative "llm_gateway/adapters/structs"
+require_relative "llm_gateway/decision"
 require_relative "llm_gateway/adapters/stream_mapper"
 
 require_relative "llm_gateway/adapters/anthropic/input_mapper"
@@ -45,6 +48,9 @@ require_relative "llm_gateway/adapters/openai/chat_completions_adapter"
 require_relative "llm_gateway/adapters/openai/responses_adapter"
 require_relative "llm_gateway/adapters/openai_codex/responses_adapter"
 require_relative "llm_gateway/adapters/groq/chat_completions_adapter"
+require_relative "llm_gateway/adapters/openai/decisions_adapter"
+require_relative "llm_gateway/adapters/typesafe/decisions_adapter"
+require_relative "llm_gateway/adapters/cloudflare/decisions_adapter"
 
 # Load the provider-level model catalog and proxy transport
 require_relative "llm_gateway/models"

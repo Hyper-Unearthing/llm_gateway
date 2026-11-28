@@ -42,6 +42,7 @@ module LlmGateway
     class InvalidModelDefinition < BaseError; end
     class ModelProviderMismatch < BaseError; end
     class UnsupportedModelForAdapter < BaseError; end
+    class InvalidDecisionResponse < BaseError; end
 
     OVERFLOW_PATTERNS = [
       /prompt is too long/i, # Anthropic

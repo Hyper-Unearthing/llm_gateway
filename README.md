@@ -13,6 +13,7 @@ Provide a unified translation interface for LLM Provider API's, While allowing d
 - [Quick Start: Streaming (all events)](#quick-start-streaming-all-events)
   - [Model catalog](#model-catalog)
   - [Stream API without handling events (final result only)](#stream-api-without-handling-events-final-result-only)
+- [Decisions](#decisions)
 - [Prompt classes](#prompt-classes)
 - [Migration guides](#migration-guides)
 - [Tools](#tools)
@@ -50,6 +51,8 @@ Provide a unified translation interface for LLM Provider API's, While allowing d
 
 ## Installation
 
+Requires Ruby **3.2 or newer**.
+
 ```bash
 gem install llm_gateway
 ```
@@ -71,6 +74,106 @@ gem "llm_gateway"
 | Groq      | `groq-completions`           | API key | Chat Completions     |
 
 Adapter configuration only contains auth/client settings (for example `api_key` or `access_token`). Pass a catalog model definition per `stream` request with `model:`.
+
+## Decisions
+
+Use a dedicated Decisions adapter for fast, bounded answers rather than text generation. The API follows the same adapter definition, `.build`, and per-request catalog model pattern as streaming:
+
+```ruby
+require "llm_gateway"
+
+adapter = LlmGateway::Adapters::TypeSafe::Decisions.build(
+  api_key: ENV.fetch("TYPESAFE_API_KEY")
+)
+model = LlmGateway.models.fetch("typesafe/jev-latest")
+
+team = LlmGateway::ChoiceQuestion.new(
+  instructions: "Which team should handle this?",
+  criteria: { billing: "Charges and invoices", support: "Technical issues" }
+)
+request = LlmGateway::DecisionRequest.new(
+  message: "I was charged twice.",
+  questions: {
+    team: team,
+    urgent: LlmGateway::PredicateQuestion.new(instructions: "Does this require urgent attention?"),
+    severity: LlmGateway::ScoreQuestion.new(
+      instructions: "How severe is the customer impact?",
+      criteria: [ "Minor", "Major", "Critical" ]
+    )
+  }
+)
+
+response = adapter.decide(request, model: model)
+response.answers.team.choice          # => "billing"
+response.answers.team.probabilities   # => { "billing" => 0.95, "support" => 0.05 }
+response.answers.urgent.probability   # => 0.8
+response.answers.severity.score       # => 1.1 (range 0..2 for three levels)
+response.answers.severity.probabilities # => { 0 => 0.1, 1 => 0.7, 2 => 0.2 }
+response.answers.to_h                 # Explicit conversion to a symbol-keyed hash
+response.usage                        # input, output, cache_read, cache_write, total, raw
+```
+
+You can also compose requests incrementally using reusable question definitions:
+
+```ruby
+request = LlmGateway::DecisionRequest.new(message: ticket.body)
+  .with_question(:team, SupportQuestions::TEAM)
+  .with_question(:urgent, SupportQuestions::URGENT)
+
+response = adapter.decide(request, model: model)
+```
+
+`with_question` returns a new request without changing the original request or the question definition. It rejects duplicate names, treating symbol and string versions of the same name as duplicates. An empty request is valid while building it, but `adapter.decide` requires at least one question. The `questions:` constructor remains available for fixed question sets.
+
+The same request works with these provider/model pairs:
+
+| Adapter definition | Catalog model reference | Client settings |
+|---|---|---|
+| `LlmGateway::Adapters::TypeSafe::Decisions` | `typesafe/jev-latest`, `typesafe/jev-1.14.0`, or `typesafe/jev-1.13.0` | `api_key:` (defaults to `TYPESAFE_API_KEY`) |
+| `LlmGateway::Adapters::Cloudflare::Decisions` | `cloudflare/@cf/cloudflare/clef` or `cloudflare/@cf/cloudflare/clef-flash` | `api_key:`, `account_id:` (default to `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`) |
+| `LlmGateway::Adapters::OpenAI::Decisions` | `openai/gpt-6-luna` | `api_key:` (defaults to `OPENAI_API_KEY`) |
+
+These models are full custom definitions in [`lib/llm_gateway/models/explicit.rb`](lib/llm_gateway/models/explicit.rb), including limits, modalities, capabilities, and pricing. Explicit definitions take precedence over generated entries for the same provider/model; user registrations still take precedence over both.
+
+| Model | Input / 1M tokens | Output / 1M tokens |
+|---|---:|---:|
+| Jev 1.14, Jev 1.13, `jev-latest` | $0.042 | $0 |
+| Clef | $0.24 | $0 |
+| Clef Flash | $0.038 | $0 |
+| GPT-6 Luna — Decisions API | $0.10 | $0 |
+
+Decision responses include numeric `BigDecimal` costs in `response.usage[:cost]`, just like streaming responses. GPT-6 Luna keeps its normal generation pricing in `model.pricing`; its Decisions rates are available through `model.pricing_for(:decisions)` (`$0.01` cache read and `$0.125` cache write per million tokens). The estimates use these base rates; they do not include regional/processing premiums or unspecified long-context multipliers. Jev's catalog context window represents its default per-request limit; it also imposes a 32k per-question limit.
+
+Custom definitions may set `api_pricing: { decisions: { input: "0.1", output: "0" } }` when API-specific rates differ from the default `pricing:`. `pricing_for` falls back to the default for APIs without an override.
+
+- `PredicateQuestion` returns a `PredicateAnswer` with a probability from 0 to 1. Jev and Clef call this question type `noul`; the adapter translates it.
+- `ChoiceQuestion` takes at least two named criteria and returns a `ChoiceAnswer` with a string `choice`, string-keyed `probabilities`, and optional `confidence`.
+- `ScoreQuestion` takes 2–10 ordered descriptions. Its `ScoreAnswer` contains a probability-weighted `score`, integer-keyed `probabilities` and `legend`, and optional `confidence`. Level indices start at zero.
+- `response.answers` is a dynamically named Ruby `Data` record, so answers have real accessors such as `response.answers.team`. Field bindings are immutable; nested answer objects are not deep-frozen. Use explicit hash conversion (`response.answers.to_h.fetch(:"support-team")`) for dynamic lookups or names that are inconvenient as method calls. `response.answers.to_h` returns a symbol-keyed hash, and `response.to_h` serializes answers to plain nested hashes.
+- Question names are not checked against a reserved-name list. A name such as `to_h` can shadow an existing method; avoiding such collisions is the caller's responsibility. Choice values remain strings.
+- Response mapping trusts provider semantics: probabilities, confidence, scores, choices, and returned question sets are not checked against mathematical constraints or the request. Values are typed and normalized without renormalizing distributions. Mapping still rejects unsupported answer shapes/types and normalized-key collisions that would silently discard data. Live tests check probability sums, expected choices, and score ranges.
+- OpenAI can return a `RefusalAnswer` (`type == "refusal"`) for an individual question. Check the answer type before accessing fields when refusals are possible.
+- Models must support the `decisions` catalog capability. Custom models can be added with `LlmGateway.models.register(provider: ..., id: ..., capabilities: { decisions: true })`.
+
+Decisions are non-streaming and separate from Responses/Chat Completions adapters. This initial portable API accepts **text messages, text instructions, and text criteria only**; it does not convert provider-specific image/JSON/conversation input formats. OpenAI supports up to 400 questions per request. Proxy transport currently supports streaming adapters only, not Decisions.
+
+Upstream documentation: [Jev API](https://docs.typesafe.ai/api), [score semantics](https://docs.typesafe.ai/primitives/score), [Cloudflare Clef](https://developers.cloudflare.com/workers-ai/models/clef/), [OpenAI Decisions](https://developers.openai.com/api/docs/guides/decisions).
+
+### Live decision tests
+
+`test/integration/live/decisions_test.rb` exercises predicate, choice, score, usage, and costs for Clef, Clef Flash, OpenAI Decisions, and Jev. Normal runs replay recorded VCR fixtures:
+
+```bash
+bundle exec ruby -Itest test/integration/live/decisions_test.rb
+```
+
+To make real API calls and refresh the recordings (incurs provider charges):
+
+```bash
+LLM_GATEWAY_LIVE_RECORD=1 bundle exec ruby -Itest test/integration/live/decisions_test.rb
+```
+
+The tests load `.env` through the existing test helper. Cloudflare needs `CLOUDFLARE_ACCOUNT_ID` and either `CLOUDFLARE_API_TOKEN` or `CLOUDFLARE_AI_API_KEY`; OpenAI needs `OPENAI_API_KEY`; Jev needs `TYPESAFE_API_KEY`. Providers without credentials and recordings skip. Recorded fixtures redact bearer tokens and the Cloudflare account ID, and replay without live credentials.
 
 ## Stream Options
 

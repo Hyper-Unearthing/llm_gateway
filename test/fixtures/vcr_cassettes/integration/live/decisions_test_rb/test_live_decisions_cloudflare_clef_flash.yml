@@ -1,0 +1,65 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.cloudflare.com/client/v4/accounts/<CLOUDFLARE_ACCOUNT_ID>/ai/run/@cf/cloudflare/clef-flash
+    body:
+      encoding: UTF-8
+      string: '{"model":"clef-flash","state":"Checkout is completely down. Every customer
+        gets an error when trying to pay, and nobody can place an order. There is
+        no workaround.","questions":{"team":{"type":"choice","instructions":"Which
+        team should handle this incident?","criteria":{"billing":"Invoice questions
+        and refund requests","technical":"Broken software, errors and outages","sales":"New
+        plans and upgrades"}},"urgent":{"type":"noul","instructions":"Is this an urgent
+        service outage that needs immediate attention?"},"severity":{"type":"score","instructions":"How
+        severe is the impact on customers?","criteria":["Cosmetic only; no lost functionality","Some
+        degradation; a workaround exists","All customers blocked; no workaround exists"]}}}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.cloudflare.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <BEARER_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 26 Nov 2026 14:20:15 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - "<SET_COOKIE>"
+      Cache-Control:
+      - no-store
+      Api-Version:
+      - 2026-10-01.epoch
+      Cf-Ai-Neurons:
+      - '1.27'
+      Cf-Ai-Req-Id:
+      - a35fe738-4ef6-444f-ab20-2bbb93ff6f60
+      Cf-Auditlog-Id:
+      - 01a2183a-7843-7abd-be35-6553774eb244
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - a60988606cd3fdfb-SIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"result":{"model":"clef-flash","answers":{"team":{"type":"choice","choice":"technical","probabilities":{"billing":0.0354,"technical":0.9403,"sales":0.0243},"confidence":0.8291},"urgent":{"type":"noul","noul":0.9488},"severity":{"type":"score","score":1.9441,"legend":{"0":"Cosmetic
+        only; no lost functionality","1":"Some degradation; a workaround exists","2":"All
+        customers blocked; no workaround exists"},"probabilities":{"0":0.0172,"1":0.0215,"2":0.9613},"confidence":0.8873}},"usage":{"input_tokens":367,"output_tokens":0}},"success":true,"errors":[],"messages":[]}'
+  recorded_at: Thu, 26 Nov 2026 14:20:15 GMT
+recorded_with: VCR 6.4.0

@@ -16,6 +16,10 @@ end
 
 module LiveTestHelper
   LiveAdapter = Struct.new(:adapter, :model) do
+    def decide(request)
+      adapter.decide(request, model: model)
+    end
+
     def chat(message, tools: nil, system: nil, **options)
       adapter.chat(message, tools: tools, system: system, model: model, **options)
     end
@@ -40,10 +44,37 @@ module LiveTestHelper
   def load_provider(provider:, model:, replaying_vcr: false)
     config = replaying_vcr ? { "api_key" => "vcr-replay-token" } : {}
 
-    adapter_class = LlmGateway::Proxy::Protocol.load_adapter(provider)
+    # New tests can pass the same public definitions used by applications, without
+    # registering non-streaming adapters in the streaming-only proxy protocol.
+    adapter_class = if provider.respond_to?(:adapter_class)
+      provider.adapter_class
+    else
+      LlmGateway::Proxy::Protocol.load_adapter(provider)
+    end
     definition = LlmGateway.models.fetch(provider: adapter_class.provider, id: model)
 
+    if adapter_class <= LlmGateway::Adapters::DecisionsAdapter
+      configure_decision_credentials(config, provider: adapter_class.provider, replaying_vcr: replaying_vcr)
+    end
+
     LiveAdapter.new(adapter_class.build(**config), definition)
+  end
+
+  def configure_decision_credentials(config, provider:, replaying_vcr:)
+    if provider == "cloudflare"
+      config["account_id"] = ENV["CLOUDFLARE_ACCOUNT_ID"] || ("vcr-replay-account" if replaying_vcr)
+      skip "Missing CLOUDFLARE_ACCOUNT_ID for live Decisions tests" unless config["account_id"]
+    end
+    return if replaying_vcr
+
+    key = case provider
+    when "cloudflare" then ENV["CLOUDFLARE_API_TOKEN"] || ENV["CLOUDFLARE_AI_API_KEY"]
+    when "openai" then ENV["OPENAI_API_KEY"]
+    when "typesafe" then ENV["TYPESAFE_API_KEY"]
+    end
+    skip "Missing #{provider} API key for live Decisions tests" if key.to_s.empty?
+
+    config["api_key"] = key
   end
 
   def with_vcr_adapter(provider:, model:, redact_request_body: false)

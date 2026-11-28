@@ -12,11 +12,11 @@ module LlmGateway
 
       attr_reader :provider, :id, :name, :source, :release_date, :last_updated,
                   :context_window, :max_output_tokens, :input_modalities, :output_modalities,
-                  :capabilities, :reasoning_controls, :pricing
+                  :capabilities, :reasoning_controls, :pricing, :api_pricing
 
       def initialize(provider:, id:, name: nil, source: nil, release_date: nil, last_updated: nil,
                      context_window: nil, max_output_tokens: nil, input_modalities: [], output_modalities: [],
-                     capabilities: {}, reasoning_controls: nil, pricing: nil)
+                     capabilities: {}, reasoning_controls: nil, pricing: nil, api_pricing: {})
         @provider = non_empty_string(provider, :provider)
         @id = non_empty_string(id, :id)
         @name = (name || id).to_s.freeze
@@ -30,7 +30,13 @@ module LlmGateway
         @capabilities = normalize_capabilities(capabilities)
         @reasoning_controls = normalize_reasoning_controls(reasoning_controls)
         @pricing = Pricing.new(pricing) if pricing
+        @api_pricing = api_pricing.to_h.transform_keys(&:to_sym).transform_values { |rates| Pricing.new(rates) }.freeze
         freeze
+      end
+
+      # API-specific rates override the default without creating artificial model IDs.
+      def pricing_for(api = nil)
+        api_pricing.fetch(api&.to_sym, pricing)
       end
 
       # Returns true, false, or nil when support for the capability is unknown.

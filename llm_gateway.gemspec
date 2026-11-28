@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = "LlmGateway provides a consistent Ruby interface for multiple LLM providers including Claude, OpenAI, and Groq. Features include unified response formatting, error handling, and fluent data mapping."
   spec.homepage = "https://github.com/Hyper-Unearthing/llm_gateway"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.1.0"
+  spec.required_ruby_version = ">= 3.2.0"
 
   # spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 
